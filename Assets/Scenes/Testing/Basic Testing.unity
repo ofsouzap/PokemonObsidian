@@ -365,7 +365,7 @@ MonoBehaviour:
   movementSpriteChangeDelay: 0.125
   spriteRenderer: {fileID: 1184518250}
   spriteGroupName: Testing/character
-  rotateToMoveDelay: 0
+  rotateToMoveDelay: 0.01
 --- !u!61 &1931890000
 BoxCollider2D:
   m_ObjectHideFlags: 0

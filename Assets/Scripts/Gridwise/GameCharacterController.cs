@@ -82,6 +82,11 @@ namespace Gridwise
             /// </summary>
             protected Dictionary<string, Sprite> sprites;
 
+            public Sprites()
+            {
+                sprites = new Dictionary<string, Sprite>();
+            }
+
             protected string GenerateIdentifier(string stateIdentifier,
                 FacingDirection direction,
                 int index = -1)
@@ -196,9 +201,13 @@ namespace Gridwise
 
             gridManager = Manager.GetManager();
 
+            sprites = new Sprites();
+
             if ((!spriteGroupName.Equals(""))
                 && spriteGroupName != null)
                 LoadSprites();
+
+            RefreshNeutralSprite();
             
         }
 
@@ -210,12 +219,12 @@ namespace Gridwise
 
             sprites = new Sprites();
 
-            Sprite[] spritesObjects = (Sprite[])Resources.LoadAll($"Sprites/{spriteGroupName}");
+            Object[] spritesObjects = Resources.LoadAll($"Sprites/{spriteGroupName}");
 
-            foreach (Sprite sprite in spritesObjects)
+            foreach (Object sprite in spritesObjects)
             {
 
-                sprites.Add(sprite, sprite.name);
+                sprites.Add(sprite as Sprite, sprite.name);
 
             }
 
@@ -408,7 +417,8 @@ namespace Gridwise
                 if (Time.time - lastChange >= movementSpriteChangeDelay)
                 {
 
-                    Sprite newSprite = sprites.Get(spriteStateName, directionFacing, currentSpriteIndex);
+                    //N.B. sprite names are NOT 0-indexed
+                    Sprite newSprite = sprites.Get(spriteStateName, directionFacing, currentSpriteIndex + 1);
 
                     if (newSprite == null)
                         Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");

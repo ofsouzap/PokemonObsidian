@@ -25,22 +25,22 @@ namespace Gridwise
 
             if (Input.GetAxis("Horizontal") > 0)
             {
-                selectedDirection = FacingDirection.Up;
+                selectedDirection = FacingDirection.Right;
                 movementChosen = true;
             }
-            else if (Input.GetAxis("Horiontal") < 0)
-            {
-                selectedDirection = FacingDirection.Down;
-                movementChosen = true;
-            }
-            else if (Input.GetAxis("Vertical") < 0)
+            else if (Input.GetAxis("Horizontal") < 0)
             {
                 selectedDirection = FacingDirection.Left;
                 movementChosen = true;
             }
+            else if (Input.GetAxis("Vertical") > 0)
+            {
+                selectedDirection = FacingDirection.Up;
+                movementChosen = true;
+            }
             else if (Input.GetAxis("Vertical") < 0)
             {
-                selectedDirection = FacingDirection.Right;
+                selectedDirection = FacingDirection.Down;
                 movementChosen = true;
             }
 
