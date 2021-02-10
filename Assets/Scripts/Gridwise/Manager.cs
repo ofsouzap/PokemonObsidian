@@ -14,13 +14,33 @@ namespace Gridwise
         public const float availabilityCheckRange = 10;
         public const float occupierCheckRange = 1;
 
+        public static Manager GetManager()
+        {
+
+            Manager[] managers = FindObjectsOfType<Manager>();
+
+            switch (managers.Length)
+            {
+
+                case 0:
+                    return null;
+
+                case 1:
+                    return managers[0];
+
+                default:
+                    Debug.LogError("Multiple Gridwise.Manager found");
+                    return managers[0];
+
+            }
+
+        }
+
         /// <summary>
-        /// Check if a position on the grid is available by finding all IOccupyPositions nearby (requiring that their object has a Collider2D) and checking each of their positions
+        /// Finds an object in a position on the grid by finding all IOccupyPositions nearby (requiring that their object has a Collider2D) and checking each of their positions
         /// The range which will be checked is that constant float Manager.availabilityCheckRange
         /// </summary>
-        /// <param name="queryPosition">The position to check the availability of</param>
-        /// <returns>Whether the position is available</returns>
-        public bool CheckPositionAvailability(Vector2Int queryPosition)
+        public IOccupyPositions GetObjectInPosition(Vector2Int queryPosition)
         {
 
             Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(queryPosition, availabilityCheckRange);
@@ -36,13 +56,25 @@ namespace Gridwise
                 if (occupier.GetPositions().Contains(queryPosition))
                 {
 
-                    return false;
-                    
+                    return occupier;
+
                 }
 
             }
 
-            return true;
+            return null;
+
+        }
+
+        /// <summary>
+        /// Checks whether a position is available using GetObjectInPosition
+        /// </summary>
+        /// <param name="queryPosition">The position to check the availability of</param>
+        /// <returns>Whether the position is available</returns>
+        public bool CheckPositionAvailability(Vector2Int queryPosition)
+        {
+
+            return GetObjectInPosition(queryPosition) == null;
 
         }
 

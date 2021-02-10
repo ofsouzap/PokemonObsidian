@@ -12,7 +12,7 @@ namespace Gridwise
     public abstract class GameCharacterController : MonoBehaviour, IOccupyPositions
     {
 
-        public enum DirectionFacing
+        public enum FacingDirection
         {
             Down,
             Up,
@@ -23,7 +23,11 @@ namespace Gridwise
         /// <summary>
         /// The dirction being faced
         /// </summary>
-        public DirectionFacing directionFacing { get; protected set; }
+        public FacingDirection directionFacing { get; protected set; }
+
+        [Min(0)]
+        [Tooltip("The speed (in units per second) that this character moves at")]
+        public float moveSpeed = 4;
 
         /// <summary>
         /// The position the character is currently in
@@ -47,6 +51,8 @@ namespace Gridwise
         public Vector2Int[] GetPositions() => isMoving ?
             new Vector2Int[] { position, movementTargettedGridPosition } :
             new Vector2Int[] { position };
+
+        protected Manager gridManager;
         
         [Tooltip("Sprites for this character will be fetched as Resources/{spriteGroupName}/{sprite needed}")]
         public string spriteGroupName;
@@ -67,7 +73,7 @@ namespace Gridwise
             protected Dictionary<string, Sprite> sprites;
 
             protected string GenerateIdentifier(string stateIdentifier,
-                DirectionFacing direction,
+                FacingDirection direction,
                 int index = -1)
             {
 
@@ -76,19 +82,19 @@ namespace Gridwise
                 switch (direction)
                 {
 
-                    case DirectionFacing.Down:
+                    case FacingDirection.Down:
                         directionIdentifier = "down";
                         break;
 
-                    case DirectionFacing.Left:
+                    case FacingDirection.Left:
                         directionIdentifier = "left";
                         break;
 
-                    case DirectionFacing.Up:
+                    case FacingDirection.Up:
                         directionIdentifier = "up";
                         break;
 
-                    case DirectionFacing.Right:
+                    case FacingDirection.Right:
                         directionIdentifier = "right";
                         break;
 
@@ -119,14 +125,14 @@ namespace Gridwise
             }
 
             /// <summary>
-            /// Gets a sprite referenced by a state identifier and a DirectionFacing direction. The full identifier will then be formed from these parameters
+            /// Gets a sprite referenced by a state identifier and a FacingDirection direction. The full identifier will then be formed from these parameters
             /// </summary>
             /// <param name="stateIdentifier">The name of the state that is being requested (eg. "neutral")</param>
             /// <param name="direction">The direction of sprite to request</param>
             /// <param name="index">The index of the sprite to request</param>
             /// <returns>The sprite as specified if found, otherwise null</returns>
             public Sprite Get(string stateIdentifier,
-                DirectionFacing direction,
+                FacingDirection direction,
                 int index = -1)
             {
 
@@ -158,7 +164,7 @@ namespace Gridwise
             /// <param name="index">The index of the sprite to request</param>
             public void Add(Sprite sprite,
                 string stateIdentifier,
-                DirectionFacing direction,
+                FacingDirection direction,
                 int index = -1)
             {
 
@@ -178,6 +184,8 @@ namespace Gridwise
 
             position = Vector2Int.RoundToInt(transform.position);
 
+            gridManager = Manager.GetManager();
+
             if ((!spriteGroupName.Equals(""))
                 && spriteGroupName != null)
                 LoadSprites();
@@ -191,6 +199,165 @@ namespace Gridwise
         {
 
             //TODO
+
+        }
+
+        protected virtual void Update()
+        {
+
+            if (isMoving)
+                MovementUpdate();
+
+        }
+
+        /// <summary>
+        /// Moves the character towards its destination
+        /// </summary>
+        protected virtual void MovementUpdate()
+        {
+
+            if (!isMoving)
+                Debug.LogWarning("MovementUpdate was called even though character wasn't moving");
+
+            float remainingDistance;
+
+            switch (directionFacing)
+            {
+
+                case FacingDirection.Up:
+                    remainingDistance = movementTargettedGridPosition.y - transform.position.y;
+                    break;
+
+                case FacingDirection.Down:
+                    remainingDistance = transform.position.y - movementTargettedGridPosition.y;
+                    break;
+
+                case FacingDirection.Right:
+                    remainingDistance = movementTargettedGridPosition.x - transform.position.x;
+                    break;
+
+                case FacingDirection.Left:
+                    remainingDistance = transform.position.x - movementTargettedGridPosition.x;
+                    break;
+
+                default:
+                    remainingDistance = 0;
+                    Debug.LogError("Invalid direction facing when calculating remaining distance");
+                    break;
+
+            }
+
+            float moveDistance = moveSpeed * Time.deltaTime;
+
+            if (moveDistance >= remainingDistance)
+            {
+
+                isMoving = false;
+
+                transform.position = (Vector2)movementTargettedGridPosition;
+                position = movementTargettedGridPosition;
+
+                return;
+                
+            }
+
+            Vector2 displacement;
+
+            switch (directionFacing)
+            {
+
+                case FacingDirection.Up:
+                    displacement = Vector2.up * moveDistance;
+                    break;
+
+                case FacingDirection.Down:
+                    displacement = -Vector2.up * moveDistance;
+                    break;
+
+                case FacingDirection.Left:
+                    displacement = -Vector2.right * moveDistance;
+                    break;
+
+                case FacingDirection.Right:
+                    displacement = Vector2.right * moveDistance;
+                    break;
+
+                default:
+                    Debug.LogError("Invalid directionFacing when trying to move towards target");
+                    displacement = Vector2.up * moveDistance;
+                    break;
+
+            }
+
+            transform.position += (Vector3)displacement;
+
+        }
+
+        /// <summary>
+        /// Get the position in front of a character
+        /// </summary>
+        /// <returns>The grid position in front of the character</returns>
+        public Vector2Int GetPositionInFront()
+        {
+
+            Vector2Int offset;
+
+            switch (directionFacing)
+            {
+
+                case FacingDirection.Up:
+                    offset = Vector2Int.up;
+                    break;
+
+                case FacingDirection.Down:
+                    offset = -Vector2Int.up;
+                    break;
+
+                case FacingDirection.Left:
+                    offset = -Vector2Int.right;
+                    break;
+
+                case FacingDirection.Right:
+                    offset = Vector2Int.right;
+                    break;
+
+                default:
+                    Debug.LogWarning($"Invalid directionFacing was found ({directionFacing})");
+                    offset = Vector2Int.up;
+                    break;
+
+            }
+
+            return position + offset;
+
+        }
+
+        /// <summary>
+        /// Wether the character is allowed to move forwards
+        /// </summary>
+        public bool CanMoveForward()
+        {
+
+            if (isMoving)
+                return false;
+
+            if (!gridManager.CheckPositionAvailability(GetPositionInFront()))
+                return false;
+
+            return true;
+
+        }
+
+        /// <summary>
+        /// If the character is allowed to turn
+        /// </summary>
+        public bool CanTurn()
+        {
+
+            if (isMoving)
+                return false;
+
+            return true;
 
         }
 
