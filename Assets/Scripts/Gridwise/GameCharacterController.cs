@@ -4,7 +4,8 @@ using Gridwise;
 
 namespace Gridwise
 {
-    public abstract class GameCharacterController : MonoBehaviour, IOccupyPosition
+    [RequireComponent(typeof(Collider2D))]
+    public abstract class GameCharacterController : MonoBehaviour, IOccupyPositions
     {
 
         public enum DirectionFacing

@@ -5,7 +5,7 @@ using Gridwise;
 
 namespace Gridwise
 {
-    public interface IIntercatable
+    public interface IInteractable
     {
 
         //Allows the object to be interacted with knowing which game character interacted with it
