@@ -417,6 +417,8 @@ namespace Gridwise
                 if (Time.time - lastChange >= movementSpriteChangeDelay)
                 {
 
+                    lastChange = Time.time;
+
                     //N.B. sprite names are NOT 0-indexed
                     Sprite newSprite = sprites.Get(spriteStateName, directionFacing, currentSpriteIndex + 1);
 
