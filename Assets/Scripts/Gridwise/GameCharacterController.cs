@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gridwise;
@@ -29,6 +30,11 @@ namespace Gridwise
         [Tooltip("The speed (in units per second) that this character moves at")]
         public float moveSpeed = 4;
 
+        [Min(0)]
+        [Tooltip("The time that should be waited in between changing sprites whilst moving")]
+        public float movementSpriteChangeDelay = 0.125F;
+        protected Coroutine movementSpriteCoroutine;
+
         /// <summary>
         /// The position the character is currently in
         /// </summary>
@@ -53,6 +59,10 @@ namespace Gridwise
             new Vector2Int[] { position };
 
         protected Manager gridManager;
+
+        
+        [Tooltip("Character's sprite renderer component. Might be seperated from this script if sprite must be offset from root transform position")]
+        public SpriteRenderer spriteRenderer;
         
         [Tooltip("Sprites for this character will be fetched as Resources/{spriteGroupName}/{sprite needed}")]
         public string spriteGroupName;
@@ -365,6 +375,128 @@ namespace Gridwise
                 return true;
 
             }
+        }
+
+        /// <summary>
+        /// Will change the character's sprite at an interval so show a movement animation
+        /// </summary>
+        /// <param name="spriteStateName">The sprite state name of the movement to be performed (eg. walking, running)</param>
+        protected IEnumerator MovementSpriteCoroutine(string spriteStateName)
+        {
+
+            //How many sprites there are for any given movement state
+            const int movementSpriteIndexCount = 2;
+
+            float lastChange = 0;
+            int currentSpriteIndex = 0;
+            
+            while (true)
+            {
+
+                if (!isMoving)
+                    break;
+
+                if (Time.time - lastChange >= movementSpriteChangeDelay)
+                {
+
+                    Sprite newSprite = sprites.Get(spriteStateName, directionFacing, currentSpriteIndex);
+
+                    if (newSprite == null)
+                        Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
+                    else
+                        spriteRenderer.sprite = newSprite;
+
+                    currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
+
+                }
+
+                yield return new WaitForFixedUpdate();
+
+            }
+
+            RefreshNeutralSprite();
+
+            movementSpriteCoroutine = null;
+
+        }
+
+        /// <summary>
+        /// Starts the process of the character moving forward
+        /// </summary>
+        public void MoveForward()
+        {
+
+            isMoving = true;
+            movementTargettedGridPosition = GetPositionInFront();
+
+            if (movementSpriteCoroutine != null)
+                StopCoroutine(movementSpriteCoroutine);
+
+            movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine("walking"));
+
+        }
+
+        /// <summary>
+        /// If the character is allowed to move forward, moves them forward
+        /// </summary>
+        /// <returns></returns>
+        public bool TryMoveForward()
+        {
+
+            if (CanMoveForward)
+            {
+
+                MoveForward();
+                return true;
+
+            }
+            else
+                return false;
+
+        }
+
+        /// <summary>
+        /// Turns the character to face a direction
+        /// </summary>
+        /// <param name="newDirection">The direction to face</param>
+        public void Turn(FacingDirection newDirection)
+        {
+
+            directionFacing = newDirection;
+
+            RefreshNeutralSprite();
+
+        }
+
+        /// <summary>
+        /// If the character is allowed to turn, turns them to face the direction specified. If the character is already facing that direction, the same code will be run
+        /// </summary>
+        /// <param name="newDirection">The direction to face in</param>
+        /// <returns>Whether the character is now facing in the direction passed</returns>
+        public bool TryTurn(FacingDirection newDirection)
+        {
+
+            if (CanTurn)
+            {
+
+                Turn(newDirection);
+
+                return true;
+
+            }
+            else
+                return false;
+
+        }
+
+        /// <summary>
+        /// Sets the character's sprite to a neutral sprite in the direction that it is facing
+        /// </summary>
+        protected void RefreshNeutralSprite()
+        {
+
+            spriteRenderer.sprite = sprites.Get("neutral", directionFacing);
+
         }
 
     }
