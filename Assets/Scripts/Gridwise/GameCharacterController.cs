@@ -99,7 +99,7 @@ namespace Gridwise
 
                 }
 
-                return stateIdentifier + '_' + directionIdentifier + (index == -1 ? "" : '_' + index);
+                return stateIdentifier + '_' + directionIdentifier + (index == -1 ? "" : '_' + index.ToString());
 
             }
 
