@@ -203,12 +203,21 @@ namespace Gridwise
         }
 
         /// <summary>
-        /// Loads the character's sprites into memory using spriteGroupName and the Resources class
+        /// Loads all a character's sprites into memory using spriteGroupName and the Resources class
         /// </summary>
         protected void LoadSprites()
         {
 
-            //TODO
+            sprites = new Sprites();
+
+            Sprite[] spritesObjects = (Sprite[])Resources.LoadAll($"Sprites/{spriteGroupName}");
+
+            foreach (Sprite sprite in spritesObjects)
+            {
+
+                sprites.Add(sprite, sprite.name);
+
+            }
 
         }
 
