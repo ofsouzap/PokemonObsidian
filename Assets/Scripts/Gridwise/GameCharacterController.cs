@@ -335,30 +335,36 @@ namespace Gridwise
         /// <summary>
         /// Wether the character is allowed to move forwards
         /// </summary>
-        public bool CanMoveForward()
+        public bool CanMoveForward
         {
+            get
+            {
 
-            if (isMoving)
-                return false;
+                if (isMoving)
+                    return false;
 
-            if (!gridManager.CheckPositionAvailability(GetPositionInFront()))
-                return false;
+                if (!gridManager.CheckPositionAvailability(GetPositionInFront()))
+                    return false;
 
-            return true;
+                return true;
 
+            }
         }
 
         /// <summary>
         /// If the character is allowed to turn
         /// </summary>
-        public bool CanTurn()
+        public bool CanTurn
         {
+            get
+            {
 
-            if (isMoving)
-                return false;
+                if (isMoving)
+                    return false;
 
-            return true;
+                return true;
 
+            }
         }
 
     }
