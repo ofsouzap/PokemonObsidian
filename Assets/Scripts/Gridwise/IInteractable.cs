@@ -5,10 +5,8 @@ using Gridwise;
 
 namespace Gridwise
 {
-    /// <summary>
-    /// Interactable object. Must also implement IOccupyPositions
-    /// </summary>
-    public interface IInteractable
+
+    public interface IInteractable : IOccupyPositions
     {
 
         //Allows the object to be interacted with knowing which game character interacted with it

@@ -169,7 +169,8 @@ namespace Gridwise
 
             position = Vector2Int.RoundToInt(transform.position);
 
-            if (!spriteGroupName.Equals(""))
+            if ((!spriteGroupName.Equals(""))
+                && spriteGroupName != null)
                 LoadSprites();
             
         }

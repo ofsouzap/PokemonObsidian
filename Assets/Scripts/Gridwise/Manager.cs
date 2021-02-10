@@ -37,7 +37,7 @@ namespace Gridwise
                 {
 
                     return false;
-
+                    
                 }
 
             }
@@ -57,8 +57,8 @@ namespace Gridwise
             Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(queryPosition, occupierCheckRange);
 
             IInteractable[] validCandidates = nearbyColliders
-                .Where((x) => x.GetComponent<IInteractable>() != null && x.GetComponent<IOccupyPositions>() != null)
-                .Where((x) => x.GetComponent<IOccupyPositions>().GetPositions().Contains(queryPosition))
+                .Where((x) => x.GetComponent<IInteractable>() != null)
+                .Where((x) => x.GetComponent<IInteractable>().GetPositions().Contains(queryPosition))
                 .Select((x) => x.GetComponent<IInteractable>())
                 .ToArray();
 

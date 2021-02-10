@@ -5,10 +5,13 @@ using Gridwise;
 
 namespace Gridwise
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : GameCharacterController, IInteractable
     {
 
-        
+        public void Interact(GameCharacterController interactee)
+        {
+            throw new System.NotImplementedException();
+        }
 
     }
 }
