@@ -66,7 +66,9 @@ namespace Gridwise
             /// </summary>
             protected Dictionary<string, Sprite> sprites;
 
-            protected string GenerateIdentifier(string stateIdentifier, DirectionFacing direction)
+            protected string GenerateIdentifier(string stateIdentifier,
+                DirectionFacing direction,
+                int index = -1)
             {
 
                 string directionIdentifier;
@@ -97,7 +99,7 @@ namespace Gridwise
 
                 }
 
-                return stateIdentifier + directionIdentifier;
+                return stateIdentifier + '_' + directionIdentifier + (index == -1 ? "" : '_' + index);
 
             }
 
@@ -121,11 +123,14 @@ namespace Gridwise
             /// </summary>
             /// <param name="stateIdentifier">The name of the state that is being requested (eg. "neutral")</param>
             /// <param name="direction">The direction of sprite to request</param>
+            /// <param name="index">The index of the sprite to request</param>
             /// <returns>The sprite as specified if found, otherwise null</returns>
-            public Sprite Get(string stateIdentifier, DirectionFacing direction)
+            public Sprite Get(string stateIdentifier,
+                DirectionFacing direction,
+                int index = -1)
             {
 
-                return Get(GenerateIdentifier(stateIdentifier, direction));
+                return Get(GenerateIdentifier(stateIdentifier, direction, index));
 
             }
 
@@ -150,10 +155,14 @@ namespace Gridwise
             /// <param name="sprite">The sprite to add</param>
             /// <param name="stateIdentifier">The name od the state that should be added (eg. "neutral")</param>
             /// <param name="direction">The direction of the sprite to add</param>
-            public void Add(Sprite sprite, string stateIdentifier, DirectionFacing direction)
+            /// <param name="index">The index of the sprite to request</param>
+            public void Add(Sprite sprite,
+                string stateIdentifier,
+                DirectionFacing direction,
+                int index = -1)
             {
 
-                Add(sprite, GenerateIdentifier(stateIdentifier, direction));
+                Add(sprite, GenerateIdentifier(stateIdentifier, direction, index));
 
             }
 
