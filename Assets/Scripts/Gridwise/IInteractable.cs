@@ -5,6 +5,9 @@ using Gridwise;
 
 namespace Gridwise
 {
+    /// <summary>
+    /// Interactable object. Must also implement IOccupyPositions
+    /// </summary>
     public interface IInteractable
     {
 
