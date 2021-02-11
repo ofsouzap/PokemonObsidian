@@ -520,5 +520,27 @@ namespace FreeRoaming
 
         }
 
+        public bool TryInteractInFront()
+        {
+
+            GameObject objectInFront = gridManager.GetObjectInPosition(GetPositionInFront());
+
+            if (objectInFront == null)
+                return false;
+
+            IInteractable inFrontInteractable = objectInFront.GetComponent<IInteractable>();
+
+            if (inFrontInteractable != null)
+            {
+
+                inFrontInteractable.Interact(this);
+                return true;
+
+            }
+            else
+                return false;
+
+        }
+
     }
 }

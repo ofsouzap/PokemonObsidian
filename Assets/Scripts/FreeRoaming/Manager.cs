@@ -38,25 +38,23 @@ namespace FreeRoaming
 
         /// <summary>
         /// Finds an object in a position on the grid by finding all IOccupyPositions nearby (requiring that their object has a Collider2D) and checking each of their positions
-        /// The range which will be checked is that constant float Manager.availabilityCheckRange
+        /// The range which will be checked is the constant float Manager.availabilityCheckRange
         /// </summary>
-        public IOccupyPositions GetObjectInPosition(Vector2Int queryPosition)
+        public GameObject GetObjectInPosition(Vector2Int queryPosition)
         {
 
             Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(queryPosition, availabilityCheckRange);
 
-            IOccupyPositions[] positionOccupiers = nearbyColliders
-                .Where((x) => x.GetComponent<IOccupyPositions>() != null)
-                .Select((x) => x.GetComponent<IOccupyPositions>())
-                .ToArray();
-
-            foreach (IOccupyPositions occupier in positionOccupiers)
+            foreach (Collider2D collider in nearbyColliders)
             {
 
-                if (occupier.GetPositions().Contains(queryPosition))
+                if (collider.GetComponent<IOccupyPositions>() != null)
                 {
 
-                    return occupier;
+                    if (collider.GetComponent<IOccupyPositions>().GetPositions().Contains(queryPosition))
+                    {
+                        return collider.gameObject;
+                    }
 
                 }
 

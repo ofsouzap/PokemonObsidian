@@ -54,6 +54,17 @@ namespace FreeRoaming
 
             #endregion
 
+            #region Interaction
+
+            if (Input.GetButtonDown("Interact"))
+            {
+
+                TryInteractInFront();
+
+            }
+
+            #endregion
+
         }
 
     }
