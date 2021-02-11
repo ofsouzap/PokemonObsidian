@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Gridwise;
 
@@ -21,30 +22,17 @@ namespace Gridwise
             #region Movement
 
             FacingDirection selectedDirection = FacingDirection.Up;
-            bool movementChosen = false;
 
-            if (Input.GetAxis("Horizontal") > 0)
-            {
-                selectedDirection = FacingDirection.Right;
-                movementChosen = true;
-            }
-            else if (Input.GetAxis("Horizontal") < 0)
-            {
-                selectedDirection = FacingDirection.Left;
-                movementChosen = true;
-            }
-            else if (Input.GetAxis("Vertical") > 0)
-            {
-                selectedDirection = FacingDirection.Up;
-                movementChosen = true;
-            }
-            else if (Input.GetAxis("Vertical") < 0)
-            {
-                selectedDirection = FacingDirection.Down;
-                movementChosen = true;
-            }
+            Dictionary<FacingDirection, float> inputMagnitudes = new Dictionary<FacingDirection, float>();
+            inputMagnitudes.Add(FacingDirection.Down, -Mathf.Clamp(Input.GetAxis("Vertical"), -1, 0));
+            inputMagnitudes.Add(FacingDirection.Up, Mathf.Clamp(Input.GetAxis("Vertical"), 0, 1));
+            inputMagnitudes.Add(FacingDirection.Left, -Mathf.Clamp(Input.GetAxis("Horizontal"), -1, 0));
+            inputMagnitudes.Add(FacingDirection.Right, Mathf.Clamp(Input.GetAxis("Horizontal"), 0, 1));
 
-            if (movementChosen)
+            KeyValuePair<FacingDirection, float> maximumMagnitude = inputMagnitudes.Aggregate((a, b) => a.Value > b.Value ? a : b);
+            selectedDirection = maximumMagnitude.Key;
+
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
 
                 if (directionFacing == selectedDirection)
