@@ -12,7 +12,7 @@ namespace Pokemon
 
         //TODO
 
-        //TODO - check if should evolve
+        //TODO - function to check if should evolve
 
     }
 }

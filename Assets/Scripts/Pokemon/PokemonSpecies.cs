@@ -76,7 +76,7 @@ namespace Pokemon
             /// <summary>
             /// A condition that must be met by a pokemon to evolve if applicable else null
             /// </summary>
-            public Predicate<PokemonSpecies> condition;
+            public Predicate<PokemonInstance> condition;
 
         }
 
