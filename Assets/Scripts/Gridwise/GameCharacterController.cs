@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Gridwise;
+using FreeRoaming;
 
-namespace Gridwise
+namespace FreeRoaming
 {
 
     /// <summary>

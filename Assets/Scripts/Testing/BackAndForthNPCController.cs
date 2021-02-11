@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Gridwise;
+using FreeRoaming;
 
 //This shouldn't be included in builds
 #if UNITY_EDITOR

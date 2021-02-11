@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Gridwise;
+using FreeRoaming;
 
-namespace Gridwise
+namespace FreeRoaming
 {
     public class PlayerController : GameCharacterController
     {
