@@ -41,8 +41,8 @@ namespace Pokemon
 
         #region Stats
 
-        public Stats baseStats;
-        public Stats evYield;
+        public Stats<byte> baseStats;
+        public Stats<byte> evYield;
 
         #endregion
 
@@ -55,6 +55,11 @@ namespace Pokemon
             /// The id of the pokemon that is evolved into
             /// </summary>
             public int targetId;
+
+            /// <summary>
+            /// A level that needs to be reached to level up
+            /// </summary>
+            public byte level;
 
             /// <summary>
             /// Id of item that needs to be used to evolve if applicable else null
