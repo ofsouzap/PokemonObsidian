@@ -29,11 +29,13 @@ namespace Pokemon {
             get
             {
 
-                if (registry == null)
+                if (_registry == null)
                 {
+                    Debug.Log("Registry null. loading");
                     LoadRegistry();
                 }
-
+                else
+                    Debug.Log("Registry not null. passing");
                 return _registry;
 
             }
@@ -94,6 +96,13 @@ namespace Pokemon {
 
             }
 
+            _registry = natures.ToArray();
+
+        }
+
+        public static Nature GetRandomNature()
+        {
+            return registry[UnityEngine.Random.Range(0, registry.Length)];
         }
 
     }

@@ -82,7 +82,7 @@ namespace Pokemon
         /// <summary>
         /// { level , moveId }. Describes moves the pokemon can learn and the level at which they learn them
         /// </summary>
-        public Dictionary<int, int> levelUpMoves;
+        public Dictionary<byte, int> levelUpMoves;
 
         /// <summary>
         /// Ids of moves the pokemon can learn by TM/HM

@@ -10,6 +10,11 @@ namespace Pokemon
     public class PokemonInstance
     {
 
+        public PokemonInstance(Stats<byte> individualValues)
+        {
+            this.individualValues = individualValues;
+        }
+
         #region Species
 
         public int speciesId;
@@ -18,6 +23,9 @@ namespace Pokemon
 
         #endregion
 
+        /// <summary>
+        /// The pokemon's nickname. If it is empty, the pokemon doesn't have a nickname
+        /// </summary>
         public string nickname;
 
         public Nature nature;
@@ -114,14 +122,32 @@ namespace Pokemon
 
         #region Moves
 
-        public PokemonMove[] moves = new PokemonMove[4];
+        public int[] moveIds = new int[4];
         public int[] movePPs = new int[4];
 
         #endregion
 
         #region Experience
 
+        public enum GrowthType
+        {
+            Slow,
+            MediumSlow,
+            MediumFast,
+            Fast,
+            Erratic,
+            Fluctuating
+        }
+
         public int experience;
+
+        public static int GetMinimumExperienceForLevel(byte level)
+        {
+
+            //TODO
+            return 0;
+
+        }
         
         public byte GetLevel()
         {
@@ -186,6 +212,26 @@ namespace Pokemon
         }
 
         //TODO - function to evolve including changing species id
+
+        #endregion
+
+        #region Restoration Methods
+
+        public void RestoreFully()
+        {
+            RestoreHealth();
+            RestoreStatusConditions();
+        }
+
+        public void RestoreHealth()
+        {
+            health = GetStats().health;
+        }
+
+        public void RestoreStatusConditions()
+        {
+            nonVolatileStatusCondition = NonVolatileStatusCondition.None;
+        }
 
         #endregion
 
