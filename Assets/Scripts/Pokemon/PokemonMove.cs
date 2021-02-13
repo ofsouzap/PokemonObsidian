@@ -5,13 +5,13 @@ using Pokemon;
 
 namespace Pokemon
 {
-    public struct PokemonMove
+    public class PokemonMove
     {
 
         //TODO - have registry always sorted by id
         public static PokemonMove[] registry;
 
-        public static PokemonMove GetPokemonSpeciesById(int id)
+        public static PokemonMove GetPokemonMoveById(int id)
         {
 
             //TODO - code a binary search
