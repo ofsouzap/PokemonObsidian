@@ -59,12 +59,17 @@ namespace Pokemon
             /// <summary>
             /// A level that needs to be reached to level up
             /// </summary>
-            public byte level;
+            public byte? level;
 
             /// <summary>
             /// Id of item that needs to be used to evolve if applicable else null
             /// </summary>
             public int? itemId;
+
+            /// <summary>
+            /// Whether the pokemon must be traded to evolve
+            /// </summary>
+            public bool requireTrade;
 
             /// <summary>
             /// A condition that must be met by a pokemon to evolve if applicable else null

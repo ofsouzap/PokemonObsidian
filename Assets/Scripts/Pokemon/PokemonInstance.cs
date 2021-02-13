@@ -161,11 +161,130 @@ namespace Pokemon
         public class BattleProperties
         {
 
-            //TODO - add properties
+            public BattleProperties(bool autoReset = true)
+            {
+                if (autoReset)
+                    Reset();
+            }
+
+            public void Reset()
+            {
+
+                volatileStatusConditions = new VolatileStatusConditions();
+                volatileBattleStatus = new VolatileBattleStatus();
+
+                statModifiers.attack = 0;
+                statModifiers.defense = 0;
+                statModifiers.specialAttack = 0;
+                statModifiers.specialDefense = 0;
+                statModifiers.speed = 0;
+
+            }
+
+            // Volatile status conditions must be manually looked through and dealt with one-by-one
+            // during battles due to each of their unique characteristics
+            public class VolatileStatusConditions
+            {
+
+                //https://bulbapedia.bulbagarden.net/wiki/Status_condition#Volatile_status
+
+                /// <summary>
+                /// Remaining turns of being bound
+                /// </summary>
+                public int bound = -1;
+
+                public bool cantEscape = false;
+
+                /// <summary>
+                /// Remaining turns of confusion
+                /// </summary>
+                public int confusion;
+
+                public bool curse = false;
+
+                /// <summary>
+                /// Remaining turns of embargo
+                /// </summary>
+                public int embargo = -1;
+
+                /// <summary>
+                /// Remaining turns of encore
+                /// </summary>
+                public int encore = -1;
+
+                public bool flinch = false;
+
+                public bool healBlock = false;
+
+                public bool identified = false;
+
+                public bool infatuated = false;
+
+                public bool leechSeed = false;
+
+                public bool nightmare = false;
+
+                /// <summary>
+                /// Remaining turns until fainting from perish song
+                /// </summary>
+                public int perishSong = -1;
+
+                /// <summary>
+                /// Remaining turns of taunt
+                /// </summary>
+                public int taunt = -1;
+
+                public bool torment = false;
+
+            }
+
+            public VolatileStatusConditions volatileStatusConditions;
+
+            public class VolatileBattleStatus
+            {
+
+                //https://bulbapedia.bulbagarden.net/wiki/Status_condition#Volatile_battle_status
+
+                public bool aquaRing = false,
+                    charging = false,
+                    centerOfAttention = false,
+                    defenseCurl = false,
+                    rooting = false,
+                    magicCoat = false,
+                    magneticLevitation = false,
+                    minimise = false,
+                    protection = false,
+                    recharging = false,
+                    semiInvurnerable = false,
+                    aimin = false,
+                    withdrawing = false;
+
+                /// <summary>
+                /// Whether a substitute is being used
+                /// </summary>
+                public bool substitue;
+                /// <summary>
+                /// Health remaining on substitute
+                /// </summary>
+                public byte substituteHealth = 0;
+
+            }
+
+            public VolatileBattleStatus volatileBattleStatus;
+
+            /// <summary>
+            /// Each modifier should only be -6 <= x <= 6. Health isn't used
+            /// </summary>
+            public Stats<byte> statModifiers;
 
         }
 
         public BattleProperties battleProperties;
+
+        public void ResetBattleProperties()
+        {
+            battleProperties = new BattleProperties();
+        }
 
         #endregion
 
@@ -174,17 +293,19 @@ namespace Pokemon
         /// <summary>
         /// Check whether the pokemon instance should evolve and into which pokemon. Returns a PokemonSpecies.Evolution if a valid evolution is found or null if none are found
         /// </summary>
+        /// <param name="traded">Whether it should be assumed that the PokemonInstance has just been traded when deciding whether to evolve</param>
         /// <returns>PokemonSpecies.Evolution if a valid evolution is found else null</returns>
-        public PokemonSpecies.Evolution CheckShouldEvolve()
+        public PokemonSpecies.Evolution CheckShouldEvolve(bool traded = false)
         {
 
             foreach (PokemonSpecies.Evolution evolution in species.evolutions)
             {
 
-                if (GetLevel() >= evolution.level)
-                    return evolution;
+                bool levelCondition = evolution.level != null ? GetLevel() >= evolution.level : true;
+                bool predicateCondition = evolution.condition(this);
+                bool tradedCondition = evolution.requireTrade ? traded : true;
 
-                if (evolution.condition(this))
+                if (levelCondition && predicateCondition && tradedCondition)
                     return evolution;
 
             }
@@ -193,7 +314,10 @@ namespace Pokemon
 
         }
 
-        //TODO - function to evolve including changing species id
+        public void Evolve(PokemonSpecies.Evolution evolution)
+        {
+            speciesId = evolution.targetId;
+        }
 
         #endregion
 
