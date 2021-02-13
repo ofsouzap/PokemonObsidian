@@ -84,7 +84,7 @@ namespace Pokemon
             speciesId = possibleSpeciesIds[UnityEngine.Random.Range(0, possibleSpeciesIds.Length)];
 
             level = (byte)UnityEngine.Random.Range(minLevel, maxLevel + 1);
-            experience = PokemonInstance.GetMinimumExperienceForLevel(level);
+            experience = GrowthTypeData.GetMinimumExperienceForLevel(level, PokemonSpecies.GetPokemonSpeciesById(speciesId).growthType);
 
             nature = Nature.GetRandomNature();
 

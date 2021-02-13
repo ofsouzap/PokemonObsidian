@@ -129,30 +129,12 @@ namespace Pokemon
 
         #region Experience
 
-        public enum GrowthType
-        {
-            Slow,
-            MediumSlow,
-            MediumFast,
-            Fast,
-            Erratic,
-            Fluctuating
-        }
-
         public int experience;
-
-        public static int GetMinimumExperienceForLevel(byte level)
-        {
-
-            //TODO
-            return 0;
-
-        }
+        public GrowthType growthType;
         
         public byte GetLevel()
         {
-            //TODO
-            return 0;
+            return GrowthTypeData.GetLevelFromExperience(experience, growthType);
         }
 
         #endregion

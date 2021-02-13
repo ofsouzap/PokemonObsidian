@@ -101,9 +101,9 @@ namespace Pokemon
 
         #endregion
 
-        //TODO - abilities
+        public GrowthType growthType;
 
-        //TODO - growth rate
+        //TODO - abilities
 
         //TODO - breeding stuff incl. egg groups, egg hatch step count, gender ratio
 
