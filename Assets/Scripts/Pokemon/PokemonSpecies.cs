@@ -32,6 +32,9 @@ namespace Pokemon
         public string description;
         public byte catchRate;
 
+        public Type type1;
+        public Type? type2;
+
         /// <summary>
         /// Path for the sound file for the pokemon's cry
         /// </summary>
