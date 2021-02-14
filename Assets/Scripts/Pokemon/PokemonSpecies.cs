@@ -34,9 +34,9 @@ namespace Pokemon
         public Type? type2;
 
         /// <summary>
-        /// Path for the sound file for the pokemon's cry
+        /// Name of the resources (eg. sprites and audio) for the pokemon. Will be used as eg. "Resources/Sprites/Pokemon/{resourceName}"
         /// </summary>
-        public string cryResourcePath;
+        public string resourceName;
 
         //TODO - store sprite resource information (like sprite group name)
 
@@ -81,7 +81,7 @@ namespace Pokemon
 
         }
 
-        public readonly Evolution[] evolutions;
+        public Evolution[] evolutions;
 
         #endregion
 

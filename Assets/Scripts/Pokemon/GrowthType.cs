@@ -1,5 +1,6 @@
 ﻿namespace Pokemon
 {
+
     public enum GrowthType
     {
         Slow,
@@ -9,4 +10,28 @@
         Erratic,
         Fluctuating
     }
+
+    public static class GrowthTypeFunc
+    {
+        public static GrowthType Parse(string x)
+        {
+
+            switch (x.ToLower())
+            {
+
+                case "slow": return GrowthType.Slow;
+                case "mediumslow": return GrowthType.MediumSlow;
+                case "mediumfast": return GrowthType.MediumFast;
+                case "fast": return GrowthType.Fast;
+                case "erratic": return GrowthType.Erratic;
+                case "fluctuating": return GrowthType.Fluctuating;
+
+                default:
+                    throw new System.ArgumentException("Unknown growth type string passed", "x");
+
+            }
+
+        }
+    }
+
 }

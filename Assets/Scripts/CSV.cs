@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,7 +6,8 @@ using UnityEngine;
 public static class CSV
 {
     
-    public static string[][] ReadCSVResource(string filePath)
+    public static string[][] ReadCSVResource(string filePath,
+        bool ignoreFirstLine = false)
     {
 
         List<string[]> data = new List<string[]>();
@@ -14,7 +16,15 @@ public static class CSV
 
         string[] lines = file.text.Split('\n');
 
-        foreach (string rawLine in lines)
+        string[] linesToUse = new string[ignoreFirstLine ? lines.Length - 1 : lines.Length];
+
+        Array.Copy(lines,
+            ignoreFirstLine ? 1 : 0,
+            linesToUse,
+            0,
+            ignoreFirstLine ? lines.Length - 1 : lines.Length);
+
+        foreach (string rawLine in linesToUse)
         {
 
             string line = string.Concat(rawLine.Where((x) => !char.IsWhiteSpace(x)));

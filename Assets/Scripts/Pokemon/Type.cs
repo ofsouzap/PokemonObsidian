@@ -25,6 +25,40 @@ namespace Pokemon
         Steel
     }
 
+    public static class TypeFunc
+    {
+        public static Type Parse(string x)
+        {
+
+            switch (x.ToLower())
+            {
+
+                case "normal": return Type.Normal;
+                case "fire": return Type.Fire;
+                case "fighting": return Type.Fighting;
+                case "water": return Type.Water;
+                case "flying": return Type.Flying;
+                case "grass": return Type.Grass;
+                case "poison": return Type.Poison;
+                case "electric": return Type.Electric;
+                case "ground": return Type.Ground;
+                case "psychic": return Type.Psychic;
+                case "rock": return Type.Rock;
+                case "ice": return Type.Ice;
+                case "bug": return Type.Bug;
+                case "dragon": return Type.Dragon;
+                case "ghost": return Type.Ghost;
+                case "dark": return Type.Dark;
+                case "steel": return Type.Steel;
+
+                default:
+                    throw new System.ArgumentException("Unknown type string passed", "x");
+
+            }
+
+        }
+    }
+
     public static class TypeAdvantage
     {
 
