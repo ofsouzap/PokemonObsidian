@@ -49,18 +49,44 @@ namespace Pokemon
 
         #region Move Using
 
+        public class UsageResults
+        {
+
+            /// <summary>
+            /// Whether the move missed
+            /// </summary>
+            public bool missed = false;
+
+            /// <summary>
+            /// Whether the move failed
+            /// </summary>
+            public bool failed = false;
+
+            /// <summary>
+            /// false if the move is not very effective, null if it is "effective" (multiplier of 1) or true if it is super effective
+            /// </summary>
+            public bool? effectiveness = null;
+
+            /// <summary>
+            /// Whether a critical hit was landed
+            /// </summary>
+            public bool criticalHit = false;
+
+        }
+
         /// <summary>
         /// Calculates the damage that should be done by a move based on the attacking and defending pokemon using just the formula
         /// </summary>
         /// <param name="user">The pokemon using the move</param>
         /// <param name="target">The pokemon being hit by the move</param>
-        /// <param name="effectiveness">false if the move is not very effective, null if it is "effective" (multiplier of 1) or true if it is super effective</param>
+        /// <param name="usageResults">Results of the usage</param>
         /// <returns>The damage that should be dealt by the move</returns>
         public byte CalculateNormalDamage(PokemonInstance user,
             PokemonInstance target,
-            out bool? effectiveness,
-            out bool criticalHit)
+            out UsageResults usageResults)
         {
+
+            usageResults = new UsageResults();
 
             //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
 
@@ -74,14 +100,14 @@ namespace Pokemon
                 );
 
             if (typeMultipler == 1)
-                effectiveness = null;
+                usageResults.effectiveness = null;
             else if (typeMultipler < 1)
-                effectiveness = false;
+                usageResults.effectiveness = false;
             else if (typeMultipler > 1)
-                effectiveness = true;
+                usageResults.effectiveness = true;
             else
             {
-                effectiveness = null;
+                usageResults.effectiveness = null;
                 Debug.LogError("Erroneous situation reached");
             }
 
@@ -140,12 +166,12 @@ namespace Pokemon
             if (UnityEngine.Random.Range(0, 1000) / ((float)1000) <= criticalChance)
             {
                 criticalMultiplier = 2;
-                criticalHit = true;
+                usageResults.criticalHit = true;
             }
             else
             {
                 criticalMultiplier = 1;
-                criticalHit = false;
+                usageResults.criticalHit = false;
             }
 
             randomMultipler = UnityEngine.Random.Range(85, 100) / 100;
@@ -168,20 +194,18 @@ namespace Pokemon
         /// </summary>
         public virtual byte CalculateDamage(PokemonInstance user,
             PokemonInstance target,
-            out bool? effectiveness,
-            out bool criticalHit)
+            out UsageResults usageResults)
         {
 
             if (moveType == MoveType.Status)
             {
-                effectiveness = null;
-                criticalHit = false;
+                usageResults = new UsageResults();
                 return 0;
             }
 
             //TODO - include details about the battle once a class containing this has been created
 
-            return CalculateNormalDamage(user, target, out effectiveness, out criticalHit);
+            return CalculateNormalDamage(user, target, out usageResults);
 
         }
 
@@ -197,13 +221,18 @@ namespace Pokemon
         /// A function to use a status move. Shouldn't be used for non-status moves
         /// </summary>
         /// <param name="user">The user of the move</param>
-        public virtual void UseStatus(PokemonInstance user)
+        public virtual void UseStatus(PokemonInstance user,
+            out UsageResults usageResults)
         {
+
+            usageResults = new UsageResults();
 
             //TODO - include reference to battle state when can
 
             if (moveType != MoveType.Status)
+            {
                 return;
+            }
 
         }
 
