@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using Pokemon;
@@ -14,6 +15,7 @@ namespace Pokemon
         const bool ignoreDataFirstLine = true;
 
         public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^\[([0-9]+:[0-9]*:[0-9]{0,3}?)(;([0-9]+:[0-9]*:[0-9]{0,3}?))*\]$");
+        public static readonly Regex validLevelUpMovesEntryRegex = new Regex(@"^\[([0-9]+:[0-9]+)(;[0-9]+:[0-9]+)*\]$");
 
         /* Data CSV Columns:
          * id
@@ -33,9 +35,10 @@ namespace Pokemon
          *     note that, if both used item and level conditions are used, they will both be required to evolve; not either
          *     eg. for bulbasaur: [2::16]
          *     eg. for eevee: [134:{waterStoneId}:;135:{thunderStoneId}:;136:{fireStoneId}:] ({xId} means id for item x. Yet to be set)
-         * level-up move ids
-         *     TODO - design
-         * tm move ids (move ids separated by ':')
+         * level-up move ids (format: "[level:moveId;level:moveId...]")
+         *     eg. for bulbasuar: [0:{tackle};0:{growl};3:{vineWhip};6:{growth} etc. etc.]
+         *         where {x} means id of move x which is yet to be set
+         * disc move ids (move ids separated by ':')
          * egg move ids (move ids separated by ':')
          * tutor move ids (move ids separated by ':')
          */
@@ -66,8 +69,10 @@ namespace Pokemon
                 Type? type2;
                 GrowthType growthType;
                 PokemonSpecies.Evolution[] evolutions;
+                Dictionary<byte, int> levelUpMoves;
+                int[] discMoves, eggMoves, tutorMoves;
 
-                if (entry.Length < 13)
+                if (entry.Length < 17)
                 {
                     Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
                     continue;
@@ -217,6 +222,65 @@ namespace Pokemon
 
                 #endregion
 
+                #region moves
+
+                #region levelUpMoves
+
+                levelUpMoves = new Dictionary<byte, int>();
+
+                string levelUpMovesString = entry[13];
+
+                if (validLevelUpMovesEntryRegex.IsMatch(levelUpMovesString))
+                {
+
+                    string[] levelUpMovesEntries = levelUpMovesString.Split(';');
+
+                    foreach (string levelUpMoveEntry in levelUpMovesEntries)
+                    {
+
+                        byte level;
+                        int moveId;
+
+                        string[] entryParts = levelUpMoveEntry.Split(':');
+
+                        try
+                        {
+                            level = byte.Parse(entryParts[0]);
+                            moveId = int.Parse(entryParts[1]);
+                        }
+                        catch (ArgumentException)
+                        {
+                            Debug.LogError("Invalid entry for level up move - " + levelUpMoveEntry + " (id " + id + ")");
+                            level = 0;
+                            moveId = 0;
+                        }
+
+                        levelUpMoves.Add(level, moveId);
+
+                    }
+
+                }
+                else
+                {
+                    Debug.LogError("Invalid level up moves entry for id " + id);
+                }
+
+                #endregion
+
+                try
+                {
+                    discMoves = entry[14].Split(':').Select((x) => int.Parse(x)).ToArray();
+                    eggMoves = entry[15].Split(':').Select((x) => int.Parse(x)).ToArray();
+                    tutorMoves = entry[16].Split(':').Select((x) => int.Parse(x)).ToArray();
+                }
+                catch (ArgumentException)
+                {
+                    Debug.LogError("Invalid move id in disc, egg or tutor moves for id " + id);
+                    discMoves = eggMoves = tutorMoves = new int[0];
+                }
+
+                #endregion
+
                 species.Add(new PokemonSpecies()
                 {
                     name = name,
@@ -234,7 +298,13 @@ namespace Pokemon
                     type1 = type1,
                     type2 = type2,
                     growthType = growthType,
-                    evolutions = evolutions
+                    evolutions = evolutions,
+
+                    levelUpMoves = levelUpMoves,
+                    discMoves = discMoves,
+                    eggMoves = eggMoves,
+                    tutorMoves = tutorMoves
+
                 });
 
             }
