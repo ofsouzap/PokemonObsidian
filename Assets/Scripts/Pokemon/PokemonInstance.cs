@@ -273,9 +273,14 @@ namespace Pokemon
             public VolatileBattleStatus volatileBattleStatus;
 
             /// <summary>
-            /// Each modifier should only be -6 <= x <= 6. Health isn't used
+            /// Each modifier should only be un [-6,6]. Health isn't used
             /// </summary>
             public Stats<byte> statModifiers;
+
+            /// <summary>
+            /// The stage of critical hit modifer
+            /// </summary>
+            public byte criticalHitModifier;
 
         }
 

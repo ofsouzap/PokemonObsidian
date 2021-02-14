@@ -114,9 +114,39 @@ namespace Pokemon
 
             weatherMultiplier = 1; //TODO - once battle conditions can be known
 
-            //TODO - calculate whether critical landed
-            criticalMultiplier = 1;
-            criticalHit = false;
+            float criticalChance;
+
+            if (user.battleProperties.criticalHitModifier == 0)
+            {
+                criticalChance = 0.063f;
+            }
+            else if (user.battleProperties.criticalHitModifier == 1)
+            {
+                criticalChance = 0.125f;
+            }
+            else if (user.battleProperties.criticalHitModifier == 2)
+            {
+                criticalChance = 0.250f;
+            }
+            else if (user.battleProperties.criticalHitModifier == 2)
+            {
+                criticalChance = 0.333f;
+            }
+            else
+            {
+                criticalChance = 0.500f;
+            }
+
+            if (UnityEngine.Random.Range(0, 1000) / ((float)1000) <= criticalChance)
+            {
+                criticalMultiplier = 2;
+                criticalHit = true;
+            }
+            else
+            {
+                criticalMultiplier = 1;
+                criticalHit = false;
+            }
 
             randomMultipler = UnityEngine.Random.Range(85, 100) / 100;
 
