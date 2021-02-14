@@ -93,7 +93,13 @@ namespace Pokemon
             Type userType1 = user.species.type1;
             Type? userType2 = user.species.type2;
 
-            float stabMultipler = userType1 == type || userType2 == type ? 1.5f : 1f;
+            float stabMultiplier;
+
+            if (userType2 == null)
+                stabMultiplier = userType1 == type ? 1.5f : 1f;
+            else
+                stabMultiplier = userType1 == type || ((Type)userType2) == type ? 1.5f : 1f;
+
             float typeMultipler = userType2 == null ?
                 TypeAdvantage.CalculateMultiplier(type, userType1)
                 : TypeAdvantage.CalculateMultiplier(type, userType1, (Type)userType2
@@ -181,7 +187,7 @@ namespace Pokemon
                 ? 0.5f
                 : 1f;
 
-            modifier = weatherMultiplier * criticalMultiplier * randomMultipler * stabMultipler * typeMultipler * burnMultiplier;
+            modifier = weatherMultiplier * criticalMultiplier * randomMultipler * stabMultiplier * typeMultipler * burnMultiplier;
 
             int rawDamage = Mathf.FloorToInt((( ( ( ( (2 * user.GetLevel()) / ((float)5) ) + 2 ) * power * ad ) / ((float)50) ) + 2 ) * modifier);
 
@@ -212,9 +218,8 @@ namespace Pokemon
         public byte CalculateDamage(PokemonInstance user,
             PokemonInstance target)
         {
-            bool? _;
-            bool _1;
-            return CalculateDamage(user, target, out _, out _1);
+            UsageResults usageResults;
+            return CalculateDamage(user, target, out usageResults);
         }
 
         /// <summary>
