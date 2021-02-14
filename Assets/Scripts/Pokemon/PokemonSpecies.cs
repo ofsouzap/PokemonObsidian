@@ -7,20 +7,16 @@ using Pokemon;
 
 namespace Pokemon
 {
-    public struct PokemonSpecies
+    public struct PokemonSpecies : IHasId
     {
 
         #region Registry
 
-        //TODO - have registry always sorted by id
-        public static PokemonSpecies[] registry;
+        public static Registry<PokemonSpecies> registry;
 
         public static PokemonSpecies GetPokemonSpeciesById(int id)
         {
-
-            //TODO - code a binary search
-            return registry.First((x) => x.id == id);
-
+            return registry.StartingIndexSearch(id, id);
         }
 
         #endregion
@@ -28,6 +24,8 @@ namespace Pokemon
         #region Basic Properties
 
         public int id;
+        public int GetId() => id;
+
         public string name;
         public string description;
         public byte catchRate;
@@ -39,6 +37,8 @@ namespace Pokemon
         /// Path for the sound file for the pokemon's cry
         /// </summary>
         public string cryResourcePath;
+
+        //TODO - store sprite resource information (like sprite group name)
 
         #endregion
 

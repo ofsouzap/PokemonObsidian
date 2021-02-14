@@ -6,40 +6,26 @@ using Pokemon;
 
 namespace Pokemon {
 
-    public struct Nature
+    public struct Nature : IHasId
     {
 
         public int id;
+        public int GetId() => id;
+
         public string name;
         public Stats<bool?> boosts;
 
         public Nature getNatureById(int id)
         {
-            return registry.First((x) => x.id == id);
+            return registry.StartingIndexSearch(id, id);
         }
 
         public Nature getNatureByName(string name)
         {
-            return registry.First((x) => x.name == name);
+            return registry.GetArray().First((x) => x.name == name);
         }
 
-        private static Nature[] _registry = null;
-        public static Nature[] registry
-        {
-            get
-            {
-
-                if (_registry == null)
-                {
-                    Debug.Log("Registry null. loading");
-                    LoadRegistry();
-                }
-                else
-                    Debug.Log("Registry not null. passing");
-                return _registry;
-
-            }
-        }
+        public static Registry<Nature> registry;
 
         public static void LoadRegistry()
         {
@@ -96,7 +82,7 @@ namespace Pokemon {
 
             }
 
-            _registry = natures.ToArray();
+            registry.SetValues(natures.ToArray());
 
         }
 

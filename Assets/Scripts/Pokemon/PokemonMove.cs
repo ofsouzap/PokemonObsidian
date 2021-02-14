@@ -1,25 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
 using Pokemon;
 
 namespace Pokemon
 {
-    public class PokemonMove
+    public class PokemonMove : IHasId
     {
 
         #region Registry
 
-        //TODO - have registry always sorted by id
-        public static PokemonMove[] registry;
+        private static Registry<PokemonMove> registry;
 
         public static PokemonMove GetPokemonMoveById(int id)
         {
-
-            //TODO - code a binary search
-            return registry.First((x) => x.id == id);
-
+            return registry.StartingIndexSearch(id, id);
         }
 
         #endregion
@@ -27,6 +22,7 @@ namespace Pokemon
         #region Properties
 
         public int id;
+        public int GetId() => id;
 
         public Type type;
 
@@ -122,7 +118,7 @@ namespace Pokemon
             criticalMultiplier = 1;
             criticalHit = false;
 
-            randomMultipler = Random.Range(85, 100) / 100;
+            randomMultipler = UnityEngine.Random.Range(85, 100) / 100;
 
             burnMultiplier =
                 user.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Burn && moveType == MoveType.Physical

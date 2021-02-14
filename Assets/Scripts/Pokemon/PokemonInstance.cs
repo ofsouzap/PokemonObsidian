@@ -45,7 +45,7 @@ namespace Pokemon
         /// <returns>The stat's value</returns>
         protected int GetStat<T>(Stats<T>.Stat stat)
         {
-            //TODO - check that these casts work as intended
+            
             Stats<byte>.Stat statByte = (Stats<byte>.Stat)stat;
             Stats<bool?>.Stat statBoolN = (Stats<bool?>.Stat)stat;
 
