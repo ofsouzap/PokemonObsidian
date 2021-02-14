@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Pokemon;
 
-namespace Pokemon
+namespace Pokemon.Moves
 {
     public class PokemonMove : IHasId
     {
