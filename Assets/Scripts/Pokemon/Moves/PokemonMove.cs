@@ -80,6 +80,11 @@ namespace Pokemon.Moves
         /// </summary>
         public sbyte targetAccuracyModifier;
 
+        /// <summary>
+        /// Whether the move has a boosted critical hit chance. This will increase the critical chance stage by 1 when calculating critical chance
+        /// </summary>
+        public bool boostedCriticalChance;
+
         #endregion
 
         #region Move Using
@@ -204,10 +209,16 @@ namespace Pokemon.Moves
 
             float modifier, weatherMultiplier, criticalMultiplier, randomMultipler, burnMultiplier, stabMultiplier;
 
+            #region stab
+
             if (userType2 == null)
                 stabMultiplier = userType1 == type ? 1.5f : 1f;
             else
                 stabMultiplier = userType1 == type || ((Type)userType2) == type ? 1.5f : 1f;
+
+            #endregion
+            
+            #region type advantage
 
             float typeMultipler = userType2 == null ?
                 TypeAdvantage.CalculateMultiplier(type, userType1)
@@ -226,23 +237,41 @@ namespace Pokemon.Moves
                 Debug.LogError("Erroneous situation reached");
             }
 
+            #endregion
+
+            #region weather
+
             weatherMultiplier = 1; //TODO - once battle conditions can be known
+
+            #endregion
+
+            #region critical
 
             float criticalChance;
 
-            if (user.battleProperties.criticalHitModifier == 0)
+            uint criticalChanceStage = 0;
+
+            if (user.battleProperties.criticalHitChanceBoosted)
+                criticalChanceStage += 2;
+
+            if (boostedCriticalChance)
+                criticalChanceStage++;
+
+            //TODO - items that increase crit stage
+
+            if (criticalChanceStage == 0)
             {
                 criticalChance = 0.063f;
             }
-            else if (user.battleProperties.criticalHitModifier == 1)
+            else if (criticalChanceStage == 1)
             {
                 criticalChance = 0.125f;
             }
-            else if (user.battleProperties.criticalHitModifier == 2)
+            else if (criticalChanceStage == 2)
             {
                 criticalChance = 0.250f;
             }
-            else if (user.battleProperties.criticalHitModifier == 2)
+            else if (criticalChanceStage == 2)
             {
                 criticalChance = 0.333f;
             }
@@ -262,12 +291,22 @@ namespace Pokemon.Moves
                 usageResults.criticalHit = false;
             }
 
+            #endregion
+
+            #region random
+
             randomMultipler = UnityEngine.Random.Range(85, 100) / 100;
+
+            #endregion
+
+            #region burn
 
             burnMultiplier =
                 user.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Burn && moveType == MoveType.Physical
                 ? 0.5f
                 : 1f;
+
+            #endregion
 
             modifier = weatherMultiplier * criticalMultiplier * randomMultipler * stabMultiplier * typeMultipler * burnMultiplier;
 

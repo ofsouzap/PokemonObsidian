@@ -184,7 +184,7 @@ namespace Pokemon
                 evasionModifier = 0;
                 accuracyModifier = 0;
 
-                criticalHitModifier = 0;
+                criticalHitModifier = false;
 
             }
 
@@ -295,9 +295,9 @@ namespace Pokemon
             public sbyte accuracyModifier;
 
             /// <summary>
-            /// The stage of critical hit modifer
+            /// Whether the chance of a critical hit has been boosted (eg. by focus energy or dire hit)
             /// </summary>
-            public byte criticalHitModifier;
+            public bool criticalHitChanceBoosted;
 
         }
 

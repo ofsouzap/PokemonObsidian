@@ -29,6 +29,8 @@ namespace Pokemon
          *     eg. withdraw "0:1:0:0:0:0:0"
          * target stat modifier changes (same format as user stat modifer changes)
          *     eg. growl "-1:0:0:0:0:0:0:0:0"
+         * has increased critical hit chance (1 or 0)
+         *     empty assumes false (aka 0)
          */
 
         public static void LoadData()
@@ -62,8 +64,9 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
+                bool boostedCriticalChance;
 
-                if (entry.Length < 10)
+                if (entry.Length < 11)
                 {
                     Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
                     continue;
@@ -276,6 +279,33 @@ namespace Pokemon
 
                 #endregion
 
+                #region boostedCriticalChance
+
+                switch (entry[10].ToLower())
+                {
+
+                    case "":
+                    case "0":
+                    case "false":
+                    case "no":
+                        boostedCriticalChance = false;
+                        break;
+
+                    case "1":
+                    case "true":
+                    case "yes":
+                        boostedCriticalChance = true;
+                        break;
+
+                    default:
+                        Debug.LogError("Invalid boosted critical hit chance entry for id " + id);
+                        boostedCriticalChance = false;
+                        break;
+
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -291,7 +321,8 @@ namespace Pokemon
                     userAccuracyModifier = userAccuracyChange,
                     targetStatChanges = targetStatChanges,
                     targetEvasionModifier = targetEvasionChange,
-                    targetAccuracyModifier = targetAccuracyChange
+                    targetAccuracyModifier = targetAccuracyChange,
+                    boostedCriticalChance = boostedCriticalChance
                 });
 
             }
