@@ -18,9 +18,9 @@ namespace Pokemon
          * id (int)
          * name (string)
          * max PP (byte)
-         * description
-         * type (Pokemon.Type)
-         * moveType (PokemonMove.MoveType)
+         * description (string)
+         * type (Pokemon.Type name)
+         * move type (PokemonMove.MoveType name)
          * power (byte) (empty if status move)
          * accuracy (byte) (empty if status move)
          * user stat modifier changes
@@ -30,7 +30,6 @@ namespace Pokemon
          * target stat modifier changes (same format as user stat modifer changes)
          *     eg. growl "-1:0:0:0:0"
          */
-        //TODO - continue editing columns for status. remember that could affect multiple stats and also could affect target or user
 
         public static void LoadData()
         {
@@ -57,15 +56,17 @@ namespace Pokemon
             {
 
                 int id;
-                bool isSpecial;
-                string name;
+                string name, description;
+                byte maxPP, power, accuracy;
                 Type type;
                 PokemonMove.MoveType moveType;
-                byte power, accuracy;
+                Stats<sbyte> userStatChanges, targetStatChanges;
 
-                //TODO - verify length once new format decided
-
-                //TODO - change according to new format once finished
+                if (entry.Length < 10)
+                {
+                    Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
+                    continue;
+                }
 
                 #region id
 
@@ -81,34 +82,29 @@ namespace Pokemon
 
                 #endregion
 
-                #region isSpecial
+                #region name
 
-                switch (entry[1])
-                {
-
-                    case "0":
-                        isSpecial = false;
-                        break;
-
-                    case "1":
-                        isSpecial = true;
-                        break;
-
-                    default:
-                        Debug.LogError("Invalid isSpecial entry ");
-                        isSpecial = true;
-                        break;
-
-                }
-
-                if (!isSpecial)
-                    continue;
+                name = entry[1];
 
                 #endregion
 
-                #region name
+                #region maxPP
 
-                name = entry[2];
+                try
+                {
+                    maxPP = byte.Parse(entry[2]);
+                }
+                catch (ArgumentException)
+                {
+                    Debug.LogError("Invalid max PP for id " + id);
+                    maxPP = 1;
+                }
+
+                #endregion
+
+                #region description
+
+                description = entry[3];
 
                 #endregion
 
@@ -116,7 +112,7 @@ namespace Pokemon
 
                 try
                 {
-                    type = TypeFunc.Parse(entry[3]);
+                    type = TypeFunc.Parse(entry[4]);
                 }
                 catch (ArgumentException)
                 {
@@ -128,7 +124,7 @@ namespace Pokemon
 
                 #region moveType
 
-                switch (entry[4].ToLower())
+                switch (entry[5].ToLower())
                 {
 
                     case "physical":
@@ -156,8 +152,8 @@ namespace Pokemon
 
                 try
                 {
-                    power = byte.Parse(entry[5]);
-                    accuracy = byte.Parse(entry[6]);
+                    power = byte.Parse(entry[6]);
+                    accuracy = byte.Parse(entry[7]);
                 }
                 catch (ArgumentException)
                 {
@@ -168,14 +164,92 @@ namespace Pokemon
 
                 #endregion
 
+                #region userStatChanges
+
+                string userStatChangesEntry = entry[8];
+
+                if (validStatModifierChangeRegex.IsMatch(userStatChangesEntry))
+                {
+
+                    string[] parts = userStatChangesEntry.Split(':');
+
+                    try
+                    {
+
+                        userStatChanges = new Stats<sbyte>()
+                        {
+                            attack = sbyte.Parse(parts[0]),
+                            defense = sbyte.Parse(parts[1]),
+                            specialAttack = sbyte.Parse(parts[2]),
+                            specialDefense = sbyte.Parse(parts[3]),
+                            speed = sbyte.Parse(parts[4]),
+                        };
+
+                    }
+                    catch (ArgumentException)
+                    {
+                        Debug.LogError("Invalid user stat changes entry value for id " + id);
+                        userStatChanges = new Stats<sbyte>();
+                    }
+
+                }
+                else
+                {
+                    Debug.LogError("Invalid user stat changes entry format for id " + id);
+                    userStatChanges = new Stats<sbyte>();
+                }
+
+                #endregion
+
+                #region targetStatChanges
+
+                string targetStatChangesEntry = entry[9];
+
+                if (validStatModifierChangeRegex.IsMatch(targetStatChangesEntry))
+                {
+
+                    string[] parts = targetStatChangesEntry.Split(':');
+
+                    try
+                    {
+
+                        targetStatChanges = new Stats<sbyte>()
+                        {
+                            attack = sbyte.Parse(parts[0]),
+                            defense = sbyte.Parse(parts[1]),
+                            specialAttack = sbyte.Parse(parts[2]),
+                            specialDefense = sbyte.Parse(parts[3]),
+                            speed = sbyte.Parse(parts[4]),
+                        };
+
+                    }
+                    catch (ArgumentException)
+                    {
+                        Debug.LogError("Invalid target stat changes entry value for id " + id);
+                        targetStatChanges = new Stats<sbyte>();
+                    }
+
+                }
+                else
+                {
+                    Debug.LogError("Invalid target stat changes entry format for id " + id);
+                    targetStatChanges = new Stats<sbyte>();
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
                     name = name,
+                    maxPP = maxPP,
+                    description = description,
                     power = power,
                     accuracy = accuracy,
                     type = type,
-                    moveType = moveType
+                    moveType = moveType,
+                    userStatChanges = userStatChanges,
+                    targetStatChanges = targetStatChanges
                 });
 
             }

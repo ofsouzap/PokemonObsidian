@@ -25,6 +25,7 @@ namespace Pokemon.Moves
         public int GetId() => id;
 
         public string name;
+        public string description;
 
         public byte maxPP;
 
