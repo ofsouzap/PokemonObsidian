@@ -152,8 +152,19 @@ namespace Pokemon
 
                 try
                 {
-                    power = byte.Parse(entry[6]);
-                    accuracy = byte.Parse(entry[7]);
+
+                    string powerEntry = entry[6];
+                    if (powerEntry != "")
+                        power = byte.Parse(powerEntry);
+                    else
+                        power = 0;
+
+                    string accuracyEntry = entry[7];
+                    if (accuracyEntry != "")
+                        accuracy = byte.Parse(accuracyEntry);
+                    else
+                        accuracy = 0;
+
                 }
                 catch (ArgumentException)
                 {
@@ -168,7 +179,11 @@ namespace Pokemon
 
                 string userStatChangesEntry = entry[8];
 
-                if (validStatModifierChangeRegex.IsMatch(userStatChangesEntry))
+                if (userStatChangesEntry == "")
+                {
+                    userStatChanges = new Stats<sbyte>();
+                }
+                else if (validStatModifierChangeRegex.IsMatch(userStatChangesEntry))
                 {
 
                     string[] parts = userStatChangesEntry.Split(':');
@@ -205,7 +220,11 @@ namespace Pokemon
 
                 string targetStatChangesEntry = entry[9];
 
-                if (validStatModifierChangeRegex.IsMatch(targetStatChangesEntry))
+                if (targetStatChangesEntry == "")
+                {
+                    targetStatChanges = new Stats<sbyte>();
+                }
+                else if (validStatModifierChangeRegex.IsMatch(targetStatChangesEntry))
                 {
 
                     string[] parts = targetStatChangesEntry.Split(':');
