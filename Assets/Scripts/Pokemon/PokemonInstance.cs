@@ -306,9 +306,9 @@ namespace Pokemon
             foreach (PokemonSpecies.Evolution evolution in species.evolutions)
             {
 
-                bool levelCondition = evolution.level != null ? GetLevel() >= evolution.level : true;
+                bool levelCondition = evolution.level == null || GetLevel() >= evolution.level;
                 bool predicateCondition = evolution.condition(this);
-                bool tradedCondition = evolution.requireTrade ? traded : true;
+                bool tradedCondition = !evolution.requireTrade || traded;
 
                 if (levelCondition && predicateCondition && tradedCondition)
                     return evolution;

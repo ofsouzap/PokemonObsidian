@@ -262,8 +262,10 @@ namespace Pokemon.Moves
 
             UsageResults usageResults = new UsageResults();
 
-            //TODO
-            return null;
+            usageResults.userStatChanges = userStatChanges;
+            usageResults.targetStatChanges = targetStatChanges;
+
+            return usageResults;
 
         }
 
