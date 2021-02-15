@@ -275,7 +275,7 @@ namespace Pokemon
             /// <summary>
             /// Each modifier should only be un [-6,6]. Health isn't used
             /// </summary>
-            public Stats<byte> statModifiers;
+            public Stats<sbyte> statModifiers;
 
             /// <summary>
             /// The stage of critical hit modifer

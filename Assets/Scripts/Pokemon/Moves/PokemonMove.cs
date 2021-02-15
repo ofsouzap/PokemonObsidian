@@ -38,14 +38,24 @@ namespace Pokemon.Moves
         public MoveType moveType;
 
         /// <summary>
-        /// The power of the move [0,100]
+        /// The power of the move [0,100] (if it is a status move, this should be 0)
         /// </summary>
         public byte power;
 
         /// <summary>
-        /// The chance of the move hitting its target [0,100]
+        /// The chance of the move hitting its target [0,100] (if it is a status move, this should be 0)
         /// </summary>
         public byte accuracy;
+
+        /// <summary>
+        /// The stat changes to apply to the user (not necessarily just for status moves)
+        /// </summary>
+        public Stats<sbyte> userStatChanges;
+
+        /// <summary>
+        /// The stat changes to apply to the target (not necessarily just for status moves)
+        /// </summary>
+        public Stats<sbyte> targetStatChanges;
 
         #endregion
 
@@ -53,6 +63,11 @@ namespace Pokemon.Moves
 
         public class UsageResults
         {
+
+            /// <summary>
+            /// Whether the move succeeded
+            /// </summary>
+            public bool succeeded;
 
             /// <summary>
             /// Whether the move missed
@@ -65,6 +80,16 @@ namespace Pokemon.Moves
             public bool failed = false;
 
             /// <summary>
+            /// The damage to deal to the user
+            /// </summary>
+            public byte userDamageDealt = 0;
+
+            /// <summary>
+            /// The damage to deal to the target
+            /// </summary>
+            public byte targetDamageDealt = 0;
+
+            /// <summary>
             /// false if the move is not very effective, null if it is "effective" (multiplier of 1) or true if it is super effective
             /// </summary>
             public bool? effectiveness = null;
@@ -74,50 +99,36 @@ namespace Pokemon.Moves
             /// </summary>
             public bool criticalHit = false;
 
+            /// <summary>
+            /// Stat changes that have been applied to the user
+            /// </summary>
+            public Stats<sbyte> userStatChanges = new Stats<sbyte>();
+
+            /// <summary>
+            /// Stat changes that have been applied to the target
+            /// </summary>
+            public Stats<sbyte> targetStatChanges = new Stats<sbyte>();
+
         }
 
         /// <summary>
-        /// Calculates the damage that should be done by a move based on the attacking and defending pokemon using just the formula
+        /// Calculates the results of using this move. Damage is calcualted using the default formula
         /// </summary>
         /// <param name="user">The pokemon using the move</param>
         /// <param name="target">The pokemon being hit by the move</param>
-        /// <param name="usageResults">Results of the usage</param>
-        /// <returns>The damage that should be dealt by the move</returns>
-        public byte CalculateNormalDamage(PokemonInstance user,
-            PokemonInstance target,
-            out UsageResults usageResults)
+        /// <returns>The results of using the move including damages to be dealt</returns>
+        public UsageResults CalculateNormalAttackEffect(PokemonInstance user,
+            PokemonInstance target)
         {
 
-            usageResults = new UsageResults();
+            UsageResults usageResults = new UsageResults();
 
             //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
 
             Type userType1 = user.species.type1;
             Type? userType2 = user.species.type2;
 
-            float stabMultiplier;
-
-            if (userType2 == null)
-                stabMultiplier = userType1 == type ? 1.5f : 1f;
-            else
-                stabMultiplier = userType1 == type || ((Type)userType2) == type ? 1.5f : 1f;
-
-            float typeMultipler = userType2 == null ?
-                TypeAdvantage.CalculateMultiplier(type, userType1)
-                : TypeAdvantage.CalculateMultiplier(type, userType1, (Type)userType2
-                );
-
-            if (typeMultipler == 1)
-                usageResults.effectiveness = null;
-            else if (typeMultipler < 1)
-                usageResults.effectiveness = false;
-            else if (typeMultipler > 1)
-                usageResults.effectiveness = true;
-            else
-            {
-                usageResults.effectiveness = null;
-                Debug.LogError("Erroneous situation reached");
-            }
+            #region Attack/Defense
 
             int attack, defense;
 
@@ -144,7 +155,33 @@ namespace Pokemon.Moves
 
             float ad = ((float)attack) / defense;
 
-            float modifier, weatherMultiplier, criticalMultiplier, randomMultipler, burnMultiplier;
+            #endregion
+
+            #region Modifiers
+
+            float modifier, weatherMultiplier, criticalMultiplier, randomMultipler, burnMultiplier, stabMultiplier;
+
+            if (userType2 == null)
+                stabMultiplier = userType1 == type ? 1.5f : 1f;
+            else
+                stabMultiplier = userType1 == type || ((Type)userType2) == type ? 1.5f : 1f;
+
+            float typeMultipler = userType2 == null ?
+                TypeAdvantage.CalculateMultiplier(type, userType1)
+                : TypeAdvantage.CalculateMultiplier(type, userType1, (Type)userType2
+                );
+
+            if (typeMultipler == 1)
+                usageResults.effectiveness = null;
+            else if (typeMultipler < 1)
+                usageResults.effectiveness = false;
+            else if (typeMultipler > 1)
+                usageResults.effectiveness = true;
+            else
+            {
+                usageResults.effectiveness = null;
+                Debug.LogError("Erroneous situation reached");
+            }
 
             weatherMultiplier = 1; //TODO - once battle conditions can be known
 
@@ -191,54 +228,72 @@ namespace Pokemon.Moves
 
             modifier = weatherMultiplier * criticalMultiplier * randomMultipler * stabMultiplier * typeMultipler * burnMultiplier;
 
-            int rawDamage = Mathf.FloorToInt((( ( ( ( (2 * user.GetLevel()) / ((float)5) ) + 2 ) * power * ad ) / ((float)50) ) + 2 ) * modifier);
+            #endregion
 
-            return rawDamage > byte.MaxValue ? byte.MaxValue : (byte)rawDamage;
+            #region Damage Calculation
+
+            int rawDamage = Mathf.FloorToInt(((((((2 * user.GetLevel()) / ((float)5)) + 2) * power * ad) / ((float)50)) + 2) * modifier);
+            byte damageToDeal = rawDamage > byte.MaxValue ? byte.MaxValue : (byte)rawDamage;
+
+            usageResults.targetDamageDealt = damageToDeal;
+
+            #endregion
+
+            #region Stat Changes
+
+            usageResults.userStatChanges = userStatChanges;
+            usageResults.targetStatChanges = targetStatChanges;
+
+            #endregion
+
+            return usageResults;
 
         }
 
         /// <summary>
-        /// Calculates the damage that should be dealt by a move based on PokemonMove.CalculateNormalDamage. This should only be used for non-status moves
+        /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
-        public virtual byte CalculateDamage(PokemonInstance user,
-            PokemonInstance target,
-            out UsageResults usageResults)
+        /// <param name="user">The user</param>
+        /// <param name="target">The target</param>
+        /// <returns>The results of using the move</returns>
+        public UsageResults CalculateNormalStatusEffect(PokemonInstance user,
+            PokemonInstance target)
         {
 
-            if (moveType == MoveType.Status)
-            {
-                usageResults = new UsageResults();
-                return 0;
-            }
+            UsageResults usageResults = new UsageResults();
+
+            //TODO
+            return null;
+
+        }
+
+        /// <summary>
+        /// Calculates the effect that should be had from using this move given a certain user and a certain target
+        /// </summary>
+        public virtual UsageResults CalculateEffect(PokemonInstance user,
+            PokemonInstance target)
+        {
 
             //TODO - include details about the battle once a class containing this has been created
 
-            return CalculateNormalDamage(user, target, out usageResults);
-
-        }
-
-        public byte CalculateDamage(PokemonInstance user,
-            PokemonInstance target)
-        {
-            UsageResults usageResults;
-            return CalculateDamage(user, target, out usageResults);
-        }
-
-        /// <summary>
-        /// A function to use a status move. Shouldn't be used for non-status moves
-        /// </summary>
-        /// <param name="user">The user of the move</param>
-        public virtual void UseStatus(PokemonInstance user,
-            out UsageResults usageResults)
-        {
-
-            usageResults = new UsageResults();
-
-            //TODO - include reference to battle state when can
-
-            if (moveType != MoveType.Status)
+            if (moveType == MoveType.Status)
             {
-                return;
+
+                return CalculateNormalStatusEffect(user, target);
+
+            }
+            else if (moveType == MoveType.Physical || moveType == MoveType.Special)
+            {
+
+                return CalculateNormalAttackEffect(user, target);
+
+            }
+            else
+            {
+
+                Debug.LogError("Invalid move type - " + moveType + "");
+                return null;
+
             }
 
         }

@@ -14,14 +14,16 @@ namespace Pokemon
 
         /* Data CSV Columns:
          * id (int)
-         * is special (1 or 0)
-         *     Whether the move should be added as a PokemonMove instead of one of its child classes
          * name (string)
+         * description
          * type (Pokemon.Type)
          * moveType (PokemonMove.MoveType)
-         * power (byte)
-         * accuracy (byte)
+         * power (byte) (empty if status move)
+         * accuracy (byte) (empty if status move)
+         * stat to affect (only for status moves) (empty if not status move)
+         * amount to affect stat (only status moves) (empty if not status move)
          */
+        //TODO - continue editing columns for status. remember that could affect multiple stats and also could affect target or user
 
         public static void LoadData()
         {
@@ -53,6 +55,10 @@ namespace Pokemon
                 Type type;
                 PokemonMove.MoveType moveType;
                 byte power, accuracy;
+
+                //TODO - verify length once new format decided
+
+                //TODO - change according to new format once finished
 
                 #region id
 
