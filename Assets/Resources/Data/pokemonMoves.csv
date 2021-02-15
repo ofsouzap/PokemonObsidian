@@ -1,1 +1,1 @@
-id,name,desc,type,moveType,power,accuracy
+id,name,maxPP,desc,type,moveType,power,accuracy,userStatChanges,targetStatChanges

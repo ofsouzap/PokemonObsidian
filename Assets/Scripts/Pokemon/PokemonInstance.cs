@@ -123,7 +123,7 @@ namespace Pokemon
         #region Moves
 
         public int[] moveIds = new int[4];
-        public int[] movePPs = new int[4];
+        public byte[] movePPs = new byte[4];
 
         #endregion
 
@@ -160,6 +160,8 @@ namespace Pokemon
 
         public class BattleProperties
         {
+
+            public const sbyte maximumStatModifier = 6;
 
             public BattleProperties(bool autoReset = true)
             {

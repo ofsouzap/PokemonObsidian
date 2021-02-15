@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using Pokemon.Moves;
 
@@ -12,16 +12,23 @@ namespace Pokemon
         const string dataPath = "Data/pokemonMoves";
         const bool ignoreDataFirstLine = true;
 
+        public static readonly Regex validStatModifierChangeRegex = new Regex(@"^-?[0-6](:-?[0-6]){4}$");
+
         /* Data CSV Columns:
          * id (int)
          * name (string)
+         * max PP (byte)
          * description
          * type (Pokemon.Type)
          * moveType (PokemonMove.MoveType)
          * power (byte) (empty if status move)
          * accuracy (byte) (empty if status move)
-         * stat to affect (only for status moves) (empty if not status move)
-         * amount to affect stat (only status moves) (empty if not status move)
+         * user stat modifier changes
+         *     five values separated by ':' for attack, defense, special attack, special defense and speed respectively
+         *     if none, can be blank
+         *     eg. withdraw "0:1:0:0:0"
+         * target stat modifier changes (same format as user stat modifer changes)
+         *     eg. growl "-1:0:0:0:0"
          */
         //TODO - continue editing columns for status. remember that could affect multiple stats and also could affect target or user
 

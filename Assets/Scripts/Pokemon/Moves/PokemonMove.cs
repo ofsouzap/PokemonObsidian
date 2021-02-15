@@ -26,6 +26,8 @@ namespace Pokemon.Moves
 
         public string name;
 
+        public byte maxPP;
+
         public Type type;
 
         public enum MoveType
@@ -241,12 +243,46 @@ namespace Pokemon.Moves
 
             #region Stat Changes
 
-            usageResults.userStatChanges = userStatChanges;
-            usageResults.targetStatChanges = targetStatChanges;
+            usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
+            usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
 
             #endregion
 
             return usageResults;
+
+        }
+
+        private sbyte LimitStatModifierChange(Stats<sbyte> originalModifierChanges,
+            Stats<sbyte> targetStatModifiers,
+            Stats<sbyte>.Stat stat)
+        {
+
+            sbyte origStat = originalModifierChanges.GetStat(stat);
+            sbyte targetStat = targetStatModifiers.GetStat(stat);
+
+            return Math.Abs(origStat + targetStat) > 6 ?
+                (sbyte)(
+                    (PokemonInstance.BattleProperties.maximumStatModifier * origStat / Math.Abs(origStat))
+                    - targetStat
+                )
+                : origStat;
+
+        }
+
+        public Stats<sbyte> LimitStatModifierChanges(Stats<sbyte> originalModiferChanges,
+            PokemonInstance target)
+        {
+
+            Stats<sbyte> targetStatModifiers = target.battleProperties.statModifiers;
+
+            return new Stats<sbyte>()
+            {
+                attack = LimitStatModifierChange(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.attack),
+                defense = LimitStatModifierChange(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.defense),
+                specialAttack = LimitStatModifierChange(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.specialAttack),
+                specialDefense = LimitStatModifierChange(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.specialDefense),
+                speed = LimitStatModifierChange(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.speed)
+            };
 
         }
 
@@ -262,8 +298,8 @@ namespace Pokemon.Moves
 
             UsageResults usageResults = new UsageResults();
 
-            usageResults.userStatChanges = userStatChanges;
-            usageResults.targetStatChanges = targetStatChanges;
+            usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
+            usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
 
             return usageResults;
 
