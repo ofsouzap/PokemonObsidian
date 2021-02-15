@@ -181,6 +181,11 @@ namespace Pokemon
                 statModifiers.specialDefense = 0;
                 statModifiers.speed = 0;
 
+                evasionModifier = 0;
+                accuracyModifier = 0;
+
+                criticalHitModifier = 0;
+
             }
 
             // Volatile status conditions must be manually looked through and dealt with one-by-one
@@ -275,9 +280,19 @@ namespace Pokemon
             public VolatileBattleStatus volatileBattleStatus;
 
             /// <summary>
-            /// Each modifier should only be un [-6,6]. Health isn't used
+            /// Each modifier should only be in [-6,6]. Health isn't used
             /// </summary>
             public Stats<sbyte> statModifiers;
+
+            /// <summary>
+            /// Modifier for evasion
+            /// </summary>
+            public sbyte evasionModifier;
+
+            /// <summary>
+            /// Modifier for accuracy
+            /// </summary>
+            public sbyte accuracyModifier;
 
             /// <summary>
             /// The stage of critical hit modifer

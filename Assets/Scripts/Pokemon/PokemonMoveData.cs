@@ -12,7 +12,7 @@ namespace Pokemon
         const string dataPath = "Data/pokemonMoves";
         const bool ignoreDataFirstLine = true;
 
-        public static readonly Regex validStatModifierChangeRegex = new Regex(@"^-?[0-6](:-?[0-6]){4}$");
+        public static readonly Regex validStatModifierChangeRegex = new Regex(@"^-?[0-6](:-?[0-6]){6}$");
 
         /* Data CSV Columns:
          * id (int)
@@ -24,11 +24,11 @@ namespace Pokemon
          * power (byte) (empty if status move)
          * accuracy (byte) (empty if status move)
          * user stat modifier changes
-         *     five values separated by ':' for attack, defense, special attack, special defense and speed respectively
+         *     seven values separated by ':' for attack, defense, special attack, special defense, speed, evasion and accuracy respectively
          *     if none, can be blank
-         *     eg. withdraw "0:1:0:0:0"
+         *     eg. withdraw "0:1:0:0:0:0:0"
          * target stat modifier changes (same format as user stat modifer changes)
-         *     eg. growl "-1:0:0:0:0"
+         *     eg. growl "-1:0:0:0:0:0:0:0:0"
          */
 
         public static void LoadData()
@@ -61,6 +61,7 @@ namespace Pokemon
                 Type type;
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
+                sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
 
                 if (entry.Length < 10)
                 {
@@ -182,6 +183,8 @@ namespace Pokemon
                 if (userStatChangesEntry == "")
                 {
                     userStatChanges = new Stats<sbyte>();
+                    userEvasionChange = 0;
+                    userAccuracyChange = 0;
                 }
                 else if (validStatModifierChangeRegex.IsMatch(userStatChangesEntry))
                 {
@@ -200,11 +203,16 @@ namespace Pokemon
                             speed = sbyte.Parse(parts[4]),
                         };
 
+                        userEvasionChange = sbyte.Parse(parts[5]);
+                        userAccuracyChange = sbyte.Parse(parts[6]);
+
                     }
                     catch (ArgumentException)
                     {
                         Debug.LogError("Invalid user stat changes entry value for id " + id);
                         userStatChanges = new Stats<sbyte>();
+                        userEvasionChange = 0;
+                        userAccuracyChange = 0;
                     }
 
                 }
@@ -212,6 +220,8 @@ namespace Pokemon
                 {
                     Debug.LogError("Invalid user stat changes entry format for id " + id);
                     userStatChanges = new Stats<sbyte>();
+                    userEvasionChange = 0;
+                    userAccuracyChange = 0;
                 }
 
                 #endregion
@@ -223,6 +233,8 @@ namespace Pokemon
                 if (targetStatChangesEntry == "")
                 {
                     targetStatChanges = new Stats<sbyte>();
+                    targetEvasionChange = 0;
+                    targetAccuracyChange = 0;
                 }
                 else if (validStatModifierChangeRegex.IsMatch(targetStatChangesEntry))
                 {
@@ -241,11 +253,16 @@ namespace Pokemon
                             speed = sbyte.Parse(parts[4]),
                         };
 
+                        targetEvasionChange = sbyte.Parse(parts[5]);
+                        targetAccuracyChange = sbyte.Parse(parts[6]);
+
                     }
                     catch (ArgumentException)
                     {
                         Debug.LogError("Invalid target stat changes entry value for id " + id);
                         targetStatChanges = new Stats<sbyte>();
+                        targetEvasionChange = 0;
+                        targetAccuracyChange = 0;
                     }
 
                 }
@@ -253,6 +270,8 @@ namespace Pokemon
                 {
                     Debug.LogError("Invalid target stat changes entry format for id " + id);
                     targetStatChanges = new Stats<sbyte>();
+                    targetEvasionChange = 0;
+                    targetAccuracyChange = 0;
                 }
 
                 #endregion
@@ -268,7 +287,11 @@ namespace Pokemon
                     type = type,
                     moveType = moveType,
                     userStatChanges = userStatChanges,
-                    targetStatChanges = targetStatChanges
+                    userEvasionModifier = userEvasionChange,
+                    userAccuracyModifier = userAccuracyChange,
+                    targetStatChanges = targetStatChanges,
+                    targetEvasionModifier = targetEvasionChange,
+                    targetAccuracyModifier = targetAccuracyChange
                 });
 
             }
@@ -282,7 +305,7 @@ namespace Pokemon
 
             List<PokemonMove> moves = new List<PokemonMove>();
 
-            //TODO - for each special move, add to registry
+            //TODO - for each special move, add instance to registry
 
             return moves.ToArray();
 
