@@ -28,13 +28,15 @@ namespace Pokemon
         /// </summary>
         public string nickname;
 
-        public Nature nature;
         public Item heldItem;
 
         #region Stats
 
         public Stats<byte> effortValues;
         public readonly Stats<byte> individualValues;
+
+        public int natureId;
+        public Nature nature => Nature.GetNatureById(natureId);
 
         public int health;
 

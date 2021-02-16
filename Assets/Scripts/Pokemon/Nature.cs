@@ -27,6 +27,11 @@ namespace Pokemon {
 
         public static Registry<Nature> registry = new Registry<Nature>();
 
+        public static Nature GetNatureById(int id)
+        {
+            return registry.StartingIndexSearch(id, id);
+        }
+
         public static void LoadRegistry()
         {
 
