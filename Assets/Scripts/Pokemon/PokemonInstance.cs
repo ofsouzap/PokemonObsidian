@@ -184,7 +184,7 @@ namespace Pokemon
                 evasionModifier = 0;
                 accuracyModifier = 0;
 
-                criticalHitModifier = false;
+                criticalHitChanceBoosted = false;
 
             }
 

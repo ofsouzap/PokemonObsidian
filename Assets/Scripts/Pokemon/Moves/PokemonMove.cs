@@ -390,6 +390,8 @@ namespace Pokemon.Moves
 
             UsageResults usageResults = new UsageResults();
 
+            //TODO - accuracy
+
             usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
             usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
 

@@ -50,11 +50,7 @@ namespace Pokemon {
 
                 string idString = entry[0];
 
-                try
-                {
-                    id = int.Parse(idString);
-                }
-                catch (ArgumentException)
+                if (!int.TryParse(idString, out id))
                 {
                     Debug.LogWarning("Invalid id passed (" + idString + ")");
                     continue;

@@ -31,6 +31,7 @@ namespace Pokemon
          *     eg. growl "-1:0:0:0:0:0:0:0:0"
          * has increased critical hit chance (1 or 0)
          *     empty assumes false (aka 0)
+         *     "no", "yes", "false" and "true" can also be used but "1"/"0" should be used
          */
 
         public static void LoadData()
@@ -47,7 +48,7 @@ namespace Pokemon
 
         }
 
-        public static PokemonMove[] LoadNonSpecialPokemonMoves()
+        private static PokemonMove[] LoadNonSpecialPokemonMoves()
         {
 
             List<PokemonMove> moves = new List<PokemonMove>();
@@ -74,11 +75,7 @@ namespace Pokemon
 
                 #region id
 
-                try
-                {
-                    id = int.Parse(entry[0]);
-                }
-                catch (ArgumentException)
+                if (!int.TryParse(entry[0], out id))
                 {
                     Debug.LogError("Invalid entry id found - " + entry[0]);
                     id = -1;
@@ -94,11 +91,7 @@ namespace Pokemon
 
                 #region maxPP
 
-                try
-                {
-                    maxPP = byte.Parse(entry[2]);
-                }
-                catch (ArgumentException)
+                if (!byte.TryParse(entry[2], out maxPP))
                 {
                     Debug.LogError("Invalid max PP for id " + id);
                     maxPP = 1;
@@ -118,7 +111,7 @@ namespace Pokemon
                 {
                     type = TypeFunc.Parse(entry[4]);
                 }
-                catch (ArgumentException)
+                catch (FormatException)
                 {
                     Debug.LogError("Invalid type found for id - " + id);
                     type = Type.Normal;
@@ -154,27 +147,29 @@ namespace Pokemon
 
                 #region power and accuracy
 
-                try
+                string powerEntry = entry[6];
+                string accuracyEntry = entry[7];
+
+                if (powerEntry == "")
+                    power = 0;
+                else
                 {
-
-                    string powerEntry = entry[6];
-                    if (powerEntry != "")
-                        power = byte.Parse(powerEntry);
-                    else
-                        power = 0;
-
-                    string accuracyEntry = entry[7];
-                    if (accuracyEntry != "")
-                        accuracy = byte.Parse(accuracyEntry);
-                    else
-                        accuracy = 0;
-
+                    if (!byte.TryParse(powerEntry, out power))
+                    {
+                        Debug.LogError("Invalid power entry for id " + id);
+                        power = 1;
+                    }
                 }
-                catch (ArgumentException)
+
+                if (accuracyEntry == "")
+                    accuracy = 0;
+                else
                 {
-                    Debug.LogError("Invalid power or accuracy entry for id " + id);
-                    power = 1;
-                    accuracy = 1;
+                    if (!byte.TryParse(accuracyEntry, out accuracy))
+                    {
+                        Debug.LogError("Invalid accuracy entry for id " + id);
+                        accuracy = 1;
+                    }
                 }
 
                 #endregion
@@ -194,23 +189,55 @@ namespace Pokemon
 
                     string[] parts = userStatChangesEntry.Split(':');
 
-                    try
+                    sbyte statChangeAttack,
+                        statChangeDefense,
+                        statChangeSpecialAttack,
+                        statChangeSpecialDefense, 
+                        statChangeSpeed,
+                        statChangeEvasion,
+                        statChangeAccuracy;
+
+                    bool statChangeAttackSuccess,
+                        statChangeDefenseSuccess,
+                        statChangeSpecialAttackSuccess,
+                        statChangeSpecialDefenseSuccess,
+                        statChangeSpeedSuccess,
+                        statChangeEvasionSuccess,
+                        statChangeAccuracySuccess;
+
+                    statChangeAttackSuccess = sbyte.TryParse(parts[0], out statChangeAttack);
+                    statChangeDefenseSuccess = sbyte.TryParse(parts[1], out statChangeDefense);
+                    statChangeSpecialAttackSuccess = sbyte.TryParse(parts[2], out statChangeSpecialAttack);
+                    statChangeSpecialDefenseSuccess = sbyte.TryParse(parts[3], out statChangeSpecialDefense);
+                    statChangeSpeedSuccess = sbyte.TryParse(parts[4], out statChangeSpeed);
+                    statChangeEvasionSuccess = sbyte.TryParse(parts[5], out statChangeEvasion);
+                    statChangeAccuracySuccess = sbyte.TryParse(parts[6], out statChangeAccuracy);
+
+                    bool statChangeSuccess = statChangeAttackSuccess
+                        && statChangeDefenseSuccess
+                        && statChangeSpecialAttackSuccess
+                        && statChangeSpecialDefenseSuccess
+                        && statChangeSpeedSuccess
+                        && statChangeEvasionSuccess
+                        && statChangeAccuracySuccess;
+
+                    if (statChangeSuccess)
                     {
 
                         userStatChanges = new Stats<sbyte>()
                         {
-                            attack = sbyte.Parse(parts[0]),
-                            defense = sbyte.Parse(parts[1]),
-                            specialAttack = sbyte.Parse(parts[2]),
-                            specialDefense = sbyte.Parse(parts[3]),
-                            speed = sbyte.Parse(parts[4]),
+                            defense = statChangeDefense,
+                            attack = statChangeAttack,
+                            specialAttack = statChangeSpecialAttack,
+                            specialDefense = statChangeSpecialDefense,
+                            speed = statChangeSpeed
                         };
 
-                        userEvasionChange = sbyte.Parse(parts[5]);
-                        userAccuracyChange = sbyte.Parse(parts[6]);
+                        userEvasionChange = statChangeEvasion;
+                        userAccuracyChange = statChangeAccuracy;
 
                     }
-                    catch (ArgumentException)
+                    else
                     {
                         Debug.LogError("Invalid user stat changes entry value for id " + id);
                         userStatChanges = new Stats<sbyte>();
@@ -244,23 +271,55 @@ namespace Pokemon
 
                     string[] parts = targetStatChangesEntry.Split(':');
 
-                    try
+                    sbyte statChangeAttack,
+                        statChangeDefense,
+                        statChangeSpecialAttack,
+                        statChangeSpecialDefense,
+                        statChangeSpeed,
+                        statChangeEvasion,
+                        statChangeAccuracy;
+
+                    bool statChangeAttackSuccess,
+                        statChangeDefenseSuccess,
+                        statChangeSpecialAttackSuccess,
+                        statChangeSpecialDefenseSuccess,
+                        statChangeSpeedSuccess,
+                        statChangeEvasionSuccess,
+                        statChangeAccuracySuccess;
+
+                    statChangeAttackSuccess = sbyte.TryParse(parts[0], out statChangeAttack);
+                    statChangeDefenseSuccess = sbyte.TryParse(parts[1], out statChangeDefense);
+                    statChangeSpecialAttackSuccess = sbyte.TryParse(parts[2], out statChangeSpecialAttack);
+                    statChangeSpecialDefenseSuccess = sbyte.TryParse(parts[3], out statChangeSpecialDefense);
+                    statChangeSpeedSuccess = sbyte.TryParse(parts[4], out statChangeSpeed);
+                    statChangeEvasionSuccess = sbyte.TryParse(parts[5], out statChangeEvasion);
+                    statChangeAccuracySuccess = sbyte.TryParse(parts[6], out statChangeAccuracy);
+
+                    bool statChangeSuccess = statChangeAttackSuccess
+                        && statChangeDefenseSuccess
+                        && statChangeSpecialAttackSuccess
+                        && statChangeSpecialDefenseSuccess
+                        && statChangeSpeedSuccess
+                        && statChangeEvasionSuccess
+                        && statChangeAccuracySuccess;
+
+                    if (statChangeSuccess)
                     {
 
                         targetStatChanges = new Stats<sbyte>()
                         {
-                            attack = sbyte.Parse(parts[0]),
-                            defense = sbyte.Parse(parts[1]),
-                            specialAttack = sbyte.Parse(parts[2]),
-                            specialDefense = sbyte.Parse(parts[3]),
-                            speed = sbyte.Parse(parts[4]),
+                            defense = statChangeDefense,
+                            attack = statChangeAttack,
+                            specialAttack = statChangeSpecialAttack,
+                            specialDefense = statChangeSpecialDefense,
+                            speed = statChangeSpeed
                         };
 
-                        targetEvasionChange = sbyte.Parse(parts[5]);
-                        targetAccuracyChange = sbyte.Parse(parts[6]);
+                        targetEvasionChange = statChangeEvasion;
+                        targetAccuracyChange = statChangeAccuracy;
 
                     }
-                    catch (ArgumentException)
+                    else
                     {
                         Debug.LogError("Invalid target stat changes entry value for id " + id);
                         targetStatChanges = new Stats<sbyte>();
@@ -331,12 +390,12 @@ namespace Pokemon
 
         }
 
-        public static PokemonMove[] LoadSpecialPokemonMoves()
+        private static PokemonMove[] LoadSpecialPokemonMoves()
         {
 
             List<PokemonMove> moves = new List<PokemonMove>();
 
-            //TODO - for each special move, add instance to registry
+            //TODO - for each special move, add instance to moves list
 
             return moves.ToArray();
 

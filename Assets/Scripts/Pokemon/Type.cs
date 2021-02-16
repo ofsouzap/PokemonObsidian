@@ -52,7 +52,7 @@ namespace Pokemon
                 case "steel": return Type.Steel;
 
                 default:
-                    throw new System.ArgumentException("Unknown type string passed", "x");
+                    throw new System.FormatException("Unknown type string passed");
 
             }
 

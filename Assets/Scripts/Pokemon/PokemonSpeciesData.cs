@@ -80,11 +80,7 @@ namespace Pokemon
 
                 #region id
 
-                try
-                {
-                    id = int.Parse(entry[0]);
-                }
-                catch (ArgumentException)
+                if (!int.TryParse(entry[0], out id))
                 {
                     Debug.LogError("Invalid entry id found - " + entry[0]);
                     id = -1;
@@ -100,22 +96,32 @@ namespace Pokemon
 
                 #region spritesName
 
-                spritesName = entry[2] == "" ? entry[2] : id.ToString();
+                spritesName = entry[2] != "" ? entry[2] : id.ToString();
 
                 #endregion
 
                 #region baseStats
 
-                try
-                {
-                    baseAttack = byte.Parse(entry[3]);
-                    baseDefense = byte.Parse(entry[4]);
-                    baseSpecialAttack = byte.Parse(entry[5]);
-                    baseSpecialDefense = byte.Parse(entry[6]);
-                    baseSpeed = byte.Parse(entry[7]);
-                    baseHealth = byte.Parse(entry[8]);
-                }
-                catch (ArgumentException)
+                bool baseAttackSuccess,
+                    baseDefenseSuccess,
+                    baseSpecialAttackSuccess,
+                    baseSpecialDefenseSuccess,
+                    baseSpeedSuccess,
+                    baseHealthSuccess;
+
+                baseAttackSuccess = byte.TryParse(entry[3], out baseAttack);
+                baseDefenseSuccess = byte.TryParse(entry[4], out baseDefense);
+                baseSpecialAttackSuccess = byte.TryParse(entry[5], out baseSpecialAttack);
+                baseSpecialDefenseSuccess = byte.TryParse(entry[6], out baseSpecialDefense);
+                baseSpeedSuccess = byte.TryParse(entry[7], out baseSpeed);
+                baseHealthSuccess = byte.TryParse(entry[8], out baseHealth);
+
+                if (!(baseAttackSuccess
+                    && baseDefenseSuccess
+                    && baseSpecialAttackSuccess
+                    && baseSpecialDefenseSuccess
+                    && baseSpeedSuccess
+                    && baseHealthSuccess))
                 {
                     Debug.LogError("Invalid base stats found for id " + id);
                     baseAttack = baseDefense = baseSpecialAttack = baseSpecialDefense = baseSpeed = baseHealth = 1;
@@ -139,7 +145,7 @@ namespace Pokemon
                         type2 = null;
 
                 }
-                catch (ArgumentException)
+                catch (FormatException)
                 {
                     Debug.LogError("Invalid type found for id - " + id);
                     type1 = Type.Normal;
@@ -154,7 +160,7 @@ namespace Pokemon
                 {
                     growthType = GrowthTypeFunc.Parse(entry[11]);
                 }
-                catch (ArgumentException)
+                catch (FormatException)
                 {
                     Debug.LogError("Unknown growth type found for id " + id);
                     growthType = GrowthType.Slow;
@@ -187,25 +193,29 @@ namespace Pokemon
                             int targetId, usedItemId;
                             byte level;
 
-                            try
-                            {
-                                targetId = int.Parse(entryParts[0]);
-                                usedItemId = int.Parse(entryParts[1]);
-                                level = byte.Parse(entryParts[2]);
-                            }
-                            catch (ArgumentException)
-                            {
-                                targetId = usedItemId = 0;
-                                level = 0;
-                                Debug.LogError("Invalid evolution entry as id " + id);
-                            }
+                            bool targetIdSuccess,
+                                usedItemIdSuccess,
+                                levelSuccess;
 
-                            evolutionsList.Add(new PokemonSpecies.Evolution()
+                            targetIdSuccess = int.TryParse(entryParts[0], out targetId);
+                            usedItemIdSuccess = int.TryParse(entryParts[1], out usedItemId);
+                            levelSuccess = byte.TryParse(entryParts[2], out level);
+
+                            if (targetIdSuccess && usedItemIdSuccess && levelSuccess)
                             {
-                                targetId = targetId,
-                                itemId = usedItemId,
-                                level = level
-                            });
+
+                                evolutionsList.Add(new PokemonSpecies.Evolution()
+                                {
+                                    targetId = targetId,
+                                    itemId = usedItemId,
+                                    level = level
+                                });
+
+                            }
+                            else
+                            {
+                                Debug.LogError("Invalid evolution entry at id " + id);
+                            }
 
                         }
 
@@ -243,12 +253,10 @@ namespace Pokemon
 
                         string[] entryParts = levelUpMoveEntry.Split(':');
 
-                        try
-                        {
-                            level = byte.Parse(entryParts[0]);
-                            moveId = int.Parse(entryParts[1]);
-                        }
-                        catch (ArgumentException)
+                        bool levelSuccess = byte.TryParse(entryParts[0], out level);
+                        bool moveIdSuccess = int.TryParse(entryParts[1], out moveId);
+
+                        if (!(levelSuccess && moveIdSuccess))
                         {
                             Debug.LogError("Invalid entry for level up move - " + levelUpMoveEntry + " (id " + id + ")");
                             level = 0;
@@ -273,7 +281,7 @@ namespace Pokemon
                     eggMoves = entry[15].Split(':').Select((x) => int.Parse(x)).ToArray();
                     tutorMoves = entry[16].Split(':').Select((x) => int.Parse(x)).ToArray();
                 }
-                catch (ArgumentException)
+                catch (FormatException)
                 {
                     Debug.LogError("Invalid move id in disc, egg or tutor moves for id " + id);
                     discMoves = eggMoves = tutorMoves = new int[0];

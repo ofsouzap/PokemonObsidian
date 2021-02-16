@@ -27,7 +27,7 @@
                 case "fluctuating": return GrowthType.Fluctuating;
 
                 default:
-                    throw new System.ArgumentException("Unknown growth type string passed", "x");
+                    throw new System.FormatException("Unknown growth type string passed");
 
             }
 
