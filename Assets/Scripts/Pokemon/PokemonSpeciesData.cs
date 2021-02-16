@@ -14,8 +14,8 @@ namespace Pokemon
         const string dataPath = "Data/pokemonSpecies";
         const bool ignoreDataFirstLine = true;
 
-        public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^\[([0-9]+:[0-9]*:[0-9]{0,3}?)(;([0-9]+:[0-9]*:[0-9]{0,3}?))*\]$");
-        public static readonly Regex validLevelUpMovesEntryRegex = new Regex(@"^\[([0-9]+:[0-9]+)(;[0-9]+:[0-9]+)*\]$");
+        public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^([0-9]+:[0-9]*:[0-9]{0,3}?)(;([0-9]+:[0-9]*:[0-9]{0,3}?))*$");
+        public static readonly Regex validLevelUpMovesEntryRegex = new Regex(@"^([0-9]+:[0-9]+)(;[0-9]+:[0-9]+)*$");
         public static readonly Regex validEVYieldRegex = new Regex(@"^[0-9]{0,3}(:[0-9]{0,3}){4}$");
 
         /* Data CSV Columns:
@@ -31,13 +31,13 @@ namespace Pokemon
          * type 1 (lowercase type name)
          * type 2 (lowercase type name or blank if none)
          * growth type (lowercase growth type name)
-         * basic evolutions (format: "[evolution;evolution...]")
+         * basic evolutions (format: "evolution;evolution...")
          *     evolution format: "targetSpeciesId:usedItemId:level"
          *     note that, if both used item and level conditions are used, they will both be required to evolve; not either
-         *     eg. for bulbasaur: [2::16]
-         *     eg. for eevee: [134:{waterStoneId}:;135:{thunderStoneId}:;136:{fireStoneId}:] ({xId} means id for item x. Yet to be set)
-         * level-up move ids (format: "[level:moveId;level:moveId...]")
-         *     eg. for bulbasuar: [0:{tackle};0:{growl};3:{vineWhip};6:{growth} etc. etc.]
+         *     eg. for bulbasaur: 2::16
+         *     eg. for eevee: 134:{waterStoneId}:;135:{thunderStoneId}:;136:{fireStoneId}: ({xId} means id for item x. Yet to be set)
+         * level-up move ids (format: "level:moveId;level:moveId...")
+         *     eg. for bulbasuar: 0:{tackle};0:{growl};3:{vineWhip};6:{growth} etc. etc.
          *         where {x} means id of move x which is yet to be set
          * disc move ids (move ids separated by ':')
          * egg move ids (move ids separated by ':')
@@ -181,7 +181,7 @@ namespace Pokemon
 
                 string evolutionsString = entry[12];
 
-                if (evolutionsString == "" || evolutionsString == "[]")
+                if (evolutionsString == "")
                 {
                     evolutions = new PokemonSpecies.Evolution[0];
                 }
@@ -193,7 +193,7 @@ namespace Pokemon
 
                         List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>();
 
-                        string[] evolutionStringEntries = evolutionsString.Substring(1, evolutionsString.Length - 2).Split(';');
+                        string[] evolutionStringEntries = evolutionsString.Split(';');
 
                         foreach (string evolutionStringEntry in evolutionStringEntries)
                         {
