@@ -12,7 +12,7 @@ namespace Pokemon
 
         #region Registry
 
-        public static Registry<PokemonSpecies> registry;
+        public static Registry<PokemonSpecies> registry = new Registry<PokemonSpecies>();
 
         public static PokemonSpecies GetPokemonSpeciesById(int id)
         {

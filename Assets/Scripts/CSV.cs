@@ -14,7 +14,10 @@ public static class CSV
 
         TextAsset file = Resources.Load(filePath) as TextAsset;
 
-        string[] lines = file.text.Split('\n');
+        string rawFileText = file.text;
+        string processedFileText = rawFileText.Replace("\r", string.Empty);
+
+        string[] lines = processedFileText.Split('\n');
 
         string[] linesToUse = new string[ignoreFirstLine ? lines.Length - 1 : lines.Length];
 
@@ -24,15 +27,38 @@ public static class CSV
             0,
             ignoreFirstLine ? lines.Length - 1 : lines.Length);
 
-        foreach (string rawLine in linesToUse)
+        foreach (string line in linesToUse)
         {
-
-            string line = string.Concat(rawLine.Where((x) => !char.IsWhiteSpace(x)));
 
             if (line == "")
                 continue;
 
-            data.Add(line.Split(','));
+            List<string> values = new List<string>();
+            bool inQuoteValue = false;
+            string currentValue = "";
+
+            foreach (char c in line)
+            {
+
+                if (c == '"')
+                {
+                    inQuoteValue = !inQuoteValue;
+                }
+                else if (c == ',' && !inQuoteValue)
+                {
+                    values.Add(currentValue);
+                    currentValue = "";
+                }
+                else
+                {
+                    currentValue += c;
+                }
+
+            }
+
+            values.Add(currentValue);
+
+            data.Add(values.ToArray());
 
         }
 

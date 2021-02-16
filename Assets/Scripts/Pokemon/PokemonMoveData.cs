@@ -69,7 +69,7 @@ namespace Pokemon
 
                 if (entry.Length < 11)
                 {
-                    Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
+                    Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
                 }
 

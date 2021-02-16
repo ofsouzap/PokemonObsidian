@@ -10,7 +10,7 @@ namespace Pokemon.Moves
 
         #region Registry
 
-        public static Registry<PokemonMove> registry;
+        public static Registry<PokemonMove> registry = new Registry<PokemonMove>();
 
         public static PokemonMove GetPokemonMoveById(int id)
         {
