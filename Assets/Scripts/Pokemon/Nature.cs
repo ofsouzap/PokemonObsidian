@@ -87,9 +87,9 @@ namespace Pokemon {
 
         }
 
-        public static Nature GetRandomNature()
+        public static int GetRandomNatureId()
         {
-            return registry[UnityEngine.Random.Range(0, registry.Length)];
+            return registry[UnityEngine.Random.Range(0, registry.Length)].id;
         }
 
     }

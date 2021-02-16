@@ -16,6 +16,7 @@ namespace Pokemon
 
         public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^\[([0-9]+:[0-9]*:[0-9]{0,3}?)(;([0-9]+:[0-9]*:[0-9]{0,3}?))*\]$");
         public static readonly Regex validLevelUpMovesEntryRegex = new Regex(@"^\[([0-9]+:[0-9]+)(;[0-9]+:[0-9]+)*\]$");
+        public static readonly Regex validEVYieldRegex = new Regex(@"^[0-9]{0,3}(:[0-9]{0,3}){4}$");
 
         /* Data CSV Columns:
          * id
@@ -41,6 +42,12 @@ namespace Pokemon
          * disc move ids (move ids separated by ':')
          * egg move ids (move ids separated by ':')
          * tutor move ids (move ids separated by ':')
+         * ev yield
+         *     five values separated by ':' for attack, defense, specialAttack, specialDefense, speed
+         *     can't be blank
+         *     eg. bulbasaur 0:0:1:0:0
+         * catch rate (byte)
+         * base expereience yield (0 <= x <= 65,535)
          */
 
         public static void LoadData()
@@ -64,15 +71,17 @@ namespace Pokemon
 
                 string name, spritesName;
                 int id;
-                byte baseAttack, baseDefense, baseSpecialAttack, baseSpecialDefense, baseSpeed, baseHealth;
+                byte baseAttack, baseDefense, baseSpecialAttack, baseSpecialDefense, baseSpeed, baseHealth, catchRate;
                 Type type1;
                 Type? type2;
                 GrowthType growthType;
                 PokemonSpecies.Evolution[] evolutions;
                 Dictionary<byte, int> levelUpMoves;
                 int[] discMoves, eggMoves, tutorMoves;
+                Stats<byte> evYield;
+                ushort baseExperienceYield;
 
-                if (entry.Length < 17)
+                if (entry.Length < 20)
                 {
                     Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
                     continue;
@@ -289,6 +298,85 @@ namespace Pokemon
 
                 #endregion
 
+                #region evYield
+
+                string evYieldEntry = entry[17];
+
+                if (validEVYieldRegex.IsMatch(evYieldEntry))
+                {
+
+                    string[] parts = evYieldEntry.Split(':');
+
+                    byte yieldAttack,
+                        yieldDefense,
+                        yieldSpecialAttack,
+                        yieldSpecialDefense,
+                        yieldSpeed;
+
+                    bool yieldAttackSuccess,
+                        yieldDefenseSuccess,
+                        yieldSpecialAttackSuccess,
+                        yieldSpecialDefenseSuccess,
+                        yieldSpeedSuccess;
+
+                    yieldAttackSuccess = byte.TryParse(parts[0], out yieldAttack);
+                    yieldDefenseSuccess = byte.TryParse(parts[1], out yieldDefense);
+                    yieldSpecialAttackSuccess = byte.TryParse(parts[2], out yieldSpecialAttack);
+                    yieldSpecialDefenseSuccess = byte.TryParse(parts[3], out yieldSpecialDefense);
+                    yieldSpeedSuccess = byte.TryParse(parts[4], out yieldSpeed);
+
+                    if (yieldAttackSuccess
+                        && yieldDefenseSuccess
+                        && yieldSpecialAttackSuccess
+                        && yieldSpecialDefenseSuccess
+                        && yieldSpeedSuccess)
+                    {
+
+                        evYield = new Stats<byte>()
+                        {
+                            attack = yieldAttack,
+                            defense = yieldDefense,
+                            specialAttack = yieldSpecialAttack,
+                            specialDefense = yieldSpecialDefense,
+                            speed = yieldSpeed
+                        };
+
+                    }
+                    else
+                    {
+                        Debug.LogError("Invalid EV yield entry value for id " + id);
+                        evYield = new Stats<byte>();
+                    }
+
+                }
+                else
+                {
+                    Debug.LogError("Invalid EV yield format for id " + id);
+                    evYield = new Stats<byte>();
+                }
+
+                #endregion
+
+                #region catchRate
+
+                if (!byte.TryParse(entry[18], out catchRate))
+                {
+                    Debug.LogError("Invalid catch rate entry for id " + id);
+                    catchRate = 127;
+                }
+
+                #endregion
+
+                #region baseExperienceYield
+
+                if (!ushort.TryParse(entry[19], out baseExperienceYield))
+                {
+                    Debug.LogError("Invalid base experience yield entry for id " + id);
+                    baseExperienceYield = 0;
+                }
+
+                #endregion
+
                 species.Add(new PokemonSpecies()
                 {
                     name = name,
@@ -311,7 +399,11 @@ namespace Pokemon
                     levelUpMoves = levelUpMoves,
                     discMoves = discMoves,
                     eggMoves = eggMoves,
-                    tutorMoves = tutorMoves
+                    tutorMoves = tutorMoves,
+
+                    evYield = evYield,
+                    catchRate = catchRate,
+                    baseExperienceYield = baseExperienceYield
 
                 });
 

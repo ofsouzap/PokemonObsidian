@@ -32,7 +32,7 @@ namespace Pokemon
 
         #region Stats
 
-        public Stats<byte> effortValues;
+        public Stats<ushort> effortValues;
         public readonly Stats<byte> individualValues;
 
         public int natureId;
@@ -48,12 +48,13 @@ namespace Pokemon
         protected int GetStat<T>(Stats<T>.Stat stat)
         {
             
+            Stats<ushort>.Stat statUShort = (Stats<ushort>.Stat)stat;
             Stats<byte>.Stat statByte = (Stats<byte>.Stat)stat;
             Stats<bool?>.Stat statBoolN = (Stats<bool?>.Stat)stat;
 
             byte B = species.baseStats.GetStat(statByte);
             byte I = individualValues.GetStat(statByte);
-            int E = effortValues.GetStat(statByte) / 4;
+            int E = effortValues.GetStat(statUShort) / 4;
             byte L = GetLevel();
 
             //N.B. health is calculated differently

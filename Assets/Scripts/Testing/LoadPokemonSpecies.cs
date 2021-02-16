@@ -11,7 +11,7 @@ namespace Testing
         private void Start()
         {
 
-
+            PokemonSpeciesData.LoadData();
 
         }
 

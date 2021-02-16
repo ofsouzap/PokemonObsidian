@@ -15,8 +15,8 @@ namespace Pokemon
         /// <returns>The PokemonInstance created</returns>
         public static PokemonInstance GenerateFull(
             int speciesId,
-            Nature nature,
-            Stats<byte> effortValues,
+            int natureId,
+            Stats<ushort> effortValues,
             Stats<byte> individualValues,
             int[] _moves,
             int experience,
@@ -43,7 +43,7 @@ namespace Pokemon
             PokemonInstance instance = new PokemonInstance(individualValues)
             {
                 speciesId = speciesId,
-                nature = nature,
+                natureId = natureId,
                 effortValues = effortValues,
                 moveIds = moves,
                 experience = experience,
@@ -77,8 +77,9 @@ namespace Pokemon
 
             int speciesId, experience;
             byte level;
-            Nature nature;
-            Stats<byte> effortValues, individualValues;
+            int natureId;
+            Stats<ushort> effortValues;
+            Stats<byte> individualValues;
             int[] moves;
 
             speciesId = possibleSpeciesIds[UnityEngine.Random.Range(0, possibleSpeciesIds.Length)];
@@ -86,9 +87,9 @@ namespace Pokemon
             level = (byte)UnityEngine.Random.Range(minLevel, maxLevel + 1);
             experience = GrowthTypeData.GetMinimumExperienceForLevel(level, PokemonSpecies.GetPokemonSpeciesById(speciesId).growthType);
 
-            nature = Nature.GetRandomNature();
+            natureId = Nature.GetRandomNatureId();
 
-            effortValues = new Stats<byte>()
+            effortValues = new Stats<ushort>()
             {
                 attack = 0,
                 defense = 0,
@@ -125,7 +126,7 @@ namespace Pokemon
 
             return GenerateFull(
                 speciesId: speciesId,
-                nature: nature,
+                natureId: natureId,
                 effortValues: effortValues,
                 individualValues: individualValues,
                 _moves: moves,

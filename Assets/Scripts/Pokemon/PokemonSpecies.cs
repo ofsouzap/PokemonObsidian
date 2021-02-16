@@ -28,7 +28,6 @@ namespace Pokemon
 
         public string name;
         public string description;
-        public byte catchRate;
 
         public Type type1;
         public Type? type2;
@@ -45,7 +44,10 @@ namespace Pokemon
         #region Stats
 
         public Stats<byte> baseStats;
+
         public Stats<byte> evYield;
+        public ushort baseExperienceYield;
+        public byte catchRate;
 
         #endregion
 
