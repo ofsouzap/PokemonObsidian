@@ -11,3 +11,8 @@ id,name,maxPP,desc,type,moveType,power,accuracy,userStatChanges,targetStatChange
 9,water gun,25,The target is blasted with a forceful shot of water,water,special,40,100,,,
 10,withdraw,40,"The user withdraws its body into its hard shell, raising its Defense stat",water,status,,,0:1:0:0:0:0:0,,
 11,aqua tail,10,The user attacks by swinging its tail as if it were a vicious wave in a raging storm,water,physical,90,100,,,
+12,charm,20,"The user gazes at the target rather charmingly, making it less wary. This harshly lowers its Attack stat",normal,status,,100,,-2:0:0:0:0:0:0,
+13,amensia,20,,psychic,status,,,0:0:0:2:0:0:0,,
+14,wing attack,35,,flying,physical,60,100,,,
+15,dual wingbeat,10,,flying,physical,80,90,,,
+16,aura sphere,20,,fighting,special,80,,,,

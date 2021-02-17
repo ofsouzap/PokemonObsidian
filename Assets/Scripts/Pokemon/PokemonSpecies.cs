@@ -90,6 +90,11 @@ namespace Pokemon
         #region Moves
 
         /// <summary>
+        /// Moves the pokemon could have at any level. A.k.a moves learnt at level 1/level 0
+        /// </summary>
+        public int[] baseMoves;
+
+        /// <summary>
         /// { level , moveId }. Describes moves the pokemon can learn and the level at which they learn them
         /// </summary>
         public Dictionary<byte, int> levelUpMoves;
