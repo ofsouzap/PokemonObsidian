@@ -5,7 +5,7 @@ using Battle;
 
 namespace Battle
 {
-    public class BattleParticipantNPC
+    public class BattleParticipantNPC : BattleParticipant
     {
 
     }
