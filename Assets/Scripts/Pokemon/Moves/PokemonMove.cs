@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Pokemon;
@@ -91,34 +92,9 @@ namespace Pokemon.Moves
         public float flinchChance;
 
         /// <summary>
-        /// Chance of inflicting burn on the target
+        /// The chances of the target being inflicted with each of the non-volatile status conditions (any key-value pair with NonVolatileStatusCondition.None as the key is never used)
         /// </summary>
-        public float burnChance;
-
-        /// <summary>
-        /// Chance of inflicting freeze on the target
-        /// </summary>
-        public float freezeChance;
-
-        /// <summary>
-        /// Chance of inflicting paralysis on the target
-        /// </summary>
-        public float paralysisChance;
-
-        /// <summary>
-        /// Chance of inflicting poison on the target
-        /// </summary>
-        public float poisonChance;
-
-        /// <summary>
-        /// Chance of inflicting bad poison on the target
-        /// </summary>
-        public float badPoisonChance;
-
-        /// <summary>
-        /// Chance of inflicting sleep on the target
-        /// </summary>
-        public float sleepChance;
+        public Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
 
         /// <summary>
         /// Chance of confusing the target
@@ -135,7 +111,13 @@ namespace Pokemon.Moves
             /// <summary>
             /// Whether the move succeeded
             /// </summary>
-            public bool succeeded;
+            public bool Succeeded
+            {
+                get
+                {
+                    return !missed && !failed;
+                }
+            }
 
             /// <summary>
             /// Whether the move missed
@@ -197,6 +179,22 @@ namespace Pokemon.Moves
             /// </summary>
             public sbyte targetAccuracyChange = 0;
 
+            /// <summary>
+            /// Whether the target should flinch (if it hasn't used its move already)
+            /// </summary>
+            public bool targetFlinch = false;
+
+            /// <summary>
+            /// The non-volatile status condition to give the target (if None, the target should keep whichever condition they already have).
+            /// If the target already has a non-volatile status condition, this can be ignored
+            /// </summary>
+            public PokemonInstance.NonVolatileStatusCondition targetNonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+            /// <summary>
+            /// Whether the target should be confused (if it isn't already)
+            /// </summary>
+            public bool targetConfuse = false;
+
         }
 
         /// <summary>
@@ -209,7 +207,10 @@ namespace Pokemon.Moves
             PokemonInstance target)
         {
 
-            UsageResults usageResults = new UsageResults();
+            //The results from calculating status effects are a base for the results returned from this function. The results shouldn't overlap but, if they do, the effects calculated here take priority
+            UsageResults usageResults = CalculateNormalStatusEffect(user, target);
+
+            //TODO - accuracy
 
             //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
 
@@ -430,8 +431,6 @@ namespace Pokemon.Moves
 
             UsageResults usageResults = new UsageResults();
 
-            //TODO - accuracy
-
             usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
             usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
 
@@ -440,6 +439,23 @@ namespace Pokemon.Moves
 
             usageResults.targetEvasionChange = LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
             usageResults.targetAccuracyChange = LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
+
+            usageResults.targetFlinch = UnityEngine.Random.Range(0f, 1f) < flinchChance;
+            usageResults.targetConfuse = UnityEngine.Random.Range(0f, 1f) < confusionChance;
+
+            foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
+            {
+
+                if (nonVolatileStatusConditionChances[key] == 0)
+                    continue;
+
+                if (UnityEngine.Random.Range(0f, 1f) < nonVolatileStatusConditionChances[key])
+                {
+                    usageResults.targetNonVolatileStatusCondition = key;
+                    break;
+                }
+
+            }
 
             return usageResults;
 

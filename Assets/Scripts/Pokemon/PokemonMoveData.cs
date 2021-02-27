@@ -74,7 +74,8 @@ namespace Pokemon
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
                 bool boostedCriticalChance;
-                float flinchChance, burnChance, freezeChance, paralysisChance, poisonChance, badPoisonChance, sleepChance, confusionChance;
+                float flinchChance, confusionChance;
+                Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
 
                 if (entry.Length < 14)
                 {
@@ -393,6 +394,8 @@ namespace Pokemon
 
                 #region nonVolatileStatusConditionsChances
 
+                float burnChance, freezeChance, paralysisChance, poisonChance, badPoisonChance, sleepChance;
+
                 string nonVolatileStatusConditionsChancesEntry = entry[12];
 
                 if (nonVolatileStatusConditionsChancesEntry == "")
@@ -482,6 +485,16 @@ namespace Pokemon
 
                 }
 
+                nonVolatileStatusConditionChances = new Dictionary<PokemonInstance.NonVolatileStatusCondition, float>()
+                {
+                    { PokemonInstance.NonVolatileStatusCondition.Burn , burnChance },
+                    { PokemonInstance.NonVolatileStatusCondition.Frozen , freezeChance },
+                    { PokemonInstance.NonVolatileStatusCondition.Paralysed , paralysisChance },
+                    { PokemonInstance.NonVolatileStatusCondition.Poisoned , poisonChance },
+                    { PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned , badPoisonChance },
+                    { PokemonInstance.NonVolatileStatusCondition.Asleep , sleepChance }
+                };
+
                 #endregion
 
                 #region confuseChance
@@ -519,12 +532,7 @@ namespace Pokemon
                     targetAccuracyModifier = targetAccuracyChange,
                     boostedCriticalChance = boostedCriticalChance,
                     flinchChance = flinchChance,
-                    burnChance = burnChance,
-                    freezeChance = freezeChance,
-                    paralysisChance = paralysisChance,
-                    poisonChance = poisonChance,
-                    badPoisonChance = badPoisonChance,
-                    sleepChance = sleepChance,
+                    nonVolatileStatusConditionChances = nonVolatileStatusConditionChances,
                     confusionChance = confusionChance
                 });
 
