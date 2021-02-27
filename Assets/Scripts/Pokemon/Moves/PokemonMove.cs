@@ -210,7 +210,11 @@ namespace Pokemon.Moves
             //The results from calculating status effects are a base for the results returned from this function. The results shouldn't overlap but, if they do, the effects calculated here take priority
             UsageResults usageResults = CalculateNormalStatusEffect(user, target);
 
-            //TODO - accuracy
+            if (UnityEngine.Random.Range(0, 100) > accuracy)
+            {
+                usageResults.missed = true;
+                return usageResults;
+            }
 
             //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
 
@@ -430,6 +434,12 @@ namespace Pokemon.Moves
         {
 
             UsageResults usageResults = new UsageResults();
+
+            if (UnityEngine.Random.Range(0, 100) > accuracy)
+            {
+                usageResults.missed = true;
+                return usageResults;
+            }
 
             usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
             usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
