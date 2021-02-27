@@ -12,7 +12,7 @@ namespace Pokemon
         const string dataPath = "Data/pokemonMoves";
         const bool ignoreDataFirstLine = true;
 
-        public static readonly Regex validStatModifierChangeRegex = new Regex(@"^-?[0-6](:-?[0-6]){6}$");
+        public static readonly Regex validStatModifierChangeRegex = new Regex(@"^-?[0-6](;-?[0-6]){6}$");
 
         /* Data CSV Columns:
          * id (int)
@@ -24,11 +24,11 @@ namespace Pokemon
          * power (byte) (empty if status move)
          * accuracy (byte) (empty if status move)
          * user stat modifier changes
-         *     seven values separated by ':' for attack, defense, special attack, special defense, speed, evasion and accuracy respectively
+         *     seven values separated by ';' for attack, defense, special attack, special defense, speed, evasion and accuracy respectively
          *     if none, can be blank
-         *     eg. withdraw "0:1:0:0:0:0:0"
+         *     eg. withdraw "0;1;0;0;0;0;0"
          * target stat modifier changes (same format as user stat modifer changes)
-         *     eg. growl "-1:0:0:0:0:0:0:0:0"
+         *     eg. growl "-1;0;0;0;0;0;0;0;0"
          * has increased critical hit chance (1 or 0)
          *     empty assumes false (aka 0)
          *     "no", "yes", "false" and "true" can also be used but "1"/"0" should be used
@@ -187,7 +187,7 @@ namespace Pokemon
                 else if (validStatModifierChangeRegex.IsMatch(userStatChangesEntry))
                 {
 
-                    string[] parts = userStatChangesEntry.Split(':');
+                    string[] parts = userStatChangesEntry.Split(';');
 
                     sbyte statChangeAttack,
                         statChangeDefense,
@@ -269,7 +269,7 @@ namespace Pokemon
                 else if (validStatModifierChangeRegex.IsMatch(targetStatChangesEntry))
                 {
 
-                    string[] parts = targetStatChangesEntry.Split(':');
+                    string[] parts = targetStatChangesEntry.Split(';');
 
                     sbyte statChangeAttack,
                         statChangeDefense,
