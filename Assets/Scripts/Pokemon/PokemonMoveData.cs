@@ -32,6 +32,14 @@ namespace Pokemon
          * has increased critical hit chance (1 or 0)
          *     empty assumes false (aka 0)
          *     "no", "yes", "false" and "true" can also be used but "1"/"0" should be used
+         * chance of opponent flinching (float) (must be in [0,1] range) (optional)
+         * chance of inflicting each non-volatile status condition (optional)
+         *     separated by semicolons
+         *     each value must be in range [0,1]
+         *     each value stored as a float
+         *     format:
+         *         {burn};{freeze};{paralysis};{poison};{bad poison};{sleep}
+         * chance of inflicting confusion (float) (must be in range [0,1]) (optional)
          */
 
         public static void LoadData()
@@ -66,8 +74,9 @@ namespace Pokemon
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
                 bool boostedCriticalChance;
+                float flinchChance, burnChance, freezeChance, paralysisChance, poisonChance, badPoisonChance, sleepChance, confusionChance;
 
-                if (entry.Length < 11)
+                if (entry.Length < 14)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -365,6 +374,133 @@ namespace Pokemon
 
                 #endregion
 
+                #region flinchChance
+
+                string flinchChanceEntry = entry[11];
+
+                if (flinchChanceEntry == "")
+                    flinchChance = 0;
+                else
+                {
+                    if (!float.TryParse(flinchChanceEntry, out flinchChance))
+                    {
+                        Debug.LogError("Invalid flinch entry for id " + id);
+                        flinchChance = 1;
+                    }
+                }
+
+                #endregion
+
+                #region nonVolatileStatusConditionsChances
+
+                string nonVolatileStatusConditionsChancesEntry = entry[12];
+
+                if (nonVolatileStatusConditionsChancesEntry == "")
+                {
+                    burnChance = freezeChance = paralysisChance = poisonChance = badPoisonChance = sleepChance = 0;
+                }
+                else
+                {
+
+                    string[] nonVolatileStatusConditionsChancesEntryParts = nonVolatileStatusConditionsChancesEntry.Split(';');
+
+                    if (nonVolatileStatusConditionsChancesEntryParts.Length != 6)
+                    {
+                        Debug.LogError("Invalid non-volatile status conditions chances length for id " + id);
+                        burnChance = freezeChance = paralysisChance = poisonChance = badPoisonChance = sleepChance = 0;
+                    }
+                    else
+                    {
+
+                        if (!float.TryParse(nonVolatileStatusConditionsChancesEntryParts[0], out burnChance))
+                        {
+                            Debug.LogError("Invalid non-volatile status conditions burn entry length for id " + id);
+                            burnChance = 0;
+                        }
+                        if (burnChance < 0 || burnChance > 1)
+                        {
+                            Debug.LogError("Non-volatile status conditions burn entry length out of range for id " + id);
+                            burnChance = 0;
+                        }
+
+                        if (!float.TryParse(nonVolatileStatusConditionsChancesEntryParts[1], out freezeChance))
+                        {
+                            Debug.LogError("Invalid non-volatile status conditions freeze entry length for id " + id);
+                            freezeChance = 0;
+                        }
+                        if (freezeChance < 0 || freezeChance > 1)
+                        {
+                            Debug.LogError("Non-volatile status conditions freeze entry length out of range for id " + id);
+                            freezeChance = 0;
+                        }
+
+                        if (!float.TryParse(nonVolatileStatusConditionsChancesEntryParts[2], out paralysisChance))
+                        {
+                            Debug.LogError("Invalid non-volatile status conditions paralysis entry length for id " + id);
+                            paralysisChance = 0;
+                        }
+                        if (paralysisChance < 0 || paralysisChance > 1)
+                        {
+                            Debug.LogError("Non-volatile status conditions paralysis entry length out of range for id " + id);
+                            paralysisChance = 0;
+                        }
+
+                        if (!float.TryParse(nonVolatileStatusConditionsChancesEntryParts[3], out poisonChance))
+                        {
+                            Debug.LogError("Invalid non-volatile status conditions poison entry length for id " + id);
+                            poisonChance = 0;
+                        }
+                        if (poisonChance < 0 || poisonChance > 1)
+                        {
+                            Debug.LogError("Non-volatile status conditions poison entry length out of range for id " + id);
+                            poisonChance = 0;
+                        }
+
+                        if (!float.TryParse(nonVolatileStatusConditionsChancesEntryParts[4], out badPoisonChance))
+                        {
+                            Debug.LogError("Invalid non-volatile status conditions badPoison entry length for id " + id);
+                            badPoisonChance = 0;
+                        }
+                        if (badPoisonChance < 0 || badPoisonChance > 1)
+                        {
+                            Debug.LogError("Non-volatile status conditions badPoison entry length out of range for id " + id);
+                            badPoisonChance = 0;
+                        }
+
+                        if (!float.TryParse(nonVolatileStatusConditionsChancesEntryParts[5], out sleepChance))
+                        {
+                            Debug.LogError("Invalid non-volatile status conditions sleep entry length for id " + id);
+                            sleepChance = 0;
+                        }
+                        if (sleepChance < 0 || sleepChance > 1)
+                        {
+                            Debug.LogError("Non-volatile status conditions sleep entry length out of range for id " + id);
+                            sleepChance = 0;
+                        }
+
+                    }
+
+                }
+
+                #endregion
+
+                #region confuseChance
+
+                string confusionChanceEntry = entry[13];
+
+                if (confusionChanceEntry == "")
+                    confusionChance = 0;
+                else
+                {
+                    if (!float.TryParse(confusionChanceEntry, out confusionChance))
+                    {
+                        Debug.LogError("Invalid confuse entry for id " + id);
+                        confusionChance = 1;
+                    }
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -381,7 +517,15 @@ namespace Pokemon
                     targetStatChanges = targetStatChanges,
                     targetEvasionModifier = targetEvasionChange,
                     targetAccuracyModifier = targetAccuracyChange,
-                    boostedCriticalChance = boostedCriticalChance
+                    boostedCriticalChance = boostedCriticalChance,
+                    flinchChance = flinchChance,
+                    burnChance = burnChance,
+                    freezeChance = freezeChance,
+                    paralysisChance = paralysisChance,
+                    poisonChance = poisonChance,
+                    badPoisonChance = badPoisonChance,
+                    sleepChance = sleepChance,
+                    confusionChance = confusionChance
                 });
 
             }

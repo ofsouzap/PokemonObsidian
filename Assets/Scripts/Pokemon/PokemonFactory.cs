@@ -108,10 +108,11 @@ namespace Pokemon
             };
 
             //Set the moves learnt as the last 4 moves that it could have learnt
-            Dictionary<byte, int> levelUpMoves = PokemonSpecies.GetPokemonSpeciesById(speciesId).levelUpMoves;
+            Dictionary<byte, int[]> levelUpMoves = PokemonSpecies.GetPokemonSpeciesById(speciesId).levelUpMoves;
 
             moves = new int[4];
             int movesIndex = 0;
+            bool allMovesSet = false;
 
             for (byte i = level; i >= 0; i--)
             {
@@ -119,8 +120,22 @@ namespace Pokemon
                 if (!levelUpMoves.ContainsKey(i))
                     continue;
 
-                moves[movesIndex] = levelUpMoves[i];
-                movesIndex++;
+                foreach (int moveId in levelUpMoves[i])
+                {
+
+                    moves[movesIndex] = moveId;
+                    movesIndex++;
+
+                    if (movesIndex == 4)
+                    {
+                        allMovesSet = true;
+                        break;
+                    }
+
+                }
+
+                if (allMovesSet)
+                    break;
 
             }
 

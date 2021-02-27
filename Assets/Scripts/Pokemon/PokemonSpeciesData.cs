@@ -78,7 +78,7 @@ namespace Pokemon
                 GrowthType growthType;
                 PokemonSpecies.Evolution[] evolutions;
                 int[] baseMoves, discMoves, eggMoves, tutorMoves;
-                Dictionary<byte, int> levelUpMoves;
+                Dictionary<byte, int[]> levelUpMoves;
                 Stats<byte> evYield;
                 ushort baseExperienceYield;
 
@@ -275,7 +275,7 @@ namespace Pokemon
 
                 #region levelUpMoves
 
-                levelUpMoves = new Dictionary<byte, int>();
+                Dictionary<byte, List<int>> levelUpMovesListDictionary = new Dictionary<byte, List<int>>();
 
                 string levelUpMovesString = entry[14];
 
@@ -302,13 +302,13 @@ namespace Pokemon
                             moveId = 0;
                         }
 
-                        if (!levelUpMoves.ContainsKey(level))
+                        if (levelUpMovesListDictionary.ContainsKey(level))
                         {
-                            levelUpMoves.Add(level, moveId);
+                            levelUpMovesListDictionary[level].Add(moveId);
                         }
                         else
                         {
-                            Debug.LogError("Duplicate level for level-up moves (" + level + ") for id " + id);
+                            levelUpMovesListDictionary.Add(level, new List<int>() { moveId });
                         }
 
                     }
@@ -317,6 +317,12 @@ namespace Pokemon
                 else
                 {
                     Debug.LogError("Invalid level up moves entry for id " + id);
+                }
+
+                levelUpMoves = new Dictionary<byte, int[]>();
+                foreach (byte key in levelUpMovesListDictionary.Keys)
+                {
+                    levelUpMoves.Add(key, levelUpMovesListDictionary[key].ToArray());
                 }
 
                 #endregion

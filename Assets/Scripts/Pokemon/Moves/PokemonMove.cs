@@ -85,6 +85,46 @@ namespace Pokemon.Moves
         /// </summary>
         public bool boostedCriticalChance;
 
+        /// <summary>
+        /// Chance of making the opponent flinch
+        /// </summary>
+        public float flinchChance;
+
+        /// <summary>
+        /// Chance of inflicting burn on the target
+        /// </summary>
+        public float burnChance;
+
+        /// <summary>
+        /// Chance of inflicting freeze on the target
+        /// </summary>
+        public float freezeChance;
+
+        /// <summary>
+        /// Chance of inflicting paralysis on the target
+        /// </summary>
+        public float paralysisChance;
+
+        /// <summary>
+        /// Chance of inflicting poison on the target
+        /// </summary>
+        public float poisonChance;
+
+        /// <summary>
+        /// Chance of inflicting bad poison on the target
+        /// </summary>
+        public float badPoisonChance;
+
+        /// <summary>
+        /// Chance of inflicting sleep on the target
+        /// </summary>
+        public float sleepChance;
+
+        /// <summary>
+        /// Chance of confusing the target
+        /// </summary>
+        public float confusionChance;
+
         #endregion
 
         #region Move Using
