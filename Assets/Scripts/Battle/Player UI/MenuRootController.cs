@@ -9,7 +9,10 @@ namespace Battle.PlayerUI
     public class MenuRootController : MonoBehaviour
     {
 
-
+        public Button buttonRun;
+        public Button buttonBag;
+        public Button buttonParty;
+        public Button buttonFight;
 
     }
 }

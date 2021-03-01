@@ -42,7 +42,7 @@ namespace Pokemon.Moves
         public MoveType moveType;
 
         /// <summary>
-        /// The power of the move [0,100] (if it is a status move, this should be 0)
+        /// The power of the move (if it is a status move, this should be 0)
         /// </summary>
         public byte power;
 
