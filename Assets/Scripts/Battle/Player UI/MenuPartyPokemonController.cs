@@ -44,6 +44,8 @@ namespace Battle.PlayerUI
         public Text textAbilityName;
         public Text textAbilityDescription;
 
+        public Image imageStatusCondition;
+
         [Header("Details - Stats")]
 
         public Text textAttackValue;
@@ -75,6 +77,17 @@ namespace Battle.PlayerUI
             //TODO - set values for items once implemented
 
             //TODO - set values for ability when and if implemented
+
+            Sprite statusConditionSprite = Pokemon.PokemonInstance.LoadNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
+            if (statusConditionSprite != null)
+            {
+                imageStatusCondition.gameObject.SetActive(true);
+                imageStatusCondition.sprite = statusConditionSprite;
+            }
+            else
+            {
+                imageStatusCondition.gameObject.SetActive(false);
+            }
 
             #endregion
 

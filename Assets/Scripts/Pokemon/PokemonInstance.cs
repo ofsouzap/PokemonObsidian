@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using Pokemon;
 using Items;
@@ -36,9 +37,9 @@ namespace Pokemon
 
         }
 
-        public const string genderSpritesSheetName = "sprite_sheet_battlesprites";
+        public const string battleSpritesSheetName = "sprite_sheet_battlesprites";
 
-        private static bool genderSpritesLoaded = false;
+        private static bool battleSpritesLoaded = false;
 
         private const string genderSpriteMaleName = "gender_male";
         public static Sprite genderSpriteMale;
@@ -49,10 +50,16 @@ namespace Pokemon
         private const string genderSpriteGenderlessName = "gender_genderless";
         public static Sprite genderSpriteGenderless;
 
-        private static void StoreGenderSprites()
+        public const string statusConditionSpritePrefix = "statuscondition";
+
+        public static Dictionary<NonVolatileStatusCondition, Sprite> nonVolatileStatusConditionSprites;
+
+        private static void LoadBattleSprites()
         {
 
-            Sprite[] battleSprites = Resources.LoadAll<Sprite>(genderSpritesSheetName);
+            nonVolatileStatusConditionSprites = new Dictionary<NonVolatileStatusCondition, Sprite>();
+
+            Sprite[] battleSprites = Resources.LoadAll<Sprite>(battleSpritesSheetName);
 
             foreach (Sprite sprite in battleSprites)
             {
@@ -68,6 +75,27 @@ namespace Pokemon
                 else if (sprite.name == genderSpriteGenderlessName)
                 {
                     genderSpriteGenderless = sprite;
+                }
+                else if (sprite.name == statusConditionSpritePrefix + "_burnt")
+                {
+                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Burn, sprite);
+                }
+                else if (sprite.name == statusConditionSpritePrefix + "_frozen")
+                {
+                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Frozen, sprite);
+                }
+                else if (sprite.name == statusConditionSpritePrefix + "_poisoned")
+                {
+                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Poisoned, sprite);
+                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.BadlyPoisoned, sprite);
+                }
+                else if (sprite.name == statusConditionSpritePrefix + "_paralysed")
+                {
+                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Paralysed, sprite);
+                }
+                else if (sprite.name == statusConditionSpritePrefix + "_asleep")
+                {
+                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Asleep, sprite);
                 }
 
             }
@@ -87,15 +115,15 @@ namespace Pokemon
                 Debug.LogError("No gender sprite found for genderless");
             }
 
-            genderSpritesLoaded = true;
+            battleSpritesLoaded = true;
 
         }
 
         public static Sprite LoadGenderSprite(bool? gender)
         {
 
-            if (!genderSpritesLoaded)
-                StoreGenderSprites();
+            if (!battleSpritesLoaded)
+                LoadBattleSprites();
 
             switch (gender)
             {
@@ -116,6 +144,22 @@ namespace Pokemon
         public Sprite LoadGenderSprite()
         {
             return LoadGenderSprite(gender);
+        }
+
+        public static Sprite LoadNonVolatileStatusConditionSprite(NonVolatileStatusCondition condition)
+        {
+
+            if (!battleSpritesLoaded)
+                LoadBattleSprites();
+
+            if (nonVolatileStatusConditionSprites[condition] != null)
+                return nonVolatileStatusConditionSprites[condition];
+            else
+            {
+                Debug.LogError("No sprite found for non-volatile status condition " + condition);
+                return null;
+            }
+
         }
 
         #endregion
