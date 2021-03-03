@@ -35,6 +35,8 @@ namespace FreeRoaming
         public float movementSpriteChangeDelay = 0.125F;
         protected Coroutine movementSpriteCoroutine;
 
+        protected const string walkingSpriteName = "walk";
+
         /// <summary>
         /// The position the character is currently in
         /// </summary>
@@ -269,13 +271,18 @@ namespace FreeRoaming
 
                     lastChange = Time.time;
 
+                    bool flipSprite;
+
                     //N.B. sprite names are NOT 0-indexed
-                    Sprite newSprite = GameCharacterSpriteStorage.Get(spriteGroupName, spriteStateName, directionFacing, currentSpriteIndex + 1);
+                    Sprite newSprite = GameCharacterSpriteStorage.Get(out flipSprite, spriteGroupName, spriteStateName, directionFacing, currentSpriteIndex + 1);
 
                     if (newSprite == null)
                         Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
                     else
+                    {
                         spriteRenderer.sprite = newSprite;
+                        spriteRenderer.flipX = flipSprite;
+                    }
 
                     currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
 
@@ -303,7 +310,7 @@ namespace FreeRoaming
             if (movementSpriteCoroutine != null)
                 StopCoroutine(movementSpriteCoroutine);
 
-            movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine("walking"));
+            movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine(walkingSpriteName));
 
         }
 
@@ -366,7 +373,9 @@ namespace FreeRoaming
         protected void RefreshNeutralSprite()
         {
 
-            spriteRenderer.sprite = GameCharacterSpriteStorage.Get(spriteGroupName, "idle", directionFacing);
+            bool flipSprite;
+            spriteRenderer.sprite = GameCharacterSpriteStorage.Get(out flipSprite, spriteGroupName, "idle", directionFacing);
+            spriteRenderer.flipX = flipSprite;
 
         }
 

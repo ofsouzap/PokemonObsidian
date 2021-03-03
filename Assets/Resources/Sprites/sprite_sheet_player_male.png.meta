@@ -1,60 +1,60 @@
 fileFormatVersion: 2
-guid: ff628b116ef34f04dbb4dce7767579c4
+guid: 71faf33e4e6801843834041f4a641d49
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7540546788549069488
+      213: -6088590612534781614
     second: player_male_idle_d
   - first:
-      213: -1563548783377266237
+      213: -825334300051401722
     second: player_male_walk_d_1
   - first:
-      213: -3295942376157172968
+      213: 7561345375036850128
     second: player_male_walk_d_2
   - first:
-      213: 8617027435247968207
+      213: -245136861905620164
     second: player_male_run_d_2
   - first:
-      213: -5352267053007508989
+      213: 7025685372497125449
     second: player_male_run_d_1
   - first:
-      213: -9155676228120842391
+      213: -373441298179595050
     second: player_male_run_d_3
   - first:
-      213: -8635296683396415568
+      213: -1913868721770945578
     second: player_male_idle_u
   - first:
-      213: -1199105130200165511
+      213: 7689720113277370518
     second: player_male_walk_u_1
   - first:
-      213: -8371524647188153335
+      213: 3235360658546525715
     second: player_male_walk_u_2
   - first:
-      213: -5429219369224834670
+      213: -1268101824528679202
     second: player_male_run_u_2
   - first:
-      213: -6372947587155419612
+      213: -3237598016807195256
     second: player_male_run_u_1
   - first:
-      213: -3183094276893592290
+      213: -8888494863915134142
     second: player_male_run_u_3
   - first:
-      213: -55718604997031551
+      213: -7718136864502926588
     second: player_male_idle_l
   - first:
-      213: 5853449470431640348
+      213: 4401182712040209076
     second: player_male_walk_l_1
   - first:
-      213: 5561427923641277078
+      213: 3533141535727497791
     second: player_male_walk_l_2
   - first:
-      213: 3192250448803134738
+      213: 1722324298800038409
     second: player_male_run_l_2
   - first:
-      213: 6687840033020396663
+      213: -7317423860425999732
     second: player_male_run_l_1
   - first:
-      213: -1765668236610907525
+      213: -5290817612899799603
     second: player_male_run_l_3
   externalObjects: {}
   serializedVersion: 11
@@ -172,10 +172,10 @@ TextureImporter:
       name: player_male_idle_d
       rect:
         serializedVersion: 2
-        x: 9
-        y: 223
-        width: 17
-        height: 24
+        x: 2
+        y: 222
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,8 +183,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ba0ea74a5765a860800000000000000
-      internalID: 7540546788549069488
+      spriteID: 259161db81bf08ba0800000000000000
+      internalID: -6088590612534781614
       vertices: []
       indices: 
       edges: []
@@ -193,10 +193,10 @@ TextureImporter:
       name: player_male_walk_d_1
       rect:
         serializedVersion: 2
-        x: 43
-        y: 223
-        width: 17
-        height: 25
+        x: 36
+        y: 222
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,8 +204,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c9cdc16aa82d4ae0800000000000000
-      internalID: -1563548783377266237
+      spriteID: 6049d70b3d2db84f0800000000000000
+      internalID: -825334300051401722
       vertices: []
       indices: 
       edges: []
@@ -214,10 +214,10 @@ TextureImporter:
       name: player_male_walk_d_2
       rect:
         serializedVersion: 2
-        x: 111
-        y: 223
-        width: 17
-        height: 25
+        x: 104
+        y: 222
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,8 +225,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81baefc1fd57242d0800000000000000
-      internalID: -3295942376157172968
+      spriteID: 0df3d1f8e8b4fe860800000000000000
+      internalID: 7561345375036850128
       vertices: []
       indices: 
       edges: []
@@ -235,10 +235,10 @@ TextureImporter:
       name: player_male_run_d_2
       rect:
         serializedVersion: 2
-        x: 179
-        y: 223
-        width: 17
-        height: 24
+        x: 172
+        y: 222
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,8 +246,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcf10c12cc4d59770800000000000000
-      internalID: 8617027435247968207
+      spriteID: c33f2c8a259199cf0800000000000000
+      internalID: -245136861905620164
       vertices: []
       indices: 
       edges: []
@@ -256,10 +256,10 @@ TextureImporter:
       name: player_male_run_d_1
       rect:
         serializedVersion: 2
-        x: 209
-        y: 223
-        width: 23
-        height: 24
+        x: 206
+        y: 222
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,8 +267,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30ae57a097de8b5b0800000000000000
-      internalID: -5352267053007508989
+      spriteID: 94069536f9f308160800000000000000
+      internalID: 7025685372497125449
       vertices: []
       indices: 
       edges: []
@@ -277,10 +277,10 @@ TextureImporter:
       name: player_male_run_d_3
       rect:
         serializedVersion: 2
-        x: 279
-        y: 223
-        width: 23
-        height: 24
+        x: 274
+        y: 222
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,8 +288,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96f6e58baf080f080800000000000000
-      internalID: -9155676228120842391
+      spriteID: 6d46b8d2e1541daf0800000000000000
+      internalID: -373441298179595050
       vertices: []
       indices: 
       edges: []
@@ -298,10 +298,10 @@ TextureImporter:
       name: player_male_idle_u
       rect:
         serializedVersion: 2
-        x: 9
-        y: 189
-        width: 17
-        height: 24
+        x: 2
+        y: 188
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -309,8 +309,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bf3c001b63492880800000000000000
-      internalID: -8635296683396415568
+      spriteID: 6d3ac14a9829075e0800000000000000
+      internalID: -1913868721770945578
       vertices: []
       indices: 
       edges: []
@@ -319,10 +319,10 @@ TextureImporter:
       name: player_male_walk_u_1
       rect:
         serializedVersion: 2
-        x: 43
-        y: 189
-        width: 17
-        height: 25
+        x: 36
+        y: 188
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -330,8 +330,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 973121abc3ceb5fe0800000000000000
-      internalID: -1199105130200165511
+      spriteID: 690031e73bf57ba60800000000000000
+      internalID: 7689720113277370518
       vertices: []
       indices: 
       edges: []
@@ -340,10 +340,10 @@ TextureImporter:
       name: player_male_walk_u_2
       rect:
         serializedVersion: 2
-        x: 111
-        y: 189
-        width: 17
-        height: 25
+        x: 104
+        y: 188
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,8 +351,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90c3ce700be52db80800000000000000
-      internalID: -8371524647188153335
+      spriteID: 31680f4906f46ec20800000000000000
+      internalID: 3235360658546525715
       vertices: []
       indices: 
       edges: []
@@ -361,10 +361,10 @@ TextureImporter:
       name: player_male_run_u_2
       rect:
         serializedVersion: 2
-        x: 179
-        y: 190
-        width: 17
-        height: 24
+        x: 172
+        y: 188
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -372,8 +372,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 291fea9bfb987a4b0800000000000000
-      internalID: -5429219369224834670
+      spriteID: ede71f9fb1cc66ee0800000000000000
+      internalID: -1268101824528679202
       vertices: []
       indices: 
       edges: []
@@ -382,10 +382,10 @@ TextureImporter:
       name: player_male_run_u_1
       rect:
         serializedVersion: 2
-        x: 212
-        y: 190
-        width: 17
-        height: 25
+        x: 206
+        y: 188
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -393,8 +393,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42e1b6f4fedbe87a0800000000000000
-      internalID: -6372947587155419612
+      spriteID: 88da2bad1cdb113d0800000000000000
+      internalID: -3237598016807195256
       vertices: []
       indices: 
       edges: []
@@ -403,10 +403,10 @@ TextureImporter:
       name: player_male_run_u_3
       rect:
         serializedVersion: 2
-        x: 282
-        y: 190
-        width: 17
-        height: 25
+        x: 274
+        y: 188
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -414,8 +414,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e15bd23be9063d3d0800000000000000
-      internalID: -3183094276893592290
+      spriteID: 2435478b309b5a480800000000000000
+      internalID: -8888494863915134142
       vertices: []
       indices: 
       edges: []
@@ -424,10 +424,10 @@ TextureImporter:
       name: player_male_idle_l
       rect:
         serializedVersion: 2
-        x: 9
-        y: 156
-        width: 17
-        height: 23
+        x: 2
+        y: 154
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -435,8 +435,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18985c5593c0a3ff0800000000000000
-      internalID: -55718604997031551
+      spriteID: 403b4770a6ba3e490800000000000000
+      internalID: -7718136864502926588
       vertices: []
       indices: 
       edges: []
@@ -445,10 +445,10 @@ TextureImporter:
       name: player_male_walk_l_1
       rect:
         serializedVersion: 2
-        x: 43
-        y: 156
-        width: 17
-        height: 24
+        x: 36
+        y: 154
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -456,8 +456,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1bb6cbc741ab3150800000000000000
-      internalID: 5853449470431640348
+      spriteID: 4ba3fbeab54241d30800000000000000
+      internalID: 4401182712040209076
       vertices: []
       indices: 
       edges: []
@@ -466,10 +466,10 @@ TextureImporter:
       name: player_male_walk_l_2
       rect:
         serializedVersion: 2
-        x: 111
-        y: 156
-        width: 17
-        height: 24
+        x: 104
+        y: 154
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -477,8 +477,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69a93981b392e2d40800000000000000
-      internalID: 5561427923641277078
+      spriteID: f323732e18d380130800000000000000
+      internalID: 3533141535727497791
       vertices: []
       indices: 
       edges: []
@@ -487,10 +487,10 @@ TextureImporter:
       name: player_male_run_l_2
       rect:
         serializedVersion: 2
-        x: 176
-        y: 156
-        width: 21
-        height: 23
+        x: 172
+        y: 154
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -498,8 +498,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21dfdf2bed62d4c20800000000000000
-      internalID: 3192250448803134738
+      spriteID: 902000213dce6e710800000000000000
+      internalID: 1722324298800038409
       vertices: []
       indices: 
       edges: []
@@ -508,10 +508,10 @@ TextureImporter:
       name: player_male_run_l_1
       rect:
         serializedVersion: 2
-        x: 211
-        y: 156
-        width: 19
-        height: 23
+        x: 206
+        y: 154
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -519,8 +519,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77441da831bffcc50800000000000000
-      internalID: 6687840033020396663
+      spriteID: c8a3750b4c9437a90800000000000000
+      internalID: -7317423860425999732
       vertices: []
       indices: 
       edges: []
@@ -529,10 +529,10 @@ TextureImporter:
       name: player_male_run_l_3
       rect:
         serializedVersion: 2
-        x: 277
-        y: 156
-        width: 20
-        height: 23
+        x: 274
+        y: 154
+        width: 32
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -540,8 +540,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b72dd9df7161f77e0800000000000000
-      internalID: -1765668236610907525
+      spriteID: dcd2abbb96d3396b0800000000000000
+      internalID: -5290817612899799603
       vertices: []
       indices: 
       edges: []

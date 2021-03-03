@@ -303,7 +303,7 @@ MonoBehaviour:
   moveSpeed: 4
   movementSpriteChangeDelay: 0.125
   spriteRenderer: {fileID: 2027730394}
-  spriteGroupName: Testing/character
+  spriteGroupName: schoolboy
 --- !u!1 &329077971
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   moveSpeed: 4
   movementSpriteChangeDelay: 0.125
   spriteRenderer: {fileID: 928470568}
-  spriteGroupName: Testing/character
+  spriteGroupName: blackbelt
   walkLength: 4
 --- !u!61 &329077973
 BoxCollider2D:
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   moveSpeed: 4
   movementSpriteChangeDelay: 0.125
   spriteRenderer: {fileID: 1184518250}
-  spriteGroupName: Testing/character
+  spriteGroupName: player_female
   rotateToMoveDelay: 0.1
 --- !u!61 &1931890000
 BoxCollider2D:

@@ -82,13 +82,9 @@ namespace FreeRoaming
                     directionIdentifier = "u";
                     break;
 
-                case GameCharacterController.FacingDirection.Right:
-                    directionIdentifier = "r";
-                    break;
-
                 default:
                     Debug.LogWarning($"Invalid direction facing ({direction})");
-                    directionIdentifier = "r";
+                    directionIdentifier = "l";
                     break;
 
             }
@@ -102,7 +98,7 @@ namespace FreeRoaming
         /// </summary>
         /// <param name="fullIdentifier">The full identifier as explained for Sprite.sprites</param>
         /// <returns>The sprite as specified if found, otherwise null</returns>
-        public static Sprite Get(string fullIdentifier)
+        private static Sprite Get(string fullIdentifier)
         {
 
             if (sprites.ContainsKey(fullIdentifier))
@@ -115,18 +111,27 @@ namespace FreeRoaming
         /// <summary>
         /// Gets a sprite referenced by a state identifier and a FacingDirection direction. The full identifier will then be formed from these parameters
         /// </summary>
+        /// /// <param name="flipSprite">Whether the sprite should be flipped once returned</param>
         /// <param name="spriteName">The name of the sprite</param>
         /// <param name="stateIdentifier">The name of the state that is being requested (eg. "neutral")</param>
         /// <param name="direction">The direction of sprite to request</param>
         /// <param name="index">The index of the sprite to request</param>
         /// <returns>The sprite as specified if found, otherwise null</returns>
-        public static Sprite Get(string spriteName,
+        public static Sprite Get(out bool flipSprite,
+            string spriteName,
             string stateIdentifier,
             GameCharacterController.FacingDirection direction,
             int index = -1)
         {
 
-            return Get(GenerateIdentifier(spriteName, stateIdentifier, direction, index));
+            string identifier = GenerateIdentifier(spriteName,
+                stateIdentifier,
+                direction == GameCharacterController.FacingDirection.Right ? GameCharacterController.FacingDirection.Left : direction,
+                index);
+
+            flipSprite = direction == GameCharacterController.FacingDirection.Right;
+
+            return Get(identifier);
 
         }
 
