@@ -64,10 +64,7 @@ namespace Battle.PlayerUI
 
             #region General Details
 
-            textName.text =
-                pokemon.nickname == ""
-                ? pokemon.species.name
-                : pokemon.nickname;
+            textName.text = pokemon.GetDisplayName();
 
             //TODO - set images for gender once method to get them made
 

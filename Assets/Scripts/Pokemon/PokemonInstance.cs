@@ -43,6 +43,8 @@ namespace Pokemon
         /// </summary>
         public string nickname;
 
+        public string GetDisplayName() => nickname == null || nickname == "" ? species.name : nickname;
+
         public Item heldItem;
 
         /// <summary>
