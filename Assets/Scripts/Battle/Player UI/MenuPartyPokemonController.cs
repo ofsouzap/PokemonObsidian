@@ -51,7 +51,7 @@ namespace Battle.PlayerUI
         public Text textSpecialAttackValue;
         public Text textSpecialDefenseValue;
         public Text textSpeedValue;
-        public HealthBarScript healthBar;
+        public HealthBarOldScript healthBar;
 
         public void SetPokemonDetails(Pokemon.PokemonInstance pokemon)
         {
