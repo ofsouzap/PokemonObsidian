@@ -16,6 +16,8 @@ namespace Battle.PlayerUI
         public Button buttonMove2;
         public Button buttonMove3;
 
+        public GameObject gameObjectDetailsPane;
+
         public Text textMovePowerValue;
         public Text textMoveAccuracyValue;
         public Text textMovePPValue;
@@ -82,6 +84,10 @@ namespace Battle.PlayerUI
             imageMoveType.sprite = (Sprite)Resources.Load(typeImagePath);
 
         }
+
+        public void EnableMoveDetailsPane() => gameObjectDetailsPane.SetActive(true);
+
+        public void DisableMoveDetailsPane() => gameObjectDetailsPane.SetActive(false);
 
     }
 }
