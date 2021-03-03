@@ -32,7 +32,7 @@ namespace FreeRoaming
 
         [Min(0)]
         [Tooltip("The time that should be waited in between changing sprites whilst moving")]
-        public float movementSpriteChangeDelay = 0.125F;
+        public float movementSpriteChangeDelay = 0.2F;
         protected Coroutine movementSpriteCoroutine;
 
         protected const string walkingSpriteName = "walk";
@@ -257,17 +257,37 @@ namespace FreeRoaming
             //How many sprites there are for any given movement state
             const int movementSpriteIndexCount = 2;
 
+            bool primedToQuit = false;
+
             float lastChange = 0;
             int currentSpriteIndex = 0;
             
             while (true)
             {
 
+                if (primedToQuit && isMoving)
+                {
+                    primedToQuit = false;
+                }
+
                 if (!isMoving)
-                    break;
+                {
+
+                    if (primedToQuit)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        primedToQuit = true;
+                    }
+
+                }
 
                 if (Time.time - lastChange >= movementSpriteChangeDelay)
                 {
+
+                    //Debug.Log("Switching sprite to " + (currentSpriteIndex + 1));
 
                     lastChange = Time.time;
 
@@ -307,10 +327,10 @@ namespace FreeRoaming
             isMoving = true;
             movementTargettedGridPosition = GetPositionInFront();
 
-            if (movementSpriteCoroutine != null)
-                StopCoroutine(movementSpriteCoroutine);
-
-            movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine(walkingSpriteName));
+            if (movementSpriteCoroutine == null)
+            {
+                movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine(walkingSpriteName));
+            }
 
         }
 
