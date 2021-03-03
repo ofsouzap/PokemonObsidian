@@ -23,12 +23,32 @@ namespace Pokemon
 
         #endregion
 
+        #region Sprites
+
+        public Sprite LoadSprite(PokemonSpecies.SpriteType spriteType)
+        {
+
+            return PokemonSpecies.LoadSprite(
+                species.resourceName == "" ? speciesId.ToString() : species.resourceName,
+                spriteType,
+                gender
+                );
+
+        }
+
+        #endregion
+
         /// <summary>
         /// The pokemon's nickname. If it is empty, the pokemon doesn't have a nickname
         /// </summary>
         public string nickname;
 
         public Item heldItem;
+
+        /// <summary>
+        /// The PokemonInstance's gender. true means male, false means female and null means genderless
+        /// </summary>
+        public bool? gender;
 
         #region Stats
 

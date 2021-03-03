@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using UnityEngine;
 using Pokemon;
 
@@ -21,6 +22,134 @@ namespace Pokemon
 
         #endregion
 
+        #region Sprites
+
+        public enum SpriteType
+        {
+            Front1,
+            Front2,
+            Back,
+            Icon
+        }
+
+        /// <summary>
+        /// Loads a pokemon species' sprite. The type and gender of sprite to load is specified in the parameters
+        /// </summary>
+        /// <param name="resourceName">The name of the sprite's resource. This tends to be the pokemon species' id</param>
+        /// <param name="spriteType">The type of sprite to load</param>
+        /// <param name="useFemale">Whether to load the female sprite instead of the "male" sprite. For genderless pokemon, the "male" sprite should be used</param>
+        /// <returns>The loaded sprite if it could be found, otherwise, null</returns>
+        public static Sprite LoadSprite(
+            string resourceName,
+            SpriteType spriteType,
+            bool useFemale)
+        {
+
+            #region Path
+
+            string resourcePath;
+            string alternativeResourcePath = null; //The resource path to load if the main can't be found. (this is to use male sprites if female ones can't be found)
+
+            string typeDirectory;
+            string alternativeTypeDirectory = null;
+
+            switch (spriteType)
+            {
+
+                case SpriteType.Front1:
+                    typeDirectory = "Front 1";
+                    break;
+
+                case SpriteType.Front2:
+                    typeDirectory = "Front 2";
+                    break;
+
+                case SpriteType.Back:
+                    typeDirectory = "Back";
+                    break;
+
+                case SpriteType.Icon:
+                    typeDirectory = "Icon";
+                    break;
+
+                default:
+                    typeDirectory = "Icon";
+                    Debug.LogError("Unknown sprite type provided - " + spriteType);
+                    break;
+
+            }
+
+            if (spriteType != SpriteType.Icon)
+            {
+
+                if (!useFemale)
+                {
+                    typeDirectory += " Male";
+                }
+                else
+                {
+                    alternativeTypeDirectory = typeDirectory + " Male";
+                    typeDirectory += " Female";
+                }
+
+            }
+
+            resourcePath = Path.Combine(typeDirectory, resourceName);
+
+            if (alternativeTypeDirectory != null)
+            {
+                alternativeResourcePath = Path.Combine(alternativeTypeDirectory, resourceName);
+            }
+
+            #endregion
+
+            Sprite sprite = Resources.Load<Sprite>(resourcePath);
+
+            if (sprite != null)
+            {
+                return sprite;
+            }
+            else
+            {
+                if (alternativeResourcePath != null)
+                {
+                    return Resources.Load<Sprite>(alternativeResourcePath);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+        }
+
+        public static Sprite LoadSprite(
+            string resourceName,
+            SpriteType spriteType,
+            bool? gender
+            )
+        {
+            bool useFemale;
+
+            switch (gender)
+            {
+
+                case true:
+                case null:
+                    useFemale = false;
+                    break;
+
+                case false:
+                    useFemale = true;
+                    break;
+
+            }
+
+            return LoadSprite(resourceName, spriteType, useFemale);
+        }
+
+        #endregion
+
         #region Basic Properties
 
         public int id;
@@ -33,7 +162,7 @@ namespace Pokemon
         public Type? type2;
 
         /// <summary>
-        /// Name of the resources (eg. sprites and audio) for the pokemon. Will be used as eg. "Resources/Sprites/Pokemon/{resourceName}"
+        /// Name of the resources (eg. sprites and audio) for the pokemon. Will be used as eg. "Resources/Sprites/Pokemon/{resourceName}". If this is empty, the pokemon's id will be used instead
         /// </summary>
         public string resourceName;
 
