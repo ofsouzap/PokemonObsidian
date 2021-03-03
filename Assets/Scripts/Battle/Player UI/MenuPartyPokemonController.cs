@@ -23,7 +23,7 @@ namespace Battle.PlayerUI
 
         [Header("Images")]
 
-        public Image imageMini;
+        public Image imageIcon;
         public Image imageFront;
         public Image imageBack;
 
@@ -58,7 +58,9 @@ namespace Battle.PlayerUI
 
             #region Images
 
-            //TODO - set images once method made to get a pokemon species' images
+            imageIcon.sprite = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon);
+            imageFront.sprite = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Front1);
+            imageBack.sprite = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Back);
 
             #endregion
 
@@ -66,7 +68,7 @@ namespace Battle.PlayerUI
 
             textName.text = pokemon.GetDisplayName();
 
-            //TODO - set images for gender once method to get them made
+            imageGender.sprite = pokemon.LoadGenderSprite();
 
             textLevelValue.text = pokemon.GetLevel().ToString();
 
