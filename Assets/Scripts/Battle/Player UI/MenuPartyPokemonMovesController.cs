@@ -9,6 +9,8 @@ namespace Battle.PlayerUI
     public class MenuPartyPokemonMovesController : MonoBehaviour
     {
 
+        public Button buttonBack;
+
         public Button buttonMove0;
         public Button buttonMove1;
         public Button buttonMove2;

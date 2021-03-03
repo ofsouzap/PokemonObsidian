@@ -12,9 +12,9 @@ namespace Battle.PlayerUI
         public Button buttonBack;
 
         public Button[] pokemonButtons;
-        public Text[] pokemonButtonTexts;
-        public Image[] pokemonButtonImages;
-        public HealthBarOldScript[] pokemonButtonHealthBars;
+        private Text[] pokemonButtonTexts;
+        private Image[] pokemonButtonImages;
+        private HealthBarScript[] pokemonButtonHealthBars;
 
         private void Start()
         {
@@ -32,7 +32,7 @@ namespace Battle.PlayerUI
 
                 Text _text = _button.GetComponentInChildren<Text>();
                 Image _image = _button.GetComponentInChildren<Image>();
-                HealthBarOldScript _healthBar = _button.GetComponentInChildren<HealthBarOldScript>();
+                HealthBarScript _healthBar = _button.GetComponentInChildren<HealthBarScript>();
 
                 if (_text == null || _image == null || _healthBar == null)
                 {
