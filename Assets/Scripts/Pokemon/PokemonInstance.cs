@@ -113,6 +113,11 @@ namespace Pokemon
 
         }
 
+        public Sprite LoadGenderSprite()
+        {
+            return LoadGenderSprite(gender);
+        }
+
         #endregion
 
         /// <summary>
