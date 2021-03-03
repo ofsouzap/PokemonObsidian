@@ -64,135 +64,8 @@ namespace FreeRoaming
         [Tooltip("Character's sprite renderer component. Might be seperated from this script if sprite must be offset from root transform position")]
         public SpriteRenderer spriteRenderer;
         
-        [Tooltip("Sprites for this character will be fetched as Resources/{spriteGroupName}/{sprite needed}")]
+        [Tooltip("Sprites for this character will be fetched as Resources/Sprites/Characters/{spriteGroupName}_{sprite needed}")]
         public string spriteGroupName;
-
-        /// <summary>
-        /// Stores each sprite that the character may use whilst in the main, free-roaming scene including sprites for standing still in each direction and moving in each direction
-        /// </summary>
-        protected class Sprites
-        {
-
-            /// <summary>
-            /// A dictionary storing all the sprites for a character.
-            /// The keys are identifiers for the sprites in the format (using the '?' regex quantifier)
-            ///     "{state}(_{direction})?(_{index})?"
-            ///     Where everything is lower case, {state} is the state of the sprite (eg. walking, neutral), {direction} is the direction of the sprite which may be "up","down","left" or "right" and {index} is the index of that sprite. for example, there are two sprites for a walking character
-            /// The values are the sprite instances
-            /// </summary>
-            protected Dictionary<string, Sprite> sprites;
-
-            public Sprites()
-            {
-                sprites = new Dictionary<string, Sprite>();
-            }
-
-            protected string GenerateIdentifier(string stateIdentifier,
-                FacingDirection direction,
-                int index = -1)
-            {
-
-                string directionIdentifier;
-
-                switch (direction)
-                {
-
-                    case FacingDirection.Down:
-                        directionIdentifier = "down";
-                        break;
-
-                    case FacingDirection.Left:
-                        directionIdentifier = "left";
-                        break;
-
-                    case FacingDirection.Up:
-                        directionIdentifier = "up";
-                        break;
-
-                    case FacingDirection.Right:
-                        directionIdentifier = "right";
-                        break;
-
-                    default:
-                        Debug.LogWarning($"Invalid direction facing ({direction})");
-                        directionIdentifier = "right";
-                        break;
-
-                }
-
-                return stateIdentifier + '_' + directionIdentifier + (index == -1 ? "" : '_' + index.ToString());
-
-            }
-
-            /// <summary>
-            /// Get a sprite referenced by a full identifier
-            /// </summary>
-            /// <param name="fullIdentifier">The full identifier as explained for Sprite.sprites</param>
-            /// <returns>The sprite as specified if found, otherwise null</returns>
-            public Sprite Get(string fullIdentifier)
-            {
-
-                if (sprites.ContainsKey(fullIdentifier))
-                    return sprites[fullIdentifier];
-                else
-                    return null;
-
-            }
-
-            /// <summary>
-            /// Gets a sprite referenced by a state identifier and a FacingDirection direction. The full identifier will then be formed from these parameters
-            /// </summary>
-            /// <param name="stateIdentifier">The name of the state that is being requested (eg. "neutral")</param>
-            /// <param name="direction">The direction of sprite to request</param>
-            /// <param name="index">The index of the sprite to request</param>
-            /// <returns>The sprite as specified if found, otherwise null</returns>
-            public Sprite Get(string stateIdentifier,
-                FacingDirection direction,
-                int index = -1)
-            {
-
-                return Get(GenerateIdentifier(stateIdentifier, direction, index));
-
-            }
-
-            /// <summary>
-            /// Adds a sprite to the loaded sprites
-            /// </summary>
-            /// <param name="sprite">The sprite to add</param>
-            /// <param name="fullIdentifier">The identifier for the sprite</param>
-            public void Add(Sprite sprite, string fullIdentifier)
-            {
-
-                if (sprites.ContainsKey(fullIdentifier))
-                    sprites[fullIdentifier] = sprite;
-                else
-                    sprites.Add(fullIdentifier, sprite);
-
-            }
-
-            /// <summary>
-            /// Adds a sprite to the loaded sprites
-            /// </summary>
-            /// <param name="sprite">The sprite to add</param>
-            /// <param name="stateIdentifier">The name od the state that should be added (eg. "neutral")</param>
-            /// <param name="direction">The direction of the sprite to add</param>
-            /// <param name="index">The index of the sprite to request</param>
-            public void Add(Sprite sprite,
-                string stateIdentifier,
-                FacingDirection direction,
-                int index = -1)
-            {
-
-                Add(sprite, GenerateIdentifier(stateIdentifier, direction, index));
-
-            }
-
-        }
-
-        /// <summary>
-        /// The game character's sprites
-        /// </summary>
-        protected Sprites sprites;
 
         protected virtual void Start()
         {
@@ -201,33 +74,10 @@ namespace FreeRoaming
 
             gridManager = Manager.GetManager();
 
-            sprites = new Sprites();
-
-            if ((!spriteGroupName.Equals(""))
-                && spriteGroupName != null)
-                LoadSprites();
+            GameCharacterSpriteStorage.TryLoad();
 
             RefreshNeutralSprite();
             
-        }
-
-        /// <summary>
-        /// Loads all a character's sprites into memory using spriteGroupName and the Resources class
-        /// </summary>
-        protected void LoadSprites()
-        {
-
-            sprites = new Sprites();
-
-            Object[] spritesObjects = Resources.LoadAll($"Sprites/{spriteGroupName}");
-
-            foreach (Object sprite in spritesObjects)
-            {
-
-                sprites.Add(sprite as Sprite, sprite.name);
-
-            }
-
         }
 
         protected virtual void Update()
@@ -420,7 +270,7 @@ namespace FreeRoaming
                     lastChange = Time.time;
 
                     //N.B. sprite names are NOT 0-indexed
-                    Sprite newSprite = sprites.Get(spriteStateName, directionFacing, currentSpriteIndex + 1);
+                    Sprite newSprite = GameCharacterSpriteStorage.Get(spriteGroupName, spriteStateName, directionFacing, currentSpriteIndex + 1);
 
                     if (newSprite == null)
                         Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
@@ -516,7 +366,7 @@ namespace FreeRoaming
         protected void RefreshNeutralSprite()
         {
 
-            spriteRenderer.sprite = sprites.Get("neutral", directionFacing);
+            spriteRenderer.sprite = GameCharacterSpriteStorage.Get(spriteGroupName, "idle", directionFacing);
 
         }
 

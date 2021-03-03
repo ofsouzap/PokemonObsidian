@@ -36,6 +36,83 @@ namespace Pokemon
 
         }
 
+        public const string genderSpritesSheetName = "sprite_sheet_battlesprites";
+
+        private static bool genderSpritesLoaded = false;
+
+        private const string genderSpriteMaleName = "gender_male";
+        public static Sprite genderSpriteMale;
+
+        private const string genderSpriteFemaleName = "gender_female";
+        public static Sprite genderSpriteFemale;
+
+        private const string genderSpriteGenderlessName = "gender_genderless";
+        public static Sprite genderSpriteGenderless;
+
+        private static void StoreGenderSprites()
+        {
+
+            Sprite[] battleSprites = Resources.LoadAll<Sprite>(genderSpritesSheetName);
+
+            foreach (Sprite sprite in battleSprites)
+            {
+
+                if (sprite.name == genderSpriteMaleName)
+                {
+                    genderSpriteMale = sprite;
+                }
+                else if (sprite.name == genderSpriteFemaleName)
+                {
+                    genderSpriteFemale = sprite;
+                }
+                else if (sprite.name == genderSpriteGenderlessName)
+                {
+                    genderSpriteGenderless = sprite;
+                }
+
+            }
+
+            if (genderSpriteMale == null)
+            {
+                Debug.LogError("No gender sprite found for male");
+            }
+
+            if (genderSpriteFemale == null)
+            {
+                Debug.LogError("No gender sprite found for female");
+            }
+
+            if (genderSpriteMale == null)
+            {
+                Debug.LogError("No gender sprite found for genderless");
+            }
+
+            genderSpritesLoaded = true;
+
+        }
+
+        public static Sprite LoadGenderSprite(bool? gender)
+        {
+
+            if (!genderSpritesLoaded)
+                StoreGenderSprites();
+
+            switch (gender)
+            {
+
+                case true:
+                    return genderSpriteMale;
+
+                case false:
+                    return genderSpriteFemale;
+
+                case null:
+                    return genderSpriteGenderless;
+
+            }
+
+        }
+
         #endregion
 
         /// <summary>
