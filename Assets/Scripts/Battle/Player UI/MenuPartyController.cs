@@ -47,9 +47,9 @@ namespace Battle.PlayerUI
 
         }
 
-        public struct PokemonButtonProperties { public bool isSet; public string name; public string iconPath; public float healthProportion; }
+        public struct PokemonButtonProperties { public bool isSet; public string name; public Sprite icon; public float healthProportion; }
 
-        public void SetPokemonButtonProperties(PokemonButtonProperties[] properties)
+        private void SetPokemonButtonProperties(PokemonButtonProperties[] properties)
         {
 
             if (properties.Length != pokemonButtons.Length)
@@ -69,7 +69,7 @@ namespace Battle.PlayerUI
                     pokemonButtonHealthBars[i].gameObject.SetActive(true);
 
                     pokemonButtonTexts[i].text = properties[i].name;
-                    pokemonButtonImages[i].sprite = (Sprite)Resources.Load(properties[i].iconPath);
+                    pokemonButtonImages[i].sprite = properties[i].icon;
                     pokemonButtonHealthBars[i].UpdateBar(properties[i].healthProportion);
 
                 }
@@ -83,6 +83,31 @@ namespace Battle.PlayerUI
                 }
 
             }
+
+        }
+
+        public void RefreshButtons()
+        {
+
+            List<PokemonButtonProperties> buttonProperties = new List<PokemonButtonProperties>();
+
+            foreach (Pokemon.PokemonInstance pokemon in PlayerData.singleton.partyPokemon)
+            {
+
+                if (pokemon == null)
+                    buttonProperties.Add(new PokemonButtonProperties() { isSet = false });
+
+                buttonProperties.Add(new PokemonButtonProperties()
+                {
+                    isSet = true,
+                    name = pokemon.GetDisplayName(),
+                    icon = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),
+                    healthProportion = ((float)pokemon.health) / pokemon.species.baseStats.health
+                });
+
+            }
+
+            SetPokemonButtonProperties(buttonProperties.ToArray());
 
         }
 

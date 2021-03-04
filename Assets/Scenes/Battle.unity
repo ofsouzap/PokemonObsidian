@@ -14904,7 +14904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1913499479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15144,6 +15144,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923039757}
   m_CullTransparentMesh: 1
+--- !u!1 &1927588465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1927588468}
+  - component: {fileID: 1927588467}
+  - component: {fileID: 1927588466}
+  m_Layer: 0
+  m_Name: tmp - loading data
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1927588466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927588465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34208155815298440bce5cee02543265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1927588467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927588465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad12b204cb950d41a5c64c75afd99ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1927588468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927588465}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 504.40314, y: 195.73218, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1936337209
 GameObject:
   m_ObjectHideFlags: 0
@@ -16047,7 +16103,7 @@ RectTransform:
   - {fileID: 2015564768}
   - {fileID: 529326345}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -16066,13 +16122,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5358851fe64bc48b8e6c67d570786f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuRootController: {fileID: 0}
-  menuFightController: {fileID: 0}
-  menuBagController: {fileID: 0}
-  menuBagCategoryController: {fileID: 0}
-  menuPartyController: {fileID: 0}
-  menuPartyPokemonController: {fileID: 0}
-  menuPartyPokemonMovesController: {fileID: 0}
+  menuRootController: {fileID: 104156355}
+  menuFightController: {fileID: 1192169520}
+  menuBagController: {fileID: 812582222}
+  menuBagCategoryController: {fileID: 695886811}
+  menuPartyController: {fileID: 628848889}
+  menuPartyPokemonController: {fileID: 2015564769}
+  menuPartyPokemonMovesController: {fileID: 529326346}
 --- !u!1 &2068610075
 GameObject:
   m_ObjectHideFlags: 0

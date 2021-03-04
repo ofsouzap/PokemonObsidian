@@ -31,6 +31,7 @@ namespace Battle.PlayerUI
         {
             player = PlayerData.singleton;
             SetUp();
+            OpenRootMenu();
         }
 
         private void SetUp()
@@ -128,16 +129,14 @@ namespace Battle.PlayerUI
 
             #region Party Menu Buttons
 
-            if (player != null) {
+            menuPartyController.pokemonButtons[0].onClick.AddListener(() => OpenPartyPokemonMenu(0));
+            menuPartyController.pokemonButtons[1].onClick.AddListener(() => OpenPartyPokemonMenu(1));
+            menuPartyController.pokemonButtons[2].onClick.AddListener(() => OpenPartyPokemonMenu(2));
+            menuPartyController.pokemonButtons[3].onClick.AddListener(() => OpenPartyPokemonMenu(3));
+            menuPartyController.pokemonButtons[4].onClick.AddListener(() => OpenPartyPokemonMenu(4));
+            menuPartyController.pokemonButtons[5].onClick.AddListener(() => OpenPartyPokemonMenu(5));
 
-                menuPartyController.pokemonButtons[0].onClick.AddListener(() => OpenPartyPokemonMenu(0));
-                menuPartyController.pokemonButtons[1].onClick.AddListener(() => OpenPartyPokemonMenu(1));
-                menuPartyController.pokemonButtons[2].onClick.AddListener(() => OpenPartyPokemonMenu(2));
-                menuPartyController.pokemonButtons[3].onClick.AddListener(() => OpenPartyPokemonMenu(3));
-                menuPartyController.pokemonButtons[4].onClick.AddListener(() => OpenPartyPokemonMenu(4));
-                menuPartyController.pokemonButtons[5].onClick.AddListener(() => OpenPartyPokemonMenu(5));
-
-            }
+            menuPartyController.RefreshButtons();
 
             #endregion
 
@@ -167,8 +166,6 @@ namespace Battle.PlayerUI
 
             #endregion
 
-            //TODO - set move ids for fight menu and party poekmon moves menus using SetMoves/SetMoveIds methods
-
             //TODO buttons for party pokemon menu. Only show if player has that many pokemon
 
         }
@@ -184,6 +181,12 @@ namespace Battle.PlayerUI
             menuPartyPokemonController.gameObject.SetActive(false);
             menuPartyPokemonMovesController.gameObject.SetActive(false);
 
+        }
+
+        public void OpenRootMenu()
+        {
+            DisableAllMenus();
+            menuRootController.gameObject.SetActive(true);
         }
 
         private void OpenPartyPokemonMenu(byte partyIndex)
