@@ -8,7 +8,7 @@ namespace Testing
     public class LoadPokemonMoves : MonoBehaviour
     {
 
-        private void Start()
+        private void Awake()
         {
 
             PokemonMoveData.LoadData();

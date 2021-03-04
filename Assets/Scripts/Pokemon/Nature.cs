@@ -25,7 +25,25 @@ namespace Pokemon {
             return registry.GetArray().First((x) => x.name == name);
         }
 
-        public static Registry<Nature> registry = new Registry<Nature>();
+        private static Registry<Nature> _registry = new Registry<Nature>();
+        public static Registry<Nature> registry
+        {
+            get
+            {
+
+                if (_registry == null)
+                {
+                    LoadRegistry();
+                }
+
+                return _registry;
+
+            }
+            set
+            {
+                _registry = value;
+            }
+        }
 
         public static Nature GetNatureById(int id)
         {

@@ -199,11 +199,11 @@ public class PlayerData
     public class Profile
     {
 
-        public string name;
+        public string name = "";
 
     }
 
-    public Profile profile;
+    public Profile profile = new Profile();
 
     #endregion
 
@@ -229,7 +229,7 @@ public class PlayerData
 
     }
 
-    public Stats stats;
+    public Stats stats = new Stats();
 
     #endregion
 

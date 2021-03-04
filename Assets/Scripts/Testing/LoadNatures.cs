@@ -1,18 +1,16 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Pokemon;
 
 #if UNITY_EDITOR
 
 namespace Testing
 {
-    public class LoadPokemonSpecies : MonoBehaviour
+    public class LoadNatures : MonoBehaviour
     {
 
         private void Awake()
         {
-
-            PokemonSpeciesData.LoadData();
-
+            Nature.LoadRegistry();
         }
 
     }

@@ -65,7 +65,7 @@ namespace Pokemon
             set
             {
                 _data = value;
-                Array.Sort(_data, (a, b) => a.level.CompareTo(b));
+                Array.Sort(_data, (a, b) => a.level.CompareTo(b.level));
             }
         }
 
