@@ -107,6 +107,9 @@ namespace Battle.PlayerUI
 
             #region Fight Menu Buttons
 
+            //TODO - do once controller ready (as mentioned below)
+            //menuFightController.SetCurrentPokemonIndex();
+
             //TODO - do once player participant controller ready
 
             #endregion
@@ -212,19 +215,9 @@ namespace Battle.PlayerUI
             DisableAllMenus();
             menuPartyPokemonMovesController.gameObject.SetActive(true);
 
-            Pokemon.PokemonInstance pokemon = player.partyPokemon[currentSelectedPartyPokemonIndex];
-
-            //TODO - set needed move properties
+            menuPartyPokemonMovesController.SetCurrentPokemonIndex(currentSelectedPartyPokemonIndex);
 
         }
-
-        /// <summary>
-        /// Tries to get a move's name. If the move isn't set (therefore id is 0), returns null
-        /// </summary>
-        private string TryGetMoveName(int moveId) => moveId == 0 ? null : Pokemon.Moves.PokemonMove.GetPokemonMoveById(moveId).name;
-
-        //TODO - listen to fight menu move button hover/focus events and, when received, set move details and enable/disable move details pane
-        //TODO - also do above for pokemon moves menu
 
     }
 }
