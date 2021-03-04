@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Pokemon.Moves;
 using Battle.PlayerUI;
 
 namespace Battle.PlayerUI
@@ -11,83 +13,121 @@ namespace Battle.PlayerUI
 
         public Button buttonBack;
 
-        public Button buttonMove0;
-        public Button buttonMove1;
-        public Button buttonMove2;
-        public Button buttonMove3;
+        public Button[] moveButtons;
 
-        public GameObject gameObjectDetailsPane;
+        public Text textPPValue;
+        public Text textPowerValue;
+        public Text textAccuracyValue;
 
-        public Text textMovePowerValue;
-        public Text textMoveAccuracyValue;
-        public Text textMovePPValue;
+        public Image imageCategory;
+        public Image imageType;
 
-        public Image imageMoveCategory;
-        public Image imageMoveType;
-        
+        public GameObject gameObjectMoveDetailsPane;
+
+        /// <summary>
+        /// The index of the pokemon currently selected to view the moves of
+        /// </summary>
+        private int currentPokemonIndex;
+
+        public void SetCurrentPokemonIndex(int index) => currentPokemonIndex = index;
+
         private void Start()
         {
+            
+            if (moveButtons.Length != 4)
+            {
+                Debug.LogError("Number of move buttons not 4");
+            }
 
-            Debug.Assert(buttonMove0.GetComponentInChildren<Text>() != null);
-            Debug.Assert(buttonMove1.GetComponentInChildren<Text>() != null);
-            Debug.Assert(buttonMove2.GetComponentInChildren<Text>() != null);
-            Debug.Assert(buttonMove3.GetComponentInChildren<Text>() != null);
+            foreach (Button button in moveButtons)
+            {
+
+                if (button.GetComponent<MenuButtonMoveController>() == null)
+                {
+                    Debug.LogError("Move button doesn't have MenuButtonMoveController component");
+                }
+
+                if (button.GetComponentInChildren<Text>() == null)
+                {
+                    Debug.LogError("Move button doesn't have Text component in children");
+                }
+
+            }
+
+            moveButtons[0].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(0));
+            moveButtons[0].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
+
+            moveButtons[1].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(1));
+            moveButtons[1].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
+
+            moveButtons[2].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(2));
+            moveButtons[2].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
+
+            moveButtons[3].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(3));
+            moveButtons[3].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
 
         }
 
-        /// <summary>
-        /// Set the names of the active pokemon's moves for the buttons
-        /// </summary>
-        /// <param name="nameMove0">The name of the first move</param>
-        /// <param name="nameMove1">The name of the second move</param>
-        /// <param name="nameMove2">The name of the third move</param>
-        /// <param name="nameMove3">The name of the fourth move</param>
-        public void SetMoveNames(
-            string nameMove0,
-            string nameMove1,
-            string nameMove2,
-            string nameMove3
-            )
+        private PokemonMove[] GetMoves() => PlayerData
+            .singleton
+            .partyPokemon[currentPokemonIndex]
+            .moveIds
+            .Where(x => x != 0)
+            .Select(x => PokemonMove.GetPokemonMoveById(x))
+            .ToArray();
+
+        public void RefreshMoveButtons()
         {
 
-            buttonMove0.GetComponentInChildren<Text>().text = nameMove0;
-            buttonMove1.GetComponentInChildren<Text>().text = nameMove1;
-            buttonMove2.GetComponentInChildren<Text>().text = nameMove2;
-            buttonMove3.GetComponentInChildren<Text>().text = nameMove3;
+            PokemonMove[] moves = GetMoves();
+            
+            for (int i = 0; i < moves.Length; i++)
+            {
+
+                moveButtons[i].GetComponentInChildren<Text>().text = moves[i].name;
+
+            }
+
+            if (moves.Length < 4)
+                moveButtons[3].gameObject.SetActive(false);
+            else
+                moveButtons[3].gameObject.SetActive(true);
+
+            if (moves.Length < 3)
+                moveButtons[2].gameObject.SetActive(false);
+            else
+                moveButtons[2].gameObject.SetActive(true);
+
+            if (moves.Length < 2)
+                moveButtons[1].gameObject.SetActive(false);
+            else
+                moveButtons[1].gameObject.SetActive(true);
 
         }
 
-        /// <summary>
-        /// Set the details of the selected move for the details panel
-        /// </summary>
-        /// <param name="ppRemaining">The PP remaining of the move</param>
-        /// <param name="ppMax">The maximum PP of the move</param>
-        /// <param name="power">The power of the move</param>
-        /// <param name="accuracy">The accuracy of the move</param>
-        /// <param name="categoryImagePath">The path to the icon for the move's category (physical, special or status)</param>
-        /// <param name="typeImagePath">The path to the icon for the move's (elemental) type</param>
-        public void SetMoveDetails(
-            byte ppRemaining,
-            byte ppMax,
-            byte power,
-            byte accuracy,
-            string categoryImagePath,
-            string typeImagePath
-            )
+        private void SetMovePaneDetails(int moveIndex)
         {
 
-            textMovePPValue.text = ppRemaining + "/" + ppMax;
-            textMovePowerValue.text = power.ToString();
-            textMoveAccuracyValue.text = accuracy.ToString();
+            PokemonMove move = GetMoves()[moveIndex];
+            byte[] remainingPPs = PlayerData
+                .singleton
+                .partyPokemon[currentPokemonIndex]
+                .movePPs;
 
-            imageMoveCategory.sprite = (Sprite)Resources.Load(categoryImagePath);
-            imageMoveType.sprite = (Sprite)Resources.Load(typeImagePath);
+            textPPValue.text = remainingPPs[moveIndex] + "/" + move.maxPP;
+            textPowerValue.text = move.power.ToString();
+            textAccuracyValue.text = move.accuracy.ToString();
+
+            //TODO - have below images set once their sprites are ready
+            imageCategory.sprite = null;
+            imageType.sprite = null;
+
+            ShowMovePane();
 
         }
 
-        public void EnableMoveDetailsPane() => gameObjectDetailsPane.SetActive(true);
-
-        public void DisableMoveDetailsPane() => gameObjectDetailsPane.SetActive(false);
+        private void ShowMovePane() => gameObjectMoveDetailsPane.SetActive(true);
+        private void HideMovePane() => gameObjectMoveDetailsPane.SetActive(false);
 
     }
 }

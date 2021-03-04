@@ -3869,17 +3869,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonBack: {fileID: 1578040951}
-  buttonMove0: {fileID: 1361523193}
-  buttonMove1: {fileID: 549058050}
-  buttonMove2: {fileID: 1529500748}
-  buttonMove3: {fileID: 190259515}
+  moveButtons:
+  - {fileID: 1361523193}
+  - {fileID: 549058050}
+  - {fileID: 1529500748}
+  - {fileID: 190259515}
   textName: {fileID: 966668774}
-  textMaxPP: {fileID: 1967074695}
+  textPPValue: {fileID: 1967074695}
   textDescription: {fileID: 2016521702}
   textPowerValue: {fileID: 710547454}
   textAccuracyValue: {fileID: 1042844586}
   imageCategory: {fileID: 915322920}
   imageType: {fileID: 1512067845}
+  gameObjectMoveDetailsPane: {fileID: 600124711}
 --- !u!1 &540291860
 GameObject:
   m_ObjectHideFlags: 0
@@ -9443,16 +9445,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonBack: {fileID: 1663520615}
-  buttonMove0: {fileID: 1414804139}
-  buttonMove1: {fileID: 466480592}
-  buttonMove2: {fileID: 2021597444}
-  buttonMove3: {fileID: 1625276236}
-  gameObjectDetailsPane: {fileID: 209140027}
-  textMovePowerValue: {fileID: 1778877927}
-  textMoveAccuracyValue: {fileID: 956503988}
-  textMovePPValue: {fileID: 1820616700}
-  imageMoveCategory: {fileID: 222781378}
-  imageMoveType: {fileID: 1970569581}
+  moveButtons:
+  - {fileID: 1414804139}
+  - {fileID: 466480592}
+  - {fileID: 2021597444}
+  - {fileID: 1625276236}
+  textPPValue: {fileID: 1820616700}
+  textPowerValue: {fileID: 1778877927}
+  textAccuracyValue: {fileID: 956503988}
+  imageCategory: {fileID: 222781378}
+  imageType: {fileID: 1970569581}
+  gameObjectMoveDetailsPane: {fileID: 209140027}
 --- !u!1 &1248813091
 GameObject:
   m_ObjectHideFlags: 0
@@ -15594,6 +15597,7 @@ MonoBehaviour:
   imageItemIcon: {fileID: 1055646711}
   textAbilityName: {fileID: 930825805}
   textAbilityDescription: {fileID: 1810417831}
+  imageStatusCondition: {fileID: 305573705}
   textAttackValue: {fileID: 175485784}
   textDefenseValue: {fileID: 1575613217}
   textSpecialAttackValue: {fileID: 1122548902}
@@ -16062,6 +16066,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5358851fe64bc48b8e6c67d570786f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuRootController: {fileID: 0}
+  menuFightController: {fileID: 0}
+  menuBagController: {fileID: 0}
+  menuBagCategoryController: {fileID: 0}
+  menuPartyController: {fileID: 0}
+  menuPartyPokemonController: {fileID: 0}
+  menuPartyPokemonMovesController: {fileID: 0}
 --- !u!1 &2068610075
 GameObject:
   m_ObjectHideFlags: 0

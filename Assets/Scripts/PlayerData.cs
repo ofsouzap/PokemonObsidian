@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Pokemon;
 using Items;
 using UnityEngine;
@@ -19,7 +20,9 @@ public class PlayerData
 
     #region Pokemon
 
-    public PokemonInstance[] partyPokemon;
+    public PokemonInstance[] partyPokemon = new PokemonInstance[6];
+
+    public byte GetNumberOfPartyPokemon() => (byte)partyPokemon.Count(x => x != null);
 
     #region Box Pokemon
 
@@ -79,6 +82,8 @@ public class PlayerData
             }
 
         }
+
+        public int GetNumberOfPokemonInBox() => pokemon.Count(x => x != null);
 
     }
 
@@ -174,12 +179,16 @@ public class PlayerData
 
         }
 
+        public int GetNumberOfPokemonInSystem() => boxes.Select(x => x.GetNumberOfPokemonInBox()).Sum();
+
     }
 
     /// <summary>
     /// The player's pokemon in their boxes
     /// </summary>
     public PokemonStorageSystem boxPokemon = new PokemonStorageSystem();
+
+    public int GetNumberOfPokemonInBoxes() => boxPokemon.GetNumberOfPokemonInSystem();
 
     #endregion
 
