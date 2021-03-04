@@ -39,6 +39,14 @@ namespace Battle.PlayerUI
 
             //TODO - for each opened menu, set currently-selected button in event system
 
+            #region Run Set-Up Functions
+
+            menuFightController.SetUp();
+            menuPartyController.SetUp();
+            menuBagCategoryController.SetUp();
+
+            #endregion
+
             #region Back Buttons
 
             menuFightController.buttonBack.onClick.AddListener(() =>

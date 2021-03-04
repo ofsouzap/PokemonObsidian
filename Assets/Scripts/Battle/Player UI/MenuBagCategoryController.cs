@@ -17,7 +17,7 @@ namespace Battle.PlayerUI
         private Text[] itemButtonTexts;
         private Image[] itemButtonImages;
 
-        private void Awake()
+        public void SetUp()
         {
 
             itemButtonTexts = new Text[itemButtons.Length];

@@ -16,7 +16,7 @@ namespace Battle.PlayerUI
         private Image[] pokemonButtonImages;
         private HealthBarScript[] pokemonButtonHealthBars;
 
-        private void Awake()
+        public void SetUp()
         {
             
             if (pokemonButtons.Length != 6)
@@ -68,9 +68,7 @@ namespace Battle.PlayerUI
                 if (properties[i].isSet)
                 {
 
-                    pokemonButtonTexts[i].gameObject.SetActive(true);
-                    pokemonButtonImages[i].gameObject.SetActive(true);
-                    pokemonButtonHealthBars[i].gameObject.SetActive(true);
+                    pokemonButtons[i].gameObject.SetActive(true);
 
                     pokemonButtonTexts[i].text = properties[i].name;
                     pokemonButtonImages[i].sprite = properties[i].icon;
@@ -80,9 +78,7 @@ namespace Battle.PlayerUI
                 else
                 {
 
-                    pokemonButtonTexts[i].gameObject.SetActive(false);
-                    pokemonButtonImages[i].gameObject.SetActive(false);
-                    pokemonButtonHealthBars[i].gameObject.SetActive(false);
+                    pokemonButtons[i].gameObject.SetActive(false);
 
                 }
 

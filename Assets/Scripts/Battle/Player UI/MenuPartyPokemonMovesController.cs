@@ -33,7 +33,7 @@ namespace Battle.PlayerUI
 
         public void SetCurrentPokemonIndex(int index) => currentPokemonIndex = index;
 
-        private void Awake()
+        public void SetUp()
         {
 
             if (moveButtons.Length != 4)
