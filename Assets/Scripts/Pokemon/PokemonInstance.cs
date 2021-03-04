@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using Pokemon;
 using Items;
@@ -30,7 +29,7 @@ namespace Pokemon
         {
 
             return PokemonSpecies.LoadSprite(
-                species.resourceName == "" ? speciesId.ToString() : species.resourceName,
+                species.resourceName == "" || species.resourceName == null ? speciesId.ToString() : species.resourceName,
                 spriteType,
                 gender
                 );
@@ -59,7 +58,7 @@ namespace Pokemon
 
             nonVolatileStatusConditionSprites = new Dictionary<NonVolatileStatusCondition, Sprite>();
 
-            Sprite[] battleSprites = Resources.LoadAll<Sprite>(battleSpritesSheetName);
+            Sprite[] battleSprites = Resources.LoadAll<Sprite>("Sprites/" + battleSpritesSheetName);
 
             foreach (Sprite sprite in battleSprites)
             {
@@ -149,10 +148,18 @@ namespace Pokemon
         public static Sprite LoadNonVolatileStatusConditionSprite(NonVolatileStatusCondition condition)
         {
 
+            if (condition == NonVolatileStatusCondition.None)
+                return null;
+
             if (!battleSpritesLoaded)
                 LoadBattleSprites();
 
-            if (nonVolatileStatusConditionSprites[condition] != null)
+            if (!nonVolatileStatusConditionSprites.ContainsKey(condition))
+            {
+                Debug.LogError("No entry for non-volatile status condition " + condition);
+                return null;
+            }
+            else if (nonVolatileStatusConditionSprites[condition] != null)
                 return nonVolatileStatusConditionSprites[condition];
             else
             {
@@ -235,7 +242,7 @@ namespace Pokemon
             else
             {
 
-                return Mathf.FloorToInt((2 * B + I + E) * (L / 100) + L + 10);
+                return Mathf.FloorToInt(((2 * B + I + E) * (L / 100)) + L + 10);
 
             }
 

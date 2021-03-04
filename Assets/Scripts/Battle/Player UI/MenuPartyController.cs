@@ -11,10 +11,7 @@ namespace Battle.PlayerUI
 
         public Button buttonBack;
 
-        public Button[] pokemonButtons;
-        private Text[] pokemonButtonTexts;
-        private Image[] pokemonButtonImages;
-        private HealthBarScript[] pokemonButtonHealthBars;
+        public MenuButtonPokemonController[] pokemonButtons;
 
         public void SetUp()
         {
@@ -25,92 +22,22 @@ namespace Battle.PlayerUI
                 return;
             }
 
-            pokemonButtonTexts = new Text[pokemonButtons.Length];
-            pokemonButtonImages = new Image[pokemonButtons.Length];
-            pokemonButtonHealthBars = new HealthBarScript[pokemonButtons.Length];
-
-            for (int i = 0; i < pokemonButtons.Length; i++)
-            {
-
-                Button _button = pokemonButtons[i];
-
-                Text _text = _button.GetComponentInChildren<Text>();
-                Image _image = _button.GetComponentInChildren<Image>();
-                HealthBarScript _healthBar = _button.GetComponentInChildren<HealthBarScript>();
-
-                if (_text == null || _image == null || _healthBar == null)
-                {
-                    Debug.LogError("Invalid pokemon button child format for index " + i);
-                }
-
-                pokemonButtonTexts[i] = _text;
-                pokemonButtonImages[i] = _image;
-                pokemonButtonHealthBars[i] = _healthBar;
-
-            }
-
-        }
-
-        public struct PokemonButtonProperties { public bool isSet; public string name; public Sprite icon; public float healthProportion; }
-
-        private void SetPokemonButtonProperties(PokemonButtonProperties[] properties)
-        {
-
-            if (properties.Length != pokemonButtons.Length)
-            {
-                Debug.LogError("Invalid properties length for setting pokemon button properties");
-                return;
-            }
-
-            for (int i = 0; i < properties.Length; i++)
-            {
-
-                if (properties[i].isSet)
-                {
-
-                    pokemonButtons[i].gameObject.SetActive(true);
-
-                    pokemonButtonTexts[i].text = properties[i].name;
-                    pokemonButtonImages[i].sprite = properties[i].icon;
-                    pokemonButtonHealthBars[i].UpdateBar(properties[i].healthProportion);
-
-                }
-                else
-                {
-
-                    pokemonButtons[i].gameObject.SetActive(false);
-
-                }
-
-            }
-
         }
 
         public void RefreshButtons()
         {
 
-            List<PokemonButtonProperties> buttonProperties = new List<PokemonButtonProperties>();
+            Pokemon.PokemonInstance[] pokemon = PlayerData.singleton.partyPokemon;
 
-            foreach (Pokemon.PokemonInstance pokemon in PlayerData.singleton.partyPokemon)
+            for (int i = 0; i < pokemon.Length; i++)
             {
 
-                if (pokemon == null)
-                {
-                    buttonProperties.Add(new PokemonButtonProperties() { isSet = false });
-                    continue;
-                }
-
-                buttonProperties.Add(new PokemonButtonProperties()
-                {
-                    isSet = true,
-                    name = pokemon.GetDisplayName(),
-                    icon = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),
-                    healthProportion = ((float)pokemon.health) / pokemon.species.baseStats.health
-                });
+                pokemonButtons[i].SetValues(
+                    pokemon[i].GetDisplayName(),
+                    pokemon[i].LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),
+                    ((float)pokemon[i].health) / pokemon[i].GetStats().health);
 
             }
-
-            SetPokemonButtonProperties(buttonProperties.ToArray());
 
         }
 

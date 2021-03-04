@@ -124,8 +124,8 @@ namespace Battle.PlayerUI
             textName.text = move.name;
             textPPValue.text = remainingPPs[moveIndex] + "/" + move.maxPP;
             textDescription.text = move.description;
-            textPowerValue.text = move.power.ToString();
-            textAccuracyValue.text = move.accuracy.ToString();
+            textPowerValue.text = move.power != 0 ? move.power.ToString() : "-";
+            textAccuracyValue.text = move.accuracy != 0 ? move.accuracy.ToString() : "-";
 
             //TODO - have below images set once their sprites are ready
             imageCategory.sprite = null;

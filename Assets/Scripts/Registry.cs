@@ -56,6 +56,15 @@ public class Registry<T> : IEnumerable where T : IHasId
         bool? movingForwards = null;
         int nextIndexCheck = startingIndex;
 
+        if (nextIndexCheck < 0)
+        {
+            nextIndexCheck = 0;
+        }
+        else if (nextIndexCheck >= entries.Length)
+        {
+            nextIndexCheck = entries.Length - 1;
+        }
+
         while (true)
         {
 

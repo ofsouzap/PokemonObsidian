@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 57128210}
   - component: {fileID: 57128209}
   - component: {fileID: 57128208}
+  - component: {fileID: 57128211}
   m_Layer: 5
   m_Name: Button Pokemon 5
   m_TagString: Untagged
@@ -526,6 +527,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57128206}
   m_CullTransparentMesh: 1
+--- !u!114 &57128211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57128206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8227b7990324247babdf97172f325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textName: {fileID: 1758184963}
+  imageIcon: {fileID: 739905855}
+  healthBar: {fileID: 2084242639}
 --- !u!1 &63108533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2975,6 +2991,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370135712}
   m_CullTransparentMesh: 1
+--- !u!114 &372969468 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668099278249641163, guid: 2a98114ad70d8754cafff2642b7da802, type: 3}
+  m_PrefabInstance: {fileID: 506174034}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c858cfac987387e4086e2b031fffbc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &418713542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3894,6 +3921,7 @@ GameObject:
   - component: {fileID: 540291864}
   - component: {fileID: 540291863}
   - component: {fileID: 540291862}
+  - component: {fileID: 540291865}
   m_Layer: 5
   m_Name: Button Pokemon 1
   m_TagString: Untagged
@@ -4005,6 +4033,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540291860}
   m_CullTransparentMesh: 1
+--- !u!114 &540291865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540291860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8227b7990324247babdf97172f325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textName: {fileID: 1679791040}
+  imageIcon: {fileID: 127595324}
+  healthBar: {fileID: 865346566}
 --- !u!1 &549058048
 GameObject:
   m_ObjectHideFlags: 0
@@ -5290,12 +5333,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonBack: {fileID: 1715039491}
   pokemonButtons:
-  - {fileID: 983573248}
-  - {fileID: 540291862}
-  - {fileID: 1919404754}
-  - {fileID: 1409069573}
-  - {fileID: 1576733166}
-  - {fileID: 57128208}
+  - {fileID: 983573251}
+  - {fileID: 540291865}
+  - {fileID: 1919404757}
+  - {fileID: 1409069576}
+  - {fileID: 1576733169}
+  - {fileID: 57128211}
 --- !u!1 &633718435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6954,6 +6997,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &865346566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668099278249641163, guid: 2a98114ad70d8754cafff2642b7da802, type: 3}
+  m_PrefabInstance: {fileID: 797477901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c858cfac987387e4086e2b031fffbc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &877678985
 GameObject:
   m_ObjectHideFlags: 0
@@ -7538,6 +7592,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936408670}
   m_CullTransparentMesh: 1
+--- !u!114 &938501850 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668099278249641163, guid: 2a98114ad70d8754cafff2642b7da802, type: 3}
+  m_PrefabInstance: {fileID: 1864121509}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c858cfac987387e4086e2b031fffbc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &956503986
 GameObject:
   m_ObjectHideFlags: 0
@@ -7909,6 +7974,7 @@ GameObject:
   - component: {fileID: 983573250}
   - component: {fileID: 983573249}
   - component: {fileID: 983573248}
+  - component: {fileID: 983573251}
   m_Layer: 5
   m_Name: Button Pokemon 0
   m_TagString: Untagged
@@ -8020,6 +8086,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983573246}
   m_CullTransparentMesh: 1
+--- !u!114 &983573251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983573246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8227b7990324247babdf97172f325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textName: {fileID: 41520595}
+  imageIcon: {fileID: 1774658256}
+  healthBar: {fileID: 372969468}
 --- !u!1 &996194655
 GameObject:
   m_ObjectHideFlags: 0
@@ -10373,6 +10454,7 @@ GameObject:
   - component: {fileID: 1409069575}
   - component: {fileID: 1409069574}
   - component: {fileID: 1409069573}
+  - component: {fileID: 1409069576}
   m_Layer: 5
   m_Name: Button Pokemon 3
   m_TagString: Untagged
@@ -10484,6 +10566,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409069571}
   m_CullTransparentMesh: 1
+--- !u!114 &1409069576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409069571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8227b7990324247babdf97172f325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textName: {fileID: 2101355055}
+  imageIcon: {fileID: 1481802724}
+  healthBar: {fileID: 1894636846}
 --- !u!1 &1414804137
 GameObject:
   m_ObjectHideFlags: 0
@@ -11784,6 +11881,7 @@ GameObject:
   - component: {fileID: 1576733168}
   - component: {fileID: 1576733167}
   - component: {fileID: 1576733166}
+  - component: {fileID: 1576733169}
   m_Layer: 5
   m_Name: Button Pokemon 4
   m_TagString: Untagged
@@ -11895,6 +11993,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576733164}
   m_CullTransparentMesh: 1
+--- !u!114 &1576733169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576733164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8227b7990324247babdf97172f325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textName: {fileID: 1816728872}
+  imageIcon: {fileID: 1798868690}
+  healthBar: {fileID: 938501850}
 --- !u!1 &1578040949
 GameObject:
   m_ObjectHideFlags: 0
@@ -14887,6 +15000,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892829150}
   m_CullTransparentMesh: 1
+--- !u!114 &1894636846 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668099278249641163, guid: 2a98114ad70d8754cafff2642b7da802, type: 3}
+  m_PrefabInstance: {fileID: 177018723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c858cfac987387e4086e2b031fffbc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1913499478
 GameObject:
   m_ObjectHideFlags: 0
@@ -14956,6 +15080,7 @@ GameObject:
   - component: {fileID: 1919404756}
   - component: {fileID: 1919404755}
   - component: {fileID: 1919404754}
+  - component: {fileID: 1919404757}
   m_Layer: 5
   m_Name: Button Pokemon 2
   m_TagString: Untagged
@@ -15067,6 +15192,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919404752}
   m_CullTransparentMesh: 1
+--- !u!114 &1919404757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919404752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8227b7990324247babdf97172f325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textName: {fileID: 1354164074}
+  imageIcon: {fileID: 311339328}
+  healthBar: {fileID: 2071368511}
 --- !u!1 &1923039757
 GameObject:
   m_ObjectHideFlags: 0
@@ -16192,6 +16332,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 130}
   m_SizeDelta: {x: -20, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2071368511 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668099278249641163, guid: 2a98114ad70d8754cafff2642b7da802, type: 3}
+  m_PrefabInstance: {fileID: 110499553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c858cfac987387e4086e2b031fffbc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2077853414
 GameObject:
   m_ObjectHideFlags: 0
@@ -16271,6 +16422,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077853414}
   m_CullTransparentMesh: 1
+--- !u!114 &2084242639 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2668099278249641163, guid: 2a98114ad70d8754cafff2642b7da802, type: 3}
+  m_PrefabInstance: {fileID: 1827538062}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c858cfac987387e4086e2b031fffbc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2090777619
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,26 +19,26 @@ namespace Pokemon
             Stats<ushort> effortValues,
             Stats<byte> individualValues,
             int[] _moves,
+            byte[] movePPs,
             int experience,
             PokemonInstance.NonVolatileStatusCondition nonVolatileStatusCondition,
             PokemonInstance.BattleProperties battleProperties,
             string nickname = "",
             Item heldItem = null,
-            int _health = -1
+            int _health = -1,
+            bool? gender = true
             )
         {
 
-            int[] moves = new int[0];
+            int[] moves = new int[4];
 
-            if (_moves.Length <= 4)
-            {
-                moves = _moves;
-            }
-            else
+            if (_moves.Length > 4)
             {
                 Debug.LogWarning("Length of moves passed to GenerateFull was greater than 4");
                 Array.Copy(_moves, moves, 4);
             }
+
+            Array.Copy(_moves, moves, _moves.Length);
 
             PokemonInstance instance = new PokemonInstance(individualValues)
             {
@@ -46,12 +46,14 @@ namespace Pokemon
                 natureId = natureId,
                 effortValues = effortValues,
                 moveIds = moves,
+                movePPs = movePPs,
                 experience = experience,
                 nonVolatileStatusCondition = nonVolatileStatusCondition,
                 battleProperties = battleProperties,
                 nickname = nickname,
                 heldItem = heldItem,
-                health = _health > 0 ? _health : 1
+                health = _health > 0 ? _health : 1,
+                gender = gender
             };
 
             if (_health <= 0)
@@ -81,6 +83,8 @@ namespace Pokemon
             Stats<ushort> effortValues;
             Stats<byte> individualValues;
             int[] moves;
+            byte[] movePPs;
+            bool? gender;
 
             speciesId = possibleSpeciesIds[UnityEngine.Random.Range(0, possibleSpeciesIds.Length)];
 
@@ -111,6 +115,7 @@ namespace Pokemon
             Dictionary<byte, int[]> levelUpMoves = PokemonSpecies.GetPokemonSpeciesById(speciesId).levelUpMoves;
 
             moves = new int[4];
+            movePPs = new byte[4];
             int movesIndex = 0;
             bool allMovesSet = false;
 
@@ -124,6 +129,7 @@ namespace Pokemon
                 {
 
                     moves[movesIndex] = moveId;
+                    movePPs[movesIndex] = Moves.PokemonMove.GetPokemonMoveById(moveId).maxPP;
                     movesIndex++;
 
                     if (movesIndex == 4)
@@ -139,15 +145,20 @@ namespace Pokemon
 
             }
 
+            //TODO - change gender selection to use gender properties for pokemon species once created
+            gender = UnityEngine.Random.Range(0, 2) == 0;
+
             return GenerateFull(
                 speciesId: speciesId,
                 natureId: natureId,
                 effortValues: effortValues,
                 individualValues: individualValues,
                 _moves: moves,
+                movePPs: movePPs,
                 experience: experience,
                 nonVolatileStatusCondition: PokemonInstance.NonVolatileStatusCondition.None,
-                battleProperties: null
+                battleProperties: null,
+                gender: gender
                 );
 
         }

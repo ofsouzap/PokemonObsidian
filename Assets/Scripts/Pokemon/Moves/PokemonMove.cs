@@ -15,7 +15,7 @@ namespace Pokemon.Moves
 
         public static PokemonMove GetPokemonMoveById(int id)
         {
-            return registry.StartingIndexSearch(id, id);
+            return registry.StartingIndexSearch(id, id - 1);
         }
 
         #endregion

@@ -15,12 +15,12 @@ namespace Testing
 
             PlayerData.singleton.partyPokemon = new PokemonInstance[6]
             {
-                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5 }, 10, 14),
-                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5 }, 10, 14),
-                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5 }, 10, 14),
-                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5 }, 10, 14),
-                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5 }, 10, 14),
-                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5 }, 10, 14)
+                PokemonFactory.GenerateWild(new int[] { 9 }, 10, 14),
+                PokemonFactory.GenerateWild(new int[] { 1 }, 10, 14),
+                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 10, 14),
+                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 10, 14),
+                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 10, 14),
+                PokemonFactory.GenerateWild(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 10, 14)
             };
 
             PlayerData.singleton.profile.name = "Test";

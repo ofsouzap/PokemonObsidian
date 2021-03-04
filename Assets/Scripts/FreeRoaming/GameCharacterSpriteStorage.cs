@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
 using UnityEngine;
 using FreeRoaming;
 
@@ -143,7 +142,7 @@ namespace FreeRoaming
         private static Sprite[] LoadAllInDefaultDirectory()
         {
 
-            string resourcePath = Path.Combine("Sprites", "Characters");
+            string resourcePath = "Sprite/Characters";
 
             return Resources.LoadAll<Sprite>(resourcePath);
 
@@ -156,7 +155,7 @@ namespace FreeRoaming
         /// <returns>The array of sprites loaded from the sheet</returns>
         public static Sprite[] LoadSpriteSheet(string spriteSheetName)
         {
-            return Resources.LoadAll<Sprite>(Path.Combine("Sprites", spriteSheetName));
+            return Resources.LoadAll<Sprite>("Sprites/" + spriteSheetName);
         }
 
     }

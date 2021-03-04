@@ -121,6 +121,8 @@ namespace Battle.PlayerUI
 
             //TODO - do once player participant controller ready
 
+            menuFightController.RefreshMoveButtons();
+
             #endregion
 
             #region Bag Menu Buttons
@@ -137,12 +139,12 @@ namespace Battle.PlayerUI
 
             #region Party Menu Buttons
 
-            menuPartyController.pokemonButtons[0].onClick.AddListener(() => OpenPartyPokemonMenu(0));
-            menuPartyController.pokemonButtons[1].onClick.AddListener(() => OpenPartyPokemonMenu(1));
-            menuPartyController.pokemonButtons[2].onClick.AddListener(() => OpenPartyPokemonMenu(2));
-            menuPartyController.pokemonButtons[3].onClick.AddListener(() => OpenPartyPokemonMenu(3));
-            menuPartyController.pokemonButtons[4].onClick.AddListener(() => OpenPartyPokemonMenu(4));
-            menuPartyController.pokemonButtons[5].onClick.AddListener(() => OpenPartyPokemonMenu(5));
+            menuPartyController.pokemonButtons[0].Button.onClick.AddListener(() => OpenPartyPokemonMenu(0));
+            menuPartyController.pokemonButtons[1].Button.onClick.AddListener(() => OpenPartyPokemonMenu(1));
+            menuPartyController.pokemonButtons[2].Button.onClick.AddListener(() => OpenPartyPokemonMenu(2));
+            menuPartyController.pokemonButtons[3].Button.onClick.AddListener(() => OpenPartyPokemonMenu(3));
+            menuPartyController.pokemonButtons[4].Button.onClick.AddListener(() => OpenPartyPokemonMenu(4));
+            menuPartyController.pokemonButtons[5].Button.onClick.AddListener(() => OpenPartyPokemonMenu(5));
 
             menuPartyController.RefreshButtons();
 

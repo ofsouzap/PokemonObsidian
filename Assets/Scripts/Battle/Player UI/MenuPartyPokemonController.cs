@@ -78,15 +78,28 @@ namespace Battle.PlayerUI
 
             //TODO - set values for ability when and if implemented
 
-            Sprite statusConditionSprite = Pokemon.PokemonInstance.LoadNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
-            if (statusConditionSprite != null)
+            if (pokemon.nonVolatileStatusCondition != Pokemon.PokemonInstance.NonVolatileStatusCondition.None)
             {
+
                 imageStatusCondition.gameObject.SetActive(true);
-                imageStatusCondition.sprite = statusConditionSprite;
+
+                Sprite statusConditionSprite = Pokemon.PokemonInstance.LoadNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
+                if (statusConditionSprite != null)
+                {
+                    imageStatusCondition.gameObject.SetActive(true);
+                    imageStatusCondition.sprite = statusConditionSprite;
+                }
+                else
+                {
+                    imageStatusCondition.gameObject.SetActive(false);
+                }
+
             }
             else
             {
+
                 imageStatusCondition.gameObject.SetActive(false);
+
             }
 
             #endregion
@@ -100,7 +113,7 @@ namespace Battle.PlayerUI
             textSpecialAttackValue.text = stats.specialAttack.ToString();
             textSpecialDefenseValue.text = stats.specialDefense.ToString();
             textSpeedValue.text = stats.speed.ToString();
-            healthBar.UpdateBar(((float)pokemon.health) / pokemon.species.baseStats.health);
+            healthBar.UpdateBar(((float)pokemon.health) / pokemon.GetStats().health);
 
             #endregion
 

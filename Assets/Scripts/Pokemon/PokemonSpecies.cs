@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
 using UnityEngine;
 using Pokemon;
 
@@ -17,7 +16,7 @@ namespace Pokemon
 
         public static PokemonSpecies GetPokemonSpeciesById(int id)
         {
-            return registry.StartingIndexSearch(id, id);
+            return registry.StartingIndexSearch(id, id - 1);
         }
 
         #endregion
@@ -94,11 +93,11 @@ namespace Pokemon
 
             }
 
-            resourcePath = Path.Combine(typeDirectory, resourceName);
+            resourcePath = "Sprites/Pokemon/" + typeDirectory + '/' + resourceName;
 
             if (alternativeTypeDirectory != null)
             {
-                alternativeResourcePath = Path.Combine(alternativeTypeDirectory, resourceName);
+                alternativeResourcePath = "Sprites/Pokemon/" + alternativeTypeDirectory + '/' + resourceName;
             }
 
             #endregion

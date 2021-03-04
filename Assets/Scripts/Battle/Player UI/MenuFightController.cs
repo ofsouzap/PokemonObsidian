@@ -83,7 +83,7 @@ namespace Battle.PlayerUI
 
         public void RefreshMoveButtons()
         {
-
+            
             PokemonMove[] moves = GetMoves();
             
             for (int i = 0; i < moves.Length; i++)
@@ -120,8 +120,8 @@ namespace Battle.PlayerUI
                 .movePPs;
 
             textPPValue.text = remainingPPs[moveIndex] + "/" + move.maxPP;
-            textPowerValue.text = move.power.ToString();
-            textAccuracyValue.text = move.accuracy.ToString();
+            textPowerValue.text = move.power != 0 ? move.power.ToString() : "-";
+            textAccuracyValue.text = move.accuracy != 0 ? move.accuracy.ToString() : "-";
 
             //TODO - have below images set once their sprites are ready
             imageCategory.sprite = null;
