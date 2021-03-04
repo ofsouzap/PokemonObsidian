@@ -31,9 +31,9 @@ namespace Battle.PlayerUI
 
         public void SetCurrentPokemonIndex(int index) => currentPokemonIndex = index;
 
-        private void Start()
+        private void Awake()
         {
-            
+
             if (moveButtons.Length != 4)
             {
                 Debug.LogError("Number of move buttons not 4");
@@ -53,6 +53,11 @@ namespace Battle.PlayerUI
                 }
 
             }
+
+        }
+
+        private void Start()
+        {
 
             moveButtons[0].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(0));
             moveButtons[0].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);

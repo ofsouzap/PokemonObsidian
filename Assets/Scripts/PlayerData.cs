@@ -11,7 +11,7 @@ public class PlayerData
     /// <summary>
     /// The instance of this
     /// </summary>
-    public static PlayerData singleton;
+    public static PlayerData singleton = new PlayerData();
 
     public PlayerData()
     {

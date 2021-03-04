@@ -16,7 +16,7 @@ namespace Battle.PlayerUI
         private Image[] pokemonButtonImages;
         private HealthBarScript[] pokemonButtonHealthBars;
 
-        private void Start()
+        private void Awake()
         {
             
             if (pokemonButtons.Length != 6)
@@ -24,6 +24,10 @@ namespace Battle.PlayerUI
                 Debug.LogError("Non-6-length pokemon buttons array");
                 return;
             }
+
+            pokemonButtonTexts = new Text[pokemonButtons.Length];
+            pokemonButtonImages = new Image[pokemonButtons.Length];
+            pokemonButtonHealthBars = new HealthBarScript[pokemonButtons.Length];
 
             for (int i = 0; i < pokemonButtons.Length; i++)
             {
@@ -95,7 +99,10 @@ namespace Battle.PlayerUI
             {
 
                 if (pokemon == null)
+                {
                     buttonProperties.Add(new PokemonButtonProperties() { isSet = false });
+                    continue;
+                }
 
                 buttonProperties.Add(new PokemonButtonProperties()
                 {
