@@ -8,12 +8,23 @@ using Battle.PlayerUI;
 
 namespace Battle.PlayerUI
 {
-    public class MenuFightController : MonoBehaviour
+    public class MenuFightController : MenuController
     {
 
         public Button buttonBack;
 
         public Button[] moveButtons;
+
+        protected override MenuSelectableController[] GetSelectables()
+        {
+            MenuSelectableController[] output = new MenuSelectableController[moveButtons.Length + 1];
+            Array.Copy(
+                moveButtons.Select(x => x.GetComponent<MenuSelectableController>()).ToArray(),
+                output,
+                moveButtons.Length);
+            output[output.Length - 1] = buttonBack.GetComponent<MenuSelectableController>();
+            return output;
+        }
 
         public Text textPPValue;
         public Text textPowerValue;
@@ -60,6 +71,12 @@ namespace Battle.PlayerUI
 
         private void Start()
         {
+
+            foreach (Button button in moveButtons)
+            {
+                if (button.GetComponent<MenuButtonMoveController>() == null)
+                    Debug.LogError("No MenuButtonMoveController in move button");
+            }
 
             moveButtons[0].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(0));
             moveButtons[0].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);

@@ -10,6 +10,8 @@ namespace Battle.PlayerUI
     public class PlayerBattleUIController : MonoBehaviour
     {
 
+        public static PlayerBattleUIController singleton;
+
         public MenuRootController menuRootController;
 
         public MenuFightController menuFightController;
@@ -24,12 +26,15 @@ namespace Battle.PlayerUI
 
         public MenuPartyPokemonMovesController menuPartyPokemonMovesController;
 
+        public GameObject selectableSelectionPrefab;
+
         private PlayerData player;
 
         private byte currentSelectedPartyPokemonIndex;
 
         private void Start()
         {
+            singleton = this;
             player = PlayerData.singleton;
             SetUp();
             OpenRootMenu();
@@ -57,7 +62,7 @@ namespace Battle.PlayerUI
             menuBagCategoryController.buttonBack.onClick.AddListener(() =>
             {
                 DisableAllMenus();
-                menuBagController.gameObject.SetActive(true);
+                menuBagController.Show();
             });
 
             menuPartyController.buttonBack.onClick.AddListener(() => OpenRootMenu());
@@ -65,14 +70,14 @@ namespace Battle.PlayerUI
             menuPartyPokemonController.buttonBack.onClick.AddListener(() =>
             {
                 DisableAllMenus();
-                menuPartyController.gameObject.SetActive(true);
+                menuPartyController.Show();
                 EventSystem.current.SetSelectedGameObject(menuPartyController.pokemonButtons[0].gameObject);
             });
 
             menuPartyPokemonMovesController.buttonBack.onClick.AddListener(() =>
             {
                 DisableAllMenus();
-                menuPartyPokemonController.gameObject.SetActive(true);
+                menuPartyPokemonController.Show();
                 EventSystem.current.SetSelectedGameObject(menuPartyPokemonController.buttonBack.gameObject);
             });
 
@@ -88,21 +93,21 @@ namespace Battle.PlayerUI
             menuRootController.buttonBag.onClick.AddListener(() =>
             {
                 DisableAllMenus();
-                menuBagController.gameObject.SetActive(true);
+                menuBagController.Show();
                 EventSystem.current.SetSelectedGameObject(menuBagController.buttonBack.gameObject);
             });
 
             menuRootController.buttonParty.onClick.AddListener(() =>
             {
                 DisableAllMenus();
-                menuPartyController.gameObject.SetActive(true);
+                menuPartyController.Show();
                 EventSystem.current.SetSelectedGameObject(menuPartyController.pokemonButtons[0].gameObject);
             });
 
             menuRootController.buttonFight.onClick.AddListener(() =>
             {
                 DisableAllMenus();
-                menuFightController.gameObject.SetActive(true);
+                menuFightController.Show();
                 EventSystem.current.SetSelectedGameObject(menuFightController.buttonBack.gameObject);
             });
 
@@ -184,20 +189,20 @@ namespace Battle.PlayerUI
         private void DisableAllMenus()
         {
 
-            menuRootController.gameObject.SetActive(false);
-            menuFightController.gameObject.SetActive(false);
-            menuBagController.gameObject.SetActive(false);
-            menuBagCategoryController.gameObject.SetActive(false);
-            menuPartyController.gameObject.SetActive(false);
-            menuPartyPokemonController.gameObject.SetActive(false);
-            menuPartyPokemonMovesController.gameObject.SetActive(false);
+            menuRootController.Hide();
+            menuFightController.Hide();
+            menuBagController.Hide();
+            menuBagCategoryController.Hide();
+            menuPartyController.Hide();
+            menuPartyPokemonController.Hide();
+            menuPartyPokemonMovesController.Hide();
 
         }
 
         public void OpenRootMenu()
         {
             DisableAllMenus();
-            menuRootController.gameObject.SetActive(true);
+            menuRootController.Show();
             EventSystem.current.SetSelectedGameObject(menuRootController.buttonFight.gameObject);
         }
 
@@ -218,7 +223,7 @@ namespace Battle.PlayerUI
             currentSelectedPartyPokemonIndex = partyIndex;
 
             DisableAllMenus();
-            menuPartyPokemonController.gameObject.SetActive(true);
+            menuPartyPokemonController.Show();
             EventSystem.current.SetSelectedGameObject(menuPartyPokemonController.buttonBack.gameObject);
 
             menuPartyPokemonController.SetPokemonDetails(player.partyPokemon[partyIndex]);
@@ -229,7 +234,7 @@ namespace Battle.PlayerUI
         {
 
             DisableAllMenus();
-            menuPartyPokemonMovesController.gameObject.SetActive(true);
+            menuPartyPokemonMovesController.Show();
             EventSystem.current.SetSelectedGameObject(menuPartyPokemonMovesController.moveButtons[0].gameObject);
 
             menuPartyPokemonMovesController.SetCurrentPokemonIndex(currentSelectedPartyPokemonIndex);

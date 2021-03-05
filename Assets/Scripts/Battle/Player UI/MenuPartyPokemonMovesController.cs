@@ -8,12 +8,23 @@ using Battle.PlayerUI;
 
 namespace Battle.PlayerUI
 {
-    public class MenuPartyPokemonMovesController : MonoBehaviour
+    public class MenuPartyPokemonMovesController : MenuController
     {
 
         public Button buttonBack;
 
         public Button[] moveButtons;
+
+        protected override MenuSelectableController[] GetSelectables()
+        {
+            MenuSelectableController[] output = new MenuSelectableController[moveButtons.Length + 1];
+            Array.Copy(
+                moveButtons.Select(x => x.GetComponent<MenuSelectableController>()).ToArray(),
+                output,
+                moveButtons.Length);
+            output[output.Length - 1] = buttonBack.GetComponent<MenuSelectableController>();
+            return output;
+        }
 
         public Text textName;
         public Text textPPValue;

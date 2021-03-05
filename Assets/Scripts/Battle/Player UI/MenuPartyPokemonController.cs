@@ -6,7 +6,7 @@ using Battle.PlayerUI;
 
 namespace Battle.PlayerUI
 {
-    public class MenuPartyPokemonController : MonoBehaviour
+    public class MenuPartyPokemonController : MenuController
     {
 
         //I have addded headers to this class since there are so many properties to set in the inspector
@@ -20,6 +20,15 @@ namespace Battle.PlayerUI
 
         public Button buttonSendOut;
         public Button buttonCheckMoves;
+
+        protected override MenuSelectableController[] GetSelectables() => new MenuSelectableController[]
+        {
+            buttonBack.GetComponent<MenuSelectableController>(),
+            buttonNext.GetComponent<MenuSelectableController>(),
+            buttonPrevious.GetComponent<MenuSelectableController>(),
+            buttonSendOut.GetComponent<MenuSelectableController>(),
+            buttonCheckMoves.GetComponent<MenuSelectableController>()
+        };
 
         [Header("Images")]
 

@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Battle.PlayerUI;
 
 namespace Battle.PlayerUI
 {
-    public class MenuPartyController : MonoBehaviour
+    public class MenuPartyController : MenuController
     {
 
         public Button buttonBack;
 
         public MenuButtonPokemonController[] pokemonButtons;
+
+        protected override MenuSelectableController[] GetSelectables()
+        {
+            MenuSelectableController[] output = new MenuSelectableController[pokemonButtons.Length + 1];
+            Array.Copy(
+                pokemonButtons,
+                output,
+                pokemonButtons.Length);
+            output[output.Length - 1] = buttonBack.GetComponent<MenuSelectableController>();
+            return output;
+        }
 
         public void SetUp()
         {

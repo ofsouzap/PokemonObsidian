@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Battle.PlayerUI;
 
 namespace Battle.PlayerUI
 {
-    public class MenuBagCategoryController : MonoBehaviour
+    public class MenuBagCategoryController : MenuController
     {
 
         public Button buttonBack;
@@ -16,6 +17,19 @@ namespace Battle.PlayerUI
         public Button[] itemButtons;
         private Text[] itemButtonTexts;
         private Image[] itemButtonImages;
+
+        protected override MenuSelectableController[] GetSelectables()
+        {
+            MenuSelectableController[] output = new MenuSelectableController[itemButtons.Length + 3];
+            Array.Copy(
+                itemButtons.Select(x => x.GetComponent<MenuSelectableController>()).ToArray(),
+                output,
+                itemButtons.Length);
+            output[output.Length - 3] = buttonBack.GetComponent<MenuSelectableController>();
+            output[output.Length - 2] = buttonPrevious.GetComponent<MenuSelectableController>();
+            output[output.Length - 1] = buttonNext.GetComponent<MenuSelectableController>();
+            return output;
+        }
 
         public void SetUp()
         {
