@@ -207,10 +207,10 @@ namespace Pokemon
             Stats<byte>.Stat statByte = (Stats<byte>.Stat)stat;
             Stats<bool?>.Stat statBoolN = (Stats<bool?>.Stat)stat;
 
-            byte B = species.baseStats.GetStat(statByte);
-            byte I = individualValues.GetStat(statByte);
-            int E = effortValues.GetStat(statUShort) / 4;
-            byte L = GetLevel();
+            float B = species.baseStats.GetStat(statByte);
+            float I = individualValues.GetStat(statByte);
+            float E = effortValues.GetStat(statUShort) / 4;
+            float L = GetLevel();
 
             //N.B. health is calculated differently
 
