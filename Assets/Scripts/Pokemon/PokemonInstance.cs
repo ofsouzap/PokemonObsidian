@@ -288,7 +288,7 @@ namespace Pokemon
         #region Experience
 
         public int experience;
-        public GrowthType growthType;
+        public GrowthType growthType => species.growthType;
         
         public byte GetLevel()
         {
