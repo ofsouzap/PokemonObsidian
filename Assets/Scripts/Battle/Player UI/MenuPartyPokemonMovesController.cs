@@ -56,6 +56,8 @@ namespace Battle.PlayerUI
 
             }
 
+            gameObjectMoveDetailsPane.SetActive(false);
+
         }
 
         public void Start()

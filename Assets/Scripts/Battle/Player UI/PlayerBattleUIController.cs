@@ -176,6 +176,13 @@ namespace Battle.PlayerUI
 
             #endregion
 
+            #region Party Pokemon Move Button Names
+
+            menuPartyPokemonMovesController.SetUp();
+            menuPartyPokemonMovesController.RefreshMoveButtons();
+
+            #endregion
+
             //TODO buttons for party pokemon menu. Only show if player has that many pokemon
 
         }

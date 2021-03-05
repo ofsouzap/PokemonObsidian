@@ -228,7 +228,7 @@ namespace Pokemon
             foreach (Entry entry in data)
             {
 
-                if (entry.Get(growthType) > experience)
+                if (entry.Get(growthType) >= experience)
                 {
                     return entry.level;
                 }
