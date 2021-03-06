@@ -10,6 +10,8 @@ namespace Battle.PlayerUI
     public class PlayerPokemonSelectUIController : MenuController
     {
 
+        public BattleParticipantPlayer playerBattleParticipant;
+
         public Button buttonBack;
 
         public MenuButtonPokemonController[] pokemonButtons;
@@ -61,6 +63,16 @@ namespace Battle.PlayerUI
 
             }
 
+        }
+
+        public void ShowBackButton()
+        {
+            buttonBack.gameObject.SetActive(true);
+        }
+
+        public void HideBackButton()
+        {
+            buttonBack.gameObject.SetActive(false);
         }
 
     }

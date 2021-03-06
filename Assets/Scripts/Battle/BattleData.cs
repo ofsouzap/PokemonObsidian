@@ -33,5 +33,7 @@ namespace Battle
 
         #endregion
 
+        //TODO - property for whether player is allowed to flee
+
     }
 }

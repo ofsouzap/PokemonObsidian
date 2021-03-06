@@ -31,6 +31,13 @@ namespace Battle
         /// The index of the participant's active pokemon in their party
         /// </summary>
         public int activePokemonIndex;
+        public Pokemon.PokemonInstance ActivePokemon
+        {
+            get
+            {
+                return GetPokemon()[activePokemonIndex];
+            }
+        }
 
         public abstract Pokemon.PokemonInstance[] GetPokemon();
 

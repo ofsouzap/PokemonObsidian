@@ -12,6 +12,8 @@ namespace Battle.PlayerUI
 
         public static PlayerBattleUIController singleton;
 
+        public BattleParticipantPlayer playerBattleParticipant;
+
         public MenuRootController menuRootController;
 
         public MenuFightController menuFightController;
@@ -184,7 +186,7 @@ namespace Battle.PlayerUI
 
         }
 
-        private void DisableAllMenus()
+        public void DisableAllMenus()
         {
 
             menuRootController.Hide();
