@@ -43,8 +43,6 @@ namespace Battle.PlayerUI
         private void SetUp()
         {
 
-            //TODO - for each opened menu, set currently-selected button in event system
-
             #region Run Set-Up Functions
 
             menuFightController.SetUp();
