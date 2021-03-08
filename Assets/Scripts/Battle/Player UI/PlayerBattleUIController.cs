@@ -35,7 +35,7 @@ namespace Battle.PlayerUI
         private bool playerAllowedToFlee = true;
         public void SetPlayerCanFlee(bool state) => playerAllowedToFlee = state;
 
-        private byte currentSelectedPartyPokemonIndex;
+        public byte currentSelectedPartyPokemonIndex;
 
         public void SetUp()
         {
@@ -292,9 +292,8 @@ namespace Battle.PlayerUI
 
             DisableAllMenus();
             menuPartyPokemonMovesController.Show();
+            menuPartyPokemonMovesController.RefreshMoveButtons();
             EventSystem.current.SetSelectedGameObject(menuPartyPokemonMovesController.moveButtons[0].gameObject);
-
-            menuPartyPokemonMovesController.SetCurrentPokemonIndex(currentSelectedPartyPokemonIndex);
 
         }
 

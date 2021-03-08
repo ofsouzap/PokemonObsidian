@@ -37,13 +37,6 @@ namespace Battle.PlayerUI
 
         public GameObject gameObjectMoveDetailsPane;
 
-        /// <summary>
-        /// The index of the pokemon currently selected to view the moves of
-        /// </summary>
-        private int currentPokemonIndex;
-
-        public void SetCurrentPokemonIndex(int index) => currentPokemonIndex = index;
-
         public void SetUp()
         {
 
@@ -90,7 +83,7 @@ namespace Battle.PlayerUI
 
         private PokemonMove[] GetMoves() => PlayerData
             .singleton
-            .partyPokemon[currentPokemonIndex]
+            .partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex]
             .moveIds
             .Where(x => x != 0)
             .Select(x => PokemonMove.GetPokemonMoveById(x))
@@ -131,7 +124,7 @@ namespace Battle.PlayerUI
             PokemonMove move = GetMoves()[moveIndex];
             byte[] remainingPPs = PlayerData
                 .singleton
-                .partyPokemon[currentPokemonIndex]
+                .partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex]
                 .movePPs;
 
             textName.text = move.name;
