@@ -41,7 +41,8 @@ namespace Battle.PlayerUI
 
                 pokemonButtons[i].Button.onClick.AddListener(() =>
                 {
-                    //TODO - once player participant script ready
+                    //TODO - use below line to test that i is different each time
+                    Debug.Log(i);
                 });
 
             }

@@ -20,7 +20,27 @@ public class PlayerData
 
     #region Pokemon
 
-    public PokemonInstance[] partyPokemon = new PokemonInstance[6];
+    private PokemonInstance[] _partyPokemon = new PokemonInstance[6];
+    public PokemonInstance[] partyPokemon
+    {
+        get => _partyPokemon;
+        set
+        {
+            if (value.Length == 6)
+            {
+                _partyPokemon = value;
+            }
+            else if (value.Length > 6)
+            {
+                Debug.LogError("Provided party pokemon array length greater than 6");
+            }
+            else
+            {
+                _partyPokemon = new PokemonInstance[6];
+                Array.Copy(value, _partyPokemon, value.Length);
+            }
+        }
+    }
 
     public byte GetNumberOfPartyPokemon() => (byte)partyPokemon.Count(x => x != null);
 

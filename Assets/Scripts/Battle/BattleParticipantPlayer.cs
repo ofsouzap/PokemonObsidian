@@ -36,6 +36,32 @@ namespace Battle
             return GetPokemon().All((x) => x.health <= 0);
         }
 
+        public void SetUp()
+        {
+
+            HideBattleUI();
+            HidePokemonSelectUI();
+
+            playerBattleUIController.playerBattleParticipant = this;
+            playerPokemonSelectUIController.playerBattleParticipant = this;
+
+            playerBattleUIController.SetUp();
+            playerPokemonSelectUIController.SetUp();
+
+        }
+
+        public void SetPlayerCanFlee(bool state)
+        {
+            if (playerBattleUIController != null)
+            {
+                playerBattleUIController.SetPlayerCanFlee(state);
+            }
+            else
+            {
+                Debug.LogWarning("Setting player can flee before player battle UI controller set");
+            }
+        }
+
         #region Player Battle UI
 
         private void OpenBattleUIRoot()

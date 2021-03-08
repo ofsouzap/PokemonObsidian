@@ -10,11 +10,26 @@ namespace Battle
 
         public BattleAnimationSequencer battleAnimationSequencer;
 
+        public PlayerUI.PlayerBattleUIController playerBattleUIController;
+        public PlayerUI.PlayerPokemonSelectUIController playerPokemonSelectUIController;
+
         [HideInInspector]
         public Coroutine mainBattleCoroutine;
 
         [HideInInspector]
         public BattleData battleData;
+
+        #region TMP - REMOVE ONCE FINISHED TESTING
+        private void Start()
+        {
+            StartCoroutine(LateStart());
+        }
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForFixedUpdate();
+            StartBattle();
+        }
+        #endregion
 
         public void StartBattle()
         {
@@ -44,7 +59,17 @@ namespace Battle
             };
 
             battleData.participantPlayer.battleManager = this;
-            battleData.participantOpponent.battleManager = this;
+            //TODO - uncomment below line once opponent participant isn't set to null
+            //battleData.participantOpponent.battleManager = this;
+
+            battleData.participantPlayer.playerBattleUIController = playerBattleUIController;
+            battleData.participantPlayer.playerPokemonSelectUIController = playerPokemonSelectUIController;
+
+            battleData.participantPlayer.SetUp();
+            //TODO - set player can flee depending on opponent. (Can't flee trainers; can flee wild)
+
+            //TODO - remove yield break once finished testing
+            yield break;
 
             //TODO - queue announcement for opponent based on what type of opponent they are (ie. trainer vs wild pokemon)
 

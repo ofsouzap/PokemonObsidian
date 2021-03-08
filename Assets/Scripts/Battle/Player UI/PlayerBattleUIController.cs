@@ -32,18 +32,17 @@ namespace Battle.PlayerUI
 
         private PlayerData player;
 
+        private bool playerAllowedToFlee = true;
+        public void SetPlayerCanFlee(bool state) => playerAllowedToFlee = state;
+
         private byte currentSelectedPartyPokemonIndex;
 
-        private void Start()
+        public void SetUp()
         {
+
             singleton = this;
             player = PlayerData.singleton;
-            SetUp();
             OpenRootMenu();
-        }
-
-        private void SetUp()
-        {
 
             #region Run Set-Up Functions
 
@@ -85,10 +84,22 @@ namespace Battle.PlayerUI
 
             #region Root Menu Buttons
 
-            menuRootController.buttonRun.onClick.AddListener(() =>
+            if (playerBattleParticipant != null)
             {
-                //TODO - do once player participant controller ready
-            });
+                menuRootController.buttonRun.onClick.AddListener(() =>
+                {
+
+                    if (playerAllowedToFlee)
+                    {
+                        playerBattleParticipant.ChooseActionFlee();
+                    }
+                    else
+                    {
+                        //TODO - notify player that they aren't allowed to flee
+                    }
+
+                });
+            }
 
             menuRootController.buttonBag.onClick.AddListener(() =>
             {
@@ -115,10 +126,32 @@ namespace Battle.PlayerUI
 
             #region Fight Menu Buttons
 
-            //TODO - do once controller ready (as mentioned below)
-            //menuFightController.SetCurrentPokemonIndex();
+            if (playerBattleParticipant != null)
+            {
 
-            //TODO - do once player participant controller ready
+                menuFightController.SetCurrentPokemonIndex(playerBattleParticipant.activePokemonIndex);
+
+                menuFightController.moveButtons[0].onClick.AddListener(() =>
+                {
+                    playerBattleParticipant.ChooseActionFight(0);
+                });
+
+                menuFightController.moveButtons[1].onClick.AddListener(() =>
+                {
+                    playerBattleParticipant.ChooseActionFight(1);
+                });
+
+                menuFightController.moveButtons[2].onClick.AddListener(() =>
+                {
+                    playerBattleParticipant.ChooseActionFight(2);
+                });
+
+                menuFightController.moveButtons[3].onClick.AddListener(() =>
+                {
+                    playerBattleParticipant.ChooseActionFight(3);
+                });
+
+            }
 
             menuFightController.RefreshMoveButtons();
 
@@ -156,10 +189,36 @@ namespace Battle.PlayerUI
                 OpenPartyPokemonMovesMenu();
             });
 
-            menuPartyPokemonController.buttonSendOut.onClick.AddListener(() =>
+            if (playerBattleParticipant != null)
             {
-                //TODO - do once player participant controller ready
-            });
+                menuPartyPokemonController.buttonSendOut.onClick.AddListener(() =>
+                {
+
+                    bool isNull, healthPositive;
+
+                    Pokemon.PokemonInstance pokemon = PlayerData.singleton.partyPokemon[currentSelectedPartyPokemonIndex];
+                    isNull = pokemon == null;
+
+                    if (!isNull)
+                        healthPositive = pokemon.health > 0;
+                    else
+                        healthPositive = false; //Health Postive is unecessary if pokemon is null
+
+                    if (!isNull && healthPositive)
+                    {
+                        playerBattleParticipant.ChooseActionSwitchPokemon(currentSelectedPartyPokemonIndex);
+                    }
+                    else if (isNull)
+                    {
+                        Debug.LogError("Current selected pokemon is null when trying to choose switch pokemon action");
+                    }
+                    else
+                    {
+                        //TODO - tell player that selection is invalid as pokemon doesn't have health
+                    }
+
+                });
+            }
 
             menuPartyPokemonController.buttonNext.onClick.AddListener(() =>
             {
@@ -181,8 +240,6 @@ namespace Battle.PlayerUI
             menuPartyPokemonMovesController.RefreshMoveButtons();
 
             #endregion
-
-            //TODO buttons for party pokemon menu. Only show if player has that many pokemon
 
         }
 

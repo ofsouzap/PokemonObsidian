@@ -44,6 +44,12 @@ namespace Battle.PlayerUI
             for (int i = 0; i < pokemon.Length; i++)
             {
 
+                if (pokemon[i] == null)
+                {
+                    pokemonButtons[i].gameObject.SetActive(false);
+                    continue;
+                }
+
                 pokemonButtons[i].SetValues(
                     pokemon[i].GetDisplayName(),
                     pokemon[i].LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),

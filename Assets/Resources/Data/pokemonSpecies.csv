@@ -1,5 +1,5 @@
 id,name,spritesName,baseAtk,baseDef,baseSpA,baseSpD,baseSpe,baseHth,type1,type2,growthType,evolutions,baseMoves,levelUpMoves,discMoves,eggMoves,tutorMoves,evYield,catchRate,baseExperienceYield
-1,Bulbasaur,,49,49,65,65,45,45,grass,poison,mediumslow,2;;16,0;1,3;2:12;3:18;4:15;17:15;18,12;13,,,0;0;1;0;0,45,64
+1,Bulbasaur,,49,49,65,65,45,45,grass,poison,mediumslow,2;;16,0;1,3;2:12;3:18;4:15;18,12;13,,,0;0;1;0;0,45,64
 2,Ivysaur,,62,63,80,80,60,60,grass,poison,mediumslow,3;;32,2;0;1,12;3:20;4:15;17:15;18,12;13,,,0;0;1;1;0,45,142
 3,Venusaur,,100,123,122,120,80,80,grass,poison,mediumslow,,2;0;1,12;3:20;4:15;17:15;18,12;13,,,0;0;2;1;0,45,236
 4,Charmander,,52,43,60,50,65,39,fire,,mediumslow,5;;16,5,8;6:28;7:12;19:17;20,7,14,,0;0;0;0;1,45,62

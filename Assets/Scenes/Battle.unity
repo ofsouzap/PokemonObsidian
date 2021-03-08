@@ -18418,7 +18418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1913499479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18444,6 +18444,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleAnimationSequencer: {fileID: 1913499479}
+  playerBattleUIController: {fileID: 2054215888}
+  playerPokemonSelectUIController: {fileID: 159227364}
 --- !u!4 &1913499481
 Transform:
   m_ObjectHideFlags: 0
