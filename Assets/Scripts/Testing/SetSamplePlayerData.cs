@@ -17,8 +17,8 @@ namespace Testing
             {
                 PokemonFactory.GenerateWild(new int[] { 1 }, 60, 74),
                 PokemonFactory.GenerateWild(new int[] { 4 }, 1, 1),
-                PokemonFactory.GenerateWild(new int[] { 3 }, 100, 100),
-                PokemonFactory.GenerateWild(new int[] { 7 }, 90, 100)
+                //PokemonFactory.GenerateWild(new int[] { 3 }, 100, 100),
+                //PokemonFactory.GenerateWild(new int[] { 7 }, 90, 100)
             };
 
             PlayerData.singleton.profile.name = "Test";

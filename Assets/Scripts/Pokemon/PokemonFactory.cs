@@ -111,6 +111,8 @@ namespace Pokemon
                 speed = (byte)UnityEngine.Random.Range(0, 32)
             };
 
+            #region Moves
+
             //Set the moves learnt as the last 4 moves that it could have learnt
             Dictionary<byte, int[]> levelUpMoves = PokemonSpecies.GetPokemonSpeciesById(speciesId).levelUpMoves;
 
@@ -119,13 +121,45 @@ namespace Pokemon
             int movesIndex = 0;
             bool allMovesSet = false;
 
-            for (byte i = level; i >= 0; i--)
+            byte i = level;
+            while (true)
             {
 
-                if (!levelUpMoves.ContainsKey(i))
-                    continue;
+                if (levelUpMoves.ContainsKey(i))
+                {
 
-                foreach (int moveId in levelUpMoves[i])
+                    foreach (int moveId in levelUpMoves[i])
+                    {
+
+                        moves[movesIndex] = moveId;
+                        movePPs[movesIndex] = Moves.PokemonMove.GetPokemonMoveById(moveId).maxPP;
+                        movesIndex++;
+
+                        if (movesIndex == 4)
+                        {
+                            allMovesSet = true;
+                            break;
+                        }
+
+                    }
+
+                }
+
+                if (allMovesSet)
+                    break;
+
+                if (i <= 0)
+                    break;
+
+                i--;
+
+            }
+
+            //Add base moves if moves array isn't full yet
+            if (!allMovesSet)
+            {
+
+                foreach (int moveId in PokemonSpecies.GetPokemonSpeciesById(speciesId).baseMoves)
                 {
 
                     moves[movesIndex] = moveId;
@@ -140,10 +174,9 @@ namespace Pokemon
 
                 }
 
-                if (allMovesSet)
-                    break;
-
             }
+
+            #endregion
 
             //TODO - change gender selection to use gender properties for pokemon species once created
             gender = UnityEngine.Random.Range(0, 2) == 0;
