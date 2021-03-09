@@ -78,6 +78,11 @@ namespace Battle
             public int fightMoveIndex;
 
             /// <summary>
+            /// A reference to the pokemon instance that is intended to use the move
+            /// </summary>
+            public Pokemon.PokemonInstance fightMoveUser;
+
+            /// <summary>
             /// The index of the pokemon to change to in the participant's party
             /// </summary>
             public int switchPokemonIndex;

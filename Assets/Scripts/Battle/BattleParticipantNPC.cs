@@ -69,7 +69,8 @@ namespace Battle
             return new Action()
             {
                 type = Action.Type.Fight,
-                fightMoveIndex = chosenMoveIndex
+                fightMoveIndex = chosenMoveIndex,
+                fightMoveUser = ActivePokemon
             };
 
         }

@@ -111,7 +111,8 @@ namespace Battle
             chosenAction = new Action
             {
                 type = Action.Type.Fight,
-                fightMoveIndex = moveIndex
+                fightMoveIndex = moveIndex,
+                fightMoveUser = ActivePokemon
             };
 
             actionHasBeenChosen = true;

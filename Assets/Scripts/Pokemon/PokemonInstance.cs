@@ -592,7 +592,7 @@ namespace Pokemon
 
         public int GetBattleEvasion()
         {
-            return CalculateAccuracyBattleStat(battleProperties.evasionModifier);
+            return CalculateEvasionBattleStat(battleProperties.evasionModifier);
         }
 
         #endregion
