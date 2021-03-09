@@ -466,6 +466,135 @@ namespace Pokemon
             battleProperties = new BattleProperties();
         }
 
+        /// <summary>
+        /// Calculate the value that a pokemon's stat should have during a battle taking into account its stat modifiers
+        /// </summary>
+        /// <param name="statValue">The stat's value as calculated by GetStat</param>
+        /// <param name="modifier">The stage of the modifier for this stat</param>
+        /// <returns></returns>
+        private int CalculateNormalBattleStat(int statValue,
+            sbyte modifier)
+        {
+
+            float modifierMultiplier;
+
+            if (modifier == -6)
+                modifierMultiplier = 0.2500f;
+            else if (modifier == -5)
+                modifierMultiplier = 0.286f;
+            else if (modifier == -4)
+                modifierMultiplier = 0.333f;
+            else if (modifier == -3)
+                modifierMultiplier = 0.400f;
+            else if (modifier == -2)
+                modifierMultiplier = 0.500f;
+            else if (modifier == -1)
+                modifierMultiplier = 0.667f;
+            else if (modifier == 0)
+                modifierMultiplier = 1;
+            else if (modifier == 1)
+                modifierMultiplier = 1.5f;
+            else if (modifier == 2)
+                modifierMultiplier = 2;
+            else if (modifier == 3)
+                modifierMultiplier = 2.5f;
+            else if (modifier == 4)
+                modifierMultiplier = 3;
+            else if (modifier == 5)
+                modifierMultiplier = 3.5f;
+            else if (modifier == 6)
+                modifierMultiplier = 4;
+            else
+            {
+                modifierMultiplier = 1;
+                Debug.LogError("Out-of-range stat modifier found on pokemon (" + modifier + ")");
+            }
+
+            return Mathf.RoundToInt(statValue * modifierMultiplier);
+
+        }
+
+        /// <summary>
+        /// Calculate the value that a pokemon's accuracy stat should have during a battle taking into account its accuracy modifiers
+        /// </summary>
+        /// <param name="modifier">The stage of the pokemon's accuracy modifier</param>
+        /// <returns></returns>
+        private int CalculateAccuracyBattleStat(sbyte modifier)
+        {
+
+            float modifierMultiplier;
+
+            if (modifier == -6)
+                modifierMultiplier = 0.33f;
+            else if (modifier == -5)
+                modifierMultiplier = 0.36f;
+            else if (modifier == -4)
+                modifierMultiplier = 0.43f;
+            else if (modifier == -3)
+                modifierMultiplier = 0.50f;
+            else if (modifier == -2)
+                modifierMultiplier = 0.60f;
+            else if (modifier == -1)
+                modifierMultiplier = 0.75f;
+            else if (modifier == 0)
+                modifierMultiplier = 1;
+            else if (modifier == 1)
+                modifierMultiplier = 1.33f;
+            else if (modifier == 2)
+                modifierMultiplier = 1.66f;
+            else if (modifier == 3)
+                modifierMultiplier = 2;
+            else if (modifier == 4)
+                modifierMultiplier = 2.50f;
+            else if (modifier == 5)
+                modifierMultiplier = 2.66f;
+            else if (modifier == 6)
+                modifierMultiplier = 3;
+            else
+            {
+                Debug.LogError("Out-of-range accuracy modifier found on pokemon (" + modifier + ")");
+                modifierMultiplier = 1;
+            }
+
+            return Mathf.RoundToInt(modifierMultiplier);
+
+        }
+
+        private int CalculateEvasionBattleStat(sbyte modifier)
+        {
+            return CalculateAccuracyBattleStat((sbyte)-modifier);
+        }
+
+        public Stats<int> GetBattleStats()
+        {
+
+            float speedParalysisMultiplier = nonVolatileStatusCondition == NonVolatileStatusCondition.Paralysed
+                ? 0.75f
+                : 1;
+
+            Stats<int> stats = GetStats();
+
+            return new Stats<int>()
+            {
+                attack = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.attack),
+                defense = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.defense),
+                specialAttack = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.specialAttack),
+                specialDefense = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.specialDefense),
+                speed = Mathf.RoundToInt(CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.speed) * speedParalysisMultiplier)
+            };
+
+        }
+
+        public int GetBattleAccuracy()
+        {
+            return CalculateAccuracyBattleStat(battleProperties.accuracyModifier);
+        }
+
+        public int GetBattleEvasion()
+        {
+            return CalculateAccuracyBattleStat(battleProperties.evasionModifier);
+        }
+
         #endregion
 
         #region Evolution
