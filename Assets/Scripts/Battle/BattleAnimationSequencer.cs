@@ -18,7 +18,9 @@ namespace Battle
 
         }
 
-        public IEnumerator PlayAll()
+        public void PlayAll() => StartCoroutine(PlayAllCoroutine());
+
+        private IEnumerator PlayAllCoroutine()
         {
 
             while (true)
