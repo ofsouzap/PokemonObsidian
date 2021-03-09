@@ -34,11 +34,6 @@ namespace Battle
             public PokemonInstance[] opponentPokemon;
 
             /// <summary>
-            /// The id of the battle participant derivative to use to allow for some NPCs to be stronger or weaker than others. The NPC battle participants should set these themselves for comparison
-            /// </summary>
-            public int npcBattleParticipantId;
-
-            /// <summary>
             /// The path of the first sprite for this opponent in battle
             /// </summary>
             public string opponentSpriteResourcePath_0;
@@ -52,6 +47,11 @@ namespace Battle
             /// The "full" name of the opponent. This is used for announcing the battle opponent and their defeat. This could be a title with a name (eg. "Gym Leader Brock") or just a name (eg. "Ash")
             /// </summary>
             public string opponentFullName;
+
+            /// <summary>
+            /// The "mode" for the NPC opponent to determine how they fight
+            /// </summary>
+            public BattleParticipantNPC.Mode mode;
 
         }
 

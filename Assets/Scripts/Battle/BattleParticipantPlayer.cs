@@ -48,6 +48,8 @@ namespace Battle
             playerBattleUIController.SetUp();
             playerPokemonSelectUIController.SetUp();
 
+            playerPokemonSelectUIController.buttonBack.onClick.AddListener(OnPokemonSelectUIButtonBackClick);
+
         }
 
         public void SetPlayerCanFlee(bool state)
@@ -146,8 +148,6 @@ namespace Battle
         #endregion
 
         #region Player Pokemon Selection UI
-
-        //TODO - find way to react to back button on pokemon select UI depending on pokemonSelectUIPurpose. If item, should go back to correct item category menu
 
         private enum PokemonSelectUIPurpose
         {
@@ -260,6 +260,32 @@ namespace Battle
         {
             //TODO - display message saying that selected pokemon isn't valid
         }
+
+        #region Back Button
+
+        private void OnPokemonSelectUIButtonBackClick()
+        {
+
+            switch (pokemonSelectUIPurpose)
+            {
+
+                case PokemonSelectUIPurpose.ItemTarget:
+                    //TODO - do once item category menu is ready to be returned to
+                    break;
+
+                case PokemonSelectUIPurpose.ReplacingPokemon:
+                    Debug.LogError("Player shouldn't be able to use pokemon select UI back button when replacing pokemon");
+                    break;
+
+                default:
+                    Debug.LogError("Unknown pokemon select UI purpose - " + pokemonSelectUIPurpose);
+                    break;
+
+            }
+
+        }
+
+        #endregion
 
         #endregion
 
