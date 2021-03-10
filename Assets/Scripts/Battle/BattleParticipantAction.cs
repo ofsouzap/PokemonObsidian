@@ -10,6 +10,11 @@ namespace Battle
         public struct Action
         {
 
+            public Action(BattleParticipant user) : this()
+            {
+                this.user = user;
+            }
+
             public enum Type
             {
                 Fight,
@@ -48,7 +53,7 @@ namespace Battle
                     else if (x.type == Type.Fight) //If both trying to fight
                     {
 
-                        //TODO - do once pokemon speeds can be compared
+                        return x.user.ActivePokemon.GetBattleStats().speed.CompareTo(y.user.ActivePokemon.GetBattleStats().speed);
 
                     }
                     else if (x.type == Type.Flee)
@@ -73,14 +78,19 @@ namespace Battle
             #endregion
 
             /// <summary>
+            /// The BattleParticipant that intends to do this action
+            /// </summary>
+            public BattleParticipant user;
+
+            /// <summary>
             /// The index of the move to use in the active pokemon's move list
             /// </summary>
             public int fightMoveIndex;
 
             /// <summary>
-            /// A reference to the pokemon instance that is intended to use the move
+            /// A reference to the BattleParticipant that is being targeted by the move.
             /// </summary>
-            public Pokemon.PokemonInstance fightMoveUser;
+            public BattleParticipant fightMoveTarget;
 
             /// <summary>
             /// The index of the pokemon to change to in the participant's party

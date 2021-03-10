@@ -66,11 +66,11 @@ namespace Battle
 
             int chosenMoveIndex = Random.Range(0, movesCount);
 
-            return new Action()
+            return new Action(this)
             {
                 type = Action.Type.Fight,
                 fightMoveIndex = chosenMoveIndex,
-                fightMoveUser = ActivePokemon
+                fightMoveTarget = battleData.participantPlayer
             };
 
         }

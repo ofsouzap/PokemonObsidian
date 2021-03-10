@@ -13,6 +13,8 @@ namespace Battle
         public PlayerBattleUIController playerBattleUIController;
         public PlayerPokemonSelectUIController playerPokemonSelectUIController;
 
+        private BattleData recentBattleData;
+
         public override PokemonInstance[] GetPokemon()
         {
             return PlayerData.singleton.partyPokemon;
@@ -20,6 +22,7 @@ namespace Battle
 
         public override void StartChoosingAction(BattleData battleData)
         {
+            recentBattleData = battleData;
             actionHasBeenChosen = false;
             OpenBattleUIRoot();
         }
@@ -82,7 +85,7 @@ namespace Battle
         public void ChooseActionFlee()
         {
 
-            chosenAction = new Action
+            chosenAction = new Action(this)
             {
                 type = Action.Type.Flee
             };
@@ -108,11 +111,11 @@ namespace Battle
                 return;
             }
 
-            chosenAction = new Action
+            chosenAction = new Action(this)
             {
                 type = Action.Type.Fight,
                 fightMoveIndex = moveIndex,
-                fightMoveUser = ActivePokemon
+                fightMoveTarget = recentBattleData.participantOpponent
             };
 
             actionHasBeenChosen = true;
@@ -134,7 +137,7 @@ namespace Battle
                 return;
             }
 
-            chosenAction = new Action
+            chosenAction = new Action(this)
             {
                 type = Action.Type.SwitchPokemon,
                 switchPokemonIndex = partyIndex

@@ -1,5 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Pokemon;
 using Battle;
 
 namespace Battle
@@ -99,6 +102,12 @@ namespace Battle
             battleData.participantPlayer.battleManager = this;
             battleData.participantOpponent.battleManager = this;
 
+            foreach (Pokemon.PokemonInstance pokemon in battleData.participantPlayer.GetPokemon())
+                pokemon.ResetBattleProperties();
+
+            foreach (Pokemon.PokemonInstance pokemon in battleData.participantOpponent.GetPokemon())
+                pokemon.ResetBattleProperties();
+
             battleData.participantPlayer.playerBattleUIController = playerBattleUIController;
             battleData.participantPlayer.playerPokemonSelectUIController = playerPokemonSelectUIController;
 
@@ -163,7 +172,24 @@ namespace Battle
 
                 #region Action Order Deciding
 
-                
+                BattleParticipant.Action[] actions = new BattleParticipant.Action[]
+                {
+                    battleData.participantPlayer.chosenAction,
+                    battleData.participantOpponent.chosenAction
+                };
+
+                Queue<BattleParticipant.Action> actionQueue = new Queue<BattleParticipant.Action>(
+                    actions.OrderByDescending(
+                        x => x,
+                        new BattleParticipant.Action.PriorityComparer()
+                    )
+                );
+
+                #endregion
+
+                #region Action Execution
+
+                //TODO
 
                 #endregion
 
@@ -172,6 +198,19 @@ namespace Battle
             #endregion
 
         }
+
+        /// <summary>
+        /// Execute a fight action
+        /// </summary>
+        private void ExecuteAction_Fight(BattleParticipant.Action action)
+        {
+
+            //TODO
+
+        }
+        //TODO - execution function for flee and switch pokemon
+
+        //TODO - have execution function for item actions
 
     }
 
