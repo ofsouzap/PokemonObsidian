@@ -6,8 +6,20 @@ namespace Battle
     public class BattleData
     {
 
+        public bool battleRunning = true;
+
         public BattleParticipantPlayer participantPlayer;
         public BattleParticipant participantOpponent;
+
+        public bool playerCanFlee;
+
+        public void SetPlayerCanFlee(bool state)
+        {
+            playerCanFlee = state;
+            participantPlayer.SetPlayerCanFlee(playerCanFlee);
+        }
+
+        public int playerEscapeAttempts = 0;
 
         #region Weather
 
@@ -32,8 +44,6 @@ namespace Battle
         public int initialWeatherId;
 
         #endregion
-
-        //TODO - property for whether player is allowed to flee
 
     }
 }

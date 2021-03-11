@@ -207,7 +207,8 @@ namespace Pokemon.Moves
             PokemonInstance target)
         {
 
-            //The results from calculating status effects are a base for the results returned from this function. The results shouldn't overlap but, if they do, the effects calculated here take priority
+            //The results from calculating status effects are a base for the results returned from this function.
+            //    The results shouldn't overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
             UsageResults usageResults = CalculateNormalStatusEffect(user, target);
 
             if (UnityEngine.Random.Range(0, 100) > accuracy)
@@ -229,13 +230,13 @@ namespace Pokemon.Moves
             {
 
                 case MoveType.Physical:
-                    attack = user.GetStats().attack;
-                    defense = target.GetStats().defense;
+                    attack = user.GetBattleStats().attack;
+                    defense = target.GetBattleStats().defense;
                     break;
 
                 case MoveType.Special:
-                    attack = user.GetStats().specialAttack;
-                    defense = target.GetStats().specialDefense;
+                    attack = user.GetBattleStats().specialAttack;
+                    defense = target.GetBattleStats().specialDefense;
                     break;
 
                 default:
