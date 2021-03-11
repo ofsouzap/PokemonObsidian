@@ -199,6 +199,16 @@ namespace Battle
 
                 #endregion
 
+                //TODO - continue
+
+                #region End of Turn
+
+                //TODO - not sure of the order that the effects of the below should be done
+                //TODO - damage pokemon if current weather damages pokemon's type. (Check what happens with multi-types)
+                //TODO - damage/heal pokemon if needed by volatile status conditions and non-volatiles
+
+                #endregion
+
             }
 
             #endregion

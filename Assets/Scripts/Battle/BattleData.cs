@@ -28,6 +28,14 @@ namespace Battle
         /// </summary>
         public int currentWeatherId;
 
+        public Weather CurrentWeather
+        {
+            get
+            {
+                return Weather.GetWeatherById(currentWeatherId);
+            }
+        }
+
         /// <summary>
         /// Whether the weather has been changed into what it is now or whether the current weather is the initial weather. This determines whether the weather should fade back to the initial weather or not
         /// </summary>

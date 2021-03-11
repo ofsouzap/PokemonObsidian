@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Pokemon;
+using Battle;
 
 namespace Pokemon.Moves
 {
@@ -202,15 +203,18 @@ namespace Pokemon.Moves
         /// </summary>
         /// <param name="user">The pokemon using the move</param>
         /// <param name="target">The pokemon being hit by the move</param>
+        /// <param name="battleData">Data about the current battle</param>
         /// <returns>The results of using the move including damages to be dealt</returns>
         public UsageResults CalculateNormalAttackEffect(PokemonInstance user,
-            PokemonInstance target)
+            PokemonInstance target,
+            BattleData battleData)
         {
 
             //The results from calculating status effects are a base for the results returned from this function.
             //    The results shouldn't overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
-            UsageResults usageResults = CalculateNormalStatusEffect(user, target);
+            UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData);
 
+            //TODO - when changing accuracy/evasion calculation, include weather effects
             if (UnityEngine.Random.Range(0, 100) > accuracy)
             {
                 usageResults.missed = true;
@@ -287,7 +291,18 @@ namespace Pokemon.Moves
 
             #region weather
 
-            weatherMultiplier = 1; //TODO - once battle conditions can be known
+            if (battleData.CurrentWeather.boostedMoveTypes.Contains(type))
+            {
+                weatherMultiplier = 1.5f;
+            }
+            else if (battleData.CurrentWeather.weakenedMoveTypes.Contains(type))
+            {
+                weatherMultiplier = 0.5f;
+            }
+            else
+            {
+                weatherMultiplier = 1;
+            }
 
             #endregion
 
@@ -429,9 +444,11 @@ namespace Pokemon.Moves
         /// </summary>
         /// <param name="user">The user</param>
         /// <param name="target">The target</param>
+        /// <param name="battleData">Data about the current battle</param>
         /// <returns>The results of using the move</returns>
         public UsageResults CalculateNormalStatusEffect(PokemonInstance user,
-            PokemonInstance target)
+            PokemonInstance target,
+            BattleData battleData)
         {
 
             UsageResults usageResults = new UsageResults();
@@ -468,6 +485,15 @@ namespace Pokemon.Moves
 
             }
 
+            #region Weather Non-Volatile Status Condition Immunity
+
+            if (battleData.CurrentWeather.immuneNonVolatileStatusConditions.Contains(usageResults.targetNonVolatileStatusCondition))
+            {
+                usageResults.targetNonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+            }
+
+            #endregion
+
             return usageResults;
 
         }
@@ -476,21 +502,20 @@ namespace Pokemon.Moves
         /// Calculates the effect that should be had from using this move given a certain user and a certain target
         /// </summary>
         public virtual UsageResults CalculateEffect(PokemonInstance user,
-            PokemonInstance target)
+            PokemonInstance target,
+            BattleData battleData)
         {
-
-            //TODO - include details about the battle (eg. weather) once a class containing this has been created
 
             if (moveType == MoveType.Status)
             {
 
-                return CalculateNormalStatusEffect(user, target);
+                return CalculateNormalStatusEffect(user, target, battleData);
 
             }
             else if (moveType == MoveType.Physical || moveType == MoveType.Special)
             {
 
-                return CalculateNormalAttackEffect(user, target);
+                return CalculateNormalAttackEffect(user, target, battleData);
 
             }
             else
