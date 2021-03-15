@@ -18,6 +18,17 @@ namespace Battle
 
         }
 
+        public static Animation CreateSingleTextAnimation(string message) => new Animation()
+        {
+            type = Animation.Type.Text,
+            messages = new string[] { message }
+        };
+
+        public void EnqueueSingleText(string message)
+        {
+            EnqueueAnimation(CreateSingleTextAnimation(message));
+        }
+
         public void PlayAll() => StartCoroutine(PlayAllCoroutine());
 
         private IEnumerator PlayAllCoroutine()

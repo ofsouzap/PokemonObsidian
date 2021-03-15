@@ -195,6 +195,20 @@ namespace Pokemon
 
         public int health;
 
+        public void TakeDamage(int maximumAmount)
+        {
+
+            if (maximumAmount < health)
+            {
+                health -= maximumAmount;
+            }
+            else
+            {
+                health = 0;
+            }
+
+        }
+
         /// <summary>
         /// Gets the value of a pokemon instance's stat according to their EV, IV, Level, Base Stats and Nature
         /// </summary>
@@ -310,6 +324,19 @@ namespace Pokemon
             Asleep
         }
 
+        /// <summary>
+        /// The messages (not including the inflicted pokemon's name or a preceding space) that should be shown when a pokemon gains each non-volatile status condition
+        /// </summary>
+        public static readonly Dictionary<NonVolatileStatusCondition, string> nonVolatileStatusConditionMessages = new Dictionary<NonVolatileStatusCondition, string>()
+        {
+            { NonVolatileStatusCondition.Burn, "was burnt"  },
+            { NonVolatileStatusCondition.Frozen, "was frozen"  },
+            { NonVolatileStatusCondition.Paralysed, "was paralysed"  },
+            { NonVolatileStatusCondition.Poisoned, "was poisoned"  },
+            { NonVolatileStatusCondition.BadlyPoisoned, "was badly poisoned"  },
+            { NonVolatileStatusCondition.Asleep, "fell asleep"  }
+        };
+
         public NonVolatileStatusCondition nonVolatileStatusCondition = NonVolatileStatusCondition.None;
 
         #endregion
@@ -421,7 +448,7 @@ namespace Pokemon
                     protection = false,
                     recharging = false,
                     semiInvurnerable = false,
-                    aimin = false,
+                    aiming = false,
                     withdrawing = false;
 
                 /// <summary>
