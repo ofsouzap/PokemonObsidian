@@ -9,6 +9,8 @@ namespace Battle
 
         public BattleManager battleManager;
 
+        public abstract string GetName();
+
         #region Choose Action
 
         /// <summary>

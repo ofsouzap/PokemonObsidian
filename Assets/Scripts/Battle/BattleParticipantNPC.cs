@@ -20,12 +20,17 @@ namespace Battle
 
         #endregion
 
+        private string npcName;
+        public override string GetName() => npcName;
+
         public PokemonInstance[] pokemon;
 
         public BattleParticipantNPC(Mode mode,
+            string name,
             PokemonInstance[] pokemon)
         {
             this.mode = mode;
+            npcName = name;
             this.pokemon = pokemon;
         }
 

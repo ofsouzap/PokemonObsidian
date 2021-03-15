@@ -52,7 +52,8 @@ namespace Battle
 
                     participantOpponent = new BattleParticipantNPC(
                         BattleParticipantNPC.Mode.RandomAttack,
-                        new Pokemon.PokemonInstance[] {
+                        BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance.GetDisplayName(),
+                        new PokemonInstance[] {
                             BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance
                         }
                     );
@@ -63,6 +64,7 @@ namespace Battle
 
                     participantOpponent = new BattleParticipantNPC(
                         BattleEntranceArguments.npcTrainerBattleArguments.mode,
+                        BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName,
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon
                     );
 
@@ -74,9 +76,10 @@ namespace Battle
 
                     //Generate generic opponent instead of crashing or breaking scene/game
                     participantOpponent = new BattleParticipantNPC(BattleParticipantNPC.Mode.RandomAttack,
-                        new Pokemon.PokemonInstance[]
+                        "Erroneous Opponent",
+                        new PokemonInstance[]
                         {
-                            Pokemon.PokemonFactory.GenerateWild(
+                            PokemonFactory.GenerateWild(
                                 new int[] { 1 },
                                 1,
                                 1
@@ -193,25 +196,50 @@ namespace Battle
 
                     ExecuteAction(actionQueue.Dequeue());
 
-                    //TODO - check if battle still running (eg. participant fled or ran out of pokemon)
+                    yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
-                    //TODO - check if battle still running but an active pokemon has fainted and must be replaced
+                    if (!CheckIfBattleRunning())
+                        break;
 
                 }
 
-                //TODO - check if battle still running
+                if (!CheckIfBattleRunning())
+                    break;
 
                 #endregion
 
-                //TODO - continue (use plan to help)
-
                 #region End of Turn
 
-                //TODO - not sure of the order that the effects of the below should be done
-                //TODO - damage pokemon if current weather damages pokemon's type. (Check what happens with multi-types)
-                //TODO - damage/heal pokemon if needed by volatile status conditions and non-volatiles
+                #region Weather Damage
 
-                //TODO - disable flinching for every active pokemon (in PokemonInstance.BattleProperties.VolatileStatusConditions.flinch)
+                yield return StartCoroutine(MainBattleCoroutine_ApplyWeatherDamageToParticipant(battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(MainBattleCoroutine_ApplyWeatherDamageToParticipant(battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Non-Volatile Status Conditions
+
+                yield return StartCoroutine(MainBattleCoroutine_ApplyNonVolatileStatusConditionDamageUsingParticipant(battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(MainBattleCoroutine_ApplyNonVolatileStatusConditionDamageUsingParticipant(battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
+                battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
 
                 #endregion
 
@@ -219,9 +247,188 @@ namespace Battle
 
             #endregion
 
+            //TODO - deal with how the battle ended (eg. dropping money, messages etc.)
+            //TODO - if draw, have player lose (eg. drop money etc.)
+
+            //TODO - give experience and EV to participants
+
         }
 
-        private static bool CheckIfBattleOver(BattleData battleData)
+        private IEnumerator MainBattleCoroutine_CheckPokemonFainted()
+        {
+
+            #region Pokemon Fainting Animation
+
+            if (battleData.participantPlayer.ActivePokemon.health <= 0)
+            {
+
+                battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
+                    battleData.participantPlayer,
+                    battleData.participantPlayer.ActivePokemon
+                    ));
+                //TODO - animation for player active pokemon fainting
+
+                battleAnimationSequencer.PlayAll();
+
+            }
+
+            if (battleData.participantOpponent.ActivePokemon.health <= 0)
+            {
+
+                battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
+                    battleData.participantOpponent,
+                    battleData.participantOpponent.ActivePokemon
+                    ));
+                //TODO - animation for opponent active pokemon fainting
+
+                battleAnimationSequencer.PlayAll();
+
+            }
+
+            #endregion
+
+            if (!CheckIfBattleRunning())
+            {
+                yield break;
+            }
+
+            #region Participants Replacing Pokemon
+
+            if (battleData.participantPlayer.ActivePokemon.health <= 0)
+            {
+
+                battleData.participantPlayer.StartChoosingNextPokemon();
+
+                yield return new WaitUntil(() => battleData.participantPlayer.nextPokemonHasBeenChosen);
+
+                battleData.participantPlayer.activePokemonIndex = battleData.participantPlayer.chosenNextPokemonIndex;
+
+                battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantPlayer));
+                //TODO - animation for player sending out new pokemon
+
+                battleAnimationSequencer.PlayAll();
+
+            }
+
+            if (battleData.participantOpponent.ActivePokemon.health <= 0)
+            {
+
+                battleData.participantOpponent.StartChoosingNextPokemon();
+
+                yield return new WaitUntil(() => battleData.participantOpponent.nextPokemonHasBeenChosen);
+
+                battleData.participantOpponent.activePokemonIndex = battleData.participantOpponent.chosenNextPokemonIndex;
+
+                battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantOpponent));
+                //TODO - animation for opponent sending out new pokemon
+
+                battleAnimationSequencer.PlayAll();
+
+            }
+
+            #endregion
+
+        }
+
+        private IEnumerator MainBattleCoroutine_ApplyWeatherDamageToParticipant(BattleParticipant participant)
+        {
+
+            Type[] weatherDamagedTypes = battleData.CurrentWeather.damagedPokemonTypes;
+
+            PokemonSpecies participantPokemonSpecies = participant.ActivePokemon.species;
+
+            //If the pokemon's species has only one type, it will be set for both values of the array so that the array size is always 2
+            Type[] participantPokemonTypes = new Type[]
+            {
+                    participantPokemonSpecies.type1,
+                    participantPokemonSpecies.type2 != null ? (Type)participantPokemonSpecies.type2 : participantPokemonSpecies.type1
+            };
+
+            if (weatherDamagedTypes.Contains(participantPokemonTypes[0])
+                && weatherDamagedTypes.Contains(participantPokemonTypes[1]))
+            {
+
+                participant.ActivePokemon.TakeDamage(
+                    Mathf.RoundToInt(
+                        participant.ActivePokemon.GetStats().health
+                        * Weather.damageMaxHealthProportion
+                    )
+                );
+
+                battleAnimationSequencer.EnqueueSingleText(
+                    participant.ActivePokemon.GetDisplayName()
+                    + " was damaged from the weather");
+
+                //TODO - player pokemon health reduction animation
+
+                battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    yield break;
+
+            }
+
+        }
+
+        private IEnumerator MainBattleCoroutine_ApplyNonVolatileStatusConditionDamageUsingParticipant(BattleParticipant participant)
+        {
+
+            switch (participant.ActivePokemon.nonVolatileStatusCondition)
+            {
+
+                case PokemonInstance.NonVolatileStatusCondition.Burn:
+
+                    participant.ActivePokemon.TakeDamage(
+                        Mathf.RoundToInt(
+                            participant.ActivePokemon.GetStats().health * 0.125F
+                        )
+                    );
+
+                    battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its burn");
+                    //TODO - damage animation
+
+                    break;
+
+                case PokemonInstance.NonVolatileStatusCondition.Poisoned:
+
+                    participant.ActivePokemon.TakeDamage(
+                        Mathf.RoundToInt(
+                            participant.ActivePokemon.GetStats().health * 0.125F
+                        )
+                    );
+
+                    battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its poison");
+                    //TODO - damage animation
+
+                    break;
+
+                case PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned:
+                    //TODO - have badly poisoned damage gradually increase by 1/16 (aka 0.0625) each turn
+                    participant.ActivePokemon.TakeDamage(
+                        Mathf.RoundToInt(
+                            participant.ActivePokemon.GetStats().health * 0.0625F
+                        )
+                    );
+
+                    battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its bad poison");
+                    //TODO - damage animation
+
+                    break;
+
+                default:
+                    yield break;
+
+            }
+
+            battleAnimationSequencer.PlayAll();
+            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+        }
+
+        private static bool CheckIfBattleRunning(BattleData battleData)
         {
 
             return (!battleData.participantPlayer.CheckIfDefeated())
@@ -230,7 +437,25 @@ namespace Battle
 
         }
 
-        private bool CheckIfBattleOver() => CheckIfBattleOver(battleData);
+        private bool CheckIfBattleRunning() => CheckIfBattleRunning(battleData);
+
+        private static string GetActivePokemonFaintMessage(BattleParticipant participant,
+            PokemonInstance pokemon)
+        {
+            if (participant.GetName() != null && participant.GetName() != "")
+            {
+                return participant.GetName() + "'s " + pokemon.GetDisplayName() + " fainted!";
+            }
+            else
+            {
+                return pokemon.GetDisplayName() + " fainted!";
+            }
+        }
+
+        private static string GetReplacedPokemonMessage(BattleParticipant participant)
+            => participant.GetName()
+            + " sent out "
+            + participant.ActivePokemon.GetDisplayName();
 
         /// <summary>
         /// Select the action execution method for the provided action and run it using the action. This includes adding and running animations
@@ -639,7 +864,7 @@ namespace Battle
             if (escapeSuccess)
             {
 
-                //TODO - show message that player escaped successfully
+                battleAnimationSequencer.EnqueueSingleText(battleData.participantPlayer.ActivePokemon.GetDisplayName() + " escaped successfully");
 
                 battleData.battleRunning = false;
 
@@ -647,9 +872,11 @@ namespace Battle
             else
             {
 
-                //TODO - show message that player failed to escape
+                battleAnimationSequencer.EnqueueSingleText(battleData.participantPlayer.ActivePokemon.GetDisplayName() + " couldn't escape!");
 
             }
+
+            battleAnimationSequencer.PlayAll();
 
         }
 
@@ -661,7 +888,7 @@ namespace Battle
 
             action.user.activePokemonIndex = action.switchPokemonIndex;
 
-            //TODO - show message that participant switched pokemon
+            battleAnimationSequencer.EnqueueSingleText(action.user.GetName());
             //TODO - add animation of participant switching pokemon
 
             battleAnimationSequencer.PlayAll();

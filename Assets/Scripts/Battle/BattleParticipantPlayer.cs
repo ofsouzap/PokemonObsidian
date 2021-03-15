@@ -13,6 +13,8 @@ namespace Battle
         public PlayerBattleUIController playerBattleUIController;
         public PlayerPokemonSelectUIController playerPokemonSelectUIController;
 
+        public override string GetName() => PlayerData.singleton.profile.name;
+
         private BattleData recentBattleData;
 
         public override PokemonInstance[] GetPokemon()

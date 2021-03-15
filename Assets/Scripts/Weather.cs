@@ -3,6 +3,8 @@ using System.Collections.Generic;
 public class Weather : IHasId
 {
 
+    #region Registry
+
     public static Registry<Weather> registry = new Registry<Weather>();
 
     public static Weather GetWeatherById(int id)
@@ -10,8 +12,12 @@ public class Weather : IHasId
         return registry.StartingIndexSearch(id, id);
     }
 
+    #endregion
+
     public int id;
     public int GetId() => id;
+
+    public const float damageMaxHealthProportion = 0.0625F;
 
     /// <summary>
     /// The name of the weather
@@ -51,7 +57,7 @@ public class Weather : IHasId
     public Pokemon.Type[] weakenedMoveTypes = new Pokemon.Type[0];
 
     /// <summary>
-    /// The stat boosts that are applied to pokemon of each type. Values are multipliers for a stat to have applied. Values can be negative
+    /// The stat boosts that are applied to pokemon of each type. Values are multipliers for a stat to have applied
     /// </summary>
     public Dictionary<Pokemon.Type, Pokemon.Stats<float>> typeStatBoosts = new Dictionary<Pokemon.Type, Pokemon.Stats<float>>();
 
