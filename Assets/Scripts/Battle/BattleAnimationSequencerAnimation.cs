@@ -21,6 +21,7 @@ namespace Battle
                 OpponentStatModifierUp,
                 OpponentStatModifierDown,
                 WeatherDisplay,
+                Blackout,
                 Custom
             }
 

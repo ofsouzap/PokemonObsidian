@@ -97,6 +97,7 @@ namespace Battle
             {
                 participantPlayer = new BattleParticipantPlayer(),
                 participantOpponent = participantOpponent,
+                isWildBattle = BattleEntranceArguments.battleType == BattleType.WildPokemon,
                 currentWeatherId = BattleEntranceArguments.initialWeatherId,
                 weatherHasBeenChanged = false,
                 turnsUntilWeatherFade = 0,
@@ -247,10 +248,57 @@ namespace Battle
 
             #endregion
 
-            //TODO - deal with how the battle ended (eg. dropping money, messages etc.)
-            //TODO - if draw, have player lose (eg. drop money etc.)
+            #region Ending Battle
 
-            //TODO - give experience and EV to participants
+            if (battleData.participantPlayer.CheckIfDefeated())
+            {
+
+                //If player lost (a draw counts as the player losing)
+
+                #region Out of Usable Pokemon Message
+
+                battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name + " ran out of usable pokemon...", true);
+
+                #endregion
+
+                #region Dropping Money
+
+                int moneyToDrop = PlayerData.singleton.profile.money / 2;
+
+                PlayerData.singleton.AddMoney(-moneyToDrop);
+
+                string moneyDropMessage = battleData.isWildBattle ? "dropped" : "handed over";
+
+                battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name + ' ' + moneyDropMessage + " P" + moneyToDrop + "...");
+
+                #endregion
+
+                #region Blacked Out
+
+                battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name + " blacked out!");
+
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = BattleAnimationSequencer.Animation.Type.Blackout
+                });
+
+                #endregion
+
+                battleAnimationSequencer.PlayAll();
+
+                //TODO - return player to last place they healed
+
+            }
+            else
+            {
+
+                //If player won
+
+                //TODO - use yet-to-be-made custom scene manager to unload this scene and return to free-roaming scene
+
+            }
+
+            #endregion
 
         }
 
@@ -284,6 +332,18 @@ namespace Battle
                 battleAnimationSequencer.PlayAll();
 
             }
+
+            #endregion
+
+            #region Experience Yielding
+
+            //TODO
+
+            #endregion
+
+            #region EV Yielding
+
+            //TODO
 
             #endregion
 
@@ -495,6 +555,8 @@ namespace Battle
         private void ExecuteAction_Fight(BattleParticipant.Action action)
         {
 
+            //TODO - when special moves made, have their effects inflicted (maybe by separate method made for all special moves to directly cause changes to pokemon and return announcements)
+
             if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.flinch)
                 return;
 
@@ -674,8 +736,6 @@ namespace Battle
             }
 
             #endregion
-
-            //TODO - when special moves made, have their effects inflicted (maybe by separate method made for all special moves to directly cause changes to pokemon and return announcements)
 
         }
 

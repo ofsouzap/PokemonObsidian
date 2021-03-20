@@ -21,6 +21,8 @@ namespace Battle
 
         public int playerEscapeAttempts = 0;
 
+        public bool isWildBattle;
+
         #region Weather
 
         /// <summary>

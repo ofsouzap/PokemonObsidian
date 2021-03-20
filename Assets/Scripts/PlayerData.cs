@@ -221,9 +221,36 @@ public class PlayerData
 
         public string name = "";
 
+        public const int maximumMoney = 9999999;
+        public int money = 0;
+
     }
 
     public Profile profile = new Profile();
+
+    public void AddMoney(int amount)
+    {
+
+        if (amount >= 0)
+        {
+
+            if (profile.money > Profile.maximumMoney - amount)
+                profile.money = Profile.maximumMoney;
+            else
+                profile.money += amount;
+
+        }
+        else
+        {
+
+            if (Mathf.Abs(amount) > profile.money)
+                profile.money = 0;
+            else
+                profile.money += amount;
+
+        }
+
+    }
 
     #endregion
 

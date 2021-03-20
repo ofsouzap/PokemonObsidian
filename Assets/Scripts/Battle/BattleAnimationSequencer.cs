@@ -18,15 +18,21 @@ namespace Battle
 
         }
 
-        public static Animation CreateSingleTextAnimation(string message) => new Animation()
+        public static Animation CreateSingleTextAnimation(string message,
+            bool requireUserContinue = false)
         {
-            type = Animation.Type.Text,
-            messages = new string[] { message }
-        };
+            return new Animation()
+            {
+                type = Animation.Type.Text,
+                messages = new string[] { message },
+                requireUserContinue = requireUserContinue
+            };
+        }
 
-        public void EnqueueSingleText(string message)
+        public void EnqueueSingleText(string message,
+            bool requireUserContinue = false)
         {
-            EnqueueAnimation(CreateSingleTextAnimation(message));
+            EnqueueAnimation(CreateSingleTextAnimation(message, requireUserContinue));
         }
 
         public void PlayAll() => StartCoroutine(PlayAllCoroutine());
