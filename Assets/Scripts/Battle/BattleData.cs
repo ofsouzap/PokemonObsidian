@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Battle;
 
@@ -10,6 +11,21 @@ namespace Battle
 
         public BattleParticipantPlayer participantPlayer;
         public BattleParticipant participantOpponent;
+
+        /// <summary>
+        /// The player's pokemon that have been used against each of the opponent's pokemon.
+        /// Eg. if the player's 1st and 3rd pokemon (in their party) had been used against the opponent's 2nd pokemon,
+        ///     then the second entry in the array would be [ 0, 2 ] (N.B. 0-indexing)
+        /// </summary>
+        public List<int>[] playerUsedPokemonPerOpponentPokemon = new List<int>[6]
+        {
+            new List<int>(),
+            new List<int>(),
+            new List<int>(),
+            new List<int>(),
+            new List<int>(),
+            new List<int>()
+        };
 
         public bool playerCanFlee;
 

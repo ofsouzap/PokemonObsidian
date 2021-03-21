@@ -187,7 +187,55 @@ namespace Pokemon
 
         #region Stats
 
+        public const ushort maximumEffortValue = 252;
+        public const ushort maximumEffortValueTotal = 510;
+
         public Stats<ushort> effortValues;
+        public ushort TotalEffortValue
+        {
+            get
+            {
+                return (ushort)
+                    (
+                    effortValues.attack
+                    + effortValues.defense
+                    + effortValues.specialAttack
+                    + effortValues.specialDefense
+                    + effortValues.speed
+                    + effortValues.health
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Tries to add an amount of EV points for each stat but won't if it would exeed the limit for total or individual effort values
+        /// </summary>
+        /// <param name="pointsToAdd">The points to be added</param>
+        public void AddEffortValuePoints(Stats<byte> pointsToAdd)
+        {
+
+            ushort pointsToAddTotal = (ushort)
+                    (
+                    pointsToAdd.attack
+                    + pointsToAdd.defense
+                    + pointsToAdd.specialAttack
+                    + pointsToAdd.specialDefense
+                    + pointsToAdd.speed
+                    + pointsToAdd.health
+                    );
+
+            if (pointsToAddTotal + TotalEffortValue > maximumEffortValueTotal)
+                return;
+
+            effortValues.attack = maximumEffortValue - pointsToAdd.attack >= effortValues.attack ? pointsToAdd.attack : maximumEffortValue;
+            effortValues.defense = maximumEffortValue - pointsToAdd.defense >= effortValues.defense ? pointsToAdd.defense : maximumEffortValue;
+            effortValues.specialAttack = maximumEffortValue - pointsToAdd.specialAttack >= effortValues.specialAttack ? pointsToAdd.specialAttack : maximumEffortValue;
+            effortValues.specialDefense = maximumEffortValue - pointsToAdd.specialDefense >= effortValues.specialDefense ? pointsToAdd.specialDefense : maximumEffortValue;
+            effortValues.speed = maximumEffortValue - pointsToAdd.speed >= effortValues.speed ? pointsToAdd.speed : maximumEffortValue;
+            effortValues.health = maximumEffortValue - pointsToAdd.health >= effortValues.health ? pointsToAdd.health : maximumEffortValue;
+
+        }
+
         public readonly Stats<byte> individualValues;
 
         public int natureId;
@@ -307,6 +355,24 @@ namespace Pokemon
         public byte GetLevel()
         {
             return GrowthTypeData.GetLevelFromExperience(experience, growthType);
+        }
+
+        /// <summary>
+        /// Adds experience points to the pokemon but not letting the PokemonInstance instance's level exeed 100
+        /// </summary>
+        /// <param name="amount">The maximum experience to add</param>
+        public void AddMaxExperience(int amount)
+        {
+
+            if (GrowthTypeData.GetLevelFromExperience(experience + amount, growthType) >= 100)
+            {
+                experience = GrowthTypeData.GetMinimumExperienceForLevel(100, growthType);
+            }
+            else
+            {
+                experience += amount;
+            }
+
         }
 
         #endregion

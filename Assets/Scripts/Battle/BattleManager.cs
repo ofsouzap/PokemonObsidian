@@ -192,10 +192,20 @@ namespace Battle
 
                 #region Action Execution
 
+                #region Used Pokemon per Opposing Pokemon Record Updating
+
+                int opponentPokemonIndex = battleData.participantOpponent.activePokemonIndex;
+                int playerPokemonIndex = battleData.participantPlayer.activePokemonIndex;
+
+                if (!battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Contains(playerPokemonIndex))
+                    battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Add(playerPokemonIndex);
+
+                #endregion
+
                 while (actionQueue.Count > 0)
                 {
 
-                    ExecuteAction(actionQueue.Dequeue());
+                    yield return StartCoroutine(ExecuteAction(actionQueue.Dequeue()));
 
                     yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
@@ -285,6 +295,7 @@ namespace Battle
                 #endregion
 
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
                 //TODO - return player to last place they healed
 
@@ -307,43 +318,100 @@ namespace Battle
 
             #region Pokemon Fainting Animation
 
-            if (battleData.participantPlayer.ActivePokemon.health <= 0)
+            PokemonInstance playerActivePokemon = battleData.participantPlayer.ActivePokemon;
+            if (playerActivePokemon.health <= 0)
             {
 
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
                     battleData.participantPlayer,
-                    battleData.participantPlayer.ActivePokemon
+                    playerActivePokemon
                     ));
                 //TODO - animation for player active pokemon fainting
 
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
             }
 
-            if (battleData.participantOpponent.ActivePokemon.health <= 0)
+            PokemonInstance opponentActivePokemon = battleData.participantOpponent.ActivePokemon;
+            if (opponentActivePokemon.health <= 0)
             {
 
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
                     battleData.participantOpponent,
-                    battleData.participantOpponent.ActivePokemon
+                    opponentActivePokemon
                     ));
                 //TODO - animation for opponent active pokemon fainting
 
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                #region Experience and EV Yielding
+
+                List<int> pokemonUsedIndexes = battleData
+                    .playerUsedPokemonPerOpponentPokemon[battleData.participantOpponent.activePokemonIndex];
+
+                ushort opponentPokemonBaseExperienceYield = opponentActivePokemon.species.baseExperienceYield;
+                byte opponentPokemonLevel = opponentActivePokemon.GetLevel();
+
+                foreach (int playerPokemonIndex in pokemonUsedIndexes)
+                {
+
+                    PokemonInstance playerPokemonInstance = battleData.participantPlayer.GetPokemon()[playerPokemonIndex];
+
+                    #region Experience Yielding
+
+                    int experienceToAdd = (opponentPokemonBaseExperienceYield * opponentPokemonLevel) / (7 * pokemonUsedIndexes.Count);
+
+                    if (!battleData.isWildBattle)
+                        experienceToAdd = Mathf.FloorToInt(experienceToAdd * 1.5F);
+
+                    //TODO - if playerPokemonInstance holding lucky egg, multiply by 1.5
+
+                    //TODO - if playerPokemonInstance was traded (aka isn't with original trainer), multiply by 1.5
+
+                    byte previousPlayerPokemonLevel = playerPokemonInstance.GetLevel();
+                    playerPokemonInstance.AddMaxExperience(experienceToAdd);
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        playerPokemonInstance.GetDisplayName()
+                        + " gained "
+                        + experienceToAdd.ToString()
+                        + " experience"
+                        );
+
+                    if (previousPlayerPokemonLevel != playerPokemonInstance.GetLevel())
+                    {
+
+                        battleAnimationSequencer.EnqueueSingleText(
+                            playerPokemonInstance.GetDisplayName()
+                            + " levelled up to level "
+                            + playerPokemonInstance.GetLevel().ToString()
+                            );
+                        //TODO - level up animation
+
+                        //TODO - if new move learnt, deal with this (incl. check if current moves full, asking whether player wants to replace current move, choosing move to replace)
+
+                    }
+
+                    battleAnimationSequencer.PlayAll();
+                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                    #endregion
+
+                    #region EV Yielding
+
+                    Stats<byte> opponentPokemonEVYield = opponentActivePokemon.species.evYield;
+
+                    playerPokemonInstance.AddEffortValuePoints(opponentPokemonEVYield);
+
+                    #endregion
+
+                }
+
+                #endregion
 
             }
-
-            #endregion
-
-            #region Experience Yielding
-
-            //TODO
-
-            #endregion
-
-            #region EV Yielding
-
-            //TODO
 
             #endregion
 
@@ -367,6 +435,7 @@ namespace Battle
                 //TODO - animation for player sending out new pokemon
 
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
             }
 
@@ -383,6 +452,7 @@ namespace Battle
                 //TODO - animation for opponent sending out new pokemon
 
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
             }
 
@@ -521,22 +591,22 @@ namespace Battle
         /// Select the action execution method for the provided action and run it using the action. This includes adding and running animations
         /// </summary>
         /// <param name="action">The action to execute</param>
-        private void ExecuteAction(BattleParticipant.Action action)
+        private IEnumerator ExecuteAction(BattleParticipant.Action action)
         {
 
             switch (action.type)
             {
 
                 case BattleParticipant.Action.Type.Fight:
-                    ExecuteAction_Fight(action);
+                    yield return StartCoroutine(ExecuteAction_Fight(action));
                     break;
 
                 case BattleParticipant.Action.Type.Flee:
-                    ExecuteAction_Flee(action);
+                    yield return StartCoroutine(ExecuteAction_Flee(action));
                     break;
 
                 case BattleParticipant.Action.Type.SwitchPokemon:
-                    ExecuteAction_SwitchPokemon(action);
+                    yield return StartCoroutine(ExecuteAction_SwitchPokemon(action));
                     break;
 
                 //TODO - case for item using
@@ -552,13 +622,13 @@ namespace Battle
         /// <summary>
         /// Execute a fight action
         /// </summary>
-        private void ExecuteAction_Fight(BattleParticipant.Action action)
+        private IEnumerator ExecuteAction_Fight(BattleParticipant.Action action)
         {
 
             //TODO - when special moves made, have their effects inflicted (maybe by separate method made for all special moves to directly cause changes to pokemon and return announcements)
 
             if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.flinch)
-                return;
+                yield break;
 
             PokemonMove move = PokemonMove.GetPokemonMoveById(action.user.ActivePokemon.moveIds[action.fightMoveIndex]);
 
@@ -574,6 +644,7 @@ namespace Battle
             //TODO - animation for move usage
 
             battleAnimationSequencer.PlayAll();
+            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
             #region Damage
 
@@ -716,6 +787,7 @@ namespace Battle
                 #endregion
 
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
             }
             else if (usageResults.failed)
@@ -723,6 +795,7 @@ namespace Battle
 
                 battleAnimationSequencer.EnqueueSingleText("It failed!");
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
             }
             else if (usageResults.missed)
@@ -732,6 +805,7 @@ namespace Battle
 
                 battleAnimationSequencer.EnqueueSingleText("It missed!");
                 battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
             }
 
@@ -898,13 +972,13 @@ namespace Battle
         /// <summary>
         /// Execute a flee action
         /// </summary>
-        private void ExecuteAction_Flee(BattleParticipant.Action action)
+        private IEnumerator ExecuteAction_Flee(BattleParticipant.Action action)
         {
 
             if (!battleData.playerCanFlee)
             {
                 Debug.LogError("Player attempted to flee but shouldn't be allowed to");
-                return;
+                yield break;
             }
 
             //This should always be the case
@@ -937,21 +1011,23 @@ namespace Battle
             }
 
             battleAnimationSequencer.PlayAll();
+            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
         }
 
         /// <summary>
         /// Execute a switch pokemon action
         /// </summary>
-        private void ExecuteAction_SwitchPokemon(BattleParticipant.Action action)
+        private IEnumerator ExecuteAction_SwitchPokemon(BattleParticipant.Action action)
         {
 
             action.user.activePokemonIndex = action.switchPokemonIndex;
 
-            battleAnimationSequencer.EnqueueSingleText(action.user.GetName());
+            battleAnimationSequencer.EnqueueSingleText(action.user.GetName() + " switched in " + action.user.ActivePokemon.GetDisplayName());
             //TODO - add animation of participant switching pokemon
 
             battleAnimationSequencer.PlayAll();
+            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
         }
 

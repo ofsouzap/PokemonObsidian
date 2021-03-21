@@ -165,8 +165,6 @@ namespace Pokemon
         /// </summary>
         public string resourceName;
 
-        //TODO - store sprite resource information (like sprite group name)
-
         #endregion
 
         #region Stats
