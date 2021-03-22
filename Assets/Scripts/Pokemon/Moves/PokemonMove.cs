@@ -21,6 +21,22 @@ namespace Pokemon.Moves
 
         #endregion
 
+        #region Struggle
+
+        public static PokemonMove struggle = new PokemonMove()
+        {
+            id = -1,
+            name = "Struggle",
+            description = "An attack that is used in desperation only if the user has no PP. It also hurts the user slightly.",
+            maxPP = 1,
+            type = Type.Normal,
+            moveType = MoveType.Physical,
+            power = 50,
+            accuracy = 0
+        };
+
+        #endregion
+
         #region Properties
 
         public int id;
@@ -501,19 +517,26 @@ namespace Pokemon.Moves
         /// <summary>
         /// Calculate a value to use to check whether the move hits. This value should then be compared to a random value from 0 to 100
         /// </summary>
-        public virtual byte CalculateAccuracyValue(PokemonInstance user,
+        public virtual ushort CalculateAccuracyValue(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
         {
 
-            float trueValue = accuracy;
+            if (accuracy != 0)
+            {
 
-            trueValue *= user.GetBattleAccuracy();
-            trueValue *= target.GetBattleEvasion();
+                float trueValue = accuracy;
 
-            trueValue *= battleData.CurrentWeather.accuracyBoost;
+                trueValue *= user.GetBattleAccuracy();
+                trueValue *= target.GetBattleEvasion();
 
-            return (byte)Mathf.RoundToInt(trueValue);
+                trueValue *= battleData.CurrentWeather.accuracyBoost;
+
+                return (ushort)Mathf.RoundToInt(trueValue);
+
+            }
+            else
+                return 100;
 
         }
 

@@ -127,6 +127,25 @@ namespace Battle
         }
 
         /// <summary>
+        /// Choose that the pokemon should use the struggle move
+        /// </summary>
+        public void ChooseActionFightStruggle()
+        {
+
+            chosenAction = new Action(this)
+            {
+                type = Action.Type.Fight,
+                fightUsingStruggle = true,
+                fightMoveTarget = recentBattleData.participantOpponent
+            };
+
+            actionHasBeenChosen = true;
+
+            HideBattleUI();
+
+        }
+
+        /// <summary>
         /// Choose to switch pokemon to the pokemon with index partyIndex in the player's party
         /// </summary>
         /// <param name="partyIndex">The index of the pokemon to switch to in the player's party</param>

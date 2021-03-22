@@ -59,7 +59,8 @@ namespace Battle
 
             }
 
-            if (ActivePokemon.movePPs[chosenAction.fightMoveIndex] <= 0)
+            if (!chosenAction.fightUsingStruggle
+                && ActivePokemon.movePPs[chosenAction.fightMoveIndex] <= 0)
             {
                 throw new System.Exception("Chosen fight move doesn't have enough PP");
             }
@@ -68,6 +69,16 @@ namespace Battle
 
         public Action ChooseAction_RandomAttack(BattleData battleData)
         {
+
+            if (ActivePokemon.movePPs.All(x => x <= 0))
+            {
+                return new Action(this)
+                {
+                    type = Action.Type.Fight,
+                    fightUsingStruggle = true,
+                    fightMoveTarget = battleData.participantPlayer
+                };
+            }
 
             int chosenMoveIndex;
             bool selectingMove = true;

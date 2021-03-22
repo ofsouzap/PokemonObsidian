@@ -644,12 +644,25 @@ namespace Battle
             if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.flinch)
                 yield break;
 
-            if (action.user.ActivePokemon.movePPs[action.fightMoveIndex] <= 0)
-            {
-                throw new ArgumentException("Participant selected move with 0 PP (Move Index " + action.fightMoveIndex + ")");
-            }
+            PokemonMove move;
 
-            PokemonMove move = PokemonMove.GetPokemonMoveById(action.user.ActivePokemon.moveIds[action.fightMoveIndex]);
+            if (action.fightUsingStruggle)
+            {
+
+                move = PokemonMove.struggle;
+
+            }
+            else
+            {
+
+                if (action.user.ActivePokemon.movePPs[action.fightMoveIndex] <= 0)
+                {
+                    throw new ArgumentException("Participant selected move with 0 PP (Move Index " + action.fightMoveIndex + ")");
+                }
+
+                move = PokemonMove.GetPokemonMoveById(action.user.ActivePokemon.moveIds[action.fightMoveIndex]);
+
+            }
 
             PokemonMove.UsageResults usageResults = move.CalculateEffect(
                 action.user.ActivePokemon,
@@ -1046,6 +1059,8 @@ namespace Battle
 
             battleAnimationSequencer.EnqueueSingleText(action.user.GetName() + " switched in " + action.user.ActivePokemon.GetDisplayName());
             //TODO - add animation of participant switching pokemon
+
+            //TODO - apply effects for newly-switched in pokemon's ability (if abilities included)
 
             battleAnimationSequencer.PlayAll();
             yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);

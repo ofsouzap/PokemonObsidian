@@ -139,6 +139,11 @@ namespace Battle.PlayerUI
 
                 menuFightController.moveButtons[3].onClick.AddListener(() => SuggestChooseMoveIndex(3));
 
+                menuFightController.buttonMoveStruggle.onClick.AddListener(() =>
+                {
+                    playerBattleParticipant.ChooseActionFightStruggle();
+                });
+
             }
 
             menuFightController.RefreshMoveButtons();

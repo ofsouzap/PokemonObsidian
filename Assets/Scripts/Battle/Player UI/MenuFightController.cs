@@ -26,6 +26,8 @@ namespace Battle.PlayerUI
             return output;
         }
 
+        public Button buttonMoveStruggle;
+
         public Text textPPValue;
         public Text textPowerValue;
         public Text textAccuracyValue;
@@ -126,6 +128,13 @@ namespace Battle.PlayerUI
                 moveButtons[1].gameObject.SetActive(false);
             else
                 moveButtons[1].gameObject.SetActive(true);
+
+            bool showStruggleMoveButton = PlayerData.singleton
+                .partyPokemon[currentPokemonIndex]
+                .movePPs
+                .All(x => x <= 0);
+
+            buttonMoveStruggle.gameObject.SetActive(showStruggleMoveButton);
 
         }
 

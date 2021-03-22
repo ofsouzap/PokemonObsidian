@@ -83,6 +83,11 @@ namespace Battle
             public BattleParticipant user;
 
             /// <summary>
+            /// Whether the pokemon is going to use struggle. If so, fightMoveIndex should be ignored
+            /// </summary>
+            public bool fightUsingStruggle;
+
+            /// <summary>
             /// The index of the move to use in the active pokemon's move list
             /// </summary>
             public int fightMoveIndex;
