@@ -208,6 +208,11 @@ namespace Pokemon.Moves
             public PokemonInstance.NonVolatileStatusCondition targetNonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
             /// <summary>
+            /// Whether the target should be thawed from being frozen (this happens when a fire move is used on them)
+            /// </summary>
+            public bool thawTarget = false;
+
+            /// <summary>
             /// Whether the target should be confused (if it isn't already)
             /// </summary>
             public bool targetConfuse = false;
@@ -408,6 +413,13 @@ namespace Pokemon.Moves
 
             usageResults.targetEvasionChange = LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
             usageResults.targetAccuracyChange = LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
+
+            #endregion
+
+            #region Fire Move Thawing
+
+            if (type == Type.Fire && target.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
+                usageResults.thawTarget = true;
 
             #endregion
 

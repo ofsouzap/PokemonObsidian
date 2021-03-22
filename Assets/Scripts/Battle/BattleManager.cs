@@ -678,7 +678,7 @@ namespace Battle
             battleAnimationSequencer.PlayAll();
             yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
 
-            #region Damage
+            #region Effects
 
             if (usageResults.Succeeded)
             {
@@ -728,6 +728,19 @@ namespace Battle
                     battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
                     //TODO - enqueue confusion animation
 
+                }
+
+                #endregion
+
+                #region Thawing
+
+                if (usageResults.thawTarget)
+                {
+                    targetPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+                    battleAnimationSequencer.EnqueueSingleText(
+                        targetPokemon.GetDisplayName()
+                        + " was thawed out"
+                        );
                 }
 
                 #endregion

@@ -26,6 +26,7 @@ namespace Battle
         {
             recentBattleData = battleData;
             actionHasBeenChosen = false;
+            playerBattleUIController.RefreshMenus();
             OpenBattleUIRoot();
         }
 

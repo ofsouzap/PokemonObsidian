@@ -236,6 +236,15 @@ namespace Battle.PlayerUI
 
         }
 
+        public void RefreshMenus()
+        {
+
+            menuFightController.RefreshMoveButtons();
+            menuPartyController.RefreshButtons();
+            menuPartyPokemonMovesController.RefreshMoveButtons();
+
+        }
+
         public void SuggestChooseMoveIndex(int index)
         {
 
