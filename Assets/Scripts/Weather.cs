@@ -62,7 +62,7 @@ public class Weather : IHasId
     public Dictionary<Pokemon.Type, Pokemon.Stats<float>> typeStatBoosts = new Dictionary<Pokemon.Type, Pokemon.Stats<float>>();
 
     /// <summary>
-    /// How much pokemon should have their accuracy changed. Value is multiplier for the stat. Value can be negative
+    /// How much pokemon should have their accuracy changed. Value is multiplier for the stat
     /// </summary>
     public float accuracyBoost = 1;
 

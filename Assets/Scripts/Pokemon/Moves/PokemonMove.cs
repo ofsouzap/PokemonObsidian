@@ -215,7 +215,7 @@ namespace Pokemon.Moves
             UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData);
 
             //TODO - when changing accuracy/evasion calculation, include weather effects
-            if (UnityEngine.Random.Range(0, 100) > accuracy)
+            if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
             {
                 usageResults.missed = true;
                 return usageResults;
@@ -453,7 +453,7 @@ namespace Pokemon.Moves
 
             UsageResults usageResults = new UsageResults();
 
-            if (UnityEngine.Random.Range(0, 100) > accuracy)
+            if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
             {
                 usageResults.missed = true;
                 return usageResults;
@@ -495,6 +495,25 @@ namespace Pokemon.Moves
             #endregion
 
             return usageResults;
+
+        }
+
+        /// <summary>
+        /// Calculate a value to use to check whether the move hits. This value should then be compared to a random value from 0 to 100
+        /// </summary>
+        public virtual byte CalculateAccuracyValue(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            float trueValue = accuracy;
+
+            trueValue *= user.GetBattleAccuracy();
+            trueValue *= target.GetBattleEvasion();
+
+            trueValue *= battleData.CurrentWeather.accuracyBoost;
+
+            return (byte)Mathf.RoundToInt(trueValue);
 
         }
 

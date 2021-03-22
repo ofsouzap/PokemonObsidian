@@ -671,8 +671,7 @@ namespace Pokemon
         /// Calculate the value that a pokemon's accuracy stat should have during a battle taking into account its accuracy modifiers
         /// </summary>
         /// <param name="modifier">The stage of the pokemon's accuracy modifier</param>
-        /// <returns></returns>
-        private int CalculateAccuracyBattleStat(sbyte modifier)
+        private float CalculateAccuracyBattleStat(sbyte modifier)
         {
 
             float modifierMultiplier;
@@ -709,11 +708,11 @@ namespace Pokemon
                 modifierMultiplier = 1;
             }
 
-            return Mathf.RoundToInt(modifierMultiplier);
+            return modifierMultiplier;
 
         }
 
-        private int CalculateEvasionBattleStat(sbyte modifier)
+        private float CalculateEvasionBattleStat(sbyte modifier)
         {
             return CalculateAccuracyBattleStat((sbyte)-modifier);
         }
@@ -738,12 +737,18 @@ namespace Pokemon
 
         }
 
-        public int GetBattleAccuracy()
+        /// <summary>
+        /// Gets a multiplier to use for the pokemon's accuracy
+        /// </summary>
+        public float GetBattleAccuracy()
         {
             return CalculateAccuracyBattleStat(battleProperties.accuracyModifier);
         }
 
-        public int GetBattleEvasion()
+        /// <summary>
+        /// Gets a multiplier to use for the pokemon's evasion
+        /// </summary>
+        public float GetBattleEvasion()
         {
             return CalculateEvasionBattleStat(battleProperties.evasionModifier);
         }
