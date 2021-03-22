@@ -26,7 +26,8 @@ namespace Pokemon
             string nickname = "",
             Item heldItem = null,
             int _health = -1,
-            bool? gender = true
+            bool? gender = true,
+            Stats<int> currentStats = new Stats<int>() //If all of these values are 0, they won't be used
             )
         {
 
@@ -55,6 +56,24 @@ namespace Pokemon
                 health = _health > 0 ? _health : 1,
                 gender = gender
             };
+
+            #region Setting Current Stats
+
+            bool needToSetCurrentStats = false;
+
+            foreach (Stats<int>.Stat stat in (Stats<int>.Stat[])Enum.GetValues(typeof(Stats<int>.Stat)))
+            {
+                if (currentStats.GetStat(stat) != 0)
+                {
+                    needToSetCurrentStats = true;
+                    break;
+                }
+            }
+
+            if (needToSetCurrentStats)
+                instance.SetCurrentStats(currentStats);
+
+            #endregion
 
             if (_health <= 0)
                 instance.RestoreFully();
@@ -186,6 +205,7 @@ namespace Pokemon
                 natureId: natureId,
                 effortValues: effortValues,
                 individualValues: individualValues,
+
                 _moves: moves,
                 movePPs: movePPs,
                 experience: experience,

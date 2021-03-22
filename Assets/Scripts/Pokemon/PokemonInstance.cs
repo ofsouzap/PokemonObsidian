@@ -310,11 +310,13 @@ namespace Pokemon
 
         }
 
+        private bool currentStatsSet = false;
+        private Stats<int> currentStats = new Stats<int>();
+
         /// <summary>
-        /// Calculates all of a pokemon instance's stats
+        /// Refreshes all of a pokemon instance's saved stats
         /// </summary>
-        /// <returns>A Stat<int> object describing all of the pokemon instance's stats at the time of calculation</returns>
-        public Stats<int> GetStats()
+        public void RefreshStats()
         {
 
             Dictionary<Stats<int>.Stat, int> statValues = new Dictionary<Stats<int>.Stat, int>();
@@ -326,7 +328,7 @@ namespace Pokemon
 
             }
 
-            return new Stats<int>
+            currentStats = new Stats<int>
             {
                 attack = statValues[Stats<int>.Stat.attack],
                 defense = statValues[Stats<int>.Stat.defense],
@@ -336,6 +338,30 @@ namespace Pokemon
                 speed = statValues[Stats<int>.Stat.speed]
             };
 
+            currentStatsSet = true;
+
+        }
+
+        /// <summary>
+        /// Manually sets currentStats for this PokemonInstance
+        /// </summary>
+        /// <param name="statValues">The values to use</param>
+        public void SetCurrentStats(Stats<int> statValues)
+        {
+            currentStats = statValues;
+            currentStatsSet = true;
+        }
+
+        public Stats<int> GetStats()
+        {
+            if (currentStatsSet)
+                return currentStats;
+            else
+            {
+                RefreshStats();
+                currentStatsSet = true;
+                return currentStats;
+            }
         }
 
         #endregion
@@ -364,6 +390,8 @@ namespace Pokemon
         public void AddMaxExperience(int amount)
         {
 
+            byte previousLevel = GetLevel();
+
             if (GrowthTypeData.GetLevelFromExperience(experience + amount, growthType) >= 100)
             {
                 experience = GrowthTypeData.GetMinimumExperienceForLevel(100, growthType);
@@ -372,6 +400,19 @@ namespace Pokemon
             {
                 experience += amount;
             }
+
+            if (GetLevel() != previousLevel)
+                LevelUp();
+
+        }
+
+        /// <summary>
+        /// Executes any code that should be executed when a PokemonInstance levels up
+        /// </summary>
+        private void LevelUp()
+        {
+
+            RefreshStats();
 
         }
 
