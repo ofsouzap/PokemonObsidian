@@ -109,7 +109,7 @@ namespace Battle
             for (int i = 0; i < pokemon.Length; i++)
             {
 
-                if (pokemon[i].health > 0)
+                if (!pokemon[i].IsFainted)
                 {
                     selectedIndex = i;
                     validIndexFound = true;
@@ -132,7 +132,7 @@ namespace Battle
 
         public override bool CheckIfDefeated()
         {
-            return pokemon.All((x) => x.health <= 0);
+            return pokemon.All((x) => x.IsFainted);
         }
 
     }

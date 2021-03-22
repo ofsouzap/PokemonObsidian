@@ -32,13 +32,13 @@ namespace Battle
         public override void StartChoosingNextPokemon()
         {
             StartPokemonSelectUI(PokemonSelectUIPurpose.ReplacingPokemon,
-                (x) => x.health > 0,
+                (x) => !x.IsFainted,
                 false);
         }
 
         public override bool CheckIfDefeated()
         {
-            return GetPokemon().All((x) => x.health <= 0);
+            return GetPokemon().All((x) => x.IsFainted);
         }
 
         public void SetUp()

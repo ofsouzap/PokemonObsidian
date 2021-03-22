@@ -242,6 +242,10 @@ namespace Pokemon
         public Nature nature => Nature.GetNatureById(natureId);
 
         public int health;
+        public bool IsFainted
+        {
+            get => health <= 0;
+        }
 
         public void TakeDamage(int maximumAmount)
         {

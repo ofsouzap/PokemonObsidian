@@ -332,7 +332,7 @@ namespace Battle
             #region Pokemon Fainting Animation
 
             PokemonInstance playerActivePokemon = battleData.participantPlayer.ActivePokemon;
-            if (playerActivePokemon.health <= 0)
+            if (playerActivePokemon.IsFainted)
             {
 
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
@@ -347,7 +347,7 @@ namespace Battle
             }
 
             PokemonInstance opponentActivePokemon = battleData.participantOpponent.ActivePokemon;
-            if (opponentActivePokemon.health <= 0)
+            if (opponentActivePokemon.IsFainted)
             {
 
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
@@ -435,7 +435,7 @@ namespace Battle
 
             #region Participants Replacing Pokemon
 
-            if (battleData.participantPlayer.ActivePokemon.health <= 0)
+            if (battleData.participantPlayer.ActivePokemon.IsFainted)
             {
 
                 battleData.participantPlayer.StartChoosingNextPokemon();
@@ -452,7 +452,7 @@ namespace Battle
 
             }
 
-            if (battleData.participantOpponent.ActivePokemon.health <= 0)
+            if (battleData.participantOpponent.ActivePokemon.IsFainted)
             {
 
                 battleData.participantOpponent.StartChoosingNextPokemon();
