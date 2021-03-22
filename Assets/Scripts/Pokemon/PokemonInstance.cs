@@ -444,7 +444,22 @@ namespace Pokemon
             { NonVolatileStatusCondition.Asleep, "fell asleep"  }
         };
 
-        public NonVolatileStatusCondition nonVolatileStatusCondition = NonVolatileStatusCondition.None;
+        public NonVolatileStatusCondition _nonVolatileStatusCondition = NonVolatileStatusCondition.None;
+        public NonVolatileStatusCondition nonVolatileStatusCondition
+        {
+            get => _nonVolatileStatusCondition;
+            set
+            {
+
+                _nonVolatileStatusCondition = value;
+
+                if (value == NonVolatileStatusCondition.BadlyPoisoned)
+                    badlyPoisonedCounter = 1;
+
+            }
+        }
+
+        public int badlyPoisonedCounter = 1;
 
         #endregion
 

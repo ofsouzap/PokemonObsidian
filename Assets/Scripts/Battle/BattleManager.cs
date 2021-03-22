@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -260,6 +261,18 @@ namespace Battle
 
             #region Ending Battle
 
+            #region Convert Bad Poisons to Poisons
+
+            foreach (PokemonInstance pokemon in battleData.participantPlayer.GetPokemon())
+                if (pokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned)
+                    pokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.Poisoned;
+
+            foreach (PokemonInstance pokemon in battleData.participantOpponent.GetPokemon())
+                if (pokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned)
+                    pokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.Poisoned;
+
+            #endregion
+
             if (battleData.participantPlayer.CheckIfDefeated())
             {
 
@@ -463,15 +476,15 @@ namespace Battle
         private IEnumerator MainBattleCoroutine_ApplyWeatherDamageToParticipant(BattleParticipant participant)
         {
 
-            Type[] weatherDamagedTypes = battleData.CurrentWeather.damagedPokemonTypes;
+            Pokemon.Type[] weatherDamagedTypes = battleData.CurrentWeather.damagedPokemonTypes;
 
             PokemonSpecies participantPokemonSpecies = participant.ActivePokemon.species;
 
             //If the pokemon's species has only one type, it will be set for both values of the array so that the array size is always 2
-            Type[] participantPokemonTypes = new Type[]
+            Pokemon.Type[] participantPokemonTypes = new Pokemon.Type[]
             {
                     participantPokemonSpecies.type1,
-                    participantPokemonSpecies.type2 != null ? (Type)participantPokemonSpecies.type2 : participantPokemonSpecies.type1
+                    participantPokemonSpecies.type2 != null ? (Pokemon.Type)participantPokemonSpecies.type2 : participantPokemonSpecies.type1
             };
 
             if (weatherDamagedTypes.Contains(participantPokemonTypes[0])
@@ -536,12 +549,13 @@ namespace Battle
                     break;
 
                 case PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned:
-                    //TODO - have badly poisoned damage gradually increase by 1/16 (aka 0.0625) each turn
+
                     participant.ActivePokemon.TakeDamage(
                         Mathf.RoundToInt(
-                            participant.ActivePokemon.GetStats().health * 0.0625F
+                            participant.ActivePokemon.badlyPoisonedCounter * 0.0625F
                         )
                     );
+                    participant.ActivePokemon.badlyPoisonedCounter++;
 
                     battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its bad poison");
                     //TODO - damage animation
@@ -630,6 +644,11 @@ namespace Battle
             if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.flinch)
                 yield break;
 
+            if (action.user.ActivePokemon.movePPs[action.fightMoveIndex] <= 0)
+            {
+                throw new ArgumentException("Participant selected move with 0 PP (Move Index " + action.fightMoveIndex + ")");
+            }
+
             PokemonMove move = PokemonMove.GetPokemonMoveById(action.user.ActivePokemon.moveIds[action.fightMoveIndex]);
 
             PokemonMove.UsageResults usageResults = move.CalculateEffect(
@@ -691,7 +710,7 @@ namespace Battle
                 {
 
                     //Confusion should last between 1-4 turns decided randomly
-                    targetPokemon.battleProperties.volatileStatusConditions.confusion = Random.Range(0, 5);
+                    targetPokemon.battleProperties.volatileStatusConditions.confusion = UnityEngine.Random.Range(0, 5);
 
                     battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
                     //TODO - enqueue confusion animation
@@ -993,7 +1012,7 @@ namespace Battle
                 battleData.playerEscapeAttempts
             );
 
-            bool escapeSuccess = Random.Range(0, 256) < escapeChance;
+            bool escapeSuccess = UnityEngine.Random.Range(0, 256) < escapeChance;
 
             if (escapeSuccess)
             {
@@ -1020,6 +1039,8 @@ namespace Battle
         /// </summary>
         private IEnumerator ExecuteAction_SwitchPokemon(BattleParticipant.Action action)
         {
+
+            action.user.ActivePokemon.badlyPoisonedCounter = 1;
 
             action.user.activePokemonIndex = action.switchPokemonIndex;
 

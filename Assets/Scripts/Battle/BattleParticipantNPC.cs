@@ -59,17 +59,33 @@ namespace Battle
 
             }
 
+            if (ActivePokemon.movePPs[chosenAction.fightMoveIndex] <= 0)
+            {
+                throw new System.Exception("Chosen fight move doesn't have enough PP");
+            }
+
         }
 
         public Action ChooseAction_RandomAttack(BattleData battleData)
         {
 
-            int movesCount = 0;
-            foreach (int moveId in pokemon[activePokemonIndex].moveIds)
-                if (moveId != 0)
-                    movesCount++;
+            int chosenMoveIndex;
+            bool selectingMove = true;
 
-            int chosenMoveIndex = Random.Range(0, movesCount);
+            do
+            {
+                int movesCount = 0;
+                foreach (int moveId in pokemon[activePokemonIndex].moveIds)
+                    if (moveId != 0)
+                        movesCount++;
+
+                chosenMoveIndex = Random.Range(0, movesCount);
+
+                if (ActivePokemon.movePPs[chosenMoveIndex] > 0)
+                    selectingMove = false;
+
+            }
+            while (selectingMove);
 
             return new Action(this)
             {

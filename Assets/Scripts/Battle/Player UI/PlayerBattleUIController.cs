@@ -131,25 +131,13 @@ namespace Battle.PlayerUI
 
                 menuFightController.SetCurrentPokemonIndex(playerBattleParticipant.activePokemonIndex);
 
-                menuFightController.moveButtons[0].onClick.AddListener(() =>
-                {
-                    playerBattleParticipant.ChooseActionFight(0);
-                });
+                menuFightController.moveButtons[0].onClick.AddListener(() => SuggestChooseMoveIndex(0));
 
-                menuFightController.moveButtons[1].onClick.AddListener(() =>
-                {
-                    playerBattleParticipant.ChooseActionFight(1);
-                });
+                menuFightController.moveButtons[1].onClick.AddListener(() => SuggestChooseMoveIndex(1));
 
-                menuFightController.moveButtons[2].onClick.AddListener(() =>
-                {
-                    playerBattleParticipant.ChooseActionFight(2);
-                });
+                menuFightController.moveButtons[2].onClick.AddListener(() => SuggestChooseMoveIndex(2));
 
-                menuFightController.moveButtons[3].onClick.AddListener(() =>
-                {
-                    playerBattleParticipant.ChooseActionFight(3);
-                });
+                menuFightController.moveButtons[3].onClick.AddListener(() => SuggestChooseMoveIndex(3));
 
             }
 
@@ -240,6 +228,20 @@ namespace Battle.PlayerUI
             menuPartyPokemonMovesController.RefreshMoveButtons();
 
             #endregion
+
+        }
+
+        public void SuggestChooseMoveIndex(int index)
+        {
+
+            if (playerBattleParticipant.ActivePokemon.movePPs[index] > 0)
+                playerBattleParticipant.ChooseActionFight(index);
+            else
+            {
+
+                //TODO - show message that move doesn't have enough PP
+
+            }
 
         }
 
