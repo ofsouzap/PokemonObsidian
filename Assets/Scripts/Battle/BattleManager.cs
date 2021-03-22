@@ -608,6 +608,48 @@ namespace Battle
         private IEnumerator ExecuteAction(BattleParticipant.Action action)
         {
 
+            #region NVSC Refreshing
+
+            if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
+            {
+
+                action.user.ActivePokemon.remainingSleepTurns--;
+
+                if (action.user.ActivePokemon.remainingSleepTurns <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        action.user.ActivePokemon.GetDisplayName()
+                        + " woke up"
+                        );
+
+                    battleAnimationSequencer.PlayAll();
+                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                }
+
+            }
+
+            if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
+            {
+
+                if (UnityEngine.Random.Range(0F, 1F) < PokemonInstance.thawChancePerTurn)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        action.user.ActivePokemon.GetDisplayName()
+                        + " thawed out!"
+                        );
+
+                    battleAnimationSequencer.PlayAll();
+                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                }
+
+            }
+
+            #endregion
+
             switch (action.type)
             {
 
@@ -643,6 +685,59 @@ namespace Battle
 
             if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.flinch)
                 yield break;
+
+            #region NVSC Move Failures
+
+            if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
+            {
+
+                battleAnimationSequencer.EnqueueSingleText(
+                    action.user.ActivePokemon.GetDisplayName()
+                    + " is fast asleep");
+
+                battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                yield break;
+
+            }
+
+            if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Paralysed)
+            {
+
+                if (UnityEngine.Random.Range(0F, 1F) < PokemonInstance.paralysisFightFailChance)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        action.user.ActivePokemon.GetDisplayName()
+                        + " is paralysed and couldn't move!"
+                        );
+
+                    battleAnimationSequencer.PlayAll();
+                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                    yield break;
+
+                }
+
+            }
+
+            if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
+            {
+
+                battleAnimationSequencer.EnqueueSingleText(
+                        action.user.ActivePokemon.GetDisplayName()
+                        + " is frozen solid!"
+                        );
+
+                battleAnimationSequencer.PlayAll();
+                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                yield break;
+
+            }
+
+            #endregion
 
             PokemonMove move;
 
@@ -752,6 +847,9 @@ namespace Battle
                 {
 
                     targetPokemon.nonVolatileStatusCondition = usageResults.targetNonVolatileStatusCondition;
+
+                    if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
+                        targetPokemon.remainingSleepTurns = usageResults.targetAsleepInflictionDuration;
 
                     string nvscInflictionMessage = targetPokemon.GetDisplayName()
                         + ' '

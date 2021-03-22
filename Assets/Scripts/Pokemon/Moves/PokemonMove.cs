@@ -208,6 +208,11 @@ namespace Pokemon.Moves
             public PokemonInstance.NonVolatileStatusCondition targetNonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
             /// <summary>
+            /// How long the target should be put to sleep for if targetNonVolatileStatsCondition is Asleep
+            /// </summary>
+            public byte targetAsleepInflictionDuration = 0;
+
+            /// <summary>
             /// Whether the target should be thawed from being frozen (this happens when a fire move is used on them)
             /// </summary>
             public bool thawTarget = false;
@@ -521,6 +526,9 @@ namespace Pokemon.Moves
             }
 
             #endregion
+
+            if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
+                usageResults.targetAsleepInflictionDuration = (byte)UnityEngine.Random.Range(1, PokemonInstance.maximumDefaultSleepDuration + 1);
 
             return usageResults;
 

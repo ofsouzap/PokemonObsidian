@@ -448,7 +448,7 @@ namespace Pokemon
             { NonVolatileStatusCondition.Asleep, "fell asleep"  }
         };
 
-        public NonVolatileStatusCondition _nonVolatileStatusCondition = NonVolatileStatusCondition.None;
+        private NonVolatileStatusCondition _nonVolatileStatusCondition = NonVolatileStatusCondition.None;
         public NonVolatileStatusCondition nonVolatileStatusCondition
         {
             get => _nonVolatileStatusCondition;
@@ -463,6 +463,11 @@ namespace Pokemon
             }
         }
 
+        public const byte maximumDefaultSleepDuration = 5;
+        public const float paralysisFightFailChance = 0.25F;
+        public const float thawChancePerTurn = 0.2F;
+
+        public byte remainingSleepTurns = 0;
         public int badlyPoisonedCounter = 1;
 
         #endregion
