@@ -19,6 +19,12 @@ namespace Pokemon.Moves
             return registry.StartingIndexSearch(id, id - 1);
         }
 
+        /// <summary>
+        /// Checks whether an assigned move id means that there is no set move id
+        /// </summary>
+        /// <param name="queryId">The id to consider</param>
+        public static bool MoveIdIsUnset(int queryId) => queryId < 0;
+
         #endregion
 
         #region Struggle

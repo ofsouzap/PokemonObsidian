@@ -33,6 +33,10 @@ namespace Pokemon
 
             int[] moves = new int[4];
 
+            //By default, the moves will be unset
+            for (int i = 0; i < moves.Length; i++)
+                moves[i] = -1;
+
             if (_moves.Length > 4)
             {
                 Debug.LogWarning("Length of moves passed to GenerateFull was greater than 4");
@@ -136,6 +140,10 @@ namespace Pokemon
             Dictionary<byte, int[]> levelUpMoves = PokemonSpecies.GetPokemonSpeciesById(speciesId).levelUpMoves;
 
             moves = new int[4];
+            //By default, the moves will be unset
+            for (int moveIndex = 0; moveIndex < moves.Length; moveIndex++)
+                moves[moveIndex] = -1;
+
             movePPs = new byte[4];
             int movesIndex = 0;
             bool allMovesSet = false;

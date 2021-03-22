@@ -87,7 +87,7 @@ namespace Battle
             {
                 int movesCount = 0;
                 foreach (int moveId in pokemon[activePokemonIndex].moveIds)
-                    if (moveId != 0)
+                    if (!Pokemon.Moves.PokemonMove.MoveIdIsUnset(moveId))
                         movesCount++;
 
                 chosenMoveIndex = Random.Range(0, movesCount);

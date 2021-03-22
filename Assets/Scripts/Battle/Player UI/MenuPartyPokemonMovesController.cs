@@ -85,7 +85,7 @@ namespace Battle.PlayerUI
             .singleton
             .partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex]
             .moveIds
-            .Where(x => x != 0)
+            .Where(x => !PokemonMove.MoveIdIsUnset(x))
             .Select(x => PokemonMove.GetPokemonMoveById(x))
             .ToArray();
 
