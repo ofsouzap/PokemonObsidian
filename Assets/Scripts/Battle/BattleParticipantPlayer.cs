@@ -39,7 +39,7 @@ namespace Battle
 
         public override bool CheckIfDefeated()
         {
-            return GetPokemon().All((x) => x.IsFainted);
+            return GetPokemon().Where(x => x != null).All((x) => x.IsFainted);
         }
 
         public void SetUp()
@@ -197,6 +197,8 @@ namespace Battle
 
             pokemonSelectUIPurpose = purpose;
             pokemonSelectUIValidityPredicate = validityCheck;
+
+            playerPokemonSelectUIController.RefreshButtons();
             ShowPokemonSelectUI(showBackButton);
 
         }
@@ -242,14 +244,14 @@ namespace Battle
 
             PokemonInstance selectedPokemon = PlayerData.singleton.partyPokemon[partyIndex];
 
+            if (!PokemonSelectUICheckValidity(selectedPokemon))
+            {
+                PokemonSelectDisplayInvalidMessage();
+                return;
+            }
+
             if (pokemonSelectUIPurpose == PokemonSelectUIPurpose.ReplacingPokemon)
             {
-
-                if (!PokemonSelectUICheckValidity(selectedPokemon))
-                {
-                    PokemonSelectDisplayInvalidMessage();
-                    return;
-                }
 
                 nextPokemonHasBeenChosen = true;
                 chosenNextPokemonIndex = partyIndex;
@@ -259,12 +261,6 @@ namespace Battle
             }
             else if (pokemonSelectUIPurpose == PokemonSelectUIPurpose.ItemTarget)
             {
-
-                if (!PokemonSelectUICheckValidity(selectedPokemon))
-                {
-                    PokemonSelectDisplayInvalidMessage();
-                    return;
-                }
 
                 actionHasBeenChosen = true;
                 chosenAction = new Action

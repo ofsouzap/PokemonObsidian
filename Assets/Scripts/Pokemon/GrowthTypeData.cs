@@ -224,19 +224,29 @@ namespace Pokemon
         public static byte GetLevelFromExperience(int experience,
             GrowthType growthType)
         {
+            
+            byte maxLevel = 1;
+            bool entryFound = false;
 
             foreach (Entry entry in data)
             {
 
-                if (entry.Get(growthType) >= experience)
+                if (entry.Get(growthType) <= experience)
                 {
-                    return entry.level;
+
+                    if (entry.level > maxLevel)
+                        maxLevel = entry.level;
+
+                    entryFound = true;
+
                 }
 
             }
 
-            Debug.LogWarning("No suitable level found for growth type " + growthType + " and experience " + experience);
-            return 1;
+            if (!entryFound)
+                Debug.LogWarning("No suitable level found for growth type " + growthType + " and experience " + experience);
+
+            return maxLevel;
 
         }
 

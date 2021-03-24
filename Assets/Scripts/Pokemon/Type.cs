@@ -90,7 +90,7 @@ namespace Pokemon
 
         //Should be 55
         /// <summary>
-        /// Key does half damage to values
+        /// Values do half damage to their keys
         /// </summary>
         public static readonly Dictionary<Type, Type[]> typeDefenseAdvantage = new Dictionary<Type, Type[]>()
         {
@@ -114,7 +114,7 @@ namespace Pokemon
 
         //Should be 7
         /// <summary>
-        /// Key does no damage to values
+        /// Values do no damage to their key
         /// </summary>
         public static readonly Dictionary<Type, Type[]> typeDefenseNoDamage = new Dictionary<Type, Type[]>()
         {
@@ -129,7 +129,7 @@ namespace Pokemon
         public static float CalculateMultiplier(Type attacker, Type defender)
         {
 
-            if (typeAttackAdvantage.ContainsKey(defender) && typeAttackAdvantage[attacker].Contains(defender))
+            if (typeAttackAdvantage.ContainsKey(attacker) && typeAttackAdvantage[attacker].Contains(defender))
                 return 2f;
 
             else if (typeDefenseAdvantage.ContainsKey(defender) && typeDefenseAdvantage[defender].Contains(attacker))

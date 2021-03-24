@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Battle;
@@ -70,7 +71,7 @@ namespace Battle
         public Action ChooseAction_RandomAttack(BattleData battleData)
         {
 
-            if (ActivePokemon.movePPs.All(x => x <= 0))
+            if (!ActivePokemon.HasUsableMove)
             {
                 return new Action(this)
                 {
@@ -85,12 +86,13 @@ namespace Battle
 
             do
             {
-                int movesCount = 0;
-                foreach (int moveId in pokemon[activePokemonIndex].moveIds)
-                    if (!Pokemon.Moves.PokemonMove.MoveIdIsUnset(moveId))
-                        movesCount++;
+                List<int> validMoveIndexes = new List<int>();
 
-                chosenMoveIndex = Random.Range(0, movesCount);
+                for (int moveIndex = 0; moveIndex < 4; moveIndex++)
+                    if (!Pokemon.Moves.PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[moveIndex]))
+                        validMoveIndexes.Add(moveIndex);
+
+                chosenMoveIndex = validMoveIndexes[Random.Range(0, validMoveIndexes.Count)];
 
                 if (ActivePokemon.movePPs[chosenMoveIndex] > 0)
                     selectingMove = false;

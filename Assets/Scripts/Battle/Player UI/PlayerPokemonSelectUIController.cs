@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Battle.PlayerUI;
@@ -36,31 +37,44 @@ namespace Battle.PlayerUI
                 return;
             }
 
-            for (int i = 0; i < 6; i++)
-            {
+            pokemonButtons[0].Button.onClick.AddListener(() => { playerBattleParticipant.PokemonSelectUISelectPokemon(0); });
 
-                pokemonButtons[i].Button.onClick.AddListener(() =>
-                {
-                    //TODO - use below line to test that i is different each time
-                    Debug.Log(i);
-                });
+            pokemonButtons[1].Button.onClick.AddListener(() => { playerBattleParticipant.PokemonSelectUISelectPokemon(1); });
 
-            }
+            pokemonButtons[2].Button.onClick.AddListener(() => { playerBattleParticipant.PokemonSelectUISelectPokemon(2); });
+
+            pokemonButtons[3].Button.onClick.AddListener(() => { playerBattleParticipant.PokemonSelectUISelectPokemon(3); });
+
+            pokemonButtons[4].Button.onClick.AddListener(() => { playerBattleParticipant.PokemonSelectUISelectPokemon(4); });
+
+            pokemonButtons[5].Button.onClick.AddListener(() => { playerBattleParticipant.PokemonSelectUISelectPokemon(5); });
 
         }
 
         public void RefreshButtons()
         {
 
-            Pokemon.PokemonInstance[] pokemon = PlayerData.singleton.partyPokemon;
+            Pokemon.PokemonInstance[] pokemon = playerBattleParticipant.GetPokemon();
 
             for (int i = 0; i < pokemon.Length; i++)
             {
 
-                pokemonButtons[i].SetValues(
-                    pokemon[i].GetDisplayName(),
-                    pokemon[i].LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),
-                    ((float)pokemon[i].health) / pokemon[i].GetStats().health);
+                if (pokemon[i] == null)
+                {
+                    pokemonButtons[i].gameObject.SetActive(false);
+                }
+                else
+                {
+
+                    pokemonButtons[i].gameObject.SetActive(true);
+
+                    pokemonButtons[i].SetValues(
+                        pokemon[i].GetDisplayName(),
+                        pokemon[i].LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),
+                        ((float)pokemon[i].health) / pokemon[i].GetStats().health
+                    );
+
+                }
 
             }
 

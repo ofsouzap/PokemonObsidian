@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Pokemon;
 using Battle;
 
 namespace Pokemon.Moves
@@ -124,6 +123,16 @@ namespace Pokemon.Moves
         /// </summary>
         public float confusionChance;
 
+        /// <summary>
+        /// Whether this move is only used to cause a non-volatile status condition
+        /// </summary>
+        public bool nonVolatileStatusConditionOnly;
+
+        /// <summary>
+        /// Whether this move is only used to modify stat stages
+        /// </summary>
+        public bool statStageChangeOnly;
+
         #endregion
 
         #region Move Using
@@ -155,12 +164,12 @@ namespace Pokemon.Moves
             /// <summary>
             /// The damage to deal to the user
             /// </summary>
-            public byte userDamageDealt = 0;
+            public int userDamageDealt = 0;
 
             /// <summary>
             /// The damage to deal to the target
             /// </summary>
-            public byte targetDamageDealt = 0;
+            public int targetDamageDealt = 0;
 
             /// <summary>
             /// false if the move is not very effective, null if it is "effective" (multiplier of 1) or true if it is super effective
@@ -243,10 +252,15 @@ namespace Pokemon.Moves
         {
 
             //The results from calculating status effects are a base for the results returned from this function.
-            //    The results shouldn't overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
+            //    The results shouldn't usually overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
             UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData);
 
-            //TODO - when changing accuracy/evasion calculation, include weather effects
+            if (nonVolatileStatusConditionOnly && target.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
+            {
+                usageResults.failed = true;
+                return usageResults;
+            }
+
             if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
             {
                 usageResults.missed = true;
@@ -257,6 +271,8 @@ namespace Pokemon.Moves
 
             Type userType1 = user.species.type1;
             Type? userType2 = user.species.type2;
+            Type targetType1 = target.species.type1;
+            Type? targetType2 = target.species.type2;
 
             #region Attack/Defense
 
@@ -302,10 +318,9 @@ namespace Pokemon.Moves
             
             #region type advantage
 
-            float typeMultipler = userType2 == null ?
-                TypeAdvantage.CalculateMultiplier(type, userType1)
-                : TypeAdvantage.CalculateMultiplier(type, userType1, (Type)userType2
-                );
+            float typeMultipler = targetType2 == null ?
+                TypeAdvantage.CalculateMultiplier(type, targetType1)
+                : TypeAdvantage.CalculateMultiplier(type, targetType1, (Type)targetType2);
 
             if (typeMultipler == 1)
                 usageResults.effectiveness = null;
@@ -388,7 +403,8 @@ namespace Pokemon.Moves
 
             #region random
 
-            randomMultipler = UnityEngine.Random.Range(85, 100) / 100;
+            //Random multiplier should be random float in range [85%,100%]
+            randomMultipler = UnityEngine.Random.Range(0.85F, 1F);
 
             #endregion
 
@@ -407,8 +423,7 @@ namespace Pokemon.Moves
 
             #region Damage Calculation
 
-            int rawDamage = Mathf.FloorToInt(((((((2 * user.GetLevel()) / ((float)5)) + 2) * power * ad) / ((float)50)) + 2) * modifier);
-            byte damageToDeal = rawDamage > byte.MaxValue ? byte.MaxValue : (byte)rawDamage;
+            int damageToDeal = Mathf.FloorToInt(((((((2 * user.GetLevel()) / ((float)5)) + 2) * power * ad) / ((float)50)) + 2) * modifier);
 
             usageResults.targetDamageDealt = damageToDeal;
 
@@ -492,6 +507,12 @@ namespace Pokemon.Moves
 
             UsageResults usageResults = new UsageResults();
 
+            if (nonVolatileStatusConditionOnly && target.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
+            {
+                usageResults.failed = true;
+                return usageResults;
+            }
+
             if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
             {
                 usageResults.missed = true;
@@ -507,21 +528,53 @@ namespace Pokemon.Moves
             usageResults.targetEvasionChange = LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
             usageResults.targetAccuracyChange = LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
 
+            #region Stat Modify Only Failure Check
+
+            if (statStageChangeOnly) {
+
+                bool modifiedStatFound = false;
+
+                foreach (Stats<sbyte>.Stat stat in Enum.GetValues(typeof(Stats<sbyte>.Stat)))
+                    if (usageResults.userStatChanges.GetStat(stat) != 0
+                        || usageResults.targetStatChanges.GetStat(stat) != 0)
+                    {
+                        modifiedStatFound = true;
+                        break;
+                    }
+
+                if (!modifiedStatFound
+                    && usageResults.userEvasionChange == 0
+                    && usageResults.userAccuracyChange == 0
+                    && usageResults.targetEvasionChange == 0
+                    && usageResults.targetAccuracyChange == 0
+                    )
+                {
+                    usageResults.failed = true;
+                    return usageResults;
+                }
+
+            }
+
+            #endregion
+
             usageResults.targetFlinch = UnityEngine.Random.Range(0f, 1f) < flinchChance;
             usageResults.targetConfuse = UnityEngine.Random.Range(0f, 1f) < confusionChance;
 
-            foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
+            if (nonVolatileStatusConditionChances != null)
             {
-
-                if (nonVolatileStatusConditionChances[key] == 0)
-                    continue;
-
-                if (UnityEngine.Random.Range(0f, 1f) < nonVolatileStatusConditionChances[key])
+                foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
                 {
-                    usageResults.targetNonVolatileStatusCondition = key;
-                    break;
-                }
 
+                    if (nonVolatileStatusConditionChances[key] == 0)
+                        continue;
+
+                    if (UnityEngine.Random.Range(0f, 1f) < nonVolatileStatusConditionChances[key])
+                    {
+                        usageResults.targetNonVolatileStatusCondition = key;
+                        break;
+                    }
+
+                }
             }
 
             #region Weather Non-Volatile Status Condition Immunity

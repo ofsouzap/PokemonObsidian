@@ -40,6 +40,10 @@ namespace Pokemon
          *     format:
          *         {burn};{freeze};{paralysis};{poison};{bad poison};{sleep}
          * chance of inflicting confusion (float) (must be in range [0,1]) (optional)
+         * move is primarily for inflicting a non-volatile status condition
+         *     If so, the whole move will fail if it can't inflict its non-volatile status condition
+         * move is primarily for causing a stat modifier stage change
+         *     If so, the whole move will fail if it can't inflict any stat modifier stage changes
          */
 
         public static void LoadData()
@@ -73,7 +77,7 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly;
                 float flinchChance, confusionChance;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
 
@@ -350,26 +354,31 @@ namespace Pokemon
 
                 #region boostedCriticalChance
 
-                switch (entry[10].ToLower())
+                switch (ParseBooleanProperty(entry[10].ToLower()))
                 {
 
-                    case "":
-                    case "0":
-                    case "false":
-                    case "no":
+                    case false:
                         boostedCriticalChance = false;
                         break;
 
-                    case "1":
-                    case "true":
-                    case "yes":
+                    case true:
                         boostedCriticalChance = true;
                         break;
 
-                    default:
-                        Debug.LogError("Invalid boosted critical hit chance entry for id " + id);
-                        boostedCriticalChance = false;
-                        break;
+                    case null:
+
+                        if (entry[10] == "")
+                        {
+                            boostedCriticalChance = false;
+                            break;
+                        }
+
+                        else
+                        {
+                            Debug.LogError("Invalid boosted critical hit chance entry for id " + id);
+                            boostedCriticalChance = false;
+                            break;
+                        }
 
                 }
 
@@ -514,6 +523,127 @@ namespace Pokemon
 
                 #endregion
 
+                #region nonVolatileStatusConditionOnly
+
+                switch (ParseBooleanProperty(entry[14]))
+                {
+
+                    case true:
+                        nonVolatileStatusConditionOnly = true;
+                        break;
+
+                    case false:
+                        nonVolatileStatusConditionOnly = false;
+                        break;
+
+                    case null:
+
+                        if (entry[14] == "")
+                        {
+
+                            if (moveType == PokemonMove.MoveType.Status)
+                            {
+
+                                bool certainNVSCFound = false;
+
+                                foreach (PokemonInstance.NonVolatileStatusCondition nvsc in nonVolatileStatusConditionChances.Keys)
+                                    if (nonVolatileStatusConditionChances[nvsc] >= 1)
+                                        certainNVSCFound = true;
+
+                                nonVolatileStatusConditionOnly = certainNVSCFound;
+
+                                break;
+
+                            }
+                            else
+                            {
+                                nonVolatileStatusConditionOnly = false;
+                                break;
+                            }
+
+                        }
+
+                        else
+                        {
+                            Debug.LogError("Invalid non-volatile status condition only entry for id " + id);
+                            nonVolatileStatusConditionOnly = false;
+                            break;
+                        }
+
+                }
+
+                #endregion
+
+                #region statModifierStageChangeOnly
+
+                switch (ParseBooleanProperty(entry[15]))
+                {
+
+                    case true:
+                        statModifierStageChangeOnly = true;
+                        break;
+
+                    case false:
+                        statModifierStageChangeOnly = false;
+                        break;
+
+                    case null:
+
+                        if (entry[15] == "")
+                        {
+
+                            if (!nonVolatileStatusConditionOnly && moveType == PokemonMove.MoveType.Status)
+                            {
+
+                                bool statChangeFound = false;
+
+                                foreach (Stats<sbyte>.Stat stat in Enum.GetValues(typeof(Stats<sbyte>.Stat)))
+                                    if (userStatChanges.GetStat(stat) != 0 || targetStatChanges.GetStat(stat) != 0)
+                                    {
+                                        statChangeFound = true;
+                                        break;
+                                    }
+
+                                if (!statChangeFound
+                                    && userEvasionChange == 0
+                                    && userAccuracyChange == 0
+                                    && targetEvasionChange == 0
+                                    && targetAccuracyChange == 0)
+                                {
+                                    statModifierStageChangeOnly = false;
+                                }
+                                else
+                                {
+                                    statModifierStageChangeOnly = true;
+                                }
+
+                                break;
+
+                            }
+                            else
+                            {
+                                statModifierStageChangeOnly = false;
+                                break;
+                            }
+
+                        }
+
+                        else
+                        {
+                            Debug.LogError("Invalid stat modifier stage change only entry for id " + id);
+                            statModifierStageChangeOnly = false;
+                            break;
+                        }
+
+                }
+
+                if (nonVolatileStatusConditionOnly && statModifierStageChangeOnly)
+                {
+                    Debug.LogError("Move was NVSC-only and stat modifier stage change-only (id " + id + ")");
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -533,7 +663,9 @@ namespace Pokemon
                     boostedCriticalChance = boostedCriticalChance,
                     flinchChance = flinchChance,
                     nonVolatileStatusConditionChances = nonVolatileStatusConditionChances,
-                    confusionChance = confusionChance
+                    confusionChance = confusionChance,
+                    nonVolatileStatusConditionOnly = nonVolatileStatusConditionOnly,
+                    statStageChangeOnly = statModifierStageChangeOnly
                 });
 
             }
@@ -550,6 +682,32 @@ namespace Pokemon
             //TODO - for each special move, add instance to moves list
 
             return moves.ToArray();
+
+        }
+
+        /// <summary>
+        /// Takes a string value entered in the data file and checks whether it should signify true, false or is invalid
+        /// </summary>
+        private static bool? ParseBooleanProperty(string value)
+        {
+
+            switch (value)
+            {
+
+                case "0":
+                case "false":
+                case "no":
+                    return false;
+
+                case "1":
+                case "true":
+                case "yes":
+                    return true;
+
+                default:
+                    return null;
+
+            }
 
         }
 

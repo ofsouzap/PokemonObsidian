@@ -24,6 +24,12 @@ namespace Battle
         [HideInInspector]
         public BattleData battleData;
 
+        //TODO - uncomment once ready to start battles on scene load
+        //private void Start()
+        //{
+        //    StartBattle();
+        //}
+
         public void StartBattle()
         {
 
@@ -53,7 +59,7 @@ namespace Battle
 
                     participantOpponent = new BattleParticipantNPC(
                         BattleParticipantNPC.Mode.RandomAttack,
-                        BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance.GetDisplayName(),
+                        null,
                         new PokemonInstance[] {
                             BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance
                         }
@@ -108,10 +114,10 @@ namespace Battle
             battleData.participantPlayer.battleManager = this;
             battleData.participantOpponent.battleManager = this;
 
-            foreach (PokemonInstance pokemon in battleData.participantPlayer.GetPokemon())
+            foreach (PokemonInstance pokemon in battleData.participantPlayer.GetPokemon().Where(x => x != null))
                 pokemon.ResetBattleProperties();
 
-            foreach (PokemonInstance pokemon in battleData.participantOpponent.GetPokemon())
+            foreach (PokemonInstance pokemon in battleData.participantOpponent.GetPokemon().Where(x => x != null))
                 pokemon.ResetBattleProperties();
 
             battleData.participantPlayer.playerBattleUIController = playerBattleUIController;
@@ -139,7 +145,7 @@ namespace Battle
 
             //TODO - queue announcement for opponent based on what type of opponent they are (ie. trainer vs wild pokemon)
 
-            if (Weather.GetWeatherById(battleData.currentWeatherId).announcement != null)
+            if (battleData.CurrentWeather.announcement != null)
             {
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
@@ -176,14 +182,14 @@ namespace Battle
 
                 #region Action Order Deciding
 
-                BattleParticipant.Action[] actions = new BattleParticipant.Action[]
+                BattleParticipant.Action[] actionsUnsortedArray = new BattleParticipant.Action[]
                 {
                     battleData.participantPlayer.chosenAction,
                     battleData.participantOpponent.chosenAction
                 };
 
                 Queue<BattleParticipant.Action> actionQueue = new Queue<BattleParticipant.Action>(
-                    actions.OrderByDescending(
+                    actionsUnsortedArray.OrderByDescending(
                         x => x,
                         new BattleParticipant.Action.PriorityComparer()
                     )
@@ -193,20 +199,12 @@ namespace Battle
 
                 #region Action Execution
 
-                #region Used Pokemon per Opposing Pokemon Record Updating
-
-                int opponentPokemonIndex = battleData.participantOpponent.activePokemonIndex;
-                int playerPokemonIndex = battleData.participantPlayer.activePokemonIndex;
-
-                if (!battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Contains(playerPokemonIndex))
-                    battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Add(playerPokemonIndex);
-
-                #endregion
-
                 while (actionQueue.Count > 0)
                 {
 
                     yield return StartCoroutine(ExecuteAction(actionQueue.Dequeue()));
+
+                    RefreshUsedPokemonPerOpposingPokemonRecord();
 
                     yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
@@ -263,11 +261,11 @@ namespace Battle
 
             #region Convert Bad Poisons to Poisons
 
-            foreach (PokemonInstance pokemon in battleData.participantPlayer.GetPokemon())
+            foreach (PokemonInstance pokemon in battleData.participantPlayer.GetPokemon().Where(x => x != null))
                 if (pokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned)
                     pokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.Poisoned;
 
-            foreach (PokemonInstance pokemon in battleData.participantOpponent.GetPokemon())
+            foreach (PokemonInstance pokemon in battleData.participantOpponent.GetPokemon().Where(x => x != null))
                 if (pokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned)
                     pokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.Poisoned;
 
@@ -292,7 +290,7 @@ namespace Battle
 
                 string moneyDropMessage = battleData.isWildBattle ? "dropped" : "handed over";
 
-                battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name + ' ' + moneyDropMessage + " P" + moneyToDrop + "...");
+                battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name + ' ' + moneyDropMessage + " ₽" + moneyToDrop + "...");
 
                 #endregion
 
@@ -524,11 +522,9 @@ namespace Battle
 
                 case PokemonInstance.NonVolatileStatusCondition.Burn:
 
-                    participant.ActivePokemon.TakeDamage(
-                        Mathf.RoundToInt(
-                            participant.ActivePokemon.GetStats().health * 0.125F
-                        )
-                    );
+                    int burnDamageToDeal = Mathf.RoundToInt(participant.ActivePokemon.GetStats().health * 0.125F);
+
+                    participant.ActivePokemon.TakeDamage(burnDamageToDeal);
 
                     battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its burn");
                     //TODO - damage animation
@@ -537,11 +533,9 @@ namespace Battle
 
                 case PokemonInstance.NonVolatileStatusCondition.Poisoned:
 
-                    participant.ActivePokemon.TakeDamage(
-                        Mathf.RoundToInt(
-                            participant.ActivePokemon.GetStats().health * 0.125F
-                        )
-                    );
+                    int poisonDamageToDeal = Mathf.RoundToInt(participant.ActivePokemon.GetStats().health * 0.125F);
+
+                    participant.ActivePokemon.TakeDamage(poisonDamageToDeal);
 
                     battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its poison");
                     //TODO - damage animation
@@ -550,11 +544,9 @@ namespace Battle
 
                 case PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned:
 
-                    participant.ActivePokemon.TakeDamage(
-                        Mathf.RoundToInt(
-                            participant.ActivePokemon.badlyPoisonedCounter * 0.0625F
-                        )
-                    );
+                    int badlyPoisonedDamageToDeal = Mathf.RoundToInt(participant.ActivePokemon.badlyPoisonedCounter * 0.0625F);
+
+                    participant.ActivePokemon.TakeDamage(badlyPoisonedDamageToDeal);
                     participant.ActivePokemon.badlyPoisonedCounter++;
 
                     battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its bad poison");
@@ -569,6 +561,19 @@ namespace Battle
 
             battleAnimationSequencer.PlayAll();
             yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+            yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+        }
+
+        private void RefreshUsedPokemonPerOpposingPokemonRecord()
+        {
+
+            int opponentPokemonIndex = battleData.participantOpponent.activePokemonIndex;
+            int playerPokemonIndex = battleData.participantPlayer.activePokemonIndex;
+
+            if (!battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Contains(playerPokemonIndex))
+                battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Add(playerPokemonIndex);
 
         }
 
@@ -601,6 +606,51 @@ namespace Battle
             + " sent out "
             + participant.ActivePokemon.GetDisplayName();
 
+        private IEnumerator RefreshParticipantNVSC(BattleParticipant participant)
+        {
+
+            if (participant.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
+            {
+
+                participant.ActivePokemon.remainingSleepTurns--;
+
+                if (participant.ActivePokemon.remainingSleepTurns <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participant.ActivePokemon.GetDisplayName()
+                        + " woke up!"
+                        );
+                    participant.ActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                    battleAnimationSequencer.PlayAll();
+                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                }
+
+            }
+
+            if (participant.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
+            {
+
+                if (UnityEngine.Random.Range(0F, 1F) < PokemonInstance.thawChancePerTurn)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participant.ActivePokemon.GetDisplayName()
+                        + " thawed out!"
+                        );
+                    participant.ActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                    battleAnimationSequencer.PlayAll();
+                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+                }
+
+            }
+
+        }
+
         /// <summary>
         /// Select the action execution method for the provided action and run it using the action. This includes adding and running animations
         /// </summary>
@@ -608,57 +658,22 @@ namespace Battle
         private IEnumerator ExecuteAction(BattleParticipant.Action action)
         {
 
-            #region NVSC Refreshing
-
-            if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
-            {
-
-                action.user.ActivePokemon.remainingSleepTurns--;
-
-                if (action.user.ActivePokemon.remainingSleepTurns <= 0)
-                {
-
-                    battleAnimationSequencer.EnqueueSingleText(
-                        action.user.ActivePokemon.GetDisplayName()
-                        + " woke up"
-                        );
-
-                    battleAnimationSequencer.PlayAll();
-                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
-
-                }
-
-            }
-
-            if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
-            {
-
-                if (UnityEngine.Random.Range(0F, 1F) < PokemonInstance.thawChancePerTurn)
-                {
-
-                    battleAnimationSequencer.EnqueueSingleText(
-                        action.user.ActivePokemon.GetDisplayName()
-                        + " thawed out!"
-                        );
-
-                    battleAnimationSequencer.PlayAll();
-                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
-
-                }
-
-            }
-
-            #endregion
-
             switch (action.type)
             {
 
                 case BattleParticipant.Action.Type.Fight:
+                    yield return StartCoroutine(RefreshParticipantNVSC(action.user));
                     yield return StartCoroutine(ExecuteAction_Fight(action));
                     break;
 
                 case BattleParticipant.Action.Type.Flee:
+
                     yield return StartCoroutine(ExecuteAction_Flee(action));
+
+                    //If participant fails to flee, refresh their active pokemon's non-volatile status conditions
+                    if (CheckIfBattleRunning())
+                        yield return StartCoroutine(RefreshParticipantNVSC(action.user));
+
                     break;
 
                 case BattleParticipant.Action.Type.SwitchPokemon:
@@ -900,7 +915,8 @@ namespace Battle
 
                 #region Move PP down
 
-                userPokemon.movePPs[action.fightMoveIndex]--;
+                if (!action.fightUsingStruggle)
+                    userPokemon.movePPs[action.fightMoveIndex]--;
 
                 #endregion
 
@@ -944,7 +960,8 @@ namespace Battle
             else if (usageResults.missed)
             {
 
-                action.user.ActivePokemon.movePPs[action.fightMoveIndex]--;
+                if (!action.fightUsingStruggle)
+                    action.user.ActivePokemon.movePPs[action.fightMoveIndex]--;
 
                 battleAnimationSequencer.EnqueueSingleText("It missed!");
                 battleAnimationSequencer.PlayAll();
@@ -1107,6 +1124,9 @@ namespace Battle
             int escapeAttempts)
         {
 
+            if (escaperSpeed > opponentSpeed)
+                return byte.MaxValue;
+
             float speedComparison = ((float)(escaperSpeed * 128)) / opponentSpeed;
             return (byte)(speedComparison + (30 * escapeAttempts)); //Casting the result to a byte will automatically apply "mod 256" to the result
 
@@ -1136,7 +1156,7 @@ namespace Battle
                 battleData.playerEscapeAttempts
             );
 
-            bool escapeSuccess = UnityEngine.Random.Range(0, 256) < escapeChance;
+            bool escapeSuccess = UnityEngine.Random.Range(0, 256) <= escapeChance;
 
             if (escapeSuccess)
             {

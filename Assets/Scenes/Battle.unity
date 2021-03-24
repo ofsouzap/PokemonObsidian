@@ -12211,7 +12211,7 @@ MonoBehaviour:
   - {fileID: 466480592}
   - {fileID: 2021597444}
   - {fileID: 1625276236}
-  buttonMoveStruggle: {fileID: 0}
+  buttonMoveStruggle: {fileID: 1460244536}
   textPPValue: {fileID: 1820616700}
   textPowerValue: {fileID: 1778877927}
   textAccuracyValue: {fileID: 956503988}
@@ -18890,7 +18890,9 @@ GameObject:
   - component: {fileID: 1927588467}
   - component: {fileID: 1927588466}
   - component: {fileID: 1927588470}
+  - component: {fileID: 1927588472}
   - component: {fileID: 1927588469}
+  - component: {fileID: 1927588471}
   m_Layer: 0
   m_Name: tmp - testing stuff
   m_TagString: Untagged
@@ -18958,6 +18960,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e2bc450ed66d604d9f00d77054f6e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1927588471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927588465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5c4cc04c7c3fb45a465292065c3203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleManager: {fileID: 1913499480}
+  battleType: 0
+  initialWeatherId: 1
+  wildPokemonSpecification:
+    speciesId: 2
+    level: 60
+  npcTrainerPokemonSpecifications: []
+  npcTrainerFullName: 
+  npcTrainerMode: 0
+--- !u!114 &1927588472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927588465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe5a3e888f51a148abf9ba168bc01bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1936337209

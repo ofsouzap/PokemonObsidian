@@ -372,8 +372,28 @@ namespace Pokemon
 
         #region Moves
 
-        public int[] moveIds = new int[4];
+        public int[] moveIds = new int[4] { -1, -1, -1, -1 };
         public byte[] movePPs = new byte[4];
+
+        public bool HasUsableMove
+        {
+            get
+            {
+
+                bool usableMoveFound = false;
+
+                for (int moveIndex = 0; moveIndex < moveIds.Length; moveIndex++)
+                    if (!Moves.PokemonMove.MoveIdIsUnset(moveIds[moveIndex])
+                        && movePPs[moveIndex] > 0)
+                    {
+                        usableMoveFound = true;
+                        break;
+                    }
+
+                return usableMoveFound;
+
+            }
+        }
 
         #endregion
 
@@ -734,10 +754,10 @@ namespace Pokemon
             return new Stats<int>()
             {
                 attack = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.attack),
-                defense = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.defense),
-                specialAttack = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.specialAttack),
-                specialDefense = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.specialDefense),
-                speed = Mathf.RoundToInt(CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.speed) * speedParalysisMultiplier)
+                defense = CalculateNormalBattleStat(stats.defense, battleProperties.statModifiers.defense),
+                specialAttack = CalculateNormalBattleStat(stats.specialAttack, battleProperties.statModifiers.specialAttack),
+                specialDefense = CalculateNormalBattleStat(stats.specialDefense, battleProperties.statModifiers.specialDefense),
+                speed = Mathf.RoundToInt(CalculateNormalBattleStat(stats.speed, battleProperties.statModifiers.speed) * speedParalysisMultiplier)
             };
 
         }

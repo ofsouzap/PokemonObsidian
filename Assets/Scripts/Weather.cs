@@ -5,7 +5,25 @@ public class Weather : IHasId
 
     #region Registry
 
-    public static Registry<Weather> registry = new Registry<Weather>();
+    private static Registry<Weather> _registry = new Registry<Weather>();
+    public static Registry<Weather> registry
+    {
+        get
+        {
+
+            if (_registry == null)
+            {
+                CreateWeathers();
+            }
+
+            return _registry;
+
+        }
+        set
+        {
+            _registry = value;
+        }
+    }
 
     public static Weather GetWeatherById(int id)
     {
@@ -75,7 +93,7 @@ public class Weather : IHasId
 
     #region Creating Registry
 
-    public void CreateWeathers()
+    public static void CreateWeathers()
     {
 
         registry.SetValues(new Weather[]

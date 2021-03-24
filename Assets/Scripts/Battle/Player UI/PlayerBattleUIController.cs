@@ -189,6 +189,12 @@ namespace Battle.PlayerUI
 
                     bool isNull, healthPositive;
 
+                    if (currentSelectedPartyPokemonIndex == playerBattleParticipant.activePokemonIndex)
+                    {
+                        //TODO - tell player that selection is invalid as pokemon is already active
+                        return;
+                    }
+
                     Pokemon.PokemonInstance pokemon = PlayerData.singleton.partyPokemon[currentSelectedPartyPokemonIndex];
                     isNull = pokemon == null;
 
@@ -239,6 +245,7 @@ namespace Battle.PlayerUI
         public void RefreshMenus()
         {
 
+            menuFightController.SetCurrentPokemonIndex(playerBattleParticipant.activePokemonIndex);
             menuFightController.RefreshMoveButtons();
             menuPartyController.RefreshButtons();
             menuPartyPokemonMovesController.RefreshMoveButtons();

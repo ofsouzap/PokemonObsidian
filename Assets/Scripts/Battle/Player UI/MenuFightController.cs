@@ -129,10 +129,11 @@ namespace Battle.PlayerUI
             else
                 moveButtons[1].gameObject.SetActive(true);
 
-            bool showStruggleMoveButton = PlayerData.singleton
+            
+
+            bool showStruggleMoveButton = !PlayerData.singleton
                 .partyPokemon[currentPokemonIndex]
-                .movePPs
-                .All(x => x <= 0);
+                .HasUsableMove;
 
             buttonMoveStruggle.gameObject.SetActive(showStruggleMoveButton);
 

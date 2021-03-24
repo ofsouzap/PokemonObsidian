@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#define CONSOLE_BATTLE_DEBUGGING
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Battle;
@@ -50,8 +52,23 @@ namespace Battle
 
             public IEnumerator Play()
             {
+
+#if CONSOLE_BATTLE_DEBUGGING
+
+                if (type == Type.Text)
+                {
+                    foreach (string message in messages)
+                        Debug.Log(message);
+                    completed = true;
+                    yield break;
+                }
+
+#endif
+
                 //TODO
-                return null;
+                completed = true;
+                yield break;
+
             }
 
         }

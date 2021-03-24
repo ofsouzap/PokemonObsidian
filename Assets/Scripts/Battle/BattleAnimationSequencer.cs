@@ -8,8 +8,8 @@ namespace Battle
     public partial class BattleAnimationSequencer : MonoBehaviour
     {
 
-        public bool queueEmptied => animationQueue.Count == 0;
-        public Queue<Animation> animationQueue;
+        public bool queueEmptied => animationQueue != null ? animationQueue.Count == 0 : true;
+        public Queue<Animation> animationQueue = new Queue<Animation>();
         
         public void EnqueueAnimation(Animation animation)
         {
