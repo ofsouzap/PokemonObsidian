@@ -940,7 +940,14 @@ namespace Battle
 
                 #region User Damage
 
-                action.user.ActivePokemon.TakeDamage(usageResults.userDamageDealt);
+                if (usageResults.userDamageDealt > 0)
+                {
+
+                    action.user.ActivePokemon.TakeDamage(usageResults.userDamageDealt);
+
+                    battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " was hurt from the recoil");
+
+                }
 
                 //TODO - animation for health reducing
 

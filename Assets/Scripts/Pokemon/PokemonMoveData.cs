@@ -669,7 +669,7 @@ namespace Pokemon
                 string maxHealthRelativeRecoilDamageEntry = entry[17];
 
                 if (maxHealthRelativeRecoilDamageEntry == "")
-                    maxHealthRelativeRecoilDamage = 1;
+                    maxHealthRelativeRecoilDamage = 0;
                 else
                 {
                     if (!float.TryParse(maxHealthRelativeRecoilDamageEntry, out maxHealthRelativeRecoilDamage))
@@ -686,7 +686,7 @@ namespace Pokemon
                 string targetDamageDealtRelativeRecoilDamageEntry = entry[18];
 
                 if (targetDamageDealtRelativeRecoilDamageEntry == "")
-                    targetDamageRelativeRecoilDamage = 1;
+                    targetDamageRelativeRecoilDamage = 0;
                 else
                 {
                     if (!float.TryParse(targetDamageDealtRelativeRecoilDamageEntry, out targetDamageRelativeRecoilDamage))
