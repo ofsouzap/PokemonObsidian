@@ -44,6 +44,9 @@ namespace Pokemon
          *     If so, the whole move will fail if it can't inflict its non-volatile status condition
          * move is primarily for causing a stat modifier stage change
          *     If so, the whole move will fail if it can't inflict any stat modifier stage changes
+         * absolute recoil damage
+         * recoil damage relative to user's maximum health (as float proportion)
+         * recoil damage relative to damage dealt to target (as float proportion)
          */
 
         public static void LoadData()
@@ -70,7 +73,7 @@ namespace Pokemon
             foreach (string[] entry in stringData)
             {
 
-                int id;
+                int id, absoluteRecoilDamage;
                 string name, description;
                 byte maxPP, power, accuracy;
                 Type type;
@@ -78,10 +81,10 @@ namespace Pokemon
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
                 bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly;
-                float flinchChance, confusionChance;
+                float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
 
-                if (entry.Length < 14)
+                if (entry.Length < 19)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -644,6 +647,57 @@ namespace Pokemon
 
                 #endregion
 
+                #region absoluteRecoilDamage
+
+                string absoluteRecoilDamageEntry = entry[16];
+
+                if (absoluteRecoilDamageEntry == "")
+                    absoluteRecoilDamage = 0;
+                else
+                {
+                    if (!int.TryParse(absoluteRecoilDamageEntry, out absoluteRecoilDamage))
+                    {
+                        Debug.LogError("Invalid absoluteRecoilDamage entry for id " + id);
+                        absoluteRecoilDamage = 1;
+                    }
+                }
+
+                #endregion
+
+                #region maxHealthRelativeRecoilDamage
+
+                string maxHealthRelativeRecoilDamageEntry = entry[17];
+
+                if (maxHealthRelativeRecoilDamageEntry == "")
+                    maxHealthRelativeRecoilDamage = 1;
+                else
+                {
+                    if (!float.TryParse(maxHealthRelativeRecoilDamageEntry, out maxHealthRelativeRecoilDamage))
+                    {
+                        Debug.LogError("Invalid maxHealthRelativeRecoilDamage entry for id " + id);
+                        maxHealthRelativeRecoilDamage = 1;
+                    }
+                }
+
+                #endregion
+
+                #region targetDamageDealtRelativeRecoilDamage
+
+                string targetDamageDealtRelativeRecoilDamageEntry = entry[18];
+
+                if (targetDamageDealtRelativeRecoilDamageEntry == "")
+                    targetDamageRelativeRecoilDamage = 1;
+                else
+                {
+                    if (!float.TryParse(targetDamageDealtRelativeRecoilDamageEntry, out targetDamageRelativeRecoilDamage))
+                    {
+                        Debug.LogError("Invalid targetDamageDealtRelativeRecoilDamage entry for id " + id);
+                        targetDamageRelativeRecoilDamage = 1;
+                    }
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -665,7 +719,10 @@ namespace Pokemon
                     nonVolatileStatusConditionChances = nonVolatileStatusConditionChances,
                     confusionChance = confusionChance,
                     nonVolatileStatusConditionOnly = nonVolatileStatusConditionOnly,
-                    statStageChangeOnly = statModifierStageChangeOnly
+                    statStageChangeOnly = statModifierStageChangeOnly,
+                    absoluteRecoilDamage = absoluteRecoilDamage,
+                    maxHealthRelativeRecoilDamage = maxHealthRelativeRecoilDamage,
+                    targetDamageRelativeRecoilDamage = targetDamageRelativeRecoilDamage
                 });
 
             }

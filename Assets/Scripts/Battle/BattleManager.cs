@@ -333,6 +333,22 @@ namespace Battle
             if (playerActivePokemon.IsFainted)
             {
 
+                playerActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                if (battleData
+                    .playerUsedPokemonPerOpponentPokemon[battleData.participantOpponent.activePokemonIndex]
+                    .Contains(
+                        battleData.participantPlayer.activePokemonIndex)
+                    )
+                {
+
+                    battleData.playerUsedPokemonPerOpponentPokemon[battleData.participantOpponent.activePokemonIndex]
+                        .Remove(
+                            battleData.participantPlayer.activePokemonIndex
+                        );
+
+                }
+
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
                     battleData.participantPlayer,
                     playerActivePokemon
@@ -347,6 +363,8 @@ namespace Battle
             PokemonInstance opponentActivePokemon = battleData.participantOpponent.ActivePokemon;
             if (opponentActivePokemon.IsFainted)
             {
+
+                opponentActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
                     battleData.participantOpponent,

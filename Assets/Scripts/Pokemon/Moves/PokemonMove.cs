@@ -37,7 +37,8 @@ namespace Pokemon.Moves
             type = Type.Normal,
             moveType = MoveType.Physical,
             power = 50,
-            accuracy = 0
+            accuracy = 0,
+            maxHealthRelativeRecoilDamage = 0.25F
         };
 
         #endregion
@@ -132,6 +133,21 @@ namespace Pokemon.Moves
         /// Whether this move is only used to modify stat stages
         /// </summary>
         public bool statStageChangeOnly;
+
+        /// <summary>
+        /// The damage to the user to deal as a proportion of the user's maximum health
+        /// </summary>
+        public float maxHealthRelativeRecoilDamage;
+
+        /// <summary>
+        /// The damage to the user to deal as a proportion of the damage dealt to the target
+        /// </summary>
+        public float targetDamageRelativeRecoilDamage;
+
+        /// <summary>
+        /// The damage to the user to deal as an absolute value
+        /// </summary>
+        public int absoluteRecoilDamage;
 
         #endregion
 
@@ -429,6 +445,12 @@ namespace Pokemon.Moves
 
             #endregion
 
+            #region Target Damage-Relative Recoil Damage
+
+            usageResults.userDamageDealt += Mathf.RoundToInt(usageResults.targetDamageDealt * targetDamageRelativeRecoilDamage);
+
+            #endregion
+
             #region Stat Changes
 
             usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
@@ -588,6 +610,18 @@ namespace Pokemon.Moves
 
             if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
                 usageResults.targetAsleepInflictionDuration = (byte)UnityEngine.Random.Range(1, PokemonInstance.maximumDefaultSleepDuration + 1);
+
+            #region Absolute Recoil Damage
+
+            usageResults.userDamageDealt += absoluteRecoilDamage;
+
+            #endregion
+
+            #region Max Health-Relative Recoil Damage
+
+            usageResults.userDamageDealt += Mathf.RoundToInt(user.GetStats().health * maxHealthRelativeRecoilDamage);
+
+            #endregion
 
             return usageResults;
 

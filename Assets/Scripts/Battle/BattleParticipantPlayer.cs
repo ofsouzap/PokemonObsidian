@@ -32,6 +32,7 @@ namespace Battle
 
         public override void StartChoosingNextPokemon()
         {
+            nextPokemonHasBeenChosen = false;
             StartPokemonSelectUI(PokemonSelectUIPurpose.ReplacingPokemon,
                 (x) => !x.IsFainted,
                 false);

@@ -61,14 +61,6 @@ namespace Testing
                         wildPokemonSpecification.level,
                         wildPokemonSpecification.level
                         );
-                    BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance.moveIds = new int[4]
-                    {
-                        0,-1,-1,-1
-                    };
-                    BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance.movePPs = new byte[4]
-                    {
-                        0, 0, 0, 0
-                    };
 
                     break;
 
