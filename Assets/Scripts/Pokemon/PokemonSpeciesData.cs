@@ -14,9 +14,9 @@ namespace Pokemon
         const string dataPath = "Data/pokemonSpecies";
         const bool ignoreDataFirstLine = true;
 
-        public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^([0-9]+;[0-9]*;[0-9]{0,3}?)(:([0-9]+;[0-9]*;[0-9]{0,3}?))*$");
-        public static readonly Regex validLevelUpMovesEntryRegex = new Regex(@"^([0-9]+;[0-9]+)(:[0-9]+;[0-9]+)*$");
-        public static readonly Regex validEVYieldRegex = new Regex(@"^[0-9]{0,3}(;[0-9]{0,3}){4}$");
+        public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^([0-9]+;[0-9]*;[0-9]{0,3}?)(,([0-9]+;[0-9]*;[0-9]{0,3}?))*$");
+        public static readonly Regex validLevelUpMovesEntryRegex = new Regex(@"^([0-9]+;[0-9]+)(,[0-9]+;[0-9]+)*$");
+        public static readonly Regex validEVYieldRegex = new Regex(@"^[0-9]{0,3}(;[0-9]{0,3}){5}$");
 
         /* Data CSV Columns:
          * id
@@ -31,22 +31,22 @@ namespace Pokemon
          * type 1 (lowercase type name)
          * type 2 (lowercase type name or blank if none)
          * growth type (lowercase growth type name)
-         * basic evolutions (format: "evolution:evolution...")
+         * basic evolutions (format: "evolution,evolution...")
          *     evolution format: "targetSpeciesId;usedItemId;level"
          *     note that, if both used item and level conditions are used, they will both be required to evolve; not either
          *     eg. for bulbasaur: 2;;16
-         *     eg. for eevee: 134;{waterStoneId};:135;{thunderStoneId};:136;{fireStoneId}; ({xId} means id for item x. Yet to be set)
+         *     eg. for eevee: 134;{waterStoneId};,135;{thunderStoneId};,136;{fireStoneId}; ({xId} means id for item x. Yet to be set)
          * base moves (move ids separated by ';')
-         * level-up move ids (format: "level;moveId:level;moveId...")
-         *     eg. for bulbasuar: 0;{tackle}:0;{growl}:3;{vineWhip}:6;{growth} etc. etc.
+         * level-up move ids (format: "level;moveId,level;moveId...")
+         *     eg. for bulbasuar: 0;{tackle},0;{growl},3;{vineWhip},6;{growth} etc. etc.
          *         where {x} means id of move x which is yet to be set
          * disc move ids (move ids separated by ';')
          * egg move ids (move ids separated by ';')
          * tutor move ids (move ids separated by ';')
          * ev yield
-         *     five values separated by ';' for attack, defense, specialAttack, specialDefense, speed
+         *     six values separated by ';' for attack, defense, specialAttack, specialDefense, speed, health
          *     can't be blank
-         *     eg. bulbasaur 0;0;1;0;0
+         *     eg. bulbasaur 0;0;1;0;0;0
          * catch rate (byte)
          * base expereience yield (0 <= x <= 65,535)
          */
@@ -194,7 +194,7 @@ namespace Pokemon
 
                         List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>();
 
-                        string[] evolutionStringEntries = evolutionsString.Split(':');
+                        string[] evolutionStringEntries = evolutionsString.Split(',');
 
                         foreach (string evolutionStringEntry in evolutionStringEntries)
                         {
@@ -279,50 +279,59 @@ namespace Pokemon
 
                 string levelUpMovesString = entry[14];
 
-                if (validLevelUpMovesEntryRegex.IsMatch(levelUpMovesString))
+                if (levelUpMovesString != "")
                 {
 
-                    string[] levelUpMovesEntries = levelUpMovesString.Split(':');
-
-                    foreach (string levelUpMoveEntry in levelUpMovesEntries)
+                    if (validLevelUpMovesEntryRegex.IsMatch(levelUpMovesString))
                     {
 
-                        byte level;
-                        int moveId;
+                        string[] levelUpMovesEntries = levelUpMovesString.Split(',');
 
-                        string[] entryParts = levelUpMoveEntry.Split(';');
-
-                        bool levelSuccess = byte.TryParse(entryParts[0], out level);
-                        bool moveIdSuccess = int.TryParse(entryParts[1], out moveId);
-
-                        if (!(levelSuccess && moveIdSuccess))
+                        foreach (string levelUpMoveEntry in levelUpMovesEntries)
                         {
-                            Debug.LogError("Invalid entry for level up move - " + levelUpMoveEntry + " (id " + id + ")");
-                            level = 0;
-                            moveId = 0;
+
+                            byte level;
+                            int moveId;
+
+                            string[] entryParts = levelUpMoveEntry.Split(';');
+
+                            bool levelSuccess = byte.TryParse(entryParts[0], out level);
+                            bool moveIdSuccess = int.TryParse(entryParts[1], out moveId);
+
+                            if (!(levelSuccess && moveIdSuccess))
+                            {
+                                Debug.LogError("Invalid entry for level up move - " + levelUpMoveEntry + " (id " + id + ")");
+                                level = 0;
+                                moveId = 0;
+                            }
+
+                            if (levelUpMovesListDictionary.ContainsKey(level))
+                            {
+                                levelUpMovesListDictionary[level].Add(moveId);
+                            }
+                            else
+                            {
+                                levelUpMovesListDictionary.Add(level, new List<int>() { moveId });
+                            }
+
                         }
 
-                        if (levelUpMovesListDictionary.ContainsKey(level))
-                        {
-                            levelUpMovesListDictionary[level].Add(moveId);
-                        }
-                        else
-                        {
-                            levelUpMovesListDictionary.Add(level, new List<int>() { moveId });
-                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Invalid level up moves entry for id " + id);
+                    }
 
+                    levelUpMoves = new Dictionary<byte, int[]>();
+                    foreach (byte key in levelUpMovesListDictionary.Keys)
+                    {
+                        levelUpMoves.Add(key, levelUpMovesListDictionary[key].ToArray());
                     }
 
                 }
                 else
                 {
-                    Debug.LogError("Invalid level up moves entry for id " + id);
-                }
-
-                levelUpMoves = new Dictionary<byte, int[]>();
-                foreach (byte key in levelUpMovesListDictionary.Keys)
-                {
-                    levelUpMoves.Add(key, levelUpMovesListDictionary[key].ToArray());
+                    levelUpMoves = new Dictionary<byte, int[]>();
                 }
 
                 #endregion
@@ -346,25 +355,29 @@ namespace Pokemon
                         yieldDefense,
                         yieldSpecialAttack,
                         yieldSpecialDefense,
-                        yieldSpeed;
+                        yieldSpeed,
+                        yieldHealth;
 
                     bool yieldAttackSuccess,
                         yieldDefenseSuccess,
                         yieldSpecialAttackSuccess,
                         yieldSpecialDefenseSuccess,
-                        yieldSpeedSuccess;
+                        yieldSpeedSuccess,
+                        yieldHealthSuccess;
 
                     yieldAttackSuccess = byte.TryParse(parts[0], out yieldAttack);
                     yieldDefenseSuccess = byte.TryParse(parts[1], out yieldDefense);
                     yieldSpecialAttackSuccess = byte.TryParse(parts[2], out yieldSpecialAttack);
                     yieldSpecialDefenseSuccess = byte.TryParse(parts[3], out yieldSpecialDefense);
                     yieldSpeedSuccess = byte.TryParse(parts[4], out yieldSpeed);
+                    yieldHealthSuccess = byte.TryParse(parts[5], out yieldHealth);
 
                     if (yieldAttackSuccess
                         && yieldDefenseSuccess
                         && yieldSpecialAttackSuccess
                         && yieldSpecialDefenseSuccess
-                        && yieldSpeedSuccess)
+                        && yieldSpeedSuccess
+                        && yieldHealthSuccess)
                     {
 
                         evYield = new Stats<byte>()
@@ -373,7 +386,8 @@ namespace Pokemon
                             defense = yieldDefense,
                             specialAttack = yieldSpecialAttack,
                             specialDefense = yieldSpecialDefense,
-                            speed = yieldSpeed
+                            speed = yieldSpeed,
+                            health = yieldHealth
                         };
 
                     }

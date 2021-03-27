@@ -18,12 +18,8 @@ namespace Testing
                 PokemonFactory.GenerateWild(new int[] { 4 }, 60, 60),
                 PokemonFactory.GenerateWild(new int[] { 6 }, 14, 14),
                 PokemonFactory.GenerateWild(new int[] { 1 }, 100, 100),
-                PokemonFactory.GenerateWild(new int[] { 7 }, 90, 100)
-            };
-
-            PlayerData.singleton.partyPokemon[0].movePPs = new byte[]
-            {
-                1, 0, 0, 0
+                PokemonFactory.GenerateWild(new int[] { 7 }, 90, 100),
+                PokemonFactory.GenerateWild(new int[] { 12 }, 1, 100)
             };
 
             PlayerData.singleton.profile.name = "Test";

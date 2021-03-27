@@ -18975,13 +18975,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleManager: {fileID: 1913499480}
-  battleType: 0
+  battleType: 1
   initialWeatherId: 1
   wildPokemonSpecification:
     speciesId: 2
     level: 60
-  npcTrainerPokemonSpecifications: []
-  npcTrainerFullName: 
+  npcTrainerPokemonSpecifications:
+  - speciesId: 4
+    level: 60
+  - speciesId: 1
+    level: 5
+  - speciesId: 2
+    level: 40
+  - speciesId: 11
+    level: 3
+  - speciesId: 12
+    level: 70
+  npcTrainerFullName: Housemaster Scott
   npcTrainerMode: 0
 --- !u!114 &1927588472
 MonoBehaviour:

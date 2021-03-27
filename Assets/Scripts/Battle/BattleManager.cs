@@ -24,6 +24,12 @@ namespace Battle
         [HideInInspector]
         public BattleData battleData;
 
+        /// <summary>
+        /// A list of battle participants who shouldn't have their actions executed.
+        /// For example if their pokemon has fainted and they have just changed pokemon
+        /// </summary>
+        private List<BattleParticipant> battleParticipantsToCancelActionsOf;
+
         //TODO - uncomment once ready to start battles on scene load
         //private void Start()
         //{
@@ -143,7 +149,34 @@ namespace Battle
 
             }
 
-            //TODO - queue announcement for opponent based on what type of opponent they are (ie. trainer vs wild pokemon)
+            #region Pokemon Announcements
+
+            #region Announce Opponent Pokemon
+
+            if (battleData.isWildBattle)
+                battleAnimationSequencer.EnqueueSingleText("A wild "
+                    + battleData.participantOpponent.ActivePokemon.GetDisplayName()
+                    + " appeared!");
+
+            else
+            {
+                battleAnimationSequencer.EnqueueSingleText(battleData.participantOpponent.GetName()
+                    + " challenged you!");
+                battleAnimationSequencer.EnqueueSingleText(battleData.participantOpponent.GetName()
+                    + " sent out "
+                    + battleData.participantOpponent.ActivePokemon.GetDisplayName()
+                    + '!');
+            }
+
+            #endregion
+
+            #region Announce Player Pokemon
+
+            battleAnimationSequencer.EnqueueSingleText("Go, " + battleData.participantPlayer.ActivePokemon.GetDisplayName() + '!');
+
+            #endregion
+
+            #endregion
 
             if (battleData.CurrentWeather.announcement != null)
             {
@@ -159,6 +192,8 @@ namespace Battle
 
             battleAnimationSequencer.PlayAll();
             yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+
+            battleParticipantsToCancelActionsOf = new List<BattleParticipant>();
 
             #endregion
 
@@ -202,7 +237,12 @@ namespace Battle
                 while (actionQueue.Count > 0)
                 {
 
-                    yield return StartCoroutine(ExecuteAction(actionQueue.Dequeue()));
+                    BattleParticipant.Action nextAction = actionQueue.Dequeue();
+
+                    if (!battleParticipantsToCancelActionsOf.Contains(nextAction.user))
+                    {
+                        yield return StartCoroutine(ExecuteAction(nextAction));
+                    }
 
                     RefreshUsedPokemonPerOpposingPokemonRecord();
 
@@ -250,6 +290,8 @@ namespace Battle
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
                 battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
+
+                battleParticipantsToCancelActionsOf.Clear();
 
                 #endregion
 
@@ -327,13 +369,15 @@ namespace Battle
         private IEnumerator MainBattleCoroutine_CheckPokemonFainted()
         {
 
-            #region Pokemon Fainting Animation
+            #region Pokemon Fainting Animation and Fainting Management
 
             PokemonInstance playerActivePokemon = battleData.participantPlayer.ActivePokemon;
             if (playerActivePokemon.IsFainted)
             {
 
                 playerActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                #region Remove from Player Pokemon Contributions
 
                 if (battleData
                     .playerUsedPokemonPerOpponentPokemon[battleData.participantOpponent.activePokemonIndex]
@@ -348,6 +392,14 @@ namespace Battle
                         );
 
                 }
+
+                #endregion
+
+                #region Cancelling Participant's Action
+
+                battleParticipantsToCancelActionsOf.Add(battleData.participantPlayer);
+
+                #endregion
 
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
                     battleData.participantPlayer,
@@ -365,6 +417,12 @@ namespace Battle
             {
 
                 opponentActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                #region Cancelling Participant's Action
+
+                battleParticipantsToCancelActionsOf.Add(battleData.participantOpponent);
+
+                #endregion
 
                 battleAnimationSequencer.EnqueueSingleText(GetActivePokemonFaintMessage(
                     battleData.participantOpponent,
