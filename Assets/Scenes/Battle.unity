@@ -18893,7 +18893,6 @@ GameObject:
   - component: {fileID: 1927588472}
   - component: {fileID: 1927588469}
   - component: {fileID: 1927588471}
-  - component: {fileID: 1927588473}
   m_Layer: 0
   m_Name: tmp - testing stuff
   m_TagString: Untagged
@@ -18977,7 +18976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleManager: {fileID: 1913499480}
   battleType: 1
-  initialWeatherId: 1
+  initialWeatherId: 2
   wildPokemonSpecification:
     speciesId: 12
     level: 60
@@ -19006,19 +19005,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe5a3e888f51a148abf9ba168bc01bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1927588473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927588465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e456ececfe0bca24284f83319342cc43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterDelay: 0.1
 --- !u!1 &1936337209
 GameObject:
   m_ObjectHideFlags: 0
