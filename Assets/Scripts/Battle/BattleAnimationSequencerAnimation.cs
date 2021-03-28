@@ -1,4 +1,4 @@
-﻿#define CONSOLE_BATTLE_DEBUGGING
+﻿//#define CONSOLE_BATTLE_DEBUGGING
 
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ namespace Battle
             {
                 Text,
                 PokemonRetract,
+                PokemonTakeDamage,
                 PokemonSendOut,
                 PlayerStatModifierUp,
                 PlayerStatModifierDown,
@@ -33,6 +34,11 @@ namespace Battle
 
             #region Text
 
+            /// <summary>
+            /// The default time to wait after showing a text message if user input continuing isn't required
+            /// </summary>
+            public const float defaultMessageDelay = 1;
+
             public string[] messages = new string[0];
 
             /// <summary>
@@ -48,30 +54,82 @@ namespace Battle
 
             //TODO - continue
 
-            public bool completed = false;
+        }
 
-            public IEnumerator Play()
-            {
+        #region Animation Running
+
+        private IEnumerator RunAnimation(Animation animation)
+        {
 
 #if CONSOLE_BATTLE_DEBUGGING
 
-                if (type == Type.Text)
-                {
-                    foreach (string message in messages)
-                        Debug.Log(message);
-                    completed = true;
-                    yield break;
-                }
+            if (animation.type == Animation.Type.Text)
+            {
+                foreach (string message in animation.messages)
+                    Debug.Log(message);
+                yield break;
+            }
 
 #endif
 
-                //TODO
-                completed = true;
-                yield break;
+            switch (animation.type)
+            {
+
+                case Animation.Type.Text:
+                    yield return StartCoroutine(RunAnimation_Text(animation));
+                    break;
+
+                //TODO - case statements for each type
 
             }
 
         }
+
+        private IEnumerator RunAnimation_Text(Animation animation)
+        {
+
+            foreach (string message in animation.messages)
+            {
+
+                textBoxController.Show();
+
+                #region Reveal Message
+
+                textBoxController.RevealText(message);
+
+                yield return new WaitUntil(() => textBoxController.textRevealComplete);
+
+                #endregion
+
+                #region Post-Message
+
+                if (animation.requireUserContinue)
+                {
+
+                    while (true)
+                    {
+
+                        if (Input.GetButtonDown("Submit")
+                            || Input.GetMouseButtonDown(0))
+                            break;
+
+                        yield return new WaitForFixedUpdate();
+
+                    }
+
+                }
+                else
+                {
+                    yield return new WaitForSeconds(Animation.defaultMessageDelay);
+                }
+
+                #endregion
+
+            }
+
+        }
+
+        #endregion
 
     }
 }

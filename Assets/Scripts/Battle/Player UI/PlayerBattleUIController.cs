@@ -42,7 +42,6 @@ namespace Battle.PlayerUI
 
             singleton = this;
             player = PlayerData.singleton;
-            OpenRootMenu();
 
             #region Run Set-Up Functions
 

@@ -24,17 +24,37 @@ namespace Battle
         [HideInInspector]
         public BattleData battleData;
 
+        private TextBoxController textBoxController;
+
         /// <summary>
         /// A list of battle participants who shouldn't have their actions executed.
         /// For example if their pokemon has fainted and they have just changed pokemon
         /// </summary>
         private List<BattleParticipant> battleParticipantsToCancelActionsOf;
 
-        //TODO - uncomment once ready to start battles on scene load
-        //private void Start()
-        //{
-        //    StartBattle();
-        //}
+        
+        private void Start()
+        {
+
+            //TODO - uncomment once ready to start battles on scene load
+            //StartBattle();
+
+            #region Finding Text Box Controller
+
+            TextBoxController[] textBoxControllerCandidates = FindObjectsOfType<TextBoxController>()
+                .Where(x => x.gameObject.scene == gameObject.scene)
+                .ToArray();
+
+            if (textBoxControllerCandidates.Length == 0)
+                Debug.LogError("No valid TextBoxController found");
+            else
+                textBoxController = textBoxControllerCandidates[0];
+
+            #endregion
+
+            textBoxController.Hide();
+
+        }
 
         public void StartBattle()
         {
@@ -190,8 +210,7 @@ namespace Battle
 
             //TODO - when and if abilities made, apply them and announce them if needed
 
-            battleAnimationSequencer.PlayAll();
-            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             battleParticipantsToCancelActionsOf = new List<BattleParticipant>();
 
@@ -203,6 +222,8 @@ namespace Battle
             {
 
                 #region Action Choosing
+
+                textBoxController.Hide();
 
                 battleData.participantPlayer.StartChoosingAction(battleData);
                 battleData.participantOpponent.StartChoosingAction(battleData);
@@ -347,8 +368,7 @@ namespace Battle
 
                 #endregion
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 //TODO - return player to last place they healed
 
@@ -407,8 +427,7 @@ namespace Battle
                     ));
                 //TODO - animation for player active pokemon fainting
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             }
 
@@ -430,8 +449,7 @@ namespace Battle
                     ));
                 //TODO - animation for opponent active pokemon fainting
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 #region Experience and EV Yielding
 
@@ -481,8 +499,7 @@ namespace Battle
 
                     }
 
-                    battleAnimationSequencer.PlayAll();
-                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                     #endregion
 
@@ -512,6 +529,8 @@ namespace Battle
             if (battleData.participantPlayer.ActivePokemon.IsFainted)
             {
 
+                textBoxController.Hide();
+
                 battleData.participantPlayer.StartChoosingNextPokemon();
 
                 yield return new WaitUntil(() => battleData.participantPlayer.nextPokemonHasBeenChosen);
@@ -521,8 +540,7 @@ namespace Battle
                 battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantPlayer));
                 //TODO - animation for player sending out new pokemon
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             }
 
@@ -538,8 +556,7 @@ namespace Battle
                 battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantOpponent));
                 //TODO - animation for opponent sending out new pokemon
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             }
 
@@ -578,8 +595,7 @@ namespace Battle
 
                 //TODO - player pokemon health reduction animation
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
@@ -635,8 +651,7 @@ namespace Battle
 
             }
 
-            battleAnimationSequencer.PlayAll();
-            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
@@ -699,8 +714,7 @@ namespace Battle
                         );
                     participant.ActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
-                    battleAnimationSequencer.PlayAll();
-                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 }
 
@@ -718,8 +732,7 @@ namespace Battle
                         );
                     participant.ActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
-                    battleAnimationSequencer.PlayAll();
-                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 }
 
@@ -786,8 +799,7 @@ namespace Battle
                     action.user.ActivePokemon.GetDisplayName()
                     + " is fast asleep");
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 yield break;
 
@@ -804,8 +816,7 @@ namespace Battle
                         + " is paralysed and couldn't move!"
                         );
 
-                    battleAnimationSequencer.PlayAll();
-                    yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                     yield break;
 
@@ -821,8 +832,7 @@ namespace Battle
                         + " is frozen solid!"
                         );
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 yield break;
 
@@ -861,8 +871,7 @@ namespace Battle
 
             //TODO - animation for move usage
 
-            battleAnimationSequencer.PlayAll();
-            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             #region Effects
 
@@ -1028,16 +1037,14 @@ namespace Battle
 
                 #endregion
 
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             }
             else if (usageResults.failed)
             {
 
                 battleAnimationSequencer.EnqueueSingleText("It failed!");
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             }
             else if (usageResults.missed)
@@ -1047,8 +1054,7 @@ namespace Battle
                     action.user.ActivePokemon.movePPs[action.fightMoveIndex]--;
 
                 battleAnimationSequencer.EnqueueSingleText("It missed!");
-                battleAnimationSequencer.PlayAll();
-                yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             }
 
@@ -1256,8 +1262,7 @@ namespace Battle
 
             }
 
-            battleAnimationSequencer.PlayAll();
-            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
         }
 
@@ -1272,12 +1277,11 @@ namespace Battle
             action.user.activePokemonIndex = action.switchPokemonIndex;
 
             battleAnimationSequencer.EnqueueSingleText(action.user.GetName() + " switched in " + action.user.ActivePokemon.GetDisplayName());
-            //TODO - add animation of participant switching pokemon
+            //TODO - add animation of participant switching pokemon (ie. retracting current and sending in new)
 
             //TODO - apply effects for newly-switched in pokemon's ability (if abilities included)
 
-            battleAnimationSequencer.PlayAll();
-            yield return new WaitUntil(() => battleAnimationSequencer.queueEmptied);
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
         }
 
