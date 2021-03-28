@@ -101,6 +101,8 @@ namespace Battle
                 if (animation.requireUserContinue)
                 {
 
+                    textBoxController.ShowContinuePrompt();
+
                     while (true)
                     {
 
@@ -111,6 +113,8 @@ namespace Battle
                         yield return new WaitForFixedUpdate();
 
                     }
+
+                    textBoxController.HideContinuePrompt();
 
                 }
                 else
