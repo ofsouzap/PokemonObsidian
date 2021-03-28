@@ -48,6 +48,18 @@ namespace Battle.BattleLayout
         /// </summary>
         public const float slowedPlayerPokemonBobbingInterval = 0.8F;
 
+        /// <summary>
+        /// The time that it should take for the experience bar to change
+        /// </summary>
+        public const float experienceBarChangeTime = 0.7F;
+
+        /// <summary>
+        /// The time to wait after the experience bar has changed before continuing
+        /// </summary>
+        public const float experienceBarChangeEndWaitTime = 0.3F;
+
+        public const float opponentPokemonEntranceAnimationSpriteChangeDelay = 0.5F;
+
         #endregion
 
         #region Other Constants
@@ -217,6 +229,24 @@ namespace Battle.BattleLayout
 
         }
 
+        /// <param name="mainSprite">The sprite to start and end on</param>
+        /// <param name="secondarySprite">The sprite to change to</param>
+        private IEnumerator AnimateOpponentPokemonEntrance(SpriteRenderer spriteObject, Sprite mainSprite, Sprite secondarySprite)
+        {
+
+            spriteObject.sprite = mainSprite;
+
+            yield return new WaitForSeconds(opponentPokemonEntranceAnimationSpriteChangeDelay);
+
+            spriteObject.sprite = secondarySprite;
+
+            yield return new WaitForSeconds(opponentPokemonEntranceAnimationSpriteChangeDelay);
+
+            spriteObject.sprite = mainSprite;
+
+
+        }
+
         public IEnumerator SendInPlayerPokemon(PokemonInstance pokemon)
         {
             overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(pokemon);
@@ -228,6 +258,11 @@ namespace Battle.BattleLayout
         {
             overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(pokemon);
             yield return StartCoroutine(SendInPokemon(pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1), opponentPokemonSprite, opponentPokemonSpriteRootX, pokemonSpriteOffScreenRightLocalPositionX));
+            yield return StartCoroutine(AnimateOpponentPokemonEntrance(
+                opponentPokemonSprite.GetComponent<SpriteRenderer>(),
+                pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
+                pokemon.LoadSprite(PokemonSpecies.SpriteType.Front2)
+                ));
             yield return StartCoroutine(overviewPaneManager.RevealOpponentOverviewPane());
         }
 
@@ -315,6 +350,77 @@ namespace Battle.BattleLayout
                 newHealth,
                 healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
             ));
+
+        }
+
+        #endregion
+
+        #region Player Pokemon Experience Increasing
+
+        private IEnumerator GradualExperienceBarChange(Action<float> updateBarAction,
+            int startExperience,
+            int endExperience,
+            float timeToTake,
+            GrowthType growthType)
+        {
+
+            float startTime = Time.time;
+            float endTime = Time.time + timeToTake;
+
+            while (true)
+            {
+
+                if (Time.time >= endTime)
+                    break;
+
+                float timeFactor = (Time.time - startTime) / timeToTake;
+
+                int experienceToShow = Mathf.RoundToInt(Mathf.Lerp(
+                    startExperience,
+                    endExperience,
+                    timeFactor));
+
+                float newExperienceBarAmont = CalculateExperienceBarAmount(experienceToShow, growthType);
+                updateBarAction(newExperienceBarAmont);
+
+                yield return new WaitForFixedUpdate();
+
+            }
+
+            updateBarAction(CalculateExperienceBarAmount(endExperience, growthType));
+
+        }
+
+        private float CalculateExperienceBarAmount(int pokemonExperience, GrowthType growthType)
+        {
+
+            byte lowerLevelBound = GrowthTypeData.GetLevelFromExperience(pokemonExperience, growthType);
+            int lowerLevelExperienceBound = GrowthTypeData.GetMinimumExperienceForLevel(lowerLevelBound, growthType);
+            int upperLevelExperienceBound = GrowthTypeData.GetMinimumExperienceForLevel((byte)(lowerLevelBound + 1), growthType);
+
+            //This means that if the pokemon has gotten enough experience to level up, the bar doesn't overflow but loops round instead
+            return Mathf.InverseLerp(
+                lowerLevelExperienceBound,
+                upperLevelExperienceBound,
+                pokemonExperience
+                );
+
+        }
+
+        public IEnumerator IncreasePlayerPokemonExperience(int initialExperience,
+            int newExperience,
+            GrowthType growthType)
+        {
+
+            yield return StartCoroutine(GradualExperienceBarChange(
+                (float value) => overviewPaneManager.playerPokemonOverviewPaneController.UpdateExperienceBar(value),
+                initialExperience,
+                newExperience,
+                experienceBarChangeTime,
+                growthType
+            ));
+
+            yield return new WaitForSeconds(experienceBarChangeEndWaitTime);
 
         }
 

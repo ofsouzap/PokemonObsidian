@@ -36,31 +36,7 @@ namespace Battle.BattleLayout
 
             base.FullUpdate(pokemon);
 
-            #region Experience Bar
-
-            float experienceBarValue;
-
-            if (pokemon.GetLevel() < 100)
-            {
-
-                int pokemonCurrentLevelExperience = GrowthTypeData.GetMinimumExperienceForLevel(pokemon.GetLevel(), pokemon.growthType);
-                int pokemonNextLevelExperience = GrowthTypeData.GetMinimumExperienceForLevel((byte)(pokemon.GetLevel() + 1), pokemon.growthType);
-
-                //Find the proportion of the way that the pokemon is between its level and the next level
-                experienceBarValue = Mathf.InverseLerp(
-                    pokemonCurrentLevelExperience,
-                    pokemonNextLevelExperience,
-                    pokemon.experience);
-
-            }
-            else
-            {
-                experienceBarValue = 1;
-            }
-
-            UpdateExperienceBar(experienceBarValue);
-
-            #endregion
+            UpdateExperienceBar(pokemon);
 
         }
 
@@ -72,6 +48,36 @@ namespace Battle.BattleLayout
             textHealthAmount.text = amount.ToString() + healthAmountSeparator + maxValue.ToString();
 
         }
+
+        public void UpdateExperienceBar(PokemonInstance pokemon)
+        {
+
+            if (pokemon.GetLevel() < 100)
+            {
+
+                int pokemonCurrentLevelExperience = GrowthTypeData.GetMinimumExperienceForLevel(pokemon.GetLevel(), pokemon.growthType);
+                int pokemonNextLevelExperience = GrowthTypeData.GetMinimumExperienceForLevel((byte)(pokemon.GetLevel() + 1), pokemon.growthType);
+
+                UpdateExperienceBar(pokemon.experience, pokemonCurrentLevelExperience, pokemonNextLevelExperience);
+
+            }
+            else
+            {
+                UpdateExperienceBar(1);
+            }
+
+        }
+
+        public void UpdateExperienceBar(int pokemonExperience,
+            int currentLevelMinimumExperience,
+            int nextLevelMiniumExperience)
+            => UpdateExperienceBar(
+                Mathf.InverseLerp(
+                    currentLevelMinimumExperience,
+                    nextLevelMiniumExperience,
+                    pokemonExperience
+                )
+            );
 
         public void UpdateExperienceBar(float value)
         {

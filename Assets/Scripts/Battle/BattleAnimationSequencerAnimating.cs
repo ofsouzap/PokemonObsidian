@@ -66,6 +66,14 @@ namespace Battle
                         ));
                     break;
 
+                case Animation.Type.PlayerPokemonExperienceGain:
+                    yield return StartCoroutine(battleLayoutController.IncreasePlayerPokemonExperience(
+                        animation.experienceGainInitialExperience,
+                        animation.experienceGainNewExperience,
+                        animation.experienceGainGrowthType
+                        ));
+                    break;
+
                     //TODO - case statements for each type
 
             }

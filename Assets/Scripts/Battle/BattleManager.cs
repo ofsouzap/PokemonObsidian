@@ -510,40 +510,62 @@ namespace Battle
 
                     #region Experience Yielding
 
-                    int experienceToAdd = (opponentPokemonBaseExperienceYield * opponentPokemonLevel) / (7 * pokemonUsedIndexes.Count);
-
-                    if (!battleData.isWildBattle)
-                        experienceToAdd = Mathf.FloorToInt(experienceToAdd * 1.5F);
-
-                    //TODO - if playerPokemonInstance holding lucky egg, multiply by 1.5
-
-                    //TODO - if playerPokemonInstance was traded (aka isn't with original trainer), multiply by 1.5
-
-                    byte previousPlayerPokemonLevel = playerPokemonInstance.GetLevel();
-                    playerPokemonInstance.AddMaxExperience(experienceToAdd);
-
-                    battleAnimationSequencer.EnqueueSingleText(
-                        playerPokemonInstance.GetDisplayName()
-                        + " gained "
-                        + experienceToAdd.ToString()
-                        + " experience",
-                        true);
-
-                    if (previousPlayerPokemonLevel != playerPokemonInstance.GetLevel())
+                    //Don't try to give the player's pokemon experience if they are at level 100
+                    if (playerPokemonInstance.GetLevel() < 100)
                     {
+
+                        int experienceToAdd = (opponentPokemonBaseExperienceYield * opponentPokemonLevel) / (7 * pokemonUsedIndexes.Count);
+
+                        if (!battleData.isWildBattle)
+                            experienceToAdd = Mathf.FloorToInt(experienceToAdd * 1.5F);
+
+                        //TODO - if playerPokemonInstance holding lucky egg, multiply by 1.5
+
+                        //TODO - if playerPokemonInstance was traded (aka isn't with original trainer), multiply by 1.5
+
+                        byte previousPlayerPokemonLevel = playerPokemonInstance.GetLevel();
+                        int previousPlayerPokemonExperience = playerPokemonInstance.experience;
+
+                        playerPokemonInstance.AddMaxExperience(experienceToAdd);
 
                         battleAnimationSequencer.EnqueueSingleText(
                             playerPokemonInstance.GetDisplayName()
-                            + " levelled up to level "
-                            + playerPokemonInstance.GetLevel().ToString()
-                            );
-                        //TODO - level up animation
+                            + " gained "
+                            + experienceToAdd.ToString()
+                            + " experience",
+                            true);
 
-                        //TODO - if new move learnt, deal with this (incl. check if current moves full, asking whether player wants to replace current move, choosing move to replace)
+                        //If the current pokemon is the active pokemon, show the experience gain in the battle layout
+                        if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
+                        {
+
+                            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                            {
+                                type = BattleAnimationSequencer.Animation.Type.PlayerPokemonExperienceGain,
+                                experienceGainGrowthType = playerPokemonInstance.growthType,
+                                experienceGainInitialExperience = previousPlayerPokemonExperience,
+                                experienceGainNewExperience = battleData.participantPlayer.ActivePokemon.experience
+                            });
+
+                        }
+
+                        if (previousPlayerPokemonLevel != playerPokemonInstance.GetLevel())
+                        {
+
+                            battleAnimationSequencer.EnqueueSingleText(
+                                playerPokemonInstance.GetDisplayName()
+                                + " levelled up to level "
+                                + playerPokemonInstance.GetLevel().ToString()
+                                );
+                            //TODO - level up animation
+
+                            //TODO - if new move learnt, deal with this (incl. check if current moves full, asking whether player wants to replace current move, choosing move to replace)
+
+                        }
+
+                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                     }
-
-                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                     #endregion
 

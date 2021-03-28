@@ -21,6 +21,7 @@ namespace Battle
                 OpponentTakeDamage,
                 PlayerSendOut,
                 OpponentSendOut,
+                PlayerPokemonExperienceGain,
                 PlayerStatModifierUp,
                 PlayerStatModifierDown,
                 OpponentStatModifierUp,
@@ -61,6 +62,14 @@ namespace Battle
             public int takeDamageNewHealth = 0;
             public int takeDamageOldHealth = 0;
             public int takeDamageMaxHealth = 0;
+
+            #endregion
+
+            #region Player Pokemon Experience Gain
+
+            public int experienceGainInitialExperience = 0;
+            public int experienceGainNewExperience = 0;
+            public GrowthType experienceGainGrowthType = 0;
 
             #endregion
 
