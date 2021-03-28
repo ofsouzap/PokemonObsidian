@@ -15,6 +15,15 @@ public class TextBoxController : MonoBehaviour
     public void Hide() => gameObject.SetActive(false);
 
     /// <summary>
+    /// Instantly set the text in the text area without spelling out character-by-character
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetTextInstant(string text)
+    {
+        textArea.text = text;
+    }
+
+    /// <summary>
     /// Write text into the text box character-by-character using the delay set in GameSettings (the static class)
     /// </summary>
     /// <param name="text">The text to display</param>
@@ -37,6 +46,8 @@ public class TextBoxController : MonoBehaviour
     /// <param name="delay">The delay (in seconds) to leave between each character</param>
     private IEnumerator RevealTextCoroutine(string text, float delay)
     {
+
+        Show();
 
         if (revealTextCoroutine != null)
             StopCoroutine(revealTextCoroutine);

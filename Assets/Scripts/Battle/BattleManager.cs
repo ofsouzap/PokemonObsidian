@@ -24,6 +24,8 @@ namespace Battle
         [HideInInspector]
         public BattleData battleData;
 
+        public BattleLayout.BattleLayoutController battleLayoutController;
+
         private TextBoxController textBoxController;
 
         /// <summary>
@@ -52,8 +54,6 @@ namespace Battle
 
             #endregion
 
-            textBoxController.Hide();
-
         }
 
         public void StartBattle()
@@ -67,6 +67,8 @@ namespace Battle
         {
 
             #region Initial Setup
+
+            battleLayoutController.HidePokemonAndPanes();
 
             //If the battle entrance arguments don't seem to be set, use whatever values are present at the time but still log an error
             if (!BattleEntranceArguments.argumentsSet)
@@ -173,19 +175,39 @@ namespace Battle
 
             #region Announce Opponent Pokemon
 
+            //If the opponent is a wild pokemon, they should appear before their announcement message
+            //If the opponent is a trainer, the pokemon should appear after the announcement message
+
             if (battleData.isWildBattle)
+            {
+
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                    sendOutPokemon = battleData.participantOpponent.ActivePokemon
+                });
+
                 battleAnimationSequencer.EnqueueSingleText("A wild "
                     + battleData.participantOpponent.ActivePokemon.GetDisplayName()
                     + " appeared!");
 
+            }
             else
             {
+
                 battleAnimationSequencer.EnqueueSingleText(battleData.participantOpponent.GetName()
                     + " challenged you!");
                 battleAnimationSequencer.EnqueueSingleText(battleData.participantOpponent.GetName()
                     + " sent out "
                     + battleData.participantOpponent.ActivePokemon.GetDisplayName()
                     + '!');
+
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                    sendOutPokemon = battleData.participantOpponent.ActivePokemon
+                });
+
             }
 
             #endregion
@@ -193,6 +215,12 @@ namespace Battle
             #region Announce Player Pokemon
 
             battleAnimationSequencer.EnqueueSingleText("Go, " + battleData.participantPlayer.ActivePokemon.GetDisplayName() + '!');
+
+            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+            {
+                type = BattleAnimationSequencer.Animation.Type.PlayerSendOut,
+                sendOutPokemon = battleData.participantPlayer.ActivePokemon
+            });
 
             #endregion
 
@@ -223,16 +251,22 @@ namespace Battle
 
                 #region Action Choosing
 
-                textBoxController.Hide();
-
                 battleData.participantPlayer.StartChoosingAction(battleData);
                 battleData.participantOpponent.StartChoosingAction(battleData);
+
+                SetPlayerPokemonBobbingState(true);
+                textBoxController.SetTextInstant("What will "
+                    + battleData.participantPlayer.ActivePokemon.GetDisplayName()
+                    + " do?");
 
                 yield return new WaitUntil(() =>
                 {
                     return battleData.participantPlayer.actionHasBeenChosen
                     && battleData.participantOpponent.actionHasBeenChosen;
                 });
+
+                SetPlayerPokemonBobbingState(false);
+                textBoxController.SetTextInstant("");
 
                 #endregion
 
@@ -311,6 +345,10 @@ namespace Battle
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
                 battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
+
+                //At the end of each turn, the overview panes should be refreshed in case anything was missed during the turn execution
+                battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(battleData.participantPlayer.ActivePokemon);
+                battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(battleData.participantOpponent.ActivePokemon);
 
                 battleParticipantsToCancelActionsOf.Clear();
 
@@ -425,7 +463,10 @@ namespace Battle
                     battleData.participantPlayer,
                     playerActivePokemon
                     ));
-                //TODO - animation for player active pokemon fainting
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = BattleAnimationSequencer.Animation.Type.PlayerRetract
+                });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -447,7 +488,10 @@ namespace Battle
                     battleData.participantOpponent,
                     opponentActivePokemon
                     ));
-                //TODO - animation for opponent active pokemon fainting
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = BattleAnimationSequencer.Animation.Type.OpponentRetract
+                });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -482,8 +526,8 @@ namespace Battle
                         playerPokemonInstance.GetDisplayName()
                         + " gained "
                         + experienceToAdd.ToString()
-                        + " experience"
-                        );
+                        + " experience",
+                        true);
 
                     if (previousPlayerPokemonLevel != playerPokemonInstance.GetLevel())
                     {
@@ -529,8 +573,6 @@ namespace Battle
             if (battleData.participantPlayer.ActivePokemon.IsFainted)
             {
 
-                textBoxController.Hide();
-
                 battleData.participantPlayer.StartChoosingNextPokemon();
 
                 yield return new WaitUntil(() => battleData.participantPlayer.nextPokemonHasBeenChosen);
@@ -538,7 +580,11 @@ namespace Battle
                 battleData.participantPlayer.activePokemonIndex = battleData.participantPlayer.chosenNextPokemonIndex;
 
                 battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantPlayer));
-                //TODO - animation for player sending out new pokemon
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = BattleAnimationSequencer.Animation.Type.PlayerSendOut,
+                    sendOutPokemon = battleData.participantPlayer.ActivePokemon
+                });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -554,7 +600,11 @@ namespace Battle
                 battleData.participantOpponent.activePokemonIndex = battleData.participantOpponent.chosenNextPokemonIndex;
 
                 battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantOpponent));
-                //TODO - animation for opponent sending out new pokemon
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                    sendOutPokemon = battleData.participantOpponent.ActivePokemon
+                });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -582,6 +632,8 @@ namespace Battle
                 && weatherDamagedTypes.Contains(participantPokemonTypes[1]))
             {
 
+                int initialHealth = participant.ActivePokemon.health;
+
                 participant.ActivePokemon.TakeDamage(
                     Mathf.RoundToInt(
                         participant.ActivePokemon.GetStats().health
@@ -593,7 +645,7 @@ namespace Battle
                     participant.ActivePokemon.GetDisplayName()
                     + " was damaged from the weather");
 
-                //TODO - player pokemon health reduction animation
+                battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -609,6 +661,8 @@ namespace Battle
         private IEnumerator MainBattleCoroutine_ApplyNonVolatileStatusConditionDamageUsingParticipant(BattleParticipant participant)
         {
 
+            int initialHealth = participant.ActivePokemon.health;
+
             switch (participant.ActivePokemon.nonVolatileStatusCondition)
             {
 
@@ -619,7 +673,7 @@ namespace Battle
                     participant.ActivePokemon.TakeDamage(burnDamageToDeal);
 
                     battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its burn");
-                    //TODO - damage animation
+                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
 
                     break;
 
@@ -630,7 +684,7 @@ namespace Battle
                     participant.ActivePokemon.TakeDamage(poisonDamageToDeal);
 
                     battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its poison");
-                    //TODO - damage animation
+                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
 
                     break;
 
@@ -642,7 +696,7 @@ namespace Battle
                     participant.ActivePokemon.badlyPoisonedCounter++;
 
                     battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its bad poison");
-                    //TODO - damage animation
+                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
 
                     break;
 
@@ -656,6 +710,32 @@ namespace Battle
             yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
         }
+
+        private void SetPlayerPokemonBobbingState(bool state)
+        {
+            if (state)
+                battleLayoutController.StartPlayerPokemonBobbing(battleData.participantPlayer.ActivePokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None);
+            else
+                battleLayoutController.StopPlayerPokemonBobbing();
+        }
+
+        /// <summary>
+        /// Generate an animation for the specified pokemon changing health assuming that the PokemonInstance has already lost the health
+        /// </summary>
+        /// <param name="pokemon">The pokemon to consider</param>
+        /// <param name="startingHealth">The health the pokemon started on</param>
+        /// <param name="isPlayer">Whether the animation is being generated for the player (not the opponent)</param>
+        /// <returns>The animation generated</returns>
+        private BattleAnimationSequencer.Animation GenerateDamageAnimation(PokemonInstance pokemon,
+            int startingHealth,
+            bool isPlayer)
+            => new BattleAnimationSequencer.Animation()
+            {
+                type = isPlayer ? BattleAnimationSequencer.Animation.Type.PlayerTakeDamage : BattleAnimationSequencer.Animation.Type.OpponentTakeDamage,
+                takeDamageMaxHealth = pokemon.GetStats().health,
+                takeDamageNewHealth = pokemon.health,
+                takeDamageOldHealth = startingHealth
+            };
 
         private void RefreshUsedPokemonPerOpposingPokemonRecord()
         {
@@ -785,6 +865,8 @@ namespace Battle
         private IEnumerator ExecuteAction_Fight(BattleParticipant.Action action)
         {
 
+            bool userIsPlayer = action.user is BattleParticipantPlayer;
+
             //TODO - when special moves made, have their effects inflicted (maybe by separate method made for all special moves to directly cause changes to pokemon and return announcements)
 
             if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.flinch)
@@ -884,9 +966,17 @@ namespace Battle
 
                 #region Target Damage
 
-                targetPokemon.TakeDamage(usageResults.targetDamageDealt);
+                //No need to animate damage dealing or try take damage is no damage is dealt
+                if (usageResults.targetDamageDealt > 0)
+                {
 
-                //TODO - animation for health reducing
+                    int targetInitialHealth = targetPokemon.health;
+
+                    targetPokemon.TakeDamage(usageResults.targetDamageDealt);
+
+                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(targetPokemon, targetInitialHealth, !userIsPlayer));
+
+                }
 
                 #region Effectiveness Message
 
@@ -936,6 +1026,12 @@ namespace Battle
                         targetPokemon.GetDisplayName()
                         + " was thawed out"
                         );
+
+                    if (userIsPlayer)
+                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                    else
+                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+
                 }
 
                 #endregion
@@ -958,7 +1054,13 @@ namespace Battle
                             ];
 
                     battleAnimationSequencer.EnqueueSingleText(nvscInflictionMessage);
+
                     //TODO - enqueue NVSC animation
+
+                    if (userIsPlayer)
+                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                    else
+                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
 
                 }
 
@@ -1010,13 +1112,14 @@ namespace Battle
                 if (usageResults.userDamageDealt > 0)
                 {
 
+                    int userInitialHealth = action.user.ActivePokemon.health;
+
                     action.user.ActivePokemon.TakeDamage(usageResults.userDamageDealt);
 
                     battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " was hurt from the recoil");
+                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(userPokemon, userInitialHealth, action.user is BattleParticipantPlayer));
 
                 }
-
-                //TODO - animation for health reducing
 
                 #endregion
 
@@ -1277,7 +1380,21 @@ namespace Battle
             action.user.activePokemonIndex = action.switchPokemonIndex;
 
             battleAnimationSequencer.EnqueueSingleText(action.user.GetName() + " switched in " + action.user.ActivePokemon.GetDisplayName());
-            //TODO - add animation of participant switching pokemon (ie. retracting current and sending in new)
+
+            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+            {
+                type = action.user == battleData.participantPlayer
+                ? BattleAnimationSequencer.Animation.Type.PlayerRetract
+                : BattleAnimationSequencer.Animation.Type.OpponentRetract
+            });
+
+            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+            {
+                type = action.user == battleData.participantPlayer
+                ? BattleAnimationSequencer.Animation.Type.PlayerSendOut
+                : BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                sendOutPokemon = action.user.ActivePokemon
+            });
 
             //TODO - apply effects for newly-switched in pokemon's ability (if abilities included)
 

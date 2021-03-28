@@ -271,15 +271,13 @@ namespace Pokemon.Moves
             //    The results shouldn't usually overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
             UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData);
 
+            //If CalculateNormalStatusEffect has already deemed that the move hasn't succeeded, don't continue calculating its effects
+            if (!usageResults.Succeeded)
+                return usageResults;
+
             if (nonVolatileStatusConditionOnly && target.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
             {
                 usageResults.failed = true;
-                return usageResults;
-            }
-
-            if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
-            {
-                usageResults.missed = true;
                 return usageResults;
             }
 

@@ -1,8 +1,7 @@
-﻿//#define CONSOLE_BATTLE_DEBUGGING
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pokemon;
 using Battle;
 
 namespace Battle
@@ -16,9 +15,12 @@ namespace Battle
             public enum Type
             {
                 Text,
-                PokemonRetract,
-                PokemonTakeDamage,
-                PokemonSendOut,
+                PlayerRetract,
+                PlayerTakeDamage,
+                OpponentRetract,
+                OpponentTakeDamage,
+                PlayerSendOut,
+                OpponentSendOut,
                 PlayerStatModifierUp,
                 PlayerStatModifierDown,
                 OpponentStatModifierUp,
@@ -48,6 +50,20 @@ namespace Battle
 
             #endregion
 
+            #region Pokemon Sending Out (parameters used for both player and opponent)
+
+            public PokemonInstance sendOutPokemon = null;
+
+            #endregion
+
+            #region Damage Taking (parameters used for both player and opponent)
+
+            public int takeDamageNewHealth = 0;
+            public int takeDamageOldHealth = 0;
+            public int takeDamageMaxHealth = 0;
+
+            #endregion
+
             //TODO - continue
 
             #endregion
@@ -55,81 +71,6 @@ namespace Battle
             //TODO - continue
 
         }
-
-        #region Animation Running
-
-        private IEnumerator RunAnimation(Animation animation)
-        {
-
-#if CONSOLE_BATTLE_DEBUGGING
-
-            if (animation.type == Animation.Type.Text)
-            {
-                foreach (string message in animation.messages)
-                    Debug.Log(message);
-                yield break;
-            }
-
-#endif
-
-            switch (animation.type)
-            {
-
-                case Animation.Type.Text:
-                    yield return StartCoroutine(RunAnimation_Text(animation));
-                    break;
-
-                //TODO - case statements for each type
-
-            }
-
-        }
-
-        private IEnumerator RunAnimation_Text(Animation animation)
-        {
-
-            foreach (string message in animation.messages)
-            {
-
-                textBoxController.Show();
-
-                #region Reveal Message
-
-                textBoxController.RevealText(message);
-
-                yield return new WaitUntil(() => textBoxController.textRevealComplete);
-
-                #endregion
-
-                #region Post-Message
-
-                if (animation.requireUserContinue)
-                {
-
-                    while (true)
-                    {
-
-                        if (Input.GetButtonDown("Submit")
-                            || Input.GetMouseButtonDown(0))
-                            break;
-
-                        yield return new WaitForFixedUpdate();
-
-                    }
-
-                }
-                else
-                {
-                    yield return new WaitForSeconds(Animation.defaultMessageDelay);
-                }
-
-                #endregion
-
-            }
-
-        }
-
-        #endregion
 
     }
 }

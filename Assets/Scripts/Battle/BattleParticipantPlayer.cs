@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Battle;
 using Pokemon;
 using Battle.PlayerUI;
@@ -213,6 +214,8 @@ namespace Battle
                 playerPokemonSelectUIController.ShowBackButton();
             else
                 playerPokemonSelectUIController.HideBackButton();
+
+            EventSystem.current.SetSelectedGameObject(playerPokemonSelectUIController.pokemonButtons[0].gameObject);
 
         }
 
