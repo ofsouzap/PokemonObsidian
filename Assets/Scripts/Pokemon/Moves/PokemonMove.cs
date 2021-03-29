@@ -154,6 +154,11 @@ namespace Pokemon.Moves
         /// </summary>
         public bool noOpponentEffects;
 
+        /// <summary>
+        /// Whether the move is only used to confuse the target
+        /// </summary>
+        public bool confusionOnly;
+
         #endregion
 
         #region Move Using
@@ -259,6 +264,9 @@ namespace Pokemon.Moves
             public bool targetConfuse = false;
 
         }
+
+        public static int CalculateDamageToDeal(int userLevel, byte power, float ad, float modifier)
+            => Mathf.FloorToInt(((((((2 * userLevel) / ((float)5)) + 2) * power * ad) / ((float)50)) + 2) * modifier);
 
         /// <summary>
         /// Calculates the results of using this move. Damage is calcualted using the default formula
@@ -442,9 +450,9 @@ namespace Pokemon.Moves
 
             #region Damage Calculation
 
-            int damageToDeal = Mathf.FloorToInt(((((((2 * user.GetLevel()) / ((float)5)) + 2) * power * ad) / ((float)50)) + 2) * modifier);
+            int damageToDeal = CalculateDamageToDeal(user.GetLevel(), power, ad, modifier);
 
-            usageResults.targetDamageDealt = damageToDeal;
+            usageResults.targetDamageDealt = damageToDeal <= target.health ? damageToDeal : target.health;
 
             #endregion
 
@@ -533,6 +541,12 @@ namespace Pokemon.Moves
             UsageResults usageResults = new UsageResults();
 
             if (nonVolatileStatusConditionOnly && target.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
+            {
+                usageResults.failed = true;
+                return usageResults;
+            }
+
+            if (confusionOnly && target.battleProperties.volatileStatusConditions.confusion > 0)
             {
                 usageResults.failed = true;
                 return usageResults;

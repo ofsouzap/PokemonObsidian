@@ -50,6 +50,8 @@ namespace Pokemon
          * recoil damage relative to damage dealt to target (as float proportion)
          * has no effects for the target (only on the user) (1 or 0)
          *     If blank, this will be determined by the move's previously-specified effects
+         * move is primarily for causing confusion to the target
+         *     If so, the whole move will fail if it can't cause the target confusion
          */
 
         public static void LoadData()
@@ -83,11 +85,11 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
 
-                if (entry.Length < 20)
+                if (entry.Length < 21)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -769,6 +771,97 @@ namespace Pokemon
 
                 #endregion
 
+                #region confusionOnly
+
+                switch (ParseBooleanProperty(entry[20]))
+                {
+
+                    case true:
+                        confusionOnly = true;
+                        break;
+
+                    case false:
+                        confusionOnly = false;
+                        break;
+
+                    case null:
+
+                        if (entry[20] == "")
+                        {
+
+                            if (moveType == PokemonMove.MoveType.Status)
+                            {
+
+                                #region Check for Stat Changes
+
+                                bool statChangeFound = false;
+
+                                foreach (Stats<sbyte>.Stat stat in Enum.GetValues(typeof(Stats<sbyte>.Stat)))
+                                    if (userStatChanges.GetStat(stat) != 0 || targetStatChanges.GetStat(stat) != 0)
+                                    {
+                                        statChangeFound = true;
+                                        break;
+                                    }
+
+                                if (statChangeFound
+                                    || userEvasionChange == 0
+                                    || userAccuracyChange == 0
+                                    || targetEvasionChange == 0
+                                    || targetAccuracyChange == 0)
+                                {
+                                    confusionOnly = false;
+                                    break;
+                                }
+
+                                #endregion
+
+                                #region Check for NVSC chances
+
+                                bool nvscChanceFound = false;
+
+                                foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
+                                    if (nonVolatileStatusConditionChances[key] != 0)
+                                    {
+                                        nvscChanceFound = true;
+                                        break;
+                                    }
+
+                                if (nvscChanceFound)
+                                {
+                                    confusionOnly = false;
+                                    break;
+                                }
+
+                                #endregion
+
+                                confusionOnly = true;
+                                break;
+
+                            }
+                            else
+                            {
+                                confusionOnly = false;
+                                break;
+                            }
+
+                        }
+
+                        else
+                        {
+                            Debug.LogError("Invalid stat modifier stage change only entry for id " + id);
+                            confusionOnly = false;
+                            break;
+                        }
+
+                }
+
+                if ((nonVolatileStatusConditionOnly && confusionOnly) || (statModifierStageChangeOnly && confusionOnly))
+                {
+                    Debug.LogError("Move was dual only-type for id " + id);
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -794,7 +887,8 @@ namespace Pokemon
                     absoluteRecoilDamage = absoluteRecoilDamage,
                     maxHealthRelativeRecoilDamage = maxHealthRelativeRecoilDamage,
                     targetDamageRelativeRecoilDamage = targetDamageRelativeRecoilDamage,
-                    noOpponentEffects = noOpponentEffects
+                    noOpponentEffects = noOpponentEffects,
+                    confusionOnly = confusionOnly
                 });
 
             }

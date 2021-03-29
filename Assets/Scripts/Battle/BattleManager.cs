@@ -595,7 +595,11 @@ namespace Battle
 
                 battleData.participantPlayer.StartChoosingNextPokemon();
 
+                textBoxController.SetTextInstant("Select your next pokemon");
+
                 yield return new WaitUntil(() => battleData.participantPlayer.nextPokemonHasBeenChosen);
+
+                textBoxController.SetTextInstant("");
 
                 battleData.participantPlayer.activePokemonIndex = battleData.participantPlayer.chosenNextPokemonIndex;
 
@@ -843,6 +847,11 @@ namespace Battle
                         );
                     participant.ActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
+                    if (participant is BattleParticipantPlayer)
+                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(PokemonInstance.NonVolatileStatusCondition.None);
+                    else
+                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(PokemonInstance.NonVolatileStatusCondition.None);
+
                     yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 }
@@ -869,6 +878,32 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantConfusion(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.confusion > 0)
+            {
+
+                participantPokemon.battleProperties.volatileStatusConditions.confusion--;
+
+                if (participantPokemon.battleProperties.volatileStatusConditions.confusion <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participantPokemon.GetDisplayName()
+                        + " snapped out of its confusion!"
+                        );
+
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                }
+
+            }
+
+        }
+
         /// <summary>
         /// Select the action execution method for the provided action and run it using the action. This includes adding and running animations
         /// </summary>
@@ -881,6 +916,7 @@ namespace Battle
 
                 case BattleParticipant.Action.Type.Fight:
                     yield return StartCoroutine(RefreshParticipantNVSC(action.user));
+                    yield return StartCoroutine(RefreshParticipantConfusion(action.user));
                     yield return StartCoroutine(ExecuteAction_Fight(action));
                     break;
 
@@ -890,7 +926,9 @@ namespace Battle
 
                     //If participant fails to flee, refresh their active pokemon's non-volatile status conditions
                     if (CheckIfBattleRunning())
+                    {
                         yield return StartCoroutine(RefreshParticipantNVSC(action.user));
+                    }
 
                     break;
 
@@ -971,6 +1009,53 @@ namespace Battle
 
             #endregion
 
+            #region Confusion Move Failure
+
+            if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.confusion > 0)
+            {
+
+                battleAnimationSequencer.EnqueueSingleText(
+                    action.user.ActivePokemon.GetDisplayName()
+                    + " is confused"
+                    );
+
+                if (UnityEngine.Random.Range(0F, 1F) <= PokemonInstance.BattleProperties.VolatileStatusConditions.confusionPokemonDamageChance)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                    action.user.ActivePokemon.GetDisplayName()
+                    + " hurt itself in its confusion!"
+                    );
+
+                    int previousHealth = action.user.ActivePokemon.health;
+                    Stats<int> userBattleStats = action.user.ActivePokemon.GetBattleStats();
+
+                    action.user.ActivePokemon.TakeDamage(PokemonMove.CalculateDamageToDeal(
+                        action.user.ActivePokemon.GetLevel(),
+                        PokemonInstance.BattleProperties.VolatileStatusConditions.confusionUserHarmPower,
+                        ((float)userBattleStats.attack) / userBattleStats.defense,
+                        1
+                    ));
+
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                    {
+                        type = userIsPlayer ? BattleAnimationSequencer.Animation.Type.PlayerTakeDamage : BattleAnimationSequencer.Animation.Type.OpponentTakeDamage,
+                        takeDamageMaxHealth = action.user.ActivePokemon.GetStats().health,
+                        takeDamageNewHealth = action.user.ActivePokemon.health,
+                        takeDamageOldHealth = previousHealth
+                    });
+
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                    yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+                    yield break;
+
+                }
+
+            }
+
+            #endregion
+
             PokemonMove move;
 
             if (action.fightUsingStruggle)
@@ -1000,12 +1085,15 @@ namespace Battle
             string moveUsageMessage = action.user.ActivePokemon.GetDisplayName() + " used " + move.name;
             battleAnimationSequencer.EnqueueSingleText(moveUsageMessage);
 
-            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+            if (usageResults.Succeeded)
             {
-                type = BattleAnimationSequencer.Animation.Type.PokemonMove,
-                pokemonMoveId = move.id,
-                pokemonMovePlayerIsUser = userIsPlayer
-            });
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                {
+                    type = BattleAnimationSequencer.Animation.Type.PokemonMove,
+                    pokemonMoveId = move.id,
+                    pokemonMovePlayerIsUser = userIsPlayer
+                });
+            }
 
             yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -1430,6 +1518,7 @@ namespace Battle
         {
 
             action.user.ActivePokemon.badlyPoisonedCounter = 1;
+            action.user.ActivePokemon.battleProperties.ResetVolatileProperties();
 
             action.user.activePokemonIndex = action.switchPokemonIndex;
 

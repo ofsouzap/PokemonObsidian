@@ -508,8 +508,7 @@ namespace Pokemon
             public void Reset()
             {
 
-                volatileStatusConditions = new VolatileStatusConditions();
-                volatileBattleStatus = new VolatileBattleStatus();
+                ResetVolatileProperties();
 
                 statModifiers.attack = 0;
                 statModifiers.defense = 0;
@@ -522,6 +521,12 @@ namespace Pokemon
 
                 criticalHitChanceBoosted = false;
 
+            }
+
+            public void ResetVolatileProperties()
+            {
+                volatileStatusConditions = new VolatileStatusConditions();
+                volatileBattleStatus = new VolatileBattleStatus();
             }
 
             // Volatile status conditions must be manually looked through and dealt with one-by-one
@@ -542,6 +547,13 @@ namespace Pokemon
                 /// Remaining turns of confusion
                 /// </summary>
                 public int confusion;
+
+                /// <summary>
+                /// The chance of a pokemon with confusion hurting itself
+                /// </summary>
+                public const float confusionPokemonDamageChance = 0.5F;
+
+                public const int confusionUserHarmPower = 40;
 
                 public bool curse = false;
 

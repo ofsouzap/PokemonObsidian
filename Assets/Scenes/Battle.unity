@@ -30435,7 +30435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleManager: {fileID: 1913499480}
   battleType: 1
-  initialWeatherId: 3
+  initialWeatherId: 0
   wildPokemonSpecification:
     speciesId: 5
     level: 15
