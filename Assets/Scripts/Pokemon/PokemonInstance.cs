@@ -468,6 +468,16 @@ namespace Pokemon
             { NonVolatileStatusCondition.Asleep, "fell asleep"  }
         };
 
+        /// <summary>
+        /// The non-volatile status conditions that each type of pokemon should be immune to
+        /// </summary>
+        public static readonly Dictionary<Type, NonVolatileStatusCondition[]> typeNonVolatileStatusConditionImmunities = new Dictionary<Type, NonVolatileStatusCondition[]>()
+        {
+            { Type.Steel, new NonVolatileStatusCondition[] { NonVolatileStatusCondition.Poisoned, NonVolatileStatusCondition.BadlyPoisoned } },
+            { Type.Fire, new NonVolatileStatusCondition[] { NonVolatileStatusCondition.Burn } },
+            { Type.Ice, new NonVolatileStatusCondition[] { NonVolatileStatusCondition.Frozen } }
+        };
+
         private NonVolatileStatusCondition _nonVolatileStatusCondition = NonVolatileStatusCondition.None;
         public NonVolatileStatusCondition nonVolatileStatusCondition
         {

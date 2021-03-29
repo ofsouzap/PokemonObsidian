@@ -48,6 +48,12 @@ public class Weather : IHasId
     public string announcement;
 
     /// <summary>
+    /// If the weather causes damage to pokemon, this message will be shown with the pokemon's display name at the start.
+    /// For example, the damage message could be "was buffeted by the sandstorm" (note the exclusion of a preceding space)
+    /// </summary>
+    public string damageMessage = null;
+
+    /// <summary>
     /// The path to the texture to show the weather eg. when in battle or in free roam
     /// </summary>
     public string textureResourcePath;
@@ -133,6 +139,7 @@ public class Weather : IHasId
                 id = 3,
                 name = "Sandstorm",
                 announcement = "There is a sandstorm",
+                damageMessage = "was buffeted by the sandstorm",
                 textureResourcePath = "textures/weather/sandstorm",
                 damagedPokemonTypes = new Pokemon.Type[]
                 {
@@ -163,6 +170,7 @@ public class Weather : IHasId
                 id = 4,
                 name = "Hail",
                 announcement = "It is hailing",
+                damageMessage = "was buffeted by the hail",
                 textureResourcePath = "textures/weather/hail",
                 damagedPokemonTypes = new Pokemon.Type[]
                 {

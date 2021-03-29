@@ -607,6 +607,15 @@ namespace Pokemon.Moves
                     if (nonVolatileStatusConditionChances[key] == 0)
                         continue;
 
+                    if (PokemonInstance.typeNonVolatileStatusConditionImmunities.ContainsKey(target.species.type1)
+                        && PokemonInstance.typeNonVolatileStatusConditionImmunities[target.species.type1].Contains(key))
+                        continue;
+
+                    if (target.species.type2 != null)
+                        if (PokemonInstance.typeNonVolatileStatusConditionImmunities.ContainsKey((Type)target.species.type2)
+                            && PokemonInstance.typeNonVolatileStatusConditionImmunities[(Type)target.species.type2].Contains(key))
+                            continue;
+
                     if (UnityEngine.Random.Range(0f, 1f) < nonVolatileStatusConditionChances[key])
                     {
                         usageResults.targetNonVolatileStatusCondition = key;
@@ -614,6 +623,12 @@ namespace Pokemon.Moves
                     }
 
                 }
+            }
+
+            if (nonVolatileStatusConditionOnly && usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
+            {
+                usageResults.failed = true;
+                return usageResults;
             }
 
             #region Weather Non-Volatile Status Condition Immunity
