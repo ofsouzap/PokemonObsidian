@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Pokemon
 {
@@ -27,36 +28,71 @@ namespace Pokemon
 
     public static class TypeFunc
     {
+
         public static Type Parse(string x)
         {
 
-            switch (x.ToLower())
+            return x.ToLower() switch
             {
+                "normal" => Type.Normal,
+                "fire" => Type.Fire,
+                "fighting" => Type.Fighting,
+                "water" => Type.Water,
+                "flying" => Type.Flying,
+                "grass" => Type.Grass,
+                "poison" => Type.Poison,
+                "electric" => Type.Electric,
+                "ground" => Type.Ground,
+                "psychic" => Type.Psychic,
+                "rock" => Type.Rock,
+                "ice" => Type.Ice,
+                "bug" => Type.Bug,
+                "dragon" => Type.Dragon,
+                "ghost" => Type.Ghost,
+                "dark" => Type.Dark,
+                "steel" => Type.Steel,
+                _ => throw new System.FormatException("Unknown type string passed"),
+            };
+        }
 
-                case "normal": return Type.Normal;
-                case "fire": return Type.Fire;
-                case "fighting": return Type.Fighting;
-                case "water": return Type.Water;
-                case "flying": return Type.Flying;
-                case "grass": return Type.Grass;
-                case "poison": return Type.Poison;
-                case "electric": return Type.Electric;
-                case "ground": return Type.Ground;
-                case "psychic": return Type.Psychic;
-                case "rock": return Type.Rock;
-                case "ice": return Type.Ice;
-                case "bug": return Type.Bug;
-                case "dragon": return Type.Dragon;
-                case "ghost": return Type.Ghost;
-                case "dark": return Type.Dark;
-                case "steel": return Type.Steel;
+        private static string GetTypeResourceName(Type type)
+        {
 
-                default:
-                    throw new System.FormatException("Unknown type string passed");
+            return type switch
+            {
+                Type.Normal => "normal",
+                Type.Fire => "fire",
+                Type.Fighting => "fighting",
+                Type.Water => "water",
+                Type.Flying => "flying",
+                Type.Grass => "grass",
+                Type.Poison => "poison",
+                Type.Electric => "electric",
+                Type.Ground => "ground",
+                Type.Psychic => "psychic",
+                Type.Rock => "rock",
+                Type.Ice => "ice",
+                Type.Bug => "bug",
+                Type.Dragon => "dragon",
+                Type.Ghost => "ghost",
+                Type.Dark => "dark",
+                Type.Steel => "steel",
+                _ => throw new System.Exception("Unknown type passed"),
+            };
+        }
 
-            }
+        public static Sprite LoadTypeParticleSprite(Type type)
+        {
+
+            if (type == Type.Normal)
+                return null;
+
+            string resourceName = "Sprites/Effects/Generic Pokemon Move/particle_" + GetTypeResourceName(type);
+
+            return Resources.Load<Sprite>(resourceName);
 
         }
+
     }
 
     public static class TypeAdvantage

@@ -21,6 +21,9 @@ namespace Battle.BattleLayout
         public GameObject opponentPokemonSprite;
         private float opponentPokemonSpriteRootX;
 
+        public GameObject playerPokemonMoveParticleSystemObject;
+        public GameObject opponentPokemonMoveParticleSystemObject;
+
         #region Constants
 
         #region Constant Timings
@@ -60,12 +63,28 @@ namespace Battle.BattleLayout
 
         public const float opponentPokemonEntranceAnimationSpriteChangeDelay = 0.5F;
 
+        #region Generic Moves
+
+        public const float genericMoveReturnBackTime = 0.2F;
+
+        public const float genericPhysicalMoveLeanBackTime = 0.2F;
+
+        public const float genericPhysicalMoveLungeTime = 0.1F;
+
+        public const float genericPhysicalMovePauseTime = 0.5F;
+
+        public const float genericSpecialMoveLungeTime = 0.15F;
+
+        #endregion
+
         #endregion
 
         #region Other Constants
 
         public const int pokemonSpriteFlashIterations = 3;
         public const float playerPokemonBobbingDistance = 0.1F;
+        public const float genericPhysicalMoveLeanBackDistance = 1;
+        public const float genericMoveLungeDistance = 1;
 
         #endregion
 
@@ -80,6 +99,12 @@ namespace Battle.BattleLayout
             if (opponentPokemonSprite.GetComponent<SpriteRenderer>() == null)
                 Debug.LogError("No SpriteRenderer component found for opponentPokemonObject");
 
+            if (playerPokemonMoveParticleSystemObject.GetComponent<ParticleSystem>() == null)
+                Debug.LogError("No ParticleSystem component found for playerPokemonMoveParticleSystemObject");
+
+            if (opponentPokemonMoveParticleSystemObject.GetComponent<ParticleSystem>() == null)
+                Debug.LogError("No ParticleSystem component found for opponentPokemonMoveParticleSystemObject");
+
             playerPokemonSpriteRootX = playerPokemonSprite.transform.localPosition.x;
             opponentPokemonSpriteRootX = opponentPokemonSprite.transform.localPosition.x;
 
@@ -90,6 +115,46 @@ namespace Battle.BattleLayout
             playerPokemonSprite.SetActive(false);
             opponentPokemonSprite.SetActive(false);
             overviewPaneManager.HidePanes();
+        }
+
+        /// <summary>
+        /// Gradually move a game object from its current position to another position
+        /// </summary>
+        /// <param name="gameObject">The game object to move</param>
+        /// <param name="endPos">The local position to move to</param>
+        /// <param name="timeToTake">The time the move should take</param>
+        /// <param name="refreshTime">The time to wait before refreshing the object's position. 0 means to refresh each frame</param>
+        /// <returns></returns>
+        private IEnumerator GradualTranslatePosition(GameObject gameObject,
+            Vector3 endPos,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            Vector3 startPos = gameObject.transform.localPosition;
+
+            float startTime = Time.time;
+            float endTime = startTime + timeToTake;
+
+            while (true)
+            {
+
+                if (Time.time >= endTime)
+                    break;
+
+                float timeFactor = (Time.time - startTime) / timeToTake;
+
+                gameObject.transform.localPosition = Vector3.Lerp(startPos, endPos, timeFactor);
+
+                if (refreshTime == 0)
+                    yield return new WaitForFixedUpdate();
+                else
+                    yield return new WaitForSeconds(refreshTime);
+
+            }
+
+            gameObject.transform.localPosition = endPos;
+
         }
 
         #region Player Pokemon Bobbing
@@ -198,34 +263,10 @@ namespace Battle.BattleLayout
                 );
             spriteObject.SetActive(true);
 
-            float startTime = Time.time;
-            float endTime = Time.time + sendInPokemonTime;
+            Vector3 targetPosition = spriteObject.transform.localPosition;
+            targetPosition.x = rootXPos;
 
-            while (true)
-            {
-
-                if (Time.time >= endTime)
-                    break;
-
-                float timeFactor = (Time.time - startTime) / sendInPokemonTime;
-
-                spriteObject.transform.localPosition = new Vector3(
-                    Mathf.Lerp(offScreenXPos,
-                        rootXPos,
-                        timeFactor),
-                    spriteObject.transform.localPosition.y,
-                    spriteObject.transform.localPosition.z
-                    );
-
-                yield return new WaitForFixedUpdate();
-
-            }
-
-            spriteObject.transform.localPosition = new Vector3(
-                rootXPos,
-                spriteObject.transform.localPosition.y,
-                spriteObject.transform.localPosition.z
-                );
+            yield return StartCoroutine(GradualTranslatePosition(spriteObject, targetPosition, sendInPokemonTime));
 
         }
 
@@ -421,6 +462,107 @@ namespace Battle.BattleLayout
             ));
 
             yield return new WaitForSeconds(experienceBarChangeEndWaitTime);
+
+        }
+
+        #endregion
+
+        #region Generic Pokemon Move Using
+
+        private Vector2 GetGenericPokemonMoveLungeDirection(Transform lunger, Transform target)
+            => ((Vector2)(target.position - lunger.position)).normalized;
+
+        private IEnumerator GenericPokemonMovePhysicalAttackMovement(GameObject attacker, GameObject target)
+        {
+
+            Vector2 attackerStartPosition = attacker.transform.localPosition;
+
+            Vector2 lungeDirection = GetGenericPokemonMoveLungeDirection(attacker.transform, target.transform);
+
+            Vector2 leanBackTargetPosition = (Vector2)attacker.transform.localPosition + (lungeDirection * -genericPhysicalMoveLeanBackDistance);
+
+            yield return StartCoroutine(GradualTranslatePosition(attacker, leanBackTargetPosition, genericPhysicalMoveLeanBackTime));
+
+            yield return new WaitForSeconds(genericPhysicalMovePauseTime);
+
+            Vector2 lungeTargetPosition = attackerStartPosition + (lungeDirection * genericMoveLungeDistance);
+
+            yield return StartCoroutine(GradualTranslatePosition(attacker, lungeTargetPosition, genericPhysicalMoveLungeTime));
+
+            yield return StartCoroutine(GradualTranslatePosition(attacker, attackerStartPosition, genericMoveReturnBackTime));
+
+        }
+
+        private IEnumerator GenericPokemonMoveSpecialAttackMovement(GameObject attacker, GameObject target)
+        {
+
+            Vector2 attackerStartPosition = attacker.transform.localPosition;
+
+            Vector2 lungeDirection = GetGenericPokemonMoveLungeDirection(attacker.transform, target.transform);
+
+            Vector2 lungeTargetPosition = (Vector2)attacker.transform.localPosition + (lungeDirection * genericMoveLungeDistance);
+
+            yield return StartCoroutine(GradualTranslatePosition(attacker, lungeTargetPosition, genericSpecialMoveLungeTime));
+
+            yield return StartCoroutine(GradualTranslatePosition(attacker, attackerStartPosition, genericMoveReturnBackTime));
+
+        }
+
+        private IEnumerator GenericMoveParticleEffects(GameObject particleSystemObject,
+            Sprite particleSprite)
+        {
+
+            if (particleSystemObject.GetComponent<ParticleSystem>() == null)
+                throw new ArgumentException("particleSystemObject has no particle system");
+
+            if (particleSprite == null)
+                yield break;
+
+            particleSystemObject.GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, particleSprite);
+            particleSystemObject.GetComponent<ParticleSystem>().Play();
+
+            yield return new WaitUntil(() => !particleSystemObject.GetComponent<ParticleSystem>().isPlaying);
+
+        }
+
+        public IEnumerator PlayerUseMoveGeneric(int moveId)
+        {
+
+            Pokemon.Moves.PokemonMove move = Pokemon.Moves.PokemonMove.GetPokemonMoveById(moveId);
+            Sprite moveParticle = TypeFunc.LoadTypeParticleSprite(move.type);
+
+            if (move.moveType == Pokemon.Moves.PokemonMove.MoveType.Physical)
+            {
+                yield return StartCoroutine(GenericPokemonMovePhysicalAttackMovement(playerPokemonSprite, opponentPokemonSprite));
+            }
+            else if (move.moveType == Pokemon.Moves.PokemonMove.MoveType.Special)
+            {
+                yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(playerPokemonSprite, opponentPokemonSprite));
+            }
+
+            if (!move.noOpponentEffects)
+                yield return StartCoroutine(GenericMoveParticleEffects(opponentPokemonMoveParticleSystemObject, moveParticle));
+
+
+        }
+
+        public IEnumerator OpponentUseMoveGeneric(int moveId)
+        {
+
+            Pokemon.Moves.PokemonMove move = Pokemon.Moves.PokemonMove.GetPokemonMoveById(moveId);
+            Sprite moveParticle = TypeFunc.LoadTypeParticleSprite(move.type);
+
+            if (move.moveType == Pokemon.Moves.PokemonMove.MoveType.Physical)
+            {
+                yield return StartCoroutine(GenericPokemonMovePhysicalAttackMovement(opponentPokemonSprite, playerPokemonSprite));
+            }
+            else if (move.moveType == Pokemon.Moves.PokemonMove.MoveType.Special)
+            {
+                yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(opponentPokemonSprite, playerPokemonSprite));
+            }
+
+            if (!move.noOpponentEffects)
+                yield return StartCoroutine(GenericMoveParticleEffects(playerPokemonMoveParticleSystemObject, moveParticle));
 
         }
 

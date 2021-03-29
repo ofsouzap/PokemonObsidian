@@ -26,6 +26,7 @@ namespace Battle
                 PlayerStatModifierDown,
                 OpponentStatModifierUp,
                 OpponentStatModifierDown,
+                PokemonMove,
                 WeatherDisplay,
                 Blackout,
                 Custom
@@ -73,11 +74,16 @@ namespace Battle
 
             #endregion
 
-            //TODO - continue
+            #region PokemonMove
+
+            public int pokemonMoveId = 0;
+            public bool pokemonMovePlayerIsUser = false;
 
             #endregion
 
             //TODO - continue
+
+            #endregion
 
         }
 

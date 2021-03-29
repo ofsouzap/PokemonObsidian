@@ -736,7 +736,7 @@ namespace Battle
                 + battleData.participantPlayer.ActivePokemon.GetDisplayName()
                 + " do?");
 
-        #region Player Invalid Selection
+        #region Player Invalid Selection Messages
 
         private Coroutine displayPlayerInvalidSelectionMessageCouroutine;
 
@@ -1000,7 +1000,12 @@ namespace Battle
             string moveUsageMessage = action.user.ActivePokemon.GetDisplayName() + " used " + move.name;
             battleAnimationSequencer.EnqueueSingleText(moveUsageMessage);
 
-            //TODO - animation for move usage
+            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+            {
+                type = BattleAnimationSequencer.Animation.Type.PokemonMove,
+                pokemonMoveId = move.id,
+                pokemonMovePlayerIsUser = userIsPlayer
+            });
 
             yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 

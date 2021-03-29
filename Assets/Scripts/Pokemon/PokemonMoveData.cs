@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using Pokemon.Moves;
@@ -47,6 +48,8 @@ namespace Pokemon
          * absolute recoil damage
          * recoil damage relative to user's maximum health (as float proportion)
          * recoil damage relative to damage dealt to target (as float proportion)
+         * has no effects for the target (only on the user) (1 or 0)
+         *     If blank, this will be determined by the move's previously-specified effects
          */
 
         public static void LoadData()
@@ -80,11 +83,11 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
 
-                if (entry.Length < 19)
+                if (entry.Length < 20)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -698,6 +701,74 @@ namespace Pokemon
 
                 #endregion
 
+                #region noOpponentEffects
+
+                switch (ParseBooleanProperty(entry[19]))
+                {
+
+                    case true:
+                        noOpponentEffects = true;
+                        break;
+
+                    case false:
+                        noOpponentEffects = false;
+                        break;
+
+                    case null:
+
+                        if (entry[19] == "")
+                        {
+
+                            if (moveType == PokemonMove.MoveType.Status)
+                            {
+
+                                bool hasNVSCChance = false;
+
+                                foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
+                                    if (nonVolatileStatusConditionChances[key] != 0)
+                                        hasNVSCChance = true;
+
+                                if (hasNVSCChance)
+                                    noOpponentEffects = false;
+                                else if (power != 0)
+                                    noOpponentEffects = false;
+                                else if (targetAccuracyChange != 0)
+                                    noOpponentEffects = false;
+                                else if (targetEvasionChange != 0)
+                                    noOpponentEffects = false;
+                                else if (targetStatChanges.attack != 0
+                                    || targetStatChanges.defense != 0
+                                    || targetStatChanges.specialAttack != 0
+                                    || targetStatChanges.specialDefense != 0
+                                    || targetStatChanges.speed != 0)
+                                    noOpponentEffects = false;
+                                else if (confusionChance != 0)
+                                    noOpponentEffects = false;
+                                else
+                                            noOpponentEffects = true;
+
+                                break;
+
+                            }
+                            else
+                            {
+                                noOpponentEffects = false;
+                                break;
+                            }
+
+                        }
+
+                        else
+                        {
+                            Debug.LogError("Invalid no opponent effects entry for id " + id);
+                            noOpponentEffects = false;
+                            break;
+                        }
+
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -722,7 +793,8 @@ namespace Pokemon
                     statStageChangeOnly = statModifierStageChangeOnly,
                     absoluteRecoilDamage = absoluteRecoilDamage,
                     maxHealthRelativeRecoilDamage = maxHealthRelativeRecoilDamage,
-                    targetDamageRelativeRecoilDamage = targetDamageRelativeRecoilDamage
+                    targetDamageRelativeRecoilDamage = targetDamageRelativeRecoilDamage,
+                    noOpponentEffects = noOpponentEffects
                 });
 
             }

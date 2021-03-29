@@ -149,6 +149,11 @@ namespace Pokemon.Moves
         /// </summary>
         public int absoluteRecoilDamage;
 
+        /// <summary>
+        /// Whether the move doesn't have effects on the target; only the user
+        /// </summary>
+        public bool noOpponentEffects;
+
         #endregion
 
         #region Move Using

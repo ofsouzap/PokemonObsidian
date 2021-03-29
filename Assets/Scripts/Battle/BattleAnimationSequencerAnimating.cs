@@ -74,6 +74,10 @@ namespace Battle
                         ));
                     break;
 
+                case Animation.Type.PokemonMove:
+                    yield return StartCoroutine(RunAnimation_PokemonMove(animation));
+                    break;
+
                     //TODO - case statements for each type
 
             }
@@ -125,6 +129,18 @@ namespace Battle
                 #endregion
 
             }
+
+        }
+
+        private IEnumerator RunAnimation_PokemonMove(Animation animation)
+        {
+
+            //TODO - once implemented, check whether move has custom animation
+
+            if (animation.pokemonMovePlayerIsUser)
+                yield return StartCoroutine(battleLayoutController.PlayerUseMoveGeneric(animation.pokemonMoveId));
+            else
+                yield return StartCoroutine(battleLayoutController.OpponentUseMoveGeneric(animation.pokemonMoveId));
 
         }
 
