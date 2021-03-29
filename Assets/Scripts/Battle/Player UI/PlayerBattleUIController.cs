@@ -31,17 +31,19 @@ namespace Battle.PlayerUI
         public GameObject selectableSelectionPrefab;
 
         private PlayerData player;
+        private BattleManager battleManager;
 
         private bool playerAllowedToFlee = true;
         public void SetPlayerCanFlee(bool state) => playerAllowedToFlee = state;
 
         public byte currentSelectedPartyPokemonIndex;
 
-        public void SetUp()
+        public void SetUp(BattleManager battleManager)
         {
 
             singleton = this;
             player = PlayerData.singleton;
+            this.battleManager = battleManager;
 
             #region Run Set-Up Functions
 
@@ -94,7 +96,7 @@ namespace Battle.PlayerUI
                     }
                     else
                     {
-                        //TODO - notify player that they aren't allowed to flee
+                        battleManager.DisplayPlayerInvalidSelectionMessage("You can't run from a trainer battle!");
                     }
 
                 });
@@ -190,7 +192,7 @@ namespace Battle.PlayerUI
 
                     if (currentSelectedPartyPokemonIndex == playerBattleParticipant.activePokemonIndex)
                     {
-                        //TODO - tell player that selection is invalid as pokemon is already active
+                        battleManager.DisplayPlayerInvalidSelectionMessage("That is already your active pokemon");
                         return;
                     }
 
@@ -212,7 +214,7 @@ namespace Battle.PlayerUI
                     }
                     else
                     {
-                        //TODO - tell player that selection is invalid as pokemon doesn't have health
+                        battleManager.DisplayPlayerInvalidSelectionMessage("You can't switch in a fainted pokemon");
                     }
 
                 });
@@ -259,7 +261,7 @@ namespace Battle.PlayerUI
             else
             {
 
-                //TODO - show message that move doesn't have enough PP
+                battleManager.DisplayPlayerInvalidSelectionMessage("That move has no PP");
 
             }
 

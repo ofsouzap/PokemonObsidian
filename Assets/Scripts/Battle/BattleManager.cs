@@ -255,9 +255,7 @@ namespace Battle
                 battleData.participantOpponent.StartChoosingAction(battleData);
 
                 SetPlayerPokemonBobbingState(true);
-                textBoxController.SetTextInstant("What will "
-                    + battleData.participantPlayer.ActivePokemon.GetDisplayName()
-                    + " do?");
+                SetTextBoxTextToPlayerActionPrompt();
 
                 yield return new WaitUntil(() =>
                 {
@@ -732,6 +730,35 @@ namespace Battle
             yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
         }
+
+        public void SetTextBoxTextToPlayerActionPrompt()
+            => textBoxController.SetTextInstant("What will "
+                + battleData.participantPlayer.ActivePokemon.GetDisplayName()
+                + " do?");
+
+        #region Player Invalid Selection
+
+        private Coroutine displayPlayerInvalidSelectionMessageCouroutine;
+
+        private IEnumerator _DisplayPlayerInvalidSelectionMessage(string message)
+        {
+            battleAnimationSequencer.EnqueueSingleText(message);
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            SetTextBoxTextToPlayerActionPrompt();
+        }
+
+        public void DisplayPlayerInvalidSelectionMessage(string message)
+        {
+
+            if (displayPlayerInvalidSelectionMessageCouroutine != null)
+                StopCoroutine(displayPlayerInvalidSelectionMessageCouroutine);
+
+            displayPlayerInvalidSelectionMessageCouroutine = StartCoroutine(_DisplayPlayerInvalidSelectionMessage(message));
+
+        }
+
+        #endregion
 
         private void SetPlayerPokemonBobbingState(bool state)
         {

@@ -53,7 +53,7 @@ namespace Battle
             playerBattleUIController.playerBattleParticipant = this;
             playerPokemonSelectUIController.playerBattleParticipant = this;
 
-            playerBattleUIController.SetUp();
+            playerBattleUIController.SetUp(battleManager);
             playerPokemonSelectUIController.SetUp();
 
             playerPokemonSelectUIController.buttonBack.onClick.AddListener(OnPokemonSelectUIButtonBackClick);
@@ -284,7 +284,7 @@ namespace Battle
 
         private void PokemonSelectDisplayInvalidMessage()
         {
-            //TODO - display message saying that selected pokemon isn't valid
+            battleManager.DisplayPlayerInvalidSelectionMessage("You can't select this pokemon");
         }
 
         #region Back Button
