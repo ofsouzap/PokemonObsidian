@@ -78,6 +78,22 @@ namespace Battle
                     yield return StartCoroutine(RunAnimation_PokemonMove(animation));
                     break;
 
+                case Animation.Type.PlayerStatModifierUp:
+                    yield return StartCoroutine(battleLayoutController.PlayerStatStageChange(true));
+                    break;
+
+                case Animation.Type.PlayerStatModifierDown:
+                    yield return StartCoroutine(battleLayoutController.PlayerStatStageChange(false));
+                    break;
+
+                case Animation.Type.OpponentStatModifierUp:
+                    yield return StartCoroutine(battleLayoutController.OpponentStatStageChange(true));
+                    break;
+
+                case Animation.Type.OpponentStatModifierDown:
+                    yield return StartCoroutine(battleLayoutController.OpponentStatStageChange(false));
+                    break;
+
                     //TODO - case statements for each type
 
             }

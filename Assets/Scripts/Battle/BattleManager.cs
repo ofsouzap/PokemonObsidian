@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using Pokemon;
 using Pokemon.Moves;
-using Battle;
 
 namespace Battle
 {
@@ -1403,43 +1402,43 @@ namespace Battle
 
             if (statModifierStageChange == 1)
             {
-                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " rose"));
                 animationsList.Add(new BattleAnimationSequencer.Animation()
                 {
                     type = pokemonIsOpponent
-                    ? BattleAnimationSequencer.Animation.Type.OpponentStatModifierUp
-                    : BattleAnimationSequencer.Animation.Type.OpponentStatModifierDown
+                       ? BattleAnimationSequencer.Animation.Type.OpponentStatModifierUp
+                       : BattleAnimationSequencer.Animation.Type.PlayerStatModifierUp
                 });
+                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " rose"));
             }
             else if (statModifierStageChange == -1)
             {
-                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " fell"));
                 animationsList.Add(new BattleAnimationSequencer.Animation()
                 {
                     type = pokemonIsOpponent
-                    ? BattleAnimationSequencer.Animation.Type.OpponentStatModifierUp
-                    : BattleAnimationSequencer.Animation.Type.OpponentStatModifierDown
+                    ? BattleAnimationSequencer.Animation.Type.OpponentStatModifierDown
+                    : BattleAnimationSequencer.Animation.Type.PlayerStatModifierDown
                 });
+                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " fell"));
             }
             else if (statModifierStageChange > 1)
             {
-                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " rose sharply"));
                 animationsList.Add(new BattleAnimationSequencer.Animation()
                 {
                     type = pokemonIsOpponent
                     ? BattleAnimationSequencer.Animation.Type.OpponentStatModifierUp
-                    : BattleAnimationSequencer.Animation.Type.OpponentStatModifierDown
+                    : BattleAnimationSequencer.Animation.Type.PlayerStatModifierUp
                 });
+                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " rose sharply"));
             }
             else if (statModifierStageChange < -1)
             {
-                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " fell harshly"));
                 animationsList.Add(new BattleAnimationSequencer.Animation()
                 {
                     type = pokemonIsOpponent
-                    ? BattleAnimationSequencer.Animation.Type.OpponentStatModifierUp
-                    : BattleAnimationSequencer.Animation.Type.OpponentStatModifierDown
+                    ? BattleAnimationSequencer.Animation.Type.OpponentStatModifierDown
+                    : BattleAnimationSequencer.Animation.Type.PlayerStatModifierDown
                 });
+                animationsList.Add(BattleAnimationSequencer.CreateSingleTextAnimation(pokemon.GetDisplayName() + "'s " + statName + " fell harshly"));
             }
 
             return animationsList.ToArray();

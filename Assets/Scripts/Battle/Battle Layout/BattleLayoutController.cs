@@ -77,6 +77,8 @@ namespace Battle.BattleLayout
 
         #endregion
 
+        public const float statStageChangeTotalTime = 0.5F;
+
         #endregion
 
         #region Other Constants
@@ -85,6 +87,10 @@ namespace Battle.BattleLayout
         public const float playerPokemonBobbingDistance = 0.1F;
         public const float genericPhysicalMoveLeanBackDistance = 1;
         public const float genericMoveLungeDistance = 1;
+        public const float statStageChangeScaleFactor = 1.25F;
+
+        public static readonly Color statStageChangeIncreaseColor = new Color(1, 0.66F, 0.23F);
+        public static readonly Color statStageChangeDecreaseColor = new Color(0.4F, 0.4F, 1);
 
         #endregion
 
@@ -563,6 +569,93 @@ namespace Battle.BattleLayout
 
             if (!move.noOpponentEffects)
                 yield return StartCoroutine(GenericMoveParticleEffects(playerPokemonMoveParticleSystemObject, moveParticle));
+
+        }
+
+        #endregion
+
+        #region Stat Stage Change
+
+        private IEnumerator HalfPokemonStatChange(GameObject gameObject,
+            Vector3 targetScale,
+            Color targetColor,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            if (gameObject.GetComponent<SpriteRenderer>() == null)
+                Debug.LogError("gameObject provided has no SpriteRenderer component");
+
+            Vector3 startScale = gameObject.transform.localScale;
+            Color startColor = gameObject.GetComponent<SpriteRenderer>().color;
+
+            float startTime = Time.time;
+            float endTime = startTime + timeToTake;
+
+            while (true)
+            {
+
+                if (Time.time >= endTime)
+                    break;
+
+                float timeFactor = (Time.time - startTime) / timeToTake;
+
+                gameObject.transform.localScale = Vector3.Lerp(startScale, targetScale, timeFactor);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(startColor, targetColor, timeFactor);
+
+                if (refreshTime == 0)
+                    yield return new WaitForFixedUpdate();
+                else
+                    yield return new WaitForSeconds(refreshTime);
+
+            }
+
+            gameObject.transform.localScale = targetScale;
+
+        }
+
+        private IEnumerator PokemonStatChange(GameObject pokemonObject,
+            bool statIncrease)
+        {
+
+            const float halfMovementTime = statStageChangeTotalTime / 2;
+
+            if (pokemonObject.GetComponent<SpriteRenderer>() == null)
+                Debug.LogError("pokemonObject provided has no SpriteRenderer component");
+
+            Vector3 originalScale = pokemonObject.transform.localScale;
+            Vector3 scaledScale = statIncrease
+                ? originalScale * statStageChangeScaleFactor
+                : originalScale / statStageChangeScaleFactor;
+
+            Color originalColor = pokemonObject.GetComponent<SpriteRenderer>().color;
+            Color changedColor = statIncrease ? statStageChangeIncreaseColor : statStageChangeDecreaseColor;
+
+            yield return StartCoroutine(HalfPokemonStatChange(pokemonObject,
+                scaledScale,
+                changedColor,
+                halfMovementTime
+            ));
+
+            yield return StartCoroutine(HalfPokemonStatChange(pokemonObject,
+                originalScale,
+                originalColor,
+                halfMovementTime
+            ));
+
+        }
+
+        public IEnumerator PlayerStatStageChange(bool statIncrease)
+        {
+
+            yield return StartCoroutine(PokemonStatChange(playerPokemonSprite, statIncrease));
+
+        }
+
+        public IEnumerator OpponentStatStageChange(bool statIncrease)
+        {
+
+            yield return StartCoroutine(PokemonStatChange(opponentPokemonSprite, statIncrease));
 
         }
 
