@@ -265,8 +265,244 @@ namespace Pokemon.Moves
 
         }
 
-        public static int CalculateDamageToDeal(int userLevel, byte power, float ad, float modifier)
+        public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
             => Mathf.FloorToInt(((((((2 * userLevel) / ((float)5)) + 2) * power * ad) / ((float)50)) + 2) * modifier);
+
+        public virtual float CalculateAttackDefenseRatio(PokemonInstance user, PokemonInstance target, BattleData battleData)
+        {
+
+            int attack, defense;
+
+            switch (moveType)
+            {
+
+                case MoveType.Physical:
+                    attack = user.GetBattleStats().attack;
+                    defense = target.GetBattleStats().defense;
+                    break;
+
+                case MoveType.Special:
+                    attack = user.GetBattleStats().specialAttack;
+                    defense = target.GetBattleStats().specialDefense;
+                    break;
+
+                default:
+                    Debug.LogWarning("Invalid move type - " + moveType);
+                    attack = 1;
+                    defense = 1;
+                    break;
+
+            }
+
+            return ((float)attack) / defense;
+
+        }
+
+        #region Attack Modifiers
+
+        public virtual float CalculateStabModifier(PokemonInstance user,
+            BattleData battleData)
+        {
+
+            Type userType1 = user.species.type1;
+            Type? userType2 = user.species.type2;
+
+            if (userType2 == null)
+                return userType1 == type ? 1.5f : 1f;
+            else
+                return userType1 == type || ((Type)userType2) == type ? 1.5f : 1f;
+
+        }
+
+        public virtual float CalculateTypeAdvantageModifier(PokemonInstance target,
+            BattleData battleData,
+            out bool? effectiveness)
+        {
+
+            Type targetType1 = target.species.type1;
+            Type? targetType2 = target.species.type2;
+
+            float typeMultipler = targetType2 == null ?
+                TypeAdvantage.CalculateMultiplier(type, targetType1)
+                : TypeAdvantage.CalculateMultiplier(type, targetType1, (Type)targetType2);
+
+            if (typeMultipler == 1)
+                effectiveness = null;
+            else if (typeMultipler < 1)
+                effectiveness = false;
+            else if (typeMultipler > 1)
+                effectiveness = true;
+            else
+            {
+                effectiveness = null;
+                Debug.LogError("Erroneous situation reached");
+            }
+
+            return typeMultipler;
+
+        }
+
+        public virtual float CalculateWeatherModifier(BattleData battleData)
+        {
+
+            if (battleData.CurrentWeather.boostedMoveTypes.Contains(type))
+            {
+                return 1.5f;
+            }
+            else if (battleData.CurrentWeather.weakenedMoveTypes.Contains(type))
+            {
+                return 0.5f;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+
+        public virtual uint CalculateCriticalHitStage(PokemonInstance user, BattleData battleData)
+        {
+
+            uint criticalHitStage = 0;
+
+            if (user.battleProperties.criticalHitChanceBoosted)
+                criticalHitStage += 2;
+
+            if (boostedCriticalChance)
+                criticalHitStage++;
+
+            //TODO - items that increase crit stage
+
+            return criticalHitStage;
+
+        }
+
+        public virtual float CalculateCriticalHitChance(uint criticalChanceStage,
+            BattleData battleData)
+        {
+
+            float criticalChance;
+
+            if (criticalChanceStage == 0)
+            {
+                criticalChance = 0.063f;
+            }
+            else if (criticalChanceStage == 1)
+            {
+                criticalChance = 0.125f;
+            }
+            else if (criticalChanceStage == 2)
+            {
+                criticalChance = 0.250f;
+            }
+            else if (criticalChanceStage == 2)
+            {
+                criticalChance = 0.333f;
+            }
+            else
+            {
+                criticalChance = 0.500f;
+            }
+
+            return criticalChance;
+
+        }
+
+        public virtual bool CalculateIfCriticalHit(float criticalChance,
+            BattleData battleData)
+            => UnityEngine.Random.Range(0, 1000) / ((float)1000) <= criticalChance;
+
+        //Default random multiplier should be random float in range [85%,100%]
+        public virtual float CalculateRandomModifier(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => UnityEngine.Random.Range(0.85F, 1F);
+
+        public virtual float CalculateBurnModifier(PokemonInstance user,
+            BattleData battleData)
+            => user.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Burn && moveType == MoveType.Physical
+            ? 0.5f
+            : 1f;
+
+        public virtual float CalculateModifiersValue(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData,
+            out bool? effectiveness,
+            out bool criticalHit)
+        {
+
+            float weatherModifier, criticalModifier, randomModifier, burnModifier, stabModifier, typeModifier;
+
+            stabModifier = CalculateStabModifier(user, battleData);
+
+            typeModifier = CalculateTypeAdvantageModifier(target, battleData, out effectiveness);
+
+            weatherModifier = CalculateWeatherModifier(battleData);
+
+            #region critical
+
+            uint criticalChanceStage = CalculateCriticalHitStage(user, battleData);
+
+            float criticalChance = CalculateCriticalHitChance(criticalChanceStage, battleData);
+
+            if (CalculateIfCriticalHit(criticalChance, battleData))
+            {
+                criticalModifier = 2;
+                criticalHit = true;
+            }
+            else
+            {
+                criticalModifier = 1;
+                criticalHit = false;
+            }
+
+            #endregion
+
+            randomModifier = CalculateRandomModifier(user, target, battleData);
+
+            burnModifier = CalculateBurnModifier(user, battleData);
+
+            return weatherModifier * criticalModifier * randomModifier * stabModifier * typeModifier * burnModifier;
+
+        }
+
+        #endregion
+
+        public virtual int CalculateDamageToDeal(float attackDefenseRatio,
+            float modifiersValue,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            int damageToDeal = CalculateNormalDamageToDeal(user.GetLevel(), power, attackDefenseRatio, modifiersValue);
+
+            return damageToDeal <= target.health ? damageToDeal : target.health;
+
+        }
+
+        public virtual int CalculateUserRecoilDamage(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData,
+            int targetDamageDealt = 0)
+        {
+
+            int recoilDamage = 0;
+
+            recoilDamage += Mathf.RoundToInt(targetDamageDealt * targetDamageRelativeRecoilDamage);
+
+            recoilDamage += absoluteRecoilDamage;
+
+            recoilDamage += Mathf.RoundToInt(user.GetStats().health * maxHealthRelativeRecoilDamage);
+
+            return recoilDamage;
+
+        }
+
+        public bool CheckIfThawTarget(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => type == Type.Fire && target.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen;
 
         /// <summary>
         /// Calculates the results of using this move. Damage is calcualted using the default formula
@@ -296,191 +532,22 @@ namespace Pokemon.Moves
 
             //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
 
-            Type userType1 = user.species.type1;
-            Type? userType2 = user.species.type2;
-            Type targetType1 = target.species.type1;
-            Type? targetType2 = target.species.type2;
+            float ad = CalculateAttackDefenseRatio(user, target, battleData);
 
-            #region Attack/Defense
+            float modifiersValue = CalculateModifiersValue(user,
+                target,
+                battleData,
+                out usageResults.effectiveness,
+                out usageResults.criticalHit);
 
-            int attack, defense;
+            int damageToDeal = CalculateDamageToDeal(ad, modifiersValue, user, target, battleData);
 
-            switch (moveType)
-            {
-
-                case MoveType.Physical:
-                    attack = user.GetBattleStats().attack;
-                    defense = target.GetBattleStats().defense;
-                    break;
-
-                case MoveType.Special:
-                    attack = user.GetBattleStats().specialAttack;
-                    defense = target.GetBattleStats().specialDefense;
-                    break;
-
-                default:
-                    Debug.LogWarning("Invalid move type - " + moveType);
-                    attack = 1;
-                    defense = 1;
-                    break;
-
-            }
-
-            float ad = ((float)attack) / defense;
-
-            #endregion
-
-            #region Modifiers
-
-            float modifier, weatherMultiplier, criticalMultiplier, randomMultipler, burnMultiplier, stabMultiplier;
-
-            #region stab
-
-            if (userType2 == null)
-                stabMultiplier = userType1 == type ? 1.5f : 1f;
-            else
-                stabMultiplier = userType1 == type || ((Type)userType2) == type ? 1.5f : 1f;
-
-            #endregion
-            
-            #region type advantage
-
-            float typeMultipler = targetType2 == null ?
-                TypeAdvantage.CalculateMultiplier(type, targetType1)
-                : TypeAdvantage.CalculateMultiplier(type, targetType1, (Type)targetType2);
-
-            if (typeMultipler == 1)
-                usageResults.effectiveness = null;
-            else if (typeMultipler < 1)
-                usageResults.effectiveness = false;
-            else if (typeMultipler > 1)
-                usageResults.effectiveness = true;
-            else
-            {
-                usageResults.effectiveness = null;
-                Debug.LogError("Erroneous situation reached");
-            }
-
-            #endregion
-
-            #region weather
-
-            if (battleData.CurrentWeather.boostedMoveTypes.Contains(type))
-            {
-                weatherMultiplier = 1.5f;
-            }
-            else if (battleData.CurrentWeather.weakenedMoveTypes.Contains(type))
-            {
-                weatherMultiplier = 0.5f;
-            }
-            else
-            {
-                weatherMultiplier = 1;
-            }
-
-            #endregion
-
-            #region critical
-
-            float criticalChance;
-
-            uint criticalChanceStage = 0;
-
-            if (user.battleProperties.criticalHitChanceBoosted)
-                criticalChanceStage += 2;
-
-            if (boostedCriticalChance)
-                criticalChanceStage++;
-
-            //TODO - items that increase crit stage
-
-            if (criticalChanceStage == 0)
-            {
-                criticalChance = 0.063f;
-            }
-            else if (criticalChanceStage == 1)
-            {
-                criticalChance = 0.125f;
-            }
-            else if (criticalChanceStage == 2)
-            {
-                criticalChance = 0.250f;
-            }
-            else if (criticalChanceStage == 2)
-            {
-                criticalChance = 0.333f;
-            }
-            else
-            {
-                criticalChance = 0.500f;
-            }
-
-            if (UnityEngine.Random.Range(0, 1000) / ((float)1000) <= criticalChance)
-            {
-                criticalMultiplier = 2;
-                usageResults.criticalHit = true;
-            }
-            else
-            {
-                criticalMultiplier = 1;
-                usageResults.criticalHit = false;
-            }
-
-            #endregion
-
-            #region random
-
-            //Random multiplier should be random float in range [85%,100%]
-            randomMultipler = UnityEngine.Random.Range(0.85F, 1F);
-
-            #endregion
-
-            #region burn
-
-            burnMultiplier =
-                user.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Burn && moveType == MoveType.Physical
-                ? 0.5f
-                : 1f;
-
-            #endregion
-
-            modifier = weatherMultiplier * criticalMultiplier * randomMultipler * stabMultiplier * typeMultipler * burnMultiplier;
-
-            #endregion
-
-            #region Damage Calculation
-
-            int damageToDeal = CalculateDamageToDeal(user.GetLevel(), power, ad, modifier);
-
+            //That the damage dealt isn't greater than the target's health is checked multiple times just to be safe and in case a method override forgets to
             usageResults.targetDamageDealt = damageToDeal <= target.health ? damageToDeal : target.health;
 
-            #endregion
+            usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData, usageResults.targetDamageDealt);
 
-            #region Target Damage-Relative Recoil Damage
-
-            usageResults.userDamageDealt += Mathf.RoundToInt(usageResults.targetDamageDealt * targetDamageRelativeRecoilDamage);
-
-            #endregion
-
-            #region Stat Changes
-
-            usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
-            usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
-
-            usageResults.userEvasionChange = LimitStatModifierChange(userEvasionModifier, user.battleProperties.evasionModifier);
-            usageResults.userAccuracyChange = LimitStatModifierChange(userAccuracyModifier, user.battleProperties.accuracyModifier);
-
-            usageResults.targetEvasionChange = LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
-            usageResults.targetAccuracyChange = LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
-
-            #endregion
-
-            #region Fire Move Thawing
-
-            if (type == Type.Fire && target.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
-                usageResults.thawTarget = true;
-
-            #endregion
+            usageResults.thawTarget = CheckIfThawTarget(user, target, battleData);
 
             return usageResults;
 
@@ -526,6 +593,85 @@ namespace Pokemon.Moves
 
         }
 
+        public virtual UsageResults CalculateStatChanges(UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
+            usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
+
+            usageResults.userEvasionChange = LimitStatModifierChange(userEvasionModifier, user.battleProperties.evasionModifier);
+            usageResults.userAccuracyChange = LimitStatModifierChange(userAccuracyModifier, user.battleProperties.accuracyModifier);
+
+            usageResults.targetEvasionChange = LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
+            usageResults.targetAccuracyChange = LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
+
+            return usageResults;
+
+        }
+
+        public virtual bool CalculateIfTargetFlinch(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => UnityEngine.Random.Range(0f, 1f) < flinchChance;
+
+        public virtual bool CalculateIfTargetConfused(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => UnityEngine.Random.Range(0f, 1f) < confusionChance;
+
+        public virtual UsageResults CalculateNonVolatileStatusConditionChanges(UsageResults usageResults,
+            PokemonInstance user,
+             PokemonInstance target,
+             BattleData battleData)
+        {
+
+            if (nonVolatileStatusConditionChances != null)
+            {
+                foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
+                {
+
+                    if (nonVolatileStatusConditionChances[key] == 0)
+                        continue;
+
+                    if (PokemonInstance.typeNonVolatileStatusConditionImmunities.ContainsKey(target.species.type1)
+                        && PokemonInstance.typeNonVolatileStatusConditionImmunities[target.species.type1].Contains(key))
+                        continue;
+
+                    if (target.species.type2 != null)
+                        if (PokemonInstance.typeNonVolatileStatusConditionImmunities.ContainsKey((Type)target.species.type2)
+                            && PokemonInstance.typeNonVolatileStatusConditionImmunities[(Type)target.species.type2].Contains(key))
+                            continue;
+
+                    if (UnityEngine.Random.Range(0f, 1f) < nonVolatileStatusConditionChances[key])
+                    {
+                        usageResults.targetNonVolatileStatusCondition = key;
+                        break;
+                    }
+
+                }
+            }
+
+            #region Weather Non-Volatile Status Condition Immunity
+
+            if (battleData.CurrentWeather.immuneNonVolatileStatusConditions.Contains(usageResults.targetNonVolatileStatusCondition))
+            {
+                usageResults.targetNonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+            }
+
+            #endregion
+
+            return usageResults;
+
+        }
+
+        public virtual byte CalculateAsleepInflictionDuration(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => (byte)UnityEngine.Random.Range(1, PokemonInstance.maximumDefaultSleepDuration + 1);
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -558,14 +704,7 @@ namespace Pokemon.Moves
                 return usageResults;
             }
 
-            usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
-            usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
-
-            usageResults.userEvasionChange = LimitStatModifierChange(userEvasionModifier, user.battleProperties.evasionModifier);
-            usageResults.userAccuracyChange = LimitStatModifierChange(userAccuracyModifier, user.battleProperties.accuracyModifier);
-
-            usageResults.targetEvasionChange = LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
-            usageResults.targetAccuracyChange = LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
+            usageResults = CalculateStatChanges(usageResults, user, target, battleData);
 
             #region Stat Modify Only Failure Check
 
@@ -596,34 +735,12 @@ namespace Pokemon.Moves
 
             #endregion
 
-            usageResults.targetFlinch = UnityEngine.Random.Range(0f, 1f) < flinchChance;
-            usageResults.targetConfuse = UnityEngine.Random.Range(0f, 1f) < confusionChance;
+            usageResults.targetFlinch = CalculateIfTargetFlinch(user, target, battleData);
+            usageResults.targetConfuse = CalculateIfTargetConfused(user, target, battleData);
 
-            if (nonVolatileStatusConditionChances != null)
-            {
-                foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
-                {
+            usageResults = CalculateNonVolatileStatusConditionChanges(usageResults, user, target, battleData);
 
-                    if (nonVolatileStatusConditionChances[key] == 0)
-                        continue;
-
-                    if (PokemonInstance.typeNonVolatileStatusConditionImmunities.ContainsKey(target.species.type1)
-                        && PokemonInstance.typeNonVolatileStatusConditionImmunities[target.species.type1].Contains(key))
-                        continue;
-
-                    if (target.species.type2 != null)
-                        if (PokemonInstance.typeNonVolatileStatusConditionImmunities.ContainsKey((Type)target.species.type2)
-                            && PokemonInstance.typeNonVolatileStatusConditionImmunities[(Type)target.species.type2].Contains(key))
-                            continue;
-
-                    if (UnityEngine.Random.Range(0f, 1f) < nonVolatileStatusConditionChances[key])
-                    {
-                        usageResults.targetNonVolatileStatusCondition = key;
-                        break;
-                    }
-
-                }
-            }
+            #region Non-Volatile Status Condition Only Failure Check
 
             if (nonVolatileStatusConditionOnly && usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
             {
@@ -631,29 +748,12 @@ namespace Pokemon.Moves
                 return usageResults;
             }
 
-            #region Weather Non-Volatile Status Condition Immunity
-
-            if (battleData.CurrentWeather.immuneNonVolatileStatusConditions.Contains(usageResults.targetNonVolatileStatusCondition))
-            {
-                usageResults.targetNonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
-            }
-
             #endregion
 
             if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
-                usageResults.targetAsleepInflictionDuration = (byte)UnityEngine.Random.Range(1, PokemonInstance.maximumDefaultSleepDuration + 1);
+                usageResults.targetAsleepInflictionDuration = CalculateAsleepInflictionDuration(user, target, battleData);
 
-            #region Absolute Recoil Damage
-
-            usageResults.userDamageDealt += absoluteRecoilDamage;
-
-            #endregion
-
-            #region Max Health-Relative Recoil Damage
-
-            usageResults.userDamageDealt += Mathf.RoundToInt(user.GetStats().health * maxHealthRelativeRecoilDamage);
-
-            #endregion
+            usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData);
 
             return usageResults;
 

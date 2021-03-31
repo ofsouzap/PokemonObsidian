@@ -1192,7 +1192,7 @@ namespace Battle
                     int previousHealth = action.user.ActivePokemon.health;
                     Stats<int> userBattleStats = action.user.ActivePokemon.GetBattleStats();
 
-                    action.user.ActivePokemon.TakeDamage(PokemonMove.CalculateDamageToDeal(
+                    action.user.ActivePokemon.TakeDamage(PokemonMove.CalculateNormalDamageToDeal(
                         action.user.ActivePokemon.GetLevel(),
                         PokemonInstance.BattleProperties.VolatileStatusConditions.confusionUserHarmPower,
                         ((float)userBattleStats.attack) / userBattleStats.defense,
