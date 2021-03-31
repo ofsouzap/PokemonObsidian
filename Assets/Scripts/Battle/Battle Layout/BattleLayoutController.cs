@@ -334,7 +334,7 @@ namespace Battle.BattleLayout
 
         #endregion
 
-        #region Pokemon Damage Taking
+        #region Pokemon Damage Taking and Healing
 
         private IEnumerator FlashSprite(GameObject sprite,
             int iterations)
@@ -417,6 +417,30 @@ namespace Battle.BattleLayout
                 healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
             ));
 
+        }
+
+        public IEnumerator HealHealthPlayerPokmeon(int newHealth,
+            int startHealth,
+            int maxHealth)
+        {
+            yield return StartCoroutine(GradualHealthBarChange(
+                (int value) => overviewPaneManager.playerPokemonOverviewPaneController.UpdateHealthBar(value, maxHealth),
+                startHealth,
+                newHealth,
+                healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
+            ));
+        }
+
+        public IEnumerator HealHealthOpponentPokmeon(int newHealth,
+            int startHealth,
+            int maxHealth)
+        {
+            yield return StartCoroutine(GradualHealthBarChange(
+                (int value) => overviewPaneManager.opponentPokemonOverviewPaneController.UpdateHealthBar(value, maxHealth),
+                startHealth,
+                newHealth,
+                healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
+            ));
         }
 
         #endregion

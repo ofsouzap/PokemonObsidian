@@ -66,6 +66,22 @@ namespace Battle
                         ));
                     break;
 
+                case Animation.Type.PlayerHealHealth:
+                    yield return StartCoroutine(battleLayoutController.HealHealthPlayerPokmeon(
+                        animation.takeDamageNewHealth,
+                        animation.takeDamageOldHealth,
+                        animation.takeDamageMaxHealth
+                        ));
+                    break;
+
+                case Animation.Type.OpponentHealHealth:
+                    yield return StartCoroutine(battleLayoutController.HealHealthOpponentPokmeon(
+                        animation.takeDamageNewHealth,
+                        animation.takeDamageOldHealth,
+                        animation.takeDamageMaxHealth
+                        ));
+                    break;
+
                 case Animation.Type.PlayerPokemonExperienceGain:
                     yield return StartCoroutine(battleLayoutController.IncreasePlayerPokemonExperience(
                         animation.experienceGainInitialExperience,

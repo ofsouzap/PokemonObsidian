@@ -33473,8 +33473,8 @@ MonoBehaviour:
     speciesId: 5
     level: 15
   npcTrainerPokemonSpecifications:
-  - speciesId: 14
-    level: 60
+  - speciesId: 15
+    level: 50
   - speciesId: 17
     level: 60
   - speciesId: 19

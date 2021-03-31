@@ -19,6 +19,8 @@ namespace Battle
                 PlayerTakeDamage,
                 OpponentRetract,
                 OpponentTakeDamage,
+                PlayerHealHealth,
+                OpponentHealHealth,
                 PlayerSendOut,
                 OpponentSendOut,
                 PlayerPokemonExperienceGain,
@@ -60,7 +62,7 @@ namespace Battle
 
             #endregion
 
-            #region Damage Taking (parameters used for both player and opponent)
+            #region Damage Taking/Healing (parameters used for both player and opponent)
 
             public int takeDamageNewHealth = 0;
             public int takeDamageOldHealth = 0;

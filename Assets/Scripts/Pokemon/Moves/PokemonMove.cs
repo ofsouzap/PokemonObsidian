@@ -236,6 +236,16 @@ namespace Pokemon.Moves
         /// </summary>
         public bool confusionOnly;
 
+        /// <summary>
+        /// The amount of health to heal the user as a proportion of the damage dealt to the target
+        /// </summary>
+        public float targetDamageDealtRelativeHealthHealed;
+
+        /// <summary>
+        /// The amount of health to heal the user as a proportion of the user's maximum health
+        /// </summary>
+        public float userMaxHealthRelativeHealthHealed;
+
         #endregion
 
         #region Move Using
@@ -268,6 +278,11 @@ namespace Pokemon.Moves
             /// The damage to deal to the user
             /// </summary>
             public int userDamageDealt = 0;
+
+            /// <summary>
+            /// The amount of health to give the user. This shouldn't ever be used as well as userDamageDealt
+            /// </summary>
+            public int userHealthHealed = 0;
 
             /// <summary>
             /// The damage to deal to the target
@@ -635,6 +650,9 @@ namespace Pokemon.Moves
 
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData, usageResults.targetDamageDealt);
 
+            if (usageResults.userDamageDealt == 0)
+                usageResults.userHealthHealed = CalculateUserHealthHealed(user, battleData, usageResults.targetDamageDealt);
+
             usageResults.thawTarget = CheckIfThawTarget(user, target, battleData);
 
             return usageResults;
@@ -817,6 +835,21 @@ namespace Pokemon.Moves
             BattleData battleData)
             => (byte)UnityEngine.Random.Range(1, PokemonInstance.maximumDefaultSleepDuration + 1);
 
+        public virtual int CalculateUserHealthHealed(PokemonInstance user,
+            BattleData battleData,
+            int targetDamageDealt = 0)
+        {
+
+            int healthHealed = 0;
+
+            healthHealed += Mathf.RoundToInt(targetDamageDealt * targetDamageDealtRelativeHealthHealed);
+
+            healthHealed += Mathf.RoundToInt(user.GetStats().health * userMaxHealthRelativeHealthHealed);
+
+            return healthHealed + user.health < user.GetStats().health ? healthHealed : user.GetStats().health - user.health;
+
+        }
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -899,6 +932,9 @@ namespace Pokemon.Moves
                 usageResults.targetAsleepInflictionDuration = CalculateAsleepInflictionDuration(user, target, battleData);
 
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData);
+
+            if (usageResults.userDamageDealt == 0)
+                usageResults.userHealthHealed = CalculateUserHealthHealed(user, battleData);
 
             return usageResults;
 

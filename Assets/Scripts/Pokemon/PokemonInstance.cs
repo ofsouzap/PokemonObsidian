@@ -261,6 +261,20 @@ namespace Pokemon
 
         }
 
+        public void HealHealth(int maximumAmount)
+        {
+
+            if (health + maximumAmount < GetStats().health)
+            {
+                health += maximumAmount;
+            }
+            else
+            {
+                health = GetStats().health;
+            }
+
+        }
+
         /// <summary>
         /// Gets the value of a pokemon instance's stat according to their EV, IV, Level, Base Stats and Nature
         /// </summary>

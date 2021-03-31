@@ -1430,6 +1430,33 @@ namespace Battle
 
                 #endregion
 
+                #region User Healing
+
+                if (usageResults.userHealthHealed > 0)
+                {
+
+                    int userInitialHealth = action.user.ActivePokemon.health;
+
+                    action.user.ActivePokemon.HealHealth(usageResults.userHealthHealed);
+
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                    {
+                        type = action.user is BattleParticipantPlayer
+                            ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
+                            : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                        takeDamageOldHealth = userInitialHealth,
+                        takeDamageNewHealth = userPokemon.health,
+                        takeDamageMaxHealth = userPokemon.GetStats().health
+                    });
+                    battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " recovered some health");
+
+                }
+
+                #endregion
+
+                if (usageResults.userHealthHealed > 0 && usageResults.userDamageDealt > 0)
+                    Debug.LogError("Usage results contained health reduction and health increase for user pokemon");
+
                 #region User Stat Modifiers
 
                 BattleAnimationSequencer.Animation[] userStatModifierAnimations = ExecuteAction_Fight_StatModifiers(

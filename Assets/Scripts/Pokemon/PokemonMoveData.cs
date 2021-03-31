@@ -57,6 +57,8 @@ namespace Pokemon
          * Chance of increasing each of target's stat by 1 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
          * Chance of decreasing each of target's stat by 2 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
          * Chance of increasing each of target's stat by 2 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
+         * Target damage dealt-relative health to heal user by
+         * User maximum health-relative health to heal user by
          */
 
         public static void LoadData()
@@ -70,7 +72,7 @@ namespace Pokemon
             Array.Copy(specialMoves, 0, newRegistry, nonSpecialMoves.Length, specialMoves.Length);
 
             PokemonMove.registry.SetValues(newRegistry);
-
+            
         }
 
         private static PokemonMove[] LoadNonSpecialPokemonMoves()
@@ -91,11 +93,11 @@ namespace Pokemon
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
                 bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly;
-                float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage;
+                float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage, targetDamageDealtRelativeHealthHealed, userMaxHealthRelativeHealthHealed;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
 
-                if (entry.Length < 26)
+                if (entry.Length < 28)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -961,6 +963,40 @@ namespace Pokemon
 
                 #endregion
 
+                #region targetDamageDealtRelativeHealthHealed
+
+                string targetDamageDealtRelativeHealthHealedEntry = entry[26];
+
+                if (targetDamageDealtRelativeHealthHealedEntry == "")
+                    targetDamageDealtRelativeHealthHealed = 0;
+                else
+                {
+                    if (!float.TryParse(targetDamageDealtRelativeHealthHealedEntry, out targetDamageDealtRelativeHealthHealed))
+                    {
+                        Debug.LogError("Invalid targetDamageDealtRelativeHealthHealed entry for id " + id);
+                        targetDamageDealtRelativeHealthHealed = 1;
+                    }
+                }
+
+                #endregion
+
+                #region userMaxHealthRelativeHealthHealed
+
+                string userMaxHealthRelativeHealthHealedEntry = entry[27];
+
+                if (userMaxHealthRelativeHealthHealedEntry == "")
+                    userMaxHealthRelativeHealthHealed = 0;
+                else
+                {
+                    if (!float.TryParse(userMaxHealthRelativeHealthHealedEntry, out userMaxHealthRelativeHealthHealed))
+                    {
+                        Debug.LogError("Invalid userMaxHealthRelativeHealthHealed entry for id " + id);
+                        userMaxHealthRelativeHealthHealed = 1;
+                    }
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -989,7 +1025,9 @@ namespace Pokemon
                     noOpponentEffects = noOpponentEffects,
                     confusionOnly = confusionOnly,
                     absoluteTargetDamage = absoluteTargetDamage,
-                    targetStatChangeChances = targetStatChangeChances
+                    targetStatChangeChances = targetStatChangeChances,
+                    targetDamageDealtRelativeHealthHealed = targetDamageDealtRelativeHealthHealed,
+                    userMaxHealthRelativeHealthHealed = userMaxHealthRelativeHealthHealed
                 });
 
             }
