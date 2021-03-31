@@ -26,6 +26,60 @@ namespace Pokemon.Moves
 
         #endregion
 
+        #region Sprites
+
+        private const string symbolsSpriteSheetName = "sprite_sheet_symbols";
+        private const string typeSymbolSpritePrefix = "movecategory_";
+
+        private static Dictionary<MoveType, Sprite> moveCategorySprites = new Dictionary<MoveType, Sprite>();
+        private static bool moveCategorySpritesLoaded = false;
+
+        private static void LoadMoveCategorySprites()
+        {
+
+            moveCategorySprites = new Dictionary<MoveType, Sprite>();
+
+            Sprite[] symbolSprites = Resources.LoadAll<Sprite>("Sprites/" + symbolsSpriteSheetName);
+
+            foreach (Sprite sprite in symbolSprites)
+            {
+
+                switch (sprite.name)
+                {
+
+                    case typeSymbolSpritePrefix + "physical":
+                        moveCategorySprites.Add(MoveType.Physical, sprite);
+                        break;
+
+                    case typeSymbolSpritePrefix + "special":
+                        moveCategorySprites.Add(MoveType.Special, sprite);
+                        break;
+
+                    case typeSymbolSpritePrefix + "status":
+                        moveCategorySprites.Add(MoveType.Status, sprite);
+                        break;
+
+
+                }
+
+            }
+
+            moveCategorySpritesLoaded = true;
+
+        }
+
+        public static Sprite LoadMoveTypeSprite(MoveType moveType)
+        {
+
+            if (!moveCategorySpritesLoaded)
+                LoadMoveCategorySprites();
+
+            return moveCategorySprites[moveType];
+
+        }
+
+        #endregion
+
         #region Struggle
 
         public static PokemonMove struggle = new PokemonMove()

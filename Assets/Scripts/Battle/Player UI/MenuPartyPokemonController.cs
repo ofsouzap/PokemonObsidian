@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Battle.PlayerUI;
+using Pokemon;
 
 namespace Battle.PlayerUI
 {
@@ -64,7 +64,7 @@ namespace Battle.PlayerUI
         public Text textSpeedValue;
         public HealthBarScript healthBar;
 
-        public void SetPokemonDetails(Pokemon.PokemonInstance pokemon)
+        public void SetPokemonDetails(PokemonInstance pokemon)
         {
 
             #region Images
@@ -77,6 +77,19 @@ namespace Battle.PlayerUI
 
             #region General Details
 
+            imageType1.sprite = TypeFunc.LoadTypeSymbolSprite(pokemon.species.type1);
+
+            Pokemon.Type? pokemonType2 = pokemon.species.type2;
+            if (pokemonType2 == null)
+            {
+                imageType2.gameObject.SetActive(false);
+            }
+            else
+            {
+                imageType2.gameObject.SetActive(true);
+                imageType2.sprite = TypeFunc.LoadTypeSymbolSprite((Pokemon.Type)pokemon.species.type2);
+            }
+
             textName.text = pokemon.GetDisplayName();
 
             imageGender.sprite = pokemon.LoadGenderSprite();
@@ -87,12 +100,12 @@ namespace Battle.PlayerUI
 
             //TODO - set values for ability when and if implemented
 
-            if (pokemon.nonVolatileStatusCondition != Pokemon.PokemonInstance.NonVolatileStatusCondition.None)
+            if (pokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
             {
 
                 imageStatusCondition.gameObject.SetActive(true);
 
-                Sprite statusConditionSprite = Pokemon.PokemonInstance.LoadNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
+                Sprite statusConditionSprite = PokemonInstance.LoadNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
                 if (statusConditionSprite != null)
                 {
                     imageStatusCondition.gameObject.SetActive(true);

@@ -159,9 +159,8 @@ namespace Battle.PlayerUI
             textPowerValue.text = move.power != 0 ? move.power.ToString() : "-";
             textAccuracyValue.text = move.accuracy != 0 ? move.accuracy.ToString() : "-";
 
-            //TODO - have below images set once their sprites are ready
-            imageCategory.sprite = null;
-            imageType.sprite = null;
+            imageCategory.sprite = PokemonMove.LoadMoveTypeSprite(move.moveType);
+            imageType.sprite = Pokemon.TypeFunc.LoadTypeSymbolSprite(move.type);
 
             ShowMovePane();
 
