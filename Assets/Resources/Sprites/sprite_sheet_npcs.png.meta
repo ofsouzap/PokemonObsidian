@@ -34,7 +34,7 @@ TextureImporter:
     second: lass_idle_d
   - first:
       213: 959315620587959384
-    second: girl1_idle_d
+    second: battlegirl_idle_d
   - first:
       213: -1795797300856046419
     second: beauty_idle_d
@@ -43,7 +43,7 @@ TextureImporter:
     second: acetrainerf_idle_d
   - first:
       213: 2997443616265172821
-    second: girl2_idle_d
+    second: idol_idle_d
   - first:
       213: 3428545577471159566
     second: socialite_idle_d
@@ -52,7 +52,7 @@ TextureImporter:
     second: cowgirl_idle_d
   - first:
       213: -6461788093007357107
-    second: girl3_idle_d
+    second: lady_idle_d
   - first:
       213: -5135720353159366131
     second: nurse_idle_d
@@ -61,13 +61,13 @@ TextureImporter:
     second: youngster_idle_d
   - first:
       213: -3755288730504152831
-    second: girl4_idle_d
+    second: schoolgirl_idle_d
   - first:
       213: 2641504602948227439
-    second: man1_idle_d
+    second: pokefanm_idle_d
   - first:
       213: -954686947271676933
-    second: woman1_idle_d
+    second: pokefanf_idle_d
   - first:
       213: -5472017022774859749
     second: waiter_idle_d
@@ -79,10 +79,10 @@ TextureImporter:
     second: boy1_idle_d
   - first:
       213: 5664134169830521006
-    second: girl5_idle_d
+    second: aromalady_idle_d
   - first:
       213: 5000759321461709156
-    second: ranchman_idle_d
+    second: collector_idle_d
   - first:
       213: -2564007302032707424
     second: scientist_idle_d
@@ -130,7 +130,7 @@ TextureImporter:
     second: lass_idle_u
   - first:
       213: 2353971705727637908
-    second: girl1_idle_u
+    second: battlegirl_idle_u
   - first:
       213: -1631007469918425504
     second: beauty_idle_u
@@ -139,7 +139,7 @@ TextureImporter:
     second: acetrainerf_idle_u
   - first:
       213: -8083582646351920959
-    second: girl2_idle_u
+    second: idol_idle_u
   - first:
       213: 3326499729699955095
     second: socialite_idle_u
@@ -148,7 +148,7 @@ TextureImporter:
     second: cowgirl_idle_u
   - first:
       213: -8435522544825616339
-    second: girl3_idle_u
+    second: lady_idle_u
   - first:
       213: -8106134556335254608
     second: nurse_idle_u
@@ -157,13 +157,13 @@ TextureImporter:
     second: youngster_idle_u
   - first:
       213: 110192235717259589
-    second: girl4_idle_u
+    second: schoolgirl_idle_u
   - first:
       213: -6480017883433932260
-    second: man1_idle_u
+    second: pokefanm_idle_u
   - first:
       213: -5147841922516135660
-    second: woman1_idle_u
+    second: pokefanf_idle_u
   - first:
       213: 4407906892239746547
     second: waiter_idle_u
@@ -175,10 +175,10 @@ TextureImporter:
     second: boy1_idle_u
   - first:
       213: -7909792070425562665
-    second: girl5_idle_u
+    second: aromalady_idle_u
   - first:
       213: -3166733670821323603
-    second: ranchman_idle_u
+    second: collector_idle_u
   - first:
       213: -5080058904659659370
     second: scientist_idle_u
@@ -226,7 +226,7 @@ TextureImporter:
     second: lass_idle_l
   - first:
       213: -7344117415271948911
-    second: girl1_idle_l
+    second: battlegirl_idle_l
   - first:
       213: 9016360484112830322
     second: beauty_idle_l
@@ -235,7 +235,7 @@ TextureImporter:
     second: acetrainerf_idle_l
   - first:
       213: 8993942271753106821
-    second: girl2_idle_l
+    second: idol_idle_l
   - first:
       213: -5680883330042005528
     second: socialite_idle_l
@@ -244,7 +244,7 @@ TextureImporter:
     second: cowgirl_idle_l
   - first:
       213: 2170767750648042677
-    second: girl3_idle_l
+    second: lady_idle_l
   - first:
       213: 1861667141046933988
     second: nurse_idle_l
@@ -253,13 +253,13 @@ TextureImporter:
     second: youngster_idle_l
   - first:
       213: 6236628424458434361
-    second: girl4_idle_l
+    second: schoolgirl_idle_l
   - first:
       213: 5825006997316660051
-    second: man1_idle_l
+    second: pokefanm_idle_l
   - first:
       213: -6565275240588865779
-    second: woman1_idle_l
+    second: pokefanf_idle_l
   - first:
       213: 5165233727362834586
     second: waiter_idle_l
@@ -271,10 +271,10 @@ TextureImporter:
     second: boy1_idle_l
   - first:
       213: 4794758553931664973
-    second: girl5_idle_l
+    second: aromalady_idle_l
   - first:
       213: -819081796645670897
-    second: ranchman_idle_l
+    second: collector_idle_l
   - first:
       213: -2983271963760442698
     second: scientist_idle_l
@@ -322,7 +322,7 @@ TextureImporter:
     second: lass_walk_u_1
   - first:
       213: -4366454684669659242
-    second: girl1_walk_u_1
+    second: battlegirl_walk_u_1
   - first:
       213: -6766730319971869123
     second: beauty_walk_u_1
@@ -331,7 +331,7 @@ TextureImporter:
     second: acetrainerf_walk_u_1
   - first:
       213: -3771729085915618083
-    second: girl2_walk_u_1
+    second: idol_walk_u_1
   - first:
       213: -771011839696447296
     second: socialite_walk_u_1
@@ -340,7 +340,7 @@ TextureImporter:
     second: cowgirl_walk_u_1
   - first:
       213: 5458636768443585345
-    second: girl3_walk_u_1
+    second: lady_walk_u_1
   - first:
       213: 7716731999409041315
     second: nurse_walk_u_1
@@ -349,13 +349,13 @@ TextureImporter:
     second: youngster_walk_u_1
   - first:
       213: -7041327600234161392
-    second: girl4_walk_u_1
+    second: schoolgirl_walk_u_1
   - first:
       213: -8962508014495047286
-    second: man1_walk_u_1
+    second: pokefanm_walk_u_1
   - first:
       213: -73038661697350963
-    second: woman1_walk_u_1
+    second: pokefanf_walk_u_1
   - first:
       213: 3620936639932907631
     second: waiter_walk_u_1
@@ -367,10 +367,10 @@ TextureImporter:
     second: boy1_walk_u_1
   - first:
       213: 6767048606541898791
-    second: girl5_walk_u_1
+    second: aromalady_walk_u_1
   - first:
       213: -1472718954603463025
-    second: ranchman_walk_u_1
+    second: collector_walk_u_1
   - first:
       213: 2061953582647675270
     second: scientist_walk_u_1
@@ -418,7 +418,7 @@ TextureImporter:
     second: lass_walk_u_2
   - first:
       213: 8075692940688672711
-    second: girl1_walk_u_2
+    second: battlegirl_walk_u_2
   - first:
       213: -3245991498574373926
     second: beauty_walk_u_2
@@ -427,7 +427,7 @@ TextureImporter:
     second: acetrainerf_walk_u_2
   - first:
       213: 908624474315433183
-    second: girl2_walk_u_2
+    second: idol_walk_u_2
   - first:
       213: -502073006802717708
     second: socialite_walk_u_2
@@ -436,7 +436,7 @@ TextureImporter:
     second: cowgirl_walk_u_2
   - first:
       213: -4333991184942500248
-    second: girl3_walk_u_2
+    second: lady_walk_u_2
   - first:
       213: -1859847837994939341
     second: nurse_walk_u_2
@@ -445,13 +445,13 @@ TextureImporter:
     second: youngster_walk_u_2
   - first:
       213: 7573575478632350785
-    second: girl4_walk_u_2
+    second: schoolgirl_walk_u_2
   - first:
       213: -8273794548748614190
-    second: man1_walk_u_2
+    second: pokefanm_walk_u_2
   - first:
       213: 7250932852987596757
-    second: woman1_walk_u_2
+    second: pokefanf_walk_u_2
   - first:
       213: -3630991498480580214
     second: waiter_walk_u_2
@@ -463,10 +463,10 @@ TextureImporter:
     second: boy1_walk_u_2
   - first:
       213: 757599396158859534
-    second: girl5_walk_u_2
+    second: aromalady_walk_u_2
   - first:
       213: -3358399133382493671
-    second: ranchman_walk_u_2
+    second: collector_walk_u_2
   - first:
       213: -4106728797860150970
     second: scientist_walk_u_2
@@ -514,7 +514,7 @@ TextureImporter:
     second: lass_walk_d_1
   - first:
       213: 6458718524849208492
-    second: girl1_walk_d_1
+    second: battlegirl_walk_d_1
   - first:
       213: -2826130642968236846
     second: beauty_walk_d_1
@@ -523,7 +523,7 @@ TextureImporter:
     second: acetrainerf_walk_d_1
   - first:
       213: -1363641656451272878
-    second: girl2_walk_d_1
+    second: idol_walk_d_1
   - first:
       213: -2847288638589232969
     second: socialite_walk_d_1
@@ -532,7 +532,7 @@ TextureImporter:
     second: cowgirl_walk_d_1
   - first:
       213: 5839193047506632953
-    second: girl3_walk_d_1
+    second: lady_walk_d_1
   - first:
       213: 1208104554744254806
     second: nurse_walk_d_1
@@ -541,13 +541,13 @@ TextureImporter:
     second: youngster_walk_d_1
   - first:
       213: 2633044453868294981
-    second: girl4_walk_d_1
+    second: schoolgirl_walk_d_1
   - first:
       213: -1380926194293552641
-    second: man1_walk_d_1
+    second: pokefanm_walk_d_1
   - first:
       213: -6763445353187741558
-    second: woman1_walk_d_1
+    second: pokefanf_walk_d_1
   - first:
       213: 4933422032628759847
     second: waiter_walk_d_1
@@ -559,10 +559,10 @@ TextureImporter:
     second: boy1_walk_d_1
   - first:
       213: 669096477288257377
-    second: girl5_walk_d_1
+    second: aromalady_walk_d_1
   - first:
       213: -7323566996805339215
-    second: ranchman_walk_d_1
+    second: collector_walk_d_1
   - first:
       213: 3305292420818386032
     second: scientist_walk_d_1
@@ -610,7 +610,7 @@ TextureImporter:
     second: lass_walk_d_2
   - first:
       213: -356933005638142755
-    second: girl1_walk_d_2
+    second: battlegirl_walk_d_2
   - first:
       213: 2675997960734150494
     second: beauty_walk_d_2
@@ -619,7 +619,7 @@ TextureImporter:
     second: acetrainerf_walk_d_2
   - first:
       213: -2667291042536832116
-    second: girl2_walk_d_2
+    second: idol_walk_d_2
   - first:
       213: 6091694103356177991
     second: socialite_walk_d_2
@@ -628,7 +628,7 @@ TextureImporter:
     second: cowgirl_walk_d_2
   - first:
       213: -8377458513947405522
-    second: girl3_walk_d_2
+    second: lady_walk_d_2
   - first:
       213: 1190529505187850576
     second: nurse_walk_d_2
@@ -637,13 +637,13 @@ TextureImporter:
     second: youngster_walk_d_2
   - first:
       213: -2383056347382729391
-    second: girl4_walk_d_2
+    second: schoolgirl_walk_d_2
   - first:
       213: 9096122613164119635
-    second: man1_walk_d_2
+    second: pokefanm_walk_d_2
   - first:
       213: -769115507996203477
-    second: woman1_walk_d_2
+    second: pokefanf_walk_d_2
   - first:
       213: -3941472562670426974
     second: waiter_walk_d_2
@@ -655,10 +655,10 @@ TextureImporter:
     second: boy1_walk_d_2
   - first:
       213: -1488190038716800138
-    second: girl5_walk_d_2
+    second: aromalady_walk_d_2
   - first:
       213: -5636748550421812264
-    second: ranchman_walk_d_2
+    second: collector_walk_d_2
   - first:
       213: -4274991896397220069
     second: scientist_walk_d_2
@@ -706,7 +706,7 @@ TextureImporter:
     second: lass_walk_l_1
   - first:
       213: -6141013331307942913
-    second: girl1_walk_l_1
+    second: battlegirl_walk_l_1
   - first:
       213: 3970561480523484568
     second: beauty_walk_l_1
@@ -715,7 +715,7 @@ TextureImporter:
     second: acetrainerf_walk_l_1
   - first:
       213: -2993667909044927798
-    second: girl2_walk_l_1
+    second: idol_walk_l_1
   - first:
       213: -4027043144160664704
     second: socialite_walk_l_1
@@ -724,7 +724,7 @@ TextureImporter:
     second: cowgirl_walk_l_1
   - first:
       213: 4724605023368618424
-    second: girl3_walk_l_1
+    second: lady_walk_l_1
   - first:
       213: -3768326613787300878
     second: nurse_walk_l_1
@@ -733,13 +733,13 @@ TextureImporter:
     second: youngster_walk_l_1
   - first:
       213: -1760209108083816849
-    second: girl4_walk_l_1
+    second: schoolgirl_walk_l_1
   - first:
       213: 3507960325494594260
-    second: man1_walk_l_1
+    second: pokefanm_walk_l_1
   - first:
       213: 5841138026335227040
-    second: woman1_walk_l_1
+    second: pokefanf_walk_l_1
   - first:
       213: 2440993952702238845
     second: waiter_walk_l_1
@@ -751,10 +751,10 @@ TextureImporter:
     second: boy1_walk_l_1
   - first:
       213: -8217209189949458452
-    second: girl5_walk_l_1
+    second: aromalady_walk_l_1
   - first:
       213: -7493856512008916234
-    second: ranchman_walk_l_1
+    second: collector_walk_l_1
   - first:
       213: 1847409860730373356
     second: scientist_walk_l_1
@@ -802,7 +802,7 @@ TextureImporter:
     second: lass_walk_l_2
   - first:
       213: 5186745279205421758
-    second: girl1_walk_l_2
+    second: battlegirl_walk_l_2
   - first:
       213: 6735663237052706368
     second: beauty_walk_l_2
@@ -811,7 +811,7 @@ TextureImporter:
     second: acetrainerf_walk_l_2
   - first:
       213: 5295346839751057063
-    second: girl2_walk_l_2
+    second: idol_walk_l_2
   - first:
       213: -8456697746803782369
     second: socialite_walk_l_2
@@ -820,7 +820,7 @@ TextureImporter:
     second: cowgirl_walk_l_2
   - first:
       213: 2334177903115172490
-    second: girl3_walk_l_2
+    second: lady_walk_l_2
   - first:
       213: -5965608697391694801
     second: nurse_walk_l_2
@@ -829,7 +829,7 @@ TextureImporter:
     second: youngster_walk_l_2
   - first:
       213: 987668645011513844
-    second: girl4_walk_l_2
+    second: schoolgirl_walk_l_2
   - first:
       213: -4507061602402310028
     second: man1_walk_l_2
@@ -847,10 +847,10 @@ TextureImporter:
     second: boy1_walk_l_2
   - first:
       213: 4426024026372033094
-    second: girl5_walk_l_2
+    second: aromalady_walk_l_2
   - first:
       213: 4514937337871112048
-    second: ranchman_walk_l_2
+    second: collector_walk_l_2
   - first:
       213: 1671324462364876737
     second: scientist_walk_l_2
@@ -880,7 +880,7 @@ TextureImporter:
     second: guitarist_idle_d
   - first:
       213: -8526526624462479358
-    second: sprite_sheet_npcs_292
+    second: richboy_idle_d
   - first:
       213: 332414310598888080
     second: wintergirl_idle_d
@@ -919,7 +919,7 @@ TextureImporter:
     second: guitarist_idle_u
   - first:
       213: -3184616607641457114
-    second: sprite_sheet_npcs_306
+    second: richboy_idle_l
   - first:
       213: -4349109219128802684
     second: wintergirl_idle_u
@@ -958,7 +958,7 @@ TextureImporter:
     second: guitarist_idle_l
   - first:
       213: 4382393866739540504
-    second: sprite_sheet_npcs_320
+    second: richboy_walk_u_2
   - first:
       213: -1064279009859026449
     second: wintergirl_idle_l
@@ -1036,7 +1036,7 @@ TextureImporter:
     second: guitarist_walk_u_2
   - first:
       213: 3990472203432063688
-    second: sprite_sheet_npcs_348
+    second: richboy_walk_l_1
   - first:
       213: -5188820941045532559
     second: wintergirl_walk_u_2
@@ -1217,6 +1217,21 @@ TextureImporter:
   - first:
       213: 6851103016063979995
     second: professor1_walk_l_2
+  - first:
+      213: -5345512657612810856
+    second: richboy_idle_u
+  - first:
+      213: 4470486840426552422
+    second: richboy_walk_u_1
+  - first:
+      213: -5100594307813578391
+    second: richboy_walk_d_1
+  - first:
+      213: 1671480131285225654
+    second: richboy_walk_d_2
+  - first:
+      213: 708360963980604970
+    second: richboy_walk_l_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1540,7 +1555,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_idle_d
+      name: battlegirl_idle_d
       rect:
         serializedVersion: 2
         x: 320
@@ -1603,7 +1618,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_idle_d
+      name: idol_idle_d
       rect:
         serializedVersion: 2
         x: 416
@@ -1666,7 +1681,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_idle_d
+      name: lady_idle_d
       rect:
         serializedVersion: 2
         x: 512
@@ -1729,7 +1744,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_idle_d
+      name: schoolgirl_idle_d
       rect:
         serializedVersion: 2
         x: 608
@@ -1750,7 +1765,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_idle_d
+      name: pokefanm_idle_d
       rect:
         serializedVersion: 2
         x: 640
@@ -1771,7 +1786,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_idle_d
+      name: pokefanf_idle_d
       rect:
         serializedVersion: 2
         x: 672
@@ -1855,7 +1870,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_idle_d
+      name: aromalady_idle_d
       rect:
         serializedVersion: 2
         x: 800
@@ -1876,7 +1891,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_idle_d
+      name: collector_idle_d
       rect:
         serializedVersion: 2
         x: 832
@@ -2212,7 +2227,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_idle_u
+      name: battlegirl_idle_u
       rect:
         serializedVersion: 2
         x: 320
@@ -2275,7 +2290,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_idle_u
+      name: idol_idle_u
       rect:
         serializedVersion: 2
         x: 416
@@ -2338,7 +2353,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_idle_u
+      name: lady_idle_u
       rect:
         serializedVersion: 2
         x: 512
@@ -2401,7 +2416,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_idle_u
+      name: schoolgirl_idle_u
       rect:
         serializedVersion: 2
         x: 608
@@ -2422,7 +2437,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_idle_u
+      name: pokefanm_idle_u
       rect:
         serializedVersion: 2
         x: 640
@@ -2443,7 +2458,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_idle_u
+      name: pokefanf_idle_u
       rect:
         serializedVersion: 2
         x: 672
@@ -2527,7 +2542,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_idle_u
+      name: aromalady_idle_u
       rect:
         serializedVersion: 2
         x: 800
@@ -2548,7 +2563,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_idle_u
+      name: collector_idle_u
       rect:
         serializedVersion: 2
         x: 832
@@ -2884,7 +2899,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_idle_l
+      name: battlegirl_idle_l
       rect:
         serializedVersion: 2
         x: 320
@@ -2947,7 +2962,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_idle_l
+      name: idol_idle_l
       rect:
         serializedVersion: 2
         x: 416
@@ -3010,7 +3025,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_idle_l
+      name: lady_idle_l
       rect:
         serializedVersion: 2
         x: 512
@@ -3073,7 +3088,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_idle_l
+      name: schoolgirl_idle_l
       rect:
         serializedVersion: 2
         x: 608
@@ -3094,7 +3109,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_idle_l
+      name: pokefanm_idle_l
       rect:
         serializedVersion: 2
         x: 640
@@ -3115,7 +3130,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_idle_l
+      name: pokefanf_idle_l
       rect:
         serializedVersion: 2
         x: 672
@@ -3199,7 +3214,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_idle_l
+      name: aromalady_idle_l
       rect:
         serializedVersion: 2
         x: 800
@@ -3220,7 +3235,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_idle_l
+      name: collector_idle_l
       rect:
         serializedVersion: 2
         x: 832
@@ -3556,7 +3571,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_walk_u_1
+      name: battlegirl_walk_u_1
       rect:
         serializedVersion: 2
         x: 320
@@ -3619,7 +3634,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_walk_u_1
+      name: idol_walk_u_1
       rect:
         serializedVersion: 2
         x: 416
@@ -3682,7 +3697,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_walk_u_1
+      name: lady_walk_u_1
       rect:
         serializedVersion: 2
         x: 512
@@ -3745,7 +3760,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_walk_u_1
+      name: schoolgirl_walk_u_1
       rect:
         serializedVersion: 2
         x: 608
@@ -3766,7 +3781,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_walk_u_1
+      name: pokefanm_walk_u_1
       rect:
         serializedVersion: 2
         x: 640
@@ -3787,7 +3802,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_walk_u_1
+      name: pokefanf_walk_u_1
       rect:
         serializedVersion: 2
         x: 672
@@ -3871,7 +3886,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_walk_u_1
+      name: aromalady_walk_u_1
       rect:
         serializedVersion: 2
         x: 800
@@ -3892,7 +3907,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_walk_u_1
+      name: collector_walk_u_1
       rect:
         serializedVersion: 2
         x: 832
@@ -4228,7 +4243,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_walk_u_2
+      name: battlegirl_walk_u_2
       rect:
         serializedVersion: 2
         x: 320
@@ -4291,7 +4306,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_walk_u_2
+      name: idol_walk_u_2
       rect:
         serializedVersion: 2
         x: 416
@@ -4354,7 +4369,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_walk_u_2
+      name: lady_walk_u_2
       rect:
         serializedVersion: 2
         x: 512
@@ -4417,7 +4432,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_walk_u_2
+      name: schoolgirl_walk_u_2
       rect:
         serializedVersion: 2
         x: 608
@@ -4438,7 +4453,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_walk_u_2
+      name: pokefanm_walk_u_2
       rect:
         serializedVersion: 2
         x: 640
@@ -4459,7 +4474,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_walk_u_2
+      name: pokefanf_walk_u_2
       rect:
         serializedVersion: 2
         x: 672
@@ -4543,7 +4558,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_walk_u_2
+      name: aromalady_walk_u_2
       rect:
         serializedVersion: 2
         x: 800
@@ -4564,7 +4579,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_walk_u_2
+      name: collector_walk_u_2
       rect:
         serializedVersion: 2
         x: 832
@@ -4900,7 +4915,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_walk_d_1
+      name: battlegirl_walk_d_1
       rect:
         serializedVersion: 2
         x: 320
@@ -4963,7 +4978,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_walk_d_1
+      name: idol_walk_d_1
       rect:
         serializedVersion: 2
         x: 416
@@ -5026,7 +5041,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_walk_d_1
+      name: lady_walk_d_1
       rect:
         serializedVersion: 2
         x: 512
@@ -5089,7 +5104,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_walk_d_1
+      name: schoolgirl_walk_d_1
       rect:
         serializedVersion: 2
         x: 608
@@ -5110,7 +5125,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_walk_d_1
+      name: pokefanm_walk_d_1
       rect:
         serializedVersion: 2
         x: 640
@@ -5131,7 +5146,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_walk_d_1
+      name: pokefanf_walk_d_1
       rect:
         serializedVersion: 2
         x: 672
@@ -5215,7 +5230,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_walk_d_1
+      name: aromalady_walk_d_1
       rect:
         serializedVersion: 2
         x: 800
@@ -5236,7 +5251,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_walk_d_1
+      name: collector_walk_d_1
       rect:
         serializedVersion: 2
         x: 832
@@ -5572,7 +5587,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_walk_d_2
+      name: battlegirl_walk_d_2
       rect:
         serializedVersion: 2
         x: 320
@@ -5635,7 +5650,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_walk_d_2
+      name: idol_walk_d_2
       rect:
         serializedVersion: 2
         x: 416
@@ -5698,7 +5713,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_walk_d_2
+      name: lady_walk_d_2
       rect:
         serializedVersion: 2
         x: 512
@@ -5761,7 +5776,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_walk_d_2
+      name: schoolgirl_walk_d_2
       rect:
         serializedVersion: 2
         x: 608
@@ -5782,7 +5797,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_walk_d_2
+      name: pokefanm_walk_d_2
       rect:
         serializedVersion: 2
         x: 640
@@ -5803,7 +5818,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_walk_d_2
+      name: pokefanf_walk_d_2
       rect:
         serializedVersion: 2
         x: 672
@@ -5887,7 +5902,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_walk_d_2
+      name: aromalady_walk_d_2
       rect:
         serializedVersion: 2
         x: 800
@@ -5908,7 +5923,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_walk_d_2
+      name: collector_walk_d_2
       rect:
         serializedVersion: 2
         x: 832
@@ -6244,7 +6259,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_walk_l_1
+      name: battlegirl_walk_l_1
       rect:
         serializedVersion: 2
         x: 320
@@ -6307,7 +6322,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_walk_l_1
+      name: idol_walk_l_1
       rect:
         serializedVersion: 2
         x: 416
@@ -6370,7 +6385,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_walk_l_1
+      name: lady_walk_l_1
       rect:
         serializedVersion: 2
         x: 512
@@ -6433,7 +6448,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_walk_l_1
+      name: schoolgirl_walk_l_1
       rect:
         serializedVersion: 2
         x: 608
@@ -6454,7 +6469,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_walk_l_1
+      name: pokefanm_walk_l_1
       rect:
         serializedVersion: 2
         x: 640
@@ -6475,7 +6490,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_walk_l_1
+      name: pokefanf_walk_l_1
       rect:
         serializedVersion: 2
         x: 672
@@ -6559,7 +6574,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_walk_l_1
+      name: aromalady_walk_l_1
       rect:
         serializedVersion: 2
         x: 800
@@ -6580,7 +6595,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_walk_l_1
+      name: collector_walk_l_1
       rect:
         serializedVersion: 2
         x: 832
@@ -6916,7 +6931,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl1_walk_l_2
+      name: battlegirl_walk_l_2
       rect:
         serializedVersion: 2
         x: 320
@@ -6979,7 +6994,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl2_walk_l_2
+      name: idol_walk_l_2
       rect:
         serializedVersion: 2
         x: 416
@@ -7042,7 +7057,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl3_walk_l_2
+      name: lady_walk_l_2
       rect:
         serializedVersion: 2
         x: 512
@@ -7105,7 +7120,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl4_walk_l_2
+      name: schoolgirl_walk_l_2
       rect:
         serializedVersion: 2
         x: 608
@@ -7231,7 +7246,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: girl5_walk_l_2
+      name: aromalady_walk_l_2
       rect:
         serializedVersion: 2
         x: 800
@@ -7252,7 +7267,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ranchman_walk_l_2
+      name: collector_walk_l_2
       rect:
         serializedVersion: 2
         x: 832

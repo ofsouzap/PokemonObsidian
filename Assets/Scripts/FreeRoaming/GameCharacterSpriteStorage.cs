@@ -13,7 +13,7 @@ namespace FreeRoaming
         /// A dictionary storing all the sprites loaded.
         /// The keys are identifiers for the sprites in the format (using the '?' regex quantifier)
         ///     "{spriteName}_{state}(_{direction})?(_{index})?"
-        ///     Where everything is lower case, {spriteName} is the name of the sprite, {state} is the state of the sprite (eg. walking, neutral), {direction} is the direction of the sprite which may be "up","down","left" or "right" and {index} is the index of that sprite. for example, there are two sprites for a walking character
+        ///     Where everything is lower case, {spriteName} is the name of the sprite, {state} is the state of the sprite (eg. walking, neutral, battlesprite), {direction} is the direction of the sprite which may be "up","down","left" or "right" and {index} is the index of that sprite. for example, there are two sprites for a walking character
         /// The values are the sprite instances
         /// </summary>
         private static Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
@@ -38,6 +38,7 @@ namespace FreeRoaming
             spritesToStore.AddRange(LoadSpriteSheet("sprite_sheet_npcs"));
             spritesToStore.AddRange(LoadSpriteSheet("sprite_sheet_player_male"));
             spritesToStore.AddRange(LoadSpriteSheet("sprite_sheet_player_female"));
+            spritesToStore.AddRange(LoadSpriteSheet("sprite_sheet_npcs_battlesprites"));
 
             foreach (Sprite sprite in spritesToStore)
             {
@@ -132,6 +133,16 @@ namespace FreeRoaming
 
             return Get(identifier);
 
+        }
+
+        /// <summary>
+        /// Gets the battle sprite for a character
+        /// </summary>
+        /// <param name="spriteName">The name of the sprite</param>
+        /// <returns>The sprite found</returns>
+        public static Sprite GetBattleSprite(string spriteName)
+        {
+            return Get(spriteName + "_battlesprite");
         }
 
         /// <summary>

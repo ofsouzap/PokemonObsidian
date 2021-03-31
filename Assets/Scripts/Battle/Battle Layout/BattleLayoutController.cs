@@ -21,6 +21,9 @@ namespace Battle.BattleLayout
         public GameObject playerPokemonMoveParticleSystemObject;
         public GameObject opponentPokemonMoveParticleSystemObject;
 
+        public GameObject opponentTrainerSprite;
+        private float opponentTrainerSpriteRootX;
+
         #region Constants
 
         #region Constant Timings
@@ -80,6 +83,11 @@ namespace Battle.BattleLayout
 
         public const float statStageChangeTotalTime = 0.5F;
 
+        /// <summary>
+        /// The time it should take for a showcased opponent trainer to move from off-screen to its destination and the inverse
+        /// </summary>
+        public const float opponentTrainerShowcaseMovementTime = 0.75F;
+
         #endregion
 
         #region Other Constants
@@ -116,8 +124,13 @@ namespace Battle.BattleLayout
             if (opponentPokemonMoveParticleSystemObject.GetComponent<ParticleSystem>() == null)
                 Debug.LogError("No ParticleSystem component found for opponentPokemonMoveParticleSystemObject");
 
+            if (opponentTrainerSprite.GetComponent<SpriteRenderer>() == null)
+                Debug.LogError("No SpriteRenderer component found for opponentTrainerSprite");
+
             playerPokemonSpriteRootX = playerPokemonSprite.transform.localPosition.x;
             opponentPokemonSpriteRootX = opponentPokemonSprite.transform.localPosition.x;
+
+            opponentTrainerSpriteRootX = opponentTrainerSprite.transform.localPosition.x;
 
         }
 
@@ -125,6 +138,7 @@ namespace Battle.BattleLayout
         {
             playerPokemonSprite.SetActive(false);
             opponentPokemonSprite.SetActive(false);
+            opponentTrainerSprite.SetActive(false);
             overviewPaneManager.HidePanes();
         }
 
@@ -681,6 +695,49 @@ namespace Battle.BattleLayout
         {
 
             yield return StartCoroutine(PokemonStatChange(opponentPokemonSprite, statIncrease));
+
+        }
+
+        #endregion
+
+        #region Opponent Trainer Showcase
+
+        public IEnumerator OpponentTrainerShowcaseStart(Sprite trainerSprite)
+        {
+
+            opponentTrainerSprite.SetActive(true);
+
+            opponentTrainerSprite.GetComponent<SpriteRenderer>().sprite = trainerSprite;
+            opponentTrainerSprite.transform.localPosition = new Vector3(
+                pokemonSpriteOffScreenRightLocalPositionX,
+                opponentTrainerSprite.transform.localPosition.y,
+                opponentTrainerSprite.transform.localPosition.z
+            );
+
+            Vector3 targetPosition = new Vector3(
+                opponentTrainerSpriteRootX,
+                opponentTrainerSprite.transform.localPosition.y,
+                opponentTrainerSprite.transform.localPosition.z
+            );
+
+            yield return StartCoroutine(GradualTranslatePosition(opponentTrainerSprite, targetPosition, opponentTrainerShowcaseMovementTime));
+
+        }
+
+        public IEnumerator OpponentTrainerShowcaseStop()
+        {
+
+            opponentTrainerSprite.SetActive(true);
+
+            Vector3 targetPosition = new Vector3(
+                pokemonSpriteOffScreenRightLocalPositionX,
+                opponentTrainerSprite.transform.localPosition.y,
+                opponentTrainerSprite.transform.localPosition.z
+            );
+
+            yield return StartCoroutine(GradualTranslatePosition(opponentTrainerSprite, targetPosition, opponentTrainerShowcaseMovementTime));
+
+            opponentTrainerSprite.SetActive(false);
 
         }
 

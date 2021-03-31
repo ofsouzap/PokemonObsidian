@@ -28,6 +28,8 @@ namespace Battle
                 OpponentStatModifierDown,
                 PokemonMove,
                 WeatherDisplay,
+                OpponentTrainerShowcaseStart,
+                OpponentTrainerShowcaseStop,
                 Blackout,
                 Custom
             }
@@ -78,6 +80,12 @@ namespace Battle
 
             public int pokemonMoveId = 0;
             public bool pokemonMovePlayerIsUser = false;
+
+            #endregion
+
+            #region Opponent Trainer Showcase Start
+
+            public Sprite opponentTrainerShowcaseSprite = null;
 
             #endregion
 

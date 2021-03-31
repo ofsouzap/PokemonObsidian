@@ -1,0 +1,1209 @@
+fileFormatVersion: 2
+guid: a1f19cc9b6a477d4182db0c49eaafc1b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6490358570233130996
+    second: player_male_battlesprite
+  - first:
+      213: 3733856943196915581
+    second: player_female_battlesprite
+  - first:
+      213: -6646765427480664689
+    second: barry_battlesprite
+  - first:
+      213: -2896776505028467709
+    second: youngster_battlesprite
+  - first:
+      213: 8403689608145835202
+    second: lass_battlesprite
+  - first:
+      213: 6690257023189047325
+    second: picnicerm_battlesprite
+  - first:
+      213: 7848597484629992379
+    second: picnicerf_battlesprite
+  - first:
+      213: 3182308967844149143
+    second: bugcatcher_battlesprite
+  - first:
+      213: 3131790970282016406
+    second: aromalady_battlesprite
+  - first:
+      213: -8602901402574775169
+    second: sprite_sheet_npcs_battlesprites_11
+  - first:
+      213: 3560267942925596138
+    second: hiker_battlesprite
+  - first:
+      213: -3651388291729414430
+    second: battlegirl_battlesprite
+  - first:
+      213: 8930025544944989525
+    second: fisherman_battlesprite
+  - first:
+      213: 8957032332719926506
+    second: sprite_sheet_npcs_battlesprites_15
+  - first:
+      213: -2986915364054722092
+    second: sprite_sheet_npcs_battlesprites_16
+  - first:
+      213: -4681373722446048328
+    second: blackbelt_battlesprite
+  - first:
+      213: 4880529957083324779
+    second: sprite_sheet_npcs_battlesprites_18
+  - first:
+      213: 978244138726276180
+    second: sprite_sheet_npcs_battlesprites_19
+  - first:
+      213: 1709087942288316890
+    second: sprite_sheet_npcs_battlesprites_20
+  - first:
+      213: 5828056103132987677
+    second: cowgirl_battlesprite
+  - first:
+      213: 1715339913730700321
+    second: sprite_sheet_npcs_battlesprites_22
+  - first:
+      213: 4287735317583192323
+    second: pokefanm_battlesprite
+  - first:
+      213: -6752051719563352500
+    second: pokefanf_battlesprite
+  - first:
+      213: 8039905810600217988
+    second: sprite_sheet_npcs_battlesprites_25
+  - first:
+      213: 7990000929819266764
+    second: sprite_sheet_npcs_battlesprites_26
+  - first:
+      213: -8159623256515360783
+    second: acetrainerm_battlesprite
+  - first:
+      213: 3925558041099536378
+    second: acetrainerf_battlesprite
+  - first:
+      213: -988726145256930607
+    second: sprite_sheet_npcs_battlesprites_29
+  - first:
+      213: 7518913963783975593
+    second: veteran_battlesprite
+  - first:
+      213: 3276307440010594038
+    second: ninjaboy_battlesprite
+  - first:
+      213: 8469948601876423848
+    second: sprite_sheet_npcs_battlesprites_32
+  - first:
+      213: -5200630405553187465
+    second: birdkeeper_battlesprite
+  - first:
+      213: -7029285633256592570
+    second: sprite_sheet_npcs_battlesprites_34
+  - first:
+      213: -3287479073826452854
+    second: richboy_battlesprite
+  - first:
+      213: 7334086917455489515
+    second: lady_battlesprite
+  - first:
+      213: 1525420747989657687
+    second: gentleman_battlesprite
+  - first:
+      213: 2654583214739515665
+    second: socialite_battlesprite
+  - first:
+      213: -3849131820695054480
+    second: beauty_battlesprite
+  - first:
+      213: 2163352626191913186
+    second: collector_battlesprite
+  - first:
+      213: 1208506877498723721
+    second: officer_battlesprite
+  - first:
+      213: -7692215777844706834
+    second: sprite_sheet_npcs_battlesprites_42
+  - first:
+      213: -2706523059120881823
+    second: sprite_sheet_npcs_battlesprites_43
+  - first:
+      213: -6171824561013447841
+    second: scientist_battlesprite
+  - first:
+      213: 4188765954131088301
+    second: sprite_sheet_npcs_battlesprites_45
+  - first:
+      213: -7451290281752479675
+    second: sprite_sheet_npcs_battlesprites_46
+  - first:
+      213: 7843288464015477248
+    second: sprite_sheet_npcs_battlesprites_47
+  - first:
+      213: -5200437489994325844
+    second: sprite_sheet_npcs_battlesprites_48
+  - first:
+      213: 1999559315246051195
+    second: sprite_sheet_npcs_battlesprites_49
+  - first:
+      213: -3727992146811025522
+    second: salior_battlesprite
+  - first:
+      213: -2555979264437141438
+    second: ruinmaniac_battlesprite
+  - first:
+      213: 8372400732252560631
+    second: psychicm_battlesprite
+  - first:
+      213: -3012815908276417334
+    second: psychicf_battlesprite
+  - first:
+      213: -718248248592758784
+    second: sprite_sheet_npcs_battlesprites_54
+  - first:
+      213: 5933411273184221157
+    second: guitarist_battlesprite
+  - first:
+      213: -1165535301239550536
+    second: sprite_sheet_npcs_battlesprites_56
+  - first:
+      213: -1872907273411580103
+    second: sprite_sheet_npcs_battlesprites_57
+  - first:
+      213: 1093155607037215658
+    second: sprite_sheet_npcs_battlesprites_58
+  - first:
+      213: 1463637785498837672
+    second: sprite_sheet_npcs_battlesprites_59
+  - first:
+      213: 7498000608033793392
+    second: sprite_sheet_npcs_battlesprites_60
+  - first:
+      213: -6531477891628277270
+    second: clown_battlesprite
+  - first:
+      213: 999691723536765375
+    second: worker_battlesprite
+  - first:
+      213: -8807121755466605511
+    second: schoolboy_battlesprite
+  - first:
+      213: 7794183396939054370
+    second: schoolgirl_battlesprite
+  - first:
+      213: 6542034230374577872
+    second: sprite_sheet_npcs_battlesprites_65
+  - first:
+      213: -8674924492898249268
+    second: sprite_sheet_npcs_battlesprites_66
+  - first:
+      213: 8455135046616316941
+    second: sprite_sheet_npcs_battlesprites_67
+  - first:
+      213: -9076098958959979852
+    second: sprite_sheet_npcs_battlesprites_68
+  - first:
+      213: 2190146998913339580
+    second: sprite_sheet_npcs_battlesprites_69
+  - first:
+      213: -3749398949690405391
+    second: oli_battlesprite
+  - first:
+      213: -3188155037128578997
+    second: roxi_battlesprite
+  - first:
+      213: -2788406527931770423
+    second: idol_battlesprite
+  - first:
+      213: -5575668503227849509
+    second: maid_battlesprite
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 80
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: player_male_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c00975c844d9de5a0800000000000000
+      internalID: -6490358570233130996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_female_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77c0656b1351d330800000000000000
+      internalID: 3733856943196915581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: barry_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85eaad4f02f1c3a0800000000000000
+      internalID: -6646765427480664689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: youngster_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 304a410dd159cc7d0800000000000000
+      internalID: -2896776505028467709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lass_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c49c288c27ef9470800000000000000
+      internalID: 8403689608145835202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: picnicerm_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d18de3be05198dc50800000000000000
+      internalID: 6690257023189047325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: picnicerf_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb3256024d1dbec60800000000000000
+      internalID: 7848597484629992379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bugcatcher_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797f3e94525d92c20800000000000000
+      internalID: 3182308967844149143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aromalady_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 943
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69e7f666b4b567b20800000000000000
+      internalID: 3131790970282016406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hiker_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 862
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae57a4bb4dc986130800000000000000
+      internalID: 3560267942925596138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: battlegirl_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 862
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e6a27ec1b9a35dc0800000000000000
+      internalID: -3651388291729414430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fisherman_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 862
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5553c997be2ddeb70800000000000000
+      internalID: 8930025544944989525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackbelt_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 862
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b351c4076b680fb0800000000000000
+      internalID: -4681373722446048328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cowgirl_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 862
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d110a4eb52a61e050800000000000000
+      internalID: 5828056103132987677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokefanm_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 862
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301617fcd88118b30800000000000000
+      internalID: 4287735317583192323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokefanf_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 781
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c466c562cb4eb42a0800000000000000
+      internalID: -6752051719563352500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: acetrainerm_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 781
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f7c26631e133ce80800000000000000
+      internalID: -8159623256515360783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: acetrainerf_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 781
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af78ae86d326a7630800000000000000
+      internalID: 3925558041099536378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: veteran_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 781
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a27114c96c885860800000000000000
+      internalID: 7518913963783975593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ninjaboy_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 781
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f60dc01248c77d20800000000000000
+      internalID: 3276307440010594038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: birdkeeper_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 781
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77518e44336a3d7b0800000000000000
+      internalID: -5200630405553187465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lady_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 700
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be926ca9139e7c560800000000000000
+      internalID: 7334086917455489515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gentleman_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 700
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7582fe896126b2510800000000000000
+      internalID: 1525420747989657687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: socialite_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 700
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11963458e59f6d420800000000000000
+      internalID: 2654583214739515665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beauty_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 700
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07791dda003259ac0800000000000000
+      internalID: -3849131820695054480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: collector_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 700
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e0d31860c5c50e10800000000000000
+      internalID: 2163352626191913186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: officer_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 700
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98d8de52a9a75c010800000000000000
+      internalID: 1208506877498723721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: scientist_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 700
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5323c0f246495aa0800000000000000
+      internalID: -6171824561013447841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: salior_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 619
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8702ebe4e2834cc0800000000000000
+      internalID: -3727992146811025522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruinmaniac_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 619
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 240c5f1b666578cd0800000000000000
+      internalID: -2555979264437141438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: psychicm_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 619
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fc522b6b1eb03470800000000000000
+      internalID: 8372400732252560631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: psychicf_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 619
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: accc98dd4e35036d0800000000000000
+      internalID: -3012815908276417334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guitarist_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 619
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e7917ccd16b75250800000000000000
+      internalID: 5933411273184221157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clown_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 538
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae1ed2b76778b55a0800000000000000
+      internalID: -6531477891628277270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: worker_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 538
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb19e42735e9fdd00800000000000000
+      internalID: 999691723536765375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: schoolboy_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 538
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93c5ccfec61d6c580800000000000000
+      internalID: -8807121755466605511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: schoolgirl_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 538
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22dbcc011808a2c60800000000000000
+      internalID: 7794183396939054370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: oli_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 457
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fd0b7a358577fbc0800000000000000
+      internalID: -3749398949690405391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roxi_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 457
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b482413a2e561c3d0800000000000000
+      internalID: -3188155037128578997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idol_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 457
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c91f3559079d49d0800000000000000
+      internalID: -2788406527931770423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maid_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 457
+        width: 80
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd425c7990f3f92b0800000000000000
+      internalID: -5575668503227849509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

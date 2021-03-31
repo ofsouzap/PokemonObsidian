@@ -30,6 +30,7 @@ namespace Testing
         [Header("NPC Trainer Arguments")]
         public PokemonSpecification[] npcTrainerPokemonSpecifications;
         public string npcTrainerFullName;
+        public string npcTrainerSpriteName;
         public BattleParticipantNPC.Mode npcTrainerMode;
 
         private void Awake()
@@ -45,6 +46,7 @@ namespace Testing
                 && Nature.registry != null
                 && Pokemon.Moves.PokemonMove.registry != null
                 && Weather.registry != null
+                && (LoadGameCharacterSprites.singleton?.loaded == true )
                 );
 
             BattleEntranceArguments.argumentsSet = true;
@@ -85,6 +87,7 @@ namespace Testing
 
                     BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon = opponentPokemon.ToArray();
                     BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName = npcTrainerFullName;
+                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourcePath = npcTrainerSpriteName;
                     BattleEntranceArguments.npcTrainerBattleArguments.mode = npcTrainerMode;
 
                     break;

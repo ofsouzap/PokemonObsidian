@@ -172,7 +172,7 @@ namespace Battle
 
             }
 
-            #region Pokemon Announcements
+            #region Pokemon and Trainer Announcements
 
             #region Announce Opponent Pokemon
 
@@ -196,12 +196,33 @@ namespace Battle
             else
             {
 
+                Sprite opponentTrainerBattleSprite = FreeRoaming.GameCharacterSpriteStorage.GetBattleSprite(
+                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourcePath
+                );
+
+                if (opponentTrainerBattleSprite != null)
+                {
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                    {
+                        type = BattleAnimationSequencer.Animation.Type.OpponentTrainerShowcaseStart,
+                        opponentTrainerShowcaseSprite = opponentTrainerBattleSprite
+                    });
+                }
+
                 battleAnimationSequencer.EnqueueSingleText(battleData.participantOpponent.GetName()
                     + " challenged you!");
                 battleAnimationSequencer.EnqueueSingleText(battleData.participantOpponent.GetName()
                     + " sent out "
                     + battleData.participantOpponent.ActivePokemon.GetDisplayName()
                     + '!');
+
+                if (opponentTrainerBattleSprite != null)
+                {
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                    {
+                        type = BattleAnimationSequencer.Animation.Type.OpponentTrainerShowcaseStop
+                    });
+                }
 
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
@@ -238,6 +259,8 @@ namespace Battle
             }
 
             //TODO - when and if abilities made, apply them and announce them if needed
+
+            BattleEntranceArguments.argumentsSet = false;
 
             yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 

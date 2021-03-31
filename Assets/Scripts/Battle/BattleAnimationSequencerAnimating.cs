@@ -94,6 +94,14 @@ namespace Battle
                     yield return StartCoroutine(battleLayoutController.OpponentStatStageChange(false));
                     break;
 
+                case Animation.Type.OpponentTrainerShowcaseStart:
+                    yield return StartCoroutine(battleLayoutController.OpponentTrainerShowcaseStart(animation.opponentTrainerShowcaseSprite));
+                    break;
+
+                case Animation.Type.OpponentTrainerShowcaseStop:
+                    yield return StartCoroutine(battleLayoutController.OpponentTrainerShowcaseStop());
+                    break;
+
                     //TODO - case statements for each type
 
             }
