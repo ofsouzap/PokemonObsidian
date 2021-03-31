@@ -97,6 +97,11 @@ namespace Battle.PlayerUI
 
         }
 
+        public void CloseMenu()
+        {
+            HideMovePane();
+        }
+
         protected PokemonMove[] GetMoves() => PlayerData
             .singleton
             .partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex]

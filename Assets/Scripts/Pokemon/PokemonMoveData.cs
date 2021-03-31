@@ -53,6 +53,10 @@ namespace Pokemon
          * move is primarily for causing confusion to the target
          *     If so, the whole move will fail if it can't cause the target confusion
          * absolute target damage (positive int)
+         * Chance of decreasing each of target's stat by 1 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
+         * Chance of increasing each of target's stat by 1 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
+         * Chance of decreasing each of target's stat by 2 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
+         * Chance of increasing each of target's stat by 2 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
          */
 
         public static void LoadData()
@@ -89,8 +93,9 @@ namespace Pokemon
                 bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
+                PokemonMove.StatChangeChance[] targetStatChangeChances;
 
-                if (entry.Length < 22)
+                if (entry.Length < 26)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -880,6 +885,82 @@ namespace Pokemon
 
                 #endregion
 
+                #region targetStatChangeChances
+
+                List<PokemonMove.StatChangeChance> statChangeChancesList = new List<PokemonMove.StatChangeChance>();
+
+                #region -1
+
+                Stats<float> targetStatChangeChancesOneDecreaseStats = ParseStatsChancesProperty(entry[22],
+                    out bool targetStatChangeChancesOneDecreaseValid,
+                    out float targetStatChangeChancesOneDecreaseEvasion,
+                    out float targetStatChangeChancesOneDecreaseAccuracy);
+
+                if (!targetStatChangeChancesOneDecreaseValid)
+                    Debug.LogError("Invalid target stat change chances decrease one entry for id " + id);
+
+                statChangeChancesList.AddRange(GenerateStatChangeChanges(-1,
+                    targetStatChangeChancesOneDecreaseStats,
+                    targetStatChangeChancesOneDecreaseEvasion,
+                    targetStatChangeChancesOneDecreaseAccuracy));
+
+                #endregion
+
+                #region +1
+
+                Stats<float> targetStatChangeChancesOneIncreaseStats = ParseStatsChancesProperty(entry[23],
+                    out bool targetStatChangeChancesOneIncreaseValid,
+                    out float targetStatChangeChancesOneIncreaseEvasion,
+                    out float targetStatChangeChancesOneIncreaseAccuracy);
+
+                if (!targetStatChangeChancesOneIncreaseValid)
+                    Debug.LogError("Invalid target stat change chances increase one entry for id " + id);
+
+                statChangeChancesList.AddRange(GenerateStatChangeChanges(1,
+                    targetStatChangeChancesOneIncreaseStats,
+                    targetStatChangeChancesOneIncreaseEvasion,
+                    targetStatChangeChancesOneIncreaseAccuracy));
+
+                #endregion
+
+                #region -2
+
+                Stats<float> targetStatChangeChancesTwoDecreaseStats = ParseStatsChancesProperty(entry[24],
+                    out bool targetStatChangeChancesTwoDecreaseValid,
+                    out float targetStatChangeChancesTwoDecreaseEvasion,
+                    out float targetStatChangeChancesTwoDecreaseAccuracy);
+
+                if (!targetStatChangeChancesTwoDecreaseValid)
+                    Debug.LogError("Invalid target stat change chances decrease two entry for id " + id);
+
+                statChangeChancesList.AddRange(GenerateStatChangeChanges(-2,
+                    targetStatChangeChancesTwoDecreaseStats,
+                    targetStatChangeChancesTwoDecreaseEvasion,
+                    targetStatChangeChancesTwoDecreaseAccuracy));
+
+                #endregion
+
+                #region +2
+
+                Stats<float> targetStatChangeChancesTwoIncreaseStats = ParseStatsChancesProperty(entry[25],
+                    out bool targetStatChangeChancesTwoIncreaseValid,
+                    out float targetStatChangeChancesTwoIncreaseEvasion,
+                    out float targetStatChangeChancesTwoIncreaseAccuracy);
+
+                if (!targetStatChangeChancesTwoIncreaseValid)
+                    Debug.LogError("Invalid target stat change chances increase two entry for id " + id);
+
+                statChangeChancesList.AddRange(GenerateStatChangeChanges(2,
+                    targetStatChangeChancesTwoIncreaseStats,
+                    targetStatChangeChancesTwoIncreaseEvasion,
+                    targetStatChangeChancesTwoIncreaseAccuracy));
+
+                #endregion
+
+                targetStatChangeChances = statChangeChancesList.ToArray();
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -907,7 +988,8 @@ namespace Pokemon
                     targetDamageRelativeRecoilDamage = targetDamageRelativeRecoilDamage,
                     noOpponentEffects = noOpponentEffects,
                     confusionOnly = confusionOnly,
-                    absoluteTargetDamage = absoluteTargetDamage
+                    absoluteTargetDamage = absoluteTargetDamage,
+                    targetStatChangeChances = targetStatChangeChances
                 });
 
             }
@@ -950,6 +1032,149 @@ namespace Pokemon
                     return null;
 
             }
+
+        }
+
+        private static Stats<float> ParseStatsChancesProperty(string value,
+            out bool entryValid,
+            out float evasionChance,
+            out float accuracyChance)
+        {
+
+            if (value == "")
+            {
+                entryValid = true;
+                evasionChance = 0;
+                accuracyChance = 0;
+                return new Stats<float>();
+            }
+            else
+            {
+
+                string[] parts = value.Split(';');
+
+                float statChangeAttack,
+                    statChangeDefense,
+                    statChangeSpecialAttack,
+                    statChangeSpecialDefense,
+                    statChangeSpeed,
+                    statChangeEvasion,
+                    statChangeAccuracy;
+
+                bool statChangeAttackSuccess,
+                    statChangeDefenseSuccess,
+                    statChangeSpecialAttackSuccess,
+                    statChangeSpecialDefenseSuccess,
+                    statChangeSpeedSuccess,
+                    statChangeEvasionSuccess,
+                    statChangeAccuracySuccess;
+
+                statChangeAttackSuccess = float.TryParse(parts[0], out statChangeAttack);
+                statChangeDefenseSuccess = float.TryParse(parts[1], out statChangeDefense);
+                statChangeSpecialAttackSuccess = float.TryParse(parts[2], out statChangeSpecialAttack);
+                statChangeSpecialDefenseSuccess = float.TryParse(parts[3], out statChangeSpecialDefense);
+                statChangeSpeedSuccess = float.TryParse(parts[4], out statChangeSpeed);
+                statChangeEvasionSuccess = float.TryParse(parts[5], out statChangeEvasion);
+                statChangeAccuracySuccess = float.TryParse(parts[6], out statChangeAccuracy);
+
+                bool statChangeSuccess = statChangeAttackSuccess
+                    && statChangeDefenseSuccess
+                    && statChangeSpecialAttackSuccess
+                    && statChangeSpecialDefenseSuccess
+                    && statChangeSpeedSuccess
+                    && statChangeEvasionSuccess
+                    && statChangeAccuracySuccess;
+
+                if (statChangeSuccess)
+                {
+
+                    entryValid = true;
+
+                    Stats<float> output = new Stats<float>()
+                    {
+                        defense = statChangeDefense,
+                        attack = statChangeAttack,
+                        specialAttack = statChangeSpecialAttack,
+                        specialDefense = statChangeSpecialDefense,
+                        speed = statChangeSpeed
+                    };
+
+                    evasionChance = statChangeEvasion;
+                    accuracyChance = statChangeAccuracy;
+
+                    return output;
+
+                }
+                else
+                {
+                    entryValid = false;
+                    evasionChance = 0;
+                    accuracyChance = 0;
+                    return new Stats<float>();
+                }
+
+            }
+
+        }
+
+        private static PokemonMove.StatChangeChance[] GenerateStatChangeChanges(sbyte amount,
+            Stats<float> statChangeChances,
+            float evasionChance,
+            float accuracyChance)
+        {
+
+            List<PokemonMove.StatChangeChance> chances = new List<PokemonMove.StatChangeChance>();
+
+            if (statChangeChances.attack > 0)
+                chances.Add(new PokemonMove.StatChangeChance()
+                {
+                    statChanges = new Stats<sbyte>() { attack = amount },
+                    chance = statChangeChances.attack
+                });
+
+            if (statChangeChances.defense > 0)
+                chances.Add(new PokemonMove.StatChangeChance()
+                {
+                    statChanges = new Stats<sbyte>() { defense = amount },
+                    chance = statChangeChances.defense
+                });
+
+            if (statChangeChances.specialAttack > 0)
+                chances.Add(new PokemonMove.StatChangeChance()
+                {
+                    statChanges = new Stats<sbyte>() { specialAttack = amount },
+                    chance = statChangeChances.specialAttack
+                });
+
+            if (statChangeChances.specialDefense > 0)
+                chances.Add(new PokemonMove.StatChangeChance()
+                {
+                    statChanges = new Stats<sbyte>() { specialDefense = amount },
+                    chance = statChangeChances.specialDefense
+                });
+
+            if (statChangeChances.speed > 0)
+                chances.Add(new PokemonMove.StatChangeChance()
+                {
+                    statChanges = new Stats<sbyte>() { speed = amount },
+                    chance = statChangeChances.speed
+                });
+
+            if (evasionChance > 0)
+                chances.Add(new PokemonMove.StatChangeChance()
+                {
+                    evasionChange = amount,
+                    chance = evasionChance
+                });
+            
+            if (accuracyChance > 0)
+                chances.Add(new PokemonMove.StatChangeChance()
+                {
+                    accuracyChange = amount,
+                    chance = accuracyChance
+                });
+
+            return chances.ToArray();
 
         }
 

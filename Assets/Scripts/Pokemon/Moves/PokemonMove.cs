@@ -153,6 +153,24 @@ namespace Pokemon.Moves
         /// </summary>
         public Stats<sbyte> targetStatChanges;
 
+        #region Stat Change Chances
+
+        /// <summary>
+        /// Describes a single change that could be applied to a pokemon with a set chance of happening. If one happens, the rest will also happen
+        /// </summary>
+        public struct StatChangeChance
+        {
+            public Stats<sbyte> statChanges;
+            public sbyte evasionChange;
+            public sbyte accuracyChange;
+            public float chance;
+        }
+
+        public StatChangeChance[] targetStatChangeChances;
+        public StatChangeChance[] userStatChangeChances;
+
+        #endregion
+
         /// <summary>
         /// Evasion modifier change to apply to target
         /// </summary>
@@ -558,7 +576,7 @@ namespace Pokemon.Moves
 
         }
 
-        public bool CheckIfThawTarget(PokemonInstance user,
+        public virtual bool CheckIfThawTarget(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
             => type == Type.Fire && target.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen;
@@ -668,6 +686,63 @@ namespace Pokemon.Moves
             PokemonInstance target,
             BattleData battleData)
         {
+
+            #region Basic Stat Changes
+
+            Stats<sbyte> userStatChanges = this.userStatChanges;
+            sbyte userEvasionModifier = this.userEvasionModifier;
+            sbyte userAccuracyModifier = this.userAccuracyModifier;
+            Stats<sbyte> targetStatChanges = this.targetStatChanges;
+            sbyte targetEvasionModifier = this.targetEvasionModifier;
+            sbyte targetAccuracyModifier = this.targetAccuracyModifier;
+
+            #endregion
+
+            #region Chance Stat Changes
+
+            if (userStatChangeChances != null)
+                foreach (StatChangeChance statChangeChance in userStatChangeChances)
+                {
+
+                    if (UnityEngine.Random.Range(0F, 1F) <= statChangeChance.chance)
+                    {
+
+                        userStatChanges.attack += statChangeChance.statChanges.attack;
+                        userStatChanges.defense += statChangeChance.statChanges.defense;
+                        userStatChanges.specialDefense += statChangeChance.statChanges.specialDefense;
+                        userStatChanges.specialAttack += statChangeChance.statChanges.specialAttack;
+                        userStatChanges.speed += statChangeChance.statChanges.speed;
+
+                        userEvasionModifier += statChangeChance.evasionChange;
+
+                        userAccuracyModifier += statChangeChance.accuracyChange;
+
+                    }
+
+                }
+
+            if (targetStatChangeChances != null)
+                foreach (StatChangeChance statChangeChance in targetStatChangeChances)
+                {
+
+                    if (UnityEngine.Random.Range(0F, 1F) <= statChangeChance.chance)
+                    {
+
+                        targetStatChanges.attack += statChangeChance.statChanges.attack;
+                        targetStatChanges.defense += statChangeChance.statChanges.defense;
+                        targetStatChanges.specialDefense += statChangeChance.statChanges.specialDefense;
+                        targetStatChanges.specialAttack += statChangeChance.statChanges.specialAttack;
+                        targetStatChanges.speed += statChangeChance.statChanges.speed;
+
+                        targetEvasionModifier += statChangeChance.evasionChange;
+
+                        targetAccuracyModifier += statChangeChance.accuracyChange;
+
+                    }
+
+                }
+
+            #endregion
 
             usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
             usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);

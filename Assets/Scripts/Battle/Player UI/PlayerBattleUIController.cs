@@ -76,6 +76,7 @@ namespace Battle.PlayerUI
 
             menuPartyPokemonMovesController.buttonBack.onClick.AddListener(() =>
             {
+                menuPartyPokemonMovesController.CloseMenu();
                 DisableAllMenus();
                 menuPartyPokemonController.Show();
                 EventSystem.current.SetSelectedGameObject(menuPartyPokemonController.buttonBack.gameObject);
@@ -257,7 +258,10 @@ namespace Battle.PlayerUI
         {
 
             if (playerBattleParticipant.ActivePokemon.movePPs[index] > 0)
+            {
+                menuFightController.CloseMenu();
                 playerBattleParticipant.ChooseActionFight(index);
+            }
             else
             {
 
@@ -317,7 +321,7 @@ namespace Battle.PlayerUI
             DisableAllMenus();
             menuPartyPokemonMovesController.Show();
             menuPartyPokemonMovesController.RefreshMoveButtons();
-            EventSystem.current.SetSelectedGameObject(menuPartyPokemonMovesController.moveButtons[0].gameObject);
+            EventSystem.current.SetSelectedGameObject(menuPartyPokemonMovesController.buttonBack.gameObject);
 
         }
 
