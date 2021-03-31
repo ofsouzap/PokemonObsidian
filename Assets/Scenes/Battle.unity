@@ -33389,16 +33389,14 @@ MonoBehaviour:
     speciesId: 5
     level: 15
   npcTrainerPokemonSpecifications:
-  - speciesId: 4
-    level: 90
-  - speciesId: 1
-    level: 5
-  - speciesId: 2
-    level: 40
-  - speciesId: 11
-    level: 3
-  - speciesId: 12
-    level: 70
+  - speciesId: 14
+    level: 60
+  - speciesId: 17
+    level: 60
+  - speciesId: 19
+    level: 60
+  - speciesId: 21
+    level: 60
   npcTrainerFullName: Housemaster Scott
   npcTrainerMode: 0
 --- !u!114 &1927588472

@@ -71,14 +71,14 @@ namespace Battle.PlayerUI
 
         }
 
-        private void Start()
+        public bool selectionListenersSetUp
         {
+            get;
+            protected set;
+        }
 
-            foreach (Button button in moveButtons)
-            {
-                if (button.GetComponent<MenuButtonMoveController>() == null)
-                    Debug.LogError("No MenuButtonMoveController in move button");
-            }
+        public virtual void SetUpSelectionListeners()
+        {
 
             moveButtons[0].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(0));
             moveButtons[0].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
@@ -92,6 +92,22 @@ namespace Battle.PlayerUI
             moveButtons[3].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(3));
             moveButtons[3].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
 
+            selectionListenersSetUp = true;
+
+        }
+
+        private void Start()
+        {
+
+            foreach (Button button in moveButtons)
+            {
+                if (button.GetComponent<MenuButtonMoveController>() == null)
+                    Debug.LogError("No MenuButtonMoveController in move button");
+            }
+
+            if (!selectionListenersSetUp)
+                SetUpSelectionListeners();
+
         }
 
         private PokemonMove[] GetMoves() => PlayerData
@@ -104,7 +120,10 @@ namespace Battle.PlayerUI
 
         public void RefreshMoveButtons()
         {
-            
+
+            if (!selectionListenersSetUp)
+                SetUpSelectionListeners();
+
             PokemonMove[] moves = GetMoves();
             
             for (int i = 0; i < moves.Length; i++)
@@ -155,7 +174,7 @@ namespace Battle.PlayerUI
             //TODO - have below images set once their sprites are ready
             imageCategory.sprite = null;
             imageType.sprite = null;
-
+            
             ShowMovePane();
 
         }

@@ -7,14 +7,8 @@ namespace Battle.PlayerUI
     public class MenuButtonMoveController : MenuSelectableController, IPointerEnterHandler, IPointerExitHandler
     {
 
-        public UnityEvent MoveSelected;
-        public UnityEvent MoveDeselected;
-
-        private void Awake()
-        {
-            MoveSelected = new UnityEvent();
-            MoveDeselected = new UnityEvent();
-        }
+        public UnityEvent MoveSelected = new UnityEvent();
+        public UnityEvent MoveDeselected = new UnityEvent();
 
         public override void OnSelect(BaseEventData eventData)
         {

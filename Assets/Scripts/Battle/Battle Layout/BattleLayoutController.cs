@@ -561,6 +561,14 @@ namespace Battle.BattleLayout
             {
                 yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(playerPokemonSprite, opponentPokemonSprite, move.noOpponentEffects, moveParticle, opponentPokemonMoveParticleSystemObject));
             }
+            else if (move.moveType == Pokemon.Moves.PokemonMove.MoveType.Status)
+            {
+                if (!move.noOpponentEffects)
+                {
+                    yield return StartCoroutine(GenericMoveParticleEffects(opponentPokemonMoveParticleSystemObject, moveParticle));
+                    yield return new WaitUntil(() => !opponentPokemonMoveParticleSystemObject.GetComponent<ParticleSystem>().isPlaying);
+                }
+            }
 
         }
 
@@ -577,6 +585,14 @@ namespace Battle.BattleLayout
             else if (move.moveType == Pokemon.Moves.PokemonMove.MoveType.Special)
             {
                 yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(opponentPokemonSprite, playerPokemonSprite, move.noOpponentEffects, moveParticle, playerPokemonMoveParticleSystemObject));
+            }
+            else if (move.moveType == Pokemon.Moves.PokemonMove.MoveType.Status)
+            {
+                if (!move.noOpponentEffects)
+                {
+                    yield return StartCoroutine(GenericMoveParticleEffects(playerPokemonMoveParticleSystemObject, moveParticle));
+                    yield return new WaitUntil(() => !opponentPokemonMoveParticleSystemObject.GetComponent<ParticleSystem>().isPlaying);
+                }
             }
 
         }
