@@ -16,6 +16,7 @@ namespace Battle
 
         public PlayerUI.PlayerBattleUIController playerBattleUIController;
         public PlayerUI.PlayerPokemonSelectUIController playerPokemonSelectUIController;
+        public PlayerUI.LearnMoveUI.LearnMoveUIController learnMoveUIController;
 
         [HideInInspector]
         public Coroutine mainBattleCoroutine;
@@ -32,7 +33,6 @@ namespace Battle
         /// For example if their pokemon has fainted and they have just changed pokemon
         /// </summary>
         private List<BattleParticipant> battleParticipantsToCancelActionsOf;
-
         
         private void Start()
         {
@@ -68,6 +68,8 @@ namespace Battle
             #region Initial Setup
 
             battleLayoutController.HidePokemonAndPanes();
+            learnMoveUIController.menuConfirmLearnMoveSelectionController.Hide();
+            learnMoveUIController.menuLearnMoveController.Hide();
 
             //If the battle entrance arguments don't seem to be set, use whatever values are present at the time but still log an error
             if (!BattleEntranceArguments.argumentsSet)
@@ -532,6 +534,8 @@ namespace Battle
                             + " experience",
                             true);
 
+                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
                         //If the current pokemon is the active pokemon, show the experience gain in the battle layout
                         if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
                         {
@@ -544,23 +548,29 @@ namespace Battle
                                 experienceGainNewExperience = battleData.participantPlayer.ActivePokemon.experience
                             });
 
+                            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
                         }
 
                         if (previousPlayerPokemonLevel != playerPokemonInstance.GetLevel())
                         {
 
+                            //TODO - level up animation
                             battleAnimationSequencer.EnqueueSingleText(
                                 playerPokemonInstance.GetDisplayName()
                                 + " levelled up to level "
                                 + playerPokemonInstance.GetLevel().ToString()
-                                );
-                            //TODO - level up animation
+                                + '!');
 
-                            //TODO - if new move learnt, deal with this (incl. check if current moves full, asking whether player wants to replace current move, choosing move to replace)
+                            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                            if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
+                                battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateLevel(playerPokemonInstance.GetLevel());
+
+
+                            yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted_LevelUpMoveLearning(playerPokemonInstance, previousPlayerPokemonLevel));
 
                         }
-
-                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                     }
 
@@ -630,6 +640,136 @@ namespace Battle
                 });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+            #endregion
+
+        }
+
+        private IEnumerator MainBattleCoroutine_CheckPokemonFainted_LevelUpMoveLearning(PokemonInstance pokemon,
+            byte startLevel)
+        {
+
+            Dictionary<byte, int[]> levelUpMoves = pokemon.species.levelUpMoves;
+
+            #region Determine Moves To Learn
+
+            //I have used a queue as I will use this to iterate over in order so the player can choose whether to learn a move or not and the options should be provided in order
+            Queue<int> moveIdsToLearn = new Queue<int>();
+
+            for (byte level = (byte)(startLevel + 1); level <= pokemon.GetLevel(); level++)
+            {
+
+                if (levelUpMoves.ContainsKey(level))
+                    foreach (int moveId in levelUpMoves[level])
+                        moveIdsToLearn.Enqueue(moveId);
+
+            }
+
+            #endregion
+
+            if (moveIdsToLearn.Count <= 0)
+                yield break;
+
+            #region Learning Moves
+
+            while (moveIdsToLearn.Count > 0)
+            {
+
+                int moveIdToLearn = moveIdsToLearn.Dequeue();
+                PokemonMove moveToLearn = PokemonMove.GetPokemonMoveById(moveIdToLearn);
+
+                if (!pokemon.moveIds.Any(x => PokemonMove.MoveIdIsUnset(x))) //If all move slots taken
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        pokemon.GetDisplayName()
+                        + " want to learn "
+                        + moveToLearn.name
+                        + " but it already knows 4 moves");
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                    learnMoveUIController.StartUI(pokemon, moveIdToLearn);
+                    yield return new WaitUntil(() => !learnMoveUIController.uiRunning);
+
+                    PlayerUI.LearnMoveUI.LearnMoveUIController.UIPlayerDecision playerDecision = learnMoveUIController.uiPlayerDecision;
+
+                    if (playerDecision.learnMove)
+                    {
+
+                        PokemonMove forgottenMove = PokemonMove.GetPokemonMoveById(pokemon.moveIds[playerDecision.replacedMoveIndex]);
+
+                        #region Setting New Move
+
+                        pokemon.moveIds[playerDecision.replacedMoveIndex] = moveIdToLearn;
+                        pokemon.movePPs[playerDecision.replacedMoveIndex] = moveToLearn.maxPP;
+
+                        #endregion
+
+                        #region Announcement Message
+
+                        battleAnimationSequencer.EnqueueSingleText(
+                            pokemon.GetDisplayName()
+                            + " forgot "
+                            + forgottenMove.name
+                            + ".....");
+                        battleAnimationSequencer.EnqueueSingleText(
+                            pokemon.GetDisplayName()
+                            + " learnt "
+                            + moveToLearn.name
+                            + '!');
+                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                        #endregion
+
+                    }
+                    else
+                    {
+
+                        battleAnimationSequencer.EnqueueSingleText(
+                            pokemon.GetDisplayName()
+                            + " didn't learn "
+                            + moveToLearn.name);
+                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                    }
+
+                }
+                else //If move slot available
+                {
+
+                    bool moveSet = false;
+
+                    for (int moveIdIndex = 0; moveIdIndex < pokemon.moveIds.Length; moveIdIndex++)
+                    {
+
+                        #region Setting New Move
+
+                        if (PokemonMove.MoveIdIsUnset(pokemon.moveIds[moveIdIndex]))
+                        {
+                            pokemon.moveIds[moveIdIndex] = moveIdToLearn;
+                            pokemon.movePPs[moveIdIndex] = moveToLearn.maxPP;
+                            moveSet = true;
+                            break;
+                        }
+
+                        #endregion
+
+                    }
+
+                    if (!moveSet)
+                        Debug.LogError("Failed to set move even with available place");
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        pokemon.GetDisplayName()
+                        + " learnt "
+                        + moveToLearn.name
+                        + '!');
+
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                }
 
             }
 
@@ -1229,7 +1369,10 @@ namespace Battle
 
                     targetPokemon.battleProperties.volatileStatusConditions.flinch = true;
 
-                    battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " flinched!");
+                    if (targetPokemon.IsFainted)
+                    {
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " flinched!");
+                    }
 
                 }
 

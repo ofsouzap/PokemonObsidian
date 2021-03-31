@@ -20,6 +20,18 @@ TextureImporter:
   - first:
       213: 3076887793211539509
     second: detailstab
+  - first:
+      213: 6165357842908666831
+    second: widebutton_green
+  - first:
+      213: -4697817751761193569
+    second: widebutton_red
+  - first:
+      213: 497349635843323964
+    second: widebutton_yello
+  - first:
+      213: 5130451544920204864
+    second: button_blue
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -254,6 +266,90 @@ TextureImporter:
       bones: []
       spriteID: 5300c18552d43ba20800000000000000
       internalID: 3076887793211539509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: widebutton_green
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 31
+        width: 126
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcb5dbbea40cf8550800000000000000
+      internalID: 6165357842908666831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: widebutton_red
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 31
+        width: 126
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f95ffb615affdceb0800000000000000
+      internalID: -4697817751761193569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: widebutton_yello
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 31
+        width: 126
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c387c95dbd0f6e600800000000000000
+      internalID: 497349635843323964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: button_blue
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 81
+        width: 102
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 046a2507f76033740800000000000000
+      internalID: 5130451544920204864
       vertices: []
       indices: 
       edges: []

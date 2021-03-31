@@ -64,24 +64,40 @@ namespace Battle.PlayerUI
 
         }
 
-        public void Start()
+        public bool selectionListenersSetUp
+        {
+            get;
+            protected set;
+        }
+
+        public virtual void SetUpSelectionListeners()
         {
 
-            moveButtons[0].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(0));
+            moveButtons[0].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetailsFromIndex(0));
             moveButtons[0].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
 
-            moveButtons[1].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(1));
+            moveButtons[1].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetailsFromIndex(1));
             moveButtons[1].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
 
-            moveButtons[2].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(2));
+            moveButtons[2].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetailsFromIndex(2));
             moveButtons[2].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
 
-            moveButtons[3].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetails(3));
+            moveButtons[3].GetComponent<MenuButtonMoveController>().MoveSelected.AddListener(() => SetMovePaneDetailsFromIndex(3));
             moveButtons[3].GetComponent<MenuButtonMoveController>().MoveDeselected.AddListener(HideMovePane);
+
+            selectionListenersSetUp = true;
 
         }
 
-        private PokemonMove[] GetMoves() => PlayerData
+        public virtual void Start()
+        {
+
+            if (!selectionListenersSetUp)
+                SetUpSelectionListeners();
+
+        }
+
+        protected PokemonMove[] GetMoves() => PlayerData
             .singleton
             .partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex]
             .moveIds
@@ -89,7 +105,7 @@ namespace Battle.PlayerUI
             .Select(x => PokemonMove.GetPokemonMoveById(x))
             .ToArray();
 
-        public void RefreshMoveButtons()
+        public virtual void RefreshMoveButtons()
         {
 
             PokemonMove[] moves = GetMoves();
@@ -118,17 +134,27 @@ namespace Battle.PlayerUI
 
         }
 
-        private void SetMovePaneDetails(int moveIndex)
+        protected void SetMovePaneDetailsFromIndex(int moveIndex)
         {
 
-            PokemonMove move = GetMoves()[moveIndex];
-            byte[] remainingPPs = PlayerData
+            int moveId = GetMoves()[moveIndex].id;
+            byte remainingPP = PlayerData
                 .singleton
                 .partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex]
-                .movePPs;
+                .movePPs
+                [moveIndex];
+
+            SetMovePaneDetails(moveId, remainingPP);
+
+        }
+
+        protected void SetMovePaneDetails(int moveId, byte remainingPP)
+        {
+
+            PokemonMove move = PokemonMove.GetPokemonMoveById(moveId);
 
             textName.text = move.name;
-            textPPValue.text = remainingPPs[moveIndex] + "/" + move.maxPP;
+            textPPValue.text = remainingPP + "/" + move.maxPP;
             textDescription.text = move.description;
             textPowerValue.text = move.power != 0 ? move.power.ToString() : "-";
             textAccuracyValue.text = move.accuracy != 0 ? move.accuracy.ToString() : "-";
@@ -141,8 +167,8 @@ namespace Battle.PlayerUI
 
         }
 
-        private void ShowMovePane() => gameObjectMoveDetailsPane.SetActive(true);
-        private void HideMovePane() => gameObjectMoveDetailsPane.SetActive(false);
+        protected void ShowMovePane() => gameObjectMoveDetailsPane.SetActive(true);
+        protected void HideMovePane() => gameObjectMoveDetailsPane.SetActive(false);
 
     }
 }

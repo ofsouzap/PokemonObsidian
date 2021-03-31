@@ -7,7 +7,6 @@ namespace Battle.PlayerUI
     public class MenuButtonMoveController : MenuSelectableController, IPointerEnterHandler, IPointerExitHandler
     {
 
-        public int moveIndex;
         public UnityEvent MoveSelected;
         public UnityEvent MoveDeselected;
 
