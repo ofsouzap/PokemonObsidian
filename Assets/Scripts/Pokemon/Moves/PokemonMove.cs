@@ -129,6 +129,11 @@ namespace Pokemon.Moves
         public byte accuracy;
 
         /// <summary>
+        /// An absolute amount of damage to apply to the target. Shouldn't be used as well as power.
+        /// </summary>
+        public int absoluteTargetDamage;
+
+        /// <summary>
         /// The stat changes to apply to the user (not necessarily just for status moves)
         /// </summary>
         public Stats<sbyte> userStatChanges;
@@ -584,20 +589,31 @@ namespace Pokemon.Moves
                 return usageResults;
             }
 
-            //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
+            if (power != 0)
+            {
 
-            float ad = CalculateAttackDefenseRatio(user, target, battleData);
+                //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
 
-            float modifiersValue = CalculateModifiersValue(user,
-                target,
-                battleData,
-                out usageResults.effectiveness,
-                out usageResults.criticalHit);
+                float ad = CalculateAttackDefenseRatio(user, target, battleData);
 
-            int damageToDeal = CalculateDamageToDeal(ad, modifiersValue, user, target, battleData);
+                float modifiersValue = CalculateModifiersValue(user,
+                    target,
+                    battleData,
+                    out usageResults.effectiveness,
+                    out usageResults.criticalHit);
 
-            //That the damage dealt isn't greater than the target's health is checked multiple times just to be safe and in case a method override forgets to
-            usageResults.targetDamageDealt = damageToDeal <= target.health ? damageToDeal : target.health;
+                int damageToDeal = CalculateDamageToDeal(ad, modifiersValue, user, target, battleData);
+
+                //That the damage dealt isn't greater than the target's health is checked multiple times just to be safe and in case a method override forgets to
+                usageResults.targetDamageDealt = damageToDeal <= target.health ? damageToDeal : target.health;
+
+            }
+            else if (absoluteTargetDamage != 0)
+            {
+
+                usageResults.targetDamageDealt = absoluteTargetDamage <= target.health ? absoluteTargetDamage : target.health;
+
+            }
 
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData, usageResults.targetDamageDealt);
 

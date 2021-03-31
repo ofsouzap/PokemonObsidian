@@ -52,6 +52,7 @@ namespace Pokemon
          *     If blank, this will be determined by the move's previously-specified effects
          * move is primarily for causing confusion to the target
          *     If so, the whole move will fail if it can't cause the target confusion
+         * absolute target damage (positive int)
          */
 
         public static void LoadData()
@@ -78,7 +79,7 @@ namespace Pokemon
             foreach (string[] entry in stringData)
             {
 
-                int id, absoluteRecoilDamage;
+                int id, absoluteRecoilDamage, absoluteTargetDamage;
                 string name, description;
                 byte maxPP, power, accuracy;
                 Type type;
@@ -89,7 +90,7 @@ namespace Pokemon
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
 
-                if (entry.Length < 21)
+                if (entry.Length < 22)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -663,7 +664,7 @@ namespace Pokemon
                     if (!int.TryParse(absoluteRecoilDamageEntry, out absoluteRecoilDamage))
                     {
                         Debug.LogError("Invalid absoluteRecoilDamage entry for id " + id);
-                        absoluteRecoilDamage = 1;
+                        absoluteRecoilDamage = 0;
                     }
                 }
 
@@ -862,6 +863,23 @@ namespace Pokemon
 
                 #endregion
 
+                #region absoluteTargetDamage
+
+                string absoluteTargetDamageEntry = entry[21];
+
+                if (absoluteTargetDamageEntry == "")
+                    absoluteTargetDamage = 0;
+                else
+                {
+                    if (!int.TryParse(absoluteTargetDamageEntry, out absoluteTargetDamage))
+                    {
+                        Debug.LogError("Invalid absoluteRecoilDamage entry for id " + id);
+                        absoluteTargetDamage = 0;
+                    }
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -888,7 +906,8 @@ namespace Pokemon
                     maxHealthRelativeRecoilDamage = maxHealthRelativeRecoilDamage,
                     targetDamageRelativeRecoilDamage = targetDamageRelativeRecoilDamage,
                     noOpponentEffects = noOpponentEffects,
-                    confusionOnly = confusionOnly
+                    confusionOnly = confusionOnly,
+                    absoluteTargetDamage = absoluteTargetDamage
                 });
 
             }
