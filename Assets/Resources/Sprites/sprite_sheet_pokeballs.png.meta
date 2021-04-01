@@ -1,0 +1,7812 @@
+fileFormatVersion: 2
+guid: 6ad488d40b996c245ab265f5fa7a6d15
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7062867138476308674
+    second: sprite_sheet_pokeballs_0
+  - first:
+      213: -6148671918995791908
+    second: sprite_sheet_pokeballs_1
+  - first:
+      213: 2872336349222363567
+    second: sprite_sheet_pokeballs_2
+  - first:
+      213: -4609634971368391625
+    second: sprite_sheet_pokeballs_3
+  - first:
+      213: -2303244697817609585
+    second: sprite_sheet_pokeballs_4
+  - first:
+      213: -6634823720041638518
+    second: sprite_sheet_pokeballs_5
+  - first:
+      213: -4348268732292675321
+    second: sprite_sheet_pokeballs_6
+  - first:
+      213: -7397576975552293822
+    second: pokeball_neutral
+  - first:
+      213: -4873449320749408139
+    second: pokeball_squashed
+  - first:
+      213: 3992824454761705907
+    second: pokeball_open
+  - first:
+      213: -2230366527253012362
+    second: sprite_sheet_pokeballs_10
+  - first:
+      213: 1506174324060870013
+    second: sprite_sheet_pokeballs_11
+  - first:
+      213: -47976730527706688
+    second: sprite_sheet_pokeballs_12
+  - first:
+      213: 3313270522633557285
+    second: sprite_sheet_pokeballs_13
+  - first:
+      213: -3691683310799446263
+    second: sprite_sheet_pokeballs_14
+  - first:
+      213: 3615861395932325094
+    second: sprite_sheet_pokeballs_15
+  - first:
+      213: -1241223937631040050
+    second: pokeball_wobble_left
+  - first:
+      213: -8639013753876910489
+    second: pokeball_wobble_center
+  - first:
+      213: -6109692427768315007
+    second: pokeball_wobble_right
+  - first:
+      213: 6506112729760023519
+    second: pokeball_caught
+  - first:
+      213: 4538565205033889626
+    second: sprite_sheet_pokeballs_21
+  - first:
+      213: 6005855680772565574
+    second: sprite_sheet_pokeballs_22
+  - first:
+      213: -2507888810798736147
+    second: sprite_sheet_pokeballs_23
+  - first:
+      213: 3847622861982146362
+    second: sprite_sheet_pokeballs_24
+  - first:
+      213: -7604224924066591899
+    second: sprite_sheet_pokeballs_25
+  - first:
+      213: -3330419370247440244
+    second: sprite_sheet_pokeballs_26
+  - first:
+      213: -3242804418201785760
+    second: sprite_sheet_pokeballs_27
+  - first:
+      213: -556480886465306173
+    second: greatball_neutral
+  - first:
+      213: 3273250709614116031
+    second: greatball_squashed
+  - first:
+      213: 3664913209895970041
+    second: greatball_open
+  - first:
+      213: 8557120254617526688
+    second: sprite_sheet_pokeballs_31
+  - first:
+      213: -5076853286050997768
+    second: sprite_sheet_pokeballs_32
+  - first:
+      213: -4294558196158484412
+    second: sprite_sheet_pokeballs_33
+  - first:
+      213: 8791460122232521040
+    second: sprite_sheet_pokeballs_34
+  - first:
+      213: -7193753938472320200
+    second: sprite_sheet_pokeballs_35
+  - first:
+      213: 1099864046383727974
+    second: sprite_sheet_pokeballs_36
+  - first:
+      213: -7175382793053873730
+    second: greatball_wobble_left
+  - first:
+      213: 2470552369499487717
+    second: greatball_wobble_center
+  - first:
+      213: 4401496688126348821
+    second: greatball_wobble_right
+  - first:
+      213: 3026645780958066641
+    second: greatball_caught
+  - first:
+      213: 3794524594792146786
+    second: sprite_sheet_pokeballs_42
+  - first:
+      213: 6324943973996270271
+    second: sprite_sheet_pokeballs_43
+  - first:
+      213: -251443035795742727
+    second: sprite_sheet_pokeballs_44
+  - first:
+      213: 2772635227920923779
+    second: sprite_sheet_pokeballs_45
+  - first:
+      213: -8511916238069708593
+    second: sprite_sheet_pokeballs_46
+  - first:
+      213: 8859591216825108405
+    second: sprite_sheet_pokeballs_47
+  - first:
+      213: -176437361478429131
+    second: sprite_sheet_pokeballs_48
+  - first:
+      213: 8920222124477650176
+    second: ultraball_neutral
+  - first:
+      213: 4490500234062643371
+    second: ultraball_squashed
+  - first:
+      213: 3166288772246678486
+    second: ultraball_open
+  - first:
+      213: 3828369126763428056
+    second: sprite_sheet_pokeballs_52
+  - first:
+      213: -6803985926270869638
+    second: sprite_sheet_pokeballs_53
+  - first:
+      213: -5659937911179283754
+    second: sprite_sheet_pokeballs_54
+  - first:
+      213: 1217545727144777166
+    second: sprite_sheet_pokeballs_55
+  - first:
+      213: 2591757873975158929
+    second: sprite_sheet_pokeballs_56
+  - first:
+      213: -8574461749041878101
+    second: sprite_sheet_pokeballs_57
+  - first:
+      213: -1310024720703096112
+    second: ultraball_wobble_left
+  - first:
+      213: 6731844330684356735
+    second: ultraball_wobble_center
+  - first:
+      213: 3089446617729143854
+    second: ultraball_wobble_right
+  - first:
+      213: 6883023680290425523
+    second: ultraball_caught
+  - first:
+      213: -1867464385492543237
+    second: sprite_sheet_pokeballs_63
+  - first:
+      213: 7276928578991515740
+    second: sprite_sheet_pokeballs_64
+  - first:
+      213: -8190267035221488710
+    second: sprite_sheet_pokeballs_65
+  - first:
+      213: -6430107640254376383
+    second: sprite_sheet_pokeballs_66
+  - first:
+      213: -7464857417468191786
+    second: sprite_sheet_pokeballs_67
+  - first:
+      213: -7450385832102609331
+    second: sprite_sheet_pokeballs_68
+  - first:
+      213: 505015324989707000
+    second: sprite_sheet_pokeballs_69
+  - first:
+      213: -7371309385398129657
+    second: masterball_neutral
+  - first:
+      213: 5484078001382328696
+    second: masterball_squashed
+  - first:
+      213: -8221832989225512284
+    second: masterball_open
+  - first:
+      213: -7134988314408619348
+    second: sprite_sheet_pokeballs_73
+  - first:
+      213: 6471496174500731969
+    second: sprite_sheet_pokeballs_74
+  - first:
+      213: -5055615294897178358
+    second: sprite_sheet_pokeballs_75
+  - first:
+      213: 6956711252426910009
+    second: sprite_sheet_pokeballs_76
+  - first:
+      213: -486168859805335299
+    second: sprite_sheet_pokeballs_77
+  - first:
+      213: -9098171446945961596
+    second: sprite_sheet_pokeballs_78
+  - first:
+      213: -4678860228434635686
+    second: masterball_wobble_left
+  - first:
+      213: -232314010053968925
+    second: masterball_wobble_center
+  - first:
+      213: -6175528929197786435
+    second: masterball_wobble_right
+  - first:
+      213: -550110177637422093
+    second: masterball_caught
+  - first:
+      213: -4807734651044781543
+    second: sprite_sheet_pokeballs_84
+  - first:
+      213: -835819341641785704
+    second: sprite_sheet_pokeballs_85
+  - first:
+      213: -3573373388288683114
+    second: sprite_sheet_pokeballs_86
+  - first:
+      213: -756152895626974295
+    second: sprite_sheet_pokeballs_87
+  - first:
+      213: -8811666513734295335
+    second: sprite_sheet_pokeballs_88
+  - first:
+      213: -5562257755578794551
+    second: sprite_sheet_pokeballs_89
+  - first:
+      213: -1920423471992027177
+    second: sprite_sheet_pokeballs_90
+  - first:
+      213: -6970391142584818300
+    second: premierball_neutral
+  - first:
+      213: -3175101427240782789
+    second: premierball_squashed
+  - first:
+      213: -7177565937537993091
+    second: premierball_open
+  - first:
+      213: 6530293932490977758
+    second: sprite_sheet_pokeballs_94
+  - first:
+      213: 1522010211524514054
+    second: sprite_sheet_pokeballs_95
+  - first:
+      213: 4916894156096889235
+    second: sprite_sheet_pokeballs_96
+  - first:
+      213: -1597238074579973525
+    second: sprite_sheet_pokeballs_97
+  - first:
+      213: 1975246493522730234
+    second: sprite_sheet_pokeballs_98
+  - first:
+      213: 113756656946547488
+    second: sprite_sheet_pokeballs_99
+  - first:
+      213: 5464634186958071250
+    second: premierball_wobble_left
+  - first:
+      213: -8372458717269124573
+    second: premierball_wobble_center
+  - first:
+      213: -6524892758948303082
+    second: premierball_wobble_right
+  - first:
+      213: -3959130107774287720
+    second: premierball_caught
+  - first:
+      213: -8027133669218714682
+    second: sprite_sheet_pokeballs_105
+  - first:
+      213: -1812724160586179935
+    second: sprite_sheet_pokeballs_106
+  - first:
+      213: -4872755560473431868
+    second: sprite_sheet_pokeballs_107
+  - first:
+      213: -7352338390934582078
+    second: sprite_sheet_pokeballs_108
+  - first:
+      213: 2184117878383784572
+    second: sprite_sheet_pokeballs_109
+  - first:
+      213: 9113831885956320604
+    second: sprite_sheet_pokeballs_110
+  - first:
+      213: -1206134314649448338
+    second: sprite_sheet_pokeballs_111
+  - first:
+      213: 7220302129313983094
+    second: cherishball_neutral
+  - first:
+      213: -897688393204511874
+    second: cherishball_squashed
+  - first:
+      213: -3700920121954047540
+    second: cherishball_open
+  - first:
+      213: -7576014133047400822
+    second: sprite_sheet_pokeballs_115
+  - first:
+      213: 1812583605279769220
+    second: sprite_sheet_pokeballs_116
+  - first:
+      213: -5597976816522267497
+    second: sprite_sheet_pokeballs_117
+  - first:
+      213: -7765248043643025417
+    second: sprite_sheet_pokeballs_118
+  - first:
+      213: -7637559944744405091
+    second: sprite_sheet_pokeballs_119
+  - first:
+      213: -5684619266980991174
+    second: sprite_sheet_pokeballs_120
+  - first:
+      213: -2962325660740249399
+    second: cherishball_wobble_left
+  - first:
+      213: 5477934014370429769
+    second: cherishball_wobble_center
+  - first:
+      213: 5383364192267595270
+    second: cherishball_wobble_right
+  - first:
+      213: 8050786566352215725
+    second: cherishball_caught
+  - first:
+      213: 8449164760199932081
+    second: sprite_sheet_pokeballs_126
+  - first:
+      213: 4891914451758393905
+    second: sprite_sheet_pokeballs_127
+  - first:
+      213: -6638487776200851115
+    second: sprite_sheet_pokeballs_128
+  - first:
+      213: 5369909250569861225
+    second: sprite_sheet_pokeballs_129
+  - first:
+      213: 4625313018923366151
+    second: sprite_sheet_pokeballs_130
+  - first:
+      213: 3678083541606945702
+    second: sprite_sheet_pokeballs_131
+  - first:
+      213: -6240196880805355679
+    second: sprite_sheet_pokeballs_132
+  - first:
+      213: -2032942394948035303
+    second: luxuryball_neutral
+  - first:
+      213: 7856524103380463794
+    second: luxuryball_squashed
+  - first:
+      213: 8598043800654642937
+    second: luxuryball_open
+  - first:
+      213: -2519401491088974468
+    second: sprite_sheet_pokeballs_136
+  - first:
+      213: -7397861673347080190
+    second: sprite_sheet_pokeballs_137
+  - first:
+      213: -1918334978710313330
+    second: sprite_sheet_pokeballs_138
+  - first:
+      213: -8230151393465191994
+    second: sprite_sheet_pokeballs_139
+  - first:
+      213: 8372524704432732174
+    second: sprite_sheet_pokeballs_140
+  - first:
+      213: 3591241226104343122
+    second: sprite_sheet_pokeballs_141
+  - first:
+      213: 2143161509763097940
+    second: luxuryball_wobble_left
+  - first:
+      213: 6166388821345550010
+    second: luxuryball_wobble_center
+  - first:
+      213: -8185931755886917567
+    second: luxuryball_wobble_right
+  - first:
+      213: -2381909209332875223
+    second: luxuryball_caught
+  - first:
+      213: -7674480223495394459
+    second: sprite_sheet_pokeballs_147
+  - first:
+      213: 1423882359556567469
+    second: sprite_sheet_pokeballs_148
+  - first:
+      213: -6060040823607661440
+    second: sprite_sheet_pokeballs_149
+  - first:
+      213: 4519995802477782839
+    second: sprite_sheet_pokeballs_150
+  - first:
+      213: -1064107094754396229
+    second: sprite_sheet_pokeballs_151
+  - first:
+      213: 3440660839095046453
+    second: sprite_sheet_pokeballs_152
+  - first:
+      213: 6073970566066606317
+    second: sprite_sheet_pokeballs_153
+  - first:
+      213: -2450957149377759992
+    second: nestball_neutral
+  - first:
+      213: 7410416845342030631
+    second: nestball_squashed
+  - first:
+      213: 4354830106846226591
+    second: nestball_open
+  - first:
+      213: 8406737575059431347
+    second: sprite_sheet_pokeballs_157
+  - first:
+      213: 3537946316540861749
+    second: sprite_sheet_pokeballs_158
+  - first:
+      213: -3894280528099868689
+    second: sprite_sheet_pokeballs_159
+  - first:
+      213: -2082415011106813897
+    second: sprite_sheet_pokeballs_160
+  - first:
+      213: -1244285470074192431
+    second: sprite_sheet_pokeballs_161
+  - first:
+      213: 8622863608589956257
+    second: sprite_sheet_pokeballs_162
+  - first:
+      213: -7155832984773127546
+    second: nestball_wobble_left
+  - first:
+      213: -7915611678174244380
+    second: nestball_wobble_center
+  - first:
+      213: -1344221795712977911
+    second: nestball_wobble_right
+  - first:
+      213: -6414601901183487301
+    second: nestball_caught
+  - first:
+      213: 8253971625317690519
+    second: sprite_sheet_pokeballs_168
+  - first:
+      213: -1002107941138911248
+    second: sprite_sheet_pokeballs_169
+  - first:
+      213: -4086010567424881737
+    second: sprite_sheet_pokeballs_170
+  - first:
+      213: 6292880596713738580
+    second: sprite_sheet_pokeballs_171
+  - first:
+      213: 8588823281617784706
+    second: sprite_sheet_pokeballs_172
+  - first:
+      213: -6244379125727206329
+    second: sprite_sheet_pokeballs_173
+  - first:
+      213: -906520729633542062
+    second: sprite_sheet_pokeballs_174
+  - first:
+      213: 1267204171793644451
+    second: netball_neutral
+  - first:
+      213: 6644683289813952034
+    second: netball_squashed
+  - first:
+      213: -3966066412229115314
+    second: netball_open
+  - first:
+      213: 1052709748418021295
+    second: sprite_sheet_pokeballs_178
+  - first:
+      213: 9079262414834107433
+    second: sprite_sheet_pokeballs_179
+  - first:
+      213: 8232904205379429553
+    second: sprite_sheet_pokeballs_180
+  - first:
+      213: -3881561602460240576
+    second: sprite_sheet_pokeballs_181
+  - first:
+      213: -4890269605468827820
+    second: sprite_sheet_pokeballs_182
+  - first:
+      213: 3564560510487347410
+    second: sprite_sheet_pokeballs_183
+  - first:
+      213: -2559215581612873324
+    second: netball_wobble_left
+  - first:
+      213: -5144829450949348130
+    second: netball_wobble_center
+  - first:
+      213: -3701097108000915534
+    second: netball_wobble_right
+  - first:
+      213: -8180114120702764366
+    second: netball_caught
+  - first:
+      213: -3048449725659687750
+    second: sprite_sheet_pokeballs_189
+  - first:
+      213: -2784230878170809718
+    second: sprite_sheet_pokeballs_190
+  - first:
+      213: -7963601702440606535
+    second: sprite_sheet_pokeballs_191
+  - first:
+      213: 161419075662538420
+    second: sprite_sheet_pokeballs_192
+  - first:
+      213: -3914940826027238270
+    second: sprite_sheet_pokeballs_193
+  - first:
+      213: 2615957807735982674
+    second: sprite_sheet_pokeballs_194
+  - first:
+      213: -8832721710331424114
+    second: sprite_sheet_pokeballs_195
+  - first:
+      213: 2923774657414788386
+    second: diveball_neutral
+  - first:
+      213: -261926857554163691
+    second: diveball_squashed
+  - first:
+      213: -2918108154524320224
+    second: diveball_open
+  - first:
+      213: -5778866900668335139
+    second: sprite_sheet_pokeballs_199
+  - first:
+      213: 8424507795412851760
+    second: sprite_sheet_pokeballs_200
+  - first:
+      213: -964390922096357179
+    second: sprite_sheet_pokeballs_201
+  - first:
+      213: 8289061772818731508
+    second: sprite_sheet_pokeballs_202
+  - first:
+      213: 2231211776581929473
+    second: sprite_sheet_pokeballs_203
+  - first:
+      213: 3282412655767849046
+    second: sprite_sheet_pokeballs_204
+  - first:
+      213: -1257993275686331523
+    second: diveball_wobble_left
+  - first:
+      213: 2160579528173476785
+    second: diveball_wobble_center
+  - first:
+      213: 2367982328908649454
+    second: diveball_wobble_right
+  - first:
+      213: -8885688362122500256
+    second: diveball_caught
+  - first:
+      213: -4251023439942169760
+    second: sprite_sheet_pokeballs_210
+  - first:
+      213: -8997084351705133146
+    second: sprite_sheet_pokeballs_211
+  - first:
+      213: 1808017730123779913
+    second: sprite_sheet_pokeballs_212
+  - first:
+      213: 4823755066163759840
+    second: sprite_sheet_pokeballs_213
+  - first:
+      213: -2861362180028089614
+    second: sprite_sheet_pokeballs_214
+  - first:
+      213: 1734481556662295563
+    second: sprite_sheet_pokeballs_215
+  - first:
+      213: -7767326044958450494
+    second: sprite_sheet_pokeballs_216
+  - first:
+      213: -9063193059412531071
+    second: repeatball_neutral
+  - first:
+      213: 5462797696797451676
+    second: repeatball_squashed
+  - first:
+      213: -2700809522435276911
+    second: repeatball_open
+  - first:
+      213: 290604105624310263
+    second: sprite_sheet_pokeballs_220
+  - first:
+      213: -3935116904334801465
+    second: sprite_sheet_pokeballs_221
+  - first:
+      213: -7342310690350420377
+    second: sprite_sheet_pokeballs_222
+  - first:
+      213: 1015689136659881134
+    second: sprite_sheet_pokeballs_223
+  - first:
+      213: -6160710811319962405
+    second: sprite_sheet_pokeballs_224
+  - first:
+      213: 4564436010710514157
+    second: sprite_sheet_pokeballs_225
+  - first:
+      213: 7969326117096061344
+    second: repeatball_wobble_left
+  - first:
+      213: -7504352119731972793
+    second: repeatball_wobble_center
+  - first:
+      213: -7238020379118389083
+    second: repeatball_wobble_right
+  - first:
+      213: 5636305812924223365
+    second: repeatball_caught
+  - first:
+      213: -1330218023948574830
+    second: sprite_sheet_pokeballs_231
+  - first:
+      213: 197622896498577779
+    second: sprite_sheet_pokeballs_232
+  - first:
+      213: -2631960936413429699
+    second: sprite_sheet_pokeballs_233
+  - first:
+      213: -8734663509287003794
+    second: sprite_sheet_pokeballs_234
+  - first:
+      213: -1796320352987439388
+    second: sprite_sheet_pokeballs_235
+  - first:
+      213: -5982653214872675621
+    second: sprite_sheet_pokeballs_236
+  - first:
+      213: 8417194567540342183
+    second: sprite_sheet_pokeballs_237
+  - first:
+      213: -713697009753564251
+    second: timerball_neutral
+  - first:
+      213: -7051535220719554569
+    second: timerball_squashed
+  - first:
+      213: 7468300263414402696
+    second: timerball_open
+  - first:
+      213: -8748438888402075344
+    second: sprite_sheet_pokeballs_241
+  - first:
+      213: -5126480989408110799
+    second: sprite_sheet_pokeballs_242
+  - first:
+      213: 207486206421580672
+    second: sprite_sheet_pokeballs_243
+  - first:
+      213: 7889797864442981103
+    second: sprite_sheet_pokeballs_244
+  - first:
+      213: -8752163778538579360
+    second: sprite_sheet_pokeballs_245
+  - first:
+      213: 2682774801751642008
+    second: sprite_sheet_pokeballs_246
+  - first:
+      213: 2262844949054346855
+    second: timerball_wobble_left
+  - first:
+      213: -4037788025415386966
+    second: timerball_wobble_center
+  - first:
+      213: -4573543211462720805
+    second: timerball_wobble_right
+  - first:
+      213: 4631700706878911198
+    second: timerball_caught
+  - first:
+      213: 7939983177074576864
+    second: sprite_sheet_pokeballs_252
+  - first:
+      213: 2188430313336449723
+    second: sprite_sheet_pokeballs_253
+  - first:
+      213: 8589417759019404489
+    second: sprite_sheet_pokeballs_254
+  - first:
+      213: 7179369650162078162
+    second: sprite_sheet_pokeballs_255
+  - first:
+      213: 5178158398014470997
+    second: sprite_sheet_pokeballs_256
+  - first:
+      213: -2894865483703090225
+    second: sprite_sheet_pokeballs_257
+  - first:
+      213: -3884165864155796343
+    second: sprite_sheet_pokeballs_258
+  - first:
+      213: -5343311238128983
+    second: safariball_neutral
+  - first:
+      213: 8475937234582826808
+    second: safariball_squashed
+  - first:
+      213: -7114958903766790017
+    second: safariball_open
+  - first:
+      213: -6645029395404564380
+    second: sprite_sheet_pokeballs_262
+  - first:
+      213: -2418101546101495016
+    second: sprite_sheet_pokeballs_263
+  - first:
+      213: -3588619687428663114
+    second: sprite_sheet_pokeballs_264
+  - first:
+      213: 8730555662149449348
+    second: sprite_sheet_pokeballs_265
+  - first:
+      213: -8585778050116554683
+    second: sprite_sheet_pokeballs_266
+  - first:
+      213: -5249254368298230485
+    second: sprite_sheet_pokeballs_267
+  - first:
+      213: -9093996471770427977
+    second: safariball_wobble_left
+  - first:
+      213: 6611076835943952034
+    second: safariball_wobble_center
+  - first:
+      213: -8140274070279375969
+    second: safariball_wobble_right
+  - first:
+      213: 3412976681175952462
+    second: safariball_caught
+  - first:
+      213: 6996099041790417869
+    second: sprite_sheet_pokeballs_273
+  - first:
+      213: 8129643605250690634
+    second: sprite_sheet_pokeballs_274
+  - first:
+      213: 359660910454265770
+    second: sprite_sheet_pokeballs_275
+  - first:
+      213: -677706711191262528
+    second: sprite_sheet_pokeballs_276
+  - first:
+      213: -6414153705924024608
+    second: sprite_sheet_pokeballs_277
+  - first:
+      213: 861423123377498511
+    second: sprite_sheet_pokeballs_278
+  - first:
+      213: 3004390861373871982
+    second: sprite_sheet_pokeballs_279
+  - first:
+      213: 7407378554848310886
+    second: quickball_neutral
+  - first:
+      213: -163925129830132622
+    second: quickball_squashed
+  - first:
+      213: -3362359163029105314
+    second: quickball_open
+  - first:
+      213: -1189826483847560612
+    second: sprite_sheet_pokeballs_283
+  - first:
+      213: 5931032922853869036
+    second: sprite_sheet_pokeballs_284
+  - first:
+      213: -3672377276028040255
+    second: sprite_sheet_pokeballs_285
+  - first:
+      213: 4339358686312036454
+    second: sprite_sheet_pokeballs_286
+  - first:
+      213: -7972167810358831194
+    second: sprite_sheet_pokeballs_287
+  - first:
+      213: -4354951586663447581
+    second: sprite_sheet_pokeballs_288
+  - first:
+      213: 2362661387255427323
+    second: quickball_wobble_left
+  - first:
+      213: -833924302339345001
+    second: quickball_wobble_center
+  - first:
+      213: -2048226373371187875
+    second: quickball_wobble_right
+  - first:
+      213: 6765490739127458182
+    second: quickball_caught
+  - first:
+      213: 2219999589366238743
+    second: sprite_sheet_pokeballs_294
+  - first:
+      213: 6030328751661157450
+    second: sprite_sheet_pokeballs_295
+  - first:
+      213: 8606578330814590463
+    second: sprite_sheet_pokeballs_296
+  - first:
+      213: -6340448808747007744
+    second: sprite_sheet_pokeballs_297
+  - first:
+      213: 1171594455292868755
+    second: sprite_sheet_pokeballs_298
+  - first:
+      213: 3536986134561885718
+    second: sprite_sheet_pokeballs_299
+  - first:
+      213: 5149600654015398983
+    second: sprite_sheet_pokeballs_300
+  - first:
+      213: -8136646107181958292
+    second: duskball_neutral
+  - first:
+      213: -3915579093003084153
+    second: duskball_squashed
+  - first:
+      213: -5470017138118636082
+    second: duskball_open
+  - first:
+      213: 8643884784020320099
+    second: sprite_sheet_pokeballs_304
+  - first:
+      213: -915213251074812450
+    second: sprite_sheet_pokeballs_305
+  - first:
+      213: -5090956119381238169
+    second: sprite_sheet_pokeballs_306
+  - first:
+      213: -2157283552269121518
+    second: sprite_sheet_pokeballs_307
+  - first:
+      213: -8663637508525766731
+    second: sprite_sheet_pokeballs_308
+  - first:
+      213: -8535488695034378638
+    second: sprite_sheet_pokeballs_309
+  - first:
+      213: -6672356176706265880
+    second: duskball_wobble_left
+  - first:
+      213: -6592339877227196726
+    second: duskball_wobble_center
+  - first:
+      213: -5183187349778660489
+    second: duskball_wobble_right
+  - first:
+      213: -3589110360311035519
+    second: duskball_caught
+  - first:
+      213: -2737094463378707793
+    second: sprite_sheet_pokeballs_315
+  - first:
+      213: 5225503446733183040
+    second: sprite_sheet_pokeballs_316
+  - first:
+      213: 4224035085055635615
+    second: sprite_sheet_pokeballs_317
+  - first:
+      213: 654552378306481203
+    second: sprite_sheet_pokeballs_318
+  - first:
+      213: -6392928504773182077
+    second: sprite_sheet_pokeballs_319
+  - first:
+      213: -5296844614438838528
+    second: sprite_sheet_pokeballs_320
+  - first:
+      213: -7442451861973765197
+    second: sprite_sheet_pokeballs_321
+  - first:
+      213: 7656787828727861902
+    second: healball_neutral
+  - first:
+      213: -1853859974269119038
+    second: healball_squashed
+  - first:
+      213: -6822754778384054928
+    second: sprite_sheet_pokeballs_324
+  - first:
+      213: -7554639989586806357
+    second: sprite_sheet_pokeballs_325
+  - first:
+      213: -7561379101041999553
+    second: sprite_sheet_pokeballs_326
+  - first:
+      213: -5605705098822984595
+    second: sprite_sheet_pokeballs_327
+  - first:
+      213: 8224802977187883893
+    second: sprite_sheet_pokeballs_328
+  - first:
+      213: -1969623955743702363
+    second: sprite_sheet_pokeballs_329
+  - first:
+      213: 35753447990961677
+    second: sprite_sheet_pokeballs_330
+  - first:
+      213: 5035656078269318868
+    second: healball_wobble_left
+  - first:
+      213: 6207905690194119222
+    second: healball_wobble_center
+  - first:
+      213: -5649365941472550420
+    second: healball_wobble_right
+  - first:
+      213: -2633827626570824721
+    second: healball_caught
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 24
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c8f8a4ed38540260800000000000000
+      internalID: 7062867138476308674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdf16db77778baaa0800000000000000
+      internalID: -6148671918995791908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_2
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa167daf0b69cd720800000000000000
+      internalID: 2872336349222363567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_3
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73c7e5b9a694700c0800000000000000
+      internalID: -4609634971368391625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_4
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8a87c3862b3900e0800000000000000
+      internalID: -2303244697817609585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_5
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a85159bbafe5ce3a0800000000000000
+      internalID: -6634823720041638518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_6
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 709c1c740a8d7a3c0800000000000000
+      internalID: -4348268732292675321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokeball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 244d89d4fe6865990800000000000000
+      internalID: -7397576975552293822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokeball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 486
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 570ecd5d9a70e5cb0800000000000000
+      internalID: -4873449320749408139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokeball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 486
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b1709ccfac596730800000000000000
+      internalID: 3992824454761705907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_10
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 670a920e5752c01e0800000000000000
+      internalID: -2230366527253012362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_11
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d755673519107e410800000000000000
+      internalID: 1506174324060870013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_12
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c15963fa6d855ff0800000000000000
+      internalID: -47976730527706688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_13
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52598526cf91bfd20800000000000000
+      internalID: 3313270522633557285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_14
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90f9f84969184ccc0800000000000000
+      internalID: -3691683310799446263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_15
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e4289d28ce1e2230800000000000000
+      internalID: 3615861395932325094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokeball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 486
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecd4acea76946cee0800000000000000
+      internalID: -1241223937631040050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokeball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 486
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76ee37623ce0c1880800000000000000
+      internalID: -8639013753876910489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokeball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 486
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 183c9f38b13063ba0800000000000000
+      internalID: -6109692427768315007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokeball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 486
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd34efd8e0b5a4a50800000000000000
+      internalID: 6506112729760023519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_21
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5f2ef3f1093cfe30800000000000000
+      internalID: 4538565205033889626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_22
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64ae5b8dbe5195350800000000000000
+      internalID: 6005855680772565574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_23
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dec1a28f960323dd0800000000000000
+      internalID: -2507888810798736147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_24
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3f1e1e7b90856530800000000000000
+      internalID: 3847622861982146362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_25
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56bc6d078bd587690800000000000000
+      internalID: -7604224924066591899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_26
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8832536a39f7c1d0800000000000000
+      internalID: -3330419370247440244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_27
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06ae301109e3ff2d0800000000000000
+      internalID: -3242804418201785760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: greatball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c1e0f5059bf648f0800000000000000
+      internalID: -556480886465306173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: greatball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 460
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc385f8d2cec6d20800000000000000
+      internalID: 3273250709614116031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: greatball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 460
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f46c7895236cd230800000000000000
+      internalID: 3664913209895970041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_31
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a127c4b88ff0c670800000000000000
+      internalID: 8557120254617526688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_32
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f9d72ca5d46b89b0800000000000000
+      internalID: -5076853286050997768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_33
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4403bbaf21aa664c0800000000000000
+      internalID: -4294558196158484412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_34
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0518eaae66a810a70800000000000000
+      internalID: 8791460122232521040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_35
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8334ac738e6aa2c90800000000000000
+      internalID: -7193753938472320200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_36
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6650de9d580834f00800000000000000
+      internalID: 1099864046383727974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: greatball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 460
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb9d294dd5beb6c90800000000000000
+      internalID: -7175382793053873730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: greatball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 460
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ed340f5a4a294220800000000000000
+      internalID: 2470552369499487717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: greatball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 460
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e44dfeae1451d30800000000000000
+      internalID: 4401496688126348821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: greatball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 460
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d7b0fa4d4ec00a20800000000000000
+      internalID: 3026645780958066641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_42
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 267a114c30cd8a430800000000000000
+      internalID: 3794524594792146786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_43
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb29b4a8807b6c750800000000000000
+      internalID: 6324943973996270271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_44
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ff162224e1b28cf0800000000000000
+      internalID: -251443035795742727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_45
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38cf5fbbc016a7620800000000000000
+      internalID: 2772635227920923779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_46
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc8c9ff87499fd980800000000000000
+      internalID: -8511916238069708593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_47
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b70806854793fa70800000000000000
+      internalID: 8859591216825108405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_48
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53698ff872b2d8df0800000000000000
+      internalID: -176437361478429131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ultraball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0051217c2cefacb70800000000000000
+      internalID: 8920222124477650176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ultraball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 434
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba0cc13db26715e30800000000000000
+      internalID: 4490500234062643371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ultraball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 434
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6db2216dcdae0fb20800000000000000
+      internalID: 3166288772246678486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_52
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d87ecdef69112530800000000000000
+      internalID: 3828369126763428056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_53
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7f1edf59d26391a0800000000000000
+      internalID: -6803985926270869638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_54
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d27469157cd371b0800000000000000
+      internalID: -5659937911179283754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_55
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec55244536795e010800000000000000
+      internalID: 1217545727144777166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_56
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1986c1efd06c7f320800000000000000
+      internalID: 2591757873975158929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_57
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bab2f2cf774610980800000000000000
+      internalID: -8574461749041878101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ultraball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 434
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0daf283157bd1dde0800000000000000
+      internalID: -1310024720703096112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ultraball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 434
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f781bad70c05c6d50800000000000000
+      internalID: 6731844330684356735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ultraball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 434
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e24174a845befda20800000000000000
+      internalID: 3089446617729143854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ultraball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 434
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ba0054c199658f50800000000000000
+      internalID: 6883023680290425523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_63
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf81600290f6516e0800000000000000
+      internalID: -1867464385492543237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_64
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c586daedcf7dcf460800000000000000
+      internalID: 7276928578991515740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_65
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abb080e7683565e80800000000000000
+      internalID: -8190267035221488710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_66
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 146dc1b5b2ba3c6a0800000000000000
+      internalID: -6430107640254376383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_67
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6db5ed4babf776890800000000000000
+      internalID: -7464857417468191786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_68
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4ebbed3f89ea9890800000000000000
+      internalID: -7450385832102609331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_69
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f2d32c23cc220700800000000000000
+      internalID: 505015324989707000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: masterball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70c67d93b29d3b990800000000000000
+      internalID: -7371309385398129657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: masterball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 408
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8798de8e2eb5b1c40800000000000000
+      internalID: 5484078001382328696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: masterball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 408
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a210aa157e26ed80800000000000000
+      internalID: -8221832989225512284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_73
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca27c1b4eed6bfc90800000000000000
+      internalID: -7134988314408619348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_74
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14c5a66bb7f5fc950800000000000000
+      internalID: 6471496174500731969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_75
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a093f92dca8d6d9b0800000000000000
+      internalID: -5055615294897178358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_76
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9396edd96043b8060800000000000000
+      internalID: 6956711252426910009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_77
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df042727ff7c049f0800000000000000
+      internalID: -486168859805335299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_78
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4892f2fe54dccb180800000000000000
+      internalID: -9098171446945961596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: masterball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 408
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5453727969511fb0800000000000000
+      internalID: -4678860228434635686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: masterball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 408
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ebf26283a7a6ccf0800000000000000
+      internalID: -232314010053968925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: masterball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 408
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dba7403882d1c4aa0800000000000000
+      internalID: -6175528929197786435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: masterball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 408
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fb289245bd9d58f0800000000000000
+      internalID: -550110177637422093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_84
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 912a32eaece774db0800000000000000
+      internalID: -4807734651044781543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_85
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89e5a05bcb29664f0800000000000000
+      internalID: -835819341641785704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_86
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 693183df5d3d86ec0800000000000000
+      internalID: -3573373388288683114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_87
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ab654c92fa9185f0800000000000000
+      internalID: -756152895626974295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_88
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d0a9a1fdfba6b580800000000000000
+      internalID: -8811666513734295335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_89
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cd70999a04eec2b0800000000000000
+      internalID: -5562257755578794551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_90
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d7c79de6094955e0800000000000000
+      internalID: -1920423471992027177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: premierball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 485e3b0cf22344f90800000000000000
+      internalID: -6970391142584818300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: premierball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 382
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b343a770316cfe3d0800000000000000
+      internalID: -3175101427240782789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: premierball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 382
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d76ba15eec9246c90800000000000000
+      internalID: -7177565937537993091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_94
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed1730d8bb340aa50800000000000000
+      internalID: 6530293932490977758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_95
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6019f6239344f1510800000000000000
+      internalID: 1522010211524514054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_96
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39169542f215c3440800000000000000
+      internalID: 4916894156096889235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_97
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6a8ee60f6875d9e0800000000000000
+      internalID: -1597238074579973525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_98
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc1246783c796b10800000000000000
+      internalID: 1975246493522730234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_99
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02b8228a315249100800000000000000
+      internalID: 113756656946547488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: premierball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 382
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d5671517d746db40800000000000000
+      internalID: 5464634186958071250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: premierball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 382
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a1d84e72d0fcb80800000000000000
+      internalID: -8372458717269124573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: premierball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 382
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61f2e592b9ce275a0800000000000000
+      internalID: -6524892758948303082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: premierball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 382
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8904f82b4285e09c0800000000000000
+      internalID: -3959130107774287720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_105
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cbf3a91574e99090800000000000000
+      internalID: -8027133669218714682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_106
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aa1e7ceaf8e7d6e0800000000000000
+      internalID: -1812724160586179935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_107
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0fbac72ae706cb0800000000000000
+      internalID: -4872755560473431868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_108
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc80e3103f37f990800000000000000
+      internalID: -7352338390934582078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_109
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7235a073ab8f4e10800000000000000
+      internalID: 2184117878383784572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_110
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d0e0920d5da7e70800000000000000
+      internalID: 9113831885956320604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_111
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6019ef2b33f24fe0800000000000000
+      internalID: -1206134314649448338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cherishball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67aa1c4288aa33460800000000000000
+      internalID: 7220302129313983094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cherishball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 356
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7bcd0c9925ca83f0800000000000000
+      internalID: -897688393204511874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cherishball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 356
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc965d4e1c0b3acc0800000000000000
+      internalID: -3700920121954047540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_115
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a86ee5219479cd690800000000000000
+      internalID: -7576014133047400822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_116
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 482c56e7f27972910800000000000000
+      internalID: 1812583605279769220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_117
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7947156aebdff42b0800000000000000
+      internalID: -5597976816522267497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_118
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f74cdddb0c4c3490800000000000000
+      internalID: -7765248043643025417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_119
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d97f1ce12bfe10690800000000000000
+      internalID: -7637559944744405091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_120
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3fa14425ec2c11b0800000000000000
+      internalID: -5684619266980991174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cherishball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 356
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c89d82b184b3e6d0800000000000000
+      internalID: -2962325660740249399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cherishball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 356
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94b349576f7850c40800000000000000
+      internalID: 5477934014370429769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cherishball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 356
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60eeaa8e53d85ba40800000000000000
+      internalID: 5383364192267595270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cherishball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae19e92ab32abf60800000000000000
+      internalID: 8050786566352215725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_126
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b827747596714570800000000000000
+      internalID: 8449164760199932081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_127
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13aa8a0864293e340800000000000000
+      internalID: 4891914451758393905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_128
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55186cd2a8a5fd3a0800000000000000
+      internalID: -6638487776200851115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_129
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 968fc4c2300c58a40800000000000000
+      internalID: 5369909250569861225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_130
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 707baeb4fa9603040800000000000000
+      internalID: 4625313018923366151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_131
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a351b76e7d2b0330800000000000000
+      internalID: 3678083541606945702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_132
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16f9817bffd5669a0800000000000000
+      internalID: -6240196880805355679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: luxuryball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d5a4ca9a989c3e0800000000000000
+      internalID: -2032942394948035303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: luxuryball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 330
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b0794fdb0bf70d60800000000000000
+      internalID: 7856524103380463794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: luxuryball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 330
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fef4454843625770800000000000000
+      internalID: 8598043800654642937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_136
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7d5d0531b9490dd0800000000000000
+      internalID: -2519401491088974468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_137
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 200abaee004855990800000000000000
+      internalID: -7397861673347080190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_138
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e86e3c92084b065e0800000000000000
+      internalID: -1918334978710313330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_139
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c132d0b9e0a8cd80800000000000000
+      internalID: -8230151393465191994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_140
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0835e0fbde213470800000000000000
+      internalID: 8372524704432732174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_141
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25a00b03ed6a6d130800000000000000
+      internalID: 3591241226104343122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: luxuryball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 330
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45528b5c90a0ebd10800000000000000
+      internalID: 2143161509763097940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: luxuryball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 330
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abebd3b46f9639550800000000000000
+      internalID: 6166388821345550010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: luxuryball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 330
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14845ce507ab56e80800000000000000
+      internalID: -8185931755886917567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: luxuryball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 330
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9208b7aa132c1fed0800000000000000
+      internalID: -2381909209332875223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_147
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56bebcad5e4ce7590800000000000000
+      internalID: -7674480223495394459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_148
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da170534675a2c310800000000000000
+      internalID: 1423882359556567469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_149
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08cef787af866eba0800000000000000
+      internalID: -6060040823607661440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_150
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 737e1f00c304abe30800000000000000
+      internalID: 4519995802477782839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_151
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb7f0363c388b31f0800000000000000
+      internalID: -1064107094754396229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_152
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5319bd2cdceafbf20800000000000000
+      internalID: 3440660839095046453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_153
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de0149e6c041b4450800000000000000
+      internalID: 6073970566066606317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nestball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80572a755737cfdd0800000000000000
+      internalID: -2450957149377759992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nestball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 304
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72bbe28dbd617d660800000000000000
+      internalID: 7410416845342030631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nestball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 304
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f98eeb7c8e67f6c30800000000000000
+      internalID: 4354830106846226591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_157
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bf9851a84bbaa470800000000000000
+      internalID: 8406737575059431347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_158
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53dd1d71e6f491130800000000000000
+      internalID: 3537946316540861749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_159
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feff2e21e7cb4f9c0800000000000000
+      internalID: -3894280528099868689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_160
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 738890c9496c913e0800000000000000
+      internalID: -2082415011106813897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_161
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd3c0d15f86bbee0800000000000000
+      internalID: -1244285470074192431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_162
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a4b5a024c09aa770800000000000000
+      internalID: 8622863608589956257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nestball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 304
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 682139640df51bc90800000000000000
+      internalID: -7155832984773127546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nestball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 304
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e19d7e0e19162290800000000000000
+      internalID: -7915611678174244380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nestball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 304
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 904b037166d585de0800000000000000
+      internalID: -1344221795712977911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nestball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 304
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb2b9609e81caf6a0800000000000000
+      internalID: -6414601901183487301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_168
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79ce639367ffb8270800000000000000
+      internalID: 8253971625317690519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_169
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ff21dd032cc712f0800000000000000
+      internalID: -1002107941138911248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_170
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bbc52c99039b47c0800000000000000
+      internalID: -4086010567424881737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_171
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4511215cf8dc45750800000000000000
+      internalID: 6292880596713738580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_172
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28fce63e441a13770800000000000000
+      internalID: 8588823281617784706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_173
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7446a20f4428759a0800000000000000
+      internalID: -6244379125727206329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_174
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2503aa803346b63f0800000000000000
+      internalID: -906520729633542062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: netball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ab37a5fa73069110800000000000000
+      internalID: 1267204171793644451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: netball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 278
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226a55e3f38a63c50800000000000000
+      internalID: 6644683289813952034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: netball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 278
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e42c9777c93b5f8c0800000000000000
+      internalID: -3966066412229115314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_178
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa70c0e40f9fb9e00800000000000000
+      internalID: 1052709748418021295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_179
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9240eb2ff05000e70800000000000000
+      internalID: 9079262414834107433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_180
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b4e57741c6214270800000000000000
+      internalID: 8232904205379429553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_181
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 045bf87b94ce12ac0800000000000000
+      internalID: -3881561602460240576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_182
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45f042e14b5422cb0800000000000000
+      internalID: -4890269605468827820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_183
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d0cbfff5ecd77130800000000000000
+      internalID: 3564560510487347410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: netball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 278
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 499e152ecf6db7cd0800000000000000
+      internalID: -2559215581612873324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: netball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 278
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed432327fd4e998b0800000000000000
+      internalID: -5144829450949348130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: netball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 278
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bf316e1acf03acc0800000000000000
+      internalID: -3701097108000915534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: netball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 278
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bada5d1c856a7e80800000000000000
+      internalID: -8180114120702764366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_189
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab4da6a302bb1b5d0800000000000000
+      internalID: -3048449725659687750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_190
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8a74fd84cc6c59d0800000000000000
+      internalID: -2784230878170809718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_191
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b4e451d17a9b7190800000000000000
+      internalID: -7963601702440606535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_192
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b666d84bc97d3200800000000000000
+      internalID: 161419075662538420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_193
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28cd8fb9f065ba9c0800000000000000
+      internalID: -3914940826027238270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_194
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25a438524cfbd4420800000000000000
+      internalID: 2615957807735982674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_195
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8290d7f66edb6580800000000000000
+      internalID: -8832721710331424114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diveball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2257f726f85539820800000000000000
+      internalID: 2923774657414788386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diveball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 252
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 518895a29e27d5cf0800000000000000
+      internalID: -261926857554163691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diveball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 252
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02e3861281cc087d0800000000000000
+      internalID: -2918108154524320224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_199
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddbb66deb275dcfa0800000000000000
+      internalID: -5778866900668335139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_200
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03c9719743dd9e470800000000000000
+      internalID: 8424507795412851760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_201
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c0d5dfd09bcd92f0800000000000000
+      internalID: -964390922096357179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_202
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f1512ad3c9a80370800000000000000
+      internalID: 8289061772818731508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_203
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10a85d11a4bd6fe10800000000000000
+      internalID: 2231211776581929473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_204
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6580a416be87d8d20800000000000000
+      internalID: 3282412655767849046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diveball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 252
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7bd2e8e7c5ba8ee0800000000000000
+      internalID: -1257993275686331523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diveball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 252
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bbd2c532abebfd10800000000000000
+      internalID: 2160579528173476785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diveball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 252
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee3900dc163ccd020800000000000000
+      internalID: 2367982328908649454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diveball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 252
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 067add65381bfa480800000000000000
+      internalID: -8885688362122500256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_210
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06b436a44b45105c0800000000000000
+      internalID: -4251023439942169760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_211
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6afc362637fe32380800000000000000
+      internalID: -8997084351705133146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_212
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94fc2a7db8e571910800000000000000
+      internalID: 1808017730123779913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_213
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ea8e22ecab61f240800000000000000
+      internalID: 4823755066163759840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_214
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fa30b5e1466a48d0800000000000000
+      internalID: -2861362180028089614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_215
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0c925e39cd121810800000000000000
+      internalID: 1734481556662295563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_216
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc9c9b7d1ae43490800000000000000
+      internalID: -7767326044958450494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: repeatball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1882eea6ee1193280800000000000000
+      internalID: -9063193059412531071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: repeatball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 226
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c952f65ef81cfcb40800000000000000
+      internalID: 5462797696797451676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: repeatball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 226
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19fb0418c0cc48ad0800000000000000
+      internalID: -2700809522435276911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_220
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1d106f4ee680400800000000000000
+      internalID: 290604105624310263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_221
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c54d7f4608a369c0800000000000000
+      internalID: -3935116904334801465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_222
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76e2c1f045fda1a90800000000000000
+      internalID: -7342310690350420377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_223
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eacd5d073e3781e00800000000000000
+      internalID: 1015689136659881134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_224
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd47d5f6822c08aa0800000000000000
+      internalID: -6160710811319962405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_225
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de9b66a4e52285f30800000000000000
+      internalID: 4564436010710514157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: repeatball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 226
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a9f0c451ebb89e60800000000000000
+      internalID: 7969326117096061344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: repeatball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 226
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7451de1c18f2bd790800000000000000
+      internalID: -7504352119731972793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: repeatball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 226
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a83c9950d26d8b90800000000000000
+      internalID: -7238020379118389083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: repeatball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 226
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f41d0464e283e40800000000000000
+      internalID: 5636305812924223365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_231
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29f19b841cd1a8de0800000000000000
+      internalID: -1330218023948574830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_232
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37118413af81eb200800000000000000
+      internalID: 197622896498577779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_233
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d308f5a1975697bd0800000000000000
+      internalID: -2631960936413429699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_234
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e69916801dd38c680800000000000000
+      internalID: -8734663509287003794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_235
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ee116108203217e0800000000000000
+      internalID: -1796320352987439388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_236
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bda5a29399859fca0800000000000000
+      internalID: -5982653214872675621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_237
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7adf69becd1efc470800000000000000
+      internalID: 8417194567540342183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timerball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab5168d9507816f0800000000000000
+      internalID: -713697009753564251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timerball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 200
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ffeadfc31ae32e90800000000000000
+      internalID: -7051535220719554569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timerball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 200
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88e85c4558bb4a760800000000000000
+      internalID: 7468300263414402696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_241
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 031c495ae2d479680800000000000000
+      internalID: -8748438888402075344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_242
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 137598e83b41bd8b0800000000000000
+      internalID: -5126480989408110799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_243
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08b3d8dfa9321e200800000000000000
+      internalID: 207486206421580672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_244
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fea62c31b513e7d60800000000000000
+      internalID: 7889797864442981103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_245
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06ada241a611a8680800000000000000
+      internalID: -8752163778538579360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_246
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89f86ced7712b3520800000000000000
+      internalID: 2682774801751642008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timerball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 200
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 766db2afd7d376f10800000000000000
+      internalID: 2262844949054346855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timerball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 200
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa83aca1f25e6f7c0800000000000000
+      internalID: -4037788025415386966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timerball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 200
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd28ddb4ea28780c0800000000000000
+      internalID: -4573543211462720805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: timerball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 200
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed2717bc04b174040800000000000000
+      internalID: 4631700706878911198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_252
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ed8b18b1ac703e60800000000000000
+      internalID: 7939983177074576864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_253
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbaad1276cdde5e10800000000000000
+      internalID: 2188430313336449723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_254
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cc88c171fdb33770800000000000000
+      internalID: 8589417759019404489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_255
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d1912da8ae32a360800000000000000
+      internalID: 7179369650162078162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_256
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55bbb50c0a38cd740800000000000000
+      internalID: 5178158398014470997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_257
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc386532e2f53d7d0800000000000000
+      internalID: -2894865483703090225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_258
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98cab4ac9bba81ac0800000000000000
+      internalID: -3884165864155796343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: safariball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aa1ab769440deff0800000000000000
+      internalID: -5343311238128983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: safariball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 174
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83fe0d5e10490a570800000000000000
+      internalID: 8475937234582826808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: safariball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 174
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f705a7dd296924d90800000000000000
+      internalID: -7114958903766790017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_262
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 468d1e4c8fc18c3a0800000000000000
+      internalID: -6645029395404564380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_263
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81b2cc9947d217ed0800000000000000
+      internalID: -2418101546101495016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_264
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b857d85869a23ec0800000000000000
+      internalID: -3588619687428663114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_265
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48671364e1a292970800000000000000
+      internalID: 8730555662149449348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_266
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540f4725a5039d880800000000000000
+      internalID: -8585778050116554683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_267
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2d9ae9b6f6e627b0800000000000000
+      internalID: -5249254368298230485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: safariball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 174
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bdc7771462abc180800000000000000
+      internalID: -9093996471770427977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: safariball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 174
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aea045fa534fbb50800000000000000
+      internalID: 6611076835943952034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: safariball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 174
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f93bca2bcdfe70f80800000000000000
+      internalID: -8140274070279375969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: safariball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 174
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4c2f2475345d5f20800000000000000
+      internalID: 3412976681175952462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_273
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcb5e57f203271160800000000000000
+      internalID: 6996099041790417869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_274
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4e4e7949cb42d070800000000000000
+      internalID: 8129643605250690634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_275
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa7583741b5cdf400800000000000000
+      internalID: 359660910454265770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_276
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0caeb89365d4896f0800000000000000
+      internalID: -677706711191262528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_277
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e6a4a720395cf6a0800000000000000
+      internalID: -6414153705924024608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_278
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f89293644c364fb00800000000000000
+      internalID: 861423123377498511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_279
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e679e9a029db1b920800000000000000
+      internalID: 3004390861373871982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quickball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6667496bc8b4cc660800000000000000
+      internalID: 7407378554848310886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quickball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 148
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27417b286fe99bdf0800000000000000
+      internalID: -163925129830132622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quickball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 148
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e55de50e7208651d0800000000000000
+      internalID: -3362359163029105314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_283
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c520aeded13ec7fe0800000000000000
+      internalID: -1189826483847560612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_284
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce50ad5f4034f4250800000000000000
+      internalID: 5931032922853869036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_285
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cbc1251358190dc0800000000000000
+      internalID: -3672377276028040255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_286
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66872aafbbf783c30800000000000000
+      internalID: 4339358686312036454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_287
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a712c56d9b2d5190800000000000000
+      internalID: -7972167810358831194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_288
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3c6eefa9a1093c0800000000000000
+      internalID: -4354951586663447581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quickball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 148
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf034e7830cd9c020800000000000000
+      internalID: 2362661387255427323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quickball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 148
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7957f7de34e4d64f0800000000000000
+      internalID: -833924302339345001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quickball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 148
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5daf9327fc3393e0800000000000000
+      internalID: -2048226373371187875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quickball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 148
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68913ec6bf9d3ed50800000000000000
+      internalID: 6765490739127458182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_294
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71e00bd4dd50fce10800000000000000
+      internalID: 2219999589366238743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_295
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c8691bc0800b350800000000000000
+      internalID: 6030328751661157450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_296
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffd27cb6465b07770800000000000000
+      internalID: 8606578330814590463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_297
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 001061ec6633208a0800000000000000
+      internalID: -6340448808747007744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_298
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3987c8023f6524010800000000000000
+      internalID: 1171594455292868755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_299
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61e0b0e4626e51130800000000000000
+      internalID: 3536986134561885718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_300
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74405b5d28e077740800000000000000
+      internalID: 5149600654015398983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: duskball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6bba5ea973d41f80800000000000000
+      internalID: -8136646107181958292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: duskball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 122
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78eda9f7f8119a9c0800000000000000
+      internalID: -3915579093003084153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: duskball_open
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 122
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecdc32fe4689614b0800000000000000
+      internalID: -5470017138118636082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_304
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f6feee96f35f770800000000000000
+      internalID: 8643884784020320099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_305
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed594fba5628c43f0800000000000000
+      internalID: -915213251074812450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_306
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76e1e29e16a4959b0800000000000000
+      internalID: -5090956119381238169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_307
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 218c43bf90acf02e0800000000000000
+      internalID: -2157283552269121518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_308
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b74291869394c780800000000000000
+      internalID: -8663637508525766731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_309
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2760d1c314adb8980800000000000000
+      internalID: -8535488695034378638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: duskball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 122
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ec1a80b8670763a0800000000000000
+      internalID: -6672356176706265880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: duskball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 122
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ace0b333fcd4384a0800000000000000
+      internalID: -6592339877227196726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: duskball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 122
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 773052c219e9118b0800000000000000
+      internalID: -5183187349778660489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: duskball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 122
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1898cf9a42be03ec0800000000000000
+      internalID: -3589110360311035519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_315
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faaaf995613e30ad0800000000000000
+      internalID: -2737094463378707793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_316
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0485c1be2b7b48840800000000000000
+      internalID: 5225503446733183040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_317
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90378ba789ce9a30800000000000000
+      internalID: 4224035085055635615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_318
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33c48db8bef651900800000000000000
+      internalID: 654552378306481203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_319
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38d76866561c747a0800000000000000
+      internalID: -6392928504773182077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_320
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00f9ee513e3dd76b0800000000000000
+      internalID: -5296844614438838528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_321
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b3fb1d967917b890800000000000000
+      internalID: -7442451861973765197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: healball_neutral
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e82dbdb76ff524a60800000000000000
+      internalID: 7656787828727861902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: healball_squashed
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 97
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c5df52fc24c546e0800000000000000
+      internalID: -1853859974269119038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_324
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 97
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 075c1d47da4b051a0800000000000000
+      internalID: -6822754778384054928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_325
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba9b7b6a4f6882790800000000000000
+      internalID: -7554639989586806357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_326
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f31445ef4c5901790800000000000000
+      internalID: -7561379101041999553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_327
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c5f05b9e88432b0800000000000000
+      internalID: -5605705098822984595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_328
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57bebda1bbe542270800000000000000
+      internalID: 8224802977187883893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_329
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a20cc0a27d7aa4e0800000000000000
+      internalID: -1969623955743702363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_pokeballs_330
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d062ffe42950f7000800000000000000
+      internalID: 35753447990961677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: healball_wobble_left
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 97
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d6874ce58e32e540800000000000000
+      internalID: 5035656078269318868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: healball_wobble_center
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 97
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63a85279559e62650800000000000000
+      internalID: 6207905690194119222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: healball_wobble_right
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 97
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce1a65c9b9b6991b0800000000000000
+      internalID: -5649365941472550420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: healball_caught
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe3c2ae6ab3c27bd0800000000000000
+      internalID: -2633827626570824721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

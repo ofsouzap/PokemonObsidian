@@ -1,0 +1,924 @@
+fileFormatVersion: 2
+guid: b1d4ad9be7961de4cbb4dfbe17792d8b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 569176950242044840
+    second: itemsprite_pokeball
+  - first:
+      213: -7848502113663754941
+    second: itemsprite_greatball
+  - first:
+      213: -1896035688484451238
+    second: itemsprite_ultraball
+  - first:
+      213: -8252524440235909124
+    second: itemsprite_masterball
+  - first:
+      213: 6053047671378463097
+    second: itemsprite_premierball
+  - first:
+      213: -3386016846879407626
+    second: itemsprite_cherishball
+  - first:
+      213: -7736988102625432906
+    second: itemsprite_luxuryball
+  - first:
+      213: -2108414563109916437
+    second: itemsprite_nestball
+  - first:
+      213: -2309427396973456814
+    second: itemsprite_netball
+  - first:
+      213: -2473752693130187029
+    second: itemsprite_diveball
+  - first:
+      213: 7544223995555282364
+    second: itemsprite_repeatball
+  - first:
+      213: -5366994686315730768
+    second: itemsprite_timerball
+  - first:
+      213: 6322521543622909265
+    second: itemsprite_safariball
+  - first:
+      213: 7480867373034572410
+    second: itemsprite_quickball
+  - first:
+      213: -3918961361032497815
+    second: itemsprite_duskball
+  - first:
+      213: 7584069070995235161
+    second: itemsprite_healball
+  - first:
+      213: -2870618264058464885
+    second: itemsprite_maxpotion
+  - first:
+      213: 6270995368795293399
+    second: itemsprite_fullrestore
+  - first:
+      213: 1798910432561736777
+    second: itemsprite_potion
+  - first:
+      213: -4284740354887033325
+    second: itemsprite_superpotion
+  - first:
+      213: -7735384315445136311
+    second: itemsprite_hyperpotion
+  - first:
+      213: 7131268621915289587
+    second: itemsprite_fullheal
+  - first:
+      213: 6180083206806932113
+    second: itemsprite_paralyseheal
+  - first:
+      213: -8738761214251302950
+    second: itemsprite_antidote
+  - first:
+      213: -1932453716442566222
+    second: itemsprite_awakening
+  - first:
+      213: 5400998453094009291
+    second: itemsprite_burnheal
+  - first:
+      213: 4112054337443330092
+    second: itemsprite_iceheal
+  - first:
+      213: 8910296788209163203
+    second: itemsprite_ether
+  - first:
+      213: -1252635583963985366
+    second: itemsprite_maxether
+  - first:
+      213: 6249885954743944532
+    second: itemsprite_elixir
+  - first:
+      213: -8009946548742199966
+    second: itemsprite_maxelixir
+  - first:
+      213: 3954438302499285434
+    second: itemsprite_revive
+  - first:
+      213: -3148667918946582097
+    second: itemsprite_maxrevive
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: itemsprite_pokeball
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 759
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ab648dab6f16e700800000000000000
+      internalID: 569176950242044840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_greatball
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 759
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34d5b2829e4841390800000000000000
+      internalID: -7848502113663754941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_ultraball
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 759
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5ccb62469defa5e0800000000000000
+      internalID: -1896035688484451238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_masterball
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 759
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cff528fceb4297d80800000000000000
+      internalID: -8252524440235909124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_premierball
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 759
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 979c40569ceb00450800000000000000
+      internalID: 6053047671378463097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_cherishball
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 759
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f1c34e1e937201d0800000000000000
+      internalID: -3386016846879407626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_luxuryball
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 741
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ba669f1052b0a490800000000000000
+      internalID: -7736988102625432906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_nestball
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 741
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be0b29e20286db2e0800000000000000
+      internalID: -2108414563109916437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_netball
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 741
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25297d0b40443ffd0800000000000000
+      internalID: -2309427396973456814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_diveball
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 741
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bee2fc738077badd0800000000000000
+      internalID: -2473752693130187029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_repeatball
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 738
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbdfc01c0c772b860800000000000000
+      internalID: 7544223995555282364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_timerball
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 738
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b8edb2b4ca9485b0800000000000000
+      internalID: -5366994686315730768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_safariball
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 738
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15dd56488db1eb750800000000000000
+      internalID: 6322521543622909265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_quickball
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 738
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7a098d8d3161d760800000000000000
+      internalID: 7480867373034572410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_duskball
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 738
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9653d2bd76d0d99c0800000000000000
+      internalID: -3918961361032497815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_healball
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 738
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 951a2b053a6004960800000000000000
+      internalID: 7584069070995235161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_maxpotion
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 904
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b85fb05e5e38928d0800000000000000
+      internalID: -2870618264058464885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_fullrestore
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 904
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d6c921101d070750800000000000000
+      internalID: 6270995368795293399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_potion
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 880
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c2693e18307f810800000000000000
+      internalID: 1798910432561736777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_superpotion
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 880
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31e5d28495b8984c0800000000000000
+      internalID: -4284740354887033325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_hyperpotion
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 880
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 944b3cce2f466a490800000000000000
+      internalID: -7735384315445136311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_fullheal
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 881
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f7762f470b57f260800000000000000
+      internalID: 7131268621915289587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_paralyseheal
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 881
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19a8510eee014c550800000000000000
+      internalID: 6180083206806932113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_antidote
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 881
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adff69fb9fea9b680800000000000000
+      internalID: -8738761214251302950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_awakening
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 881
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b1be8e559b8e25e0800000000000000
+      internalID: -1932453716442566222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_burnheal
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 882
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc94a153a7334fa40800000000000000
+      internalID: 5400998453094009291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_iceheal
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 882
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c28f96022a3f01930800000000000000
+      internalID: 4112054337443330092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_ether
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 881
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cbd28858bbb7ab70800000000000000
+      internalID: 8910296788209163203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_maxether
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 881
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2a00d8b29ebd9ee0800000000000000
+      internalID: -1252635583963985366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_elixir
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 881
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 455473b992e0cb650800000000000000
+      internalID: 6249885954743944532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_maxelixir
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 881
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 265ea5c6d04f6d090800000000000000
+      internalID: -8009946548742199966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_revive
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 856
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab92ba24facf0e630800000000000000
+      internalID: 3954438302499285434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_maxrevive
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 856
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa14587c53fad44d0800000000000000
+      internalID: -3148667918946582097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
