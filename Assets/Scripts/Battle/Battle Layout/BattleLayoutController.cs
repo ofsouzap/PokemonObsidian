@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using Pokemon;
+using Items.PokeBalls;
 
 namespace Battle.BattleLayout
 {
@@ -23,6 +24,9 @@ namespace Battle.BattleLayout
 
         public GameObject opponentTrainerSprite;
         private float opponentTrainerSpriteRootX;
+
+        public GameObject playerPokeBallSprite;
+        public GameObject opponentPokeBallSprite;
 
         #region Constants
 
@@ -88,6 +92,15 @@ namespace Battle.BattleLayout
         /// </summary>
         public const float opponentTrainerShowcaseMovementTime = 0.75F;
 
+        #region Poke Ball Opening
+
+        public const float pokeBallOpeningNeutralTime = 0.4F;
+        public const float pokeBallOpeningSquashedTime = 0.2F;
+
+        #endregion
+
+        public const float pokemonEmergeTime = 0.3F;
+
         #endregion
 
         #region Other Constants
@@ -127,6 +140,12 @@ namespace Battle.BattleLayout
             if (opponentTrainerSprite.GetComponent<SpriteRenderer>() == null)
                 Debug.LogError("No SpriteRenderer component found for opponentTrainerSprite");
 
+            if (playerPokeBallSprite.GetComponent<SpriteRenderer>() == null)
+                Debug.LogError("No SpriteRenderer component found for playerPokeBallSprite");
+
+            if (opponentPokeBallSprite.GetComponent<SpriteRenderer>() == null)
+                Debug.LogError("No SpriteRenderer component found for opponentPokeBallSprite");
+
             playerPokemonSpriteRootX = playerPokemonSprite.transform.localPosition.x;
             opponentPokemonSpriteRootX = opponentPokemonSprite.transform.localPosition.x;
 
@@ -139,6 +158,8 @@ namespace Battle.BattleLayout
             playerPokemonSprite.SetActive(false);
             opponentPokemonSprite.SetActive(false);
             opponentTrainerSprite.SetActive(false);
+            playerPokeBallSprite.SetActive(false);
+            opponentPokeBallSprite.SetActive(false);
             overviewPaneManager.HidePanes();
         }
 
@@ -179,6 +200,46 @@ namespace Battle.BattleLayout
             }
 
             gameObject.transform.localPosition = endPos;
+
+        }
+
+        /// <summary>
+        /// Gradually scale a game object from its current scale to another scale
+        /// </summary>
+        /// <param name="gameObject">The game object to scale</param>
+        /// <param name="endScale">The local scale to scale to</param>
+        /// <param name="timeToTake">The time the scale should take</param>
+        /// <param name="refreshTime">The time to wait before refreshing the object's scale. 0 means to refresh each frame</param>
+        /// <returns></returns>
+        private IEnumerator GradualChangeScale(GameObject gameObject,
+            Vector3 endScale,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            Vector3 startScale = gameObject.transform.localScale;
+
+            float startTime = Time.time;
+            float endTime = startTime + timeToTake;
+
+            while (true)
+            {
+
+                if (Time.time >= endTime)
+                    break;
+
+                float timeFactor = (Time.time - startTime) / timeToTake;
+
+                gameObject.transform.localScale = Vector3.Lerp(startScale, endScale, timeFactor);
+
+                if (refreshTime == 0)
+                    yield return new WaitForFixedUpdate();
+                else
+                    yield return new WaitForSeconds(refreshTime);
+
+            }
+
+            gameObject.transform.localScale = endScale;
 
         }
 
@@ -277,24 +338,6 @@ namespace Battle.BattleLayout
 
         #region Pokemon Sending Out
 
-        private IEnumerator SendInPokemon(Sprite pokemonSprite, GameObject spriteObject, float rootXPos, float offScreenXPos)
-        {
-
-            spriteObject.GetComponent<SpriteRenderer>().sprite = pokemonSprite;
-            spriteObject.transform.localPosition = new Vector3(
-                offScreenXPos,
-                spriteObject.transform.localPosition.y,
-                spriteObject.transform.localPosition.z
-                );
-            spriteObject.SetActive(true);
-
-            Vector3 targetPosition = spriteObject.transform.localPosition;
-            targetPosition.x = rootXPos;
-
-            yield return StartCoroutine(GradualTranslatePosition(spriteObject, targetPosition, sendInPokemonTime));
-
-        }
-
         /// <param name="mainSprite">The sprite to start and end on</param>
         /// <param name="secondarySprite">The sprite to change to</param>
         private IEnumerator AnimateOpponentPokemonEntrance(SpriteRenderer spriteObject, Sprite mainSprite, Sprite secondarySprite)
@@ -313,17 +356,30 @@ namespace Battle.BattleLayout
 
         }
 
-        public IEnumerator SendInPlayerPokemon(PokemonInstance pokemon)
+        #region Wild Pokemon Sending Out
+
+        private IEnumerator SendInWildPokemon(Sprite pokemonSprite, GameObject spriteObject, float rootXPos, float offScreenXPos)
         {
-            overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(pokemon);
-            yield return StartCoroutine(SendInPokemon(pokemon.LoadSprite(PokemonSpecies.SpriteType.Back), playerPokemonSprite, playerPokemonSpriteRootX, pokemonSpriteOffScreenLeftLocalPositionX));
-            yield return StartCoroutine(overviewPaneManager.RevealPlayerOverviewPane());
+
+            spriteObject.GetComponent<SpriteRenderer>().sprite = pokemonSprite;
+            spriteObject.transform.localPosition = new Vector3(
+                offScreenXPos,
+                spriteObject.transform.localPosition.y,
+                spriteObject.transform.localPosition.z
+                );
+            spriteObject.SetActive(true);
+
+            Vector3 targetPosition = spriteObject.transform.localPosition;
+            targetPosition.x = rootXPos;
+
+            yield return StartCoroutine(GradualTranslatePosition(spriteObject, targetPosition, sendInPokemonTime));
+
         }
 
-        public IEnumerator SendInOpponentPokemon(PokemonInstance pokemon)
+        public IEnumerator SendInWildOpponentPokemon(PokemonInstance pokemon)
         {
             overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(pokemon);
-            yield return StartCoroutine(SendInPokemon(pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1), opponentPokemonSprite, opponentPokemonSpriteRootX, pokemonSpriteOffScreenRightLocalPositionX));
+            yield return StartCoroutine(SendInWildPokemon(pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1), opponentPokemonSprite, opponentPokemonSpriteRootX, pokemonSpriteOffScreenRightLocalPositionX));
             yield return StartCoroutine(AnimateOpponentPokemonEntrance(
                 opponentPokemonSprite.GetComponent<SpriteRenderer>(),
                 pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
@@ -331,6 +387,106 @@ namespace Battle.BattleLayout
                 ));
             yield return StartCoroutine(overviewPaneManager.RevealOpponentOverviewPane());
         }
+
+        #endregion
+
+        #region Trainer Pokemon Sending Out
+
+        private IEnumerator AnimatePokeBallOpening(GameObject pokeBallObject,
+            Sprite pokeBallSpriteNeutral,
+            Sprite pokeBallSpriteSquashed,
+            Sprite pokeBallSpriteOpen)
+        {
+
+            pokeBallObject.SetActive(true);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBallSpriteNeutral;
+
+            yield return new WaitForSeconds(pokeBallOpeningNeutralTime);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBallSpriteSquashed;
+
+            yield return new WaitForSeconds(pokeBallOpeningSquashedTime);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBallSpriteOpen;
+
+        }
+
+        private IEnumerator AnimatePokemonEmerge(GameObject spriteObject,
+            Sprite sprite,
+            float initialSize,
+            float targetSize,
+            float timeToTake)
+        {
+
+            spriteObject.GetComponent<SpriteRenderer>().sprite = sprite;
+            spriteObject.SetActive(true);
+
+            spriteObject.transform.localScale = Vector2.one * initialSize;
+            yield return StartCoroutine(GradualChangeScale(spriteObject,
+                Vector2.one * targetSize,
+                timeToTake));
+
+            //TODO - later on, have sprite turn from pure white to normal color whilst growing. To do this, can't use GradualChangeScale, as must have color change simultaneous
+
+        }
+
+        public IEnumerator SendInPlayerPokemon(PokemonInstance pokemon)
+        {
+            overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(pokemon);
+
+            PokeBall pokeball = PokeBall.GetPokeBallById(pokemon.pokeBallId);
+            Sprite pokeBallNeutral = pokeball.GetSprite(PokeBall.SpriteType.Neutral);
+            Sprite pokeBallSquashed = pokeball.GetSprite(PokeBall.SpriteType.Squashed);
+            Sprite pokeBallOpen = pokeball.GetSprite(PokeBall.SpriteType.Open);
+
+            yield return StartCoroutine(AnimatePokeBallOpening(playerPokeBallSprite,
+                pokeBallNeutral,
+                pokeBallSquashed,
+                pokeBallOpen));
+
+            yield return StartCoroutine(AnimatePokemonEmerge(playerPokemonSprite,
+                pokemon.LoadSprite(PokemonSpecies.SpriteType.Back),
+                0,
+                playerPokemonSprite.transform.localScale.x,
+                pokemonEmergeTime));
+
+            playerPokeBallSprite.SetActive(false);
+
+            yield return StartCoroutine(overviewPaneManager.RevealPlayerOverviewPane());
+        }
+
+        public IEnumerator SendInTrainerOpponentPokemon(PokemonInstance pokemon)
+        {
+            overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(pokemon);
+
+            PokeBall pokeball = PokeBall.GetPokeBallById(pokemon.pokeBallId);
+            Sprite pokeBallNeutral = pokeball.GetSprite(PokeBall.SpriteType.Neutral);
+            Sprite pokeBallSquashed = pokeball.GetSprite(PokeBall.SpriteType.Squashed);
+            Sprite pokeBallOpen = pokeball.GetSprite(PokeBall.SpriteType.Open);
+
+            yield return StartCoroutine(AnimatePokeBallOpening(opponentPokeBallSprite,
+                pokeBallNeutral,
+                pokeBallSquashed,
+                pokeBallOpen));
+
+            yield return StartCoroutine(AnimatePokemonEmerge(opponentPokemonSprite,
+                pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
+                0,
+                opponentPokemonSprite.transform.localScale.x,
+                pokemonEmergeTime));
+
+            opponentPokeBallSprite.SetActive(false);
+
+            yield return StartCoroutine(AnimateOpponentPokemonEntrance(
+                opponentPokemonSprite.GetComponent<SpriteRenderer>(),
+                pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
+                pokemon.LoadSprite(PokemonSpecies.SpriteType.Front2)
+                ));
+            yield return StartCoroutine(overviewPaneManager.RevealOpponentOverviewPane());
+        }
+
+        #endregion
 
         #endregion
 

@@ -46,8 +46,12 @@ namespace Battle
                     yield return StartCoroutine(battleLayoutController.SendInPlayerPokemon(animation.sendOutPokemon));
                     break;
 
-                case Animation.Type.OpponentSendOut:
-                    yield return StartCoroutine(battleLayoutController.SendInOpponentPokemon(animation.sendOutPokemon));
+                case Animation.Type.OpponentSendOutWild:
+                    yield return StartCoroutine(battleLayoutController.SendInWildOpponentPokemon(animation.sendOutPokemon));
+                    break;
+
+                case Animation.Type.OpponentSendOutTrainer:
+                    yield return StartCoroutine(battleLayoutController.SendInTrainerOpponentPokemon(animation.sendOutPokemon));
                     break;
 
                 case Animation.Type.PlayerTakeDamage:

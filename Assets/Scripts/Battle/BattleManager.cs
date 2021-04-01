@@ -184,7 +184,7 @@ namespace Battle
 
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
-                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOutWild,
                     sendOutPokemon = battleData.participantOpponent.ActivePokemon
                 });
 
@@ -226,7 +226,7 @@ namespace Battle
 
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
-                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOutTrainer,
                     sendOutPokemon = battleData.participantOpponent.ActivePokemon
                 });
 
@@ -658,7 +658,7 @@ namespace Battle
                 battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantOpponent));
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
-                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                    type = BattleAnimationSequencer.Animation.Type.OpponentSendOutWild,
                     sendOutPokemon = battleData.participantOpponent.ActivePokemon
                 });
 
@@ -1727,7 +1727,7 @@ namespace Battle
             {
                 type = action.user == battleData.participantPlayer
                 ? BattleAnimationSequencer.Animation.Type.PlayerSendOut
-                : BattleAnimationSequencer.Animation.Type.OpponentSendOut,
+                : BattleAnimationSequencer.Animation.Type.OpponentSendOutWild,
                 sendOutPokemon = action.user.ActivePokemon
             });
 

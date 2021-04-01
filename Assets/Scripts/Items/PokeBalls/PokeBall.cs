@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Pokemon;
 using Battle;
 
@@ -88,6 +89,33 @@ namespace Items.PokeBalls
         #endregion
 
         public abstract float GetCatchChanceModifier(PokemonInstance target, BattleData battleData);
+
+        #region Sprites
+
+        public enum SpriteType
+        {
+            Neutral,
+            Squashed,
+            Open,
+            WobbleLeft,
+            WobbleCenter,
+            WobbleRight
+        }
+
+        public static readonly Dictionary<SpriteType, string> spriteTypeResourceNames = new Dictionary<SpriteType, string>()
+        {
+            { SpriteType.Neutral, "neutral" },
+            { SpriteType.Squashed, "squashed" },
+            { SpriteType.Open, "open" },
+            { SpriteType.WobbleLeft, "wobble_left" },
+            { SpriteType.WobbleCenter, "wobble_center" },
+            { SpriteType.WobbleRight, "wobble_right" }
+        };
+
+        public Sprite GetSprite(SpriteType spriteType)
+            => SpriteStorage.GetPokeBallSprite(id, spriteType);
+
+        #endregion
 
         #region Calculations
 

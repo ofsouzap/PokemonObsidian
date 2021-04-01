@@ -57,6 +57,11 @@ namespace Pokemon
         /// </summary>
         public bool? gender;
 
+        /// <summary>
+        /// The id of the type of poke ball this pokemon was caught in. If the pokemon is wild, this shouldn't be used for anything
+        /// </summary>
+        public int pokeBallId;
+
         #region Stats
 
         public const ushort maximumEffortValue = 252;

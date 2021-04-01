@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using FreeRoaming;
 using Pokemon;
+using Items;
+using Items.PokeBalls;
 
 public static class SpriteStorage
 {
@@ -17,7 +19,8 @@ public static class SpriteStorage
         Symbol,
         TypeParticle,
         BattleSprite,
-        Pokemon
+        Pokemon,
+        PokeBall
     }
 
     private static Dictionary<SpriteType, Dictionary<string, Sprite>> sprites = new Dictionary<SpriteType, Dictionary<string, Sprite>>();
@@ -89,6 +92,7 @@ public static class SpriteStorage
         SetSpriteTypeSprites(SpriteType.TypeParticle, LoadTypeParticleSprites());
         SetSpriteTypeSprites(SpriteType.BattleSprite, LoadBattleSprites());
         SetSpriteTypeSpritesWithCustomNames(SpriteType.Pokemon, LoadPokemonSprites());
+        SetSpriteTypeSprites(SpriteType.PokeBall, LoadPokeBallSprites());
 
         allSpritesLoaded = true;
 
@@ -564,6 +568,27 @@ public static class SpriteStorage
         }
 
         return GetPokemonSprite(resourceName, spriteType, useFemale);
+    }
+
+    #endregion
+
+    #region Poke Balls
+
+    private const string pokeBallSpriteSheetName = "sprite_sheet_pokeballs";
+
+    private static Sprite[] LoadPokeBallSprites()
+    {
+        return LoadSpriteSheet(pokeBallSpriteSheetName);
+    }
+
+    public static Sprite GetPokeBallSprite(int pokeBallId,
+        PokeBall.SpriteType spriteType)
+    {
+
+        string resourceName = PokeBall.GetPokeBallById(pokeBallId).resourceName + '_' + PokeBall.spriteTypeResourceNames[spriteType];
+
+        return GetSprite(SpriteType.PokeBall, resourceName);
+
     }
 
     #endregion
