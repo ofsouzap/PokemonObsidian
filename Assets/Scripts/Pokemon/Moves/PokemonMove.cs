@@ -24,6 +24,9 @@ namespace Pokemon.Moves
         /// <param name="queryId">The id to consider</param>
         public static bool MoveIdIsUnset(int queryId) => queryId < 0;
 
+        public static bool MoveIdExists(int queryId)
+            => registry.GetArray().Count(x => x.id == queryId) > 0;
+
         #endregion
 
         #region Sprites
@@ -60,7 +63,7 @@ namespace Pokemon.Moves
 
         #region Properties
 
-        public int id;
+        public int id = -1;
         public int GetId() => id;
 
         public string name;

@@ -51,8 +51,6 @@ public class Registry<T> : IEnumerable where T : IHasId
         int startingIndex)
     {
 
-        //TODO - test this function
-
         bool? movingForwards = null;
         int nextIndexCheck = startingIndex;
 
