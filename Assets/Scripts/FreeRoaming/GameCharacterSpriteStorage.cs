@@ -43,7 +43,6 @@ namespace FreeRoaming
             foreach (Sprite sprite in spritesToStore)
             {
 
-                //TODO - make sure that sprite.name is the name that I am hoping that it is
                 if (!sprites.ContainsKey(sprite.name))
                 {
                     sprites.Add(sprite.name, sprite);
