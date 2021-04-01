@@ -196,7 +196,7 @@ namespace Battle
             else
             {
 
-                Sprite opponentTrainerBattleSprite = FreeRoaming.GameCharacterSpriteStorage.GetBattleSprite(
+                Sprite opponentTrainerBattleSprite = SpriteStorage.GetCharacterBattleSprite(
                     BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourcePath
                 );
 

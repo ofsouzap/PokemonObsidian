@@ -56,7 +56,7 @@ namespace Pokemon
             };
         }
 
-        private static string GetTypeResourceName(Type type)
+        public static string GetTypeResourceName(Type type)
         {
 
             return type switch
@@ -93,55 +93,6 @@ namespace Pokemon
             return Resources.Load<Sprite>(resourceName);
 
         }
-
-        #region Type Symbol Sprites
-
-        private const string symbolsSpriteSheetName = "sprite_sheet_symbols";
-        private const string typeSymbolSpritePrefix = "type_";
-
-        private static Dictionary<Type, Sprite> typeSymbolSprites = new Dictionary<Type, Sprite>();
-        private static bool typeSymbolSpritesLoaded = false;
-
-        private static void LoadTypeSymbolSprites()
-        {
-
-            typeSymbolSprites = new Dictionary<Type, Sprite>();
-
-            Sprite[] symbolSprites = Resources.LoadAll<Sprite>("Sprites/" + symbolsSpriteSheetName);
-
-            foreach (Sprite sprite in symbolSprites)
-            {
-
-                foreach (Type type in Enum.GetValues(typeof(Type)))
-                {
-
-                    string typeResourceName = GetTypeResourceName(type);
-
-                    if (sprite.name == typeSymbolSpritePrefix + typeResourceName)
-                    {
-                        typeSymbolSprites.Add(type, sprite);
-                        break;
-                    }
-
-                }
-
-            }
-
-            typeSymbolSpritesLoaded = true;
-
-        }
-
-        public static Sprite LoadTypeSymbolSprite(Type type)
-        {
-
-            if (!typeSymbolSpritesLoaded)
-                LoadTypeSymbolSprites();
-
-            return typeSymbolSprites[type];
-
-        }
-
-        #endregion
 
     }
 

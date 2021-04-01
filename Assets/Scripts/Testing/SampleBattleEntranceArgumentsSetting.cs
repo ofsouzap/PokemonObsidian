@@ -46,7 +46,7 @@ namespace Testing
                 && Nature.registry != null
                 && Pokemon.Moves.PokemonMove.registry != null
                 && Weather.registry != null
-                && (LoadGameCharacterSprites.singleton?.loaded == true )
+                && (LoadAllSprites.singleton?.loaded == true )
                 );
 
             BattleEntranceArguments.argumentsSet = true;

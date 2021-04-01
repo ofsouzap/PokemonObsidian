@@ -5,17 +5,17 @@ using FreeRoaming;
 
 namespace Testing
 {
-    public class LoadGameCharacterSprites : MonoBehaviour
+    public class LoadAllSprites : MonoBehaviour
     {
 
-        public static LoadGameCharacterSprites singleton = null;
+        public static LoadAllSprites singleton = null;
         [HideInInspector]
         public bool loaded = false;
 
-        private void Awake()
+        public void Awake()
         {
             singleton = this;
-            GameCharacterSpriteStorage.TryLoad();
+            SpriteStorage.TryLoadAll();
             loaded = true;
         }
 

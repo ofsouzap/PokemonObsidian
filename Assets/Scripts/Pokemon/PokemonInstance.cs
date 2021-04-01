@@ -28,7 +28,7 @@ namespace Pokemon
         public Sprite LoadSprite(PokemonSpecies.SpriteType spriteType)
         {
 
-            return PokemonSpecies.LoadSprite(
+            return SpriteStorage.GetPokemonSprite(
                 species.resourceName == "" || species.resourceName == null ? speciesId.ToString() : species.resourceName,
                 spriteType,
                 gender
@@ -36,137 +36,9 @@ namespace Pokemon
 
         }
 
-        public const string battleSpritesSheetName = "sprite_sheet_battlesprites";
-
-        private static bool battleSpritesLoaded = false;
-
-        private const string genderSpriteMaleName = "gender_male";
-        public static Sprite genderSpriteMale;
-
-        private const string genderSpriteFemaleName = "gender_female";
-        public static Sprite genderSpriteFemale;
-
-        private const string genderSpriteGenderlessName = "gender_genderless";
-        public static Sprite genderSpriteGenderless;
-
-        public const string statusConditionSpritePrefix = "statuscondition";
-
-        public static Dictionary<NonVolatileStatusCondition, Sprite> nonVolatileStatusConditionSprites;
-
-        private static void LoadBattleSprites()
-        {
-
-            nonVolatileStatusConditionSprites = new Dictionary<NonVolatileStatusCondition, Sprite>();
-
-            Sprite[] battleSprites = Resources.LoadAll<Sprite>("Sprites/" + battleSpritesSheetName);
-
-            foreach (Sprite sprite in battleSprites)
-            {
-
-                if (sprite.name == genderSpriteMaleName)
-                {
-                    genderSpriteMale = sprite;
-                }
-                else if (sprite.name == genderSpriteFemaleName)
-                {
-                    genderSpriteFemale = sprite;
-                }
-                else if (sprite.name == genderSpriteGenderlessName)
-                {
-                    genderSpriteGenderless = sprite;
-                }
-                else if (sprite.name == statusConditionSpritePrefix + "_burnt")
-                {
-                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Burn, sprite);
-                }
-                else if (sprite.name == statusConditionSpritePrefix + "_frozen")
-                {
-                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Frozen, sprite);
-                }
-                else if (sprite.name == statusConditionSpritePrefix + "_poisoned")
-                {
-                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Poisoned, sprite);
-                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.BadlyPoisoned, sprite);
-                }
-                else if (sprite.name == statusConditionSpritePrefix + "_paralysed")
-                {
-                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Paralysed, sprite);
-                }
-                else if (sprite.name == statusConditionSpritePrefix + "_asleep")
-                {
-                    nonVolatileStatusConditionSprites.Add(NonVolatileStatusCondition.Asleep, sprite);
-                }
-
-            }
-
-            if (genderSpriteMale == null)
-            {
-                Debug.LogError("No gender sprite found for male");
-            }
-
-            if (genderSpriteFemale == null)
-            {
-                Debug.LogError("No gender sprite found for female");
-            }
-
-            if (genderSpriteMale == null)
-            {
-                Debug.LogError("No gender sprite found for genderless");
-            }
-
-            battleSpritesLoaded = true;
-
-        }
-
-        public static Sprite LoadGenderSprite(bool? gender)
-        {
-
-            if (!battleSpritesLoaded)
-                LoadBattleSprites();
-
-            switch (gender)
-            {
-
-                case true:
-                    return genderSpriteMale;
-
-                case false:
-                    return genderSpriteFemale;
-
-                case null:
-                    return genderSpriteGenderless;
-
-            }
-
-        }
-
         public Sprite LoadGenderSprite()
         {
-            return LoadGenderSprite(gender);
-        }
-
-        public static Sprite LoadNonVolatileStatusConditionSprite(NonVolatileStatusCondition condition)
-        {
-
-            if (condition == NonVolatileStatusCondition.None)
-                return null;
-
-            if (!battleSpritesLoaded)
-                LoadBattleSprites();
-
-            if (!nonVolatileStatusConditionSprites.ContainsKey(condition))
-            {
-                Debug.LogError("No entry for non-volatile status condition " + condition);
-                return null;
-            }
-            else if (nonVolatileStatusConditionSprites[condition] != null)
-                return nonVolatileStatusConditionSprites[condition];
-            else
-            {
-                Debug.LogError("No sprite found for non-volatile status condition " + condition);
-                return null;
-            }
-
+            return SpriteStorage.GetGenderSprite(gender);
         }
 
         #endregion

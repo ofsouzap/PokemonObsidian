@@ -69,15 +69,15 @@ namespace Battle.PlayerUI
 
             #region Images
 
-            imageIcon.sprite = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon);
-            imageFront.sprite = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Front1);
-            imageBack.sprite = pokemon.LoadSprite(Pokemon.PokemonSpecies.SpriteType.Back);
+            imageIcon.sprite = pokemon.LoadSprite(PokemonSpecies.SpriteType.Icon);
+            imageFront.sprite = pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1);
+            imageBack.sprite = pokemon.LoadSprite(PokemonSpecies.SpriteType.Back);
 
             #endregion
 
             #region General Details
 
-            imageType1.sprite = TypeFunc.LoadTypeSymbolSprite(pokemon.species.type1);
+            imageType1.sprite = SpriteStorage.GetTypeSymbolSprite(pokemon.species.type1);
 
             Pokemon.Type? pokemonType2 = pokemon.species.type2;
             if (pokemonType2 == null)
@@ -87,7 +87,7 @@ namespace Battle.PlayerUI
             else
             {
                 imageType2.gameObject.SetActive(true);
-                imageType2.sprite = TypeFunc.LoadTypeSymbolSprite((Pokemon.Type)pokemon.species.type2);
+                imageType2.sprite = SpriteStorage.GetTypeSymbolSprite((Pokemon.Type)pokemon.species.type2);
             }
 
             textName.text = pokemon.GetDisplayName();
@@ -105,7 +105,7 @@ namespace Battle.PlayerUI
 
                 imageStatusCondition.gameObject.SetActive(true);
 
-                Sprite statusConditionSprite = PokemonInstance.LoadNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
+                Sprite statusConditionSprite = SpriteStorage.GetNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
                 if (statusConditionSprite != null)
                 {
                     imageStatusCondition.gameObject.SetActive(true);

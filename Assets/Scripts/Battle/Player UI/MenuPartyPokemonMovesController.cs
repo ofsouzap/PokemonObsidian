@@ -164,8 +164,8 @@ namespace Battle.PlayerUI
             textPowerValue.text = move.power != 0 ? move.power.ToString() : "-";
             textAccuracyValue.text = move.accuracy != 0 ? move.accuracy.ToString() : "-";
 
-            imageCategory.sprite = PokemonMove.LoadMoveTypeSprite(move.moveType);
-            imageType.sprite = Pokemon.TypeFunc.LoadTypeSymbolSprite(move.type);
+            imageCategory.sprite = SpriteStorage.GetMoveTypeSprite(move.moveType);
+            imageType.sprite = SpriteStorage.GetTypeSymbolSprite(move.type);
 
             ShowMovePane();
 

@@ -21,59 +21,7 @@ namespace Items
 
         #region Sprites
 
-        private static Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
-
-        private static bool spritesLoaded = false;
-
-        private const string itemSpritePrefix = "itemsprite_";
-
-        /// <summary>
-        /// Load the sprites if they haven't already been loaded
-        /// </summary>
-        public static void TryLoad()
-        {
-            if (!spritesLoaded)
-                LoadAll();
-        }
-
-        private static void LoadAll()
-        {
-
-            List<Sprite> spritesToStore = new List<Sprite>();
-
-            spritesToStore.AddRange(FreeRoaming.GameCharacterSpriteStorage.LoadSpriteSheet("sprite_sheet_itemsprites"));
-
-            foreach (Sprite sprite in spritesToStore)
-            {
-
-                if (!sprites.ContainsKey(sprite.name))
-                {
-                    sprites.Add(sprite.name, sprite);
-                }
-                else
-                {
-                    Debug.LogError("Duplicate sprite name found - " + sprite.name);
-                }
-
-            }
-
-            spritesLoaded = true;
-
-        }
-
-        public static Sprite LoadItemSprite(string itemResourceName)
-        {
-
-            string spriteName = itemSpritePrefix + itemResourceName;
-            if (sprites.ContainsKey(spriteName))
-                return sprites[spriteName];
-            else
-                return null;
-
-        }
-
-        public Sprite LoadItemSprite()
-            => LoadItemSprite(resourceName);
+        public Sprite LoadSprite() => SpriteStorage.GetItemSprite(resourceName);
 
         #endregion
 

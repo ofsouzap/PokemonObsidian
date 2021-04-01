@@ -76,7 +76,7 @@ namespace FreeRoaming
 
             gridManager = Manager.GetManager();
 
-            GameCharacterSpriteStorage.TryLoad();
+            SpriteStorage.TryLoadAll();
 
             RefreshNeutralSprite();
             
@@ -294,7 +294,7 @@ namespace FreeRoaming
                     bool flipSprite;
 
                     //N.B. sprite names are NOT 0-indexed
-                    Sprite newSprite = GameCharacterSpriteStorage.Get(out flipSprite, spriteGroupName, spriteStateName, directionFacing, currentSpriteIndex + 1);
+                    Sprite newSprite = SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, currentSpriteIndex + 1);
 
                     if (newSprite == null)
                         Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
@@ -394,7 +394,7 @@ namespace FreeRoaming
         {
 
             bool flipSprite;
-            spriteRenderer.sprite = GameCharacterSpriteStorage.Get(out flipSprite, spriteGroupName, "idle", directionFacing);
+            spriteRenderer.sprite = SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing);
             spriteRenderer.flipX = flipSprite;
 
         }

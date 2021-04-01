@@ -44,7 +44,7 @@ namespace Battle.BattleLayout
         }
 
         public void UpdateName(string name) => textName.text = name;
-        public void UpdateGender(bool? gender) => imageGender.sprite = PokemonInstance.LoadGenderSprite(gender);
+        public void UpdateGender(bool? gender) => imageGender.sprite = SpriteStorage.GetGenderSprite(gender);
         public void UpdateLevel(int level) => textLevel.text = textLevelPrefix + level.ToString();
 
         public void UpdateNonVolatileStatsCondition(PokemonInstance.NonVolatileStatusCondition nvsc)
@@ -57,7 +57,7 @@ namespace Battle.BattleLayout
             else
             {
                 imageNonVolatileStatusCondition.gameObject.SetActive(true);
-                imageNonVolatileStatusCondition.sprite = PokemonInstance.LoadNonVolatileStatusConditionSprite(nvsc);
+                imageNonVolatileStatusCondition.sprite = SpriteStorage.GetNonVolatileStatusConditionSprite(nvsc);
             }
 
         }
