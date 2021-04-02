@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Pokemon;
 using Items;
+using Items.MedicineItems;
+using Items.PokeBalls;
 using UnityEngine;
 
 public class PlayerData
@@ -277,6 +279,22 @@ public class PlayerData
     }
 
     public Stats stats = new Stats();
+
+    #endregion
+
+    #region Items
+
+    public class Inventory
+    {
+
+        public List<MedicineItem> medicineItems = new List<MedicineItem>();
+        public List<BattleItem> battleItems = new List<BattleItem>();
+        public List<PokeBall> pokeBalls = new List<PokeBall>();
+        public List<TMItem> tmItems = new List<TMItem>();
+
+    }
+
+    public Inventory inventory = new Inventory();
 
     #endregion
 
