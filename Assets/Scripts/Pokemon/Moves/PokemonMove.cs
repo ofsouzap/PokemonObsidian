@@ -623,46 +623,6 @@ namespace Pokemon.Moves
 
         }
 
-        private sbyte LimitStatModifierChange(sbyte origChange,
-            sbyte targetStat)
-        {
-            return Math.Abs(origChange + targetStat) > 6 ?
-                (sbyte)(
-                    (PokemonInstance.BattleProperties.maximumStatModifier * origChange / Math.Abs(origChange))
-                    - targetStat
-                )
-                : origChange;
-        }
-
-        private sbyte LimitStatModifierChangeFromStats(Stats<sbyte> originalModifierChanges,
-            Stats<sbyte> targetStatModifiers,
-            Stats<sbyte>.Stat stat)
-        {
-
-            sbyte origChange = originalModifierChanges.GetStat(stat);
-            sbyte targetStat = targetStatModifiers.GetStat(stat);
-
-            return LimitStatModifierChange(origChange, targetStat);
-
-        }
-
-        public Stats<sbyte> LimitStatModifierChanges(Stats<sbyte> originalModiferChanges,
-            PokemonInstance target)
-        {
-
-            Stats<sbyte> targetStatModifiers = target.battleProperties.statModifiers;
-
-            return new Stats<sbyte>()
-            {
-                attack = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.attack),
-                defense = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.defense),
-                specialAttack = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.specialAttack),
-                specialDefense = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.specialDefense),
-                speed = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.speed)
-            };
-
-        }
-
         public virtual UsageResults CalculateStatChanges(UsageResults usageResults,
             PokemonInstance user,
             PokemonInstance target,
@@ -726,14 +686,14 @@ namespace Pokemon.Moves
 
             #endregion
 
-            usageResults.userStatChanges = LimitStatModifierChanges(userStatChanges, user);
-            usageResults.targetStatChanges = LimitStatModifierChanges(targetStatChanges, target);
+            usageResults.userStatChanges = Stats<sbyte>.LimitStatModifierChanges(userStatChanges, user);
+            usageResults.targetStatChanges = Stats<sbyte>.LimitStatModifierChanges(targetStatChanges, target);
 
-            usageResults.userEvasionChange = LimitStatModifierChange(userEvasionModifier, user.battleProperties.evasionModifier);
-            usageResults.userAccuracyChange = LimitStatModifierChange(userAccuracyModifier, user.battleProperties.accuracyModifier);
+            usageResults.userEvasionChange = Stats<sbyte>.LimitStatModifierChange(userEvasionModifier, user.battleProperties.evasionModifier);
+            usageResults.userAccuracyChange = Stats<sbyte>.LimitStatModifierChange(userAccuracyModifier, user.battleProperties.accuracyModifier);
 
-            usageResults.targetEvasionChange = LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
-            usageResults.targetAccuracyChange = LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
+            usageResults.targetEvasionChange = Stats<sbyte>.LimitStatModifierChange(targetEvasionModifier, target.battleProperties.evasionModifier);
+            usageResults.targetAccuracyChange = Stats<sbyte>.LimitStatModifierChange(targetAccuracyModifier, target.battleProperties.accuracyModifier);
 
             return usageResults;
 

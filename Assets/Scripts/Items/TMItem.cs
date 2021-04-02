@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using Pokemon;
 using Pokemon.Moves;
 
 namespace Items
@@ -54,6 +56,12 @@ namespace Items
         public int moveId;
 
         public PokemonMove Move => PokemonMove.GetPokemonMoveById(moveId);
+
+        public override ItemUsageEffects GetUsageEffects(PokemonInstance pokemon)
+            => null;
+
+        public override bool CheckCompatibility(PokemonInstance pokemon)
+            => !pokemon.moveIds.Contains(moveId) && pokemon.species.discMoves.Contains(moveId);
 
     }
 }

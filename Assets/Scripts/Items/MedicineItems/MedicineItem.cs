@@ -2,7 +2,7 @@
 
 namespace Items.MedicineItems
 {
-    public class MedicineItem : Item
+    public abstract class MedicineItem : Item
     {
 
         #region Registry

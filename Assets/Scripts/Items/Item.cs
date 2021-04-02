@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Items;
+using Pokemon;
 
 namespace Items
 {
@@ -35,6 +35,27 @@ namespace Items
         public string description;
 
         #endregion
+
+        #region ItemUsageEffects
+
+        public class ItemUsageEffects
+        {
+
+            public int healthRecovered = 0;
+            public byte[] ppIncreases = new byte[4];
+            public bool nvscCured = false;
+            public Stats<sbyte> statModifierChanges = new Stats<sbyte>();
+            public sbyte evasionModifierChange = 0;
+            public sbyte accuracyModifierChange = 0;
+            public bool increaseCritChance = false;
+
+        }
+
+        public abstract ItemUsageEffects GetUsageEffects(PokemonInstance pokemon);
+
+        #endregion
+
+        public abstract bool CheckCompatibility(PokemonInstance pokemon);
 
     }
 }

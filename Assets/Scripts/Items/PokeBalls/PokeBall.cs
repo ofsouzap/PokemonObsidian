@@ -161,5 +161,11 @@ namespace Items.PokeBalls
 
         #endregion
 
+        public override ItemUsageEffects GetUsageEffects(PokemonInstance pokemon)
+            => null;
+
+        public override bool CheckCompatibility(PokemonInstance pokemon)
+            => false;
+
     }
 }

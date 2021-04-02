@@ -1,4 +1,5 @@
-﻿using Pokemon;
+﻿using UnityEngine;
+using Pokemon;
 
 namespace Items.MedicineItems
 {
@@ -68,6 +69,24 @@ namespace Items.MedicineItems
                 },
 
             };
+
+        public override ItemUsageEffects GetUsageEffects(PokemonInstance pokemon)
+        {
+
+            if (pokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
+            {
+                Debug.LogWarning("Usage effects were requested for NVSCCureMedicineItem on pokemon without NVSC");
+            }
+
+            return new ItemUsageEffects()
+            {
+                nvscCured = true
+            };
+
+        }
+
+        public override bool CheckCompatibility(PokemonInstance pokemon)
+            => pokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None;
 
     }
 }

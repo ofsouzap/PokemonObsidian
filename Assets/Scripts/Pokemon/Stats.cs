@@ -56,6 +56,8 @@ namespace Pokemon
 
         }
 
+        #region Enumeration
+
         public IEnumerable<T> GetEnumerator()
             => GetEnumerator(true);
 
@@ -78,5 +80,52 @@ namespace Pokemon
 
         IEnumerator IEnumerable.GetEnumerator()
             => (IEnumerator)GetEnumerator();
+
+        #endregion
+
+        #region Stat Change Limiting
+
+        public static sbyte LimitStatModifierChange(sbyte origChange,
+            sbyte targetStat)
+        {
+            return Mathf.Abs(origChange + targetStat) > 6 ?
+                (sbyte)(
+                    (PokemonInstance.BattleProperties.maximumStatModifier * origChange / Mathf.Abs(origChange))
+                    - targetStat
+                )
+                : origChange;
+        }
+
+        public static sbyte LimitStatModifierChangeFromStats(Stats<sbyte> originalModifierChanges,
+            Stats<sbyte> targetStatModifiers,
+            Stats<sbyte>.Stat stat)
+        {
+
+            sbyte origChange = originalModifierChanges.GetStat(stat);
+            sbyte targetStat = targetStatModifiers.GetStat(stat);
+
+            return LimitStatModifierChange(origChange, targetStat);
+
+        }
+
+        public static Stats<sbyte> LimitStatModifierChanges(Stats<sbyte> originalModiferChanges,
+            PokemonInstance target)
+        {
+
+            Stats<sbyte> targetStatModifiers = target.battleProperties.statModifiers;
+
+            return new Stats<sbyte>()
+            {
+                attack = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.attack),
+                defense = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.defense),
+                specialAttack = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.specialAttack),
+                specialDefense = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.specialDefense),
+                speed = LimitStatModifierChangeFromStats(originalModiferChanges, targetStatModifiers, Stats<sbyte>.Stat.speed)
+            };
+
+        }
+
+        #endregion
+
     }
 }
