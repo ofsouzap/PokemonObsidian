@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Battle.PlayerUI;
+using Items;
+using Items.MedicineItems;
+using Items.PokeBalls;
 
 namespace Battle.PlayerUI
 {
@@ -17,6 +19,8 @@ namespace Battle.PlayerUI
         public Button[] itemButtons;
         private Text[] itemButtonTexts;
         private Image[] itemButtonImages;
+
+        private int ItemButtonCount { get => itemButtons.Length; }
 
         protected override MenuSelectableController[] GetSelectables()
         {
@@ -56,12 +60,12 @@ namespace Battle.PlayerUI
 
         }
 
-        public struct ItemButtonProperties { public bool isSet; public string name; public string iconPath; }
+        public struct ItemButtonProperties { public bool isSet; public string name; public Sprite icon; }
 
-        public void SetItemButtonProperties(ItemButtonProperties[] properties)
+        private void SetItemButtonProperties(ItemButtonProperties[] properties)
         {
 
-            if (properties.Length != itemButtons.Length)
+            if (properties.Length != ItemButtonCount)
             {
                 Debug.LogError("Invalid item button properties length");
                 return;
@@ -75,7 +79,8 @@ namespace Battle.PlayerUI
 
                     itemButtonTexts[i].text = properties[i].name;
                     itemButtonImages[i].gameObject.SetActive(true);
-                    itemButtonImages[i].sprite = (Sprite)Resources.Load(properties[i].iconPath);
+                    itemButtonImages[i].sprite = properties[i].icon;
+                    itemButtons[i].interactable = true;
 
                 }
                 else
@@ -83,12 +88,96 @@ namespace Battle.PlayerUI
 
                     itemButtonTexts[i].text = "";
                     itemButtonImages[i].gameObject.SetActive(false);
+                    itemButtons[i].interactable = false;
 
                 }
 
             }
 
         }
+
+        #region Multi-Page Scrolling
+
+        private int currentPageIndex = 0;
+
+        private void RefreshPage()
+        {
+
+            ItemButtonProperties[] itemButtonProperties = new ItemButtonProperties[itemButtons.Length];
+            Item[] pageItems = GetItemPage(currentPageIndex);
+
+            for (int i = 0; i < ItemButtonCount; i++)
+            {
+
+                Item item = pageItems[i];
+
+                if (item == null)
+                    itemButtonProperties[i] = new ItemButtonProperties()
+                    {
+                        isSet = false
+                    };
+                else
+                    itemButtonProperties[i] = new ItemButtonProperties()
+                    {
+                        isSet = true,
+                        name = item.itemName,
+                        icon = item.LoadSprite()
+                    };
+
+            }
+
+            SetItemButtonProperties(itemButtonProperties);
+
+        }
+
+        public void NextPage()
+        {
+            currentPageIndex = (currentPageIndex + 1) % ItemPageCount;
+            RefreshPage();
+        }
+
+        public void PreviousPage()
+        {
+            currentPageIndex = (currentPageIndex - 1 + ItemPageCount) % ItemPageCount;
+            RefreshPage();
+        }
+
+        #endregion
+
+        #region Items
+
+        private Item[] items;
+
+        private int ItemPageCount
+        {
+            get => items.Length % ItemButtonCount == 0
+                ? items.Length / ItemButtonCount
+                : items.Length / ItemButtonCount + 1;
+        }
+
+        private Item[] GetItemPage(int index)
+        {
+
+            Item[] output = new Item[ItemButtonCount];
+            Array.Copy(items,
+                index * ItemButtonCount,
+                output,
+                0,
+                ItemButtonCount);
+            return output;
+
+        }
+
+        public void SetItems(Item[] items)
+        {
+
+            this.items = items;
+            currentPageIndex = 0;
+            RefreshPage();
+
+        }
+
+        #endregion
 
     }
 }

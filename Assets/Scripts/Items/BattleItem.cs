@@ -11,7 +11,7 @@ namespace Items
 
         public static Registry<BattleItem> registry = new Registry<BattleItem>();
 
-        public static BattleItem GetTMItemById(int id)
+        public static BattleItem GetBattleItemById(int id)
         {
             if (!registrySet)
                 CreateRegistry();

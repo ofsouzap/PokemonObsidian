@@ -287,10 +287,69 @@ public class PlayerData
     public class Inventory
     {
 
-        public List<MedicineItem> medicineItems = new List<MedicineItem>();
-        public List<BattleItem> battleItems = new List<BattleItem>();
-        public List<PokeBall> pokeBalls = new List<PokeBall>();
-        public List<TMItem> tmItems = new List<TMItem>();
+        public class InventorySection
+        {
+
+            public Func<int, Item> GetItemById;
+
+            public InventorySection(Func<int, Item> RegistrySearchFunction)
+            {
+                GetItemById = RegistrySearchFunction;
+            }
+
+            private Dictionary<int, int> quantities = new Dictionary<int, int>();
+
+            public void AddItem(int itemId,
+                uint amount = 1)
+            {
+                if (quantities.ContainsKey(itemId))
+                    quantities[itemId] += (int)amount;
+                else
+                    quantities.Add(itemId, (int)amount);
+            }
+
+            public void RemoveItem(int itemId,
+                uint amount = 1)
+            {
+
+                if (quantities.ContainsKey(itemId))
+
+                    if (quantities[itemId] > amount)
+                        quantities[itemId] -= (int)amount;
+
+                    else if (quantities[itemId] == amount)
+                        quantities.Remove(itemId);
+
+                    else
+                        Debug.LogError("Requested amount for removal exceeds quantity present");
+
+                else
+
+                    Debug.LogError("InventorySection doesn't contain specified item (id " + itemId + ")");
+
+            }
+
+            public int GetQuantity(int itemId)
+                => quantities.ContainsKey(itemId) ? quantities[itemId] : 0;
+
+            /// <summary>
+            /// Gets the ids of all the items that the InventorySection contains at least 1 of
+            /// </summary>
+            public int[] GetItemIds()
+                => quantities.Keys.ToArray();
+
+            /// <summary>
+            /// Gets all the Items that the InventorySection contains at least 1 of
+            /// </summary>
+            public Item[] GetItems()
+                => GetItemIds().Select(x => GetItemById(x)).ToArray();
+
+        }
+
+        public InventorySection medicineItems = new InventorySection((id) => MedicineItem.GetMedicineItemById(id));
+        public InventorySection battleItems = new InventorySection((id) => BattleItem.GetBattleItemById(id));
+        public InventorySection pokeBalls = new InventorySection((id) => PokeBall.GetPokeBallById(id));
+        public InventorySection tmItems = new InventorySection((id) => TMItem.GetTMItemById(id));
 
     }
 

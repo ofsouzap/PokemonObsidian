@@ -160,6 +160,9 @@ namespace Battle.PlayerUI
 
             #region Bag Category Menu Buttons
 
+            menuBagCategoryController.buttonNext.onClick.AddListener(() => menuBagCategoryController.NextPage());
+            menuBagCategoryController.buttonPrevious.onClick.AddListener(() => menuBagCategoryController.PreviousPage());
+
             //TODO - do once items ready
 
             #endregion

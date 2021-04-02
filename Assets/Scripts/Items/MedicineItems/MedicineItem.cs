@@ -9,7 +9,7 @@ namespace Items.MedicineItems
 
         public static Registry<MedicineItem> registry = new Registry<MedicineItem>();
 
-        public static MedicineItem GetPokeBallById(int id)
+        public static MedicineItem GetMedicineItemById(int id)
         {
             if (!registrySet)
                 CreateRegistry();
