@@ -1,4 +1,5 @@
-﻿using Pokemon;
+﻿using System.Linq;
+using Pokemon;
 
 namespace Items
 {
@@ -88,11 +89,7 @@ namespace Items
 
         public bool HasStatModifiers
         {
-            get => statModifiers.attack != 0
-                || statModifiers.defense != 0
-                || statModifiers.specialAttack != 0
-                || statModifiers.specialDefense != 0
-                || statModifiers.speed != 0;
+            get => statModifiers.GetEnumerator(false).Any(x => x != 0);
         }
 
         public bool boostsCriticalHitRate = false;

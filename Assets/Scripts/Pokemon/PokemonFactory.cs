@@ -124,7 +124,8 @@ namespace Pokemon
                 defense = 0,
                 specialAttack = 0,
                 specialDefense = 0,
-                speed = 0
+                speed = 0,
+                health = 0
             };
 
             individualValues = new Stats<byte>()
@@ -133,7 +134,8 @@ namespace Pokemon
                 defense = (byte)UnityEngine.Random.Range(0, 32),
                 specialAttack = (byte)UnityEngine.Random.Range(0, 32),
                 specialDefense = (byte)UnityEngine.Random.Range(0, 32),
-                speed = (byte)UnityEngine.Random.Range(0, 32)
+                speed = (byte)UnityEngine.Random.Range(0, 32),
+                health = (byte)UnityEngine.Random.Range(0, 32)
             };
 
             #region Moves

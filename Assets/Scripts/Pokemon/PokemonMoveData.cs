@@ -746,11 +746,7 @@ namespace Pokemon
                                     noOpponentEffects = false;
                                 else if (targetEvasionChange != 0)
                                     noOpponentEffects = false;
-                                else if (targetStatChanges.attack != 0
-                                    || targetStatChanges.defense != 0
-                                    || targetStatChanges.specialAttack != 0
-                                    || targetStatChanges.specialDefense != 0
-                                    || targetStatChanges.speed != 0)
+                                else if (targetStatChanges.GetEnumerator(false).Any(x => x != 0))
                                     noOpponentEffects = false;
                                 else if (confusionChance != 0)
                                     noOpponentEffects = false;
