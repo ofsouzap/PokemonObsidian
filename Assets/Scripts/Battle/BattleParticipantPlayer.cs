@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 using Battle;
 using Pokemon;
 using Battle.PlayerUI;
+using Items;
+using Items.MedicineItems;
+using Items.PokeBalls;
 
 namespace Battle
 {
@@ -101,7 +104,125 @@ namespace Battle
 
         }
 
-        //TODO - function for choosinng to use a specified item. Open pokemon choosing UI (using StartPokemonSelectUI), hide battle UI
+        #region Item Usage
+
+        /// <summary>
+        /// Checks if the player is able and allowed to use a specified item at the moment
+        /// </summary>
+        /// <param name="item">The item to consider</param>
+        /// <param name="message">The message to display if the user tries to use this item</param>
+        /// <returns>Whether the player can use the item</returns>
+        public bool CheckIfItemUsageAllowed(Item item,
+            out string message)
+        {
+
+            BattleData.ItemUsagePermissions itemPermissions = recentBattleData.itemUsagePermissions;
+
+            if (!itemPermissions.pokeBalls && item is PokeBall)
+            {
+                message = "You aren't allowed to use poke balls in this battle";
+                return false;
+            }
+            else if (!itemPermissions.hpRestorationItems && item is HealthMedicineItem)
+            {
+                message = "You aren't allowed to use health-restoration items in this battle";
+                return false;
+            }
+            else if (!itemPermissions.ppRestorationItems && item is PPRestoreMedicineItem)
+            {
+                message = "You aren't allowed to use PP-restoration items in this battle";
+                return false;
+            }
+            else if (!itemPermissions.revivalItems && item is RevivalMedicineItem)
+            {
+                message = "You aren't allowed to use revival items in this battle";
+                return false;
+            }
+            else if (!itemPermissions.statusItems && item is NVSCCureMedicineItem)
+            {
+                message = "You aren't allowed to use status items in this battle";
+                return false;
+            }
+            else if (!itemPermissions.battleItems && item is BattleItem)
+            {
+                message = "You aren't allowed to use battle items in this battle";
+                return false;
+            }
+
+            message = "";
+            return true;
+
+        }
+
+        /// <summary>
+        /// Choose to use an item
+        /// </summary>
+        /// <param name="item">The item to use</param>
+        public void ChooseActionUseItem(Item item)
+        {
+
+            if (!CheckIfItemUsageAllowed(item, out _))
+            {
+                Debug.LogError("Item chosen for usage that isn't allowed to be used");
+                return;
+            }
+
+            HideBattleUI();
+
+            //Choosing how to prceed based on whether user needs to select a pokemon for the item or not
+            if (item is MedicineItem)
+                ChooseActionUseItem_TargetRequired(item);
+            else
+                ChooseActionUseItem_TargetNotRequired(item);
+
+        }
+
+        private Item itemToUseForSelectedPokemonFromPokemonSelectUI = null;
+
+        private void ChooseActionUseItem_TargetRequired(Item item)
+        {
+
+            itemToUseForSelectedPokemonFromPokemonSelectUI = item;
+
+            StartPokemonSelectUI(
+                PokemonSelectUIPurpose.ItemTarget,
+                item.CheckCompatibility,
+                true,
+                () =>
+                {
+                    HidePokemonSelectUI();
+                    playerBattleUIController.ShowBagCategoryMenu();
+                }
+            );
+
+        }
+
+        private void SelectItemUsageTargetPokemon(int partyIndex)
+        {
+
+            chosenAction = new Action(this)
+            {
+                type = Action.Type.UseItem,
+                useItemItemToUse = itemToUseForSelectedPokemonFromPokemonSelectUI,
+                useItemTargetPartyIndex = partyIndex
+            };
+            actionHasBeenChosen = true;
+
+        }
+
+        private void ChooseActionUseItem_TargetNotRequired(Item item)
+        {
+
+            chosenAction = new Action(this)
+            {
+                type = Action.Type.UseItem,
+                useItemItemToUse = item
+            };
+            actionHasBeenChosen = true;
+
+        }
+
+        #endregion
 
         /// <summary>
         /// Choose to fight using the move with index moveIndex in the active pokemon's moves
@@ -185,6 +306,7 @@ namespace Battle
 
         private PokemonSelectUIPurpose pokemonSelectUIPurpose;
         private Predicate<PokemonInstance> pokemonSelectUIValidityPredicate;
+        private System.Action pokemonSelectUIBackButtonAction;
 
         /// <summary>
         /// Start the pokemon selection UI and specify settings for starting it
@@ -194,11 +316,13 @@ namespace Battle
         /// <param name="showBackButton">Whether to show the back button (eg. when selecting a next pokemon, the player shouldn't be allowed to go back)</param>
         private void StartPokemonSelectUI(PokemonSelectUIPurpose purpose,
             Predicate<PokemonInstance> validityCheck,
-            bool showBackButton = true)
+            bool showBackButton = true,
+            System.Action backButtonAction = null)
         {
 
             pokemonSelectUIPurpose = purpose;
             pokemonSelectUIValidityPredicate = validityCheck;
+            pokemonSelectUIBackButtonAction = backButtonAction;
 
             playerPokemonSelectUIController.RefreshButtons();
             ShowPokemonSelectUI(showBackButton);
@@ -266,13 +390,8 @@ namespace Battle
             else if (pokemonSelectUIPurpose == PokemonSelectUIPurpose.ItemTarget)
             {
 
-                actionHasBeenChosen = true;
-                chosenAction = new Action
-                {
-                    //TODO - once item action ready, choose to use item on selected pokemon
-                };
-
                 HidePokemonSelectUI();
+                SelectItemUsageTargetPokemon(partyIndex);
 
             }
             else
@@ -292,22 +411,16 @@ namespace Battle
         private void OnPokemonSelectUIButtonBackClick()
         {
 
-            switch (pokemonSelectUIPurpose)
+            if (pokemonSelectUIPurpose == PokemonSelectUIPurpose.ReplacingPokemon)
             {
-
-                case PokemonSelectUIPurpose.ItemTarget:
-                    //TODO - do once item category menu is ready to be returned to
-                    break;
-
-                case PokemonSelectUIPurpose.ReplacingPokemon:
-                    Debug.LogError("Player shouldn't be able to use pokemon select UI back button when replacing pokemon");
-                    break;
-
-                default:
-                    Debug.LogError("Unknown pokemon select UI purpose - " + pokemonSelectUIPurpose);
-                    break;
-
+                Debug.LogError("Player shouldn't be able to use pokemon select UI back button when replacing pokemon");
+                return;
             }
+
+            if (pokemonSelectUIBackButtonAction != null)
+                pokemonSelectUIBackButtonAction();
+            else
+                Debug.LogError("pokemonSelectUIBackButtonAction is unset");
 
         }
 

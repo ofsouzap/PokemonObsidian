@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Battle.PlayerUI
 {
     [RequireComponent(typeof(Button))]
-    public class MenuButtonPokemonController : MenuSelectableController
+    public class MenuButtonItemController : MenuSelectableController
     {
 
         public Button Button
@@ -17,21 +17,13 @@ namespace Battle.PlayerUI
 
         public Text textName;
         public Image imageIcon;
-        public HealthBarScript healthBar;
 
         public void SetValues(string name,
-            Sprite icon,
-            float healthBarValue)
+            Sprite icon)
         {
-
-            if (healthBarValue < 0 || healthBarValue > 1)
-            {
-                Debug.LogError("Health bar value provided out of range");
-            }
 
             textName.text = name;
             imageIcon.sprite = icon;
-            healthBar.UpdateBar(healthBarValue);
 
         }
 
@@ -42,7 +34,6 @@ namespace Battle.PlayerUI
                 textName.text = "";
             imageIcon.enabled = state;
             Button.interactable = state;
-            healthBar.gameObject.SetActive(state);
 
         }
 

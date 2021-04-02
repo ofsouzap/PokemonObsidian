@@ -39,6 +39,18 @@ namespace Battle
 
         public bool isWildBattle;
 
+        public class ItemUsagePermissions
+        {
+            public bool pokeBalls = true;
+            public bool revivalItems = true;
+            public bool ppRestorationItems = true;
+            public bool hpRestorationItems = true;
+            public bool battleItems = true;
+            public bool statusItems = true;
+        }
+
+        public ItemUsagePermissions itemUsagePermissions = new ItemUsagePermissions();
+
         #region Weather
 
         /// <summary>

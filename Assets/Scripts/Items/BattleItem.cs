@@ -51,7 +51,7 @@ namespace Items
                 new BattleItem
                 {
                     id = 2,
-                    itemName = "X Special Attack",
+                    itemName = "X Sp. Attack",
                     resourceName = "x_special_attack",
                     statModifiers = new Stats<sbyte>() { specialAttack = 2 }
                 },
@@ -59,7 +59,7 @@ namespace Items
                 new BattleItem
                 {
                     id = 3,
-                    itemName = "X Special Defense",
+                    itemName = "X Sp. Defense",
                     resourceName = "x_special_defense",
                     statModifiers = new Stats<sbyte>() { specialDefense = 2 }
                 },

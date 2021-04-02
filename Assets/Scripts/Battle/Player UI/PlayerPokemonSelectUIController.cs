@@ -61,12 +61,12 @@ namespace Battle.PlayerUI
 
                 if (pokemon[i] == null)
                 {
-                    pokemonButtons[i].gameObject.SetActive(false);
+                    pokemonButtons[i].SetInteractable(false);
                 }
                 else
                 {
 
-                    pokemonButtons[i].gameObject.SetActive(true);
+                    pokemonButtons[i].SetInteractable(true);
 
                     pokemonButtons[i].SetValues(
                         pokemon[i].GetDisplayName(),

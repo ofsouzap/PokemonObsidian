@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Battle.PlayerUI;
+using Items;
+using Items.MedicineItems;
+using Items.PokeBalls;
 
 namespace Battle.PlayerUI
 {
@@ -63,6 +66,7 @@ namespace Battle.PlayerUI
             {
                 DisableAllMenus();
                 menuBagController.Show();
+                EventSystem.current.SetSelectedGameObject(menuBagController.buttonBack.gameObject);
             });
 
             menuPartyController.buttonBack.onClick.AddListener(() => OpenRootMenu());
@@ -154,7 +158,10 @@ namespace Battle.PlayerUI
 
             #region Bag Menu Buttons
 
-            //TODO - do once items ready
+            menuBagController.buttonHPPPRestore.onClick.AddListener(() => OpenBagCategoryMenu(MenuBagCategoryController.BagCategory.HPPPRestore));
+            menuBagController.buttonStatusItems.onClick.AddListener(() => OpenBagCategoryMenu(MenuBagCategoryController.BagCategory.StatusRestore));
+            menuBagController.buttonPokeBalls.onClick.AddListener(() => OpenBagCategoryMenu(MenuBagCategoryController.BagCategory.PokeBalls));
+            menuBagController.buttonBattleItems.onClick.AddListener(() => OpenBagCategoryMenu(MenuBagCategoryController.BagCategory.BattleItems));
 
             #endregion
 
@@ -163,7 +170,14 @@ namespace Battle.PlayerUI
             menuBagCategoryController.buttonNext.onClick.AddListener(() => menuBagCategoryController.NextPage());
             menuBagCategoryController.buttonPrevious.onClick.AddListener(() => menuBagCategoryController.PreviousPage());
 
-            //TODO - do once items ready
+            menuBagCategoryController.itemButtons[0].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(0));
+            menuBagCategoryController.itemButtons[1].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(1));
+            menuBagCategoryController.itemButtons[2].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(2));
+            menuBagCategoryController.itemButtons[3].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(3));
+            menuBagCategoryController.itemButtons[4].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(4));
+            menuBagCategoryController.itemButtons[5].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(5));
+            menuBagCategoryController.itemButtons[6].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(6));
+            menuBagCategoryController.itemButtons[7].Button.onClick.AddListener(() => SuggestUseItemByPageIndex(7));
 
             #endregion
 
@@ -325,6 +339,70 @@ namespace Battle.PlayerUI
             menuPartyPokemonMovesController.Show();
             menuPartyPokemonMovesController.RefreshMoveButtons();
             EventSystem.current.SetSelectedGameObject(menuPartyPokemonMovesController.buttonBack.gameObject);
+
+        }
+
+        private void OpenBagCategoryMenu(MenuBagCategoryController.BagCategory category)
+        {
+
+            PlayerData.Inventory playerInventory = PlayerData.singleton.inventory;
+
+            Item[] itemsToDisplay;
+
+            switch (category)
+            {
+
+                case MenuBagCategoryController.BagCategory.HPPPRestore:
+                    itemsToDisplay = playerInventory.medicineItems.GetItems().Where(x => x is HealthMedicineItem || x is PPRestoreMedicineItem).ToArray();
+                    break;
+
+                case MenuBagCategoryController.BagCategory.StatusRestore:
+                    itemsToDisplay = playerInventory.medicineItems.GetItems().Where(x => x is NVSCCureMedicineItem).ToArray();
+                    break;
+
+                case MenuBagCategoryController.BagCategory.PokeBalls:
+                    itemsToDisplay = playerInventory.pokeBalls.GetItems();
+                    break;
+
+                case MenuBagCategoryController.BagCategory.BattleItems:
+                    itemsToDisplay = playerInventory.battleItems.GetItems();
+                    break;
+
+                default:
+                    Debug.LogError("Unknown bag category provided (" + category + ")");
+                    return;
+
+            }
+
+            menuBagCategoryController.SetItems(itemsToDisplay);
+
+            ShowBagCategoryMenu();
+
+        }
+
+        public void ShowBagCategoryMenu()
+        {
+
+            DisableAllMenus();
+            menuBagCategoryController.Show();
+            EventSystem.current.SetSelectedGameObject(menuBagCategoryController.buttonBack.gameObject);
+
+        }
+
+        public void SuggestUseItemByPageIndex(int index)
+            => SuggestUseItem(menuBagCategoryController.GetPageItem(index));
+
+        public void SuggestUseItem(Item item)
+        {
+
+            if (playerBattleParticipant.CheckIfItemUsageAllowed(item, out string invalidSelectionMessage))
+            {
+                playerBattleParticipant.ChooseActionUseItem(item);
+            }
+            else
+            {
+                battleManager.DisplayPlayerInvalidSelectionMessage(invalidSelectionMessage);
+            }
 
         }
 

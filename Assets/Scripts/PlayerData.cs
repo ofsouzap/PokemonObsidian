@@ -329,6 +329,8 @@ public class PlayerData
 
             }
 
+            public void SetItems(Dictionary<int, int> items) => quantities = items;
+
             public int GetQuantity(int itemId)
                 => quantities.ContainsKey(itemId) ? quantities[itemId] : 0;
 
@@ -343,6 +345,21 @@ public class PlayerData
             /// </summary>
             public Item[] GetItems()
                 => GetItemIds().Select(x => GetItemById(x)).ToArray();
+
+            public Dictionary<Item, int> ItemQuantites
+            {
+                get
+                {
+
+                    Dictionary<Item, int> output = new Dictionary<Item, int>();
+
+                    foreach (int itemId in GetItemIds())
+                        output.Add(GetItemById(itemId), quantities[itemId]);
+
+                    return output;
+
+                }
+            }
 
         }
 

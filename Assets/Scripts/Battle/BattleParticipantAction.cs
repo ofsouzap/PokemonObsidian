@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Battle;
+using Items;
 
 namespace Battle
 {
@@ -18,7 +19,7 @@ namespace Battle
             public enum Type
             {
                 Fight,
-                //UseItem, TODO - include once items ready
+                UseItem,
                 Flee,
                 SwitchPokemon
             }
@@ -32,8 +33,9 @@ namespace Battle
             public static readonly Dictionary<Type, byte> typePriorities = new Dictionary<Type, byte>
             {
                 { Type.Fight, 1 },
-                { Type.Flee, 3 },
-                { Type.SwitchPokemon, 2 }
+                { Type.Flee, 4 },
+                { Type.SwitchPokemon, 3 },
+                { Type.UseItem, 2 }
             };
 
             public class PriorityComparer : Comparer<Action>
@@ -102,7 +104,15 @@ namespace Battle
             /// </summary>
             public int switchPokemonIndex;
 
-            //TODO - item-using properties
+            /// <summary>
+            /// The item to be used
+            /// </summary>
+            public Item useItemItemToUse;
+
+            /// <summary>
+            /// The index of the pokemon in the player's party to use the item on (if applicable)
+            /// </summary>
+            public int useItemTargetPartyIndex;
 
         }
 

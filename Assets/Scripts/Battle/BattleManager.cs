@@ -153,24 +153,30 @@ namespace Battle
             battleData.participantPlayer.playerPokemonSelectUIController = playerPokemonSelectUIController;
 
             battleData.participantPlayer.SetUp();
-            
+
+            #region Setting Battle Type-Dependant BattleData Settings
+
             switch (BattleEntranceArguments.battleType)
             {
 
                 case BattleType.WildPokemon:
                     battleData.SetPlayerCanFlee(true);
+                    battleData.itemUsagePermissions = new BattleData.ItemUsagePermissions();
                     break;
 
                 case BattleType.NPCTrainer:
                     battleData.SetPlayerCanFlee(false);
+                    battleData.itemUsagePermissions = new BattleData.ItemUsagePermissions() { pokeBalls = false };
                     break;
 
                 default:
-                    Debug.LogError("Unknown battle type");
+                    Debug.LogWarning("Unknown battle type");
                     battleData.SetPlayerCanFlee(true);
                     break;
 
             }
+
+            #endregion
 
             #region Pokemon and Trainer Announcements
 

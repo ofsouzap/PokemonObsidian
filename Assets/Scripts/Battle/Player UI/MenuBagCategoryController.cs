@@ -12,13 +12,19 @@ namespace Battle.PlayerUI
     public class MenuBagCategoryController : MenuController
     {
 
+        public enum BagCategory
+        {
+            HPPPRestore,
+            StatusRestore,
+            PokeBalls,
+            BattleItems
+        }
+
         public Button buttonBack;
         public Button buttonPrevious;
         public Button buttonNext;
 
-        public Button[] itemButtons;
-        private Text[] itemButtonTexts;
-        private Image[] itemButtonImages;
+        public MenuButtonItemController[] itemButtons;
 
         private int ItemButtonCount { get => itemButtons.Length; }
 
@@ -26,7 +32,7 @@ namespace Battle.PlayerUI
         {
             MenuSelectableController[] output = new MenuSelectableController[itemButtons.Length + 3];
             Array.Copy(
-                itemButtons.Select(x => x.GetComponent<MenuSelectableController>()).ToArray(),
+                itemButtons,
                 output,
                 itemButtons.Length);
             output[output.Length - 3] = buttonBack.GetComponent<MenuSelectableController>();
@@ -35,30 +41,7 @@ namespace Battle.PlayerUI
             return output;
         }
 
-        public void SetUp()
-        {
-
-            itemButtonTexts = new Text[itemButtons.Length];
-            itemButtonImages = new Image[itemButtons.Length];
-
-            for (int i = 0; i < itemButtons.Length; i++)
-            {
-
-                Text _text = itemButtons[i].GetComponentInChildren<Text>();
-                Image _image = itemButtons[i].GetComponentInChildren<Image>();
-
-                if (_text == null || _image == null)
-                {
-                    Debug.LogError("Invalid item button cihld format for index " + i);
-                    continue;
-                }
-
-                itemButtonTexts[i] = _text;
-                itemButtonImages[i] = _image;
-
-            }
-
-        }
+        public void SetUp() { }
 
         public struct ItemButtonProperties { public bool isSet; public string name; public Sprite icon; }
 
@@ -77,18 +60,14 @@ namespace Battle.PlayerUI
                 if (properties[i].isSet)
                 {
 
-                    itemButtonTexts[i].text = properties[i].name;
-                    itemButtonImages[i].gameObject.SetActive(true);
-                    itemButtonImages[i].sprite = properties[i].icon;
-                    itemButtons[i].interactable = true;
+                    itemButtons[i].SetInteractable(true);
+                    itemButtons[i].SetValues(properties[i].name, properties[i].icon);
 
                 }
                 else
                 {
 
-                    itemButtonTexts[i].text = "";
-                    itemButtonImages[i].gameObject.SetActive(false);
-                    itemButtons[i].interactable = false;
+                    itemButtons[i].SetInteractable(false);
 
                 }
 
@@ -103,7 +82,7 @@ namespace Battle.PlayerUI
         private void RefreshPage()
         {
 
-            ItemButtonProperties[] itemButtonProperties = new ItemButtonProperties[itemButtons.Length];
+            ItemButtonProperties[] itemButtonProperties = new ItemButtonProperties[ItemButtonCount];
             Item[] pageItems = GetItemPage(currentPageIndex);
 
             for (int i = 0; i < ItemButtonCount; i++)
@@ -163,7 +142,7 @@ namespace Battle.PlayerUI
                 index * ItemButtonCount,
                 output,
                 0,
-                ItemButtonCount);
+                items.Length - (index * ItemButtonCount));
             return output;
 
         }
@@ -176,6 +155,9 @@ namespace Battle.PlayerUI
             RefreshPage();
 
         }
+
+        public Item GetPageItem(int pageItemIndex)
+            => GetItemPage(currentPageIndex)[pageItemIndex];
 
         #endregion
 
