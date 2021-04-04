@@ -28,6 +28,12 @@ namespace Battle.BattleLayout
         public GameObject playerPokeBallSprite;
         public GameObject opponentPokeBallSprite;
 
+        public GameObject pokeBallThrowGameObject;
+        public Transform pokeBallThrowStartPosition;
+        public Transform pokeBallThrowEndPosition;
+        public Transform pokeBallThrowDroppedPosition;
+        public AnimationCurve pokeBallThrowHeightOffsetCurve;
+
         #region Constants
 
         #region Constant Timings
@@ -101,6 +107,21 @@ namespace Battle.BattleLayout
 
         public const float pokemonEmergeTime = 0.3F;
 
+        #region Poke Ball Using
+
+        public const float pokeBallUseThrowTime = 0.7F;
+        public const float pokeBallUseThrowToOpenDelay = 0.5F;
+        public const float pokeBallUsePokemonEnterPokeBallTime = 0.4F;
+        public const float pokeBallUseOpenClampInterval = 0.2F;
+        public const float pokeBallUsePokeBallDropTime = 0.4F;
+
+        public const float pokeBallUseWobbleChangeInterval = 0.2F;
+        public const float pokeBallUseWobbleDelay = 1;
+        public const float pokeBallUseWobbleDelayIncrease = 1;
+        public const float pokeBallUseWobbleEndPauseTime = 0.5F;
+
+        #endregion
+
         #endregion
 
         #region Other Constants
@@ -117,6 +138,9 @@ namespace Battle.BattleLayout
 
         public static readonly Color statStageChangeIncreaseColor = new Color(1, 0.66F, 0.23F);
         public static readonly Color statStageChangeDecreaseColor = new Color(0.4F, 0.4F, 1);
+
+        public const float pokeBallThrowMaximumHeightOffset = 2;
+        public const float pokeBallWobbleRotationAngle = 10;
 
         #endregion
 
@@ -160,24 +184,14 @@ namespace Battle.BattleLayout
             opponentTrainerSprite.SetActive(false);
             playerPokeBallSprite.SetActive(false);
             opponentPokeBallSprite.SetActive(false);
+            pokeBallThrowGameObject.SetActive(false);
             overviewPaneManager.HidePanes();
         }
 
-        /// <summary>
-        /// Gradually move a game object from its current position to another position
-        /// </summary>
-        /// <param name="gameObject">The game object to move</param>
-        /// <param name="endPos">The local position to move to</param>
-        /// <param name="timeToTake">The time the move should take</param>
-        /// <param name="refreshTime">The time to wait before refreshing the object's position. 0 means to refresh each frame</param>
-        /// <returns></returns>
-        private IEnumerator GradualTranslatePosition(GameObject gameObject,
-            Vector3 endPos,
+        private IEnumerator GradualEffect(Action<float> effect,
             float timeToTake,
             float refreshTime = 0)
         {
-
-            Vector3 startPos = gameObject.transform.localPosition;
 
             float startTime = Time.time;
             float endTime = startTime + timeToTake;
@@ -190,7 +204,7 @@ namespace Battle.BattleLayout
 
                 float timeFactor = (Time.time - startTime) / timeToTake;
 
-                gameObject.transform.localPosition = Vector3.Lerp(startPos, endPos, timeFactor);
+                effect(timeFactor);
 
                 if (refreshTime == 0)
                     yield return new WaitForFixedUpdate();
@@ -199,7 +213,47 @@ namespace Battle.BattleLayout
 
             }
 
+        }
+
+        /// <summary>
+        /// Gradually move a game object from its current position to another position
+        /// </summary>
+        /// <param name="gameObject">The game object to move</param>
+        /// <param name="endPos">The local position to move to</param>
+        /// <param name="timeToTake">The time the move should take</param>
+        /// <param name="refreshTime">The time to wait before refreshing the object's position. 0 means to refresh each frame</param>
+        /// <returns></returns>
+        private IEnumerator GradualTranslateLocalPosition(GameObject gameObject,
+            Vector3 endPos,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            Vector3 startPos = gameObject.transform.localPosition;
+
+            yield return StartCoroutine(GradualEffect(
+                (t) => gameObject.transform.localPosition = Vector3.Lerp(startPos, endPos, t),
+                timeToTake,
+                refreshTime));
+
             gameObject.transform.localPosition = endPos;
+
+        }
+
+        private IEnumerator GradualTranslateGlobalPosition(GameObject gameObject,
+            Vector3 endPos,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            Vector3 startPos = gameObject.transform.position;
+
+            yield return StartCoroutine(GradualEffect(
+                (t) => gameObject.transform.position = Vector3.Lerp(startPos, endPos, t),
+                timeToTake,
+                refreshTime));
+
+            gameObject.transform.position = endPos;
 
         }
 
@@ -219,25 +273,10 @@ namespace Battle.BattleLayout
 
             Vector3 startScale = gameObject.transform.localScale;
 
-            float startTime = Time.time;
-            float endTime = startTime + timeToTake;
-
-            while (true)
-            {
-
-                if (Time.time >= endTime)
-                    break;
-
-                float timeFactor = (Time.time - startTime) / timeToTake;
-
-                gameObject.transform.localScale = Vector3.Lerp(startScale, endScale, timeFactor);
-
-                if (refreshTime == 0)
-                    yield return new WaitForFixedUpdate();
-                else
-                    yield return new WaitForSeconds(refreshTime);
-
-            }
+            yield return StartCoroutine(GradualEffect(
+                (t) => { gameObject.transform.localScale = Vector3.Lerp(startScale, endScale, t); },
+                timeToTake,
+                refreshTime));
 
             gameObject.transform.localScale = endScale;
 
@@ -372,7 +411,7 @@ namespace Battle.BattleLayout
             Vector3 targetPosition = spriteObject.transform.localPosition;
             targetPosition.x = rootXPos;
 
-            yield return StartCoroutine(GradualTranslatePosition(spriteObject, targetPosition, sendInPokemonTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(spriteObject, targetPosition, sendInPokemonTime));
 
         }
 
@@ -413,13 +452,11 @@ namespace Battle.BattleLayout
         }
 
         private IEnumerator AnimatePokemonEmerge(GameObject spriteObject,
-            Sprite sprite,
             float initialSize,
             float targetSize,
             float timeToTake)
         {
 
-            spriteObject.GetComponent<SpriteRenderer>().sprite = sprite;
             spriteObject.SetActive(true);
 
             spriteObject.transform.localScale = Vector2.one * initialSize;
@@ -427,7 +464,7 @@ namespace Battle.BattleLayout
                 Vector2.one * targetSize,
                 timeToTake));
 
-            //TODO - later on, have sprite turn from pure white to normal color whilst growing. To do this, can't use GradualChangeScale, as must have color change simultaneous
+            //TODO - later on, have sprite turn from pure white to normal color whilst growing
 
         }
 
@@ -445,8 +482,8 @@ namespace Battle.BattleLayout
                 pokeBallSquashed,
                 pokeBallOpen));
 
+            playerPokemonSprite.GetComponent<SpriteRenderer>().sprite = pokemon.LoadSprite(PokemonSpecies.SpriteType.Back);
             yield return StartCoroutine(AnimatePokemonEmerge(playerPokemonSprite,
-                pokemon.LoadSprite(PokemonSpecies.SpriteType.Back),
                 0,
                 playerPokemonSprite.transform.localScale.x,
                 pokemonEmergeTime));
@@ -470,8 +507,8 @@ namespace Battle.BattleLayout
                 pokeBallSquashed,
                 pokeBallOpen));
 
+            opponentPokemonSprite.GetComponent<SpriteRenderer>().sprite = pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1);
             yield return StartCoroutine(AnimatePokemonEmerge(opponentPokemonSprite,
-                pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
                 0,
                 opponentPokemonSprite.transform.localScale.x,
                 pokemonEmergeTime));
@@ -687,24 +724,24 @@ namespace Battle.BattleLayout
 
             Vector2 leanBackTargetPosition = (Vector2)attacker.transform.localPosition + (lungeDirection * -genericPhysicalMoveLeanBackDistance);
 
-            yield return StartCoroutine(GradualTranslatePosition(attacker, leanBackTargetPosition, genericPhysicalMoveLeanBackTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(attacker, leanBackTargetPosition, genericPhysicalMoveLeanBackTime));
 
             yield return new WaitForSeconds(genericPhysicalMovePauseTime);
 
             Vector2 lungeTargetPosition = attackerStartPosition + (lungeDirection * genericMoveLungeDistance);
 
-            yield return StartCoroutine(GradualTranslatePosition(attacker, lungeTargetPosition, genericPhysicalMoveLungeTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(attacker, lungeTargetPosition, genericPhysicalMoveLungeTime));
 
             if (!moveNoOpponentEffects)
                 yield return StartCoroutine(GenericMoveParticleEffects(targetParticleSystemObject, moveParticle));
 
             Vector2 targetJerkBackTargetPosition = targetStartPosition + (lungeDirection * genericPhysicalMoveTargetJerkBackDistance);
 
-            yield return StartCoroutine(GradualTranslatePosition(target, targetJerkBackTargetPosition, genericPhysicalMoveTargetJerkBackTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(target, targetJerkBackTargetPosition, genericPhysicalMoveTargetJerkBackTime));
 
-            yield return StartCoroutine(GradualTranslatePosition(attacker, attackerStartPosition, genericMoveReturnBackTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(attacker, attackerStartPosition, genericMoveReturnBackTime));
 
-            yield return StartCoroutine(GradualTranslatePosition(target, targetStartPosition, genericPhysicalMoveTargetReturnTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(target, targetStartPosition, genericPhysicalMoveTargetReturnTime));
 
         }
 
@@ -717,12 +754,12 @@ namespace Battle.BattleLayout
 
             Vector2 lungeTargetPosition = (Vector2)attacker.transform.localPosition + (lungeDirection * genericMoveLungeDistance);
 
-            yield return StartCoroutine(GradualTranslatePosition(attacker, lungeTargetPosition, genericSpecialMoveLungeTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(attacker, lungeTargetPosition, genericSpecialMoveLungeTime));
 
             if (!moveNoOpponentEffects)
                 yield return StartCoroutine(GenericMoveParticleEffects(targetParticleSystemObject, moveParticle));
 
-            yield return StartCoroutine(GradualTranslatePosition(attacker, attackerStartPosition, genericMoveReturnBackTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(attacker, attackerStartPosition, genericMoveReturnBackTime));
 
         }
 
@@ -808,26 +845,14 @@ namespace Battle.BattleLayout
             Vector3 startScale = gameObject.transform.localScale;
             Color startColor = gameObject.GetComponent<SpriteRenderer>().color;
 
-            float startTime = Time.time;
-            float endTime = startTime + timeToTake;
-
-            while (true)
-            {
-
-                if (Time.time >= endTime)
-                    break;
-
-                float timeFactor = (Time.time - startTime) / timeToTake;
-
-                gameObject.transform.localScale = Vector3.Lerp(startScale, targetScale, timeFactor);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(startColor, targetColor, timeFactor);
-
-                if (refreshTime == 0)
-                    yield return new WaitForFixedUpdate();
-                else
-                    yield return new WaitForSeconds(refreshTime);
-
-            }
+            yield return StartCoroutine(GradualEffect(
+                (t) =>
+                    {
+                        gameObject.transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+                        gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(startColor, targetColor, t);
+                    },
+                timeToTake,
+                refreshTime));
 
             gameObject.transform.localScale = targetScale;
 
@@ -900,7 +925,7 @@ namespace Battle.BattleLayout
                 opponentTrainerSprite.transform.localPosition.z
             );
 
-            yield return StartCoroutine(GradualTranslatePosition(opponentTrainerSprite, targetPosition, opponentTrainerShowcaseMovementTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(opponentTrainerSprite, targetPosition, opponentTrainerShowcaseMovementTime));
 
         }
 
@@ -915,7 +940,7 @@ namespace Battle.BattleLayout
                 opponentTrainerSprite.transform.localPosition.z
             );
 
-            yield return StartCoroutine(GradualTranslatePosition(opponentTrainerSprite, targetPosition, opponentTrainerShowcaseMovementTime));
+            yield return StartCoroutine(GradualTranslateLocalPosition(opponentTrainerSprite, targetPosition, opponentTrainerShowcaseMovementTime));
 
             opponentTrainerSprite.SetActive(false);
 
@@ -923,7 +948,202 @@ namespace Battle.BattleLayout
 
         #endregion
 
-        //TODO - have methods for each type of animation that this may need to deal with
+        #region Poke Ball Throw
+
+        private IEnumerator PokemonIntoPokeBallAnimation(GameObject pokemonObject,
+            Vector3 pokeBallPosition)
+        {
+
+            Vector3 startPosition = pokemonObject.transform.position;
+            Vector3 startScale = pokemonObject.transform.localScale;
+            float startHeight = pokemonObject.GetComponent<SpriteRenderer>().sprite.rect.height;
+
+            yield return StartCoroutine(GradualEffect(
+                (t) =>
+                {
+                    pokemonObject.transform.localScale = Vector3.Lerp(startScale, Vector3.zero, t);
+                    pokemonObject.transform.position = Vector3.Lerp(startPosition, pokeBallPosition, t);
+                },
+                pokeBallUsePokemonEnterPokeBallTime));
+
+            pokemonObject.transform.localScale = startScale;
+            pokemonObject.transform.position = startPosition;
+
+            pokemonObject.SetActive(false);
+
+        }
+
+        /// <summary>
+        /// Animation for the poke ball being thrown and the pokemon going into the ball
+        /// </summary>
+        /// <param name="pokeBallObject">The game object for the poke ball</param>
+        /// <param name="pokeBall">The poke ball to use. This is used to choose sprites</param>
+        /// <param name="startPos">The position to start the poke ball at (this would probably be off-screen)</param>
+        /// <param name="throwEndPos">The position to end the throw at. Here, the poke ball stops and opens for the target pokemon to go into</param>
+        /// <param name="wobblingStartPos">The position for the poke ball to drop to after the pokemon goes into it</param>
+        /// <param name="targetPokemonObject">The target pokemon's game object</param>
+        private IEnumerator PokeBallThrow(GameObject pokeBallObject,
+            PokeBall pokeBall,
+            Vector3 startPos,
+            Vector3 throwEndPos,
+            Vector3 wobblingStartPos,
+            GameObject targetPokemonObject)
+        {
+
+            if (pokeBallObject.GetComponent<SpriteRenderer>() == null)
+            {
+                Debug.LogError("No SpriteRenderer component on pokeBallObject");
+            }
+
+            if (targetPokemonObject.GetComponent<SpriteRenderer>() == null)
+            {
+                Debug.LogError("No SpriteRenderer component on targetPokemonObject");
+            }
+
+            pokeBallObject.transform.position = startPos;
+
+            //TODO - sprite changing for spinning (incl. remove below line)
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Neutral);
+
+            yield return StartCoroutine(GradualEffect(
+                (t) => pokeBallObject.transform.position = Vector3.Lerp(startPos, throwEndPos, t) + Vector3.up * pokeBallThrowHeightOffsetCurve.Evaluate(t),
+                pokeBallUseThrowTime));
+
+            pokeBallObject.transform.position = throwEndPos;
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Neutral);
+
+            yield return new WaitForSeconds(pokeBallUseThrowToOpenDelay);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Open);
+
+            yield return StartCoroutine(PokemonIntoPokeBallAnimation(targetPokemonObject, pokeBallObject.transform.position));
+
+            yield return new WaitForSeconds(pokeBallUseOpenClampInterval);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Neutral);
+
+            yield return new WaitForSeconds(pokeBallUseOpenClampInterval);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Squashed);
+
+            yield return new WaitForSeconds(pokeBallUseOpenClampInterval);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Neutral);
+
+            yield return new WaitForSeconds(pokeBallUseOpenClampInterval);
+
+            yield return StartCoroutine(GradualTranslateGlobalPosition(pokeBallObject, wobblingStartPos, pokeBallUsePokeBallDropTime));
+
+        }
+
+        private IEnumerator PokeBallWobble(GameObject pokeBallObject,
+            PokeBall pokeBall)
+        {
+
+            if (pokeBallObject.GetComponent<SpriteRenderer>() == null)
+            {
+                Debug.LogError("No Sprite Renderer component in pokeBallObject");
+                yield break;
+            }
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.WobbleCenter);
+            pokeBallObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+
+            yield return new WaitForSeconds(pokeBallUseWobbleChangeInterval);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.WobbleLeft);
+            pokeBallObject.transform.Rotate(new Vector3(0, 0, pokeBallWobbleRotationAngle));
+
+            yield return new WaitForSeconds(pokeBallUseWobbleChangeInterval);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.WobbleCenter);
+            pokeBallObject.transform.Rotate(new Vector3(0, 0, -pokeBallWobbleRotationAngle));
+
+            yield return new WaitForSeconds(pokeBallUseWobbleChangeInterval);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.WobbleRight);
+            pokeBallObject.transform.Rotate(new Vector3(0, 0, -pokeBallWobbleRotationAngle));
+
+            yield return new WaitForSeconds(pokeBallUseWobbleChangeInterval);
+
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.WobbleCenter);
+            pokeBallObject.transform.Rotate(new Vector3(0, 0, pokeBallWobbleRotationAngle));
+
+        }
+
+        private IEnumerator PokeBallWobbling(GameObject pokeBallObject,
+            byte wobbleCount,
+            PokeBall pokeBall,
+            GameObject targetPokemonObject)
+        {
+
+            byte wobbles = wobbleCount < PokeBall.shakeTrialsRequired ? wobbleCount : (byte)(PokeBall.shakeTrialsRequired - 1);
+
+            yield return new WaitForSeconds(pokeBallUseWobbleDelay);
+
+            for (byte i = 0; i < wobbles; i++)
+            {
+
+                yield return StartCoroutine(PokeBallWobble(pokeBallObject, pokeBall));
+
+                //More time is waited each time to increase the suspense
+                yield return new WaitForSeconds(pokeBallUseWobbleDelay + (pokeBallUseWobbleDelayIncrease * (i + 1)));
+
+            }
+
+            bool caught = wobbleCount >= PokeBall.shakeTrialsRequired;
+
+            if (caught)
+            {
+
+                pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Caught);
+
+            }
+            else
+            {
+
+                pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Open);
+
+                //Same as when trainer pokemon emerges
+                yield return StartCoroutine(AnimatePokemonEmerge(targetPokemonObject, 0, targetPokemonObject.transform.localScale.x, pokemonEmergeTime));
+
+            }
+
+            yield return new WaitForSeconds(pokeBallUseWobbleEndPauseTime);
+
+        }
+
+        /// <summary>
+        /// Animation for the player throwing a poke ball and the poke ball wobbling, opening or staying caught
+        /// </summary>
+        /// <param name="wobbleCount">Below PokeBall.shakeTrialsRequired, this is the number of times the poke ball should wobble. If it is greater than PokeBall.shakeTrialsRequired, it means the pokemon should be caught</param>
+        public IEnumerator PokeBallUse(PokeBall pokeBall, byte wobbleCount)
+        {
+
+            pokeBallThrowGameObject.SetActive(true);
+
+            yield return StartCoroutine(PokeBallThrow(pokeBallThrowGameObject,
+                pokeBall,
+                pokeBallThrowStartPosition.position,
+                pokeBallThrowEndPosition.position,
+                pokeBallThrowDroppedPosition.position,
+                opponentPokemonSprite));
+
+            yield return StartCoroutine(PokeBallWobbling(pokeBallThrowGameObject,
+                wobbleCount,
+                pokeBall,
+                opponentPokemonSprite));
+
+            if (wobbleCount < PokeBall.shakeTrialsRequired)
+            {
+                pokeBallThrowGameObject.SetActive(false);
+                opponentPokemonSprite.SetActive(true);
+            }
+
+        }
+
+        #endregion
 
     }
 }

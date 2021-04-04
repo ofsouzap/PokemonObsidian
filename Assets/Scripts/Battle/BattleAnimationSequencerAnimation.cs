@@ -33,6 +33,7 @@ namespace Battle
                 WeatherDisplay,
                 OpponentTrainerShowcaseStart,
                 OpponentTrainerShowcaseStop,
+                PokeBallUse,
                 Blackout,
                 Custom
             }
@@ -89,6 +90,13 @@ namespace Battle
             #region Opponent Trainer Showcase Start
 
             public Sprite opponentTrainerShowcaseSprite = null;
+
+            #endregion
+
+            #region Poke Ball Use
+
+            public Items.PokeBalls.PokeBall pokeBallUsePokeBall;
+            public byte pokeBallUseWobbleCount;
 
             #endregion
 

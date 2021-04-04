@@ -153,7 +153,12 @@ namespace Battle
             }
             else if (item is BattleItem && !item.CheckCompatibility(ActivePokemon))
             {
-                message = ActivePokemon.GetDisplayName() + "'s can't use this item";
+                message = ActivePokemon.GetDisplayName() + " can't use this item";
+                return false;
+            }
+            else if (item is PokeBall && PlayerData.singleton.PartyIsFull && PlayerData.singleton.boxPokemon.IsFull)
+            {
+                message = "You have no space for another pokemon!";
                 return false;
             }
 
@@ -264,7 +269,8 @@ namespace Battle
             chosenAction = new Action(this)
             {
                 type = Action.Type.UseItem,
-                useItemItemToUse = item
+                useItemItemToUse = item,
+                useItemPokeBallTarget = (item is PokeBall) ? recentBattleData.participantOpponent : null
             };
             actionHasBeenChosen = true;
 

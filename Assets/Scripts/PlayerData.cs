@@ -46,6 +46,26 @@ public class PlayerData
 
     public byte GetNumberOfPartyPokemon() => (byte)partyPokemon.Count(x => x != null);
 
+    public bool PartyIsFull { get => GetNumberOfPartyPokemon() == partyPokemon.Length; }
+
+    public void AddNewPartyPokemon(PokemonInstance pokemon)
+    {
+
+        if (partyPokemon.All(x => x != null))
+        {
+            Debug.LogError("Trying to add party pokemon when party pokemon full");
+            return;
+        }
+
+        for (int i = 0; i < partyPokemon.Length; i++)
+            if (partyPokemon[i] == null)
+            {
+                partyPokemon[i] = pokemon;
+                break;
+            }
+
+    }
+
     #region Box Pokemon
 
     /// <summary>
@@ -60,6 +80,8 @@ public class PlayerData
         /// The pokemon in this box
         /// </summary>
         public PokemonInstance[] pokemon = new PokemonInstance[size];
+
+        public bool IsFull { get => pokemon.All(x => x != null); }
 
         /// <summary>
         /// Getting and setting of the pokemon in the box by referencing an instance of this by index instead of having to look at its pokemon property
@@ -107,6 +129,28 @@ public class PlayerData
 
         public int GetNumberOfPokemonInBox() => pokemon.Count(x => x != null);
 
+        /// <summary>
+        /// Adds a pokemon in the first available place
+        /// </summary>
+        /// <param name="pokemon">The pokemon to add</param>
+        public void AddPokemon(PokemonInstance pokemon)
+        {
+
+            if (IsFull)
+            {
+                Debug.LogError("Trying to add pokemon to box when box is full");
+                return;
+            }
+
+            for (int i = 0; i < this.pokemon.Length; i++)
+                if (this.pokemon[i] == null)
+                {
+                    this.pokemon[i] = pokemon;
+                    break;
+                }
+
+        }
+
     }
 
     /// <summary>
@@ -123,9 +167,18 @@ public class PlayerData
         /// </summary>
         public PokemonBox[] boxes = new PokemonBox[boxCount];
 
+        public bool IsFull { get => boxes.All(x => x.IsFull); }
+
+        private void ResetBoxes()
+        {
+            for (int i = 0; i < boxes.Length; i++)
+                boxes[i] = new PokemonBox();
+        }
+
         public PokemonStorageSystem()
         {
             boxes = new PokemonBox[boxCount];
+            ResetBoxes();
         }
 
         /// <summary>
@@ -136,6 +189,7 @@ public class PlayerData
         {
 
             boxes = new PokemonBox[boxCount];
+            ResetBoxes();
 
             if (pokemon.Length > totalStorageSystemSize)
             {
@@ -182,6 +236,7 @@ public class PlayerData
         {
 
             boxes = new PokemonBox[boxCount];
+            ResetBoxes();
 
             if (pokemonBoxes.Length > boxCount)
             {
@@ -203,6 +258,28 @@ public class PlayerData
 
         public int GetNumberOfPokemonInSystem() => boxes.Select(x => x.GetNumberOfPokemonInBox()).Sum();
 
+        /// <summary>
+        /// Adds a pokemon in the first available place
+        /// </summary>
+        /// <param name="pokemon">The pokemon to add</param>
+        public void AddPokemon(PokemonInstance pokemon)
+        {
+
+            if (IsFull)
+            {
+                Debug.LogError("Trying to add pokemon to storage system when storage system is full");
+                return;
+            }
+
+            foreach (PokemonBox box in boxes)
+                if (!box.IsFull)
+                {
+                    box.AddPokemon(pokemon);
+                    break;
+                }
+
+        }
+
     }
 
     /// <summary>
@@ -211,6 +288,13 @@ public class PlayerData
     public PokemonStorageSystem boxPokemon = new PokemonStorageSystem();
 
     public int GetNumberOfPokemonInBoxes() => boxPokemon.GetNumberOfPokemonInSystem();
+
+    /// <summary>
+    /// Adds a pokemon to the player's pokemon storage system in the first available place
+    /// </summary>
+    /// <param name="pokemon">The pokemon to add</param>
+    public void AddBoxPokemon(PokemonInstance pokemon)
+        => boxPokemon.AddPokemon(pokemon);
 
     #endregion
 

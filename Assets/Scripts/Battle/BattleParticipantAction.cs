@@ -135,6 +135,11 @@ namespace Battle
             /// </summary>
             public int useItemTargetPartyIndex;
 
+            /// <summary>
+            /// The battle participant that the pokemon is being used on. This should always be the opponent participant
+            /// </summary>
+            public BattleParticipant useItemPokeBallTarget;
+
         }
 
     }

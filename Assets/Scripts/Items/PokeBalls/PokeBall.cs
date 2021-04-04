@@ -88,6 +88,11 @@ namespace Items.PokeBalls
 
         #endregion
 
+        /// <summary>
+        /// The number of times that CalculateIfShake must return true for a pokemon to be caught
+        /// </summary>
+        public const byte shakeTrialsRequired = 4;
+
         public abstract float GetCatchChanceModifier(PokemonInstance target, BattleData battleData);
 
         #region Sprites
@@ -99,7 +104,8 @@ namespace Items.PokeBalls
             Open,
             WobbleLeft,
             WobbleCenter,
-            WobbleRight
+            WobbleRight,
+            Caught
         }
 
         public static readonly Dictionary<SpriteType, string> spriteTypeResourceNames = new Dictionary<SpriteType, string>()
@@ -109,7 +115,8 @@ namespace Items.PokeBalls
             { SpriteType.Open, "open" },
             { SpriteType.WobbleLeft, "wobble_left" },
             { SpriteType.WobbleCenter, "wobble_center" },
-            { SpriteType.WobbleRight, "wobble_right" }
+            { SpriteType.WobbleRight, "wobble_right" },
+            { SpriteType.Caught, "caught" }
         };
 
         public Sprite GetSprite(SpriteType spriteType)
@@ -122,13 +129,12 @@ namespace Items.PokeBalls
         //https://bulbapedia.bulbagarden.net/wiki/Catch_rate#Capture_method_.28Generation_III-IV.29
 
         public static int CalculateModifiedCatchRate(PokemonInstance target,
-            float pokeBallModifier,
-            PokemonInstance.NonVolatileStatusCondition nonVolatileStatusCondition)
+            float pokeBallModifier)
         {
 
             int maxHealth = target.GetStats().health;
             int currHealth = target.health;
-            float nvscModifier = nonVolatileStatusCondition switch
+            float nvscModifier = target.nonVolatileStatusCondition switch
             {
                 PokemonInstance.NonVolatileStatusCondition.Paralysed => 1.5F,
                 PokemonInstance.NonVolatileStatusCondition.Poisoned => 1.5F,
@@ -139,7 +145,7 @@ namespace Items.PokeBalls
                 _ => 1
             };
 
-            float healthModifier = ((3 * maxHealth) - (2 * currHealth)) / (3 * maxHealth);
+            float healthModifier = (((float)(3 * maxHealth) - (2 * currHealth))) / (3 * maxHealth);
 
             return Mathf.FloorToInt(healthModifier * target.species.catchRate * pokeBallModifier * nvscModifier);
 
@@ -153,11 +159,16 @@ namespace Items.PokeBalls
         public static bool CalculateIfShake(int shakeProbability)
         {
 
-            ushort rand = (ushort)UnityEngine.Random.Range(ushort.MinValue, ushort.MaxValue + 1);
+            ushort rand = (ushort)Random.Range(ushort.MinValue, ushort.MaxValue + 1);
 
             return rand < shakeProbability;
 
         }
+
+        public static bool CalculateIfShake(PokemonInstance pokemon,
+            BattleData battleData,
+            PokeBall pokeBall)
+            => CalculateIfShake(CalculateShakeProbability(CalculateModifiedCatchRate(pokemon, pokeBall.GetCatchChanceModifier(pokemon, battleData))));
 
         #endregion
 
