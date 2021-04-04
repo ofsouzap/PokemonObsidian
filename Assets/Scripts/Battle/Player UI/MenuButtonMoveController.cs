@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
@@ -6,6 +7,13 @@ namespace Battle.PlayerUI
 {
     public class MenuButtonMoveController : MenuSelectableController, IPointerEnterHandler, IPointerExitHandler
     {
+
+        public Button Button
+        {
+            get => GetComponent<Button>();
+        }
+
+        public Text textName;
 
         public UnityEvent MoveSelected = new UnityEvent();
         public UnityEvent MoveDeselected = new UnityEvent();
@@ -24,5 +32,17 @@ namespace Battle.PlayerUI
 
         public void OnPointerEnter(PointerEventData eventData) => MoveSelected.Invoke();
         public void OnPointerExit(PointerEventData eventData) => MoveDeselected.Invoke();
+
+        public void SetName(string name) => textName.text = name;
+
+        public void SetInteractable(bool state)
+        {
+
+            if (!state)
+                textName.text = "";
+            Button.interactable = state;
+
+        }
+
     }
 }

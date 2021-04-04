@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Pokemon;
 
 namespace Items.MedicineItems
@@ -86,7 +87,7 @@ namespace Items.MedicineItems
         }
 
         public override bool CheckCompatibility(PokemonInstance pokemon)
-            => pokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None;
+            => curedNVSC.Contains(pokemon.nonVolatileStatusCondition) && pokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None;
 
     }
 }

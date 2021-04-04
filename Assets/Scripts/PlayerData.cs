@@ -368,6 +368,33 @@ public class PlayerData
         public InventorySection pokeBalls = new InventorySection((id) => PokeBall.GetPokeBallById(id));
         public InventorySection tmItems = new InventorySection((id) => TMItem.GetTMItemById(id));
 
+        private InventorySection GetItemInventorySection(Item item)
+        {
+
+            if (item is PokeBall)
+                return pokeBalls;
+            else if (item is TMItem)
+                return tmItems;
+            else if (item is MedicineItem)
+                return medicineItems;
+            else if (item is BattleItem)
+                return battleItems;
+            else
+            {
+                Debug.LogError("Couldn't find inventory section for provided item");
+                return null;
+            }
+
+        }
+
+        public void AddItem(Item item,
+            uint amount = 1)
+            => GetItemInventorySection(item).AddItem(item.id, amount);
+
+        public void RemoveItem(Item item,
+            uint amount = 1)
+            => GetItemInventorySection(item).RemoveItem(item.id, amount);
+
     }
 
     public Inventory inventory = new Inventory();

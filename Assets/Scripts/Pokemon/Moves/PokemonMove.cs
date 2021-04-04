@@ -15,6 +15,8 @@ namespace Pokemon.Moves
 
         public static PokemonMove GetPokemonMoveById(int id)
         {
+            if (MoveIdIsUnset(id))
+                return null;
             return registry.StartingIndexSearch(id, id - 1);
         }
 
@@ -44,22 +46,7 @@ namespace Pokemon.Moves
 
         #endregion
 
-        #region Struggle
-
-        public static PokemonMove struggle = new PokemonMove()
-        {
-            id = -1,
-            name = "Struggle",
-            description = "An attack that is used in desperation only if the user has no PP. It also hurts the user slightly.",
-            maxPP = 1,
-            type = Type.Normal,
-            moveType = MoveType.Physical,
-            power = 50,
-            accuracy = 0,
-            maxHealthRelativeRecoilDamage = 0.25F
-        };
-
-        #endregion
+        public static PokemonMove struggle => GetPokemonMoveById(165);
 
         #region Properties
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Pokemon;
 
 namespace Battle.PlayerUI
 {
@@ -18,10 +19,12 @@ namespace Battle.PlayerUI
         public Text textName;
         public Image imageIcon;
         public HealthBarScript healthBar;
+        public Image imageStatusCondition;
 
         public void SetValues(string name,
             Sprite icon,
-            float healthBarValue)
+            float healthBarValue,
+            PokemonInstance.NonVolatileStatusCondition statusCondition)
         {
 
             if (healthBarValue < 0 || healthBarValue > 1)
@@ -33,6 +36,14 @@ namespace Battle.PlayerUI
             imageIcon.sprite = icon;
             healthBar.UpdateBar(healthBarValue);
 
+            if (statusCondition == PokemonInstance.NonVolatileStatusCondition.None)
+                imageStatusCondition.gameObject.SetActive(false);
+            else
+            {
+                imageStatusCondition.gameObject.SetActive(true);
+                imageStatusCondition.sprite = SpriteStorage.GetNonVolatileStatusConditionSprite(statusCondition);
+            }
+
         }
 
         public void SetInteractable(bool state)
@@ -43,6 +54,7 @@ namespace Battle.PlayerUI
             imageIcon.enabled = state;
             Button.interactable = state;
             healthBar.gameObject.SetActive(state);
+            imageStatusCondition.gameObject.SetActive(state);
 
         }
 

@@ -16,6 +16,7 @@ namespace Testing
         {
             public int speciesId;
             public byte level;
+            public PokemonInstance.NonVolatileStatusCondition initialNVSC;
         }
 
         public PokemonSpecification[] pokemon;
@@ -33,11 +34,13 @@ namespace Testing
             List<PokemonInstance> playerPokemon = new List<PokemonInstance>();
             foreach (PokemonSpecification spec in pokemon)
             {
-                playerPokemon.Add(PokemonFactory.GenerateWild(
+                PokemonInstance pokemon = PokemonFactory.GenerateWild(
                     new int[] { spec.speciesId },
                     spec.level,
                     spec.level
-                    ));
+                    );
+                pokemon.nonVolatileStatusCondition = spec.initialNVSC;
+                playerPokemon.Add(pokemon);
             }
 
             PlayerData.singleton.partyPokemon = playerPokemon.ToArray();
@@ -49,10 +52,11 @@ namespace Testing
             PlayerData.singleton.inventory.battleItems.SetItems(new Dictionary<int, int>()
             {
                 { 0, 1 },
+                { 1, 1 },
                 { 2, 102 },
                 { 3, 10 },
                 { 4, 4 },
-                { 5, 3 }
+                { 5, 1 }
             });
 
             PlayerData.singleton.inventory.medicineItems.SetItems(new Dictionary<int, int>()
@@ -62,7 +66,11 @@ namespace Testing
                 { 3, 10 },
                 { 4, 4 },
                 { 5, 3 },
-                { 6, 4 }
+                { 6, 4 },
+                { 12, 1 },
+                { 13, 1 },
+                { 14, 2 },
+                { 15, 2 },
             });
 
             PlayerData.singleton.inventory.pokeBalls.SetItems(new Dictionary<int, int>()

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Battle;
 using Pokemon;
+using Items;
+using Items.MedicineItems;
+using Items.PokeBalls;
 
 namespace Battle
 {
@@ -13,7 +15,11 @@ namespace Battle
 
         public enum Mode
         {
-            RandomAttack
+            RandomAttack,
+#if UNITY_EDITOR
+            Debug_UseRandomMedicineItem,
+            Debug_UseRandomBattleItem
+#endif
             //TODO - add more
         }
 
@@ -50,6 +56,18 @@ namespace Battle
                 case Mode.RandomAttack:
                     chosenAction = ChooseAction_RandomAttack(battleData);
                     break;
+
+#if UNITY_EDITOR
+
+                case Mode.Debug_UseRandomMedicineItem:
+                    chosenAction = ChooseAction_Debug_UseRandomMedicineItem(battleData);
+                    break;
+
+                case Mode.Debug_UseRandomBattleItem:
+                    chosenAction = ChooseAction_Debug_UseRandomBattleItem(battleData);
+                    break;
+
+#endif
 
                 default:
                     Debug.LogError("Unknown npc participant mode - " + mode);
@@ -109,6 +127,96 @@ namespace Battle
 
         }
 
+#if UNITY_EDITOR
+
+        public Action ChooseAction_Debug_UseRandomMedicineItem(BattleData battleData)
+        {
+
+            int actionItemTargetIndex = activePokemonIndex;
+            Item actionItem;
+
+            List<MedicineItem> validItems = new List<MedicineItem>();
+
+            foreach (MedicineItem item in MedicineItem.registry)
+            {
+                if (item.CheckCompatibility(GetPokemon()[actionItemTargetIndex]))
+                {
+                    validItems.Add(item);
+                }
+            }
+
+            if (validItems.Count > 0)
+                actionItem = validItems[Random.Range(0, validItems.Count)];
+            else
+            {
+                Debug.LogWarning("No valid item found. Choosing item with id 0");
+                actionItem = MedicineItem.GetMedicineItemById(0);
+            }
+
+            if (actionItem is PPRestoreMedicineItem)
+            {
+                PPRestoreMedicineItem ppRestoreActionItem = (PPRestoreMedicineItem)actionItem;
+                if (ppRestoreActionItem.isForSingleMove)
+                {
+                    for (int i = 0; i < GetPokemon()[actionItemTargetIndex].moveIds.Length; i++)
+                    {
+                        if (!Pokemon.Moves.PokemonMove.MoveIdIsUnset(GetPokemon()[actionItemTargetIndex].moveIds[i]))
+                        {
+                            Pokemon.Moves.PokemonMove move = Pokemon.Moves.PokemonMove.GetPokemonMoveById(GetPokemon()[actionItemTargetIndex].moveIds[i]);
+                            if (GetPokemon()[actionItemTargetIndex].movePPs[i] < move.maxPP)
+                            {
+                                PPRestoreMedicineItem.singleMoveIndexToRecoverPP = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return new Action(this)
+            {
+                type = Action.Type.UseItem,
+                useItemItemToUse = actionItem,
+                useItemTargetPartyIndex = actionItemTargetIndex
+            };
+
+        }
+
+        public Action ChooseAction_Debug_UseRandomBattleItem(BattleData battleData)
+        {
+
+            int actionItemTargetIndex = activePokemonIndex;
+            Item actionItem;
+
+            List<BattleItem> validItems = new List<BattleItem>();
+
+            foreach (BattleItem item in BattleItem.registry)
+            {
+                if (item.CheckCompatibility(GetPokemon()[actionItemTargetIndex]))
+                {
+                    validItems.Add(item);
+                }
+            }
+
+            if (validItems.Count > 0)
+                actionItem = validItems[Random.Range(0, validItems.Count)];
+            else
+            {
+                Debug.LogWarning("No valid item found. Choosing item with id 0");
+                actionItem = BattleItem.GetBattleItemById(0);
+            }
+
+            return new Action(this)
+            {
+                type = Action.Type.UseItem,
+                useItemItemToUse = actionItem,
+                useItemTargetPartyIndex = actionItemTargetIndex
+            };
+
+        }
+
+#endif
+
         #endregion
 
         public override void StartChoosingNextPokemon()
@@ -145,7 +253,7 @@ namespace Battle
 
         public override bool CheckIfDefeated()
         {
-            return pokemon.All((x) => x.IsFainted);
+            return GetPokemon().Where(x => x != null).All((x) => x.IsFainted);
         }
 
     }

@@ -16,6 +16,7 @@ namespace Battle
 
         public PlayerBattleUIController playerBattleUIController;
         public PlayerPokemonSelectUIController playerPokemonSelectUIController;
+        public PlayerMoveSelectUIController playerMoveSelectUIController;
 
         public override string GetName() => PlayerData.singleton.profile.name;
 
@@ -55,11 +56,13 @@ namespace Battle
 
             playerBattleUIController.playerBattleParticipant = this;
             playerPokemonSelectUIController.playerBattleParticipant = this;
+            playerMoveSelectUIController.playerBattleParticipant = this;
 
             playerBattleUIController.SetUp(battleManager);
             playerPokemonSelectUIController.SetUp();
 
             playerPokemonSelectUIController.buttonBack.onClick.AddListener(OnPokemonSelectUIButtonBackClick);
+            playerMoveSelectUIController.buttonBack.onClick.AddListener(OnMoveSelectUIButtonBackClick);
 
         }
 
@@ -148,6 +151,11 @@ namespace Battle
                 message = "You aren't allowed to use battle items in this battle";
                 return false;
             }
+            else if (item is BattleItem && !item.CheckCompatibility(ActivePokemon))
+            {
+                message = ActivePokemon.GetDisplayName() + "'s can't use this item";
+                return false;
+            }
 
             message = "";
             return true;
@@ -197,14 +205,54 @@ namespace Battle
 
         }
 
+        private int partyIndexForSelectedMoveIndexFromMoveSelectUI = -1;
+
         private void SelectItemUsageTargetPokemon(int partyIndex)
         {
+
+            if (itemToUseForSelectedPokemonFromPokemonSelectUI is PPRestoreMedicineItem && ((PPRestoreMedicineItem)itemToUseForSelectedPokemonFromPokemonSelectUI).isForSingleMove)
+            {
+
+                partyIndexForSelectedMoveIndexFromMoveSelectUI = partyIndex;
+
+                StartMoveSelectUI(MoveSelectUIPurpose.PPRecoveryTargetSelection,
+                    GetPokemon()[partyIndexForSelectedMoveIndexFromMoveSelectUI],
+                    (moveIndex) => moveSelectUISelectedPokemon.movePPs[moveIndex]
+                        < Pokemon.Moves.PokemonMove.GetPokemonMoveById(
+                            moveSelectUISelectedPokemon.moveIds[moveIndex]
+                            ).maxPP,
+                    () =>
+                    {
+                        HideMoveSelectUI();
+                        playerBattleUIController.ShowBagCategoryMenu();
+                    });
+
+            }
+            else
+            {
+
+                chosenAction = new Action(this)
+                {
+                    type = Action.Type.UseItem,
+                    useItemItemToUse = itemToUseForSelectedPokemonFromPokemonSelectUI,
+                    useItemTargetPartyIndex = partyIndex
+                };
+                actionHasBeenChosen = true;
+
+            }
+
+        }
+
+        public void SelectMoveItemUsageTargetMoveIndex(int moveIndex)
+        {
+
+            PPRestoreMedicineItem.singleMoveIndexToRecoverPP = moveIndex;
 
             chosenAction = new Action(this)
             {
                 type = Action.Type.UseItem,
                 useItemItemToUse = itemToUseForSelectedPokemonFromPokemonSelectUI,
-                useItemTargetPartyIndex = partyIndex
+                useItemTargetPartyIndex = partyIndexForSelectedMoveIndexFromMoveSelectUI
             };
             actionHasBeenChosen = true;
 
@@ -421,6 +469,113 @@ namespace Battle
                 pokemonSelectUIBackButtonAction();
             else
                 Debug.LogError("pokemonSelectUIBackButtonAction is unset");
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Player Move Selection UI
+
+        private enum MoveSelectUIPurpose
+        {
+            PPRecoveryTargetSelection
+        }
+
+        private MoveSelectUIPurpose moveSelectUIPurpose;
+        private PokemonInstance moveSelectUISelectedPokemon;
+        private Predicate<int> moveSelectUIValidityPredicate; //Integer parameter is index of move in pokemon's attributes
+        private System.Action moveSelectUIBackButtonAction;
+
+        private void StartMoveSelectUI(MoveSelectUIPurpose purpose,
+            PokemonInstance selectedPokemon,
+            Predicate<int> validityCheck,
+            System.Action backButtonAction)
+        {
+
+            moveSelectUIPurpose = purpose;
+            moveSelectUISelectedPokemon = selectedPokemon;
+            moveSelectUIValidityPredicate = validityCheck;
+            moveSelectUIBackButtonAction = backButtonAction;
+
+            playerMoveSelectUIController.RefreshButtons();
+            ShowMoveSelectUI();
+
+        }
+
+        private void ShowMoveSelectUI()
+        {
+
+            playerMoveSelectUIController.Show();
+            playerMoveSelectUIController.ShowBackButton();
+
+            playerMoveSelectUIController.HideMovePane();
+            EventSystem.current.SetSelectedGameObject(playerMoveSelectUIController.buttonBack.gameObject);
+
+        }
+
+        private void HideMoveSelectUI()
+        {
+            playerMoveSelectUIController.Hide();
+        }
+
+        private bool MoveSelectUICheckValidity(int moveIndex)
+        {
+
+            if (moveSelectUIValidityPredicate != null)
+                return moveSelectUIValidityPredicate(moveIndex);
+            else
+            {
+                Debug.LogError("Move select UI validity predicate unset");
+                return true;
+            }
+
+        }
+
+        public void MoveSelectUISelectMove(int moveIndex)
+        {
+
+            if (moveIndex < 0 || moveIndex > 3)
+            {
+                Debug.LogError("Move index out of range - " + moveIndex);
+                return;
+            }
+
+            if (!MoveSelectUICheckValidity(moveIndex))
+            {
+                MoveSelectDisplayInvalidMessage();
+                return;
+            }
+
+            if (moveSelectUIPurpose == MoveSelectUIPurpose.PPRecoveryTargetSelection)
+            {
+
+                HideMoveSelectUI();
+                SelectMoveItemUsageTargetMoveIndex(moveIndex);
+
+            }
+            else
+            {
+                Debug.LogError("Unknown move select UI purpose - " + moveSelectUIPurpose);
+            }
+
+        }
+
+        private void MoveSelectDisplayInvalidMessage()
+        {
+            battleManager.DisplayPlayerInvalidSelectionMessage("You can't select this move");
+        }
+
+        #region Back Button
+
+        private void OnMoveSelectUIButtonBackClick()
+        {
+
+            if (moveSelectUIBackButtonAction != null)
+                moveSelectUIBackButtonAction();
+            else
+                Debug.LogError("moveSelectUIBackButtonAction is unset");
 
         }
 

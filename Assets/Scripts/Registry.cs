@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UnityEngine;
 
 public class Registry<T> : IEnumerable where T : IHasId
 {
@@ -50,6 +51,12 @@ public class Registry<T> : IEnumerable where T : IHasId
     public T StartingIndexSearch(int queryId,
         int startingIndex)
     {
+
+        if (entries.Length <= 0)
+        {
+            Debug.LogError("Registry empty whilst trying to find element");
+            return default;
+        }
 
         bool? movingForwards = null;
         int nextIndexCheck = startingIndex;

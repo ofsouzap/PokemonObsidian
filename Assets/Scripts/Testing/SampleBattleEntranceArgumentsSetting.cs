@@ -19,6 +19,7 @@ namespace Testing
         {
             public int speciesId;
             public byte level;
+            public PokemonInstance.NonVolatileStatusCondition initialNVSC;
         }
 
         public BattleType battleType;
@@ -44,9 +45,10 @@ namespace Testing
             yield return new WaitUntil(() =>
                 PokemonSpecies.registry != null
                 && Nature.registry != null
-                && Pokemon.Moves.PokemonMove.registry != null
+                && Pokemon.Moves.PokemonMove.registry != null && Pokemon.Moves.PokemonMove.registry.Length > 0
                 && Weather.registry != null
-                && (LoadAllSprites.singleton?.loaded == true )
+                && LoadAllSprites.singleton != null && LoadAllSprites.singleton.loaded
+                && LoadItems.singleton != null && LoadItems.singleton.loaded
                 );
 
             BattleEntranceArguments.argumentsSet = true;
@@ -78,14 +80,21 @@ namespace Testing
                     List<PokemonInstance> opponentPokemon = new List<PokemonInstance>();
                     foreach (PokemonSpecification spec in npcTrainerPokemonSpecifications)
                     {
-                        opponentPokemon.Add(PokemonFactory.GenerateWild(
+                        PokemonInstance pokemon = PokemonFactory.GenerateWild(
                             new int[] { spec.speciesId },
                             spec.level,
                             spec.level
-                            ));
+                            );
+                        pokemon.nonVolatileStatusCondition = spec.initialNVSC;
+                        opponentPokemon.Add(pokemon);
                     }
 
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon = opponentPokemon.ToArray();
+                    PokemonInstance[] opponentPokemonArray = new PokemonInstance[6];
+                    Array.Copy(opponentPokemon.ToArray(),
+                        opponentPokemonArray,
+                        opponentPokemon.Count);
+                    
+                    BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon = opponentPokemonArray;
                     BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName = npcTrainerFullName;
                     BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourcePath = npcTrainerSpriteName;
                     BattleEntranceArguments.npcTrainerBattleArguments.mode = npcTrainerMode;

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 using Pokemon;
+using Pokemon.Moves;
 
 namespace Items.MedicineItems
 {
@@ -59,7 +60,7 @@ namespace Items.MedicineItems
             int moveIndex)
         {
 
-            byte moveMaxPP = Pokemon.Moves.PokemonMove.GetPokemonMoveById(pokemon.moveIds[moveIndex]).maxPP;
+            byte moveMaxPP = PokemonMove.GetPokemonMoveById(pokemon.moveIds[moveIndex]).maxPP;
 
             if (moveMaxPP < pokemon.movePPs[moveIndex])
             {
@@ -81,7 +82,7 @@ namespace Items.MedicineItems
         public override ItemUsageEffects GetUsageEffects(PokemonInstance pokemon)
         {
             
-            if (singleMoveIndexToRecoverPP < 0)
+            if (singleMoveIndexToRecoverPP < 0 && isForSingleMove)
             {
                 Debug.LogError("Usage effects requested before singleMoveIndexToRecoverPP was set");
             }
@@ -107,6 +108,9 @@ namespace Items.MedicineItems
             {
                 for (int i = 0; i < ppIncreases.Length; i++)
                 {
+
+                    if (PokemonMove.MoveIdIsUnset(pokemon.moveIds[i]))
+                        continue;
 
                     byte missingPP = GetMissingPP(pokemon, i);
 
@@ -136,8 +140,9 @@ namespace Items.MedicineItems
         {
 
             for (int moveIndex = 0; moveIndex < pokemon.moveIds.Length; moveIndex++)
-                if (pokemon.movePPs[moveIndex] < Pokemon.Moves.PokemonMove.GetPokemonMoveById(pokemon.moveIds[moveIndex]).maxPP)
-                    return true;
+                if (!PokemonMove.MoveIdIsUnset(pokemon.moveIds[moveIndex]))
+                    if (pokemon.movePPs[moveIndex] < PokemonMove.GetPokemonMoveById(pokemon.moveIds[moveIndex]).maxPP)
+                        return true;
 
             return false;
 

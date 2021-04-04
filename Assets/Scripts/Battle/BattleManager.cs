@@ -5,6 +5,9 @@ using System.Linq;
 using UnityEngine;
 using Pokemon;
 using Pokemon.Moves;
+using Items;
+using Items.MedicineItems;
+using Items.PokeBalls;
 
 namespace Battle
 {
@@ -16,6 +19,7 @@ namespace Battle
 
         public PlayerUI.PlayerBattleUIController playerBattleUIController;
         public PlayerUI.PlayerPokemonSelectUIController playerPokemonSelectUIController;
+        public PlayerUI.PlayerMoveSelectUIController playerMoveSelectUIController;
         public PlayerUI.LearnMoveUI.LearnMoveUIController learnMoveUIController;
 
         [HideInInspector]
@@ -151,6 +155,53 @@ namespace Battle
 
             battleData.participantPlayer.playerBattleUIController = playerBattleUIController;
             battleData.participantPlayer.playerPokemonSelectUIController = playerPokemonSelectUIController;
+            battleData.participantPlayer.playerMoveSelectUIController = playerMoveSelectUIController;
+
+            #region Choose Starting Pokemon
+
+            #region Player
+
+            int playerStartingPokemonIndex = -1;
+
+            for (int i = 0; i < battleData.participantPlayer.GetPokemon().Length; i++)
+                if (!battleData.participantPlayer.GetPokemon()[i].IsFainted)
+                {
+                    playerStartingPokemonIndex = i;
+                    break;
+                }
+
+            if (playerStartingPokemonIndex < 0)
+            {
+                Debug.LogError("Unable to find pokemon for player to start battle with");
+                playerStartingPokemonIndex = 0;
+            }
+
+            battleData.participantPlayer.activePokemonIndex = playerStartingPokemonIndex;
+
+            #endregion
+
+            #region Opponent
+
+            int opponentStartingPokemonIndex = -1;
+
+            for (int i = 0; i < battleData.participantOpponent.GetPokemon().Length; i++)
+                if (!battleData.participantOpponent.GetPokemon()[i].IsFainted)
+                {
+                    opponentStartingPokemonIndex = i;
+                    break;
+                }
+
+            if (opponentStartingPokemonIndex < 0)
+            {
+                Debug.LogError("Unable to find pokemon for opponent to start battle with");
+                opponentStartingPokemonIndex = 0;
+            }
+
+            battleData.participantOpponent.activePokemonIndex = opponentStartingPokemonIndex;
+
+            #endregion
+
+            #endregion
 
             battleData.participantPlayer.SetUp();
 
@@ -1016,9 +1067,9 @@ namespace Battle
                     participant.ActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
                     if (participant is BattleParticipantPlayer)
-                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(PokemonInstance.NonVolatileStatusCondition.None);
+                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(participant.ActivePokemon.nonVolatileStatusCondition);
                     else
-                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(PokemonInstance.NonVolatileStatusCondition.None);
+                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(participant.ActivePokemon.nonVolatileStatusCondition);
 
                     yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -1037,6 +1088,11 @@ namespace Battle
                         + " thawed out!"
                         );
                     participant.ActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                    if (participant is BattleParticipantPlayer)
+                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(participant.ActivePokemon.nonVolatileStatusCondition);
+                    else
+                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(participant.ActivePokemon.nonVolatileStatusCondition);
 
                     yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -1104,7 +1160,9 @@ namespace Battle
                     yield return StartCoroutine(ExecuteAction_SwitchPokemon(action));
                     break;
 
-                //TODO - case for item using
+                case BattleParticipant.Action.Type.UseItem:
+                    yield return StartCoroutine(ExecuteAction_UseItem(action));
+                    break;
 
                 default:
                     Debug.LogError("Unknown action type - " + action.type);
@@ -1743,7 +1801,173 @@ namespace Battle
 
         }
 
-        //TODO - have execution function for item actions
+        /// <summary>
+        /// Execute a use item action
+        /// </summary>
+        private IEnumerator ExecuteAction_UseItem(BattleParticipant.Action action)
+        {
+
+            if (action.useItemItemToUse is PokeBall)
+                yield return StartCoroutine(ExecuteAction_UseItem_PokeBall(action));
+            else
+                yield return StartCoroutine(ExecuteAction_UseItem_UsageEffectsItem(action));
+
+        }
+
+        private IEnumerator ExecuteAction_UseItem_PokeBall(BattleParticipant.Action action)
+        {
+
+            if (!(action.user is BattleParticipantPlayer))
+            {
+                Debug.LogError("Opponent used poke ball");
+                yield break;
+            }
+
+            PokeBall pokeBall = (PokeBall)action.useItemItemToUse;
+
+            //TODO (check Plans for help)
+            //TODO - distribute experience and EVs
+            //TODO - if pokemon caught, end battle
+
+        }
+
+        private IEnumerator ExecuteAction_UseItem_UsageEffectsItem(BattleParticipant.Action action)
+        {
+
+            bool playerIsUser = action.user is BattleParticipantPlayer;
+
+            #region Inventory Reduction
+
+            if (playerIsUser)
+                PlayerData.singleton.inventory.RemoveItem(action.useItemItemToUse, 1);
+
+            #endregion
+
+            bool definetlyApplyToActivePokemon;
+
+            if (action.useItemItemToUse is BattleItem)
+                definetlyApplyToActivePokemon = true;
+            else if (action.useItemItemToUse is MedicineItem)
+                definetlyApplyToActivePokemon = false;
+            else
+            {
+                Debug.LogError("Couldn't choose whether to apply item to active pokemon");
+                definetlyApplyToActivePokemon = true;
+            }
+
+            PokemonInstance affectedPokemon = definetlyApplyToActivePokemon ? action.user.ActivePokemon : action.user.GetPokemon()[action.useItemTargetPartyIndex];
+
+            bool activePokemonIsItemTarget = definetlyApplyToActivePokemon
+                || action.useItemTargetPartyIndex == action.user.activePokemonIndex;
+
+            char[] vowels = new char[] { 'a','e','i','o','u' };
+            string itemName = action.useItemItemToUse.itemName;
+            battleAnimationSequencer.EnqueueSingleText(action.user.GetName()
+                + " used "
+                + (vowels.Contains(itemName[0]) ? "an" : "a")
+                + ' '
+                + itemName);
+
+            #region Usage Effects
+
+            Item.ItemUsageEffects itemUsageEffects = action.useItemItemToUse.GetUsageEffects(affectedPokemon);
+
+            if (itemUsageEffects.healthRecovered != 0)
+            {
+
+                bool pokemonWasFainted = affectedPokemon.IsFainted;
+                int pokemonPrevHealth = affectedPokemon.health;
+
+                affectedPokemon.HealHealth(itemUsageEffects.healthRecovered);
+
+                if (activePokemonIsItemTarget)
+                {
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                    {
+                        type = playerIsUser ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                        takeDamageOldHealth = pokemonPrevHealth,
+                        takeDamageNewHealth = affectedPokemon.health,
+                        takeDamageMaxHealth = affectedPokemon.GetStats().health
+                    });
+                }
+
+                if (pokemonWasFainted)
+                    battleAnimationSequencer.EnqueueSingleText(affectedPokemon.GetDisplayName()
+                    + " was revived!");
+
+                else
+                    battleAnimationSequencer.EnqueueSingleText(affectedPokemon.GetDisplayName()
+                        + " recovered some health");
+
+            }
+
+            if (itemUsageEffects.statModifierChanges.GetEnumerator(false).Any(x => x != 0)
+                || itemUsageEffects.evasionModifierChange != 0
+                || itemUsageEffects.accuracyModifierChange != 0)
+            {
+
+                BattleAnimationSequencer.Animation[] statChangeAnimations = ExecuteAction_Fight_StatModifiers(
+                    affectedPokemon,
+                    !playerIsUser,
+                    itemUsageEffects.statModifierChanges,
+                    itemUsageEffects.evasionModifierChange,
+                    itemUsageEffects.accuracyModifierChange);
+
+                if (activePokemonIsItemTarget)
+                    foreach (BattleAnimationSequencer.Animation animation in statChangeAnimations)
+                        battleAnimationSequencer.EnqueueAnimation(animation);
+
+                else
+                    //Only take the animations that don't affect the current battle layout
+                    foreach (BattleAnimationSequencer.Animation animation in statChangeAnimations.Where(x => x.type == BattleAnimationSequencer.Animation.Type.Text))
+                        battleAnimationSequencer.EnqueueAnimation(animation);
+
+            }
+
+            if (itemUsageEffects.increaseCritChance)
+            {
+
+                affectedPokemon.battleProperties.criticalHitChanceBoosted = true;
+
+                battleAnimationSequencer.EnqueueSingleText(affectedPokemon.GetDisplayName()
+                    + " focused intensely");
+
+            }
+
+            if (itemUsageEffects.nvscCured)
+            {
+
+                affectedPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                battleAnimationSequencer.EnqueueSingleText(affectedPokemon.GetDisplayName() + " was cured of its status condition");
+
+                if (activePokemonIsItemTarget)
+                {
+
+                    if (playerIsUser)
+                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(affectedPokemon.nonVolatileStatusCondition);
+                    else
+                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(affectedPokemon.nonVolatileStatusCondition);
+
+                }
+
+            }
+
+            if (itemUsageEffects.ppIncreases.Any(x => x != 0))
+            {
+
+                for (int i = 0; i < affectedPokemon.movePPs.Length; i++)
+                    affectedPokemon.movePPs[i] += itemUsageEffects.ppIncreases[i];
+
+                battleAnimationSequencer.EnqueueSingleText(affectedPokemon.GetDisplayName() + " recovered some PP");
+
+            }
+
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            #endregion
+
+        }
 
     }
 

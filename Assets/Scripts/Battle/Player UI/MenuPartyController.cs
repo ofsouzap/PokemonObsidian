@@ -56,7 +56,8 @@ namespace Battle.PlayerUI
                 pokemonButtons[i].SetValues(
                     pokemon[i].GetDisplayName(),
                     pokemon[i].LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),
-                    ((float)pokemon[i].health) / pokemon[i].GetStats().health);
+                    ((float)pokemon[i].health) / pokemon[i].GetStats().health,
+                    pokemon[i].nonVolatileStatusCondition);
 
             }
 

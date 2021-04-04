@@ -66,3 +66,4 @@ id,name,maxPP,desc,type,moveType,power,accuracy,userStatChanges,targetStatChange
 157,Rock Slide,10,Large boulders are hurled at the opposing Pokemon to inflict damage. This may also make the opposing Pokemon flinch.,rock,physical,75,90,,,,0.3,,,,,,,,,,,,,,,,
 158,Hyper Fang,15,The user bites hard on the target with its sharp front fangs. This may also make the target flinch.,normal,physical,80,90,,,,0.1,,,,,,,,,,,,,,,,
 163,Slash,20,The target is attacked with a slash of claws or blades. Critical hits land more easily.,normal,physical,70,100,,,1,,,,,,,,,,,,,,,,,
+165,Struggle,1,An attack that is used in desperation only if the user has no PP. It also hurts the user slightly.,normal,physical,50,,,,,,,,,,,0.25,,,,,,,,,,

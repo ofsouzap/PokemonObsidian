@@ -100,7 +100,7 @@ namespace Items
 
         public bool HasStatModifiers
         {
-            get => statModifiers.GetEnumerator(false).Any(x => x != 0);
+            get => statModifiers.GetEnumerator(false).Any(x => x != 0) || evasionModifier != 0 || accuracyModifier != 0;
         }
 
         public bool boostsCriticalHitRate = false;
@@ -116,6 +116,9 @@ namespace Items
 
             itemUsageEffects.accuracyModifierChange = Stats<sbyte>.LimitStatModifierChange(accuracyModifier, pokemon.battleProperties.accuracyModifier);
 
+            if (!pokemon.battleProperties.criticalHitChanceBoosted)
+                itemUsageEffects.increaseCritChance = boostsCriticalHitRate;
+
             return itemUsageEffects;
 
         }
@@ -124,13 +127,19 @@ namespace Items
         {
 
             foreach (Stats<sbyte>.Stat stat in Enum.GetValues(typeof(Stats<sbyte>.Stat)))
-                if (Math.Abs(pokemon.battleProperties.statModifiers.GetStat(stat) + statModifiers.GetStat(stat)) > PokemonInstance.BattleProperties.maximumStatModifier)
+                if (statModifiers.GetStat(stat) != 0)
+                    if (Math.Abs(pokemon.battleProperties.statModifiers.GetStat(stat)) >= PokemonInstance.BattleProperties.maximumStatModifier)
+                        return false;
+
+            if (evasionModifier != 0)
+                if (Math.Abs(pokemon.battleProperties.evasionModifier) >= PokemonInstance.BattleProperties.maximumStatModifier)
                     return false;
 
-            if (Math.Abs(pokemon.battleProperties.evasionModifier + evasionModifier) > PokemonInstance.BattleProperties.maximumStatModifier)
-                return false;
+            if (accuracyModifier != 0)
+                if (Math.Abs(pokemon.battleProperties.accuracyModifier) >= PokemonInstance.BattleProperties.maximumStatModifier)
+                    return false;
 
-            if (Math.Abs(pokemon.battleProperties.accuracyModifier + accuracyModifier) > PokemonInstance.BattleProperties.maximumStatModifier)
+            if (boostsCriticalHitRate && pokemon.battleProperties.criticalHitChanceBoosted)
                 return false;
 
             return true;

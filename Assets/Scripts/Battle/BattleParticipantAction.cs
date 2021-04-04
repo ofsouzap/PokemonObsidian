@@ -2,6 +2,8 @@
 using UnityEngine;
 using Battle;
 using Items;
+using Items.MedicineItems;
+using Items.PokeBalls;
 
 namespace Battle
 {
@@ -67,7 +69,26 @@ namespace Battle
                         //TODO - check if there is a priority for switching pokemon
                         return 0;
                     }
-                    //TODO - add other selection branch for items once prepared
+                    else if (x.type == Type.UseItem)
+                    {
+                        if (x.useItemItemToUse is PokeBall && y.useItemItemToUse is PokeBall)
+                        {
+                            Debug.LogError("Two participants trying to use poke ball");
+                            return 0;
+                        }
+                        else if (x.useItemItemToUse is PokeBall)
+                        {
+                            return -1;
+                        }
+                        else if (y.useItemItemToUse is PokeBall)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
                     else
                     {
                         Debug.LogError("Action type hasn't been prepared for when comparing action priorities");
