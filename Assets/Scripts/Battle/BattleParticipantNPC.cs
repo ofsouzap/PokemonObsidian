@@ -78,7 +78,8 @@ namespace Battle
 
             }
 
-            if (!chosenAction.fightUsingStruggle
+            if (chosenAction.type == Action.Type.Fight
+                && !chosenAction.fightUsingStruggle
                 && ActivePokemon.movePPs[chosenAction.fightMoveIndex] <= 0)
             {
                 throw new System.Exception("Chosen fight move doesn't have enough PP");
@@ -153,6 +154,8 @@ namespace Battle
                 actionItem = MedicineItem.GetMedicineItemById(0);
             }
 
+            int moveIndex = -1;
+
             if (actionItem is PPRestoreMedicineItem)
             {
                 PPRestoreMedicineItem ppRestoreActionItem = (PPRestoreMedicineItem)actionItem;
@@ -165,7 +168,7 @@ namespace Battle
                             Pokemon.Moves.PokemonMove move = Pokemon.Moves.PokemonMove.GetPokemonMoveById(GetPokemon()[actionItemTargetIndex].moveIds[i]);
                             if (GetPokemon()[actionItemTargetIndex].movePPs[i] < move.maxPP)
                             {
-                                PPRestoreMedicineItem.singleMoveIndexToRecoverPP = i;
+                                moveIndex = i;
                                 break;
                             }
                         }
@@ -177,7 +180,8 @@ namespace Battle
             {
                 type = Action.Type.UseItem,
                 useItemItemToUse = actionItem,
-                useItemTargetPartyIndex = actionItemTargetIndex
+                useItemTargetPartyIndex = actionItemTargetIndex,
+                useItemTargetMoveIndex = moveIndex
             };
 
         }

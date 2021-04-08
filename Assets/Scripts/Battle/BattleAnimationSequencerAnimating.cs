@@ -126,8 +126,6 @@ namespace Battle
                     yield return StartCoroutine(battleLayoutController.PokeBallUse(animation.pokeBallUsePokeBall, animation.pokeBallUseWobbleCount));
                     break;
 
-                    //TODO - case statements for each type
-
             }
 
         }

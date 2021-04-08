@@ -12,7 +12,7 @@ using Items.PokeBalls;
 namespace Battle
 {
 
-    public class BattleManager : MonoBehaviour
+    public partial class BattleManager : MonoBehaviour
     {
 
         public BattleAnimationSequencer battleAnimationSequencer;
@@ -379,9 +379,6 @@ namespace Battle
                     }
 
                     RefreshUsedPokemonPerOpposingPokemonRecord();
-
-                    if (!CheckIfBattleRunning())
-                        break;
 
                     yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
@@ -1803,7 +1800,7 @@ namespace Battle
             {
                 type = action.user == battleData.participantPlayer
                 ? BattleAnimationSequencer.Animation.Type.PlayerSendOut
-                : BattleAnimationSequencer.Animation.Type.OpponentSendOutWild,
+                : BattleAnimationSequencer.Animation.Type.OpponentSendOutTrainer,
                 sendOutPokemon = action.user.ActivePokemon
             });
 
@@ -1837,9 +1834,18 @@ namespace Battle
 
             PokemonInstance targetPokemon = action.useItemPokeBallTarget.ActivePokemon;
 
+            char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+            string itemName = action.useItemItemToUse.itemName;
+            battleAnimationSequencer.EnqueueSingleText(action.user.GetName()
+                + " used "
+                + (vowels.Contains(char.ToLower(itemName[0])) ? "an" : "a")
+                + ' '
+                + itemName);
+
             #region Inventory Reduction
 
-            PlayerData.singleton.inventory.RemoveItem(action.useItemItemToUse, 1);
+            if (!action.useItemDontConsumeItem)
+                PlayerData.singleton.inventory.RemoveItem(action.useItemItemToUse, 1);
 
             #endregion
 
@@ -1940,7 +1946,7 @@ namespace Battle
 
             #region Inventory Reduction
 
-            if (playerIsUser)
+            if (playerIsUser && !action.useItemDontConsumeItem)
                 PlayerData.singleton.inventory.RemoveItem(action.useItemItemToUse, 1);
 
             #endregion
@@ -1966,11 +1972,14 @@ namespace Battle
             string itemName = action.useItemItemToUse.itemName;
             battleAnimationSequencer.EnqueueSingleText(action.user.GetName()
                 + " used "
-                + (vowels.Contains(itemName[0]) ? "an" : "a")
+                + (vowels.Contains(char.ToLower(itemName[0])) ? "an" : "a")
                 + ' '
                 + itemName);
 
             #region Usage Effects
+
+            if (action.useItemTargetMoveIndex >= 0 && action.useItemItemToUse is PPRestoreMedicineItem)
+                PPRestoreMedicineItem.singleMoveIndexToRecoverPP = action.useItemTargetMoveIndex;
 
             Item.ItemUsageEffects itemUsageEffects = action.useItemItemToUse.GetUsageEffects(affectedPokemon);
 

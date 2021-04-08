@@ -140,6 +140,16 @@ namespace Battle
             /// </summary>
             public BattleParticipant useItemPokeBallTarget;
 
+            /// <summary>
+            /// The index of the move to use an item on (if applicable)
+            /// </summary>
+            public int useItemTargetMoveIndex;
+
+            /// <summary>
+            /// If the used item shouldn't be taken from the player's inventory if the player uses it
+            /// </summary>
+            public bool useItemDontConsumeItem;
+
         }
 
     }

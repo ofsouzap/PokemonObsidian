@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using UnityEngine;
 
@@ -108,6 +109,9 @@ public class Registry<T> : IEnumerable where T : IHasId
     }
 
     public T[] GetArray() => entries;
+
+    public bool EntryWithIdExists(int id)
+        => entries.Any((x) => x.GetId() == id);
 
     IEnumerator IEnumerable.GetEnumerator()
     {

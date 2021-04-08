@@ -100,8 +100,6 @@ namespace Battle
 
             #endregion
 
-            //TODO - continue
-
             #endregion
 
         }

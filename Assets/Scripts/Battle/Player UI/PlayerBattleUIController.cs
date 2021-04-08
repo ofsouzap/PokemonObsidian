@@ -116,6 +116,7 @@ namespace Battle.PlayerUI
 
             menuRootController.buttonParty.onClick.AddListener(() =>
             {
+                menuPartyController.RefreshButtons();
                 DisableAllMenus();
                 menuPartyController.Show();
                 EventSystem.current.SetSelectedGameObject(menuPartyController.pokemonButtons[0].gameObject);

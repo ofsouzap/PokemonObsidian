@@ -251,13 +251,12 @@ namespace Battle
         public void SelectMoveItemUsageTargetMoveIndex(int moveIndex)
         {
 
-            PPRestoreMedicineItem.singleMoveIndexToRecoverPP = moveIndex;
-
             chosenAction = new Action(this)
             {
                 type = Action.Type.UseItem,
                 useItemItemToUse = itemToUseForSelectedPokemonFromPokemonSelectUI,
-                useItemTargetPartyIndex = partyIndexForSelectedMoveIndexFromMoveSelectUI
+                useItemTargetPartyIndex = partyIndexForSelectedMoveIndexFromMoveSelectUI,
+                useItemTargetMoveIndex = moveIndex
             };
             actionHasBeenChosen = true;
 

@@ -131,8 +131,6 @@ namespace Pokemon
         public static Entry GetEntry(int level)
         {
 
-            //TODO - test this function. very likely to go wrong
-
             const int maxSearchDepth = 500;
 
             if (level < 1)
