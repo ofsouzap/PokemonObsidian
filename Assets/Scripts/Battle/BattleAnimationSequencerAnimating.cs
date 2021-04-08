@@ -1,5 +1,6 @@
 ﻿//#define CONSOLE_BATTLE_DEBUGGING
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -178,17 +179,38 @@ namespace Battle
 
         }
 
+        #region Pokemon Moves
+
+        /// <summary>
+        /// Dictionary of move ids that have custom animations. The animations are functions taking a BattleLayoutController to use and a boolean parameter describing whether the user is the player and return an IEnuerator as they are coroutines
+        /// </summary>
+        private static readonly Dictionary<int, Func<BattleLayout.BattleLayoutController, bool, IEnumerator>> customMoveAnimations = new Dictionary<int, Func<BattleLayout.BattleLayoutController, bool, IEnumerator>>()
+        {
+            { 165, (blc, p) => blc.MoveAnimation_Struggle(p) }
+        };
+
         private IEnumerator RunAnimation_PokemonMove(Animation animation)
         {
 
-            //TODO - once implemented, check whether move has custom animation
+            if (customMoveAnimations.ContainsKey(animation.pokemonMoveId))
+            {
 
-            if (animation.pokemonMovePlayerIsUser)
-                yield return StartCoroutine(battleLayoutController.PlayerUseMoveGeneric(animation.pokemonMoveId));
+                yield return StartCoroutine(customMoveAnimations[animation.pokemonMoveId](battleLayoutController, animation.pokemonMovePlayerIsUser));
+
+            }
             else
-                yield return StartCoroutine(battleLayoutController.OpponentUseMoveGeneric(animation.pokemonMoveId));
+            {
+
+                if (animation.pokemonMovePlayerIsUser)
+                    yield return StartCoroutine(battleLayoutController.PlayerUseMoveGeneric(animation.pokemonMoveId));
+                else
+                    yield return StartCoroutine(battleLayoutController.OpponentUseMoveGeneric(animation.pokemonMoveId));
+
+            }
 
         }
+
+        #endregion
 
     }
 }

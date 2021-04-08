@@ -138,7 +138,7 @@ public class Weather : IHasId
             {
                 id = 3,
                 name = "Sandstorm",
-                announcement = "There is a sandstorm",
+                announcement = "A sandstorm is raging",
                 damageMessage = "was buffeted by the sandstorm",
                 textureResourcePath = "textures/weather/sandstorm",
                 damagedPokemonTypes = new Pokemon.Type[]

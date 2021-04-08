@@ -37623,7 +37623,7 @@ MonoBehaviour:
     initialNVSC: 0
   npcTrainerFullName: Housemaster Scott
   npcTrainerSpriteName: gentleman
-  npcTrainerMode: 2
+  npcTrainerMode: 0
 --- !u!114 &1927588472
 MonoBehaviour:
   m_ObjectHideFlags: 0

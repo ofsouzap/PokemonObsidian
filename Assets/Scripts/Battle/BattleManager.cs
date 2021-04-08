@@ -305,16 +305,6 @@ namespace Battle
 
             #endregion
 
-            if (battleData.CurrentWeather.announcement != null)
-            {
-                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
-                {
-                    type = BattleAnimationSequencer.Animation.Type.Text,
-                    messages = new string[] { Weather.GetWeatherById(battleData.currentWeatherId).announcement },
-                    requireUserContinue = false
-                });
-            }
-
             //TODO - when and if abilities made, apply them and announce them if needed
 
             BattleEntranceArguments.argumentsSet = false;
@@ -329,6 +319,24 @@ namespace Battle
 
             while (battleData.battleRunning)
             {
+
+                #region Weather Announcement
+
+                if (battleData.CurrentWeather.announcement != null)
+                {
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                    {
+                        type = BattleAnimationSequencer.Animation.Type.Text,
+                        messages = new string[] { Weather.GetWeatherById(battleData.currentWeatherId).announcement },
+                        requireUserContinue = false
+                    });
+                }
+
+                //TODO - when ready (if weather has one) show weather display animation
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                #endregion
 
                 #region Action Choosing
 
@@ -796,9 +804,15 @@ namespace Battle
                     )
                 );
 
-                battleAnimationSequencer.EnqueueSingleText(
-                    participant.ActivePokemon.GetDisplayName()
-                    + " was damaged from the weather");
+                if (battleData.CurrentWeather.damageMessage != null && battleData.CurrentWeather.damageMessage != "")
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participant.ActivePokemon.GetDisplayName()
+                        + ' '
+                        + battleData.CurrentWeather.damageMessage);
+                else
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participant.ActivePokemon.GetDisplayName()
+                        + " was damaged from the weather");
 
                 battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
 
@@ -1906,6 +1920,12 @@ namespace Battle
                 #region Experience and EV Distribution
 
                 yield return StartCoroutine(DistributeExperienceAndEVsForCurrentOpponentPokemon());
+
+                #endregion
+
+                #region Target Pokemon Poke Ball Setting
+
+                targetPokemon.pokeBallId = pokeBall.id;
 
                 #endregion
 

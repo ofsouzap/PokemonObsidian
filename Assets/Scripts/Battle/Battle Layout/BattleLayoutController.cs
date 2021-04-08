@@ -6,7 +6,7 @@ using Items.PokeBalls;
 
 namespace Battle.BattleLayout
 {
-    public class BattleLayoutController : MonoBehaviour
+    public partial class BattleLayoutController : MonoBehaviour
     {
 
         public float pokemonSpriteOffScreenLeftLocalPositionX;
@@ -279,6 +279,56 @@ namespace Battle.BattleLayout
                 refreshTime));
 
             gameObject.transform.localScale = endScale;
+
+        }
+
+        private IEnumerator GameObjectSingleShake(GameObject gameObject,
+            Vector3 shakeDirection,
+            float distance,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            Vector3 startPos = gameObject.transform.localPosition;
+
+            yield return StartCoroutine(GradualEffect(
+                (t) =>
+                {
+
+                    float currentOffsetFactor = Mathf.FloorToInt(t * 4) switch
+                    {
+                        0 => 4 * t,
+                        1 => (-4 * t) + 2,
+                        2 => (-4 * t) + 2,
+                        3 => (4 * t) - 4,
+                        _ => 0
+                    };
+
+                    float currentOffset = currentOffsetFactor * distance;
+
+                    gameObject.transform.localPosition = startPos + (shakeDirection.normalized * currentOffset);
+
+                },
+                timeToTake,
+                refreshTime
+            ));
+
+            gameObject.transform.localPosition = startPos;
+
+        }
+
+        private IEnumerator GameObjectShake(GameObject gameObject,
+            Vector3 shakeDirection,
+            float distance,
+            ushort shakeCount,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            float singleShakeTime = timeToTake / shakeCount;
+
+            for (int i = 0; i < shakeCount; i++)
+                yield return StartCoroutine(GameObjectSingleShake(gameObject, shakeDirection, distance, singleShakeTime, refreshTime));
 
         }
 
