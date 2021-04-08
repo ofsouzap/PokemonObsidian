@@ -78,11 +78,11 @@ namespace Battle
                         }
                         else if (x.useItemItemToUse is PokeBall)
                         {
-                            return -1;
+                            return 1;
                         }
                         else if (y.useItemItemToUse is PokeBall)
                         {
-                            return 1;
+                            return -1;
                         }
                         else
                         {
