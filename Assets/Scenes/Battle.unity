@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abd4040b59df504b9509350268568cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: {fileID: 0}
+  textName: {fileID: 695491447}
   MoveSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -1758,7 +1758,7 @@ RectTransform:
   m_Children:
   - {fileID: 1701024213}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2569,7 +2569,7 @@ RectTransform:
   m_Children:
   - {fileID: 1984798340}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11489,16 +11489,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 792972456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abd4040b59df504b9509350268568cd, type: 3}
+  m_Script: {fileID: 11500000, guid: c1856cf628a20304ab5b9f4ea5bc9e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: {fileID: 0}
-  MoveSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  MoveDeselected:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &792972459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21943,6 +21936,52 @@ RectTransform:
   m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!1 &1113185161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1113185162}
+  - component: {fileID: 1113185163}
+  m_Layer: 0
+  m_Name: tmp - input method monitor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1113185162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113185161}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 346, y: 194.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1113185163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113185161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b290e501a18e0d24dbb4eb653786c63d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputMethodChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1115115210
 GameObject:
   m_ObjectHideFlags: 0
@@ -23312,7 +23351,7 @@ RectTransform:
   - {fileID: 1285701658}
   - {fileID: 512327507}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -29267,7 +29306,7 @@ RectTransform:
   m_Children:
   - {fileID: 1198955939}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -37759,16 +37798,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1910512499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abd4040b59df504b9509350268568cd, type: 3}
+  m_Script: {fileID: 11500000, guid: c1856cf628a20304ab5b9f4ea5bc9e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: {fileID: 0}
-  MoveSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  MoveDeselected:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1910512502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38208,22 +38240,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemon:
   - speciesId: 5
-    level: 60
+    level: 30
+    levelExperience: 0
     initialNVSC: 0
   - speciesId: 9
     level: 60
+    levelExperience: 0
     initialNVSC: 0
   - speciesId: 1
     level: 60
+    levelExperience: 0
     initialNVSC: 0
   - speciesId: 3
     level: 60
+    levelExperience: 0
     initialNVSC: 0
   - speciesId: 11
     level: 60
+    levelExperience: 0
     initialNVSC: 0
   - speciesId: 1
     level: 60
+    levelExperience: 0
     initialNVSC: 0
 --- !u!114 &1927588470
 MonoBehaviour:
@@ -38257,10 +38295,10 @@ MonoBehaviour:
     level: 60
     initialNVSC: 0
   npcTrainerPokemonSpecifications:
-  - speciesId: 15
+  - speciesId: 18
     level: 60
     initialNVSC: 0
-  - speciesId: 17
+  - speciesId: 15
     level: 60
     initialNVSC: 0
   - speciesId: 19
@@ -39235,7 +39273,7 @@ Transform:
   - {fileID: 715736319}
   - {fileID: 1448235936}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1999777810
 MonoBehaviour:
@@ -40358,7 +40396,7 @@ RectTransform:
   - {fileID: 2015564768}
   - {fileID: 529326345}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

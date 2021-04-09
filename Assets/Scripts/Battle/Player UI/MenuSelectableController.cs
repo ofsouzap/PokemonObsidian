@@ -8,27 +8,60 @@ namespace Battle.PlayerUI
     public class MenuSelectableController : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
 
-        private GameObject selectedImageGameObject;
+        private bool selectedImageActive = false;
+        private GameObject selectedImageGameObject = null;
 
-        public void ShowSelectedImage()
+        private void Start()
         {
-            selectedImageGameObject = Instantiate(PlayerBattleUIController.singleton.selectableSelectionPrefab,
-                transform);
+
+            InputMethodMonitor.singleton.InputMethodChanged.AddListener((o) => RefreshSelectedImage());
+            RefreshSelectedImage();
+
         }
 
-        public void HideSelectedImage()
+        private void TryShowSelectedImage()
         {
-            Destroy(selectedImageGameObject);
+            if (InputMethodMonitor.singleton.CurrentInputMethod != InputMethodMonitor.InputMethod.Mouse)
+                ShowSelectedImage();
+        }
+
+        private void ShowSelectedImage()
+        {
+            HideSelectedImage();
+            selectedImageGameObject = Instantiate(PlayerBattleUIController.singleton.selectableSelectionPrefab,
+                    transform);
+        }
+
+        private void HideSelectedImage()
+        {
+            if (selectedImageGameObject != null)
+                Destroy(selectedImageGameObject);
+        }
+
+        private void RefreshSelectedImage()
+        {
+            if (selectedImageActive)
+                TryShowSelectedImage();
+            else
+                HideSelectedImage();
+        }
+
+        public void SetSelectedImageState(bool state)
+        {
+
+            selectedImageActive = state;
+            RefreshSelectedImage();
+
         }
 
         public virtual void OnSelect(BaseEventData eventData)
         {
-            ShowSelectedImage();
+            SetSelectedImageState(true);
         }
 
         public virtual void OnDeselect(BaseEventData eventData)
         {
-            HideSelectedImage();
+            SetSelectedImageState(false);
         }
 
     }

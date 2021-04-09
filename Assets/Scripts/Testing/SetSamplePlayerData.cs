@@ -16,6 +16,9 @@ namespace Testing
         {
             public int speciesId;
             public byte level;
+            [Tooltip("The proportion of the way the pokemon is to the next level in experience")]
+            [Range(0,0.9999F)]
+            public float levelExperience;
             public PokemonInstance.NonVolatileStatusCondition initialNVSC;
         }
 
@@ -34,13 +37,26 @@ namespace Testing
             List<PokemonInstance> playerPokemon = new List<PokemonInstance>();
             foreach (PokemonSpecification spec in pokemon)
             {
+
                 PokemonInstance pokemon = PokemonFactory.GenerateWild(
                     new int[] { spec.speciesId },
                     spec.level,
                     spec.level
                     );
+
                 pokemon.nonVolatileStatusCondition = spec.initialNVSC;
+
+                if (pokemon.GetLevel() < 100)
+                {
+                    pokemon.experience = Mathf.FloorToInt(Mathf.Lerp(
+                        GrowthTypeData.GetMinimumExperienceForLevel(pokemon.GetLevel(), pokemon.growthType),
+                        GrowthTypeData.GetMinimumExperienceForLevel((byte)(pokemon.GetLevel() + 1), pokemon.growthType),
+                        spec.levelExperience
+                    ));
+                }
+
                 playerPokemon.Add(pokemon);
+
             }
 
             PlayerData.singleton.partyPokemon = playerPokemon.ToArray();

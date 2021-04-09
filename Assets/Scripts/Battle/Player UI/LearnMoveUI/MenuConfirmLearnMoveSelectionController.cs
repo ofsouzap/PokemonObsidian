@@ -8,11 +8,13 @@ using Pokemon.Moves;
 
 namespace Battle.PlayerUI.LearnMoveUI
 {
-    public class MenuConfirmLearnMoveSelectionController : MonoBehaviour
+    public class MenuConfirmLearnMoveSelectionController : MenuController
     {
 
         public Button yesButton;
         public Button noButton;
+
+        protected override MenuSelectableController[] GetSelectables() => new MenuSelectableController[] { yesButton.GetComponent<MenuSelectableController>(), noButton.GetComponent<MenuSelectableController>() };
 
         public LearnMoveUIController learnMoveUIController;
 
@@ -51,9 +53,6 @@ namespace Battle.PlayerUI.LearnMoveUI
                 textBoxController = textBoxControllerCandidates[0];
 
         }
-
-        public void Show() => gameObject.SetActive(true);
-        public void Hide() => gameObject.SetActive(false);
 
         /// <summary>
         /// Sets the details of the menu including actions to take when each button is used
