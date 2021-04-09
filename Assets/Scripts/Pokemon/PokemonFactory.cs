@@ -112,9 +112,12 @@ namespace Pokemon
             bool? gender;
 
             speciesId = possibleSpeciesIds[UnityEngine.Random.Range(0, possibleSpeciesIds.Length)];
+            PokemonSpecies species = PokemonSpecies.GetPokemonSpeciesById(speciesId);
+
+            #region Stats
 
             level = (byte)UnityEngine.Random.Range(minLevel, maxLevel + 1);
-            experience = GrowthTypeData.GetMinimumExperienceForLevel(level, PokemonSpecies.GetPokemonSpeciesById(speciesId).growthType);
+            experience = GrowthTypeData.GetMinimumExperienceForLevel(level, species.growthType);
 
             natureId = Nature.GetRandomNatureId();
 
@@ -138,10 +141,12 @@ namespace Pokemon
                 health = (byte)UnityEngine.Random.Range(0, 32)
             };
 
+            #endregion
+
             #region Moves
 
             //Set the moves learnt as the last 4 moves that it could have learnt
-            Dictionary<byte, int[]> levelUpMoves = PokemonSpecies.GetPokemonSpeciesById(speciesId).levelUpMoves;
+            Dictionary<byte, int[]> levelUpMoves = species.levelUpMoves;
 
             moves = new int[4];
             //By default, the moves will be unset
@@ -190,7 +195,7 @@ namespace Pokemon
             if (!allMovesSet)
             {
 
-                foreach (int moveId in PokemonSpecies.GetPokemonSpeciesById(speciesId).baseMoves)
+                foreach (int moveId in species.baseMoves)
                 {
 
                     moves[movesIndex] = moveId;
@@ -209,8 +214,7 @@ namespace Pokemon
 
             #endregion
 
-            //TODO - change gender selection to use gender properties for pokemon species once created
-            gender = UnityEngine.Random.Range(0, 2) == 0;
+            gender = species.GetRandomWeightedGender();
 
             return GenerateFull(
                 speciesId: speciesId,

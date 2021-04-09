@@ -90,8 +90,7 @@ namespace Battle
 
                 case BattleType.WildPokemon:
 
-                    participantOpponent = new BattleParticipantNPC(
-                        BattleParticipantNPC.Mode.RandomAttack,
+                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleParticipantNPC.Mode.RandomAttack](
                         null,
                         new PokemonInstance[] {
                             BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance
@@ -102,8 +101,7 @@ namespace Battle
 
                 case BattleType.NPCTrainer:
 
-                    participantOpponent = new BattleParticipantNPC(
-                        BattleEntranceArguments.npcTrainerBattleArguments.mode,
+                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleEntranceArguments.npcTrainerBattleArguments.mode](
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName,
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon
                     );
@@ -115,7 +113,7 @@ namespace Battle
                     Debug.LogError("Unknown battle type");
 
                     //Generate generic opponent instead of crashing or breaking scene/game
-                    participantOpponent = new BattleParticipantNPC(BattleParticipantNPC.Mode.RandomAttack,
+                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleParticipantNPC.Mode.RandomAttack](
                         "Erroneous Opponent",
                         new PokemonInstance[]
                         {

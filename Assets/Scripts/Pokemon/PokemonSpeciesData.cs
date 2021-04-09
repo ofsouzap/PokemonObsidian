@@ -49,6 +49,9 @@ namespace Pokemon
          *     eg. bulbasaur 0;0;1;0;0;0
          * catch rate (byte)
          * base expereience yield (0 <= x <= 65,535)
+         * relative proportion of gender male (0 <= x <= 255)
+         * relative proportion of gender female (0 <= x <= 255)
+         * relative proportion of gender genderless (0 <= x <= 255)
          */
 
         public static void LoadData()
@@ -72,7 +75,8 @@ namespace Pokemon
 
                 string name, spritesName;
                 int id;
-                byte baseAttack, baseDefense, baseSpecialAttack, baseSpecialDefense, baseSpeed, baseHealth, catchRate;
+                byte baseAttack, baseDefense, baseSpecialAttack, baseSpecialDefense, baseSpeed, baseHealth, catchRate,
+                    maleRelativeGenderProportion, femaleRelativeGenderProportion, genderlessRelativeGenderProportion;
                 Type type1;
                 Type? type2;
                 GrowthType growthType;
@@ -82,7 +86,7 @@ namespace Pokemon
                 Stats<byte> evYield;
                 ushort baseExperienceYield;
 
-                if (entry.Length < 21)
+                if (entry.Length < 24)
                 {
                     Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
                     continue;
@@ -426,6 +430,58 @@ namespace Pokemon
 
                 #endregion
 
+                #region relativeGenderProportions
+
+                if (entry[21] == "")
+                {
+                    maleRelativeGenderProportion = 0;
+                }
+                else
+                {
+                    if (!byte.TryParse(entry[21], out maleRelativeGenderProportion))
+                    {
+                        Debug.LogError("Invalid male relative gender proportion for id " + id);
+                        maleRelativeGenderProportion = 1;
+                    }
+                }
+
+                if (entry[22] == "")
+                {
+                    femaleRelativeGenderProportion = 0;
+                }
+                else
+                {
+                    if (!byte.TryParse(entry[22], out femaleRelativeGenderProportion))
+                    {
+                        Debug.LogError("Invalid female relative gender proportion for id " + id);
+                        femaleRelativeGenderProportion = 1;
+                    }
+                }
+
+                if (entry[23] == "")
+                {
+                    genderlessRelativeGenderProportion = 0;
+                }
+                else
+                {
+                    if (!byte.TryParse(entry[23], out genderlessRelativeGenderProportion))
+                    {
+                        Debug.LogError("Invalid genderless relative gender proportion for id " + id);
+                        genderlessRelativeGenderProportion = 1;
+                    }
+                }
+
+                if (maleRelativeGenderProportion == femaleRelativeGenderProportion
+                    && femaleRelativeGenderProportion == genderlessRelativeGenderProportion
+                    && genderlessRelativeGenderProportion == 0)
+                {
+                    Debug.LogError("No gender proportions set for id " + id);
+                    maleRelativeGenderProportion = 1;
+                    femaleRelativeGenderProportion = 1;
+                }
+
+                #endregion
+
                 species.Add(new PokemonSpecies()
                 {
                     name = name,
@@ -450,6 +506,10 @@ namespace Pokemon
                     discMoves = discMoves,
                     eggMoves = eggMoves,
                     tutorMoves = tutorMoves,
+
+                    maleRelativeGenderProportion = maleRelativeGenderProportion,
+                    femaleRelativeGenderProportion = femaleRelativeGenderProportion,
+                    genderlessRelativeGenderProportion = genderlessRelativeGenderProportion,
 
                     evYield = evYield,
                     catchRate = catchRate,

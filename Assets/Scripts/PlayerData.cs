@@ -452,7 +452,7 @@ public class PlayerData
         public InventorySection pokeBalls = new InventorySection((id) => PokeBall.GetPokeBallById(id));
         public InventorySection tmItems = new InventorySection((id) => TMItem.GetTMItemById(id));
 
-        private InventorySection GetItemInventorySection(Item item)
+        public InventorySection GetItemInventorySection(Item item)
         {
 
             if (item is PokeBall)

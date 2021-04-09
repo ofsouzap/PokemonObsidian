@@ -244,10 +244,14 @@ public static class SpriteStorage
 
     private const string itemSpritePrefix = "itemsprite_";
     private const string itemSpriteSheetName = "sprite_sheet_itemsprites";
+    private const string battleItemSpriteSheetName = "sprite_sheet_battleitemsprites";
 
     private static Sprite[] LoadItemSprites()
     {
-        return LoadSpriteSheet(itemSpriteSheetName);
+        List<Sprite> sprites = new List<Sprite>();
+        sprites.AddRange(LoadSpriteSheet(itemSpriteSheetName));
+        sprites.AddRange(LoadSpriteSheet(battleItemSpriteSheetName));
+        return sprites.ToArray();
     }
 
     public static Sprite GetItemSprite(string itemResourceName)

@@ -51,6 +51,41 @@ namespace Pokemon
 
         #endregion
 
+        #region Gender Ratio
+
+        //These are the *relative* proportions of each gender. They need not add up to any number; they are relative to each other
+
+        public byte maleRelativeGenderProportion;
+        public byte femaleRelativeGenderProportion;
+        public byte genderlessRelativeGenderProportion;
+
+        /// <summary>
+        /// The total of the relative proportions of each gender
+        /// </summary>
+        public ushort GenderRelativeProportionTotal => (ushort)(maleRelativeGenderProportion + femaleRelativeGenderProportion + genderlessRelativeGenderProportion);
+
+        //The proportions of each species that total 1
+
+        public float MaleProportion => (float)maleRelativeGenderProportion / GenderRelativeProportionTotal;
+        public float FemaleProportion => (float)femaleRelativeGenderProportion / GenderRelativeProportionTotal;
+        public float GenderlessProportion => (float)genderlessRelativeGenderProportion / GenderRelativeProportionTotal;
+
+        public bool? GetRandomWeightedGender()
+        {
+
+            float rand = UnityEngine.Random.Range(0F, 1F);
+
+            if (rand <= MaleProportion)
+                return true;
+            else if (rand <= FemaleProportion + MaleProportion)
+                return false;
+            else
+                return null;
+
+        }
+
+        #endregion
+
         #region Stats
 
         public Stats<byte> baseStats;
@@ -130,7 +165,7 @@ namespace Pokemon
 
         //TODO - abilities
 
-        //TODO - breeding stuff incl. egg groups, egg hatch step count, gender ratio
+        //TODO - breeding stuff incl. egg groups, egg hatch step count
 
     }
 }

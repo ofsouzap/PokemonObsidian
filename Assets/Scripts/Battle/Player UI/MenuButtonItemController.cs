@@ -15,15 +15,20 @@ namespace Battle.PlayerUI
             }
         }
 
+        public const string quantityTextPrefix = "x";
+
         public Text textName;
         public Image imageIcon;
+        public Text textQuantity;
 
         public void SetValues(string name,
-            Sprite icon)
+            Sprite icon,
+            int quantity)
         {
 
             textName.text = name;
             imageIcon.sprite = icon;
+            textQuantity.text = quantityTextPrefix + quantity;
 
         }
 
@@ -34,6 +39,8 @@ namespace Battle.PlayerUI
                 textName.text = "";
             imageIcon.enabled = state;
             Button.interactable = state;
+            if (!state)
+                textQuantity.text = "";
 
         }
 

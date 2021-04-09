@@ -43,7 +43,7 @@ namespace Battle.PlayerUI
 
         public void SetUp() { }
 
-        public struct ItemButtonProperties { public bool isSet; public string name; public Sprite icon; }
+        public struct ItemButtonProperties { public bool isSet; public string name; public Sprite icon; public int quantity; }
 
         private void SetItemButtonProperties(ItemButtonProperties[] properties)
         {
@@ -61,7 +61,7 @@ namespace Battle.PlayerUI
                 {
 
                     itemButtons[i].SetInteractable(true);
-                    itemButtons[i].SetValues(properties[i].name, properties[i].icon);
+                    itemButtons[i].SetValues(properties[i].name, properties[i].icon, properties[i].quantity);
 
                 }
                 else
@@ -100,7 +100,8 @@ namespace Battle.PlayerUI
                     {
                         isSet = true,
                         name = item.itemName,
-                        icon = item.LoadSprite()
+                        icon = item.LoadSprite(),
+                        quantity = PlayerData.singleton.inventory.GetItemInventorySection(item).GetQuantity(item.id)
                     };
 
             }

@@ -1052,7 +1052,6 @@ namespace Battle.BattleLayout
 
             pokeBallObject.transform.position = startPos;
 
-            //TODO - sprite changing for spinning (incl. remove below line)
             pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Neutral);
 
             yield return StartCoroutine(GradualEffect(
