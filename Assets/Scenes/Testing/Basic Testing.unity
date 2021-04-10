@@ -300,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a669ace38e83044b2c646d050534de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
   spriteRenderer: {fileID: 2027730394}
+  moveSpeed: 4
   spriteGroupName: schoolboy
 --- !u!1 &329077971
 GameObject:
@@ -333,8 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c0bf2d99c25a84e88fb38541145edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
   spriteRenderer: {fileID: 928470568}
+  moveSpeed: 4
   spriteGroupName: blackbelt
   walkLength: 4
 --- !u!61 &329077973
@@ -446,7 +446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928470566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 329077974}
@@ -678,7 +678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184518249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1931890001}
@@ -1058,8 +1058,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a492f7a1ee6c78419e7c7047553f251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
   spriteRenderer: {fileID: 1184518250}
+  moveSpeed: 4
   spriteGroupName: player_male
   rotateToMoveDelay: 0.1
 --- !u!61 &1931890000
@@ -1128,7 +1128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027730392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 212710087}

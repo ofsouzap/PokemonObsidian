@@ -5,7 +5,7 @@ using FreeRoaming;
 
 namespace FreeRoaming
 {
-    public class ObstacleController : MonoBehaviour, IOccupyPositions
+    public class ObstacleController : FreeRoamSprite, IOccupyPositions
     {
 
         public List<Vector2Int> gridPositions { get; protected set; }
@@ -15,8 +15,10 @@ namespace FreeRoaming
             return gridPositions.ToArray();
         }
 
-        protected virtual void Start()
+        protected override void Start()
         {
+
+            base.Start();
 
             gridPositions = new List<Vector2Int>();
             gridPositions.Add(Vector2Int.RoundToInt(transform.position));

@@ -13,7 +13,7 @@ namespace FreeRoaming
     /// The class for any characters on the grid in a free-roaming scene. The player and NPCs will inherit from this
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
-    public abstract class GameCharacterController : MonoBehaviour, IOccupyPositions
+    public abstract class GameCharacterController : FreeRoamSprite, IOccupyPositions
     {
 
         public enum FacingDirection
@@ -28,8 +28,6 @@ namespace FreeRoaming
         /// The dirction being faced
         /// </summary>
         public FacingDirection directionFacing { get; protected set; }
-
-        public Scene Scene => gameObject.scene;
 
         [Min(0)]
         [Tooltip("The speed (in units per second) that this character moves at")]
@@ -65,13 +63,12 @@ namespace FreeRoaming
 
         protected GridManager gridManager;
         
-        [Tooltip("Character's sprite renderer component. Might be seperated from this script if sprite must be offset from root transform position")]
-        public SpriteRenderer spriteRenderer;
-        
         public string spriteGroupName;
 
-        protected virtual void Start()
+        protected override void Start()
         {
+
+            base.Start();
 
             position = Vector2Int.RoundToInt(transform.position);
 
@@ -83,13 +80,13 @@ namespace FreeRoaming
             
         }
 
-        protected virtual void Update()
+        protected override void Update()
         {
+
+            base.Update();
 
             if (isMoving)
                 MovementUpdate();
-
-            RefreshSpriteBillboard();
 
         }
 
@@ -173,30 +170,6 @@ namespace FreeRoaming
             }
 
             transform.position += (Vector3)displacement;
-
-        }
-
-        /// <summary>
-        /// Makes sure that the sprite is still billboarded to the camera's angle in the correct axis
-        /// </summary>
-        protected virtual void RefreshSpriteBillboard()
-        {
-
-            Vector3 cameraPosition = FindObjectsOfType<Camera>()
-                .Select(x => x.transform)
-                .Where(x => x.gameObject.scene == Scene)
-                .ToArray()[0]
-                .position;
-
-            Vector3 displacement = cameraPosition - spriteRenderer.transform.position;
-
-            spriteRenderer.transform.rotation = Quaternion.Euler(
-                new Vector3(
-                    -1 * Mathf.Atan(displacement.z / displacement.y) * Mathf.Rad2Deg,
-                    spriteRenderer.transform.rotation.eulerAngles.y,
-                    spriteRenderer.transform.rotation.eulerAngles.z
-                    )
-                );
 
         }
 
@@ -286,6 +259,7 @@ namespace FreeRoaming
 
             bool primedToQuit = false;
 
+            float lastChange = 0;
             int currentSpriteIndex = 0;
             
             while (true)
@@ -310,28 +284,36 @@ namespace FreeRoaming
 
                 }
 
-                bool flipSprite = false;
-                //N.B. sprite names are NOT 0-indexed
-                Sprite newSprite = currentSpriteIndex switch
+                if (Time.time - lastChange >= movementSpriteChangeDelay)
                 {
-                    0 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 1),
-                    1 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
-                    2 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 2),
-                    3 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
-                    _ => null
-                };
 
-                if (newSprite == null)
-                    Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
-                else
-                {
-                    spriteRenderer.sprite = newSprite;
-                    spriteRenderer.flipX = flipSprite;
+                    lastChange = Time.time;
+
+                    bool flipSprite = false;
+
+                    //N.B. sprite names are NOT 0-indexed
+                    Sprite newSprite = currentSpriteIndex switch
+                    {
+                        0 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 1),
+                        1 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                        2 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 2),
+                        3 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                        _ => null
+                    };
+
+                    if (newSprite == null)
+                        Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
+                    else
+                    {
+                        spriteRenderer.sprite = newSprite;
+                        spriteRenderer.flipX = flipSprite;
+                    }
+
+                    currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
+
                 }
 
-                currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
-
-                yield return new WaitForSeconds(movementSpriteChangeDelay);
+                yield return new WaitForFixedUpdate();
 
             }
 
