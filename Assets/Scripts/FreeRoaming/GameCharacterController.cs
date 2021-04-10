@@ -1,6 +1,9 @@
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using FreeRoaming;
 
 namespace FreeRoaming
@@ -26,13 +29,13 @@ namespace FreeRoaming
         /// </summary>
         public FacingDirection directionFacing { get; protected set; }
 
+        public Scene Scene => gameObject.scene;
+
         [Min(0)]
         [Tooltip("The speed (in units per second) that this character moves at")]
         public float moveSpeed = 4;
 
-        [Min(0)]
-        [Tooltip("The time that should be waited in between changing sprites whilst moving")]
-        public float movementSpriteChangeDelay = 0.2F;
+        public const float movementSpriteChangeDelay = 0.175F;
         protected Coroutine movementSpriteCoroutine;
 
         protected const string walkingSpriteName = "walk";
@@ -60,13 +63,11 @@ namespace FreeRoaming
             new Vector2Int[] { position, movementTargettedGridPosition } :
             new Vector2Int[] { position };
 
-        protected Manager gridManager;
-
+        protected GridManager gridManager;
         
         [Tooltip("Character's sprite renderer component. Might be seperated from this script if sprite must be offset from root transform position")]
         public SpriteRenderer spriteRenderer;
         
-        [Tooltip("Sprites for this character will be fetched as Resources/Sprites/Characters/{spriteGroupName}_{sprite needed}")]
         public string spriteGroupName;
 
         protected virtual void Start()
@@ -74,7 +75,7 @@ namespace FreeRoaming
 
             position = Vector2Int.RoundToInt(transform.position);
 
-            gridManager = Manager.GetManager();
+            gridManager = GridManager.GetSceneGridManager(Scene);
 
             SpriteStorage.TryLoadAll();
 
@@ -87,6 +88,8 @@ namespace FreeRoaming
 
             if (isMoving)
                 MovementUpdate();
+
+            RefreshSpriteBillboard();
 
         }
 
@@ -174,6 +177,30 @@ namespace FreeRoaming
         }
 
         /// <summary>
+        /// Makes sure that the sprite is still billboarded to the camera's angle in the correct axis
+        /// </summary>
+        protected virtual void RefreshSpriteBillboard()
+        {
+
+            Vector3 cameraPosition = FindObjectsOfType<Camera>()
+                .Select(x => x.transform)
+                .Where(x => x.gameObject.scene == Scene)
+                .ToArray()[0]
+                .position;
+
+            Vector3 displacement = cameraPosition - spriteRenderer.transform.position;
+
+            spriteRenderer.transform.rotation = Quaternion.Euler(
+                new Vector3(
+                    -1 * Mathf.Atan(displacement.z / displacement.y) * Mathf.Rad2Deg,
+                    spriteRenderer.transform.rotation.eulerAngles.y,
+                    spriteRenderer.transform.rotation.eulerAngles.z
+                    )
+                );
+
+        }
+
+        /// <summary>
         /// Get the position in front of a character
         /// </summary>
         /// <returns>The grid position in front of the character</returns>
@@ -254,12 +281,11 @@ namespace FreeRoaming
         protected IEnumerator MovementSpriteCoroutine(string spriteStateName)
         {
 
-            //How many sprites there are for any given movement state
-            const int movementSpriteIndexCount = 2;
+            //How many stages of movement there are for any given movement state
+            const int movementSpriteIndexCount = 4; //Left, neutral, right, neutral
 
             bool primedToQuit = false;
 
-            float lastChange = 0;
             int currentSpriteIndex = 0;
             
             while (true)
@@ -284,31 +310,28 @@ namespace FreeRoaming
 
                 }
 
-                if (Time.time - lastChange >= movementSpriteChangeDelay)
+                bool flipSprite = false;
+                //N.B. sprite names are NOT 0-indexed
+                Sprite newSprite = currentSpriteIndex switch
                 {
+                    0 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 1),
+                    1 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                    2 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 2),
+                    3 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                    _ => null
+                };
 
-                    //Debug.Log("Switching sprite to " + (currentSpriteIndex + 1));
-
-                    lastChange = Time.time;
-
-                    bool flipSprite;
-
-                    //N.B. sprite names are NOT 0-indexed
-                    Sprite newSprite = SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, currentSpriteIndex + 1);
-
-                    if (newSprite == null)
-                        Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
-                    else
-                    {
-                        spriteRenderer.sprite = newSprite;
-                        spriteRenderer.flipX = flipSprite;
-                    }
-
-                    currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
-
+                if (newSprite == null)
+                    Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
+                else
+                {
+                    spriteRenderer.sprite = newSprite;
+                    spriteRenderer.flipX = flipSprite;
                 }
 
-                yield return new WaitForFixedUpdate();
+                currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
+
+                yield return new WaitForSeconds(movementSpriteChangeDelay);
 
             }
 

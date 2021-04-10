@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using FreeRoaming;
 
 namespace FreeRoaming
 {
-    public class Manager : MonoBehaviour
+    public class GridManager : MonoBehaviour
     {
 
         //Should be applied to game object with name
@@ -14,10 +15,14 @@ namespace FreeRoaming
         public const float availabilityCheckRange = 10;
         public const float occupierCheckRange = 1;
 
-        public static Manager GetManager()
+        public Scene Scene => gameObject.scene;
+
+        public static GridManager GetSceneGridManager(Scene scene)
         {
 
-            Manager[] managers = FindObjectsOfType<Manager>();
+            GridManager[] managers = FindObjectsOfType<GridManager>()
+                .Where(x => x.gameObject.scene == scene)
+                .ToArray();
 
             switch (managers.Length)
             {
@@ -29,7 +34,7 @@ namespace FreeRoaming
                     return managers[0];
 
                 default:
-                    Debug.LogError("Multiple Gridwise.Manager found");
+                    Debug.LogError("Multiple GridManager found");
                     return managers[0];
 
             }
@@ -43,7 +48,9 @@ namespace FreeRoaming
         public GameObject GetObjectInPosition(Vector2Int queryPosition)
         {
 
-            Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(queryPosition, availabilityCheckRange);
+            Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(queryPosition, availabilityCheckRange)
+                .Where(x => x.gameObject.scene == Scene)
+                .ToArray();
 
             foreach (Collider2D collider in nearbyColliders)
             {
