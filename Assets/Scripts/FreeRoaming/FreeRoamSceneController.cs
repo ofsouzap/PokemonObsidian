@@ -36,14 +36,81 @@ namespace FreeRoaming
 
         }
 
+        public bool SceneIsActive => sceneRunning && sceneEnabled;
+
         #region Running
 
         protected bool sceneRunning = true;
 
-        public bool SceneIsRunning => sceneRunning;
-
         public void SetSceneRunningState(bool state)
             => sceneRunning = state;
+
+        #endregion
+
+        #region Enabling
+
+        protected bool sceneEnabled = true;
+
+        private List<Camera> camerasToReEnableOnSceneEnable = new List<Camera>();
+        private List<Renderer> renderersToReEnableOnSceneEnable = new List<Renderer>();
+        private bool sceneShouldBeRunningOnSceneEnable = true;
+
+        private void EnableScene()
+        {
+
+            foreach (Camera c in camerasToReEnableOnSceneEnable)
+                c.enabled = true;
+
+            camerasToReEnableOnSceneEnable.Clear();
+
+            foreach (Renderer r in renderersToReEnableOnSceneEnable)
+                r.enabled = true;
+
+            renderersToReEnableOnSceneEnable.Clear();
+
+            SetSceneRunningState(sceneShouldBeRunningOnSceneEnable);
+
+        }
+
+        private void DisableScene()
+        {
+
+            EnableScene();
+
+            foreach (Camera camera in FindObjectsOfType<Camera>().Where(x => x.gameObject.scene == Scene))
+            {
+                camerasToReEnableOnSceneEnable.Add(camera);
+                camera.enabled = false;
+            }
+
+            foreach (Renderer renderer in FindObjectsOfType<Renderer>().Where(x => x.gameObject.scene == Scene))
+            {
+                renderersToReEnableOnSceneEnable.Add(renderer);
+                renderer.enabled = false;
+            }
+
+            sceneShouldBeRunningOnSceneEnable = sceneRunning;
+            SetSceneRunningState(false);
+
+            //Just in case this object or component was disabled
+            enabled = true;
+            gameObject.SetActive(true);
+
+        }
+
+        protected void RefreshEnabledState()
+        {
+            if (sceneEnabled)
+                EnableScene();
+            else
+                DisableScene();
+        }
+
+        public void SetEnabledState(bool state)
+        {
+            sceneEnabled = state;
+            RefreshEnabledState();
+        }
 
         #endregion
 

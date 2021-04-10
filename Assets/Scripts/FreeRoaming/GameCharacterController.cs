@@ -85,7 +85,7 @@ namespace FreeRoaming
 
             base.Update();
 
-            if (sceneController.SceneIsRunning)
+            if (sceneController.SceneIsActive)
             {
                 if (isMoving)
                     MovementUpdate();
@@ -268,7 +268,7 @@ namespace FreeRoaming
             while (true)
             {
 
-                if (sceneController.SceneIsRunning)
+                if (sceneController.SceneIsActive)
                 {
 
                     if (primedToQuit && isMoving)
