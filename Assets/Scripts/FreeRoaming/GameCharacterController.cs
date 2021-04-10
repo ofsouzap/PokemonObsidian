@@ -85,8 +85,11 @@ namespace FreeRoaming
 
             base.Update();
 
-            if (isMoving)
-                MovementUpdate();
+            if (sceneController.SceneIsRunning)
+            {
+                if (isMoving)
+                    MovementUpdate();
+            }
 
         }
 
@@ -213,7 +216,7 @@ namespace FreeRoaming
         }
 
         /// <summary>
-        /// Wether the character is allowed to move forwards
+        /// Whether the character is allowed to move forwards
         /// </summary>
         public bool CanMoveForward
         {
@@ -265,51 +268,56 @@ namespace FreeRoaming
             while (true)
             {
 
-                if (primedToQuit && isMoving)
-                {
-                    primedToQuit = false;
-                }
-
-                if (!isMoving)
+                if (sceneController.SceneIsRunning)
                 {
 
-                    if (primedToQuit)
+                    if (primedToQuit && isMoving)
                     {
-                        break;
-                    }
-                    else
-                    {
-                        primedToQuit = true;
+                        primedToQuit = false;
                     }
 
-                }
-
-                if (Time.time - lastChange >= movementSpriteChangeDelay)
-                {
-
-                    lastChange = Time.time;
-
-                    bool flipSprite = false;
-
-                    //N.B. sprite names are NOT 0-indexed
-                    Sprite newSprite = currentSpriteIndex switch
+                    if (!isMoving)
                     {
-                        0 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 1),
-                        1 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
-                        2 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 2),
-                        3 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
-                        _ => null
-                    };
 
-                    if (newSprite == null)
-                        Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
-                    else
-                    {
-                        spriteRenderer.sprite = newSprite;
-                        spriteRenderer.flipX = flipSprite;
+                        if (primedToQuit)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            primedToQuit = true;
+                        }
+
                     }
 
-                    currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
+                    if (Time.time - lastChange >= movementSpriteChangeDelay)
+                    {
+
+                        lastChange = Time.time;
+
+                        bool flipSprite = false;
+
+                        //N.B. sprite names are NOT 0-indexed
+                        Sprite newSprite = currentSpriteIndex switch
+                        {
+                            0 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 1),
+                            1 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                            2 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 2),
+                            3 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                            _ => null
+                        };
+
+                        if (newSprite == null)
+                            Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
+                        else
+                        {
+                            spriteRenderer.sprite = newSprite;
+                            spriteRenderer.flipX = flipSprite;
+                        }
+
+                        currentSpriteIndex = (currentSpriteIndex + 1) % movementSpriteIndexCount;
+
+                    }
 
                 }
 

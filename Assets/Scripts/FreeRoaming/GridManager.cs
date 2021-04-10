@@ -7,6 +7,7 @@ using FreeRoaming;
 
 namespace FreeRoaming
 {
+    [RequireComponent(typeof(FreeRoamSceneController))]
     public class GridManager : MonoBehaviour
     {
 
