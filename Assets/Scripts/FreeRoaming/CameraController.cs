@@ -8,11 +8,13 @@ namespace FreeRoaming
     public class CameraController : MonoBehaviour
     {
 
-        [Tooltip("Reference to the player")]
-        public PlayerController playerController;
+        /// <summary>
+        /// Reference to the player to any CameraController that needs it
+        /// </summary>
+        public static PlayerController playerController;
 
         [Tooltip("The angle the camera should be at in degrees")]
-        public float angle;
+        public float angle = -45;
 
         /// <summary>
         /// How offset the camera should be on the y-axis due to its angle

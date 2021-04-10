@@ -52,6 +52,7 @@ namespace FreeRoaming
         protected bool sceneEnabled = true;
 
         private List<Camera> camerasToReEnableOnSceneEnable = new List<Camera>();
+        private List<AudioListener> audioListenersToReEnableOnSceneEnable = new List<AudioListener>();
         private List<Renderer> renderersToReEnableOnSceneEnable = new List<Renderer>();
         private bool sceneShouldBeRunningOnSceneEnable = true;
 
@@ -62,6 +63,11 @@ namespace FreeRoaming
                 c.enabled = true;
 
             camerasToReEnableOnSceneEnable.Clear();
+
+            foreach (AudioListener al in audioListenersToReEnableOnSceneEnable)
+                al.enabled = true;
+
+            audioListenersToReEnableOnSceneEnable.Clear();
 
             foreach (Renderer r in renderersToReEnableOnSceneEnable)
                 r.enabled = true;
@@ -79,14 +85,29 @@ namespace FreeRoaming
 
             foreach (Camera camera in FindObjectsOfType<Camera>().Where(x => x.gameObject.scene == Scene))
             {
-                camerasToReEnableOnSceneEnable.Add(camera);
-                camera.enabled = false;
+                if (camera.enabled)
+                {
+                    camerasToReEnableOnSceneEnable.Add(camera);
+                    camera.enabled = false;
+                }
+            }
+
+            foreach (AudioListener al in FindObjectsOfType<AudioListener>().Where(x => x.gameObject.scene == Scene))
+            {
+                if (al.enabled)
+                {
+                    audioListenersToReEnableOnSceneEnable.Add(al);
+                    al.enabled = false;
+                }
             }
 
             foreach (Renderer renderer in FindObjectsOfType<Renderer>().Where(x => x.gameObject.scene == Scene))
             {
-                renderersToReEnableOnSceneEnable.Add(renderer);
-                renderer.enabled = false;
+                if (renderer.enabled)
+                {
+                    renderersToReEnableOnSceneEnable.Add(renderer);
+                    renderer.enabled = false;
+                }
             }
 
             sceneShouldBeRunningOnSceneEnable = sceneRunning;

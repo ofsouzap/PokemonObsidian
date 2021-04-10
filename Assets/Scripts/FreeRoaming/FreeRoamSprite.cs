@@ -1,11 +1,15 @@
 ﻿using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace FreeRoaming
 {
     public abstract class FreeRoamSprite : MonoBehaviour
     {
+
+        private int previousSceneIndex;
+        public UnityEvent SceneChanged;
 
         public Scene Scene => gameObject.scene;
         protected FreeRoamSceneController sceneController;
@@ -19,7 +23,10 @@ namespace FreeRoaming
         protected virtual void Start()
         {
 
-            sceneController = FreeRoamSceneController.GetFreeRoamSceneController(Scene);
+            previousSceneIndex = Scene.buildIndex;
+            RefreshSceneController();
+
+            SceneChanged.AddListener(RefreshSceneController);
 
             sceneCamera = FindObjectsOfType<Camera>()
                 .Where(x => x.gameObject.scene == Scene)
@@ -31,9 +38,20 @@ namespace FreeRoaming
         protected virtual void Update()
         {
 
+            if (previousSceneIndex != Scene.buildIndex)
+            {
+                previousSceneIndex = Scene.buildIndex;
+                SceneChanged.Invoke();
+            }
+
             if (sceneCamera.transform.rotation.eulerAngles.x != oldSceneCameraRotationEulerX)
                 RefreshSpriteAngling();
 
+        }
+
+        protected virtual void RefreshSceneController()
+        {
+            sceneController = FreeRoamSceneController.GetFreeRoamSceneController(Scene);
         }
 
         /// <summary>

@@ -72,7 +72,8 @@ namespace FreeRoaming
 
             position = Vector2Int.RoundToInt(transform.position);
 
-            gridManager = GridManager.GetSceneGridManager(Scene);
+            RefreshGridManager();
+            SceneChanged.AddListener(RefreshGridManager);
 
             SpriteStorage.TryLoadAll();
 
@@ -88,8 +89,23 @@ namespace FreeRoaming
             if (sceneController.SceneIsActive)
             {
                 if (isMoving)
+                {
                     MovementUpdate();
+                }
             }
+
+        }
+
+        protected void RefreshGridManager()
+        {
+            gridManager = GridManager.GetSceneGridManager(Scene);
+        }
+
+        public void SetPosition(Vector2Int newPosition)
+        {
+            
+            transform.position = (Vector2)newPosition;
+            position = newPosition;
 
         }
 
@@ -134,11 +150,8 @@ namespace FreeRoaming
 
             if (moveDistance >= remainingDistance)
             {
-
-                isMoving = false;
-
-                transform.position = (Vector2)movementTargettedGridPosition;
-                position = movementTargettedGridPosition;
+                
+                CompleteMovement();
 
                 return;
                 
@@ -173,6 +186,18 @@ namespace FreeRoaming
             }
 
             transform.position += (Vector3)displacement;
+
+        }
+
+        /// <summary>
+        /// Stops the character moving by sending them to their destination immediately
+        /// </summary>
+        public void CompleteMovement()
+        {
+
+            isMoving = false;
+
+            SetPosition(movementTargettedGridPosition);
 
         }
 
@@ -336,7 +361,7 @@ namespace FreeRoaming
         /// </summary>
         public void MoveForward()
         {
-
+            
             isMoving = true;
             movementTargettedGridPosition = GetPositionInFront();
 

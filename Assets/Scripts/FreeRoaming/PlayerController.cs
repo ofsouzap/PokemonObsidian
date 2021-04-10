@@ -14,6 +14,21 @@ namespace FreeRoaming
         public float rotateToMoveDelay = 0;
         protected float lastRotate = 0;
 
+        protected float moveDelayStartTime = float.MinValue;
+        protected float moveDelay;
+        protected bool AllowedToMove => Time.time - moveDelayStartTime >= moveDelay;
+
+        protected override void Start()
+        {
+
+            base.Start();
+
+            GameSceneManager.SetPlayerGameObject(gameObject);
+
+            CameraController.playerController = this;
+
+        }
+
         protected override void Update()
         {
 
@@ -21,32 +36,37 @@ namespace FreeRoaming
 
             #region Movement
 
-            FacingDirection selectedDirection = FacingDirection.Up;
-
-            Dictionary<FacingDirection, float> inputMagnitudes = new Dictionary<FacingDirection, float>();
-            inputMagnitudes.Add(FacingDirection.Down, -Mathf.Clamp(Input.GetAxis("Vertical"), -1, 0));
-            inputMagnitudes.Add(FacingDirection.Up, Mathf.Clamp(Input.GetAxis("Vertical"), 0, 1));
-            inputMagnitudes.Add(FacingDirection.Left, -Mathf.Clamp(Input.GetAxis("Horizontal"), -1, 0));
-            inputMagnitudes.Add(FacingDirection.Right, Mathf.Clamp(Input.GetAxis("Horizontal"), 0, 1));
-
-            KeyValuePair<FacingDirection, float> maximumMagnitude = inputMagnitudes.Aggregate((a, b) => a.Value > b.Value ? a : b);
-            selectedDirection = maximumMagnitude.Key;
-
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            if (AllowedToMove)
             {
 
-                if (directionFacing == selectedDirection)
+                FacingDirection selectedDirection = FacingDirection.Up;
+
+                Dictionary<FacingDirection, float> inputMagnitudes = new Dictionary<FacingDirection, float>();
+                inputMagnitudes.Add(FacingDirection.Down, -Mathf.Clamp(Input.GetAxis("Vertical"), -1, 0));
+                inputMagnitudes.Add(FacingDirection.Up, Mathf.Clamp(Input.GetAxis("Vertical"), 0, 1));
+                inputMagnitudes.Add(FacingDirection.Left, -Mathf.Clamp(Input.GetAxis("Horizontal"), -1, 0));
+                inputMagnitudes.Add(FacingDirection.Right, Mathf.Clamp(Input.GetAxis("Horizontal"), 0, 1));
+
+                KeyValuePair<FacingDirection, float> maximumMagnitude = inputMagnitudes.Aggregate((a, b) => a.Value > b.Value ? a : b);
+                selectedDirection = maximumMagnitude.Key;
+
+                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
 
-                    if (Time.time - lastRotate >= rotateToMoveDelay)
-                        TryMoveForward();
+                    if (directionFacing == selectedDirection)
+                    {
 
-                }
-                else
-                {
+                        if (Time.time - lastRotate >= rotateToMoveDelay)
+                            TryMoveForward();
 
-                    TryTurn(selectedDirection);
-                    lastRotate = Time.time;
+                    }
+                    else
+                    {
+
+                        TryTurn(selectedDirection);
+                        lastRotate = Time.time;
+
+                    }
 
                 }
 
@@ -56,15 +76,26 @@ namespace FreeRoaming
 
             #region Interaction
 
-            if (Input.GetButtonDown("Interact"))
+            if (AllowedToMove)
             {
 
-                TryInteractInFront();
+                if (Input.GetButtonDown("Interact"))
+                {
+
+                    TryInteractInFront();
+
+                }
 
             }
 
             #endregion
 
+        }
+
+        public void SetMoveDelay(float delay)
+        {
+            moveDelayStartTime = Time.time;
+            moveDelay = delay;
         }
 
     }
