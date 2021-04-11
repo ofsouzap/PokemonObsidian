@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FreeRoaming;
+using FreeRoaming.NPCs;
 
 //This shouldn't be included in builds
 #if UNITY_EDITOR
 
 namespace Testing
 {
-    public class BackAndForthNPCController : GameCharacterController
+    public class BackAndForthNPCController : NPCController
     {
 
-        public int walkLength;
+        public ushort walkLength;
 
         protected override void Start()
         {
@@ -21,6 +22,8 @@ namespace Testing
             StartCoroutine(WalkingCoroutine());
 
         }
+
+        private bool canContinue;
 
         private IEnumerator WalkingCoroutine()
         {
@@ -32,17 +35,35 @@ namespace Testing
             while (true)
             {
 
-                for (int i = 0; i < walkLength; i++)
-                    yield return new WaitUntil(() => TryMoveForward());
+                canContinue = false;
 
-                yield return new WaitUntil(() => isMoving == false);
+                MoveForwardSteps(walkLength);
 
-                goingRight = !goingRight;
+                MoveForwardStepsComplete += (s) =>
+                {
 
-                yield return new WaitUntil(() => TryTurn(goingRight ? FacingDirection.Right : FacingDirection.Left));
+                    if (!s)
+                    {
+                        Debug.Log("Failed to complete movement");
+                    }
+
+                    goingRight = !goingRight;
+
+                    canContinue = false;
+                    StartCoroutine(WaitUntilTurned(goingRight));
+
+                };
+
+                yield return new WaitUntil(() => canContinue);
 
             }
 
+        }
+
+        private IEnumerator WaitUntilTurned(bool turnRight)
+        {
+            yield return new WaitUntil(() => TryTurn(turnRight ? FacingDirection.Right : FacingDirection.Left));
+            canContinue = true;
         }
 
     }

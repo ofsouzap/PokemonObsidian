@@ -8,10 +8,7 @@ namespace FreeRoaming
     public class CameraController : MonoBehaviour
     {
 
-        /// <summary>
-        /// Reference to the player to any CameraController that needs it
-        /// </summary>
-        public static PlayerController playerController;
+        public static PlayerController PlayerController => PlayerController.singleton;
 
         [Tooltip("The angle the camera should be at in degrees")]
         public float angle = -45;
@@ -45,8 +42,8 @@ namespace FreeRoaming
 
                 transform.position = new Vector3()
                 {
-                    x = playerController.transform.position.x,
-                    y = playerController.transform.position.y + yOffset,
+                    x = PlayerController.transform.position.x,
+                    y = PlayerController.transform.position.y + yOffset,
                     z = transform.position.z
                 };
 

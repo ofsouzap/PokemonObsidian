@@ -43,6 +43,78 @@ namespace Pokemon
 
         #endregion
 
+        #region Basic Specification
+
+        /// <summary>
+        /// A basic struct for describing a pokemon instance. This can be used to describe the basics of a trainer's pokemon but still leave some attributes to be random
+        /// </summary>
+        [Serializable]
+        public struct BasicSpecification
+        {
+
+            //Whenever attributes added/removed, make sure to use them iin PokemonFactory.GenerateFromBasicSpecification;
+
+            [Tooltip("If empty, this won't be used")]
+            public string nickname;
+
+            #region Gender
+
+            public enum Gender
+            {
+                Female,
+                Male,
+                Genderless
+            }
+
+            public Gender gender;
+
+            public bool? GetGender()
+                => gender switch
+                {
+                    Gender.Female => false,
+                    Gender.Male => true,
+                    Gender.Genderless => null,
+                    _ => null
+                };
+
+            #endregion
+
+            [InspectorName("Poke Ball ID")]
+            public int pokeBallId;
+
+            [InspectorName("Species ID")]
+            public int speciesId;
+
+            [Tooltip("Whether to use automatic moves. If so, the moveIds property will be ignored")]
+            [InspectorName("Use Automatic Moves?")]
+            public bool useAutomaticMoves;
+            [InspectorName("Move IDs")]
+            public int[] moveIds;
+
+            public byte level;
+            public int GetExperienceFromLevel() => GrowthTypeData.GetMinimumExperienceForLevel(
+                level,
+                PokemonSpecies.GetPokemonSpeciesById(speciesId).growthType
+                );
+
+            [InspectorName("EVs")]
+            public Stats<ushort> EVs;
+
+            [Tooltip("Whether to use random IVs. If so, the IVs property will be ignored")]
+            [InspectorName("Use Random IVs?")]
+            public bool useRandomIVs;
+            [InspectorName("IVs")]
+            public Stats<byte> IVs;
+
+            public PokemonInstance Generate()
+            {
+                return PokemonFactory.GenerateFromBasicSpecification(this);
+            }
+
+        }
+
+        #endregion
+
         /// <summary>
         /// The pokemon's nickname. If it is empty, the pokemon doesn't have a nickname
         /// </summary>

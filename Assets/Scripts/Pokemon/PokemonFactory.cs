@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Pokemon;
 using Items;
@@ -111,12 +112,12 @@ namespace Pokemon
             byte[] movePPs;
             bool? gender;
 
-            speciesId = possibleSpeciesIds[UnityEngine.Random.Range(0, possibleSpeciesIds.Length)];
+            speciesId = ChooseRandomSpeciesId(possibleSpeciesIds);
             PokemonSpecies species = PokemonSpecies.GetPokemonSpeciesById(speciesId);
 
             #region Stats
 
-            level = (byte)UnityEngine.Random.Range(minLevel, maxLevel + 1);
+            level = ChooseLevelInRange(minLevel, maxLevel);
             experience = GrowthTypeData.GetMinimumExperienceForLevel(level, species.growthType);
 
             natureId = Nature.GetRandomNatureId();
@@ -131,7 +132,88 @@ namespace Pokemon
                 health = 0
             };
 
-            individualValues = new Stats<byte>()
+            individualValues = GenerateRandomIVs();
+
+            #endregion
+
+            moves = ChooseMovesFromSpeciesAndLevel(speciesId, level, out movePPs);
+
+            gender = ChooseRandomGender(speciesId);
+
+            return GenerateFull(
+                speciesId: speciesId,
+                natureId: natureId,
+                effortValues: effortValues,
+                individualValues: individualValues,
+
+                _moves: moves,
+                movePPs: movePPs,
+                experience: experience,
+                nonVolatileStatusCondition: PokemonInstance.NonVolatileStatusCondition.None,
+                battleProperties: null,
+                gender: gender
+                );
+
+        }
+
+        public static PokemonInstance GenerateFromBasicSpecification(PokemonInstance.BasicSpecification spec)
+        {
+
+            int speciesId, experience;
+            int natureId;
+            Stats<ushort> effortValues;
+            Stats<byte> individualValues;
+            int[] moves;
+            byte[] movePPs;
+            bool? gender;
+
+            speciesId = spec.speciesId;
+            experience = spec.GetExperienceFromLevel();
+            natureId = Nature.GetRandomNatureId();
+            effortValues = spec.EVs;
+            individualValues = spec.useRandomIVs ? GenerateRandomIVs() : spec.IVs;
+            if (spec.useAutomaticMoves)
+            {
+                moves = ChooseMovesFromSpeciesAndLevel(speciesId, spec.level, out movePPs);
+            }
+            else
+            {
+                moves = spec.moveIds;
+                movePPs = moves.Select(x => Moves.PokemonMove.GetPokemonMoveById(x).maxPP).ToArray();
+            }
+            gender = spec.GetGender();
+
+            return GenerateFull(
+                speciesId: speciesId,
+                natureId: natureId,
+                effortValues: effortValues,
+                individualValues: individualValues,
+
+                _moves: moves,
+                movePPs: movePPs,
+                experience: experience,
+                nonVolatileStatusCondition: PokemonInstance.NonVolatileStatusCondition.None,
+                battleProperties: null,
+                gender: gender,
+
+                pokeBallId: spec.pokeBallId,
+                nickname: spec.nickname
+                );
+
+        }
+
+        #region Random Attribute Choosing
+
+        public static int ChooseRandomSpeciesId(int[] options)
+            => options[UnityEngine.Random.Range(0, options.Length)];
+
+        public static byte ChooseLevelInRange(byte minLevel, byte maxLevel)
+            => (byte)UnityEngine.Random.Range(minLevel, maxLevel + 1);
+
+        public static Stats<byte> GenerateRandomEVs() => GenerateRandomIVs();
+
+        public static Stats<byte> GenerateRandomIVs()
+            => new Stats<byte>()
             {
                 attack = (byte)UnityEngine.Random.Range(0, 32),
                 defense = (byte)UnityEngine.Random.Range(0, 32),
@@ -141,14 +223,17 @@ namespace Pokemon
                 health = (byte)UnityEngine.Random.Range(0, 32)
             };
 
-            #endregion
+        public static int[] ChooseMovesFromSpeciesAndLevel(int speciesId,
+            byte level,
+            out byte[] movePPs)
+        {
 
-            #region Moves
+            PokemonSpecies species = PokemonSpecies.GetPokemonSpeciesById(speciesId);
 
             //Set the moves learnt as the last 4 moves that it could have learnt
             Dictionary<byte, int[]> levelUpMoves = species.levelUpMoves;
 
-            moves = new int[4];
+            int[] moves = new int[4];
             //By default, the moves will be unset
             for (int moveIndex = 0; moveIndex < moves.Length; moveIndex++)
                 moves[moveIndex] = -1;
@@ -212,25 +297,14 @@ namespace Pokemon
 
             }
 
-            #endregion
-
-            gender = species.GetRandomWeightedGender();
-
-            return GenerateFull(
-                speciesId: speciesId,
-                natureId: natureId,
-                effortValues: effortValues,
-                individualValues: individualValues,
-
-                _moves: moves,
-                movePPs: movePPs,
-                experience: experience,
-                nonVolatileStatusCondition: PokemonInstance.NonVolatileStatusCondition.None,
-                battleProperties: null,
-                gender: gender
-                );
+            return moves;
 
         }
+
+        public static bool? ChooseRandomGender(int speciesId)
+            => PokemonSpecies.GetPokemonSpeciesById(speciesId).GetRandomWeightedGender();
+
+        #endregion
 
     }
 }

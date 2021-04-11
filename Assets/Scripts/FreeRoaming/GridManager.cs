@@ -43,6 +43,61 @@ namespace FreeRoaming
         }
 
         /// <summary>
+        /// Get the position one step in a direction from another position
+        /// </summary>
+        public static Vector2Int GetPositionInDirection(Vector2Int startPosition, GameCharacterController.FacingDirection direction)
+        {
+
+            Vector2Int offset;
+
+            switch (direction)
+            {
+
+                case GameCharacterController.FacingDirection.Up:
+                    offset = Vector2Int.up;
+                    break;
+
+                case GameCharacterController.FacingDirection.Down:
+                    offset = -Vector2Int.up;
+                    break;
+
+                case GameCharacterController.FacingDirection.Left:
+                    offset = -Vector2Int.right;
+                    break;
+
+                case GameCharacterController.FacingDirection.Right:
+                    offset = Vector2Int.right;
+                    break;
+
+                default:
+                    Debug.LogWarning($"Invalid directionFacing was found ({direction})");
+                    offset = Vector2Int.up;
+                    break;
+
+            }
+
+            return startPosition + offset;
+
+        }
+
+        /// <summary>
+        /// Gets the positions in a direction from provided position
+        /// </summary>
+        public static Vector2Int[] GetPositionsInDirection(Vector2Int startPosition, GameCharacterController.FacingDirection direction, ushort count)
+        {
+
+            Vector2Int[] positions = new Vector2Int[count];
+
+            positions[0] = GetPositionInDirection(startPosition, direction);
+
+            for (int i = 1; i < count; i++)
+                positions[i] = GetPositionInDirection(positions[i - 1], direction);
+
+            return positions;
+
+        }
+
+        /// <summary>
         /// Finds an object in a position on the grid by finding all IOccupyPositions nearby (requiring that their object has a Collider2D) and checking each of their positions
         /// The range which will be checked is the constant float Manager.availabilityCheckRange
         /// </summary>

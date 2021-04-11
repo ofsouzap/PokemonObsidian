@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pokemon
 {
+    [Serializable]
     public struct Stats<T> : IEnumerable<T>
     {
 

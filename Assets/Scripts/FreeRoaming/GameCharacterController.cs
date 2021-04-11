@@ -29,6 +29,9 @@ namespace FreeRoaming
         /// </summary>
         public FacingDirection directionFacing { get; protected set; }
 
+        [Tooltip("The direction the this should be facing to start with")]
+        public FacingDirection initialDirectionFacing;
+
         [Min(0)]
         [Tooltip("The speed (in units per second) that this character moves at")]
         public float moveSpeed = 4;
@@ -48,6 +51,8 @@ namespace FreeRoaming
         /// </summary>
         public Vector2Int movementTargettedGridPosition { get; protected set; }
 
+        protected bool ignoreScenePaused = false;
+
         /// <summary>
         /// Whether the character is moving. Also used to check whether the movementTargettedPosition should be counted when returning occupied positions
         /// </summary>
@@ -65,12 +70,17 @@ namespace FreeRoaming
         
         public string spriteGroupName;
 
+        protected virtual bool AllowedToMove => sceneController.SceneIsActive
+                //Below line allows character to move if the scene is just paused and they have let themselves ignore the scene pausing
+                || (!sceneController.SceneIsActive && !sceneController.SceneIsRunning && sceneController.SceneIsEnabled && ignoreScenePaused);
+
         protected override void Start()
         {
 
             base.Start();
 
             position = Vector2Int.RoundToInt(transform.position);
+            directionFacing = initialDirectionFacing;
 
             RefreshGridManager();
             SceneChanged.AddListener(RefreshGridManager);
@@ -86,7 +96,7 @@ namespace FreeRoaming
 
             base.Update();
 
-            if (sceneController.SceneIsActive)
+            if (AllowedToMove)
             {
                 if (isMoving)
                 {
@@ -202,43 +212,28 @@ namespace FreeRoaming
         }
 
         /// <summary>
+        /// Stops the character moving by sending them back to their initial position before their current movement
+        /// </summary>
+        public void CancelMovement()
+        {
+
+            isMoving = false;
+
+            SetPosition(position);
+
+        }
+
+        /// <summary>
         /// Get the position in front of a character
         /// </summary>
         /// <returns>The grid position in front of the character</returns>
-        public Vector2Int GetPositionInFront()
-        {
+        public Vector2Int GetPositionInFront() => GridManager.GetPositionInDirection(position, directionFacing);
 
-            Vector2Int offset;
-
-            switch (directionFacing)
-            {
-
-                case FacingDirection.Up:
-                    offset = Vector2Int.up;
-                    break;
-
-                case FacingDirection.Down:
-                    offset = -Vector2Int.up;
-                    break;
-
-                case FacingDirection.Left:
-                    offset = -Vector2Int.right;
-                    break;
-
-                case FacingDirection.Right:
-                    offset = Vector2Int.right;
-                    break;
-
-                default:
-                    Debug.LogWarning($"Invalid directionFacing was found ({directionFacing})");
-                    offset = Vector2Int.up;
-                    break;
-
-            }
-
-            return position + offset;
-
-        }
+        /// <summary>
+        /// Get the positions in front of a character
+        /// </summary>
+        /// <returns>The grid positions in front of the character</returns>
+        public Vector2Int[] GetPositionsInFront(ushort count) => GridManager.GetPositionsInDirection(position, directionFacing, count);
 
         /// <summary>
         /// Whether the character is allowed to move forwards
@@ -293,7 +288,7 @@ namespace FreeRoaming
             while (true)
             {
 
-                if (sceneController.SceneIsActive)
+                if (AllowedToMove)
                 {
 
                     if (primedToQuit && isMoving)

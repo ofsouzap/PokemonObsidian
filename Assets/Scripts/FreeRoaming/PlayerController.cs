@@ -9,6 +9,8 @@ namespace FreeRoaming
     public class PlayerController : GameCharacterController
     {
 
+        public static PlayerController singleton;
+
         [Min(0)]
         [Tooltip("A short delay between rotating and being able to move to allow rotating on the spot without accidently moving")]
         public float rotateToMoveDelay = 0;
@@ -16,16 +18,23 @@ namespace FreeRoaming
 
         protected float moveDelayStartTime = float.MinValue;
         protected float moveDelay;
-        protected bool AllowedToMove => Time.time - moveDelayStartTime >= moveDelay;
+        private bool AllowedToMove_delay => Time.time - moveDelayStartTime >= moveDelay;
 
-        protected override void Start()
+        protected bool movementLocked = false;
+        private bool AllowedToMove_locked => !movementLocked;
+
+        protected override bool AllowedToMove => base.AllowedToMove && AllowedToMove_delay && AllowedToMove_locked;
+
+        protected virtual void Awake()
         {
 
-            base.Start();
-
-            GameSceneManager.SetPlayerGameObject(gameObject);
-
-            CameraController.playerController = this;
+            if (singleton != null)
+            {
+                Debug.LogError("Multiple PlayerController instances present");
+                Destroy(gameObject);
+            }
+            else
+                singleton = this;
 
         }
 
@@ -96,6 +105,11 @@ namespace FreeRoaming
         {
             moveDelayStartTime = Time.time;
             moveDelay = delay;
+        }
+
+        public void SetMovementLockState(bool state)
+        {
+            movementLocked = state;
         }
 
     }

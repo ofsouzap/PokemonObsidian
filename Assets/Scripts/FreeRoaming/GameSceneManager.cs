@@ -10,6 +10,11 @@ namespace FreeRoaming
     public static class GameSceneManager
     {
 
+        /// <summary>
+        /// The identifier for the battle scene. This can be in any format that the Unity SceneManager can use
+        /// </summary>
+        public const string battleSceneIdentifier = "Battle";
+
         public const float sceneChangePlayerMoveDelay = 0.5F;
 
         #region Scene Records
@@ -71,8 +76,7 @@ namespace FreeRoaming
 
         }
 
-        private static GameObject playerGameObject = null;
-        public static void SetPlayerGameObject(GameObject go) => playerGameObject = go;
+        private static GameObject PlayerGameObject => PlayerController.singleton.gameObject;
 
         private static FreeRoamSceneController GetFreeRoamSceneController(Scene scene)
         {
@@ -105,24 +109,24 @@ namespace FreeRoaming
         #region Scene Fading
 
         private delegate void OnComplete();
-        private static event OnComplete FadeComplete;
+        private static event OnComplete FadeOutComplete;
+        private static event OnComplete FadeInComplete;
 
         private static void StartFadeOut()
         {
-            FadeComplete = null;
+            FadeOutComplete = null;
             BlackFadeController goController = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/Black Fade")).GetComponent<BlackFadeController>();
             goController.FadeOut();
-            goController.FadeCompleted += () => FadeComplete?.Invoke();
+            goController.FadeCompleted += () => FadeOutComplete?.Invoke();
             goController.FadeCompleted += () => UnityEngine.Object.Destroy(goController.gameObject);
         }
 
         private static void StartFadeIn()
         {
-            FadeComplete = null;
+            FadeInComplete = null;
             BlackFadeController goController = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/Black Fade")).GetComponent<BlackFadeController>();
             goController.FadeIn();
-            goController.FadeCompleted += () => FadeComplete?.Invoke();
-            goController.FadeCompleted += () => UnityEngine.Object.Destroy(goController.gameObject);
+            goController.FadeCompleted += () => FadeInComplete?.Invoke();
         }
 
         #endregion
@@ -161,8 +165,8 @@ namespace FreeRoaming
             bool autoEnablePlayerRenderers = true)
         {
 
-            playerGameObject.GetComponent<PlayerController>().CompleteMovement();
-            playerGameObject.GetComponent<PlayerController>().SetPosition(newPosition);
+            PlayerGameObject.GetComponent<PlayerController>().CompleteMovement();
+            PlayerGameObject.GetComponent<PlayerController>().SetPosition(newPosition);
 
             if (playerObject != null)
                 SceneManager.MoveGameObjectToScene(playerObject, newScene);
@@ -170,7 +174,7 @@ namespace FreeRoaming
                 Debug.LogWarning("No player object set. Couldn't move player to new scene");
 
             if (autoEnablePlayerRenderers)
-                foreach (Renderer r in playerGameObject.GetComponentsInChildren<Renderer>())
+                foreach (Renderer r in PlayerGameObject.GetComponentsInChildren<Renderer>())
                     r.enabled = true;
 
         }
@@ -184,8 +188,6 @@ namespace FreeRoaming
                 return;
             }
 
-            playerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
-
             Scene oldScene = sceneRecordStack.Pop().scene;
 
             GetFreeRoamSceneController(oldScene).SetDoorsEnabledState(false);
@@ -193,11 +195,13 @@ namespace FreeRoaming
 
             StartFadeOut();
 
-            FadeComplete += () =>
+            FadeOutComplete += () =>
             {
 
                 GetFreeRoamSceneController(oldScene).SetSceneRunningState(true);
                 GetFreeRoamSceneController(oldScene).SetEnabledState(false);
+
+                PlayerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
 
                 //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
                 int newSceneIndex = SceneManager.sceneCount;
@@ -211,7 +215,7 @@ namespace FreeRoaming
 
                     sceneRecordStack.Push(new SceneRecord(newScene));
 
-                    MovePlayerToNewScene(playerGameObject, newScene, doorDetails.newSceneTargetPosition);
+                    MovePlayerToNewScene(PlayerGameObject, newScene, doorDetails.newSceneTargetPosition);
 
                     SceneManager.SetActiveScene(newScene);
 
@@ -246,13 +250,13 @@ namespace FreeRoaming
 
             StartFadeOut();
 
-            FadeComplete += () =>
+            FadeOutComplete += () =>
             {
 
                 GetFreeRoamSceneController(oldScene).SetSceneRunningState(true);
                 GetFreeRoamSceneController(oldScene).SetEnabledState(false);
 
-                playerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
+                PlayerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
 
                 sceneRecordStack.Push(new SceneRecord(oldScene, doorDetails.returnPosition));
 
@@ -268,7 +272,7 @@ namespace FreeRoaming
 
                     sceneRecordStack.Push(new SceneRecord(newScene));
 
-                    MovePlayerToNewScene(playerGameObject, newScene, doorDetails.newSceneTargetPosition);
+                    MovePlayerToNewScene(PlayerGameObject, newScene, doorDetails.newSceneTargetPosition);
                     SceneManager.SetActiveScene(newScene);
 
                     StartFadeIn();
@@ -286,19 +290,19 @@ namespace FreeRoaming
             SceneRecord oldSceneRecord = sceneRecordStack.Pop();
             SceneRecord newSceneRecord = sceneRecordStack.Peek();
 
-            playerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
-
             GetFreeRoamSceneController(oldSceneRecord.scene).SetDoorsEnabledState(false);
             GetFreeRoamSceneController(oldSceneRecord.scene).SetSceneRunningState(false);
 
             StartFadeOut();
 
-            FadeComplete += () => {
+            FadeOutComplete += () => {
 
                 GetFreeRoamSceneController(oldSceneRecord.scene).SetSceneRunningState(true);
                 GetFreeRoamSceneController(oldSceneRecord.scene).SetEnabledState(false);
 
-                MovePlayerToNewScene(playerGameObject, newSceneRecord.scene, newSceneRecord.gridPosition);
+                PlayerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
+
+                MovePlayerToNewScene(PlayerGameObject, newSceneRecord.scene, newSceneRecord.gridPosition);
 
                 SceneManager.SetActiveScene(newSceneRecord.scene);
 
@@ -313,6 +317,100 @@ namespace FreeRoaming
             };
 
         }
+
+        #region Battle Opening/Closing
+
+        public static void LaunchBattleScene()
+        {
+
+            RefreshCurrentSceneStack();
+
+            if (battleSceneInUse)
+            {
+                Debug.LogError("Battle trying to be launched while battle already active");
+                return;
+            }
+
+            Scene freeRoamScene = sceneRecordStack.Peek().scene;
+            FreeRoamSceneController freeRoamSceneController = GetFreeRoamSceneController(freeRoamScene);
+
+            freeRoamSceneController.SetDoorsEnabledState(false);
+            freeRoamSceneController.SetSceneRunningState(false);
+
+            StartFadeOut();
+
+            FadeOutComplete += () =>
+            {
+
+                freeRoamSceneController.SetSceneRunningState(true);
+                freeRoamSceneController.SetEnabledState(false);
+
+                //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
+                int newSceneIndex = SceneManager.sceneCount;
+
+                AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(battleSceneIdentifier, LoadSceneMode.Additive);
+
+                loadSceneOperation.completed += (ao) =>
+                {
+
+                    battleScene = SceneManager.GetSceneAt(newSceneIndex);
+                    battleSceneInUse = true;
+
+                    Battle.BattleManager battleManager = Battle.BattleManager.GetBattleSceneBattleManager(battleScene);
+
+                    SceneManager.SetActiveScene(battleScene);
+
+                    StartFadeIn();
+
+                    FadeInComplete += () =>
+                    {
+                        battleManager.StartBattle();
+                    };
+
+                };
+
+            };
+
+        }
+
+        public static void CloseBattleScene()
+        {
+
+            if (!battleSceneInUse)
+            {
+                Debug.LogError("Battle trying to be closed while battle not already active");
+                return;
+            }
+
+            Scene freeRoamScene = sceneRecordStack.Peek().scene;
+            FreeRoamSceneController freeRoamSceneController = GetFreeRoamSceneController(freeRoamScene);
+
+            StartFadeOut();
+
+            FadeOutComplete += () =>
+            {
+
+                PlayerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
+
+                battleSceneInUse = false;
+
+                SceneManager.SetActiveScene(freeRoamScene);
+
+                //Wait until old scene unloaded before starting next scene
+                SceneManager.UnloadSceneAsync(battleScene).completed += (ao) =>
+                {
+
+                    freeRoamSceneController.SetDoorsEnabledState(true);
+                    freeRoamSceneController.SetEnabledState(true);
+                    StartFadeIn();
+
+                };
+
+            };
+
+        }
+
+        #endregion
 
         #endregion
 

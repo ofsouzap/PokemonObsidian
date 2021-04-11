@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace FreeRoaming
@@ -41,6 +42,7 @@ namespace FreeRoaming
         #region Running
 
         protected bool sceneRunning = true;
+        public bool SceneIsRunning => sceneRunning;
 
         public void SetSceneRunningState(bool state)
             => sceneRunning = state;
@@ -50,10 +52,12 @@ namespace FreeRoaming
         #region Enabling
 
         protected bool sceneEnabled = true;
+        public bool SceneIsEnabled => sceneEnabled;
 
         private List<Camera> camerasToReEnableOnSceneEnable = new List<Camera>();
         private List<AudioListener> audioListenersToReEnableOnSceneEnable = new List<AudioListener>();
         private List<Renderer> renderersToReEnableOnSceneEnable = new List<Renderer>();
+        private EventSystem eventSystemToReEnableOnSceneEnable = null;
         private bool sceneShouldBeRunningOnSceneEnable = true;
 
         private void EnableScene()
@@ -73,6 +77,12 @@ namespace FreeRoaming
                 r.enabled = true;
 
             renderersToReEnableOnSceneEnable.Clear();
+
+            if (eventSystemToReEnableOnSceneEnable != null)
+            {
+                eventSystemToReEnableOnSceneEnable.enabled = true;
+                eventSystemToReEnableOnSceneEnable = null;
+            }
 
             SetSceneRunningState(sceneShouldBeRunningOnSceneEnable);
 
@@ -108,6 +118,13 @@ namespace FreeRoaming
                     renderersToReEnableOnSceneEnable.Add(renderer);
                     renderer.enabled = false;
                 }
+            }
+
+            EventSystem eventSystem = FindObjectOfType<EventSystem>();
+            if (eventSystem != null && eventSystem.enabled)
+            {
+                eventSystemToReEnableOnSceneEnable = eventSystem;
+                eventSystem.enabled = false;
             }
 
             sceneShouldBeRunningOnSceneEnable = sceneRunning;

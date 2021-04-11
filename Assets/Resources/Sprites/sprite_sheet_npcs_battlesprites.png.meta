@@ -148,7 +148,7 @@ TextureImporter:
     second: sprite_sheet_npcs_battlesprites_49
   - first:
       213: -3727992146811025522
-    second: salior_battlesprite
+    second: sailor_battlesprite
   - first:
       213: -2555979264437141438
     second: ruinmaniac_battlesprite
@@ -919,7 +919,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: salior_battlesprite
+      name: sailor_battlesprite
       rect:
         serializedVersion: 2
         x: 163

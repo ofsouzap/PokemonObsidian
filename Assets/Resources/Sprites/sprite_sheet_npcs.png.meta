@@ -871,7 +871,7 @@ TextureImporter:
     second: fisherman_idle_d
   - first:
       213: -364808623300264771
-    second: sailer_idle_d
+    second: sailor_idle_d
   - first:
       213: -2751971331728017296
     second: hiker_idle_d
@@ -910,7 +910,7 @@ TextureImporter:
     second: fisherman_idle_u
   - first:
       213: -170839115551560427
-    second: sailer_idle_u
+    second: sailor_idle_u
   - first:
       213: 6052666219639558784
     second: hiker_idle_u
@@ -949,7 +949,7 @@ TextureImporter:
     second: fisherman_idle_l
   - first:
       213: 2547912000269264807
-    second: sailer_idle_l
+    second: sailor_idle_l
   - first:
       213: 3154994654742269732
     second: hiker_idle_l
@@ -988,7 +988,7 @@ TextureImporter:
     second: fisherman_walk_u_1
   - first:
       213: 3977397835762295916
-    second: sailer_walk_u_1
+    second: sailor_walk_u_1
   - first:
       213: -4357149544911163100
     second: hiker_walk_u_1
@@ -1027,7 +1027,7 @@ TextureImporter:
     second: fisherman_walk_u_2
   - first:
       213: -7218316719569981688
-    second: sailer_walk_u_2
+    second: sailor_walk_u_2
   - first:
       213: -2701152826041154440
     second: hiker_walk_u_2
@@ -1066,7 +1066,7 @@ TextureImporter:
     second: fisherman_walk_d_1
   - first:
       213: 8593678788428346728
-    second: sailer_walk_d_1
+    second: sailor_walk_d_1
   - first:
       213: 8220679482429509832
     second: hiker_walk_d_1
@@ -1105,7 +1105,7 @@ TextureImporter:
     second: fisherman_walk_d_2
   - first:
       213: -954099524304250969
-    second: sailer_walk_d_2
+    second: sailor_walk_d_2
   - first:
       213: 1552864014421883949
     second: hiker_walk_d_2
@@ -1144,7 +1144,7 @@ TextureImporter:
     second: fisherman_walk_l_1
   - first:
       213: -3939202870579716446
-    second: sailer_walk_l_1
+    second: sailor_walk_l_1
   - first:
       213: -62192964650922202
     second: hiker_walk_l_1
@@ -1183,7 +1183,7 @@ TextureImporter:
     second: fisherman_walk_l_2
   - first:
       213: -3019150144102286780
-    second: sailer_walk_l_2
+    second: sailor_walk_l_2
   - first:
       213: -4465200105535302034
     second: hiker_walk_l_2
@@ -7414,7 +7414,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_idle_d
+      name: sailor_idle_d
       rect:
         serializedVersion: 2
         x: 32
@@ -7666,7 +7666,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_idle_u
+      name: sailor_idle_u
       rect:
         serializedVersion: 2
         x: 32
@@ -7918,7 +7918,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_idle_l
+      name: sailor_idle_l
       rect:
         serializedVersion: 2
         x: 32
@@ -8170,7 +8170,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_walk_u_1
+      name: sailor_walk_u_1
       rect:
         serializedVersion: 2
         x: 32
@@ -8443,7 +8443,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_walk_u_2
+      name: sailor_walk_u_2
       rect:
         serializedVersion: 2
         x: 32
@@ -8695,7 +8695,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_walk_d_1
+      name: sailor_walk_d_1
       rect:
         serializedVersion: 2
         x: 32
@@ -8947,7 +8947,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_walk_d_2
+      name: sailor_walk_d_2
       rect:
         serializedVersion: 2
         x: 32
@@ -9199,7 +9199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_walk_l_1
+      name: sailor_walk_l_1
       rect:
         serializedVersion: 2
         x: 32
@@ -9472,7 +9472,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sailer_walk_l_2
+      name: sailor_walk_l_2
       rect:
         serializedVersion: 2
         x: 32

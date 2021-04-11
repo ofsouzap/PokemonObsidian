@@ -34,9 +34,9 @@ namespace Battle
             public PokemonInstance[] opponentPokemon;
 
             /// <summary>
-            /// The path of the sprite for this opponent in battle
+            /// The name of the sprite for this opponent in battle
             /// </summary>
-            public string opponentSpriteResourcePath;
+            public string opponentSpriteResourceName;
 
             /// <summary>
             /// The "full" name of the opponent. This is used for announcing the battle opponent and their defeat. This could be a title with a name (eg. "Gym Leader Brock") or just a name (eg. "Ash")

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Pokemon;
 using Pokemon.Moves;
 using Items;
@@ -14,6 +15,30 @@ namespace Battle
 
     public partial class BattleManager : MonoBehaviour
     {
+
+        public static BattleManager GetBattleSceneBattleManager(Scene scene)
+        {
+
+            BattleManager[] managers = FindObjectsOfType<BattleManager>()
+                .Where(x => x.gameObject.scene == scene)
+                .ToArray();
+
+            switch (managers.Length)
+            {
+
+                case 0:
+                    return null;
+
+                case 1:
+                    return managers[0];
+
+                default:
+                    Debug.LogError("Multiple BattleManager found");
+                    return managers[0];
+
+            }
+
+        }
 
         public BattleAnimationSequencer battleAnimationSequencer;
 
@@ -41,9 +66,6 @@ namespace Battle
         private void Start()
         {
 
-            //TODO - uncomment once ready to start battles on scene load
-            //StartBattle();
-
             #region Finding Text Box Controller
 
             TextBoxController[] textBoxControllerCandidates = FindObjectsOfType<TextBoxController>()
@@ -56,6 +78,19 @@ namespace Battle
                 textBoxController = textBoxControllerCandidates[0];
 
             #endregion
+
+            SetUpScene();
+
+        }
+
+        private void SetUpScene()
+        {
+
+            battleLayoutController.HidePokemonAndPanes();
+            learnMoveUIController.menuConfirmLearnMoveSelectionController.Hide();
+            learnMoveUIController.menuLearnMoveController.Hide();
+
+            //TODO - set battle background
 
         }
 
@@ -70,10 +105,6 @@ namespace Battle
         {
 
             #region Initial Setup
-
-            battleLayoutController.HidePokemonAndPanes();
-            learnMoveUIController.menuConfirmLearnMoveSelectionController.Hide();
-            learnMoveUIController.menuLearnMoveController.Hide();
 
             //If the battle entrance arguments don't seem to be set, use whatever values are present at the time but still log an error
             if (!BattleEntranceArguments.argumentsSet)
@@ -252,7 +283,7 @@ namespace Battle
             {
 
                 Sprite opponentTrainerBattleSprite = SpriteStorage.GetCharacterBattleSprite(
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourcePath
+                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName
                 );
 
                 if (opponentTrainerBattleSprite != null)
@@ -499,9 +530,7 @@ namespace Battle
             else
             {
 
-                //If player won
-
-                //TODO - use yet-to-be-made custom scene manager to unload this scene and return to free-roaming scene
+                FreeRoaming.GameSceneManager.CloseBattleScene();
 
             }
 
