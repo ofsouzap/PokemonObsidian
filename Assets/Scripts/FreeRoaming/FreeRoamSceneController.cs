@@ -135,5 +135,51 @@ namespace FreeRoaming
 
         #endregion
 
+        #region Door Activation
+
+        private bool doorsAreEnabled = true;
+
+        private List<SceneDoor> doorsToRenableOnDoorsEnable = new List<SceneDoor>();
+
+        private void EnableDoors()
+        {
+
+            foreach (SceneDoor door in doorsToRenableOnDoorsEnable)
+                door.enabled = true;
+
+            doorsToRenableOnDoorsEnable.Clear();
+
+        }
+
+        private void DisableDoors()
+        {
+
+            EnableDoors();
+
+            foreach (SceneDoor door in FindObjectsOfType<SceneDoor>().Where(x => x.gameObject.scene == Scene))
+                if (door.enabled)
+                {
+                    doorsToRenableOnDoorsEnable.Add(door);
+                    door.enabled = false;
+                }
+
+        }
+
+        private void RefreshDoorsEnabledState()
+        {
+            if (doorsAreEnabled)
+                EnableDoors();
+            else
+                DisableDoors();
+        }
+
+        public void SetDoorsEnabledState(bool state)
+        {
+            doorsAreEnabled = state;
+            RefreshDoorsEnabledState();
+        }
+
+        #endregion
+
     }
 }

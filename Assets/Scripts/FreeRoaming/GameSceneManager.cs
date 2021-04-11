@@ -102,6 +102,31 @@ namespace FreeRoaming
 
         #region Scene Changing
 
+        #region Scene Fading
+
+        private delegate void OnComplete();
+        private static event OnComplete FadeComplete;
+
+        private static void StartFadeOut()
+        {
+            FadeComplete = null;
+            BlackFadeController goController = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/Black Fade")).GetComponent<BlackFadeController>();
+            goController.FadeOut();
+            goController.FadeCompleted += () => FadeComplete?.Invoke();
+            goController.FadeCompleted += () => UnityEngine.Object.Destroy(goController.gameObject);
+        }
+
+        private static void StartFadeIn()
+        {
+            FadeComplete = null;
+            BlackFadeController goController = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/Black Fade")).GetComponent<BlackFadeController>();
+            goController.FadeIn();
+            goController.FadeCompleted += () => FadeComplete?.Invoke();
+            goController.FadeCompleted += () => UnityEngine.Object.Destroy(goController.gameObject);
+        }
+
+        #endregion
+
         private static void RefreshCurrentSceneStack()
         {
             if (sceneRecordStack.Count == 0)
@@ -163,29 +188,42 @@ namespace FreeRoaming
 
             Scene oldScene = sceneRecordStack.Pop().scene;
 
-            GetFreeRoamSceneController(oldScene).SetEnabledState(false);
+            GetFreeRoamSceneController(oldScene).SetDoorsEnabledState(false);
+            GetFreeRoamSceneController(oldScene).SetSceneRunningState(false);
 
-            //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
-            int newSceneIndex = SceneManager.sceneCount;
+            StartFadeOut();
 
-            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(doorDetails.sceneName, LoadSceneMode.Additive);
-
-            loadSceneOperation.completed += (ao) =>
+            FadeComplete += () =>
             {
 
-                Scene newScene = SceneManager.GetSceneAt(newSceneIndex);
+                GetFreeRoamSceneController(oldScene).SetSceneRunningState(true);
+                GetFreeRoamSceneController(oldScene).SetEnabledState(false);
 
-                sceneRecordStack.Push(new SceneRecord(newScene));
+                //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
+                int newSceneIndex = SceneManager.sceneCount;
 
-                MovePlayerToNewScene(playerGameObject, newScene, doorDetails.newSceneTargetPosition);
+                AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(doorDetails.sceneName, LoadSceneMode.Additive);
 
-                SceneManager.SetActiveScene(newScene);
-
-                GetFreeRoamSceneController(newScene).SetSceneRunningState(false);
-
-                SceneManager.UnloadSceneAsync(oldScene).completed += (ao) =>
+                loadSceneOperation.completed += (ao) =>
                 {
-                    GetFreeRoamSceneController(newScene).SetSceneRunningState(true);
+
+                    Scene newScene = SceneManager.GetSceneAt(newSceneIndex);
+
+                    sceneRecordStack.Push(new SceneRecord(newScene));
+
+                    MovePlayerToNewScene(playerGameObject, newScene, doorDetails.newSceneTargetPosition);
+
+                    SceneManager.SetActiveScene(newScene);
+
+                    GetFreeRoamSceneController(newScene).SetSceneRunningState(false);
+
+                    SceneManager.UnloadSceneAsync(oldScene).completed += (ao) =>
+                    {
+                        GetFreeRoamSceneController(newScene).SetSceneRunningState(true);
+                        GetFreeRoamSceneController(newScene).SetDoorsEnabledState(true);
+                        StartFadeIn();
+                    };
+
                 };
 
             };
@@ -201,28 +239,42 @@ namespace FreeRoaming
                 return;
             }
 
-            playerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
-
             Scene oldScene = sceneRecordStack.Pop().scene;
 
-            GetFreeRoamSceneController(oldScene).SetEnabledState(false);
+            GetFreeRoamSceneController(oldScene).SetDoorsEnabledState(false);
+            GetFreeRoamSceneController(oldScene).SetSceneRunningState(false);
 
-            sceneRecordStack.Push(new SceneRecord(oldScene, doorDetails.returnPosition));
+            StartFadeOut();
 
-            //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
-            int newSceneIndex = SceneManager.sceneCount;
-
-            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(doorDetails.sceneName, LoadSceneMode.Additive);
-
-            loadSceneOperation.completed += (ao) =>
+            FadeComplete += () =>
             {
 
-                Scene newScene = SceneManager.GetSceneAt(newSceneIndex);
+                GetFreeRoamSceneController(oldScene).SetSceneRunningState(true);
+                GetFreeRoamSceneController(oldScene).SetEnabledState(false);
 
-                sceneRecordStack.Push(new SceneRecord(newScene));
+                playerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
 
-                MovePlayerToNewScene(playerGameObject, newScene, doorDetails.newSceneTargetPosition);
-                SceneManager.SetActiveScene(newScene);
+                sceneRecordStack.Push(new SceneRecord(oldScene, doorDetails.returnPosition));
+
+                //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
+                int newSceneIndex = SceneManager.sceneCount;
+
+                AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(doorDetails.sceneName, LoadSceneMode.Additive);
+
+                loadSceneOperation.completed += (ao) =>
+                {
+
+                    Scene newScene = SceneManager.GetSceneAt(newSceneIndex);
+
+                    sceneRecordStack.Push(new SceneRecord(newScene));
+
+                    MovePlayerToNewScene(playerGameObject, newScene, doorDetails.newSceneTargetPosition);
+                    SceneManager.SetActiveScene(newScene);
+
+                    StartFadeIn();
+                    GetFreeRoamSceneController(newScene).SetDoorsEnabledState(true);
+
+                };
 
             };
 
@@ -236,16 +288,28 @@ namespace FreeRoaming
 
             playerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
 
-            GetFreeRoamSceneController(oldSceneRecord.scene).SetEnabledState(false);
+            GetFreeRoamSceneController(oldSceneRecord.scene).SetDoorsEnabledState(false);
+            GetFreeRoamSceneController(oldSceneRecord.scene).SetSceneRunningState(false);
 
-            MovePlayerToNewScene(playerGameObject, newSceneRecord.scene, newSceneRecord.gridPosition);
+            StartFadeOut();
 
-            SceneManager.SetActiveScene(newSceneRecord.scene);
+            FadeComplete += () => {
 
-            //Wait until old scene unloaded before starting next scene
-            SceneManager.UnloadSceneAsync(oldSceneRecord.scene).completed += (ao) =>
-            {
-                GetFreeRoamSceneController(newSceneRecord.scene).SetEnabledState(true);
+                GetFreeRoamSceneController(oldSceneRecord.scene).SetSceneRunningState(true);
+                GetFreeRoamSceneController(oldSceneRecord.scene).SetEnabledState(false);
+
+                MovePlayerToNewScene(playerGameObject, newSceneRecord.scene, newSceneRecord.gridPosition);
+
+                SceneManager.SetActiveScene(newSceneRecord.scene);
+
+                //Wait until old scene unloaded before starting next scene
+                SceneManager.UnloadSceneAsync(oldSceneRecord.scene).completed += (ao) =>
+                {
+                    GetFreeRoamSceneController(newSceneRecord.scene).SetDoorsEnabledState(true);
+                    GetFreeRoamSceneController(newSceneRecord.scene).SetEnabledState(true);
+                    StartFadeIn();
+                };
+
             };
 
         }
