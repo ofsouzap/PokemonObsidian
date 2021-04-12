@@ -8,10 +8,8 @@ using UnityEngine.SceneManagement;
 namespace FreeRoaming
 {
     [RequireComponent(typeof(GridManager))]
-    public class FreeRoamSceneController : MonoBehaviour
+    public class FreeRoamSceneController : GeneralSceneManager
     {
-
-        public Scene Scene => gameObject.scene;
 
         public static FreeRoamSceneController GetFreeRoamSceneController(Scene scene)
         {
@@ -51,103 +49,23 @@ namespace FreeRoaming
 
         #region Enabling
 
-        protected bool sceneEnabled = true;
-        public bool SceneIsEnabled => sceneEnabled;
-
-        private List<Camera> camerasToReEnableOnSceneEnable = new List<Camera>();
-        private List<AudioListener> audioListenersToReEnableOnSceneEnable = new List<AudioListener>();
-        private List<Renderer> renderersToReEnableOnSceneEnable = new List<Renderer>();
-        private EventSystem eventSystemToReEnableOnSceneEnable = null;
-        private bool sceneShouldBeRunningOnSceneEnable = true;
-
-        private void EnableScene()
+        protected override void EnableScene()
         {
 
-            foreach (Camera c in camerasToReEnableOnSceneEnable)
-                c.enabled = true;
-
-            camerasToReEnableOnSceneEnable.Clear();
-
-            foreach (AudioListener al in audioListenersToReEnableOnSceneEnable)
-                al.enabled = true;
-
-            audioListenersToReEnableOnSceneEnable.Clear();
-
-            foreach (Renderer r in renderersToReEnableOnSceneEnable)
-                r.enabled = true;
-
-            renderersToReEnableOnSceneEnable.Clear();
-
-            if (eventSystemToReEnableOnSceneEnable != null)
-            {
-                eventSystemToReEnableOnSceneEnable.enabled = true;
-                eventSystemToReEnableOnSceneEnable = null;
-            }
+            base.EnableScene();
 
             SetSceneRunningState(sceneShouldBeRunningOnSceneEnable);
 
         }
 
-        private void DisableScene()
+        protected override void DisableScene()
         {
 
-            EnableScene();
-
-            foreach (Camera camera in FindObjectsOfType<Camera>().Where(x => x.gameObject.scene == Scene))
-            {
-                if (camera.enabled)
-                {
-                    camerasToReEnableOnSceneEnable.Add(camera);
-                    camera.enabled = false;
-                }
-            }
-
-            foreach (AudioListener al in FindObjectsOfType<AudioListener>().Where(x => x.gameObject.scene == Scene))
-            {
-                if (al.enabled)
-                {
-                    audioListenersToReEnableOnSceneEnable.Add(al);
-                    al.enabled = false;
-                }
-            }
-
-            foreach (Renderer renderer in FindObjectsOfType<Renderer>().Where(x => x.gameObject.scene == Scene))
-            {
-                if (renderer.enabled)
-                {
-                    renderersToReEnableOnSceneEnable.Add(renderer);
-                    renderer.enabled = false;
-                }
-            }
-
-            EventSystem eventSystem = FindObjectOfType<EventSystem>();
-            if (eventSystem != null && eventSystem.enabled)
-            {
-                eventSystemToReEnableOnSceneEnable = eventSystem;
-                eventSystem.enabled = false;
-            }
+            base.DisableScene();
 
             sceneShouldBeRunningOnSceneEnable = sceneRunning;
             SetSceneRunningState(false);
 
-            //Just in case this object or component was disabled
-            enabled = true;
-            gameObject.SetActive(true);
-
-        }
-
-        protected void RefreshEnabledState()
-        {
-            if (sceneEnabled)
-                EnableScene();
-            else
-                DisableScene();
-        }
-
-        public void SetEnabledState(bool state)
-        {
-            sceneEnabled = state;
-            RefreshEnabledState();
         }
 
         #endregion

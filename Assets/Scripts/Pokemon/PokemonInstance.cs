@@ -405,6 +405,36 @@ namespace Pokemon
 
         #endregion
 
+        #region Evolution
+
+        /// <summary>
+        /// Tries to find an evolution that this PokemonInstance can perform
+        /// </summary>
+        /// <returns>An applicable evolution if one is found, otherwise null</returns>
+        public PokemonSpecies.Evolution TryFindEvolution(bool trading = false)
+        {
+
+            foreach (PokemonSpecies.Evolution evolution in species.evolutions)
+                if (evolution.PokemonCanUseEvolution(this, trading))
+                    return evolution;
+
+            return null;
+
+        }
+
+        /// <summary>
+        /// Change this pokemon's data to reflect an evolution including refreshing its stats
+        /// </summary>
+        public void Evolve(int newSpeciesId)
+        {
+
+            speciesId = newSpeciesId;
+            RefreshStats();
+
+        }
+
+        #endregion
+
         #region NonVolatileStatusConditions
 
         public enum NonVolatileStatusCondition

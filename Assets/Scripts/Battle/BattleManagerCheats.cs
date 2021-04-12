@@ -11,7 +11,7 @@ using Items.PokeBalls;
 
 namespace Battle
 {
-    public partial class BattleManager : MonoBehaviour
+    public partial class BattleManager : GeneralSceneManager
     {
 
         private void FullUpdatePlayerOverviewPane() => battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(battleData.participantPlayer.ActivePokemon);

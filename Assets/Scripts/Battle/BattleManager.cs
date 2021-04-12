@@ -13,7 +13,7 @@ using Items.PokeBalls;
 namespace Battle
 {
 
-    public partial class BattleManager : MonoBehaviour
+    public partial class BattleManager : GeneralSceneManager
     {
 
         public static BattleManager GetBattleSceneBattleManager(Scene scene)
@@ -1157,6 +1157,18 @@ namespace Battle
                         if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
                             battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateLevel(playerPokemonInstance.GetLevel());
 
+                        #region Evolution
+
+                        PokemonSpecies.Evolution evolution = playerPokemonInstance.TryFindEvolution();
+
+                        if (evolution != null)
+                        {
+                            yield return StartCoroutine(EvolvePokemon(playerPokemonInstance,
+                                evolution.targetId,
+                                playerPokemonIndex == battleData.participantPlayer.activePokemonIndex));
+                        }
+
+                        #endregion
 
                         yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted_LevelUpMoveLearning(playerPokemonInstance, previousPlayerPokemonLevel));
 
@@ -1176,6 +1188,42 @@ namespace Battle
 
             }
 
+        }
+
+        private bool readyToCarryOnAfterEvolution;
+
+        private IEnumerator EvolvePokemon(PokemonInstance pokemon,
+            int newSpeciesId,
+            bool isActivePokemon)
+        {
+
+            EvolutionScene.EvolutionSceneController.entranceArguments = new EvolutionScene.EvolutionSceneController.EntranceArguments()
+            {
+                displayName = pokemon.GetDisplayName(),
+                startSpeciesId = pokemon.speciesId,
+                endSpeciesId = newSpeciesId,
+                useFemaleSprite = pokemon.gender == false
+            };
+
+            pokemon.Evolve(newSpeciesId);
+
+            if (isActivePokemon)
+                battleLayoutController.UpdatePlayerPokemon(pokemon);
+
+            DisableScene();
+
+            FreeRoaming.GameSceneManager.LaunchEvolutionScene();
+
+            readyToCarryOnAfterEvolution = false;
+            FreeRoaming.GameSceneManager.EvolutionSceneClosed += () =>
+            {
+                readyToCarryOnAfterEvolution = true;
+            };
+
+            yield return new WaitUntil(() => readyToCarryOnAfterEvolution);
+
+            EnableScene();
+            
         }
 
         /// <summary>

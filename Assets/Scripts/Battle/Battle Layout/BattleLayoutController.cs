@@ -188,6 +188,15 @@ namespace Battle.BattleLayout
             overviewPaneManager.HidePanes();
         }
 
+        public void UpdatePlayerPokemon(PokemonInstance pokemon)
+        {
+
+            playerPokemonSprite.GetComponent<SpriteRenderer>().sprite = pokemon.LoadSprite(PokemonSpecies.SpriteType.Back);
+
+            overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(pokemon);
+
+        }
+
         private IEnumerator GradualEffect(Action<float> effect,
             float timeToTake,
             float refreshTime = 0)

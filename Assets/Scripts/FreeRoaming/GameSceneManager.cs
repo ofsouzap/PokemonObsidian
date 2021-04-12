@@ -15,6 +15,11 @@ namespace FreeRoaming
         /// </summary>
         public const string battleSceneIdentifier = "Battle";
 
+        /// <summary>
+        /// The identifier for the evolution scene. This can be in any format that the Unity SceneManager can use
+        /// </summary>
+        public const string evolutionSceneIdentifier = "Evolution Scene";
+
         public const float sceneChangePlayerMoveDelay = 0.5F;
 
         #region Scene Records
@@ -66,6 +71,9 @@ namespace FreeRoaming
         /// </summary>
         private static Scene battleScene;
 
+        private static bool evolutionSceneInUse;
+        private static Scene evolutionScene;
+
         #endregion
 
         public static void Initialise()
@@ -104,11 +112,12 @@ namespace FreeRoaming
 
         }
 
+        public delegate void OnComplete();
+
         #region Scene Changing
 
         #region Scene Fading
 
-        private delegate void OnComplete();
         private static event OnComplete FadeOutComplete;
         private static event OnComplete FadeInComplete;
 
@@ -403,6 +412,103 @@ namespace FreeRoaming
                     freeRoamSceneController.SetDoorsEnabledState(true);
                     freeRoamSceneController.SetEnabledState(true);
                     StartFadeIn();
+
+                };
+
+            };
+
+        }
+
+        #endregion
+
+        #region Evolution Scene Opening/Closing
+
+        public static void LaunchEvolutionScene()
+        {
+
+            //Evolution scene controller entrance arguments should have already been set before launching scene
+            //Previous scene should have paused itself before launching the evolution scene
+
+            RefreshCurrentSceneStack();
+
+            if (evolutionSceneInUse)
+            {
+                Debug.LogError("Evolution scene trying to be launched while evolution scene already active");
+                return;
+            }
+
+            EvolutionSceneClosed = null;
+
+            StartFadeOut();
+
+            FadeOutComplete += () =>
+            {
+
+                //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
+                int newSceneIndex = SceneManager.sceneCount;
+
+                AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(evolutionSceneIdentifier, LoadSceneMode.Additive);
+
+                loadSceneOperation.completed += (ao) =>
+                {
+
+                    evolutionScene = SceneManager.GetSceneAt(newSceneIndex);
+                    evolutionSceneInUse = true;
+
+                    EvolutionScene.EvolutionSceneController evolutionSceneController = EvolutionScene.EvolutionSceneController.GetEvolutionSceneController(evolutionScene);
+
+                    SceneManager.SetActiveScene(evolutionScene);
+
+                    StartFadeIn();
+
+                    FadeInComplete += () =>
+                    {
+
+                        evolutionSceneController.StartAnimation();
+
+                        evolutionSceneController.EvolutionAnimationComplete += () =>
+                        {
+                            CloseEvolutionScene();
+                        };
+
+                    };
+
+                };
+
+            };
+
+        }
+
+        public static event OnComplete EvolutionSceneClosed;
+
+        public static void CloseEvolutionScene()
+        {
+
+            //Instead of having the GameSceneManager re-enable a scene once evolution scene closed, the scene being returned to should add a handler to EvolutionSceneClosed and resume once this is invoked
+
+            if (!evolutionSceneInUse)
+            {
+                Debug.LogError("Evolution scene trying to be closed while evolution scene not already active");
+                return;
+            }
+
+            StartFadeOut();
+
+            FadeOutComplete += () =>
+            {
+
+                evolutionSceneInUse = false;
+
+                //Wait until old scene unloaded before starting next scene
+                SceneManager.UnloadSceneAsync(evolutionScene).completed += (ao) =>
+                {
+
+                    StartFadeIn();
+
+                    FadeInComplete += () =>
+                    {
+                        EvolutionSceneClosed?.Invoke();
+                    };
 
                 };
 

@@ -636,8 +636,9 @@ GameObject:
   - component: {fileID: 1055619515}
   - component: {fileID: 1055619514}
   - component: {fileID: 1055619513}
+  - component: {fileID: 1055619519}
   m_Layer: 0
-  m_Name: Loading Stuff
+  m_Name: tmp - Loading Stuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -730,6 +731,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loaded: 0
+--- !u!114 &1055619519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055619511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70292a76c39dd9a4eab2e385c8fdf968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokemon:
+  - speciesId: 5
+    level: 35
+    levelExperience: 0.95
+    initialNVSC: 0
+  - speciesId: 9
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 1
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 3
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 11
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 1
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
 --- !u!1 &1129083071
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.battleSpriteResourceName
@@ -901,7 +939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].level
-      value: 40
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].level
@@ -913,11 +951,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].nickname
-      value: My Squirtle
+      value: My Turtle
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.speed
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].speciesId
@@ -929,11 +967,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.attack
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.health
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].pokeBallId
@@ -941,7 +979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.defense
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].useRandomIVs
@@ -949,7 +987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.specialAttack
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].useAutomaticMoves
@@ -961,7 +999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.specialDefense
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].moveIds.Array.size
@@ -1516,6 +1554,183 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931889998}
   m_Enabled: 1
+--- !u!1001 &2022653324
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4370848549643996096, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848549643996096, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848549643996096, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8805319408209182944, guid: 3e28bddeb2b52194b96f90616c8f235d, type: 3}
+    - target: {fileID: 4370848549643996096, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051002, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051003, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_Name
+      value: Battle-Challenging NPC (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370848550552051003, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: _runSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: spriteGroupName
+      value: blackbelt
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.fullName
+      value: Blackbelt John
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: initialDirectionFacing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: initialisationDirectionFacing
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.battleSpriteResourceName
+      value: blackbelt
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].level
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[1].level
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[1].gender
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].nickname
+      value: My Turtle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].IVs.speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].speciesId
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[1].speciesId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].IVs.attack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].IVs.health
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].pokeBallId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].IVs.defense
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[1].useRandomIVs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].IVs.specialAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].useAutomaticMoves
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[1].useAutomaticMoves
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[0].IVs.specialDefense
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[1].moveIds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.pokemon.Array.data[1].moveIds.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
 --- !u!1 &2027730392
 GameObject:
   m_ObjectHideFlags: 0

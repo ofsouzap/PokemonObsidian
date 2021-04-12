@@ -114,7 +114,7 @@ namespace Pokemon
             /// <summary>
             /// Id of item that needs to be used to evolve if applicable else null
             /// </summary>
-            public int? itemId;
+            public int? itemId; //TODO - change this so that doesn't use general item id
 
             /// <summary>
             /// Whether the pokemon must be traded to evolve
@@ -125,6 +125,19 @@ namespace Pokemon
             /// A condition that must be met by a pokemon to evolve if applicable else null
             /// </summary>
             public Predicate<PokemonInstance> condition;
+
+            public bool PokemonCanUseEvolution(PokemonInstance pokemon,
+                bool trading = false)
+            {
+
+                bool tradeCondition = trading == requireTrade;
+                bool levelCondition = level == null ? true : pokemon.GetLevel() >= level;
+                bool itemCondition = true; //TODO
+                bool specialCondition = condition == null ? true : condition(pokemon);
+
+                return tradeCondition && levelCondition && itemCondition && specialCondition;
+
+            }
 
         }
 
