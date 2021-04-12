@@ -305,7 +305,8 @@ MonoBehaviour:
       m_Calls: []
   spriteRenderer: {fileID: 2027730394}
   initialDirectionFacing: 0
-  moveSpeed: 4
+  _walkSpeed: 4
+  _runSpeed: 8
   spriteGroupName: worker
 --- !u!1 &329077971
 GameObject:
@@ -342,7 +343,8 @@ MonoBehaviour:
       m_Calls: []
   spriteRenderer: {fileID: 928470568}
   initialDirectionFacing: 0
-  moveSpeed: 4
+  _walkSpeed: 4
+  _runSpeed: 8
   spriteGroupName: worker
   walkLength: 4
 --- !u!61 &329077973
@@ -868,6 +870,10 @@ PrefabInstance:
     - target: {fileID: 4370848550552051003, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: _runSpeed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: spriteGroupName
@@ -1457,7 +1463,8 @@ MonoBehaviour:
       m_Calls: []
   spriteRenderer: {fileID: 1184518250}
   initialDirectionFacing: 0
-  moveSpeed: 4
+  _walkSpeed: 4
+  _runSpeed: 8
   spriteGroupName: player_male
   rotateToMoveDelay: 0.1
 --- !u!61 &1931890000

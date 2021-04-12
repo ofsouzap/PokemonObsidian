@@ -66,7 +66,7 @@ namespace FreeRoaming
                     {
 
                         if (Time.time - lastRotate >= rotateToMoveDelay)
-                            TryMoveForward();
+                            TryMoveForward(Input.GetButton("Run") ? MovementType.Run : MovementType.Walk);
 
                     }
                     else

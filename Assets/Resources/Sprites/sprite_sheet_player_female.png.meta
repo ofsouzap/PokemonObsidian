@@ -10,7 +10,7 @@ TextureImporter:
     second: player_female_walk_d_1
   - first:
       213: -8341160175528481169
-    second: player_female_walk_d_2
+    second: player_female_walk_d_3
   - first:
       213: 2117189785659116840
     second: player_female_run_d_2
@@ -28,7 +28,7 @@ TextureImporter:
     second: player_female_walk_u_1
   - first:
       213: 8774609607414000192
-    second: player_female_walk_u_2
+    second: player_female_walk_u_3
   - first:
       213: -8142258668951903783
     second: player_female_run_u_2
@@ -46,7 +46,7 @@ TextureImporter:
     second: player_female_walk_l_1
   - first:
       213: -692014170299164036
-    second: player_female_walk_l_2
+    second: player_female_walk_l_3
   - first:
       213: -1096653539542910514
     second: player_female_run_l_2
@@ -56,6 +56,15 @@ TextureImporter:
   - first:
       213: -4475654038412270786
     second: player_female_run_l_3
+  - first:
+      213: 5455092876534041475
+    second: player_female_walk_d_2
+  - first:
+      213: 3379134412398643522
+    second: player_female_walk_u_2
+  - first:
+      213: 134812676656401278
+    second: player_female_walk_l_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -211,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_female_walk_d_2
+      name: player_female_walk_d_3
       rect:
         serializedVersion: 2
         x: 104
@@ -337,7 +346,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_female_walk_u_2
+      name: player_female_walk_u_3
       rect:
         serializedVersion: 2
         x: 104
@@ -463,7 +472,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_female_walk_l_2
+      name: player_female_walk_l_3
       rect:
         serializedVersion: 2
         x: 104
@@ -542,6 +551,69 @@ TextureImporter:
       bones: []
       spriteID: e33e4e67d5843e1c0800000000000000
       internalID: -4475654038412270786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_female_walk_d_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 221
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38b4392a11264bb40800000000000000
+      internalID: 5455092876534041475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_female_walk_u_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 187
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 249c15b38d815ee20800000000000000
+      internalID: 3379134412398643522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_female_walk_l_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 153
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7b03574a63fed100800000000000000
+      internalID: 134812676656401278
       vertices: []
       indices: 
       edges: []

@@ -10,7 +10,7 @@ TextureImporter:
     second: player_male_walk_d_1
   - first:
       213: 7561345375036850128
-    second: player_male_walk_d_2
+    second: player_male_walk_d_3
   - first:
       213: -245136861905620164
     second: player_male_run_d_2
@@ -28,7 +28,7 @@ TextureImporter:
     second: player_male_walk_u_1
   - first:
       213: 3235360658546525715
-    second: player_male_walk_u_2
+    second: player_male_walk_u_3
   - first:
       213: -1268101824528679202
     second: player_male_run_u_2
@@ -46,7 +46,7 @@ TextureImporter:
     second: player_male_walk_l_1
   - first:
       213: 3533141535727497791
-    second: player_male_walk_l_2
+    second: player_male_walk_l_3
   - first:
       213: 1722324298800038409
     second: player_male_run_l_2
@@ -211,7 +211,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_male_walk_d_2
+      name: player_male_walk_d_3
       rect:
         serializedVersion: 2
         x: 104
@@ -337,7 +337,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_male_walk_u_2
+      name: player_male_walk_u_3
       rect:
         serializedVersion: 2
         x: 104
@@ -463,7 +463,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_male_walk_l_2
+      name: player_male_walk_l_3
       rect:
         serializedVersion: 2
         x: 104
@@ -542,6 +542,69 @@ TextureImporter:
       bones: []
       spriteID: dcd2abbb96d3396b0800000000000000
       internalID: -5290817612899799603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_male_walk_d_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 222
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ba0ea74a5765a860800000000000000
+      internalID: 7540546788549069488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_male_walk_u_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 188
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c9cdc16aa82d4ae0800000000000000
+      internalID: -1563548783377266237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_male_walk_l_2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 154
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90b16bb944a163950800000000000000
+      internalID: 6428354400090462985
       vertices: []
       indices: 
       edges: []

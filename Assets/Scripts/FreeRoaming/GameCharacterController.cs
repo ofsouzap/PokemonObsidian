@@ -32,14 +32,43 @@ namespace FreeRoaming
         [Tooltip("The direction the this should be facing to start with")]
         public FacingDirection initialDirectionFacing;
 
+        #region Movement
+
+        public enum MovementType
+        {
+            Walk,
+            Run
+        }
+
+        protected MovementType currentMovementType = MovementType.Walk;
+
+        [SerializeField]
         [Min(0)]
-        [Tooltip("The speed (in units per second) that this character moves at")]
-        public float moveSpeed = 4;
+        [Tooltip("The speed (in units per second) that this character walks at")]
+        private float _walkSpeed = 4;
+
+        [SerializeField]
+        [Min(0)]
+        [Tooltip("The speed (in units per second) that this character runs at")]
+        private float _runSpeed = 8;
+
+        protected Dictionary<MovementType, float> movementTypeSpeeds;
+
+        /// <summary>
+        /// The name of the movement sprites to use if another sprite can't be found (eg. if the character doesn't have running sprites but needs to run)
+        /// </summary>
+        protected const string defaultMovementTypeSprite = "walk";
+
+        protected static readonly Dictionary<MovementType, string> movementTypeSpriteNames = new Dictionary<MovementType, string>()
+        {
+            { MovementType.Walk, "walk" },
+            { MovementType.Run, "run" }
+        };
 
         public const float movementSpriteChangeDelay = 0.175F;
         protected Coroutine movementSpriteCoroutine;
 
-        protected const string walkingSpriteName = "walk";
+        #endregion
 
         /// <summary>
         /// The position the character is currently in
@@ -50,6 +79,7 @@ namespace FreeRoaming
         /// The position the character may be moving into which may also be reserved
         /// </summary>
         public Vector2Int movementTargettedGridPosition { get; protected set; }
+        public MovementType currentMovementMovementType { get; protected set; }
 
         protected bool ignoreScenePaused = false;
 
@@ -81,6 +111,10 @@ namespace FreeRoaming
 
             position = Vector2Int.RoundToInt(transform.position);
             directionFacing = initialDirectionFacing;
+
+            movementTypeSpeeds = new Dictionary<MovementType, float>();
+            movementTypeSpeeds.Add(MovementType.Walk, _walkSpeed);
+            movementTypeSpeeds.Add(MovementType.Run, _runSpeed);
 
             RefreshGridManager();
             SceneChanged.AddListener(RefreshGridManager);
@@ -156,7 +190,7 @@ namespace FreeRoaming
 
             }
 
-            float moveDistance = moveSpeed * Time.deltaTime;
+            float moveDistance = CurrentMovementSpeed * Time.deltaTime;
 
             if (moveDistance >= remainingDistance)
             {
@@ -198,6 +232,9 @@ namespace FreeRoaming
             transform.position += (Vector3)displacement;
 
         }
+
+        protected float CurrentMovementSpeed
+            => movementTypeSpeeds[currentMovementType];
 
         /// <summary>
         /// Stops the character moving by sending them to their destination immediately
@@ -270,16 +307,16 @@ namespace FreeRoaming
             }
         }
 
+        //How many stages of movement there are for any given movement state
+        const int movementSpriteIndexCount = 4; //Left, neutral, right, neutral
+
         /// <summary>
         /// Will change the character's sprite at an interval so show a movement animation
         /// </summary>
         /// <param name="spriteStateName">The sprite state name of the movement to be performed (eg. walking, running)</param>
-        protected IEnumerator MovementSpriteCoroutine(string spriteStateName)
+        protected IEnumerator MovementSpriteCoroutine()
         {
-
-            //How many stages of movement there are for any given movement state
-            const int movementSpriteIndexCount = 4; //Left, neutral, right, neutral
-
+            
             bool primedToQuit = false;
 
             float lastChange = 0;
@@ -315,20 +352,17 @@ namespace FreeRoaming
 
                         lastChange = Time.time;
 
-                        bool flipSprite = false;
-
                         //N.B. sprite names are NOT 0-indexed
-                        Sprite newSprite = currentSpriteIndex switch
+                        Sprite newSprite = GetMovementStageSprite(currentSpriteIndex, movementTypeSpriteNames[currentMovementType], out bool flipSprite);
+
+                        //If sprite can't be found, try use default movement sprite
+                        if (newSprite == null)
                         {
-                            0 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 1),
-                            1 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
-                            2 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 2),
-                            3 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
-                            _ => null
-                        };
+                            newSprite = GetMovementStageSprite(currentSpriteIndex, defaultMovementTypeSprite, out flipSprite);
+                        }
 
                         if (newSprite == null)
-                            Debug.LogWarning($"Sprite fetched for movement was null ({spriteStateName} {directionFacing} {currentSpriteIndex})");
+                            Debug.LogWarning($"Sprite fetched for movement was null ({movementTypeSpriteNames[currentMovementType]} {directionFacing} {currentSpriteIndex})");
                         else
                         {
                             spriteRenderer.sprite = newSprite;
@@ -351,18 +385,51 @@ namespace FreeRoaming
 
         }
 
+        protected Sprite GetMovementStageSprite(int movementStage, string spriteStateName, out bool flipSprite)
+        {
+
+            flipSprite = false;
+
+            if (this is PlayerController)
+            {
+
+                //Final is same as second
+                if (movementStage == 3)
+                    movementStage = 1;
+
+                //Players have sprites for each movement stage and don't hav eto use the idle sprites for middle movement stage sprites
+                return SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, movementStage + 1);
+
+            }
+            else
+            {
+
+                return movementStage switch
+                {
+                    0 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 1),
+                    1 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                    2 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, spriteStateName, directionFacing, 2),
+                    3 => SpriteStorage.GetCharacterSprite(out flipSprite, spriteGroupName, "idle", directionFacing),
+                    _ => null
+                };
+
+            }
+
+        }
+
         /// <summary>
         /// Starts the process of the character moving forward
         /// </summary>
-        public void MoveForward()
+        public void MoveForward(MovementType movementType = MovementType.Walk)
         {
             
             isMoving = true;
             movementTargettedGridPosition = GetPositionInFront();
+            currentMovementType = movementType;
 
             if (movementSpriteCoroutine == null)
             {
-                movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine(walkingSpriteName));
+                movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine());
             }
 
         }
@@ -371,13 +438,13 @@ namespace FreeRoaming
         /// If the character is allowed to move forward, moves them forward
         /// </summary>
         /// <returns></returns>
-        public bool TryMoveForward()
+        public bool TryMoveForward(MovementType movementType = MovementType.Walk)
         {
 
             if (CanMoveForward)
             {
 
-                MoveForward();
+                MoveForward(movementType);
                 return true;
 
             }
