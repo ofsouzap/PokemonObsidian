@@ -13,6 +13,9 @@ namespace FreeRoaming.NPCs
         [Tooltip("How far away this NPC can challenge a trainer from")]
         public ushort visibilityDistance;
 
+        [Tooltip("The message this NPC should say when it challenges the player")]
+        public string challengeMessage;
+
         #region Battle Details
 
         [Serializable]
@@ -69,6 +72,15 @@ namespace FreeRoaming.NPCs
 
             PlayerController.singleton.CancelMovement();
 
+            StartCoroutine(StartBattleCoroutine());
+
+        }
+
+        protected virtual IEnumerator StartBattleCoroutine()
+        {
+
+            yield return StartCoroutine(Exclaim());
+
             MoveForwardSteps((ushort)Mathf.FloorToInt((PlayerController.singleton.position - position).magnitude - 1));
             MoveForwardStepsComplete += (s) =>
             {
@@ -76,13 +88,19 @@ namespace FreeRoaming.NPCs
                 {
                     Debug.LogWarning("Failed to reach player but starting challenge anyway");
                 }
-                OnChallengeArriveAtPlayer();
+                StartCoroutine(OnChallengeArriveAtPlayer());
             };
 
         }
 
-        protected virtual void OnChallengeArriveAtPlayer()
+        protected virtual IEnumerator OnChallengeArriveAtPlayer()
         {
+
+            yield return StartCoroutine(Speak(challengeMessage));
+
+            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+            textBoxController.Hide();
 
             LaunchBattle();
 

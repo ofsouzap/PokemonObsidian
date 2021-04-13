@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Canvas))]
 public class TextBoxController : MonoBehaviour
 {
+
+    private Canvas mainCanvas;
 
     [SerializeField]
     private GameObject continuePromptObject;
@@ -17,11 +22,39 @@ public class TextBoxController : MonoBehaviour
 
     public bool textRevealComplete { get;  private set; }
 
-    public void Show() => gameObject.SetActive(true);
-    public void Hide() => gameObject.SetActive(false);
+    [SerializeField]
+    [Tooltip("Whether the text box should be shown by default")]
+    private bool startShown = true;
+
+    public void Show() => mainCanvas.enabled = true;
+    public void Hide() => mainCanvas.enabled = false;
+
+    public static TextBoxController GetTextBoxController(Scene scene)
+    {
+
+        TextBoxController[] textBoxControllerCandidates = FindObjectsOfType<TextBoxController>()
+            .Where(x => x.gameObject.scene == scene)
+            .ToArray();
+
+        if (textBoxControllerCandidates.Length == 0)
+        {
+            Debug.LogError("No valid TextBoxController found");
+            return null;
+        }
+        else
+            return textBoxControllerCandidates[0];
+
+    }
 
     private void Start()
     {
+
+        mainCanvas = GetComponent<Canvas>();
+
+        if (startShown)
+            Show();
+        else
+            Hide();
 
         continuePromptObject.SetActive(false);
         StartCoroutine(ContinuePromptBobbingCoroutine());
@@ -114,6 +147,25 @@ public class TextBoxController : MonoBehaviour
 
     public void ShowContinuePrompt() => continuePromptObject.SetActive(true);
     public void HideContinuePrompt() => continuePromptObject.SetActive(false);
+
+    /// <summary>
+    /// Checks if the user has used the control to continue
+    /// </summary>
+    public bool GetContinueDown()
+    {
+        return Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(0);
+    }
+
+    public IEnumerator PromptAndWaitUntilUserContinue()
+    {
+
+        ShowContinuePrompt();
+
+        yield return new WaitUntil(() => GetContinueDown());
+
+        HideContinuePrompt();
+
+    }
 
     #endregion
 

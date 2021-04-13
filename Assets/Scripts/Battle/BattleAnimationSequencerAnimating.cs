@@ -152,20 +152,7 @@ namespace Battle
                 if (animation.requireUserContinue)
                 {
 
-                    textBoxController.ShowContinuePrompt();
-
-                    while (true)
-                    {
-
-                        if (Input.GetButtonDown("Submit")
-                            || Input.GetMouseButtonDown(0))
-                            break;
-
-                        yield return new WaitForFixedUpdate();
-
-                    }
-
-                    textBoxController.HideContinuePrompt();
+                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
                 }
                 else

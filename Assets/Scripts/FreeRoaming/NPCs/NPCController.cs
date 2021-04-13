@@ -58,5 +58,36 @@ namespace FreeRoaming.NPCs
 
         #endregion
 
+        #region Talking
+
+        protected IEnumerator Speak(string[] messages)
+        {
+            foreach (string message in messages)
+                yield return StartCoroutine(Speak(message));
+        }
+
+        protected virtual IEnumerator Speak(string message)
+        {
+
+            textBoxController.Show();
+            
+            bool thisPausedScene = sceneController.SceneIsRunning;
+
+            if (thisPausedScene)
+                sceneController.SetSceneRunningState(false);
+
+            textBoxController.RevealText(message);
+
+            yield return new WaitUntil(() => textBoxController.textRevealComplete);
+
+            if (thisPausedScene)
+                sceneController.SetSceneRunningState(true);
+
+            //Can't hide the text box instantly because it wouldn't give the user time to read the message
+
+        }
+
+        #endregion
+
     }
 }

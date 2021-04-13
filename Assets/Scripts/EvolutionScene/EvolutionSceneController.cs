@@ -74,19 +74,8 @@ namespace EvolutionScene
 
             SetUp();
 
-            #region Finding Text Box Controller
+            textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
-            TextBoxController[] textBoxControllerCandidates = FindObjectsOfType<TextBoxController>()
-                .Where(x => x.gameObject.scene == gameObject.scene)
-                .ToArray();
-
-            if (textBoxControllerCandidates.Length == 0)
-                Debug.LogError("No valid TextBoxController found");
-            else
-                textBoxController = textBoxControllerCandidates[0];
-
-            #endregion
-            
         }
 
         private void SetUp()
@@ -151,11 +140,7 @@ namespace EvolutionScene
                 + endSpecies.name
                 + '!');
 
-            textBoxController.ShowContinuePrompt();
-
-            yield return new WaitUntil(() => Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(0));
-
-            textBoxController.HideContinuePrompt();
+            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             yield return new WaitForSeconds(endDelayTime);
 

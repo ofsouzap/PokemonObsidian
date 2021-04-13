@@ -16,6 +16,13 @@ namespace FreeRoaming
     public abstract class GameCharacterController : FreeRoamSprite, IOccupyPositions
     {
 
+        public const string exclaimPrefabResourcesPath = "Prefabs/Free Roaming/Exclaim";
+
+        [Tooltip("How long the character's exclaiming should last")]
+        public float exclaimDuration = 0.5F;
+
+        #region Direction
+
         public enum FacingDirection
         {
             Down,
@@ -31,6 +38,8 @@ namespace FreeRoaming
 
         [Tooltip("The direction the this should be facing to start with")]
         public FacingDirection initialDirectionFacing;
+
+        #endregion
 
         #region Movement
 
@@ -104,10 +113,14 @@ namespace FreeRoaming
                 //Below line allows character to move if the scene is just paused and they have let themselves ignore the scene pausing
                 || (!sceneController.SceneIsActive && !sceneController.SceneIsRunning && sceneController.SceneIsEnabled && ignoreScenePaused);
 
+        protected TextBoxController textBoxController;
+
         protected override void Start()
         {
 
             base.Start();
+
+            textBoxController = TextBoxController.GetTextBoxController(Scene);
 
             position = Vector2Int.RoundToInt(transform.position);
             directionFacing = initialDirectionFacing;
@@ -518,6 +531,17 @@ namespace FreeRoaming
             }
             else
                 return false;
+
+        }
+
+        public IEnumerator Exclaim()
+        {
+
+            GameObject exclaimGameObject = Instantiate(Resources.Load<GameObject>(exclaimPrefabResourcesPath), spriteRenderer.transform);
+
+            yield return new WaitForSeconds(exclaimDuration);
+
+            Destroy(exclaimGameObject);
 
         }
 

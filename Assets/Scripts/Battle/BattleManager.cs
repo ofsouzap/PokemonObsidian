@@ -66,18 +66,7 @@ namespace Battle
         private void Start()
         {
 
-            #region Finding Text Box Controller
-
-            TextBoxController[] textBoxControllerCandidates = FindObjectsOfType<TextBoxController>()
-                .Where(x => x.gameObject.scene == gameObject.scene)
-                .ToArray();
-
-            if (textBoxControllerCandidates.Length == 0)
-                Debug.LogError("No valid TextBoxController found");
-            else
-                textBoxController = textBoxControllerCandidates[0];
-
-            #endregion
+            textBoxController = TextBoxController.GetTextBoxController(Scene);
 
             SetUpScene();
 
