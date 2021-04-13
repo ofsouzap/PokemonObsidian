@@ -28,10 +28,9 @@ namespace FreeRoaming
 
             SceneChanged.AddListener(RefreshSceneController);
 
-            sceneCamera = FindObjectsOfType<Camera>()
-                .Where(x => x.gameObject.scene == Scene)
-                .ToArray()[0];
-            RefreshSpriteAngling();
+            RefreshSceneCamera();
+
+            SceneChanged.AddListener(RefreshSceneCamera);
 
         }
 
@@ -52,6 +51,14 @@ namespace FreeRoaming
         protected virtual void RefreshSceneController()
         {
             sceneController = FreeRoamSceneController.GetFreeRoamSceneController(Scene);
+        }
+
+        protected void RefreshSceneCamera()
+        {
+            sceneCamera = FindObjectsOfType<Camera>()
+                .Where(x => x.gameObject.scene == Scene)
+                .ToArray()[0];
+            RefreshSpriteAngling();
         }
 
         /// <summary>

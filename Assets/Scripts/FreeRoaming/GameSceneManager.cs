@@ -174,17 +174,22 @@ namespace FreeRoaming
             bool autoEnablePlayerRenderers = true)
         {
 
-            PlayerGameObject.GetComponent<PlayerController>().CompleteMovement();
-            PlayerGameObject.GetComponent<PlayerController>().SetPosition(newPosition);
-
-            if (playerObject != null)
-                SceneManager.MoveGameObjectToScene(playerObject, newScene);
-            else
+            if (playerObject == null)
+            {
                 Debug.LogWarning("No player object set. Couldn't move player to new scene");
+                return;
+            }
+
+            playerObject.GetComponent<PlayerController>().CompleteMovement();
+            playerObject.GetComponent<PlayerController>().SetPosition(newPosition);
+
+            SceneManager.MoveGameObjectToScene(playerObject, newScene);
 
             if (autoEnablePlayerRenderers)
-                foreach (Renderer r in PlayerGameObject.GetComponentsInChildren<Renderer>())
+                foreach (Renderer r in playerObject.GetComponentsInChildren<Renderer>())
                     r.enabled = true;
+
+            playerObject.SetActive(true);
 
         }
 
@@ -517,6 +522,43 @@ namespace FreeRoaming
         }
 
         #endregion
+
+        public static void OpenStartingScene(Scene startUpScene,
+            string sceneName,
+            GameObject playerGameObject,
+            Vector2Int playerSceneStartPosition)
+        {
+
+            //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
+            int newSceneIndex = SceneManager.sceneCount;
+
+            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+            loadSceneOperation.completed += (ao) =>
+            {
+                
+                Scene newScene = SceneManager.GetSceneAt(newSceneIndex);
+
+                sceneRecordStack.Push(new SceneRecord(newScene));
+
+                MovePlayerToNewScene(playerGameObject, newScene, playerSceneStartPosition);
+
+                SceneManager.SetActiveScene(newScene);
+
+                GetFreeRoamSceneController(newScene).SetSceneRunningState(false);
+
+                SceneManager.UnloadSceneAsync(startUpScene).completed += (ao) =>
+                {
+
+                    GetFreeRoamSceneController(newScene).SetSceneRunningState(true);
+                    GetFreeRoamSceneController(newScene).SetDoorsEnabledState(true);
+                    StartFadeIn();
+
+                };
+
+            };
+
+        }
 
         #endregion
 

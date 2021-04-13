@@ -25,8 +25,10 @@ namespace FreeRoaming
 
         protected override bool AllowedToMove => base.AllowedToMove && AllowedToMove_delay && AllowedToMove_locked;
 
-        protected virtual void Awake()
+        protected override void Start()
         {
+
+            base.Start();
 
             if (singleton != null)
             {

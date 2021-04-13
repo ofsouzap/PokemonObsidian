@@ -1,0 +1,39 @@
+﻿using System.Collections;
+using UnityEngine;
+using FreeRoaming;
+
+namespace StartUp
+{
+    public class StartUpSceneController : MonoBehaviour
+    {
+
+        [Tooltip("The scene to load once the data has been loaded")]
+        public string sceneToLoad;
+
+        public GameObject playerGameObject;
+
+        [Tooltip("The position to start the player in in the new scene")]
+        public Vector2Int playerSceneStartingPosition;
+
+        private void Awake()
+        {
+            playerGameObject.SetActive(false);
+        }
+
+        private void Start()
+        {
+
+            LoadAllData.Load();
+
+            //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
+            //TODO - also, use loaded player data to choose player sprite (male or female)
+            //TODO - also, use loaded player data to choose player starting position
+
+            GameSceneManager.Initialise();
+
+            GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerGameObject, playerSceneStartingPosition);
+
+        }
+
+    }
+}
