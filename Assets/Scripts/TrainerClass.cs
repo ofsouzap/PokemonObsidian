@@ -45,7 +45,8 @@ public static class TrainerClass
         Oli,
         Roxi,
         Idol,
-        Maid
+        Maid,
+        DragonTamer
     }
 
     /// <summary>
@@ -91,7 +92,8 @@ public static class TrainerClass
         { Class.Oli, 32 }, //Made this values up
         { Class.Roxi, 32 }, //Made this values up
         { Class.Idol, 72 },
-        { Class.Maid, 40 }
+        { Class.Maid, 40 },
+        { Class.DragonTamer, 32 }
     };
 
     /// <summary>
@@ -137,7 +139,8 @@ public static class TrainerClass
         { Class.Oli, "oli" },
         { Class.Roxi, "roxi" },
         { Class.Idol, "idol" },
-        { Class.Maid, "maid" }
+        { Class.Maid, "maid" },
+        { Class.DragonTamer, "dragontamer" }
     };
 
     /// <summary>
@@ -184,8 +187,8 @@ public static class TrainerClass
         { Class.Oli, "" },
         { Class.Roxi, "" },
         { Class.Idol, "Idol" },
-        { Class.Maid, "Maid" }
-
+        { Class.Maid, "Maid" },
+        { Class.DragonTamer, "Dragon Tamer" }
     };
 
 }

@@ -78,8 +78,7 @@ namespace Battle
             battleLayoutController.HidePokemonAndPanes();
             learnMoveUIController.menuConfirmLearnMoveSelectionController.Hide();
             learnMoveUIController.menuLearnMoveController.Hide();
-
-            //TODO - set battle background
+            battleLayoutController.SetUpBackground(BattleEntranceArguments.battleBackgroundResourceName);
 
         }
 

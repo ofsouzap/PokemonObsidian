@@ -65,6 +65,8 @@ namespace Battle
         /// </summary>
         public static int initialWeatherId;
 
+        public static string battleBackgroundResourceName;
+
     }
 
 }

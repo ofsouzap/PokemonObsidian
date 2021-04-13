@@ -258,6 +258,7 @@ namespace FreeRoaming
             isMoving = false;
 
             SetPosition(movementTargettedGridPosition);
+            RefreshNeutralSprite();
 
         }
 

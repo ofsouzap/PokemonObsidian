@@ -32,6 +32,8 @@ namespace FreeRoaming.NPCs
 
             public BattleParticipantNPC.Mode mode;
 
+            public string battleBackgroundResourceName;
+
         }
 
         #endregion
@@ -124,6 +126,8 @@ namespace FreeRoaming.NPCs
                 opponentBasePayout = basePayout,
                 mode = battleDetails.mode
             };
+
+            BattleEntranceArguments.battleBackgroundResourceName = battleDetails.battleBackgroundResourceName;
 
         }
 

@@ -20,7 +20,8 @@ public static class SpriteStorage
         TypeParticle,
         BattleSprite,
         Pokemon,
-        PokeBall
+        PokeBall,
+        BattleBackgroundAndCircle
     }
 
     private static Dictionary<SpriteType, Dictionary<string, Sprite>> sprites = new Dictionary<SpriteType, Dictionary<string, Sprite>>();
@@ -93,6 +94,7 @@ public static class SpriteStorage
         SetSpriteTypeSprites(SpriteType.BattleSprite, LoadBattleSprites());
         SetSpriteTypeSpritesWithCustomNames(SpriteType.Pokemon, LoadPokemonSprites());
         SetSpriteTypeSprites(SpriteType.PokeBall, LoadPokeBallSprites());
+        SetSpriteTypeSprites(SpriteType.BattleBackgroundAndCircle, LoadBattleBackgroundAndCircleSprites());
 
         allSpritesLoaded = true;
 
@@ -593,6 +595,33 @@ public static class SpriteStorage
 
         return GetSprite(SpriteType.PokeBall, resourceName);
 
+    }
+
+    #endregion
+
+    #region Battle Backgrounds and Circles
+
+    private const string battleBackgroundSpriteSheetName = "sprite_sheet_battle_backgrounds";
+    private const string battleCirclesSpriteSheetName = "sprite_sheet_battle_circles";
+
+    private static Sprite[] LoadBattleBackgroundAndCircleSprites()
+    {
+        List<Sprite> sprites = new List<Sprite>();
+        sprites.AddRange(LoadSpriteSheet(battleBackgroundSpriteSheetName));
+        sprites.AddRange(LoadSpriteSheet(battleCirclesSpriteSheetName));
+        return sprites.ToArray();
+    }
+
+    public static Sprite GetBattleBackgroundSprite(string name)
+    {
+        string resourceName = "battle_background_" + name;
+        return GetSprite(SpriteType.BattleBackgroundAndCircle, resourceName);
+    }
+
+    public static Sprite GetBattleCircleSprite(string name)
+    {
+        string resourceName = "battle_circle_" + name;
+        return GetSprite(SpriteType.BattleBackgroundAndCircle, resourceName);
     }
 
     #endregion

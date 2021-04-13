@@ -218,6 +218,9 @@ TextureImporter:
   - first:
       213: -5575668503227849509
     second: maid_battlesprite
+  - first:
+      213: 5353636018849250917
+    second: dragontamer_battlesprite
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1187,6 +1190,27 @@ TextureImporter:
       bones: []
       spriteID: bd425c7990f3f92b0800000000000000
       internalID: -5575668503227849509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragontamer_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 781
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56efe38289feb4a40800000000000000
+      internalID: 5353636018849250917
       vertices: []
       indices: 
       edges: []
