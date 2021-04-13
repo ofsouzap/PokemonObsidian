@@ -22,11 +22,11 @@ namespace Battle
             //TODO - add more
         }
 
-        public static readonly Dictionary<Mode, Func<string, PokemonInstance[], BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], BattleParticipantNPC>>()
+        public static readonly Dictionary<Mode, Func<string, PokemonInstance[], byte, BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], byte, BattleParticipantNPC>>()
         {
-            { Mode.RandomAttack, (n, pmon) => new RandomAttack(n, pmon) },
-            { Mode.Debug_UseRandomMedicineItem, (n, pmon) => new RandomMedicineItem(n, pmon) },
-            { Mode.Debug_UseRandomBattleItem, (n, pmon) => new RandomBattleItem(n, pmon) }
+            { Mode.RandomAttack, (n, pmon, bp) => new RandomAttack(n, pmon, bp) },
+            { Mode.Debug_UseRandomMedicineItem, (n, pmon, bp) => new RandomMedicineItem(n, pmon, bp) },
+            { Mode.Debug_UseRandomBattleItem, (n, pmon, bp) => new RandomBattleItem(n, pmon, bp) }
         };
 
         #endregion
@@ -36,6 +36,8 @@ namespace Battle
 
         protected PokemonInstance[] pokemon;
         public override PokemonInstance[] GetPokemon() => pokemon;
+
+        public byte basePayout { get; protected set; }
 
         public override bool CheckIfDefeated()
         {

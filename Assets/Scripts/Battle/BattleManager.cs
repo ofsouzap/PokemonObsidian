@@ -125,7 +125,8 @@ namespace Battle
                         null,
                         new PokemonInstance[] {
                             BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance
-                        }
+                        },
+                        0
                     );
 
                     break;
@@ -134,7 +135,8 @@ namespace Battle
 
                     participantOpponent = BattleParticipantNPC.modeInitialisers[BattleEntranceArguments.npcTrainerBattleArguments.mode](
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName,
-                        BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon
+                        BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon,
+                        BattleEntranceArguments.npcTrainerBattleArguments.opponentBasePayout
                     );
 
                     break;
@@ -153,7 +155,8 @@ namespace Battle
                                 1,
                                 1
                             )
-                        }
+                        },
+                        0
                     );
 
                     break;
@@ -530,6 +533,29 @@ namespace Battle
             else
             {
 
+                if (battleData.participantOpponent is BattleParticipantNPC opponentNPCParticipant)
+                {
+                    if (opponentNPCParticipant.basePayout > 0)
+                    {
+
+                        int playerPrizeMoney = CalculateTrainerOpponentPrizeMoney(opponentNPCParticipant);
+
+                        PlayerData.singleton.AddMoney(playerPrizeMoney);
+
+                        battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                            + " defeated "
+                            + opponentNPCParticipant.GetName());
+
+                        battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                            + " was given ₽"
+                            + playerPrizeMoney.ToString()
+                            + " for winning");
+
+                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                    }
+                }
+
                 FreeRoaming.GameSceneManager.CloseBattleScene();
 
             }
@@ -672,6 +698,12 @@ namespace Battle
 
             #endregion
 
+        }
+
+        public static int CalculateTrainerOpponentPrizeMoney(BattleParticipantNPC opponent)
+        {
+            PokemonInstance[] opponentPokemon = opponent.GetPokemon();
+            return opponent.basePayout * (opponentPokemon[opponentPokemon.Length - 1].GetLevel());
         }
 
         private IEnumerator MainBattleCoroutine_CheckPokemonFainted_LevelUpMoveLearning(PokemonInstance pokemon,

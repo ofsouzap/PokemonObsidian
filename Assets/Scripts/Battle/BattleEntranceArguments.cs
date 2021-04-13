@@ -39,6 +39,11 @@ namespace Battle
             public string opponentSpriteResourceName;
 
             /// <summary>
+            /// The opponent's base payout
+            /// </summary>
+            public byte opponentBasePayout;
+
+            /// <summary>
             /// The "full" name of the opponent. This is used for announcing the battle opponent and their defeat. This could be a title with a name (eg. "Gym Leader Brock") or just a name (eg. "Ash")
             /// </summary>
             public string opponentFullName;

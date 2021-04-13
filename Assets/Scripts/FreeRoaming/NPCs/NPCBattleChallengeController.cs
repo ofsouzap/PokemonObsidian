@@ -10,7 +10,7 @@ namespace FreeRoaming.NPCs
     public class NPCBattleChallengeController : NPCController
     {
 
-        [Tooltip("ow far away this NPC can challenge a trainer from")]
+        [Tooltip("How far away this NPC can challenge a trainer from")]
         public ushort visibilityDistance;
 
         #region Battle Details
@@ -21,20 +21,15 @@ namespace FreeRoaming.NPCs
 
             public PokemonInstance.BasicSpecification[] pokemon;
 
-            public string battleSpriteResourceName;
+            [Tooltip("The trainer's class. Used for base payout, battle sprite, trainer class name etc.")]
+            public TrainerClass.Class trainerClass;
 
-            public string fullName;
+            [Tooltip("The basic name of this opponent excluding any trainer class name")]
+            public string baseName;
 
             public BattleParticipantNPC.Mode mode;
 
         }
-
-        protected PokemonInstance[] customPokemonList;
-
-        /// <summary>
-        /// Whether the NPC should use specified battle details pokemon instead of a custom list of pokemon. If a custom pokemon array is used, it should be set in Start or Awake
-        /// </summary>
-        protected bool useBattleDetailsPokemon = true;
 
         #endregion
 
@@ -93,21 +88,34 @@ namespace FreeRoaming.NPCs
 
         }
 
+        protected virtual void SetBattleEntranceArguments()
+        {
+
+            string fullName = TrainerClass.classNamesPrefixes.ContainsKey(battleDetails.trainerClass) && TrainerClass.classNamesPrefixes[battleDetails.trainerClass] != ""
+                ? TrainerClass.classNamesPrefixes[battleDetails.trainerClass] + ' ' + battleDetails.baseName
+                : battleDetails.baseName;
+            byte basePayout = TrainerClass.classBasePayouts.ContainsKey(battleDetails.trainerClass)
+                ? TrainerClass.classBasePayouts[battleDetails.trainerClass]
+                : (byte)0;
+
+            BattleEntranceArguments.npcTrainerBattleArguments = new BattleEntranceArguments.NPCTrainerBattleArguments()
+            {
+                opponentPokemon = battleDetails.pokemon.Select(x => x.Generate()).ToArray(),
+                opponentSpriteResourceName = TrainerClass.classBattleSpriteNames[battleDetails.trainerClass],
+                opponentFullName = fullName,
+                opponentBasePayout = basePayout,
+                mode = battleDetails.mode
+            };
+
+        }
+
         protected virtual void LaunchBattle()
         {
 
             BattleEntranceArguments.argumentsSet = true;
             BattleEntranceArguments.battleType = BattleType.NPCTrainer;
 
-            BattleEntranceArguments.npcTrainerBattleArguments = new BattleEntranceArguments.NPCTrainerBattleArguments()
-            {
-                opponentPokemon = useBattleDetailsPokemon
-                ? battleDetails.pokemon.Select(x => x.Generate()).ToArray()
-                : customPokemonList,
-                opponentSpriteResourceName = battleDetails.battleSpriteResourceName,
-                opponentFullName = battleDetails.fullName,
-                mode = battleDetails.mode
-            };
+            SetBattleEntranceArguments();
 
             BattleEntranceArguments.initialWeatherId = 0; //TODO - set weather as current scene weather once free-roaming scene weathers made
 

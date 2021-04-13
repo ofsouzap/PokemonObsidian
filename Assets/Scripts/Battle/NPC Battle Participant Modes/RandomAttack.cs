@@ -9,10 +9,12 @@ namespace Battle.NPCBattleParticipantModes
     {
 
         public RandomAttack(string name,
-            PokemonInstance[] pokemon)
+            PokemonInstance[] pokemon,
+            byte basePayout)
         {
             npcName = name;
             this.pokemon = pokemon;
+            this.basePayout = basePayout;
         }
 
         public override void StartChoosingAction(BattleData battleData)
