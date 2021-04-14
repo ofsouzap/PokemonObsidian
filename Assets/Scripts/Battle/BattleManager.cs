@@ -2018,9 +2018,11 @@ namespace Battle
 
                 #endregion
 
-                #region Target Pokemon Poke Ball Setting
+                #region Target Pokemon Catch Details Setting
 
                 targetPokemon.pokeBallId = pokeBall.id;
+                targetPokemon.originalTrainerName = PlayerData.singleton.profile.name;
+                targetPokemon.catchTime = PokemonInstance.GetCurrentEpochTime();
 
                 #endregion
 

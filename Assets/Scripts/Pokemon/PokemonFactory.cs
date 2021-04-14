@@ -29,7 +29,9 @@ namespace Pokemon
             int _health = -1,
             bool? gender = true,
             Stats<int> currentStats = new Stats<int>(), //If all of these values are 0, they won't be used
-            int pokeBallId = 0
+            int pokeBallId = 0,
+            string originalTrainerName = "",
+            long catchTime = 0
             )
         {
 
@@ -61,7 +63,9 @@ namespace Pokemon
                 heldItem = heldItem,
                 health = _health > 0 ? _health : 1,
                 gender = gender,
-                pokeBallId = pokeBallId
+                pokeBallId = pokeBallId,
+                originalTrainerName = originalTrainerName,
+                catchTime = catchTime
             };
 
             #region Setting Current Stats

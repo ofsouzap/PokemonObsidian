@@ -134,6 +134,19 @@ namespace Pokemon
         /// </summary>
         public int pokeBallId;
 
+        /// <summary>
+        /// The time that the pokemon was caught as a time after the epoch (1 January 1970)
+        /// </summary>
+        public long catchTime;
+
+        public static long GetCurrentEpochTime()
+        {
+            DateTimeOffset now = DateTime.UtcNow;
+            return now.ToUnixTimeSeconds();
+        }
+
+        public string originalTrainerName;
+
         #region Stats
 
         public const ushort maximumEffortValue = 252;
