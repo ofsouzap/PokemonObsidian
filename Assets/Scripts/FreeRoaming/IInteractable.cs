@@ -10,7 +10,7 @@ namespace FreeRoaming
     {
 
         //Allows the object to be interacted with knowing which game character interacted with it
-        public void Interact(GameCharacterController interactee);
+        public void Interact(GameCharacterController interacter);
 
     }
 }

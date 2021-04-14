@@ -10,9 +10,9 @@ namespace Testing
     public class TurningInteractionNPC : GameCharacterController, IInteractable
     {
 
-        public void Interact(GameCharacterController interactee)
+        public void Interact(GameCharacterController interacter)
         {
-            TryTurn(interactee.directionFacing);
+            TryTurn(interacter.directionFacing);
         }
 
     }

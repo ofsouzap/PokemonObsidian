@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FreeRoaming.NPCs
 {
-    public abstract class NPCController : GameCharacterController
+    public abstract class NPCController : GameCharacterController, IInteractable
     {
 
         protected override void Update()
@@ -33,6 +33,8 @@ namespace FreeRoaming.NPCs
             }
 
         }
+
+        public abstract void Interact(GameCharacterController interacter);
 
         #region Move Forward Steps
 
