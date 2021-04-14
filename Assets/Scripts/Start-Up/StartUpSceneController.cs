@@ -11,6 +11,7 @@ namespace StartUp
         public string sceneToLoad;
 
         public GameObject playerGameObject;
+        public GameObject freeRoamMenuGameObject;
 
         [Tooltip("The position to start the player in in the new scene")]
         public Vector2Int playerSceneStartingPosition;
@@ -40,7 +41,7 @@ namespace StartUp
 
             GameSceneManager.Initialise();
 
-            GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerGameObject, playerSceneStartingPosition);
+            GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerGameObject, freeRoamMenuGameObject, playerSceneStartingPosition);
 
         }
 

@@ -544,7 +544,7 @@ namespace Battle
                     }
                 }
 
-                FreeRoaming.GameSceneManager.CloseBattleScene();
+                GameSceneManager.CloseBattleScene();
 
             }
 
@@ -1232,10 +1232,10 @@ namespace Battle
 
             DisableScene();
 
-            FreeRoaming.GameSceneManager.LaunchEvolutionScene();
+            GameSceneManager.LaunchEvolutionScene();
 
             readyToCarryOnAfterEvolution = false;
-            FreeRoaming.GameSceneManager.EvolutionSceneClosed += () =>
+            GameSceneManager.EvolutionSceneClosed += () =>
             {
                 readyToCarryOnAfterEvolution = true;
             };
