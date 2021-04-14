@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using FreeRoaming;
 
 namespace StartUp
@@ -12,6 +13,11 @@ namespace StartUp
 
         public GameObject playerGameObject;
         public GameObject freeRoamMenuGameObject;
+
+        /// <summary>
+        /// Game objects to put in DontDestroyOnLoad
+        /// </summary>
+        public GameObject[] dontDestroyOnLoadGameObjects;
 
         [Tooltip("The position to start the player in in the new scene")]
         public Vector2Int playerSceneStartingPosition;
@@ -28,6 +34,9 @@ namespace StartUp
         private void Start()
         {
 
+            foreach (GameObject go in dontDestroyOnLoadGameObjects)
+                DontDestroyOnLoad(go);
+
             LoadAllData.Load();
 
             //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
@@ -40,6 +49,8 @@ namespace StartUp
 #endif
 
             GameSceneManager.Initialise();
+
+            FindObjectOfType<EventSystem>().enabled = false; //This should be disabled for when the next scene is loaded
 
             GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerGameObject, freeRoamMenuGameObject, playerSceneStartingPosition);
 

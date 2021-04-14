@@ -6,7 +6,7 @@ namespace Menus
     public abstract class MenuController : MonoBehaviour
     {
 
-        public void Show()
+        public virtual void Show()
         {
 
             gameObject.SetActive(true);
@@ -16,7 +16,7 @@ namespace Menus
 
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
 
             gameObject.SetActive(false);

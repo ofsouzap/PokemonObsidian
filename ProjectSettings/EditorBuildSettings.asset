@@ -12,6 +12,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Evolution Scene.unity
     guid: 82287d1d3bc17a748af18148253f8e38
   - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Menus/Menu_Bag.unity
+    guid: 6bcf294819b238946974151c6e5722a6
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Menus/Menu_Pokedex.unity
+    guid: e76edefb94468aa42a695881351cd6d7
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Menus/Menu_Pokemon.unity
+    guid: 5204bee844adda0418b9e2524eb0c72a
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Menus/Menu_Profile.unity
+    guid: 8e3321ed7d7314f44a47132015b3d95f
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Menus/Menu_Settings.unity
+    guid: 9291f2ad0eaed2743af722295b283256
+  - enabled: 1
     path: Assets/Scenes/Testing/Basic Testing.unity
     guid: 705c0a6cd5d11594ea9223b7e3513bf5
   - enabled: 1

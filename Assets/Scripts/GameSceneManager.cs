@@ -202,6 +202,9 @@ public static class GameSceneManager
 
         playerObject.SetActive(true);
 
+        freeRoamMenuObject.SetActive(true);
+        freeRoamMenuObject.GetComponent<FreeRoamMenuController>().Hide();
+
     }
 
     private static void LoadParallelLevelScene(SceneDoorDetails doorDetails)
