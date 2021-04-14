@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Menus;
 
 namespace FreeRoaming.Menu
@@ -11,8 +12,11 @@ namespace FreeRoaming.Menu
 
         public static FreeRoamMenuController singleton;
 
+        public GameObject selectableSelectionPrefab;
+
         public FreeRoamMenuButtonController[] mainButtons;
 
+        public MenuSelectableController buttonSave;
         public MenuSelectableController buttonBack;
 
         protected override MenuSelectableController[] GetSelectables()
@@ -46,6 +50,7 @@ namespace FreeRoaming.Menu
                     Debug.LogError("No Button component found in a main button");
 
             if (buttonBack.GetComponent<Button>() == null) Debug.LogError("No Button component in buttonBack");
+            if (buttonSave.GetComponent<Button>() == null) Debug.LogError("No Button component in buttonSave");
 
             SetUp();
 
@@ -57,12 +62,31 @@ namespace FreeRoaming.Menu
             foreach (FreeRoamMenuButtonController mainButtonController in mainButtons)
                 mainButtonController.SetUpListener(this);
 
+            buttonBack.GetComponent<Button>().onClick.AddListener(() => Hide());
+
+            //TODO - save button listener
+
         }
+
+        #region Visibility
+
+        public bool IsShown => isShown;
+
+        public override void Show()
+        {
+
+            base.Show();
+
+            EventSystem.current.SetSelectedGameObject(buttonBack.gameObject);
+
+        }
+
+        #endregion
 
         public void LaunchMenuScene(string sceneIdentifier)
         {
 
-            //TODO
+            GameSceneManager.LaunchPlayerMenuScene(sceneIdentifier);
 
         }
 

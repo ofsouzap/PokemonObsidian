@@ -123,7 +123,7 @@ namespace FreeRoaming
         
         public string spriteGroupName;
 
-        protected virtual bool AllowedToMove => sceneController.SceneIsActive
+        protected virtual bool AllowedToAct => sceneController.SceneIsActive
                 //Below line allows character to move if the scene is just paused and they have let themselves ignore the scene pausing
                 || (!sceneController.SceneIsActive && !sceneController.SceneIsRunning && sceneController.SceneIsEnabled && ignoreScenePaused);
 
@@ -157,7 +157,7 @@ namespace FreeRoaming
 
             base.Update();
 
-            if (AllowedToMove)
+            if (AllowedToAct)
             {
                 if (isMoving)
                 {
@@ -354,7 +354,7 @@ namespace FreeRoaming
             while (true)
             {
 
-                if (AllowedToMove)
+                if (AllowedToAct)
                 {
 
                     if (primedToQuit && isMoving)

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Battle.PlayerUI;
+using FreeRoaming.Menu;
 
 namespace Menus
 {
@@ -29,7 +29,7 @@ namespace Menus
         private void ShowSelectedImage()
         {
             HideSelectedImage();
-            selectedImageGameObject = Instantiate(PlayerBattleUIController.singleton.selectableSelectionPrefab,
+            selectedImageGameObject = Instantiate(FreeRoamMenuController.singleton.selectableSelectionPrefab,
                     transform);
         }
 

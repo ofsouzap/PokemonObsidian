@@ -805,7 +805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].level
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].level
@@ -1369,7 +1369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].level
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].level

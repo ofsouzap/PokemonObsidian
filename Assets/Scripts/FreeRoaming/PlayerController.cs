@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using FreeRoaming;
+using FreeRoaming.Menu;
 
 namespace FreeRoaming
 {
@@ -23,7 +23,7 @@ namespace FreeRoaming
         protected bool movementLocked = false;
         private bool AllowedToMove_locked => !movementLocked;
 
-        protected override bool AllowedToMove => base.AllowedToMove && AllowedToMove_delay && AllowedToMove_locked;
+        protected bool AllowedToMove => AllowedToAct && AllowedToMove_delay && AllowedToMove_locked;
 
         protected override void Start()
         {
@@ -37,7 +37,7 @@ namespace FreeRoaming
             }
             else
                 singleton = this;
-
+            
         }
 
         protected override void Update()
@@ -87,7 +87,7 @@ namespace FreeRoaming
 
             #region Interaction
 
-            if (AllowedToMove)
+            if (AllowedToAct)
             {
 
                 if (Input.GetButtonDown("Interact"))
@@ -97,6 +97,29 @@ namespace FreeRoaming
 
                 }
 
+            }
+
+            #endregion
+
+            #region Menu
+
+            if (!FreeRoamMenuController.singleton.IsShown)
+            {
+                if (Input.GetButtonDown("Menu") && AllowedToAct)
+                {
+                    print("showing");
+                    FreeRoamMenuController.singleton.Show();
+                    sceneController.SetSceneRunningState(false);
+                }
+            }
+            else
+            {
+                if (Input.GetButtonDown("Menu") || Input.GetButtonDown("Cancel"))
+                {
+                    print("hiding");
+                    FreeRoamMenuController.singleton.Hide();
+                    sceneController.SetSceneRunningState(true);
+                }
             }
 
             #endregion

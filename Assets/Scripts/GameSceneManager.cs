@@ -74,6 +74,9 @@ public static class GameSceneManager
     private static bool evolutionSceneInUse;
     private static Scene evolutionScene;
 
+    private static bool playerMenuSceneInUse;
+    private static Scene playerMenuScene;
+
     #endregion
 
     public static void Initialise()
@@ -458,6 +461,12 @@ public static class GameSceneManager
 
         EvolutionSceneClosed = null;
 
+        Scene oldActiveScene = SceneManager.GetActiveScene();
+        EvolutionSceneClosed += () =>
+        {
+            SceneManager.SetActiveScene(oldActiveScene);
+        };
+
         StartFadeOut();
 
         FadeOutComplete += () =>
@@ -527,6 +536,94 @@ public static class GameSceneManager
                 FadeInComplete += () =>
                 {
                     EvolutionSceneClosed?.Invoke();
+                };
+
+            };
+
+        };
+
+    }
+
+    #endregion
+
+    #region Player Menu Scenes Opening/Closing
+
+    public static void LaunchPlayerMenuScene(string sceneIdentifier)
+    {
+
+        RefreshCurrentSceneStack();
+
+        if (playerMenuSceneInUse)
+        {
+            Debug.LogError("Player menu scene trying to be launched while player menu scene already active");
+            return;
+        }
+
+        if (evolutionSceneInUse || battleSceneInUse)
+            Debug.LogWarning("Trying to launch player menu scene whlst battle or evolution scene in use");
+
+        Scene freeRoamScene = sceneRecordStack.Peek().scene;
+        FreeRoamSceneController freeRoamSceneController = GetFreeRoamSceneController(freeRoamScene);
+
+        StartFadeOut();
+
+        FadeOutComplete += () =>
+        {
+
+            freeRoamSceneController.SetEnabledState(false);
+
+            //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
+            int newSceneIndex = SceneManager.sceneCount;
+
+            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneIdentifier, LoadSceneMode.Additive);
+
+            loadSceneOperation.completed += (ao) =>
+            {
+
+                playerMenuScene = SceneManager.GetSceneAt(newSceneIndex);
+                playerMenuSceneInUse = true;
+
+                SceneManager.SetActiveScene(playerMenuScene);
+
+                StartFadeIn();
+
+            };
+
+        };
+
+    }
+
+    public static void ClosePlayerMenuScene()
+    {
+
+        if (!playerMenuSceneInUse)
+        {
+            Debug.LogError("Player menu scene trying to be closed while player menu scene not already active");
+            return;
+        }
+
+        Scene freeRoamScene = sceneRecordStack.Peek().scene;
+        FreeRoamSceneController freeRoamSceneController = GetFreeRoamSceneController(freeRoamScene);
+
+        StartFadeOut();
+
+        FadeOutComplete += () =>
+        {
+
+            playerMenuSceneInUse = false;
+
+            SceneManager.UnloadSceneAsync(playerMenuScene).completed += (ao) =>
+            {
+
+                SceneManager.SetActiveScene(freeRoamScene);
+
+                StartFadeIn();
+
+                FadeInComplete += () =>
+                {
+
+                    freeRoamSceneController.SetEnabledState(true);
+
                 };
 
             };

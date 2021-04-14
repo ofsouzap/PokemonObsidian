@@ -195,13 +195,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb71fb33acf7c748bfad35974529fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectableSelectionPrefab: {fileID: 7702000378717836179, guid: f4e3eabc64dcf084c839082c5def0adc, type: 3}
   mainButtons:
   - {fileID: 6058730058217166084}
   - {fileID: 7168013779486748930}
   - {fileID: 6156152150698213879}
   - {fileID: 1275371314362447283}
-  - {fileID: 7858796964144864621}
   - {fileID: 6644941313444437310}
+  buttonSave: {fileID: 7858796964144864621}
   buttonBack: {fileID: 4373810827212422891}
 --- !u!114 &4373810827212422891
 MonoBehaviour:
@@ -234,6 +235,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4995204836678749615, guid: 9de920192b33ff44cb6c9205523e86a0, type: 3}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 1877317909325778229}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 6307580647857726904}
     - target: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: menuSceneIdentifier
       value: Scenes/FreeRoaming/Menus/Menu_Save
@@ -329,6 +342,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_PrefabInstance: {fileID: 1723941051713605039}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7399022721622451691 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 1723941051713605039}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7858796964144864621 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
@@ -359,6 +383,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1622869426694234327, guid: 9de920192b33ff44cb6c9205523e86a0, type: 3}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 6893457582792928642}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 6832415860502804849}
     - target: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: menuSceneIdentifier
       value: Scenes/FreeRoaming/Menus/Menu_Pokedex
@@ -454,6 +490,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_PrefabInstance: {fileID: 1838950784536289728}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7550130056907311492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 1838950784536289728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7168013779486748930 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
@@ -484,6 +531,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -8419029267884164103, guid: 9de920192b33ff44cb6c9205523e86a0, type: 3}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 7399022721622451691}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1890145644979473814}
     - target: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: menuSceneIdentifier
       value: Scenes/FreeRoaming/Menus/Menu_Settings
@@ -579,6 +638,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_PrefabInstance: {fileID: 2795389120727469564}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6307580647857726904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 2795389120727469564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6644941313444437310 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
@@ -609,6 +679,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -8804084941816410337, guid: 9de920192b33ff44cb6c9205523e86a0, type: 3}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 1890145644979473814}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 7550130056907311492}
     - target: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: menuSceneIdentifier
       value: Scenes/FreeRoaming/Menus/Menu_Pokemon
@@ -704,6 +786,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_PrefabInstance: {fileID: 3380034602706634182}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6893457582792928642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 3380034602706634182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6058730058217166084 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
@@ -734,6 +827,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1058238409544652544, guid: 9de920192b33ff44cb6c9205523e86a0, type: 3}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 7550130056907311492}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1877317909325778229}
     - target: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: menuSceneIdentifier
       value: Scenes/FreeRoaming/Menus/Menu_Bag
@@ -829,6 +934,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_PrefabInstance: {fileID: 3428275814934794549}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6832415860502804849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 3428275814934794549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6156152150698213879 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
@@ -859,6 +975,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2253155864604101502, guid: 9de920192b33ff44cb6c9205523e86a0, type: 3}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 6832415860502804849}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 7399022721622451691}
     - target: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: menuSceneIdentifier
       value: Scenes/FreeRoaming/Menus/Menu_Profile
@@ -949,11 +1077,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
---- !u!224 &1694007030377246355 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+--- !u!114 &1877317909325778229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_PrefabInstance: {fileID: 7732577237065819505}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1275371314362447283 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
@@ -965,6 +1099,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3398ceca822eea743ab3f190962dd813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1694007030377246355 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 7732577237065819505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7744244970101614034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -984,6 +1123,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1267945833989430562, guid: 9de920192b33ff44cb6c9205523e86a0, type: 3}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 6307580647857726904}
+    - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 6893457582792928642}
     - target: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1071,13 +1222,24 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8862140080918073538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
---- !u!1 &8345385240218956320 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1777187287412168690, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
-  m_PrefabInstance: {fileID: 7744244970101614034}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1708242672855100976 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8993108377730157538, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 7744244970101614034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1890145644979473814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
+  m_PrefabInstance: {fileID: 7744244970101614034}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8345385240218956320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8345385240218956320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1777187287412168690, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
   m_PrefabInstance: {fileID: 7744244970101614034}
   m_PrefabAsset: {fileID: 0}
