@@ -98,6 +98,8 @@ namespace FreeRoaming.NPCs
         protected virtual IEnumerator OnChallengeArriveAtPlayer()
         {
 
+            PlayerController.singleton.TryTurn(GetOppositeDirection(directionFacing));
+
             yield return StartCoroutine(Speak(challengeMessage));
 
             yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());

@@ -15,6 +15,10 @@ namespace StartUp
         [Tooltip("The position to start the player in in the new scene")]
         public Vector2Int playerSceneStartingPosition;
 
+#if UNITY_EDITOR
+        public GameObject[] extrasToActivate;
+#endif
+
         private void Awake()
         {
             playerGameObject.SetActive(false);
@@ -28,6 +32,11 @@ namespace StartUp
             //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
             //TODO - also, use loaded player data to choose player sprite (male or female)
             //TODO - also, use loaded player data to choose player starting position
+
+#if UNITY_EDITOR
+            foreach (GameObject go in extrasToActivate)
+                go.SetActive(true);
+#endif
 
             GameSceneManager.Initialise();
 

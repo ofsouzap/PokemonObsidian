@@ -31,6 +31,20 @@ namespace FreeRoaming
             Right
         }
 
+        #region Opposite Direction
+
+        public static FacingDirection GetOppositeDirection(FacingDirection direction)
+            => direction switch
+            {
+                FacingDirection.Up => FacingDirection.Down,
+                FacingDirection.Right => FacingDirection.Left,
+                FacingDirection.Down => FacingDirection.Up,
+                FacingDirection.Left => FacingDirection.Right,
+                _ => FacingDirection.Up
+            };
+
+        #endregion
+
         /// <summary>
         /// The dirction being faced
         /// </summary>

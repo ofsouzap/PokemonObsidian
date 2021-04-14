@@ -137,7 +137,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9122673223149152493, guid: fe911f2993b33e5459836d96da7815ec, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9122673223149152493, guid: fe911f2993b33e5459836d96da7815ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -189,6 +189,74 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe911f2993b33e5459836d96da7815ec, type: 3}
+--- !u!1 &1511881398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1511881399}
+  - component: {fileID: 1511881400}
+  m_Layer: 0
+  m_Name: tmp - development stuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1511881399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511881398}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1511881400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511881398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70292a76c39dd9a4eab2e385c8fdf968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokemon:
+  - speciesId: 5
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 9
+    level: 60
+    levelExperience: 0
+    initialNVSC: 4
+  - speciesId: 1
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 3
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 11
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 1
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
 --- !u!1 &1794106789
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +303,8 @@ MonoBehaviour:
   sceneToLoad: Basic Testing
   playerGameObject: {fileID: 416252835}
   playerSceneStartingPosition: {x: 0, y: 0}
+  extrasToActivate:
+  - {fileID: 1511881398}
 --- !u!1 &2142566618
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,5 +377,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
