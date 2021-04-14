@@ -180,7 +180,7 @@ namespace FreeRoaming
                 return;
             }
 
-            playerObject.GetComponent<PlayerController>().CompleteMovement();
+            playerObject.GetComponent<PlayerController>().CancelMovement();
             playerObject.GetComponent<PlayerController>().SetPosition(newPosition);
 
             SceneManager.MoveGameObjectToScene(playerObject, newScene);

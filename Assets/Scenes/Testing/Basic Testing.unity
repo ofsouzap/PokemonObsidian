@@ -621,7 +621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a681e11f1b2858a45bbf929ddb567154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: -10
   followingPlayer: 1
 --- !u!1 &1055619511
 GameObject:

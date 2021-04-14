@@ -10,8 +10,7 @@ namespace FreeRoaming
 
         public static PlayerController PlayerController => PlayerController.singleton;
 
-        [Tooltip("The angle the camera should be at in degrees")]
-        public float angle = -45;
+        public const float cameraAngle = -33;
 
         /// <summary>
         /// How offset the camera should be on the y-axis due to its angle
@@ -28,9 +27,9 @@ namespace FreeRoaming
         {
 
             followingPlayer = true;
-            yOffset = -1 * transform.position.z * Mathf.Tan(angle * (Mathf.PI / 180));
+            yOffset = -1 * transform.position.z * Mathf.Tan(cameraAngle * (Mathf.PI / 180));
 
-            transform.rotation = Quaternion.Euler(new Vector3(angle, 0, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(cameraAngle, 0, 0));
 
         }
 

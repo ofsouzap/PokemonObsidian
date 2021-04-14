@@ -258,7 +258,6 @@ namespace FreeRoaming
             isMoving = false;
 
             SetPosition(movementTargettedGridPosition);
-            RefreshNeutralSprite();
 
         }
 
@@ -271,6 +270,8 @@ namespace FreeRoaming
             isMoving = false;
 
             SetPosition(position);
+
+            RefreshNeutralSprite();
 
         }
 
@@ -374,7 +375,7 @@ namespace FreeRoaming
                         {
                             newSprite = GetMovementStageSprite(currentSpriteIndex, defaultMovementTypeSprite, out flipSprite);
                         }
-
+                        
                         if (newSprite == null)
                             Debug.LogWarning($"Sprite fetched for movement was null ({movementTypeSpriteNames[currentMovementType]} {directionFacing} {currentSpriteIndex})");
                         else
