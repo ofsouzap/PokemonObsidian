@@ -13,9 +13,13 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             SetUp();
 
+            EventSystem.current.SetSelectedGameObject(GetDefaultSelectedGameObject());
+
         }
 
         protected abstract void SetUp();
+
+        protected abstract GameObject GetDefaultSelectedGameObject();
 
         protected virtual void Update()
         {

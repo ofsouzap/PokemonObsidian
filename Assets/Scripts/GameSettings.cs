@@ -15,8 +15,8 @@ public static class GameSettings
     {
         new TextSpeed("Fast", 0.01F),
         new TextSpeed("Very Fast", 0),
-        new TextSpeed("Medium", 0.03F),
-        new TextSpeed("Slow", 0.6F)
+        new TextSpeed("Medium", 0.05F),
+        new TextSpeed("Slow", 0.1F)
     };
 
     public struct TextSpeed

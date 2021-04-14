@@ -64,7 +64,7 @@ namespace FreeRoaming.Menu
 
             buttonBack.GetComponent<Button>().onClick.AddListener(() => Hide());
 
-            //TODO - save button listener
+            //TODO - save button on-click listener
 
         }
 
@@ -85,6 +85,8 @@ namespace FreeRoaming.Menu
 
         public void LaunchMenuScene(string sceneIdentifier)
         {
+
+            Hide();
 
             GameSceneManager.LaunchPlayerMenuScene(sceneIdentifier);
 
