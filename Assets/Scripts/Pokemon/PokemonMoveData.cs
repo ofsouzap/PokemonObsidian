@@ -1037,7 +1037,11 @@ namespace Pokemon
 
             List<PokemonMove> moves = new List<PokemonMove>();
 
-            //TODO - for each special move, add instance to moves list
+            moves.Add(new Move_Blizzard());
+            moves.Add(new Move_SeismicToss());
+            moves.Add(new Move_Growth());
+            moves.Add(new Move_Thunder());
+            moves.Add(new Move_Toxic());
 
             return moves.ToArray();
 
