@@ -107,7 +107,6 @@ namespace FreeRoaming
             {
                 if (Input.GetButtonDown("Menu") && AllowedToAct)
                 {
-                    print("showing");
                     FreeRoamMenuController.singleton.Show();
                     sceneController.SetSceneRunningState(false);
                 }
@@ -116,7 +115,6 @@ namespace FreeRoaming
             {
                 if (Input.GetButtonDown("Menu") || Input.GetButtonDown("Cancel"))
                 {
-                    print("hiding");
                     FreeRoamMenuController.singleton.Hide();
                     sceneController.SetSceneRunningState(true);
                 }
