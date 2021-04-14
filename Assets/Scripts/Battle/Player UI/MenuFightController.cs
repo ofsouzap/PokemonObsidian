@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Pokemon.Moves;
-using Battle.PlayerUI;
+using Menus;
 
 namespace Battle.PlayerUI
 {

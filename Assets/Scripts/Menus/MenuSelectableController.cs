@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Battle.PlayerUI;
 
-namespace Battle.PlayerUI
+namespace Menus
 {
     [RequireComponent(typeof(Selectable))]
     public class MenuSelectableController : MonoBehaviour, ISelectHandler, IDeselectHandler

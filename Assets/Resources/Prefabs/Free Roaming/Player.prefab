@@ -172,4 +172,4 @@ MonoBehaviour:
   _walkSpeed: 4
   _runSpeed: 8
   spriteGroupName: player_male
-  rotateToMoveDelay: 0.1
+  rotateToMoveDelay: 0.05

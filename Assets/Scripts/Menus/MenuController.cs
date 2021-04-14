@@ -1,6 +1,7 @@
 using UnityEngine;
+using Battle.PlayerUI;
 
-namespace Battle.PlayerUI
+namespace Menus
 {
     public abstract class MenuController : MonoBehaviour
     {
