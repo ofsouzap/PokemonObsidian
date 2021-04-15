@@ -57,7 +57,23 @@ namespace Battle
                     else if (x.type == Type.Fight) //If both trying to fight
                     {
 
-                        return x.user.ActivePokemon.GetBattleStats().speed.CompareTo(y.user.ActivePokemon.GetBattleStats().speed);
+                        sbyte xMovePriority = Pokemon.Moves.PokemonMove.GetPokemonMoveById(x.user.ActivePokemon.moveIds[x.fightMoveIndex]).movePriority switch
+                        {
+                            true => 1,
+                            null => 0,
+                            false => -1
+                        };
+                        sbyte yMovePriority = Pokemon.Moves.PokemonMove.GetPokemonMoveById(y.user.ActivePokemon.moveIds[y.fightMoveIndex]).movePriority switch
+                        {
+                            true => 1,
+                            null => 0,
+                            false => -1
+                        };
+
+                        if (xMovePriority == yMovePriority)
+                            return x.user.ActivePokemon.GetBattleStats().speed.CompareTo(y.user.ActivePokemon.GetBattleStats().speed);
+                        else
+                            return xMovePriority.CompareTo(yMovePriority);
 
                     }
                     else if (x.type == Type.Flee)

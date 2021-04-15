@@ -59,6 +59,12 @@ namespace Pokemon
          * Chance of increasing each of target's stat by 2 stage (same order as previously (ie atk;def;spA;spD;spd;eva;acc) )
          * Target damage dealt-relative health to heal user by
          * User maximum health-relative health to heal user by
+         * Move priority
+         *     Default is normal priority
+         *     '1' means increased priority
+         *     '0' means normal priority
+         *     '-1' means decreased priority
+         *     No other values are accepted
          */
 
         public static void LoadData()
@@ -96,8 +102,9 @@ namespace Pokemon
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage, targetDamageDealtRelativeHealthHealed, userMaxHealthRelativeHealthHealed;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
+                bool? movePriority;
 
-                if (entry.Length < 28)
+                if (entry.Length < 29)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -993,6 +1000,35 @@ namespace Pokemon
 
                 #endregion
 
+                #region movePriority
+
+                string movePriorityEntry = entry[28];
+
+                switch (movePriorityEntry)
+                {
+
+                    case "":
+                    case "0":
+                        movePriority = null;
+                        break;
+
+                    case "1":
+                        movePriority = true;
+                        break;
+
+                    case "-1":
+                        movePriority = false;
+                        break;
+
+                    default:
+                        movePriority = null;
+                        Debug.LogError("Unknown move priority entry for id - " + id);
+                        break;
+
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1023,7 +1059,8 @@ namespace Pokemon
                     absoluteTargetDamage = absoluteTargetDamage,
                     targetStatChangeChances = targetStatChangeChances,
                     targetDamageDealtRelativeHealthHealed = targetDamageDealtRelativeHealthHealed,
-                    userMaxHealthRelativeHealthHealed = userMaxHealthRelativeHealthHealed
+                    userMaxHealthRelativeHealthHealed = userMaxHealthRelativeHealthHealed,
+                    movePriority = movePriority
                 });
 
             }

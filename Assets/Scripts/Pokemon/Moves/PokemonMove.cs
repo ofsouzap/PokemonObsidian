@@ -197,6 +197,11 @@ namespace Pokemon.Moves
         /// </summary>
         public float userMaxHealthRelativeHealthHealed;
 
+        /// <summary>
+        /// The move's priority. Null means it is normal priority, true means it has increased priority, false means it has decreased priority.
+        /// </summary>
+        public bool? movePriority;
+
         #endregion
 
         #region Move Using
