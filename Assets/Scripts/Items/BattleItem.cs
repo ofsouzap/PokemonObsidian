@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Pokemon;
 
@@ -9,32 +10,22 @@ namespace Items
 
         #region Registry
 
-        public static Registry<BattleItem> registry = new Registry<BattleItem>();
-
-        public static BattleItem GetBattleItemById(int id)
+        public static BattleItem GetBattleItemById(int id,
+            bool addTypeId = false)
         {
-            if (!registrySet)
-                CreateRegistry();
-            return registry.StartingIndexSearch(id, id - 1);
+            int queryId = addTypeId ? id + typeIdBattleItem : id;
+            return (BattleItem)registry.LinearSearch(queryId);
         }
 
-        private static bool registrySet = false;
-
-        public static void TrySetRegistry()
-        {
-            if (!registrySet)
-                CreateRegistry();
-        }
-
-        private static void CreateRegistry()
+        public static Item[] GetRegistryItems()
         {
 
-            registry.SetValues(new BattleItem[]
+            BattleItem[] items = new BattleItem[]
             {
 
                 new BattleItem
                 {
-                    id = 0,
+                    id = typeIdBattleItem + 0,
                     itemName = "X Attack",
                     resourceName = "x_attack",
                     statModifiers = new Stats<sbyte>() { attack = 2 }
@@ -42,7 +33,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = 1,
+                    id = typeIdBattleItem + 1,
                     itemName = "X Defense",
                     resourceName = "x_defense",
                     statModifiers = new Stats<sbyte>() { defense = 2 }
@@ -50,7 +41,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = 2,
+                    id = typeIdBattleItem + 2,
                     itemName = "X Sp. Attack",
                     resourceName = "x_special_attack",
                     statModifiers = new Stats<sbyte>() { specialAttack = 2 }
@@ -58,7 +49,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = 3,
+                    id = typeIdBattleItem + 3,
                     itemName = "X Sp. Defense",
                     resourceName = "x_special_defense",
                     statModifiers = new Stats<sbyte>() { specialDefense = 2 }
@@ -66,7 +57,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = 4,
+                    id = typeIdBattleItem + 4,
                     itemName = "X Speed",
                     resourceName = "x_speed",
                     statModifiers = new Stats<sbyte>() { speed = 2 }
@@ -74,7 +65,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = 4,
+                    id = typeIdBattleItem + 5,
                     itemName = "X Accuracy",
                     resourceName = "x_accuracy",
                     accuracyModifier = 2
@@ -82,13 +73,15 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = 5,
+                    id = typeIdBattleItem + 6,
                     itemName = "X Dire Hit",
                     resourceName = "x_dire_hit",
                     boostsCriticalHitRate = true
                 },
 
-            });
+            };
+
+            return items;
 
         }
 

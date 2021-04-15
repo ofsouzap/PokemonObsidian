@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pokemon;
+using Items;
 
 #if UNITY_EDITOR
 
@@ -68,34 +69,34 @@ namespace Testing
 
             PlayerData.singleton.inventory.battleItems.SetItems(new Dictionary<int, int>()
             {
-                { 0, 1 },
-                { 1, 1 },
-                { 2, 102 },
-                { 3, 10 },
-                { 4, 4 },
-                { 5, 1 }
+                { Item.typeIdBattleItem + 0, 1 },
+                { Item.typeIdBattleItem + 1, 1 },
+                { Item.typeIdBattleItem + 2, 102 },
+                { Item.typeIdBattleItem + 3, 10 },
+                { Item.typeIdBattleItem + 4, 4 },
+                { Item.typeIdBattleItem + 5, 1 }
             });
 
             PlayerData.singleton.inventory.medicineItems.SetItems(new Dictionary<int, int>()
             {
-                { 0, 1 },
-                { 2, 102 },
-                { 3, 10 },
-                { 4, 4 },
-                { 5, 3 },
-                { 6, 4 },
-                { 12, 1 },
-                { 13, 1 },
-                { 14, 2 },
-                { 15, 2 },
+                { Item.typeIdMedicine + 0, 1 },
+                { Item.typeIdMedicine + 2, 102 },
+                { Item.typeIdMedicine + 3, 10 },
+                { Item.typeIdMedicine + 4, 4 },
+                { Item.typeIdMedicine + 5, 3 },
+                { Item.typeIdMedicine + 6, 4 },
+                { Item.typeIdMedicine + 12, 1 },
+                { Item.typeIdMedicine + 13, 1 },
+                { Item.typeIdMedicine + 14, 2 },
+                { Item.typeIdMedicine + 15, 2 },
             });
 
             PlayerData.singleton.inventory.pokeBalls.SetItems(new Dictionary<int, int>()
             {
-                { 0, 8 },
-                { 2, 14 },
-                { 3, 3 },
-                { 4, 7 },
+                { Item.typeIdPokeBall + 0, 8 },
+                { Item.typeIdPokeBall + 2, 14 },
+                { Item.typeIdPokeBall + 3, 3 },
+                { Item.typeIdPokeBall + 4, 7 },
             });
 
             PlayerData.singleton.inventory.tmItems.SetItems(new Dictionary<int, int>()

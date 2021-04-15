@@ -10,24 +10,14 @@ namespace Items
 
         #region Registry
 
-        public static Registry<TMItem> registry = new Registry<TMItem>();
-
-        public static TMItem GetTMItemById(int id)
+        public static TMItem GetTMItemById(int id,
+            bool addTypeId = false)
         {
-            if (!registrySet)
-                CreateRegistry();
-            return registry.StartingIndexSearch(id, id - 1);
+            int queryId = addTypeId ? id + typeIdTM : id;
+            return (TMItem)registry.LinearSearch(queryId);
         }
 
-        private static bool registrySet = false;
-
-        public static void TrySetRegistry()
-        {
-            if (!registrySet)
-                CreateRegistry();
-        }
-
-        private static void CreateRegistry()
+        public static Item[] GetRegistryItems()
         {
 
             List<TMItem> tmItems = new List<TMItem>();
@@ -37,7 +27,7 @@ namespace Items
 
                 tmItems.Add(new TMItem
                 {
-                    id = move.id,
+                    id = typeIdTM + move.id,
                     moveId = move.id,
                     itemName = "TM" + move.id + ' ' + move.name,
                     description = "Teaches a pokemon " + move.description
@@ -45,9 +35,7 @@ namespace Items
 
             }
 
-            registry.SetValues(tmItems.ToArray());
-
-            registrySet = true;
+            return tmItems.ToArray();
 
         }
 

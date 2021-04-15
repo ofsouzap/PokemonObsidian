@@ -316,18 +316,6 @@ MonoBehaviour:
     level: 60
     levelExperience: 0
     initialNVSC: 0
-  - speciesId: 3
-    level: 60
-    levelExperience: 0
-    initialNVSC: 0
-  - speciesId: 11
-    level: 60
-    levelExperience: 0
-    initialNVSC: 0
-  - speciesId: 1
-    level: 60
-    levelExperience: 0
-    initialNVSC: 0
 --- !u!1 &1576829449
 GameObject:
   m_ObjectHideFlags: 0

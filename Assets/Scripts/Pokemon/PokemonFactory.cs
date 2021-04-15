@@ -29,7 +29,7 @@ namespace Pokemon
             int _health = -1,
             bool? gender = true,
             Stats<int> currentStats = new Stats<int>(), //If all of these values are 0, they won't be used
-            int pokeBallId = 0,
+            int pokeBallId = Item.typeIdPokeBall, //The poke ball id INCLUDING the poke ball type id
             string originalTrainerName = "",
             long catchTime = 0
             )
@@ -200,7 +200,7 @@ namespace Pokemon
                 battleProperties: null,
                 gender: gender,
 
-                pokeBallId: spec.pokeBallId,
+                pokeBallId: spec.pokeBallId + Item.typeIdPokeBall,
                 nickname: spec.nickname
                 );
 

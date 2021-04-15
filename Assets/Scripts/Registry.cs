@@ -43,6 +43,14 @@ public class Registry<T> : IEnumerable where T : IHasId
 
     }
 
+    public T LinearSearch(int queryId)
+    {
+        foreach (T entry in entries)
+            if (entry.GetId() == queryId)
+                return entry;
+        return default;
+    }
+
     /// <summary>
     /// Searches the registry for an element with a specified id
     /// </summary>

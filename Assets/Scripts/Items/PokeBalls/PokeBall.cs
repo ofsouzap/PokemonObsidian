@@ -10,34 +10,24 @@ namespace Items.PokeBalls
 
         #region Registry
 
-        public static Registry<PokeBall> registry = new Registry<PokeBall>();
-
-        public static PokeBall GetPokeBallById(int id)
+        public static PokeBall GetPokeBallById(int id,
+            bool addTypeId = false)
         {
-            if (!registrySet)
-                CreateRegistry();
-            return registry.StartingIndexSearch(id, id - 1);
+            int queryId = addTypeId ? id + typeIdPokeBall : id;
+            return (PokeBall)registry.LinearSearch(queryId);
         }
 
-        private static bool registrySet = false;
-
-        public static void TrySetRegistry()
-        {
-            if (!registrySet)
-                CreateRegistry();
-        }
-
-        private static void CreateRegistry()
+        public static Item[] GetRegistryItems()
         {
 
-            registry.SetValues(new PokeBall[]
+            PokeBall[] items = new PokeBall[]
             {
 
                 new BasicPokeBall()
                 {
                     itemName = "Poke Ball",
                     catchRateModifier = 1,
-                    id = 0,
+                    id = typeIdPokeBall + 0,
                     resourceName = "pokeball"
                 },
 
@@ -45,7 +35,7 @@ namespace Items.PokeBalls
                 {
                     itemName = "Great Ball",
                     catchRateModifier = 1.5F,
-                    id = 1,
+                    id = typeIdPokeBall + 1,
                     resourceName = "greatball"
                 },
 
@@ -53,7 +43,7 @@ namespace Items.PokeBalls
                 {
                     itemName = "Ultra Ball",
                     catchRateModifier = 2,
-                    id = 2,
+                    id = typeIdPokeBall + 2,
                     resourceName = "ultraball"
                 },
 
@@ -61,7 +51,7 @@ namespace Items.PokeBalls
                 {
                     itemName = "Master Ball",
                     catchRateModifier = 255,
-                    id = 3,
+                    id = typeIdPokeBall + 3,
                     resourceName = "masterball"
                 },
 
@@ -69,20 +59,20 @@ namespace Items.PokeBalls
                 {
                     itemName = "Safari Ball",
                     catchRateModifier = 1.5F,
-                    id = 4,
+                    id = typeIdPokeBall + 4,
                     resourceName = "safariball"
                 },
 
                 new NetBall()
                 {
                     itemName = "Net Ball",
-                    id = 5,
+                    id = typeIdPokeBall + 5,
                     resourceName = "netball"
                 }
 
-            });
+            };
 
-            registrySet = true;
+            return items;
 
         }
 

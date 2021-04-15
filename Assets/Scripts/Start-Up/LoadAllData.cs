@@ -17,10 +17,7 @@ namespace StartUp
             Nature.LoadRegistry();
             SpriteStorage.TryLoadAll();
 
-            MedicineItem.TrySetRegistry();
-            PokeBall.TrySetRegistry();
-            BattleItem.TrySetRegistry();
-            TMItem.TrySetRegistry(); //TMs must be loaded after moves
+            Item.TrySetRegistry(); //TMs must be loaded after moves
 
         }
 

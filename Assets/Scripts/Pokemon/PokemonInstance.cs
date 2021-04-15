@@ -79,16 +79,15 @@ namespace Pokemon
 
             #endregion
 
-            [InspectorName("Poke Ball ID")]
+            /// <summary>
+            /// The id of this pokemon's poke ball. This id does NOT include the type prefix for poke balls
+            /// </summary>
             public int pokeBallId;
 
-            [InspectorName("Species ID")]
             public int speciesId;
 
             [Tooltip("Whether to use automatic moves. If so, the moveIds property will be ignored")]
-            [InspectorName("Use Automatic Moves?")]
             public bool useAutomaticMoves;
-            [InspectorName("Move IDs")]
             public int[] moveIds;
 
             public byte level;
@@ -97,13 +96,10 @@ namespace Pokemon
                 PokemonSpecies.GetPokemonSpeciesById(speciesId).growthType
                 );
 
-            [InspectorName("EVs")]
             public Stats<ushort> EVs;
 
             [Tooltip("Whether to use random IVs. If so, the IVs property will be ignored")]
-            [InspectorName("Use Random IVs?")]
             public bool useRandomIVs;
-            [InspectorName("IVs")]
             public Stats<byte> IVs;
 
             public PokemonInstance Generate()
@@ -130,9 +126,9 @@ namespace Pokemon
         public bool? gender;
 
         /// <summary>
-        /// The id of the type of poke ball this pokemon was caught in. If the pokemon is wild, this shouldn't be used for anything
+        /// The id of the type of poke ball this pokemon was caught in (including the poke ball type id). If the pokemon is wild, this shouldn't be used for anything
         /// </summary>
-        public int pokeBallId;
+        public int pokeBallId = Item.typeIdPokeBall;
 
         /// <summary>
         /// The time that the pokemon was caught as a time after the epoch (1 January 1970)
