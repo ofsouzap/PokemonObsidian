@@ -44,7 +44,7 @@ namespace Battle
                     break;
 
                 case Animation.Type.PlayerSendOut:
-                    yield return StartCoroutine(battleLayoutController.SendInPlayerPokemon(animation.sendOutPokemon));
+                    yield return StartCoroutine(battleLayoutController.SendInPlayerPokemon(animation.sendOutPokemon, animation.participantPokemonStates));
                     break;
 
                 case Animation.Type.OpponentSendOutWild:
@@ -52,7 +52,7 @@ namespace Battle
                     break;
 
                 case Animation.Type.OpponentSendOutTrainer:
-                    yield return StartCoroutine(battleLayoutController.SendInTrainerOpponentPokemon(animation.sendOutPokemon));
+                    yield return StartCoroutine(battleLayoutController.SendInTrainerOpponentPokemon(animation.sendOutPokemon, animation.participantPokemonStates));
                     break;
 
                 case Animation.Type.PlayerTakeDamage:

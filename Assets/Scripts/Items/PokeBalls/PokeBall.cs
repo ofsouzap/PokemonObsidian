@@ -95,7 +95,8 @@ namespace Items.PokeBalls
             WobbleLeft,
             WobbleCenter,
             WobbleRight,
-            Caught
+            Caught,
+            Center
         }
 
         public static readonly Dictionary<SpriteType, string> spriteTypeResourceNames = new Dictionary<SpriteType, string>()
@@ -106,7 +107,8 @@ namespace Items.PokeBalls
             { SpriteType.WobbleLeft, "wobble_left" },
             { SpriteType.WobbleCenter, "wobble_center" },
             { SpriteType.WobbleRight, "wobble_right" },
-            { SpriteType.Caught, "caught" }
+            { SpriteType.Caught, "caught" },
+            { SpriteType.Center, "center" }
         };
 
         public Sprite GetSprite(SpriteType spriteType)

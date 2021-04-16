@@ -8,7 +8,19 @@ namespace Menus
     public class StatsHex : MaskableGraphic
     {
 
-        public float[] values = new float[] { 1, 1, 1, 1, 1, 1 };
+        private float[] _values = new float[] { 1, 1, 1, 1, 1, 1 };
+        public float[] values
+        {
+            get
+            {
+                return _values;
+            }
+            set
+            {
+                _values = value;
+                SetVerticesDirty();
+            }
+        }
 
         public static readonly Vector2[] directions = new Vector2[]
         {

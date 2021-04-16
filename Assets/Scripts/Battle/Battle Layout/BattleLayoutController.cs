@@ -34,6 +34,13 @@ namespace Battle.BattleLayout
         public Transform pokeBallThrowDroppedPosition;
         public AnimationCurve pokeBallThrowHeightOffsetCurve;
 
+        public PokeBallLineController playerPokeBallLineController;
+        public float playerPokeBallLineRootX;
+        public float playerPokeBallLineOffScreenLocalXDistance;
+        public PokeBallLineController opponentPokeBallLineController;
+        public float opponentPokeBallLineRootX;
+        public float opponentPokeBallLineOffScreenLocalXDistance;
+
         #region Constants
 
         #region Constant Timings
@@ -122,6 +129,9 @@ namespace Battle.BattleLayout
 
         #endregion
 
+        public const float pokeBallLineShowTime = 0.3f;
+        public const float pokeBallLineHideTime = 0.3f;
+
         #endregion
 
         #region Other Constants
@@ -186,6 +196,8 @@ namespace Battle.BattleLayout
             opponentPokeBallSprite.SetActive(false);
             pokeBallThrowGameObject.SetActive(false);
             overviewPaneManager.HidePanes();
+            HidePlayerPokeBallLineInstant();
+            HideOpponentPokeBallLineInstant();
         }
 
         public void UpdatePlayerPokemon(PokemonInstance pokemon)
@@ -263,6 +275,29 @@ namespace Battle.BattleLayout
                 refreshTime));
 
             gameObject.transform.position = endPos;
+
+        }
+
+        private IEnumerator GradualTranslateAnchoredPosition(GameObject gameObject,
+            Vector2 endPos,
+            float timeToTake,
+            float refreshTime = 0)
+        {
+
+            if (gameObject.GetComponent<RectTransform>() == null)
+            {
+                Debug.LogError("No RectTransform component on provided game object");
+                yield break;
+            }
+
+            Vector2 startPos = gameObject.GetComponent<RectTransform>().anchoredPosition;
+
+            yield return StartCoroutine(GradualEffect(
+                (t) => gameObject.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(startPos, endPos, t),
+                timeToTake,
+                refreshTime));
+
+            gameObject.GetComponent<RectTransform>().anchoredPosition = endPos;
 
         }
 
@@ -436,6 +471,76 @@ namespace Battle.BattleLayout
 
         #region Pokemon Sending Out
 
+        #region Poke Ball Line Display
+
+        private void HidePlayerPokeBallLineInstant()
+        {
+            playerPokeBallLineController.GetComponent<RectTransform>().anchoredPosition = new Vector2
+            (
+                playerPokeBallLineRootX - playerPokeBallLineOffScreenLocalXDistance,
+                playerPokeBallLineController.GetComponent<RectTransform>().anchoredPosition.y
+            );
+        }
+
+        private void HideOpponentPokeBallLineInstant()
+        {
+            opponentPokeBallLineController.GetComponent<RectTransform>().anchoredPosition = new Vector2
+            (
+                opponentPokeBallLineRootX - opponentPokeBallLineOffScreenLocalXDistance,
+                opponentPokeBallLineController.GetComponent<RectTransform>().anchoredPosition.y
+            );
+        }
+
+        private IEnumerator DisplayPokeBallLine(PokeBallLineController controller,
+            float targetX)
+        {
+
+            Vector2 targetAnchoredPosition = controller.GetComponent<RectTransform>().anchoredPosition;
+            targetAnchoredPosition.x = targetX;
+
+            yield return GradualTranslateAnchoredPosition(controller.gameObject,
+                targetAnchoredPosition,
+                pokeBallLineShowTime);
+
+        }
+
+        private IEnumerator DisplayPlayerPokeBallLine(PokeBallLineController.BallState[] states)
+        {
+            HidePlayerPokeBallLineInstant();
+            playerPokeBallLineController.SetStates(states);
+            yield return StartCoroutine(DisplayPokeBallLine(playerPokeBallLineController, playerPokeBallLineRootX));
+        }
+
+        private IEnumerator DisplayOpponentPokeBallLine(PokeBallLineController.BallState[] states)
+        {
+            HideOpponentPokeBallLineInstant();
+            opponentPokeBallLineController.SetStates(states);
+            yield return StartCoroutine(DisplayPokeBallLine(opponentPokeBallLineController, opponentPokeBallLineRootX));
+        }
+
+        private IEnumerator HidePokeBallLine(PokeBallLineController controller,
+            float targetX)
+        {
+
+            Vector2 targetAnchoredPosition = controller.GetComponent<RectTransform>().anchoredPosition;
+            targetAnchoredPosition.x = targetX;
+
+            yield return GradualTranslateAnchoredPosition(controller.gameObject,
+                targetAnchoredPosition,
+                pokeBallLineHideTime);
+
+        }
+
+        private IEnumerator HidePlayerPokeBallLine()
+            => HidePokeBallLine(playerPokeBallLineController,
+                playerPokeBallLineRootX - playerPokeBallLineOffScreenLocalXDistance);
+
+        private IEnumerator HideOpponentPokeBallLine()
+            => HidePokeBallLine(opponentPokeBallLineController,
+                opponentPokeBallLineRootX - opponentPokeBallLineOffScreenLocalXDistance);
+
+        #endregion
+
         /// <param name="mainSprite">The sprite to start and end on</param>
         /// <param name="secondarySprite">The sprite to change to</param>
         private IEnumerator AnimateOpponentPokemonEntrance(SpriteRenderer spriteObject, Sprite mainSprite, Sprite secondarySprite)
@@ -527,14 +632,18 @@ namespace Battle.BattleLayout
 
         }
 
-        public IEnumerator SendInPlayerPokemon(PokemonInstance pokemon)
+        public IEnumerator SendInPlayerPokemon(PokemonInstance pokemon,
+            PokeBallLineController.BallState[] participantPokemonStates)
         {
+
             overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(pokemon);
 
             PokeBall pokeball = PokeBall.GetPokeBallById(pokemon.pokeBallId);
             Sprite pokeBallNeutral = pokeball.GetSprite(PokeBall.SpriteType.Neutral);
             Sprite pokeBallSquashed = pokeball.GetSprite(PokeBall.SpriteType.Squashed);
             Sprite pokeBallOpen = pokeball.GetSprite(PokeBall.SpriteType.Open);
+
+            yield return StartCoroutine(DisplayPlayerPokeBallLine(participantPokemonStates));
 
             yield return StartCoroutine(AnimatePokeBallOpening(playerPokeBallSprite,
                 pokeBallNeutral,
@@ -549,17 +658,24 @@ namespace Battle.BattleLayout
 
             playerPokeBallSprite.SetActive(false);
 
+            yield return StartCoroutine(HidePlayerPokeBallLine());
+
             yield return StartCoroutine(overviewPaneManager.RevealPlayerOverviewPane());
+
         }
 
-        public IEnumerator SendInTrainerOpponentPokemon(PokemonInstance pokemon)
+        public IEnumerator SendInTrainerOpponentPokemon(PokemonInstance pokemon,
+            PokeBallLineController.BallState[] participantPokemonStates)
         {
+
             overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(pokemon);
 
             PokeBall pokeball = PokeBall.GetPokeBallById(pokemon.pokeBallId);
             Sprite pokeBallNeutral = pokeball.GetSprite(PokeBall.SpriteType.Neutral);
             Sprite pokeBallSquashed = pokeball.GetSprite(PokeBall.SpriteType.Squashed);
             Sprite pokeBallOpen = pokeball.GetSprite(PokeBall.SpriteType.Open);
+
+            yield return StartCoroutine(DisplayOpponentPokeBallLine(participantPokemonStates));
 
             yield return StartCoroutine(AnimatePokeBallOpening(opponentPokeBallSprite,
                 pokeBallNeutral,
@@ -574,12 +690,16 @@ namespace Battle.BattleLayout
 
             opponentPokeBallSprite.SetActive(false);
 
+            yield return StartCoroutine(HideOpponentPokeBallLine());
+
             yield return StartCoroutine(AnimateOpponentPokemonEntrance(
                 opponentPokemonSprite.GetComponent<SpriteRenderer>(),
                 pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
                 pokemon.LoadSprite(PokemonSpecies.SpriteType.Front2)
                 ));
+
             yield return StartCoroutine(overviewPaneManager.RevealOpponentOverviewPane());
+
         }
 
         #endregion
@@ -1061,7 +1181,7 @@ namespace Battle.BattleLayout
 
             pokeBallObject.transform.position = startPos;
 
-            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Neutral);
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Center);
 
             yield return StartCoroutine(GradualEffect(
                 (t) => pokeBallObject.transform.position = Vector3.Lerp(startPos, throwEndPos, t) + Vector3.up * pokeBallThrowHeightOffsetCurve.Evaluate(t),
@@ -1069,7 +1189,7 @@ namespace Battle.BattleLayout
 
             pokeBallObject.transform.position = throwEndPos;
 
-            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Neutral);
+            pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Center);
 
             yield return new WaitForSeconds(pokeBallUseThrowToOpenDelay);
 

@@ -61,6 +61,7 @@ namespace Battle
             #region Pokemon Sending Out (parameters used for both player and opponent)
 
             public PokemonInstance sendOutPokemon = null;
+            public BattleLayout.PokeBallLineController.BallState[] participantPokemonStates = new BattleLayout.PokeBallLineController.BallState[0];
 
             #endregion
 

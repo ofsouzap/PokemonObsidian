@@ -47,6 +47,15 @@ TextureImporter:
   - first:
       213: -7415419832356696882
     second: overviewpane_player
+  - first:
+      213: -4170493943495380733
+    second: battle_pokeball_valid
+  - first:
+      213: 7370886565706297119
+    second: battle_pokeball_invalid
+  - first:
+      213: 6599362720711564850
+    second: battle_pokeballline
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -441,7 +450,7 @@ TextureImporter:
         width: 5
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -462,7 +471,7 @@ TextureImporter:
         width: 128
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -470,6 +479,69 @@ TextureImporter:
       bones: []
       spriteID: ecc0ef773f2271990800000000000000
       internalID: -7415419832356696882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: battle_pokeball_valid
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 28
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3013a08cadd6f16c0800000000000000
+      internalID: -4170493943495380733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: battle_pokeball_invalid
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 28
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1f6f946746aa4660800000000000000
+      internalID: 7370886565706297119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: battle_pokeballline
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 48
+        width: 119
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23ed7f7fd65a59b50800000000000000
+      internalID: 6599362720711564850
       vertices: []
       indices: 
       edges: []

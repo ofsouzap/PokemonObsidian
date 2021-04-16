@@ -304,7 +304,8 @@ namespace Battle
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
                     type = BattleAnimationSequencer.Animation.Type.OpponentSendOutTrainer,
-                    sendOutPokemon = battleData.participantOpponent.ActivePokemon
+                    sendOutPokemon = battleData.participantOpponent.ActivePokemon,
+                    participantPokemonStates = battleData.participantOpponent.GetPokemon().Select(x => BattleLayout.PokeBallLineController.GetPokemonInstanceBallState(x)).ToArray()
                 });
 
             }
@@ -318,7 +319,8 @@ namespace Battle
             battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
             {
                 type = BattleAnimationSequencer.Animation.Type.PlayerSendOut,
-                sendOutPokemon = battleData.participantPlayer.ActivePokemon
+                sendOutPokemon = battleData.participantPlayer.ActivePokemon,
+                participantPokemonStates = battleData.participantPlayer.GetPokemon().Select(x => BattleLayout.PokeBallLineController.GetPokemonInstanceBallState(x)).ToArray()
             });
 
             #endregion
@@ -657,7 +659,8 @@ namespace Battle
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
                     type = BattleAnimationSequencer.Animation.Type.PlayerSendOut,
-                    sendOutPokemon = battleData.participantPlayer.ActivePokemon
+                    sendOutPokemon = battleData.participantPlayer.ActivePokemon,
+                    participantPokemonStates = battleData.participantPlayer.GetPokemon().Select(x => BattleLayout.PokeBallLineController.GetPokemonInstanceBallState(x)).ToArray()
                 });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
@@ -1910,7 +1913,8 @@ namespace Battle
                 type = action.user == battleData.participantPlayer
                 ? BattleAnimationSequencer.Animation.Type.PlayerSendOut
                 : BattleAnimationSequencer.Animation.Type.OpponentSendOutTrainer,
-                sendOutPokemon = action.user.ActivePokemon
+                sendOutPokemon = action.user.ActivePokemon,
+                participantPokemonStates = action.user.GetPokemon().Select(x => BattleLayout.PokeBallLineController.GetPokemonInstanceBallState(x)).ToArray()
             });
 
             //TODO - apply effects for newly-switched in pokemon's ability (if abilities included)

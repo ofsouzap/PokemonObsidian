@@ -342,6 +342,7 @@ public static class SpriteStorage
     public const string battleSpritesSheetName = "sprite_sheet_battlesprites";
     public const string statusConditionSpritePrefix = "statuscondition_";
     public const string genderSpritePrefix = "gender_";
+    public const string pokeBallLineBallSpritePrefix = "battle_pokeball_";
 
     private static Sprite[] LoadBattleSprites()
     {
@@ -403,6 +404,28 @@ public static class SpriteStorage
 
         return GetSprite(SpriteType.BattleSprite,
             resourceName);
+
+    }
+
+    public static Sprite GetBattlePokeBallLineBallSprite(Battle.BattleLayout.PokeBallLineController.BallState state)
+    {
+
+        string stateResourceName = state switch
+        {
+            Battle.BattleLayout.PokeBallLineController.BallState.Valid => "valid",
+            Battle.BattleLayout.PokeBallLineController.BallState.Invalid => "invalid",
+            _ => null
+        };
+
+        if (stateResourceName == null)
+        {
+            Debug.LogError("Invalid poke ball state - " + state);
+            return null;
+        }
+
+        string fullResourceName = pokeBallLineBallSpritePrefix + stateResourceName;
+
+        return GetSprite(SpriteType.BattleSprite, fullResourceName);
 
     }
 

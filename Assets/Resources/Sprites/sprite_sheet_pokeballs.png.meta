@@ -34,7 +34,7 @@ TextureImporter:
     second: pokeball_open
   - first:
       213: -2230366527253012362
-    second: sprite_sheet_pokeballs_10
+    second: pokeball_center
   - first:
       213: 1506174324060870013
     second: sprite_sheet_pokeballs_11
@@ -94,7 +94,7 @@ TextureImporter:
     second: greatball_open
   - first:
       213: 8557120254617526688
-    second: sprite_sheet_pokeballs_31
+    second: greatball_center
   - first:
       213: -5076853286050997768
     second: sprite_sheet_pokeballs_32
@@ -154,7 +154,7 @@ TextureImporter:
     second: ultraball_open
   - first:
       213: 3828369126763428056
-    second: sprite_sheet_pokeballs_52
+    second: ultraball_center
   - first:
       213: -6803985926270869638
     second: sprite_sheet_pokeballs_53
@@ -214,7 +214,7 @@ TextureImporter:
     second: masterball_open
   - first:
       213: -7134988314408619348
-    second: sprite_sheet_pokeballs_73
+    second: masterball_center
   - first:
       213: 6471496174500731969
     second: sprite_sheet_pokeballs_74
@@ -274,7 +274,7 @@ TextureImporter:
     second: premierball_open
   - first:
       213: 6530293932490977758
-    second: sprite_sheet_pokeballs_94
+    second: premierball_center
   - first:
       213: 1522010211524514054
     second: sprite_sheet_pokeballs_95
@@ -334,7 +334,7 @@ TextureImporter:
     second: cherishball_open
   - first:
       213: -7576014133047400822
-    second: sprite_sheet_pokeballs_115
+    second: cherishball_center
   - first:
       213: 1812583605279769220
     second: sprite_sheet_pokeballs_116
@@ -394,7 +394,7 @@ TextureImporter:
     second: luxuryball_open
   - first:
       213: -2519401491088974468
-    second: sprite_sheet_pokeballs_136
+    second: luxuryball_center
   - first:
       213: -7397861673347080190
     second: sprite_sheet_pokeballs_137
@@ -454,7 +454,7 @@ TextureImporter:
     second: nestball_open
   - first:
       213: 8406737575059431347
-    second: sprite_sheet_pokeballs_157
+    second: nestball_center
   - first:
       213: 3537946316540861749
     second: sprite_sheet_pokeballs_158
@@ -514,7 +514,7 @@ TextureImporter:
     second: netball_open
   - first:
       213: 1052709748418021295
-    second: sprite_sheet_pokeballs_178
+    second: netball_center
   - first:
       213: 9079262414834107433
     second: sprite_sheet_pokeballs_179
@@ -574,7 +574,7 @@ TextureImporter:
     second: diveball_open
   - first:
       213: -5778866900668335139
-    second: sprite_sheet_pokeballs_199
+    second: diveball_center
   - first:
       213: 8424507795412851760
     second: sprite_sheet_pokeballs_200
@@ -634,7 +634,7 @@ TextureImporter:
     second: repeatball_open
   - first:
       213: 290604105624310263
-    second: sprite_sheet_pokeballs_220
+    second: repeatball_center
   - first:
       213: -3935116904334801465
     second: sprite_sheet_pokeballs_221
@@ -694,7 +694,7 @@ TextureImporter:
     second: timerball_open
   - first:
       213: -8748438888402075344
-    second: sprite_sheet_pokeballs_241
+    second: timerball_center
   - first:
       213: -5126480989408110799
     second: sprite_sheet_pokeballs_242
@@ -754,7 +754,7 @@ TextureImporter:
     second: safariball_open
   - first:
       213: -6645029395404564380
-    second: sprite_sheet_pokeballs_262
+    second: safariball_center
   - first:
       213: -2418101546101495016
     second: sprite_sheet_pokeballs_263
@@ -814,7 +814,7 @@ TextureImporter:
     second: quickball_open
   - first:
       213: -1189826483847560612
-    second: sprite_sheet_pokeballs_283
+    second: quickball_center
   - first:
       213: 5931032922853869036
     second: sprite_sheet_pokeballs_284
@@ -874,7 +874,7 @@ TextureImporter:
     second: duskball_open
   - first:
       213: 8643884784020320099
-    second: sprite_sheet_pokeballs_304
+    second: duskball_center
   - first:
       213: -915213251074812450
     second: sprite_sheet_pokeballs_305
@@ -934,7 +934,7 @@ TextureImporter:
     second: sprite_sheet_pokeballs_324
   - first:
       213: -7554639989586806357
-    second: sprite_sheet_pokeballs_325
+    second: healball_center
   - first:
       213: -7561379101041999553
     second: sprite_sheet_pokeballs_326
@@ -1285,7 +1285,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_10
+      name: pokeball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -1705,7 +1705,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_31
+      name: greatball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -2125,7 +2125,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_52
+      name: ultraball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -2545,7 +2545,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_73
+      name: masterball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -2965,7 +2965,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_94
+      name: premierball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -3385,7 +3385,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_115
+      name: cherishball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -3805,7 +3805,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_136
+      name: luxuryball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -4225,7 +4225,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_157
+      name: nestball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -4645,7 +4645,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_178
+      name: netball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -5065,7 +5065,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_199
+      name: diveball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -5485,7 +5485,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_220
+      name: repeatball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -5905,7 +5905,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_241
+      name: timerball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -6325,7 +6325,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_262
+      name: safariball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -6745,7 +6745,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_283
+      name: quickball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -7165,7 +7165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_304
+      name: duskball_center
       rect:
         serializedVersion: 2
         x: 165
@@ -7585,7 +7585,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_pokeballs_325
+      name: healball_center
       rect:
         serializedVersion: 2
         x: 165
