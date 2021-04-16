@@ -28,7 +28,8 @@ namespace Items.PokeBalls
                     itemName = "Poke Ball",
                     catchRateModifier = 1,
                     id = typeIdPokeBall + 0,
-                    resourceName = "pokeball"
+                    resourceName = "pokeball",
+                    description = "A device for catching wild Pokemon. It is thrown like a ball at the target. It is designed as a capsule system."
                 },
 
                 new BasicPokeBall()
@@ -36,7 +37,8 @@ namespace Items.PokeBalls
                     itemName = "Great Ball",
                     catchRateModifier = 1.5F,
                     id = typeIdPokeBall + 1,
-                    resourceName = "greatball"
+                    resourceName = "greatball",
+                    description = "A good, high-performance Ball that provides a higher Pokemon catch rate than a standard Poke Ball."
                 },
 
                 new BasicPokeBall()
@@ -44,7 +46,8 @@ namespace Items.PokeBalls
                     itemName = "Ultra Ball",
                     catchRateModifier = 2,
                     id = typeIdPokeBall + 2,
-                    resourceName = "ultraball"
+                    resourceName = "ultraball",
+                    description = "An ultra-performance Ball that provides a higher Pokemon catch rate than a Great Ball."
                 },
 
                 new BasicPokeBall()
@@ -52,7 +55,8 @@ namespace Items.PokeBalls
                     itemName = "Master Ball",
                     catchRateModifier = 255,
                     id = typeIdPokeBall + 3,
-                    resourceName = "masterball"
+                    resourceName = "masterball",
+                    description = "The best Ball with the ultimate level of performance. It will catch any wild Pokémon without fail."
                 },
 
                 new BasicPokeBall()
@@ -60,28 +64,32 @@ namespace Items.PokeBalls
                     itemName = "Safari Ball",
                     catchRateModifier = 1.5F,
                     id = typeIdPokeBall + 4,
-                    resourceName = "safariball"
+                    resourceName = "safariball",
+                    description = "A special Poke Ball that is used only in the Great Marsh. It is decorated in a camouflage pattern."
                 },
 
                 new NetBall()
                 {
                     itemName = "Net Ball",
                     id = typeIdPokeBall + 5,
-                    resourceName = "netball"
+                    resourceName = "netball",
+                    description = "A somewhat different Poke Ball that works especially well on Water- and Bug-type Pokemon."
                 },
 
                 new TimerBall()
                 {
                     itemName = "Timer Ball",
                     id = typeIdPokeBall + 6,
-                    resourceName = "timerball"
+                    resourceName = "timerball",
+                    description = "A somewhat different Ball that becomes progressively better the more turns there are in a battle."
                 },
 
                 new QuickBall()
                 {
                     itemName = "Quick Ball",
                     id = typeIdPokeBall + 7,
-                    resourceName = "quickball"
+                    resourceName = "quickball",
+                    description = "A somewhat different Ball that provides a better catch rate if it is used at the start of a wild encounter."
                 }
 
             };

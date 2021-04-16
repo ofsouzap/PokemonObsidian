@@ -17,6 +17,9 @@ namespace Items
             return (BattleItem)registry.LinearSearch(queryId);
         }
 
+        private static string GenerateDescription(string statName)
+            => "An item to raise the " + statName + " stat of a Pokemon in battle. It wears off when the Pokemon is withdrawn";
+
         public static Item[] GetRegistryItems()
         {
 
@@ -28,6 +31,7 @@ namespace Items
                     id = typeIdBattleItem + 0,
                     itemName = "X Attack",
                     resourceName = "x_attack",
+                    description = GenerateDescription("Attack"),
                     statModifiers = new Stats<sbyte>() { attack = 2 }
                 },
 
@@ -36,6 +40,7 @@ namespace Items
                     id = typeIdBattleItem + 1,
                     itemName = "X Defense",
                     resourceName = "x_defense",
+                    description = GenerateDescription("Defense"),
                     statModifiers = new Stats<sbyte>() { defense = 2 }
                 },
 
@@ -44,6 +49,7 @@ namespace Items
                     id = typeIdBattleItem + 2,
                     itemName = "X Sp. Attack",
                     resourceName = "x_special_attack",
+                    description = GenerateDescription("Special Attack"),
                     statModifiers = new Stats<sbyte>() { specialAttack = 2 }
                 },
 
@@ -52,6 +58,7 @@ namespace Items
                     id = typeIdBattleItem + 3,
                     itemName = "X Sp. Defense",
                     resourceName = "x_special_defense",
+                    description = GenerateDescription("Special Defense"),
                     statModifiers = new Stats<sbyte>() { specialDefense = 2 }
                 },
 
@@ -60,6 +67,7 @@ namespace Items
                     id = typeIdBattleItem + 4,
                     itemName = "X Speed",
                     resourceName = "x_speed",
+                    description = GenerateDescription("Speed"),
                     statModifiers = new Stats<sbyte>() { speed = 2 }
                 },
 
@@ -68,6 +76,7 @@ namespace Items
                     id = typeIdBattleItem + 5,
                     itemName = "X Accuracy",
                     resourceName = "x_accuracy",
+                    description = GenerateDescription("Accuracy"),
                     accuracyModifier = 2
                 },
 
@@ -76,6 +85,7 @@ namespace Items
                     id = typeIdBattleItem + 6,
                     itemName = "X Dire Hit",
                     resourceName = "x_dire_hit",
+                    description = GenerateDescription("critical hit ratio"),
                     boostsCriticalHitRate = true
                 },
 

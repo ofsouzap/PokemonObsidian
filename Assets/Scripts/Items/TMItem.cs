@@ -30,7 +30,7 @@ namespace Items
                     id = typeIdTM + move.id,
                     moveId = move.id,
                     itemName = "TM" + move.id + ' ' + move.name,
-                    description = "Teaches a pokemon " + move.description
+                    description = move.description
                 }); //TODO - once TM itemsprite ready, set resourceName for each generated TM
 
             }
