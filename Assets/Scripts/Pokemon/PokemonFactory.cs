@@ -17,7 +17,7 @@ namespace Pokemon
         public static PokemonInstance GenerateFull(
             int speciesId,
             int natureId,
-            Stats<ushort> effortValues,
+            Stats<byte> effortValues,
             Stats<byte> individualValues,
             int[] _moves,
             byte[] movePPs,
@@ -110,7 +110,7 @@ namespace Pokemon
             int speciesId, experience;
             byte level;
             int natureId;
-            Stats<ushort> effortValues;
+            Stats<byte> effortValues;
             Stats<byte> individualValues;
             int[] moves;
             byte[] movePPs;
@@ -126,7 +126,7 @@ namespace Pokemon
 
             natureId = Nature.GetRandomNatureId();
 
-            effortValues = new Stats<ushort>()
+            effortValues = new Stats<byte>()
             {
                 attack = 0,
                 defense = 0,
@@ -165,7 +165,7 @@ namespace Pokemon
 
             int speciesId, experience;
             int natureId;
-            Stats<ushort> effortValues;
+            Stats<byte> effortValues;
             Stats<byte> individualValues;
             int[] moves;
             byte[] movePPs;
@@ -214,15 +214,15 @@ namespace Pokemon
         public static byte ChooseLevelInRange(byte minLevel, byte maxLevel)
             => (byte)UnityEngine.Random.Range(minLevel, maxLevel + 1);
 
-        public static Stats<ushort> GenerateRandomEVs()
-            => new Stats<ushort>()
+        public static Stats<byte> GenerateRandomEVs()
+            => new Stats<byte>()
             {
-                attack = (ushort)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
-                defense = (ushort)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
-                specialAttack = (ushort)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
-                specialDefense = (ushort)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
-                speed = (ushort)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
-                health = (ushort)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1)
+                attack = (byte)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
+                defense = (byte)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
+                specialAttack = (byte)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
+                specialDefense = (byte)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
+                speed = (byte)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1),
+                health = (byte)UnityEngine.Random.Range(0, PokemonInstance.maximumEffortValue + 1)
             };
 
         public static Stats<byte> GenerateRandomIVs()

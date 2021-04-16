@@ -96,7 +96,7 @@ namespace Pokemon
                 PokemonSpecies.GetPokemonSpeciesById(speciesId).growthType
                 );
 
-            public Stats<ushort> EVs;
+            public Stats<byte> EVs;
 
             [Tooltip("Whether to use random IVs. If so, the IVs property will be ignored")]
             public bool useRandomIVs;
@@ -145,10 +145,10 @@ namespace Pokemon
 
         #region Stats
 
-        public const ushort maximumEffortValue = 252;
+        public const byte maximumEffortValue = 252;
         public const ushort maximumEffortValueTotal = 510;
 
-        public Stats<ushort> effortValues;
+        public Stats<byte> effortValues;
         public ushort TotalEffortValue
         {
             get
@@ -249,7 +249,7 @@ namespace Pokemon
 
             float B = species.baseStats.GetStat(statByte);
             float I = individualValues.GetStat(statByte);
-            float E = effortValues.GetStat(statUShort) / 4;
+            float E = effortValues.GetStat(statByte) / 4;
             float L = GetLevel();
 
             //N.B. health is calculated differently
