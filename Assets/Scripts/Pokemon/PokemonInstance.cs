@@ -194,6 +194,8 @@ namespace Pokemon
 
         }
 
+        public const byte maximumIndividualValue = 31;
+
         public readonly Stats<byte> individualValues;
 
         public int natureId;

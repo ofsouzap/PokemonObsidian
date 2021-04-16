@@ -95,7 +95,7 @@ public abstract class GeneralSceneManager : MonoBehaviour
             }
         }
 
-        EventSystem eventSystem = FindObjectOfType<EventSystem>();
+        EventSystem eventSystem = FindObjectsOfType<EventSystem>().Where(x => x.gameObject.scene == Scene).ToArray()[0];
         if (eventSystem != null && eventSystem.enabled)
         {
             eventSystemToReEnableOnSceneEnable = eventSystem;
