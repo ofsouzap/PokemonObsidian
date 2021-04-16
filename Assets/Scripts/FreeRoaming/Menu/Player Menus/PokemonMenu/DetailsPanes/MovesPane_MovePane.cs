@@ -41,6 +41,8 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
         public void SetShowState(bool state)
         {
 
+            gameObject.SetActive(state);
+
             textName.gameObject.SetActive(state);
             textPP.gameObject.SetActive(state);
             textDescription.gameObject.SetActive(state);
