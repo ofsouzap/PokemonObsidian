@@ -9,6 +9,11 @@ namespace Battle
 
         public bool battleRunning = true;
 
+        /// <summary>
+        /// Which turn of the battle this currently is. This value IS 0-indexed so the first turn of the battle is turn 0
+        /// </summary>
+        public uint battleTurnNumber = 0;
+
         public BattleParticipantPlayer participantPlayer;
         public BattleParticipant participantOpponent;
 

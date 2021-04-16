@@ -68,6 +68,20 @@ namespace Items.PokeBalls
                     itemName = "Net Ball",
                     id = typeIdPokeBall + 5,
                     resourceName = "netball"
+                },
+
+                new TimerBall()
+                {
+                    itemName = "Timer Ball",
+                    id = typeIdPokeBall + 6,
+                    resourceName = "timerball"
+                },
+
+                new QuickBall()
+                {
+                    itemName = "Quick Ball",
+                    id = typeIdPokeBall + 7,
+                    resourceName = "quickball"
                 }
 
             };

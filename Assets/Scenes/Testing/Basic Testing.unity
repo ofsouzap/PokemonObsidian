@@ -1139,8 +1139,8 @@ MonoBehaviour:
     gender: 1
     pokeBallId: 0
     speciesId: 11
-    useAutomaticMoves: 0
-    moveIds: 62000000
+    useAutomaticMoves: 1
+    moveIds: 
     level: 10
     EVs:
       attack: 0

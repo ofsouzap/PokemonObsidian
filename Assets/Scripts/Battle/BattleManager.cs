@@ -335,6 +335,8 @@ namespace Battle
 
             battleParticipantsToCancelActionsOf = new List<BattleParticipant>();
 
+            battleData.battleTurnNumber = 0;
+
             #endregion
 
             #region Main Loop
@@ -460,6 +462,8 @@ namespace Battle
                 battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(battleData.participantOpponent.ActivePokemon);
 
                 battleParticipantsToCancelActionsOf.Clear();
+
+                battleData.battleTurnNumber++;
 
                 #endregion
 

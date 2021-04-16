@@ -97,6 +97,8 @@ namespace Testing
                 { Item.typeIdPokeBall + 2, 14 },
                 { Item.typeIdPokeBall + 3, 3 },
                 { Item.typeIdPokeBall + 4, 7 },
+                { Item.typeIdPokeBall + 6, 10 },
+                { Item.typeIdPokeBall + 7, 10 },
             });
 
             PlayerData.singleton.inventory.tmItems.SetItems(new Dictionary<int, int>()
