@@ -19,7 +19,7 @@ namespace FreeRoaming
         public const string exclaimPrefabResourcesPath = "Prefabs/Free Roaming/Exclaim";
 
         [Tooltip("How long the character's exclaiming should last")]
-        public float exclaimDuration = 0.5F;
+        public float exclaimDuration = 1F;
 
         #region Direction
 

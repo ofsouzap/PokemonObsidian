@@ -167,7 +167,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spriteRenderer: {fileID: 9122673222926071254}
-  exclaimDuration: 0.5
+  exclaimDuration: 1
   initialDirectionFacing: 0
   _walkSpeed: 4
   _runSpeed: 8

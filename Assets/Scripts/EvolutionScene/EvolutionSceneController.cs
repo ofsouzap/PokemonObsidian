@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pokemon;
+using Audio;
 
 namespace EvolutionScene
 {
@@ -98,6 +99,8 @@ namespace EvolutionScene
 
             EvolutionAnimationComplete = null;
 
+            MusicSourceController.singleton.PauseMusic();
+
             Sprite startSprite = SpriteStorage.GetPokemonSprite(
                 PokemonSpecies.GetPokemonSpeciesById(entranceArguments.startSpeciesId).resourceName,
                 PokemonSpecies.SpriteType.Front1,
@@ -135,6 +138,8 @@ namespace EvolutionScene
             },
             unshrinkTime));
 
+            GeneralFXSourceController.singleton.PlayFX("evolution_end");
+
             textBoxController.RevealText(entranceArguments.displayName
                 + " evolved into a "
                 + endSpecies.name
@@ -143,6 +148,8 @@ namespace EvolutionScene
             yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             yield return new WaitForSeconds(endDelayTime);
+
+            MusicSourceController.singleton.UnPauseMusic();
 
             EvolutionAnimationComplete?.Invoke();
             yield break;

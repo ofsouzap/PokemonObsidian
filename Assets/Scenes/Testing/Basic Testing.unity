@@ -304,7 +304,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spriteRenderer: {fileID: 2027730394}
-  exclaimDuration: 0.5
+  exclaimDuration: 1
   initialDirectionFacing: 0
   _walkSpeed: 4
   _runSpeed: 8
@@ -343,7 +343,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spriteRenderer: {fileID: 928470568}
-  exclaimDuration: 0.5
+  exclaimDuration: 1
   initialDirectionFacing: 0
   _walkSpeed: 4
   _runSpeed: 8
@@ -1128,7 +1128,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spriteRenderer: {fileID: 1783467802}
-  exclaimDuration: 0.5
+  exclaimDuration: 1
   initialDirectionFacing: 3
   _walkSpeed: 4
   _runSpeed: 8

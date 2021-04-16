@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Pokemon;
 using Battle;
+using Audio;
 
 namespace FreeRoaming.NPCs
 {
@@ -15,6 +16,9 @@ namespace FreeRoaming.NPCs
 
         [Tooltip("The message this NPC should say when it challenges the player")]
         public string challengeMessage;
+
+        public string challengeMusicResourceName = "look1";
+        public string battleMusicResourceName = "battle_trainer";
 
         #region Battle Details
 
@@ -90,6 +94,8 @@ namespace FreeRoaming.NPCs
         protected virtual IEnumerator StartBattleCoroutine()
         {
 
+            MusicSourceController.singleton.SetTrack(challengeMusicResourceName, true);
+
             yield return StartCoroutine(Exclaim());
 
             MoveForwardSteps((ushort)Mathf.FloorToInt((PlayerController.singleton.position - position).magnitude - 1));
@@ -114,6 +120,8 @@ namespace FreeRoaming.NPCs
             yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             textBoxController.Hide();
+
+            MusicSourceController.singleton.SetTrack(battleMusicResourceName, true);
 
             LaunchBattle();
 

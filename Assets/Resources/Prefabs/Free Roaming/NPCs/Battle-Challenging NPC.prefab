@@ -16,14 +16,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spriteRenderer: {fileID: 4370848549643996096}
-  moveSpeed: 4
+  exclaimDuration: 1
+  initialDirectionFacing: 0
+  _walkSpeed: 4
+  _runSpeed: 8
   spriteGroupName: 
   visibilityDistance: 4
+  challengeMessage: 
+  challengeMusicResourceName: look1
+  battleMusicResourceName: battle_trainer
   battleDetails:
     pokemon: []
-    battleSpriteResourceName: 
-    fullName: 
+    trainerClass: 0
+    baseName: 
     mode: 0
+    battleBackgroundResourceName: 
 --- !u!1001 &5463208861839144372
 PrefabInstance:
   m_ObjectHideFlags: 0

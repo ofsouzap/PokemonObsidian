@@ -9,6 +9,7 @@ using Pokemon.Moves;
 using Items;
 using Items.MedicineItems;
 using Items.PokeBalls;
+using Audio;
 
 namespace Battle
 {
@@ -529,6 +530,12 @@ namespace Battle
 
                 if (battleData.participantOpponent is BattleParticipantNPC opponentNPCParticipant)
                 {
+
+                    if (battleData.isWildBattle)
+                        MusicSourceController.singleton.SetTrack("victory_wild", true);
+                    else
+                        MusicSourceController.singleton.SetTrack("victory_trainer", true);
+
                     if (opponentNPCParticipant.basePayout > 0)
                     {
 
@@ -543,13 +550,16 @@ namespace Battle
                         battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
                             + " was given ₽"
                             + playerPrizeMoney.ToString()
-                            + " for winning");
+                            + " for winning",
+                            true);
 
                         yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                     }
+
                 }
 
+                MusicSourceController.singleton.StopMusic();
                 GameSceneManager.CloseBattleScene();
 
             }
@@ -1179,6 +1189,7 @@ namespace Battle
                             + playerPokemonInstance.GetLevel().ToString()
                             + '!');
 
+                        GeneralFXSourceController.singleton.PlayFX("level_up");
                         yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                         if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
