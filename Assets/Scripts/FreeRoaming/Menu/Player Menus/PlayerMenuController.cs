@@ -13,7 +13,10 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             SetUp();
 
-            EventSystem.current.SetSelectedGameObject(GetDefaultSelectedGameObject());
+            GameObject defaultGameObject = GetDefaultSelectedGameObject();
+            
+            if (defaultGameObject != null)
+                EventSystem.current.SetSelectedGameObject(defaultGameObject);
 
         }
 
@@ -21,10 +24,12 @@ namespace FreeRoaming.Menu.PlayerMenus
 
         protected abstract GameObject GetDefaultSelectedGameObject();
 
+        protected virtual bool GetClosesOnCancel() => true;
+
         protected virtual void Update()
         {
             
-            if (Input.GetButtonDown("Menu") || Input.GetButtonDown("Cancel"))
+            if (Input.GetButtonDown("Menu") || (Input.GetButtonDown("Cancel") && GetClosesOnCancel()))
             {
                 CloseMenu();
             }
