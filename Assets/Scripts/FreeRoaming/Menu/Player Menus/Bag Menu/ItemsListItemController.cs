@@ -7,7 +7,7 @@ using Items;
 
 namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 {
-    [RequireComponent(typeof(RectTransform))]
+    [RequireComponent(typeof(Button))]
     public class ItemsListItemController : MonoBehaviour
     {
 

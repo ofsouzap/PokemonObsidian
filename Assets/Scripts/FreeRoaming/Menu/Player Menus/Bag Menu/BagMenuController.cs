@@ -58,9 +58,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             currentItemIndex = 0;
             currentItems = new Item[0];
 
-            actionsBarController.SetUp(fullBorderPrefab);
-            sectionsBarController.SetUp(fullBorderPrefab);
-            itemsListController.SetUp(fullBorderPrefab);
+            actionsBarController.SetUp(this, fullBorderPrefab);
+            sectionsBarController.SetUp(this, fullBorderPrefab);
+            itemsListController.SetUp(this, fullBorderPrefab);
             pokemonSelectionController.SetUp(this);
 
             ChangeToSectionSelection();
@@ -134,43 +134,13 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                         if (currentMode == Mode.Section)
                         {
 
-                            ChangeToActionSelection();
+                            OnSelectItem(currentItemIndex);
 
                         }
                         else if (currentMode == Mode.Action)
                         {
 
-                            switch (currentActionIndex)
-                            {
-
-                                case 0: //Cancel button
-                                    ChangeToSectionSelection(false);
-                                    break;
-
-                                case 1: //Use button
-                                    if (CurrentItem.CanBeUsedFromBag())
-                                    {
-                                        pokemonSelectionMode = PokemonSelectionMode.Use;
-                                        ChangeToPokemonSelection();
-                                    }
-                                    else
-                                    {
-                                        textBoxController.Show();
-                                        textBoxController.SetTextInstant("You can't use this item");
-                                        textBoxController.SetHideDelay(1.5F);
-                                    }
-                                    break;
-
-                                case 2: //Give button
-                                    pokemonSelectionMode = PokemonSelectionMode.Give;
-                                    ChangeToPokemonSelection();
-                                    break;
-
-                                default:
-                                    Debug.LogError("Unhandled currentActionIndex - " + currentActionIndex);
-                                    break;
-
-                            }
+                            OnActionChosen(currentActionIndex);
 
                         }
 
@@ -221,6 +191,52 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         }
 
+        public void OnActionChosen(int chosenActionIndex)
+        {
+
+            currentActionIndex = chosenActionIndex;
+
+            switch (currentActionIndex)
+            {
+
+                case 0: //Cancel button
+                    ChangeToSectionSelection(false);
+                    break;
+
+                case 1: //Use button
+                    if (CurrentItem.CanBeUsedFromBag())
+                    {
+                        pokemonSelectionMode = PokemonSelectionMode.Use;
+                        ChangeToPokemonSelection();
+                    }
+                    else
+                    {
+                        textBoxController.Show();
+                        textBoxController.SetTextInstant("You can't use this item");
+                        textBoxController.SetHideDelay(1.5F);
+                    }
+                    break;
+
+                case 2: //Give button
+                    pokemonSelectionMode = PokemonSelectionMode.Give;
+                    ChangeToPokemonSelection();
+                    break;
+
+                default:
+                    Debug.LogError("Unhandled currentActionIndex - " + currentActionIndex);
+                    break;
+
+            }
+
+        }
+
+        public void OnSelectItem(int index)
+        {
+            currentItemIndex = index;
+            RefreshCurrentItem();
+            ChangeToActionSelection();
+        }
+
         #endregion
 
         private void ChangeToSectionSelection(bool resetSelectionIndex = true)
@@ -269,7 +285,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         }
 
-        private void SetCurrentSection(int index)
+        public void SetCurrentSection(int index)
         {
 
             currentSectionIndex = index;

@@ -70,6 +70,8 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             GameObject newItem = Instantiate(itemListItemPrefab, itemsListContentTransform);
             ItemsListItemController controller = newItem.GetComponent<ItemsListItemController>();
 
+            newItem.GetComponent<Button>().onClick.AddListener(() => menuController.OnSelectItem(index));
+
             controller.SetPositionIndex(index, itemsPadding);
             controller.SetValues(item.itemName, quantity);
 

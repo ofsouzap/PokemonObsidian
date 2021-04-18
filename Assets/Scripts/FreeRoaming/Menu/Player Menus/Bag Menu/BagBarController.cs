@@ -15,9 +15,13 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
         protected GameObject currentBorder;
         protected GameObject borderPrefab;
 
-        public virtual void SetUp(GameObject borderPrefab)
+        protected BagMenuController menuController;
+
+        public virtual void SetUp(BagMenuController menuController,
+            GameObject borderPrefab)
         {
 
+            this.menuController = menuController;
             this.borderPrefab = borderPrefab;
 
             TryDestroyBorder();
