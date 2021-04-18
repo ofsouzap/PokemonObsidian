@@ -47,6 +47,7 @@ namespace Battle.PlayerUI
             singleton = this;
             player = PlayerData.singleton;
             this.battleManager = battleManager;
+            currentSelectedPartyPokemonIndex = (byte)battleManager.battleData.participantPlayer.activePokemonIndex;
 
             #region Run Set-Up Functions
 
@@ -315,11 +316,6 @@ namespace Battle.PlayerUI
             if (partyIndex > 5)
             {
                 Debug.LogError("Party index out of greater than 5");
-                return;
-            }
-            if (partyIndex >= player.GetNumberOfPartyPokemon())
-            {
-                Debug.LogError("Party index too great for player pokemon count");
                 return;
             }
 

@@ -185,7 +185,7 @@ namespace Battle
             int playerStartingPokemonIndex = -1;
 
             for (int i = 0; i < battleData.participantPlayer.GetPokemon().Length; i++)
-                if (!battleData.participantPlayer.GetPokemon()[i].IsFainted)
+                if (battleData.participantPlayer.GetPokemon()[i] != null && !battleData.participantPlayer.GetPokemon()[i].IsFainted)
                 {
                     playerStartingPokemonIndex = i;
                     break;
