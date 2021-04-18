@@ -65,6 +65,9 @@ TextureImporter:
   - first:
       213: -8143966812909183687
     second: type_normal
+  - first:
+      213: -2787365048476066383
+    second: helditem
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -614,6 +617,27 @@ TextureImporter:
       bones: []
       spriteID: 93d5afd0551dafe80800000000000000
       internalID: -8143966812909183687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helditem
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 120
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bd9e3aa14a4159d0800000000000000
+      internalID: -2787365048476066383
       vertices: []
       indices: 
       edges: []

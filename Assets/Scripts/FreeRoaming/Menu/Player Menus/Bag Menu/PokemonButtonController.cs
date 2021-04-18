@@ -19,11 +19,13 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
         public Image nvscImage;
         public Image imageIcon;
         public HealthBarScript healthBar;
+        public Image imageHeldItem;
 
         public void SetInteractable(bool state)
         {
 
             imageIcon.enabled = state;
+            imageHeldItem.enabled = state;
             nvscImage.enabled = state;
             if (!state)
             {
@@ -60,6 +62,11 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                 nvscImage.enabled = true;
                 nvscImage.sprite = SpriteStorage.GetNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
             }
+
+            if (pokemon.heldItem == null)
+                imageHeldItem.enabled = false;
+            else
+                imageHeldItem.enabled = true;
 
             healthBar.UpdateBar((float)pokemon.health / pokemon.GetStats().health);
 

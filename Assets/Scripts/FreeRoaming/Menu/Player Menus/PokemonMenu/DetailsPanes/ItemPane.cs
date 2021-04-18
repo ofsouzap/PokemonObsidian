@@ -62,6 +62,8 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
             RefreshDetails(PokemonMenuController.singleton.CurrentPokemon);
             EventSystem.current.SetSelectedGameObject(PokemonMenuController.singleton.toolbarController.detailsPaneSelectables[0].gameObject);
 
+            PokemonMenuController.singleton.pokemonOptionsController.SetUpOptions(); //Refresh to reflect no held item anymore
+
             textBoxController.Show();
             textBoxController.SetTextInstant("Item has been taken back");
             textBoxController.SetHideDelay(1F);

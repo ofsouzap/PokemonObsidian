@@ -33,7 +33,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
 
         }
 
-        private void SetUpOptions()
+        public void SetUpOptions()
         {
 
             PokemonInstance[] pokemon = PlayerData.singleton.partyPokemon;

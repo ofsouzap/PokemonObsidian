@@ -15,6 +15,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
         public Text textName;
         public HealthBarScript healthBar;
         public Image imageStatusCondition;
+        public Image imageHeldItem;
 
         public void UpdateValues(PokemonInstance pokemon)
         {
@@ -31,12 +32,18 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
                 imageStatusCondition.sprite = SpriteStorage.GetNonVolatileStatusConditionSprite(pokemon.nonVolatileStatusCondition);
             }
 
+            if (pokemon.heldItem == null)
+                imageHeldItem.enabled = false;
+            else
+                imageHeldItem.enabled = true;
+
         }
 
         public void SetInteractable(bool state)
         {
 
             imageIcon.enabled = state;
+            imageHeldItem.enabled = state;
             if (!state)
                 textName.text = "";
             healthBar.gameObject.SetActive(state);
