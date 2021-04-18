@@ -441,7 +441,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             PokemonInstance pokemon = PlayerData.singleton.partyPokemon[index];
 
             if (CurrentItem is MedicineItem)
-                OnPokemonSelected_UseItem_MedicineItem(pokemon);
+                yield return StartCoroutine(OnPokemonSelected_UseItem_MedicineItem(pokemon));
             else if (CurrentItem is TMItem)
                 yield return StartCoroutine(OnPokemonSelected_UseItem_TMItem(pokemon));
             //TODO - add branches for other usable item types
@@ -452,19 +452,72 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         }
 
-        private void OnPokemonSelected_UseItem_MedicineItem(PokemonInstance pokemon)
+        private IEnumerator OnPokemonSelected_UseItem_MedicineItem(PokemonInstance pokemon)
         {
 
-            //TODO - deal with single-move PP-restoring items (have user choose move to use item on)
+            textBoxController.Show();
 
             if (!CurrentItem.CheckCompatibility(pokemon))
             {
-                textBoxController.Show();
-                textBoxController.SetTextInstant("The " + CurrentItem.itemName + " won't have any effect on " + pokemon.GetDisplayName());
-                textBoxController.SetHideDelay(1.5F);
+                textBoxController.RevealText("The " + CurrentItem.itemName + " won't have any effect on " + pokemon.GetDisplayName());
+                yield return new WaitForFixedUpdate();
+                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
             }
             else
             {
+
+                if (CurrentItem is PPRestoreMedicineItem CurrentPPRestoreItem && CurrentPPRestoreItem.isForSingleMove)
+                {
+
+                    yield return StartCoroutine(AwaitUserSelectMove(pokemon));
+
+                    if (textBoxController.userChoiceIndexSelected == 0) //Index 0 is always cancel
+                    {
+                        textBoxController.Hide();
+                        yield break;
+                    }
+
+                    int moveIndexSelected = textBoxController.userChoiceIndexSelected - 1;
+
+                    int trueMoveIndexSelected = -1;
+                    int unsetMovesFound = 0;
+
+                    //Explained in TM-using
+                    for (int i = moveIndexSelected; i < pokemon.moveIds.Length; i++)
+                    {
+
+                        if (PokemonMove.MoveIdIsUnset(pokemon.moveIds[i]))
+                            unsetMovesFound++;
+
+                        if (i - unsetMovesFound == moveIndexSelected)
+                        {
+                            trueMoveIndexSelected = i;
+                            break;
+                        }
+
+                    }
+
+                    if (trueMoveIndexSelected < 0)
+                    {
+                        Debug.LogError("Unable to find trueMoveIndexSelected");
+                        textBoxController.Hide();
+                        yield break;
+                    }
+
+                    if (pokemon.movePPs[trueMoveIndexSelected] >= PokemonMove.GetPokemonMoveById(pokemon.moveIds[trueMoveIndexSelected]).maxPP)
+                    {
+                        textBoxController.RevealText("This move can't have any more PP");
+                        yield return new WaitForFixedUpdate();
+                        yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                        textBoxController.Hide();
+                        yield break;
+                    }
+                    else
+                    {
+                        PPRestoreMedicineItem.singleMoveIndexToRecoverPP = trueMoveIndexSelected;
+                    }
+
+                }
 
                 PlayerData.singleton.inventory.RemoveItem(CurrentItem, 1);
 
@@ -484,11 +537,13 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                 }
 
-                textBoxController.Show();
-                textBoxController.SetTextInstant("The " + CurrentItem.itemName + " was used on " + pokemon.GetDisplayName());
-                textBoxController.SetHideDelay(1.5F);
+                textBoxController.RevealText("The " + CurrentItem.itemName + " was used on " + pokemon.GetDisplayName());
+                yield return new WaitForFixedUpdate();
+                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             }
+
+            textBoxController.Hide();
 
         }
 
@@ -551,13 +606,31 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                 int moveIndexSelected = textBoxController.userChoiceIndexSelected - 1;
 
-                int changedMoveIndex = moveIndexSelected;
+                int changedMoveIndex = -1;
+                int unsetMovesFound = 0;
 
                 //Offsetting selection based on unset moves since they wouldn't have been displayed in choices
                 //This shouldn't ever be a problem since, if a pokemon has a free move space, they don't need to forget a move, but is just in case
-                for (int i = 0; i < changedMoveIndex; i++)
+                for (int i = moveIndexSelected; i < pokemon.moveIds.Length; i++)
+                {
+
                     if (PokemonMove.MoveIdIsUnset(pokemon.moveIds[i]))
-                        changedMoveIndex++;
+                        unsetMovesFound++;
+
+                    if (i - unsetMovesFound == moveIndexSelected)
+                    {
+                        changedMoveIndex = i;
+                        break;
+                    }
+
+                }
+
+                if (changedMoveIndex < 0)
+                {
+                    Debug.LogError("Unable to find changedMoveIndex");
+                    textBoxController.Hide();
+                    yield break;
+                }
 
                 PokemonMove forgottenMove = PokemonMove.GetPokemonMoveById(pokemon.moveIds[changedMoveIndex]); //N.B. '-1' since first option is always cancel option
                 PokemonMove learntMove = ((TMItem)CurrentItem).Move;

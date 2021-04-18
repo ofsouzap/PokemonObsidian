@@ -60,7 +60,8 @@ namespace Testing
                 playerPokemon.Add(pokemon);
 
             }
-            
+            playerPokemon[0].moveIds[1] = playerPokemon[0].moveIds[2] = -1;
+            playerPokemon[0].movePPs[0] = playerPokemon[0].movePPs[3] = 3;
             PlayerData.singleton.partyPokemon = playerPokemon.ToArray();
 
             #endregion
