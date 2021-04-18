@@ -95,5 +95,11 @@ namespace Audio
         public void UnPauseMusic()
             => AudioSource.UnPause();
 
+        public float GetVolume()
+            => AudioSource.volume;
+
+        public void SetVolume(float volume)
+            => AudioSource.volume = volume;
+
     }
 }

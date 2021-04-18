@@ -25,6 +25,8 @@ namespace EvolutionScene
 
         public const float endDelayTime = 1;
 
+        public const float musicVolume = 0.2F;
+
         public PokemonSpriteController pokemonSpriteController;
 
         public delegate void OnComplete();
@@ -99,7 +101,9 @@ namespace EvolutionScene
 
             EvolutionAnimationComplete = null;
 
-            MusicSourceController.singleton.PauseMusic();
+            float musicInitialVolume = MusicSourceController.singleton.GetVolume();
+
+            MusicSourceController.singleton.SetVolume(musicVolume);
 
             Sprite startSprite = SpriteStorage.GetPokemonSprite(
                 PokemonSpecies.GetPokemonSpeciesById(entranceArguments.startSpeciesId).resourceName,
@@ -149,7 +153,7 @@ namespace EvolutionScene
 
             yield return new WaitForSeconds(endDelayTime);
 
-            MusicSourceController.singleton.UnPauseMusic();
+            MusicSourceController.singleton.SetVolume(musicInitialVolume);
 
             EvolutionAnimationComplete?.Invoke();
             yield break;
