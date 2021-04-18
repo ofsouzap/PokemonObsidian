@@ -97,7 +97,17 @@ namespace Battle.PlayerUI
 
             textLevelValue.text = pokemon.GetLevel().ToString();
 
-            //TODO - set values for items once implemented
+            if (pokemon.heldItem != null)
+            {
+                textItemName.text = pokemon.heldItem.itemName;
+                imageItemIcon.enabled = true;
+                imageItemIcon.sprite = pokemon.heldItem.LoadSprite();
+            }
+            else
+            {
+                textItemName.text = "No held item";
+                imageItemIcon.enabled = false;
+            }
 
             //TODO - set values for ability when and if implemented
 

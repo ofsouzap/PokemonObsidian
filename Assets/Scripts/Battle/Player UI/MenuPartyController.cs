@@ -58,7 +58,8 @@ namespace Battle.PlayerUI
                     pokemon[i].GetDisplayName(),
                     pokemon[i].LoadSprite(Pokemon.PokemonSpecies.SpriteType.Icon),
                     ((float)pokemon[i].health) / pokemon[i].GetStats().health,
-                    pokemon[i].nonVolatileStatusCondition);
+                    pokemon[i].nonVolatileStatusCondition,
+                    pokemon[i].heldItem != null);
 
             }
 

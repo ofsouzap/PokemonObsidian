@@ -21,11 +21,13 @@ namespace Battle.PlayerUI
         public Image imageIcon;
         public HealthBarScript healthBar;
         public Image imageStatusCondition;
+        public Image imageHeldItem;
 
         public void SetValues(string name,
             Sprite icon,
             float healthBarValue,
-            PokemonInstance.NonVolatileStatusCondition statusCondition)
+            PokemonInstance.NonVolatileStatusCondition statusCondition,
+            bool hasHeldItem)
         {
 
             if (healthBarValue < 0 || healthBarValue > 1)
@@ -45,6 +47,8 @@ namespace Battle.PlayerUI
                 imageStatusCondition.sprite = SpriteStorage.GetNonVolatileStatusConditionSprite(statusCondition);
             }
 
+            imageHeldItem.enabled = hasHeldItem;
+
         }
 
         public void SetInteractable(bool state)
@@ -56,6 +60,7 @@ namespace Battle.PlayerUI
             Button.interactable = state;
             healthBar.gameObject.SetActive(state);
             imageStatusCondition.gameObject.SetActive(state);
+            imageHeldItem.enabled = state;
 
         }
 
