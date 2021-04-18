@@ -15,7 +15,12 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
 
         public void SetUp()
         {
+
             SetCurrentPaneIndex(0);
+
+            foreach (DetailsPane dp in detailsPanes)
+                dp.SetUp();
+
         }
 
         private void HideAllPanes()

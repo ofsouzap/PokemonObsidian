@@ -8,12 +8,15 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
     public class PokemonMenuController : PlayerMenuController
     {
 
+        public static PokemonMenuController singleton;
+
         public PokemonOptionsController pokemonOptionsController;
         public ToolbarController toolbarController;
         public DetailsPaneController detailsPaneController;
 
         protected byte currentPokemonIndex;
-        public PokemonInstance CurrentPokemon => PlayerData.singleton.partyPokemon[currentPokemonIndex]; 
+        public byte CurrentPokemonIndex => currentPokemonIndex;
+        public PokemonInstance CurrentPokemon => PlayerData.singleton.partyPokemon[currentPokemonIndex];
 
         protected override GameObject GetDefaultSelectedGameObject()
             => pokemonOptionsController.optionControllers[0].gameObject;
@@ -30,6 +33,14 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
 
         protected override void SetUp()
         {
+
+            if (singleton != null)
+            {
+                Debug.LogError("Multiple PokemonMenuControllers found. Destroying self");
+                Destroy(gameObject);
+            }
+            else
+                singleton = this;
 
             pokemonOptionsController.SetUp();
             toolbarController.SetUp();

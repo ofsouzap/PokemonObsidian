@@ -9,8 +9,10 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
 
         public MovesPane_MovePane[] movePaneControllers;
 
-        public void SetUp()
+        public override void SetUp()
         {
+
+            base.SetUp();
 
             if (movePaneControllers.Length != 4)
             {
