@@ -6747,7 +6747,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 3992824454761705907, guid: 6ad488d40b996c245ab265f5fa7a6d15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -39461,8 +39461,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   playerPokeBallLineController: {fileID: 2825106929155776521}
+  playerPokeBallLineRootX: 0
   playerPokeBallLineOffScreenLocalXDistance: 238
   opponentPokeBallLineController: {fileID: 2072529621}
+  opponentPokeBallLineRootX: 0
   opponentPokeBallLineOffScreenLocalXDistance: 238
   backgroundSpriteRenderer: {fileID: 1535342211}
   battleCircleSpriteRenderers:
@@ -40419,7 +40421,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 3992824454761705907, guid: 6ad488d40b996c245ab265f5fa7a6d15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

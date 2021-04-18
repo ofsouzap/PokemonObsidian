@@ -71,9 +71,10 @@ namespace FreeRoaming.NPCs
         protected virtual void BattleChallengeUpdate()
         {
 
-            if (ableToBattle)
-                if (PlayerInView)
-                    TriggerBattle();
+            if (AllowedToAct)
+                if (ableToBattle)
+                    if (PlayerInView)
+                        TriggerBattle();
 
         }
 

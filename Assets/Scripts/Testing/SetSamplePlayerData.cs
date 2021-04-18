@@ -60,7 +60,7 @@ namespace Testing
                 playerPokemon.Add(pokemon);
 
             }
-
+            
             PlayerData.singleton.partyPokemon = playerPokemon.ToArray();
 
             #endregion

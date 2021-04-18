@@ -26,6 +26,9 @@ public class TextBoxController : MonoBehaviour
     [Tooltip("Whether the text box should be shown by default")]
     private bool startShown = true;
 
+    [SerializeField]
+    private TextBoxUserChoicesController userChoicesController;
+
     public void Show() => mainCanvas.enabled = true;
     public void Hide() => mainCanvas.enabled = false;
 
@@ -58,6 +61,8 @@ public class TextBoxController : MonoBehaviour
 
         continuePromptObject.SetActive(false);
         StartCoroutine(ContinuePromptBobbingCoroutine());
+
+        userChoicesController.Hide();
 
     }
 
@@ -182,6 +187,29 @@ public class TextBoxController : MonoBehaviour
         yield return new WaitUntil(() => GetContinueDown());
 
         HideContinuePrompt();
+
+    }
+
+    #endregion
+
+    #region User Choice List
+
+    [HideInInspector]
+    /// <summary>
+    /// The index of the last choice that the user has selected. If negative, the user hasn't yet selected a choice
+    /// </summary>
+    public int userChoiceIndexSelected = -1;
+
+    public IEnumerator GetUserChoice(string[] optionNames)
+    {
+
+        userChoiceIndexSelected = -1;
+
+        userChoicesController.SetChoices(optionNames);
+
+        yield return new WaitUntil(() => userChoicesController.choiceIndexSelected >= 0);
+
+        userChoiceIndexSelected = userChoicesController.choiceIndexSelected;
 
     }
 
