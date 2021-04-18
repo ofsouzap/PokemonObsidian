@@ -119,8 +119,7 @@ namespace Battle.PlayerUI
             .singleton
             .partyPokemon[currentPokemonIndex]
             .moveIds
-            .Where(x => !PokemonMove.MoveIdIsUnset(x))
-            .Select(x => PokemonMove.GetPokemonMoveById(x))
+            .Select(x => !PokemonMove.MoveIdIsUnset(x) ? PokemonMove.GetPokemonMoveById(x) : null)
             .ToArray();
 
         public void RefreshMoveButtons()
@@ -134,26 +133,15 @@ namespace Battle.PlayerUI
             for (int i = 0; i < moves.Length; i++)
             {
 
-                moveButtons[i].GetComponentInChildren<Text>().text = moves[i].name;
+                if (moves[i] == null)
+                    moveButtons[i].GetComponentInChildren<MenuButtonMoveController>().SetInteractable(false);
+                else
+                {
+                    moveButtons[i].GetComponentInChildren<MenuButtonMoveController>().SetInteractable(true);
+                    moveButtons[i].GetComponentInChildren<MenuButtonMoveController>().SetName(moves[i].name);
+                }
 
             }
-
-            if (moves.Length < 4)
-                moveButtons[3].gameObject.SetActive(false);
-            else
-                moveButtons[3].gameObject.SetActive(true);
-
-            if (moves.Length < 3)
-                moveButtons[2].gameObject.SetActive(false);
-            else
-                moveButtons[2].gameObject.SetActive(true);
-
-            if (moves.Length < 2)
-                moveButtons[1].gameObject.SetActive(false);
-            else
-                moveButtons[1].gameObject.SetActive(true);
-
-            
 
             bool showStruggleMoveButton = !PlayerData.singleton
                 .partyPokemon[currentPokemonIndex]
@@ -167,6 +155,13 @@ namespace Battle.PlayerUI
         {
 
             PokemonMove move = GetMoves()[moveIndex];
+
+            if (move == null)
+            {
+                HideMovePane();
+                return;
+            }
+
             byte[] remainingPPs = PlayerData
                 .singleton
                 .partyPokemon[currentPokemonIndex]
