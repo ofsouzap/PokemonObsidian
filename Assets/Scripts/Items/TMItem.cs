@@ -30,8 +30,9 @@ namespace Items
                     id = typeIdTM + move.id,
                     moveId = move.id,
                     itemName = "TM" + move.id + ' ' + move.name,
+                    resourceName = "tm_" + TypeFunc.GetTypeResourceName(move.type),
                     description = move.description
-                }); //TODO - once TM itemsprite ready, set resourceName for each generated TM
+                });
 
             }
 
@@ -40,6 +41,9 @@ namespace Items
         }
 
         #endregion
+
+        public override bool CanBeUsedFromBag()
+            => true;
 
         public int moveId;
 

@@ -103,7 +103,10 @@ namespace Testing
 
             PlayerData.singleton.inventory.tmItems.SetItems(new Dictionary<int, int>()
             {
-
+                { Item.typeIdTM + 1, 3 },
+                { Item.typeIdTM + 39, 1 },
+                { Item.typeIdTM + 55, 20 },
+                { Item.typeIdTM + 72, 5 }
             });
 
             #endregion

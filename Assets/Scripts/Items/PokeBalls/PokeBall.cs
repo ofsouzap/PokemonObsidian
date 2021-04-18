@@ -100,6 +100,9 @@ namespace Items.PokeBalls
 
         #endregion
 
+        public override bool CanBeUsedFromBag()
+            => false;
+
         /// <summary>
         /// The number of times that CalculateIfShake must return true for a pokemon to be caught
         /// </summary>

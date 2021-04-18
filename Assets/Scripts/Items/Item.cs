@@ -137,6 +137,11 @@ namespace Items
         /// </summary>
         public string description;
 
+        /// <summary>
+        /// A method to get whether this item can be used directly from the bag menu in free-roaming. This is usually specific to item types and so they can implement the method
+        /// </summary>
+        public abstract bool CanBeUsedFromBag();
+
         #endregion
 
         #region ItemUsageEffects

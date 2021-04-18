@@ -97,6 +97,9 @@ namespace Items
 
         #endregion
 
+        public override bool CanBeUsedFromBag()
+            => false;
+
         public Stats<sbyte> statModifiers = new Stats<sbyte>();
         public sbyte evasionModifier = 0;
         public sbyte accuracyModifier = 0;

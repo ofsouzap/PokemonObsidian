@@ -1,9 +1,10 @@
 using Menus;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Pokemon;
 using Items;
+using Items.MedicineItems;
 
 namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 {
@@ -14,6 +15,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
         public ActionsBarController actionsBarController;
         public ItemsListController itemsListController;
         public DisplayAreaController displayAreaController;
+        public PokemonSelectionController pokemonSelectionController;
 
         protected override GameObject GetDefaultSelectedGameObject()
             => null;
@@ -23,8 +25,11 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         public GameObject fullBorderPrefab;
 
-        private enum Mode { Section, Action }
+        private enum Mode { Section, Action, ChoosePokemon }
         private Mode currentMode;
+
+        private enum PokemonSelectionMode { Use, Give }
+        private PokemonSelectionMode pokemonSelectionMode;
 
         private int currentSectionIndex;
         public int SectionCount => sectionsBarController.sectionIcons.Length;
@@ -36,8 +41,15 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         private Item CurrentItem => currentItems.Length > currentItemIndex ? currentItems[currentItemIndex] : null;
 
+        protected override bool GetClosesOnCancel()
+            => false;
+
+        private TextBoxController textBoxController;
+
         protected override void SetUp()
         {
+
+            textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
             currentSectionIndex = 0;
             currentActionIndex = 0;
@@ -47,6 +59,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             actionsBarController.SetUp(fullBorderPrefab);
             sectionsBarController.SetUp(fullBorderPrefab);
             itemsListController.SetUp(fullBorderPrefab);
+            pokemonSelectionController.SetUp(this);
 
             ChangeToSectionSelection();
 
@@ -58,6 +71,10 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
         [SerializeField]
         private float navigationMoveDelay = 0.25f;
 
+        private float lastSubmitUsage = float.MinValue;
+        [SerializeField]
+        private float submitUsageDelay = 0.1F;
+
         protected override void Update()
         {
 
@@ -66,35 +83,105 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             if (Time.time - lastNavigationMove >= navigationMoveDelay)
             {
 
-                if (Input.GetAxis("Horizontal") != 0)
+                if (currentMode == Mode.Section || currentMode == Mode.Action)
                 {
 
-                    sbyte moveAmount = Input.GetAxis("Horizontal") > 0 ? (sbyte)1 : (sbyte)-1;
+                    if (Input.GetAxis("Horizontal") != 0)
+                    {
 
-                    if (currentMode == Mode.Section)
-                        ChangeSectionIndex(moveAmount);
-                    else if (currentMode == Mode.Action)
-                        ChangeActionIndex(moveAmount);
+                        sbyte moveAmount = Input.GetAxis("Horizontal") > 0 ? (sbyte)1 : (sbyte)-1;
 
-                    lastNavigationMove = Time.time;
+                        if (currentMode == Mode.Section)
+                            ChangeSectionIndex(moveAmount);
+                        else if (currentMode == Mode.Action)
+                            ChangeActionIndex(moveAmount);
 
-                }
+                        lastNavigationMove = Time.time;
 
-                if (Input.GetAxis("Vertical") != 0 && currentItems.Length > 0)
-                {
+                    }
 
-                    if (currentMode == Mode.Action)
-                        ChangeToSectionSelection();
+                    if (Input.GetAxis("Vertical") != 0 && currentItems.Length > 0)
+                    {
 
-                    ChangeItemIndex(Input.GetAxis("Vertical") > 0 ? (sbyte)-1 : (sbyte)1); //N.B. opposite directions used as items list indexing works in different direction
+                        if (currentMode == Mode.Section)
+                        {
 
-                    lastNavigationMove = Time.time;
+                            ChangeItemIndex(Input.GetAxis("Vertical") > 0 ? (sbyte)-1 : (sbyte)1); //N.B. opposite directions used as items list indexing works in different direction
+
+                            lastNavigationMove = Time.time;
+
+                        }
+
+                    }
 
                 }
 
             }
 
-            //TODO - selecting current item (Input.GetButtonDown("Submit"))
+            if (Input.GetButtonDown("Submit"))
+            {
+
+                if (Time.time - lastSubmitUsage >= submitUsageDelay)
+                {
+
+                    if (currentMode == Mode.Section)
+                    {
+
+                        ChangeToActionSelection();
+
+                    }
+                    else if (currentMode == Mode.Action)
+                    {
+
+                        switch (currentActionIndex)
+                        {
+
+                            case 0: //Cancel button
+                                ChangeToSectionSelection(false);
+                                break;
+
+                            case 1: //Use button
+                                if (CurrentItem.CanBeUsedFromBag())
+                                {
+                                    pokemonSelectionMode = PokemonSelectionMode.Use;
+                                    ChangeToPokemonSelection();
+                                }
+                                else
+                                {
+                                    textBoxController.Show();
+                                    textBoxController.SetTextInstant("You can't use this item");
+                                    textBoxController.SetHideDelay(1.5F);
+                                }
+                                break;
+
+                            case 2: //Give button
+                                pokemonSelectionMode = PokemonSelectionMode.Give;
+                                ChangeToPokemonSelection();
+                                break;
+
+                            default:
+                                Debug.LogError("Unhandled currentActionIndex - " + currentActionIndex);
+                                break;
+
+                        }
+
+                    }
+
+                    lastSubmitUsage = Time.time;
+
+                }
+
+            }
+
+            if (Input.GetButtonDown("Cancel"))
+            {
+                if (currentMode == Mode.Section)
+                    CloseMenu();
+                else if (currentMode == Mode.Action)
+                    ChangeToSectionSelection(false);
+                else if (currentMode == Mode.ChoosePokemon)
+                    ChangeToActionSelection();
+            }
 
         }
 
@@ -127,17 +214,21 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         #endregion
 
-        private void ChangeToSectionSelection()
+        private void ChangeToSectionSelection(bool resetSelectionIndex = true)
         {
 
             currentMode = Mode.Section;
 
-            //TODO
-
             sectionsBarController.Show();
             actionsBarController.Hide();
+            pokemonSelectionController.Hide();
 
-            SetCurrentSection(0);
+            if (resetSelectionIndex)
+                currentSectionIndex = 0;
+
+            SetCurrentSection(currentSectionIndex);
+
+            lastSubmitUsage = Time.time;
 
         }
 
@@ -146,11 +237,26 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
             currentMode = Mode.Action;
 
-            //TODO
-
             sectionsBarController.Hide();
             actionsBarController.Show();
+            pokemonSelectionController.Hide();
+
+            currentActionIndex = 0;
+
             actionsBarController.SetCurrentSelectionIndex(0);
+
+            lastSubmitUsage = Time.time;
+
+        }
+
+        private void ChangeToPokemonSelection()
+        {
+
+            currentMode = Mode.ChoosePokemon;
+
+            pokemonSelectionController.Show();
+
+            pokemonSelectionController.SetSelectableAsSelection();
 
         }
 
@@ -168,7 +274,6 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
             currentActionIndex = index;
             actionsBarController.SetCurrentSelectionIndex(index);
-            //TODO
 
         }
 
@@ -230,6 +335,113 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             RefreshCurrentItem();
 
         }
+
+        public void OnPokemonSelected(int index)
+        {
+
+            switch (pokemonSelectionMode)
+            {
+
+                case PokemonSelectionMode.Give:
+                    OnPokemonSelected_TryGiveItem(index);
+                    break;
+
+                case PokemonSelectionMode.Use:
+                    OnPokemonSelected_TryUseItem(index);
+                    break;
+
+                default:
+                    Debug.LogError("Unhandled PokemonSelectionMode - " + pokemonSelectionMode);
+                    break;
+
+            }
+
+        }
+
+        #region Pokemon Selected
+
+        private void OnPokemonSelected_TryGiveItem(int index)
+        {
+
+            PokemonInstance pokemon = PlayerData.singleton.partyPokemon[index];
+
+            if (pokemon.heldItem != null)
+            {
+                textBoxController.Show();
+                textBoxController.SetTextInstant("This pokemon is already holding an item");
+                textBoxController.SetHideDelay(1.5F);
+                return;
+            }
+            else
+            {
+
+                pokemon.heldItem = CurrentItem;
+                PlayerData.singleton.inventory.RemoveItem(CurrentItem, 1);
+
+                textBoxController.Show();
+                textBoxController.SetTextInstant(pokemon.GetDisplayName() + " was given the " + CurrentItem.itemName + " to hold.");
+                textBoxController.SetHideDelay(1.5F);
+
+                ChangeToSectionSelection(false);
+
+            }
+
+        }
+
+        private void OnPokemonSelected_TryUseItem(int index)
+        {
+
+            PokemonInstance pokemon = PlayerData.singleton.partyPokemon[index];
+
+            if (CurrentItem is MedicineItem)
+                OnPokemonSelected_UseItem_MedicineItem(pokemon);
+            //TODO - add branches for other usable item types
+            else
+                Debug.LogError("Unhandled item (ID - " + CurrentItem.id + ")");
+
+            ChangeToSectionSelection(false);
+
+        }
+
+        private void OnPokemonSelected_UseItem_MedicineItem(PokemonInstance pokemon)
+        {
+
+            //TODO - deal with single-move PP-restoring items (have user choose move to use item on)
+
+            if (!CurrentItem.CheckCompatibility(pokemon))
+            {
+                textBoxController.Show();
+                textBoxController.SetTextInstant("The " + CurrentItem.itemName + " won't have any effect on " + pokemon.GetDisplayName());
+                textBoxController.SetHideDelay(1.5F);
+            }
+            else
+            {
+
+                Item.ItemUsageEffects itemUsageEffects = CurrentItem.GetUsageEffects(pokemon);
+
+                if (itemUsageEffects.healthRecovered > 0)
+                    pokemon.HealHealth(itemUsageEffects.healthRecovered);
+
+                if (itemUsageEffects.nvscCured)
+                    pokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                if (itemUsageEffects.ppIncreases.Any(x => x != 0))
+                {
+
+                    for (int i = 0; i < pokemon.movePPs.Length; i++)
+                        pokemon.movePPs[i] += itemUsageEffects.ppIncreases[i];
+
+                }
+
+                textBoxController.Show();
+                textBoxController.SetTextInstant("The " + CurrentItem.itemName + " was used on " + pokemon.GetDisplayName());
+                textBoxController.SetHideDelay(1.5F);
+
+            }
+
+        }
+
+        #endregion
 
     }
 }

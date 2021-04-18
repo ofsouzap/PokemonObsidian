@@ -61,6 +61,24 @@ public class TextBoxController : MonoBehaviour
 
     }
 
+    public void SetHideDelay(float time)
+    {
+
+        if (hideDelayCoroutine != null)
+            StopCoroutine(hideDelayCoroutine);
+
+        hideDelayCoroutine = StartCoroutine(HideDelay(time));
+
+    }
+
+    private Coroutine hideDelayCoroutine;
+
+    private IEnumerator HideDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Hide();
+    }
+
     #region Text
 
     /// <summary>

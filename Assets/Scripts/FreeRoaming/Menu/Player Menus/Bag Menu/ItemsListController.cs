@@ -25,7 +25,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
         private float itemsPadding = 5;
 
         [SerializeField]
-        private byte itemsNoScrollBuffer = 4;
+        private byte itemsNoScrollBuffer = 3;
 
         private int currentScrollIndex = 0;
 

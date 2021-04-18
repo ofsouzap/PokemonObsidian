@@ -213,5 +213,8 @@ namespace Items.MedicineItems
 
         #endregion
 
+        public override bool CanBeUsedFromBag()
+            => true;
+
     }
 }

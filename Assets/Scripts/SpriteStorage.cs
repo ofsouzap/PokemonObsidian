@@ -247,12 +247,16 @@ public static class SpriteStorage
     private const string itemSpritePrefix = "itemsprite_";
     private const string itemSpriteSheetName = "sprite_sheet_itemsprites";
     private const string battleItemSpriteSheetName = "sprite_sheet_battleitemsprites";
+    private const string tmItemsSpriteSheetName = "sprite_sheet_itemsprites_tmitems";
+
+    private const string tmItemSpritePrefix = "itemsprite_tm_";
 
     private static Sprite[] LoadItemSprites()
     {
         List<Sprite> sprites = new List<Sprite>();
         sprites.AddRange(LoadSpriteSheet(itemSpriteSheetName));
         sprites.AddRange(LoadSpriteSheet(battleItemSpriteSheetName));
+        sprites.AddRange(LoadSpriteSheet(tmItemsSpriteSheetName));
         return sprites.ToArray();
     }
 
@@ -261,6 +265,14 @@ public static class SpriteStorage
 
         string spriteName = itemSpritePrefix + itemResourceName;
         return GetSprite(SpriteType.Item, spriteName);
+
+    }
+
+    public static Sprite GetTMSprite(Pokemon.Type moveType)
+    {
+
+        string resourceName = tmItemSpritePrefix + TypeFunc.GetTypeResourceName(moveType);
+        return GetSprite(SpriteType.Item, resourceName);
 
     }
 
