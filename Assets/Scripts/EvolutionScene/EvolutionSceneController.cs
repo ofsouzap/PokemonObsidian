@@ -142,7 +142,7 @@ namespace EvolutionScene
             },
             unshrinkTime));
 
-            GeneralFXSourceController.singleton.PlayFX("evolution_end");
+            SoundFXController.singleton.PlaySound("evolution_end");
 
             textBoxController.RevealText(entranceArguments.displayName
                 + " evolved into a "

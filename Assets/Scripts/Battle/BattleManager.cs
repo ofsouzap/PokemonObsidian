@@ -1189,7 +1189,7 @@ namespace Battle
                             + playerPokemonInstance.GetLevel().ToString()
                             + '!');
 
-                        GeneralFXSourceController.singleton.PlayFX("level_up");
+                        SoundFXController.singleton.PlaySound("level_up");
                         yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                         if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
