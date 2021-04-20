@@ -18,7 +18,7 @@ namespace FreeRoaming.NPCs
         public string challengeMessage;
 
         public string challengeMusicResourceName = "look1";
-        public string battleMusicResourceName = "battle_trainer";
+        public string battleMusicResourceName = "";
 
         #region Battle Details
 
@@ -122,7 +122,10 @@ namespace FreeRoaming.NPCs
 
             textBoxController.Hide();
 
-            MusicSourceController.singleton.SetTrack(battleMusicResourceName, true);
+            string musicName = battleMusicResourceName == "" || battleMusicResourceName == null
+                ? BattleEntranceArguments.defaultTrainerBattleMusicName
+                : battleMusicResourceName;
+            MusicSourceController.singleton.SetTrack(musicName, true);
 
             LaunchBattle();
 

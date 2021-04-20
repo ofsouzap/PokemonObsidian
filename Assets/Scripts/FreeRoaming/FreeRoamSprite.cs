@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace FreeRoaming
 {
-    public abstract class FreeRoamSprite : MonoBehaviour
+    public class FreeRoamSprite : MonoBehaviour
     {
 
         private int previousSceneIndex;

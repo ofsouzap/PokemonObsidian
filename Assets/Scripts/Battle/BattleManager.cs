@@ -528,13 +528,13 @@ namespace Battle
             else
             {
 
+                if (battleData.isWildBattle)
+                    MusicSourceController.singleton.SetTrack("victory_wild", true);
+                else
+                    MusicSourceController.singleton.SetTrack("victory_trainer", true);
+
                 if (battleData.participantOpponent is BattleParticipantNPC opponentNPCParticipant)
                 {
-
-                    if (battleData.isWildBattle)
-                        MusicSourceController.singleton.SetTrack("victory_wild", true);
-                    else
-                        MusicSourceController.singleton.SetTrack("victory_trainer", true);
 
                     if (opponentNPCParticipant.basePayout > 0)
                     {

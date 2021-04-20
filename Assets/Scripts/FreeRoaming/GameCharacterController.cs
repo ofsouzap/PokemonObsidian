@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using FreeRoaming;
+using FreeRoaming.WildPokemonArea;
 
 namespace FreeRoaming
 {
@@ -12,6 +12,7 @@ namespace FreeRoaming
     /// <summary>
     /// The class for any characters on the grid in a free-roaming scene. The player and NPCs will inherit from this
     /// </summary>
+    [RequireComponent(typeof(Rigidbody2D))] //For entering triggers
     [RequireComponent(typeof(Collider2D))]
     public abstract class GameCharacterController : FreeRoamSprite, IOccupyPositions
     {
@@ -129,6 +130,11 @@ namespace FreeRoaming
 
         protected TextBoxController textBoxController;
 
+        /// <summary>
+        /// A wild pokemon area that the character is currently in. If null, the character isn't in a wild pokemon area
+        /// </summary>
+        protected WildPokemonAreaController currentWildPokemonArea = null;
+
         protected override void Start()
         {
 
@@ -145,6 +151,8 @@ namespace FreeRoaming
 
             RefreshGridManager();
             SceneChanged.AddListener(RefreshGridManager);
+
+            currentWildPokemonArea = null;
 
             SpriteStorage.TryLoadAll();
 
@@ -171,6 +179,11 @@ namespace FreeRoaming
         {
             gridManager = GridManager.GetSceneGridManager(Scene);
         }
+
+        #region Position and Movement
+
+        public delegate void OnComplete();
+        public event OnComplete MovementCompleted;
 
         public void SetPosition(Vector2Int newPosition)
         {
@@ -272,6 +285,8 @@ namespace FreeRoaming
             isMoving = false;
 
             SetPosition(movementTargettedGridPosition);
+
+            MovementCompleted?.Invoke();
 
         }
 
@@ -516,6 +531,8 @@ namespace FreeRoaming
 
         }
 
+        #endregion
+
         /// <summary>
         /// Sets the character's sprite to a neutral sprite in the direction that it is facing
         /// </summary>
@@ -560,6 +577,20 @@ namespace FreeRoaming
             Destroy(exclaimGameObject);
 
         }
+
+        #region Wild Pokemon Area
+
+        public void SetWildPokemonArea(WildPokemonAreaController areaController)
+        {
+            currentWildPokemonArea = areaController;
+        }
+
+        public void ExitWildPokemonArea()
+        {
+            currentWildPokemonArea = null;
+        }
+
+        #endregion
 
     }
 }

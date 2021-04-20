@@ -52,7 +52,7 @@ namespace Pokemon
         public struct BasicSpecification
         {
 
-            //Whenever attributes added/removed, make sure to use them iin PokemonFactory.GenerateFromBasicSpecification;
+            //Whenever attributes added/removed, make sure to use them in PokemonFactory.GenerateFromBasicSpecification;
 
             [Tooltip("If empty, this won't be used")]
             public string nickname;
@@ -106,6 +106,26 @@ namespace Pokemon
             {
                 return PokemonFactory.GenerateFromBasicSpecification(this);
             }
+
+        }
+
+        #endregion
+
+        #region Wild Specification
+
+        [Serializable]
+        public struct WildSpecification
+        {
+
+            public int[] possibleSpeciesIds;
+            public byte minimumLevel;
+            public byte maximumLevel;
+
+            public PokemonInstance Generate()
+                => PokemonFactory.GenerateWild(
+                    possibleSpeciesIds,
+                    minimumLevel,
+                    maximumLevel);
 
         }
 

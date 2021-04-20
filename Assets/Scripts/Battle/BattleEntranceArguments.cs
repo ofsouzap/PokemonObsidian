@@ -6,6 +6,12 @@ namespace Battle
     public static class BattleEntranceArguments
     {
 
+        //Both of the following tracks are assumed to have start tracks
+        public const string defaultPokemonBattleMusicName = "battle_wild";
+        public const string defaultTrainerBattleMusicName = "battle_trainer";
+
+        public const string defaultBackgroundName = "field";
+
         public static  bool argumentsSet;
 
         #region Battle Type

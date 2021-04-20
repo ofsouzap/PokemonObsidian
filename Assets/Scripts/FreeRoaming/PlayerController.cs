@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using FreeRoaming.Menu;
+using FreeRoaming.WildPokemonArea;
+using Battle;
+using Audio;
 
 namespace FreeRoaming
 {
@@ -37,6 +40,9 @@ namespace FreeRoaming
             }
             else
                 singleton = this;
+
+            //Whenever the player completes a movement, check if a wild pokemon battle should be launched
+            MovementCompleted += () => WildPokemonBattleLaunchUpdate();
             
         }
 
@@ -74,8 +80,13 @@ namespace FreeRoaming
                     else
                     {
 
-                        TryTurn(selectedDirection);
-                        lastRotate = Time.time;
+                        if (TryTurn(selectedDirection))
+                        {
+
+                            WildPokemonBattleLaunchUpdate();
+                            lastRotate = Time.time;
+
+                        }
 
                     }
 
@@ -133,6 +144,47 @@ namespace FreeRoaming
         public void SetMovementLockState(bool state)
         {
             movementLocked = state;
+        }
+
+        public void WildPokemonBattleLaunchUpdate()
+        {
+
+            if (currentWildPokemonArea != null)
+            {
+
+                if (currentWildPokemonArea.RunEncounterCheck())
+                {
+
+                    LaunchWildPokemonBattle(currentWildPokemonArea);
+
+                }
+
+            }
+
+        }
+
+        private void LaunchWildPokemonBattle(WildPokemonAreaController pokemonArea)
+        {
+
+            BattleEntranceArguments.argumentsSet = true;
+
+            BattleEntranceArguments.battleBackgroundResourceName =
+                pokemonArea.GetBattleBackgroundResourceName() == null || pokemonArea.GetBattleBackgroundResourceName() == ""
+                ? BattleEntranceArguments.defaultBackgroundName
+                : pokemonArea.GetBattleBackgroundResourceName();
+
+            //TODO - set initial weather
+
+            BattleEntranceArguments.battleType = BattleType.WildPokemon;
+            BattleEntranceArguments.wildPokemonBattleArguments = new BattleEntranceArguments.WildPokemonBattleArguments()
+            {
+                opponentInstance = pokemonArea.GenerateWildPokemon()
+            };
+
+            MusicSourceController.singleton.SetTrack(BattleEntranceArguments.defaultPokemonBattleMusicName, true);
+
+            GameSceneManager.LaunchBattleScene();
+
         }
 
     }
