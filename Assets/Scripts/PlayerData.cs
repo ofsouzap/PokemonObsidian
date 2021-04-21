@@ -485,4 +485,47 @@ public class PlayerData
 
     #endregion
 
+    #region NPCs Battled
+
+    /// <summary>
+    /// A list of which battle-challenging NPCs the player has battled and so won't try to challenge the player on spotting them.
+    /// The elements are the IDs of the NPCs as set in their public properties (found in FreeRoaming.NPCs.NPCController)
+    /// </summary>
+    private List<int> npcsBattled = new List<int>();
+
+    public void SetNPCBattled(int npcId)
+    {
+
+        if (FreeRoaming.NPCs.NPCController.IdIsUnset(npcId))
+        {
+            Debug.LogError("Trying to set unset NPC id as battled");
+            return;
+        }
+
+        if (npcsBattled.Contains(npcId))
+        {
+            Debug.LogWarning("NPC already  marked as battled - " + npcId);
+        }
+        else
+        {
+            npcsBattled.Add(npcId);
+        }
+
+    }
+
+    public bool GetNPCBattled(int npcId)
+    {
+
+        if (FreeRoaming.NPCs.NPCController.IdIsUnset(npcId))
+        {
+            Debug.LogError("Trying to get unset NPC id is battled");
+            return false;
+        }
+
+        return npcsBattled.Contains(npcId);
+
+    }
+
+    #endregion
+
 }

@@ -17,6 +17,9 @@ namespace FreeRoaming.NPCs
         [Tooltip("The message this NPC should say when it challenges the player")]
         public string challengeMessage;
 
+        [Tooltip("The message this NPC should say if the player interacts with them but they can't battle. If blank or null, is ignored")]
+        public string chatMessage;
+
         public string challengeMusicResourceName = "look1";
         public string battleMusicResourceName = "";
 
@@ -44,7 +47,8 @@ namespace FreeRoaming.NPCs
 
         public BattleDetails battleDetails;
 
-        protected bool ableToBattle = true;
+        public bool CanBattlePlayer
+            => !PlayerData.singleton.GetNPCBattled(id);
 
         protected override void Update()
         {
@@ -61,19 +65,46 @@ namespace FreeRoaming.NPCs
 
         public override void Interact(GameCharacterController interacter)
         {
-            if (ableToBattle && interacter is PlayerController)
+            if (interacter is PlayerController)
             {
+
                 TryTurn(GetOppositeDirection(interacter.directionFacing));
-                TriggerBattle();
+
+                if (CanBattlePlayer)
+                {
+                    TriggerBattle();
+                }
+                else
+                {
+                    if (chatMessage != "" && chatMessage != null)
+                    {
+                        StartCoroutine(SpeakChatMessage());
+                    }
+                }
+
             }
+        }
+
+        protected IEnumerator SpeakChatMessage()
+        {
+
+            sceneController.SetSceneRunningState(false);
+
+            textBoxController.Show();
+            textBoxController.RevealText(chatMessage);
+            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            textBoxController.Hide();
+
+            sceneController.SetSceneRunningState(true);
+
         }
 
         protected virtual void BattleChallengeUpdate()
         {
 
             if (AllowedToAct)
-                if (ableToBattle)
-                    if (PlayerInView)
+                if (PlayerInView)
+                    if (CanBattlePlayer)
                         TriggerBattle();
 
         }
@@ -81,7 +112,7 @@ namespace FreeRoaming.NPCs
         protected virtual void TriggerBattle()
         {
 
-            ableToBattle = false;
+            PlayerData.singleton.SetNPCBattled(id);
 
             ignoreScenePaused = true;
             sceneController.SetSceneRunningState(false);

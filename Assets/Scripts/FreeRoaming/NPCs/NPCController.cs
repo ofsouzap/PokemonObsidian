@@ -6,6 +6,21 @@ namespace FreeRoaming.NPCs
     public abstract class NPCController : GameCharacterController, IInteractable
     {
 
+        #region ID
+
+        //Negative ids should be used for NPCs in testing scenes and positive IDs for NPCs for the release but this isn't strict
+
+        [Tooltip("An id to identify the NPC. If left as 0, the id should be assumed to have not been set and to be irrelevant")]
+        public int id = 0;
+
+        public bool HasId
+            => id != 0;
+
+        public static bool IdIsUnset(int id)
+            => id == 0;
+
+        #endregion
+
         protected override void Update()
         {
 
