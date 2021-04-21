@@ -528,7 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemon:
   - speciesId: 5
-    level: 35
+    level: 7
     levelExperience: 0.95
     initialNVSC: 0
   - speciesId: 9

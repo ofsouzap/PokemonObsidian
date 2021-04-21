@@ -202,6 +202,18 @@ namespace Pokemon.Moves
         /// </summary>
         public bool? movePriority;
 
+        public bool IsMultiHit => minimumMultiHitAmount != 1 || maximumMultiHitAmount != 1;
+
+        /// <summary>
+        /// The minimum number of hits the move should do
+        /// </summary>
+        public byte minimumMultiHitAmount = 1;
+
+        /// <summary>
+        /// The maximum number of hits the move should do
+        /// </summary>
+        public byte maximumMultiHitAmount = 1;
+
         #endregion
 
         #region Move Using
@@ -561,12 +573,13 @@ namespace Pokemon.Moves
         /// <returns>The results of using the move including damages to be dealt</returns>
         public UsageResults CalculateNormalAttackEffect(PokemonInstance user,
             PokemonInstance target,
-            BattleData battleData)
+            BattleData battleData,
+            bool allowMissing = true)
         {
 
             //The results from calculating status effects are a base for the results returned from this function.
             //    The results shouldn't usually overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
-            UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData);
+            UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData, allowMissing);
 
             //If CalculateNormalStatusEffect has already deemed that the move hasn't succeeded, don't continue calculating its effects
             if (!usageResults.Succeeded)
@@ -775,7 +788,8 @@ namespace Pokemon.Moves
         /// <returns>The results of using the move</returns>
         public UsageResults CalculateNormalStatusEffect(PokemonInstance user,
             PokemonInstance target,
-            BattleData battleData)
+            BattleData battleData,
+            bool allowMissing = true)
         {
 
             UsageResults usageResults = new UsageResults();
@@ -792,10 +806,13 @@ namespace Pokemon.Moves
                 return usageResults;
             }
 
-            if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
+            if (allowMissing)
             {
-                usageResults.missed = true;
-                return usageResults;
+                if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
+                {
+                    usageResults.missed = true;
+                    return usageResults;
+                }
             }
 
             usageResults = CalculateStatChanges(usageResults, user, target, battleData);
@@ -885,21 +902,23 @@ namespace Pokemon.Moves
         /// <summary>
         /// Calculates the effect that should be had from using this move given a certain user and a certain target
         /// </summary>
+        /// <param name="allowMissing">If the move is allowed to miss. This is disabled when finding usage results of anytime a multi-hit move is hitting not fr the first time</param>
         public virtual UsageResults CalculateEffect(PokemonInstance user,
             PokemonInstance target,
-            BattleData battleData)
+            BattleData battleData,
+            bool allowMissing = true)
         {
 
             if (moveType == MoveType.Status)
             {
 
-                return CalculateNormalStatusEffect(user, target, battleData);
+                return CalculateNormalStatusEffect(user, target, battleData, allowMissing);
 
             }
             else if (moveType == MoveType.Physical || moveType == MoveType.Special)
             {
 
-                return CalculateNormalAttackEffect(user, target, battleData);
+                return CalculateNormalAttackEffect(user, target, battleData,allowMissing);
 
             }
             else

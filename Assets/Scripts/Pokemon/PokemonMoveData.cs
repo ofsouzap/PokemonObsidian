@@ -65,6 +65,8 @@ namespace Pokemon
          *     '0' means normal priority
          *     '-1' means decreased priority
          *     No other values are accepted
+         * Minimum multi-hit amount (inclusive) (defaults to 1)
+         * Maximum multi-hit amount (inclusive) (defaults to 1)
          */
 
         public static void LoadData()
@@ -93,7 +95,7 @@ namespace Pokemon
 
                 int id, absoluteRecoilDamage, absoluteTargetDamage;
                 string name, description;
-                byte maxPP, power, accuracy;
+                byte maxPP, power, accuracy, minimumMultiHitAmount, maximumMultiHitAmount;
                 Type type;
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
@@ -104,7 +106,7 @@ namespace Pokemon
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
                 bool? movePriority;
 
-                if (entry.Length < 29)
+                if (entry.Length < 31)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -1029,6 +1031,30 @@ namespace Pokemon
 
                 #endregion
 
+                #region multiHitLimits
+
+                if (entry[29] == "")
+                {
+                    minimumMultiHitAmount = 1;
+                }
+                else if (!byte.TryParse(entry[29], out minimumMultiHitAmount))
+                {
+                    Debug.LogError("Invalid minimum multi-hit amount for id " + id);
+                    minimumMultiHitAmount = 1;
+                }
+
+                if (entry[30] == "")
+                {
+                    maximumMultiHitAmount = 1;
+                }
+                else if (!byte.TryParse(entry[30], out maximumMultiHitAmount))
+                {
+                    Debug.LogError("Invalid maximum multi-hit amount for id " + id);
+                    maximumMultiHitAmount = 1;
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1060,7 +1086,9 @@ namespace Pokemon
                     targetStatChangeChances = targetStatChangeChances,
                     targetDamageDealtRelativeHealthHealed = targetDamageDealtRelativeHealthHealed,
                     userMaxHealthRelativeHealthHealed = userMaxHealthRelativeHealthHealed,
-                    movePriority = movePriority
+                    movePriority = movePriority,
+                    minimumMultiHitAmount = minimumMultiHitAmount,
+                    maximumMultiHitAmount = maximumMultiHitAmount
                 });
 
             }

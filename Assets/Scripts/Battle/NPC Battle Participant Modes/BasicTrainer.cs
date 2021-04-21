@@ -125,6 +125,9 @@ namespace Battle.NPCBattleParticipantModes
             for (int i = 0; i < pokemon.moveIds.Length; i++)
             {
 
+                if (PokemonMove.MoveIdIsUnset(pokemon.moveIds[i]))
+                    continue;
+
                 if (PokemonMove.GetPokemonMoveById(pokemon.moveIds[i]).movePriority == true
                     && pokemon.movePPs[i] > 0)
                     return i;

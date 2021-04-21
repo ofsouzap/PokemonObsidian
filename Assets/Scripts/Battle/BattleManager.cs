@@ -1316,8 +1316,6 @@ namespace Battle
 
             bool userIsPlayer = action.user is BattleParticipantPlayer;
 
-            //TODO - when special moves made, have their effects inflicted (maybe by separate method made for all special moves to directly cause changes to pokemon and return announcements)
-
             if (action.user.ActivePokemon.battleProperties.volatileStatusConditions.flinch)
                 yield break;
 
@@ -1438,241 +1436,269 @@ namespace Battle
 
             }
 
+            string moveUsageMessage = action.user.ActivePokemon.GetDisplayName() + " used " + move.name;
+            battleAnimationSequencer.EnqueueSingleText(moveUsageMessage);
+
             PokemonMove.UsageResults usageResults = move.CalculateEffect(
                 action.user.ActivePokemon,
                 action.fightMoveTarget.ActivePokemon,
                 battleData
             );
 
-            string moveUsageMessage = action.user.ActivePokemon.GetDisplayName() + " used " + move.name;
-            battleAnimationSequencer.EnqueueSingleText(moveUsageMessage);
-
-            if (usageResults.Succeeded)
-            {
-                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
-                {
-                    type = BattleAnimationSequencer.Animation.Type.PokemonMove,
-                    pokemonMoveId = move.id,
-                    pokemonMovePlayerIsUser = userIsPlayer
-                });
-            }
-
             yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             #region Effects
 
+            //This may not be the same as the moveHitCount calculated since the target or user may faint during the attacking
+            byte multiHitsLanded = 0;
+
             if (usageResults.Succeeded)
             {
 
-                #region Target Effects
+                byte moveHitCount = (byte)UnityEngine.Random.Range(move.minimumMultiHitAmount, move.maximumMultiHitAmount + 1);
 
-                PokemonInstance targetPokemon = action.fightMoveTarget.ActivePokemon;
-
-                #region Target Damage
-
-                //No need to animate damage dealing or try take damage is no damage is dealt
-                if (usageResults.targetDamageDealt > 0)
+                for (int i = 0; i < moveHitCount; i++)
                 {
 
-                    int targetInitialHealth = targetPokemon.health;
+                    multiHitsLanded++;
 
-                    targetPokemon.TakeDamage(usageResults.targetDamageDealt);
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                    {
+                        type = BattleAnimationSequencer.Animation.Type.PokemonMove,
+                        pokemonMoveId = move.id,
+                        pokemonMovePlayerIsUser = userIsPlayer
+                    });
 
-                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(targetPokemon, targetInitialHealth, !userIsPlayer));
+                    #region Target Effects
 
-                }
+                    PokemonInstance targetPokemon = action.fightMoveTarget.ActivePokemon;
 
-                #region Effectiveness Message
+                    #region Target Damage
 
-                if (usageResults.effectiveness == true)
-                {
-                    battleAnimationSequencer.EnqueueSingleText("It was super effective!");
-                }
-                else if (usageResults.effectiveness == false)
-                {
-                    battleAnimationSequencer.EnqueueSingleText("It was not very effective!");
-                }
+                    //No need to animate damage dealing or try take damage is no damage is dealt
+                    if (usageResults.targetDamageDealt > 0)
+                    {
 
-                #endregion
+                        int targetInitialHealth = targetPokemon.health;
 
-                #region Critical Hit
+                        targetPokemon.TakeDamage(usageResults.targetDamageDealt);
 
-                if (usageResults.criticalHit)
-                {
-                    battleAnimationSequencer.EnqueueSingleText("It was a critical hit!");
-                }
+                        battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(targetPokemon, targetInitialHealth, !userIsPlayer));
 
-                #endregion
+                    }
 
-                #endregion
+                    //Stop loop if target fainted
+                    if (targetPokemon.IsFainted)
+                        break;
 
-                #region Target Confusion
+                    #region Effectiveness Message
 
-                if (usageResults.targetConfuse)
-                {
+                    if (usageResults.effectiveness == true)
+                    {
+                        battleAnimationSequencer.EnqueueSingleText("It was super effective!");
+                    }
+                    else if (usageResults.effectiveness == false)
+                    {
+                        battleAnimationSequencer.EnqueueSingleText("It was not very effective!");
+                    }
 
-                    //Confusion should last between 1-4 turns decided randomly
-                    targetPokemon.battleProperties.volatileStatusConditions.confusion = UnityEngine.Random.Range(0, 5);
+                    #endregion
 
-                    battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
-                    //TODO - enqueue confusion animation
+                    #region Critical Hit
 
-                }
+                    if (usageResults.criticalHit)
+                    {
+                        battleAnimationSequencer.EnqueueSingleText("It was a critical hit!");
+                    }
 
-                #endregion
+                    #endregion
 
-                #region Thawing
+                    #endregion
 
-                if (usageResults.thawTarget)
-                {
-                    targetPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
-                    battleAnimationSequencer.EnqueueSingleText(
-                        targetPokemon.GetDisplayName()
-                        + " was thawed out"
+                    #region Target Confusion
+
+                    if (usageResults.targetConfuse)
+                    {
+
+                        //Confusion should last between 1-4 turns decided randomly
+                        targetPokemon.battleProperties.volatileStatusConditions.confusion = UnityEngine.Random.Range(0, 5);
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
+                        //TODO - enqueue confusion animation
+
+                    }
+
+                    #endregion
+
+                    #region Thawing
+
+                    if (usageResults.thawTarget)
+                    {
+                        targetPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+                        battleAnimationSequencer.EnqueueSingleText(
+                            targetPokemon.GetDisplayName()
+                            + " was thawed out"
+                            );
+
+                        if (userIsPlayer)
+                            battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                        else
+                            battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+
+                    }
+
+                    #endregion
+
+                    #region Non-Volatile Status Conditions
+
+                    if (usageResults.targetNonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None
+                        && targetPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
+                    {
+
+                        targetPokemon.nonVolatileStatusCondition = usageResults.targetNonVolatileStatusCondition;
+
+                        if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
+                            targetPokemon.remainingSleepTurns = usageResults.targetAsleepInflictionDuration;
+
+                        string nvscInflictionMessage = targetPokemon.GetDisplayName()
+                            + ' '
+                            + PokemonInstance.nonVolatileStatusConditionMessages[
+                                usageResults.targetNonVolatileStatusCondition
+                                ];
+
+                        battleAnimationSequencer.EnqueueSingleText(nvscInflictionMessage);
+
+                        //TODO - enqueue NVSC animation
+
+                        if (userIsPlayer)
+                            battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                        else
+                            battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+
+                    }
+
+                    #endregion
+
+                    #region Target Stat Modifiers
+
+                    BattleAnimationSequencer.Animation[] targetStatModifierAnimations = ExecuteAction_Fight_StatModifiers(
+                        targetPokemon,
+                        action.fightMoveTarget == battleData.participantOpponent,
+                        usageResults.targetStatChanges,
+                        usageResults.targetEvasionChange,
+                        usageResults.targetAccuracyChange
                         );
 
-                    if (userIsPlayer)
-                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
-                    else
-                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                    foreach (BattleAnimationSequencer.Animation animation in targetStatModifierAnimations)
+                        battleAnimationSequencer.EnqueueAnimation(animation);
 
-                }
+                    #endregion
 
-                #endregion
+                    #region Target Flinching
 
-                #region Non-Volatile Status Conditions
-
-                if (usageResults.targetNonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None
-                    && targetPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
-                {
-
-                    targetPokemon.nonVolatileStatusCondition = usageResults.targetNonVolatileStatusCondition;
-
-                    if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
-                        targetPokemon.remainingSleepTurns = usageResults.targetAsleepInflictionDuration;
-
-                    string nvscInflictionMessage = targetPokemon.GetDisplayName()
-                        + ' '
-                        + PokemonInstance.nonVolatileStatusConditionMessages[
-                            usageResults.targetNonVolatileStatusCondition
-                            ];
-
-                    battleAnimationSequencer.EnqueueSingleText(nvscInflictionMessage);
-
-                    //TODO - enqueue NVSC animation
-
-                    if (userIsPlayer)
-                        battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
-                    else
-                        battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
-
-                }
-
-                #endregion
-
-                #region Target Stat Modifiers
-
-                BattleAnimationSequencer.Animation[] targetStatModifierAnimations = ExecuteAction_Fight_StatModifiers(
-                    targetPokemon,
-                    action.fightMoveTarget == battleData.participantOpponent,
-                    usageResults.targetStatChanges,
-                    usageResults.targetEvasionChange,
-                    usageResults.targetAccuracyChange
-                    );
-
-                foreach (BattleAnimationSequencer.Animation animation in targetStatModifierAnimations)
-                    battleAnimationSequencer.EnqueueAnimation(animation);
-
-                #endregion
-
-                #region Target Flinching
-
-                if (usageResults.targetFlinch)
-                {
-
-                    targetPokemon.battleProperties.volatileStatusConditions.flinch = true;
-
-                    if (targetPokemon.IsFainted)
+                    if (usageResults.targetFlinch)
                     {
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " flinched!");
+
+                        targetPokemon.battleProperties.volatileStatusConditions.flinch = true;
+
+                        if (targetPokemon.IsFainted)
+                        {
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " flinched!");
+                        }
+
+                    }
+
+                    #endregion
+
+                    #endregion
+
+                    #region User Effects
+
+                    PokemonInstance userPokemon = action.user.ActivePokemon;
+
+                    #region Move PP down
+
+                    if (!action.fightUsingStruggle)
+                        userPokemon.movePPs[action.fightMoveIndex]--;
+
+                    #endregion
+
+                    #region User Damage
+
+                    if (usageResults.userDamageDealt > 0)
+                    {
+
+                        int userInitialHealth = action.user.ActivePokemon.health;
+
+                        action.user.ActivePokemon.TakeDamage(usageResults.userDamageDealt);
+
+                        battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " was hurt from the recoil");
+                        battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(userPokemon, userInitialHealth, action.user is BattleParticipantPlayer));
+
+                    }
+
+                    //Stop loop if user fainted
+                    if (userPokemon.IsFainted)
+                        break;
+
+                    #endregion
+
+                    #region User Healing
+
+                    if (usageResults.userHealthHealed > 0)
+                    {
+
+                        int userInitialHealth = action.user.ActivePokemon.health;
+
+                        action.user.ActivePokemon.HealHealth(usageResults.userHealthHealed);
+
+                        battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                        {
+                            type = action.user is BattleParticipantPlayer
+                                ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
+                                : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                            takeDamageOldHealth = userInitialHealth,
+                            takeDamageNewHealth = userPokemon.health,
+                            takeDamageMaxHealth = userPokemon.GetStats().health
+                        });
+                        battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " recovered some health");
+
+                    }
+
+                    #endregion
+
+                    if (usageResults.userHealthHealed > 0 && usageResults.userDamageDealt > 0)
+                        Debug.LogError("Usage results contained health reduction and health increase for user pokemon");
+
+                    #region User Stat Modifiers
+
+                    BattleAnimationSequencer.Animation[] userStatModifierAnimations = ExecuteAction_Fight_StatModifiers(
+                        userPokemon,
+                        action.user == battleData.participantOpponent,
+                        usageResults.userStatChanges,
+                        usageResults.userEvasionChange,
+                        usageResults.userAccuracyChange
+                        );
+
+                    foreach (BattleAnimationSequencer.Animation animation in userStatModifierAnimations)
+                        battleAnimationSequencer.EnqueueAnimation(animation);
+
+                    #endregion
+
+                    #endregion
+
+                    //Prepare usage results (not allowing misses) for next hit
+                    if (i < moveHitCount - 1)
+                    {
+                        usageResults = move.CalculateEffect(
+                            action.user.ActivePokemon,
+                            action.fightMoveTarget.ActivePokemon,
+                            battleData,
+                            false
+                        );
                     }
 
                 }
-
-                #endregion
-
-                #endregion
-
-                #region User Effects
-
-                PokemonInstance userPokemon = action.user.ActivePokemon;
-
-                #region Move PP down
-
-                if (!action.fightUsingStruggle)
-                    userPokemon.movePPs[action.fightMoveIndex]--;
-
-                #endregion
-
-                #region User Damage
-
-                if (usageResults.userDamageDealt > 0)
-                {
-
-                    int userInitialHealth = action.user.ActivePokemon.health;
-
-                    action.user.ActivePokemon.TakeDamage(usageResults.userDamageDealt);
-
-                    battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " was hurt from the recoil");
-                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(userPokemon, userInitialHealth, action.user is BattleParticipantPlayer));
-
-                }
-
-                #endregion
-
-                #region User Healing
-
-                if (usageResults.userHealthHealed > 0)
-                {
-
-                    int userInitialHealth = action.user.ActivePokemon.health;
-
-                    action.user.ActivePokemon.HealHealth(usageResults.userHealthHealed);
-
-                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
-                    {
-                        type = action.user is BattleParticipantPlayer
-                            ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
-                            : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
-                        takeDamageOldHealth = userInitialHealth,
-                        takeDamageNewHealth = userPokemon.health,
-                        takeDamageMaxHealth = userPokemon.GetStats().health
-                    });
-                    battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " recovered some health");
-
-                }
-
-                #endregion
-
-                if (usageResults.userHealthHealed > 0 && usageResults.userDamageDealt > 0)
-                    Debug.LogError("Usage results contained health reduction and health increase for user pokemon");
-
-                #region User Stat Modifiers
-
-                BattleAnimationSequencer.Animation[] userStatModifierAnimations = ExecuteAction_Fight_StatModifiers(
-                    userPokemon,
-                    action.user == battleData.participantOpponent,
-                    usageResults.userStatChanges,
-                    usageResults.userEvasionChange,
-                    usageResults.userAccuracyChange
-                    );
-
-                foreach (BattleAnimationSequencer.Animation animation in userStatModifierAnimations)
-                    battleAnimationSequencer.EnqueueAnimation(animation);
-
-                #endregion
-
-                #endregion
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -1696,6 +1722,12 @@ namespace Battle
             }
 
             #endregion
+
+            if (move.IsMultiHit && usageResults.Succeeded)
+            {
+                battleAnimationSequencer.EnqueueSingleText("Hit " + multiHitsLanded.ToString() + " times");
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+            }
 
         }
 
