@@ -185,6 +185,13 @@ namespace Pokemon
             return CalculateMultiplier(attackerType, defenderTypeA) * CalculateMultiplier(attackerType, defenderTypeB);
         }
 
+        public static float CalculateMultiplier(Type attackerType, PokemonSpecies defenderSpecies)
+        {
+            return defenderSpecies.type2 == null
+                ? CalculateMultiplier(attackerType, defenderSpecies.type1)
+                : CalculateMultiplier(attackerType, defenderSpecies.type1, (Type)defenderSpecies.type2);
+        }
+
     }
 
 }

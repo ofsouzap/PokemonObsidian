@@ -110,7 +110,7 @@ namespace Battle
 
                 case BattleType.WildPokemon:
 
-                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleParticipantNPC.Mode.RandomAttack](
+                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleParticipantNPC.Mode.WildPokemon](
                         null,
                         new PokemonInstance[] {
                             BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance

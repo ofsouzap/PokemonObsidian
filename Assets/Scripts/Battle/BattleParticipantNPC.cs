@@ -17,16 +17,22 @@ namespace Battle
             RandomAttack,
 #if UNITY_EDITOR
             Debug_UseRandomMedicineItem,
-            Debug_UseRandomBattleItem
+            Debug_UseRandomBattleItem,
 #endif
+            BasicTrainer,
+            WildPokemon
             //TODO - add more
         }
 
         public static readonly Dictionary<Mode, Func<string, PokemonInstance[], byte, BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], byte, BattleParticipantNPC>>()
         {
             { Mode.RandomAttack, (n, pmon, bp) => new RandomAttack(n, pmon, bp) },
+#if UNITY_EDITOR
             { Mode.Debug_UseRandomMedicineItem, (n, pmon, bp) => new RandomMedicineItem(n, pmon, bp) },
-            { Mode.Debug_UseRandomBattleItem, (n, pmon, bp) => new RandomBattleItem(n, pmon, bp) }
+            { Mode.Debug_UseRandomBattleItem, (n, pmon, bp) => new RandomBattleItem(n, pmon, bp) },
+#endif
+            { Mode.BasicTrainer, (n, pmon, bp) => new BasicTrainer(n, pmon, bp) },
+            { Mode.WildPokemon, (n, pmon, bp) => new WildPokemon(n, pmon, bp) }
         };
 
         #endregion

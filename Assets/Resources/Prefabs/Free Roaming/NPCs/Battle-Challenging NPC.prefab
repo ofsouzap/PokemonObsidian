@@ -29,7 +29,7 @@ MonoBehaviour:
     pokemon: []
     trainerClass: 0
     baseName: 
-    mode: 0
+    mode: 3
     battleBackgroundResourceName: 
 --- !u!1001 &5463208861839144372
 PrefabInstance:
