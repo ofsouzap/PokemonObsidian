@@ -1149,6 +1149,8 @@ namespace Pokemon
             moves.Add(new Move_Growth());
             moves.Add(new Move_Thunder());
             moves.Add(new Move_Toxic());
+            moves.Add(new Move_NightShade());
+            moves.Add(new Move_SuperFang());
 
             return moves.ToArray();
 
