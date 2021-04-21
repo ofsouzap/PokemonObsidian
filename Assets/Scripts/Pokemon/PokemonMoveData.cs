@@ -67,6 +67,7 @@ namespace Pokemon
          *     No other values are accepted
          * Minimum multi-hit amount (inclusive) (defaults to 1)
          * Maximum multi-hit amount (inclusive) (defaults to 1)
+         * Is instant-KO move (defaults to false)
          */
 
         public static void LoadData()
@@ -100,13 +101,13 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage, targetDamageDealtRelativeHealthHealed, userMaxHealthRelativeHealthHealed;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
                 bool? movePriority;
 
-                if (entry.Length < 31)
+                if (entry.Length < 32)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -1055,6 +1056,46 @@ namespace Pokemon
 
                 #endregion
 
+                #region isInstantKO
+
+                string isInstantKOEntry = entry[31];
+
+                if (isInstantKOEntry == "")
+                {
+                    isInstantKO = false;
+                }
+                else
+                {
+
+                    bool? isInstantKOEntryParsed = ParseBooleanProperty(isInstantKOEntry);
+
+                    switch (isInstantKOEntryParsed)
+                    {
+                        case true:
+                            isInstantKO = true;
+                            break;
+
+                        case false:
+                            isInstantKO = false;
+                            break;
+
+                        default:
+                            Debug.LogError("Invalid isInstantKO entry for id - " + id);
+                            isInstantKO = false;
+                            break;
+
+                    }
+
+                }
+
+                if (isInstantKO)
+                {
+                    power = 0;
+                    accuracy = 30; //This value isn't what is actually used (a different formaula is used) but is what will be displayed
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1088,7 +1129,8 @@ namespace Pokemon
                     userMaxHealthRelativeHealthHealed = userMaxHealthRelativeHealthHealed,
                     movePriority = movePriority,
                     minimumMultiHitAmount = minimumMultiHitAmount,
-                    maximumMultiHitAmount = maximumMultiHitAmount
+                    maximumMultiHitAmount = maximumMultiHitAmount,
+                    isInstantKO = isInstantKO
                 });
 
             }

@@ -214,6 +214,11 @@ namespace Pokemon.Moves
         /// </summary>
         public byte maximumMultiHitAmount = 1;
 
+        /// <summary>
+        /// Whether the move is a move that instantly KOs the opponent
+        /// </summary>
+        public bool isInstantKO = false;
+
         #endregion
 
         #region Move Using
@@ -591,30 +596,44 @@ namespace Pokemon.Moves
                 return usageResults;
             }
 
-            if (power != 0)
+            //Instant KO moves fail if the target has a greater level than the user's
+            if (isInstantKO && (target.GetLevel() > user.GetLevel()))
             {
-
-                //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
-
-                float ad = CalculateAttackDefenseRatio(user, target, battleData);
-
-                float modifiersValue = CalculateModifiersValue(user,
-                    target,
-                    battleData,
-                    out usageResults.effectiveness,
-                    out usageResults.criticalHit);
-
-                int damageToDeal = CalculateDamageToDeal(ad, modifiersValue, user, target, battleData);
-
-                //That the damage dealt isn't greater than the target's health is checked multiple times just to be safe and in case a method override forgets to
-                usageResults.targetDamageDealt = damageToDeal <= target.health ? damageToDeal : target.health;
-
+                usageResults.failed = true;
+                return usageResults;
             }
-            else if (absoluteTargetDamage != 0)
+
+            if (!isInstantKO)
             {
+                if (power != 0)
+                {
 
-                usageResults.targetDamageDealt = absoluteTargetDamage <= target.health ? absoluteTargetDamage : target.health;
+                    //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
 
+                    float ad = CalculateAttackDefenseRatio(user, target, battleData);
+
+                    float modifiersValue = CalculateModifiersValue(user,
+                        target,
+                        battleData,
+                        out usageResults.effectiveness,
+                        out usageResults.criticalHit);
+
+                    int damageToDeal = CalculateDamageToDeal(ad, modifiersValue, user, target, battleData);
+
+                    //That the damage dealt isn't greater than the target's health is checked multiple times just to be safe and in case a method override forgets to
+                    usageResults.targetDamageDealt = damageToDeal <= target.health ? damageToDeal : target.health;
+
+                }
+                else if (absoluteTargetDamage != 0)
+                {
+
+                    usageResults.targetDamageDealt = absoluteTargetDamage <= target.health ? absoluteTargetDamage : target.health;
+
+                }
+            }
+            else
+            {
+                usageResults.targetDamageDealt = target.health;
             }
 
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData, usageResults.targetDamageDealt);
@@ -806,9 +825,15 @@ namespace Pokemon.Moves
                 return usageResults;
             }
 
+            if (isInstantKO && (user.GetLevel() < target.GetLevel()))
+            {
+                usageResults.failed = true;
+                return usageResults;
+            }
+
             if (allowMissing)
             {
-                if (UnityEngine.Random.Range(0, 100) > CalculateAccuracyValue(user, target, battleData))
+                if (UnityEngine.Random.Range(0, 100) > CalculateNormalAccuracyValue(user, target, battleData))
                 {
                     usageResults.missed = true;
                     return usageResults;
@@ -873,10 +898,24 @@ namespace Pokemon.Moves
 
         }
 
+        #region Accuracy
+
         /// <summary>
         /// Calculate a value to use to check whether the move hits. This value should then be compared to a random value from 0 to 100
         /// </summary>
         public virtual ushort CalculateAccuracyValue(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            if (!isInstantKO)
+                return CalculateNormalAccuracyValue(user, target, battleData);
+            else
+                return CalculateInstantKOAccuracyValue(user, target, battleData);
+
+        }
+
+        public ushort CalculateNormalAccuracyValue(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
         {
@@ -898,6 +937,17 @@ namespace Pokemon.Moves
                 return 100;
 
         }
+
+        public ushort CalculateInstantKOAccuracyValue(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            return (ushort)(30 + (1 * (user.GetLevel() - target.GetLevel())));
+
+        }
+
+        #endregion
 
         /// <summary>
         /// Calculates the effect that should be had from using this move given a certain user and a certain target

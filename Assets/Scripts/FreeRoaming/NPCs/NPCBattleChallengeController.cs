@@ -126,7 +126,7 @@ namespace FreeRoaming.NPCs
         protected virtual IEnumerator StartBattleCoroutine()
         {
 
-            MusicSourceController.singleton.SetTrack(challengeMusicResourceName, true);
+            MusicSourceController.singleton.SetTrack(challengeMusicResourceName, true, false);
 
             yield return StartCoroutine(Exclaim());
 
