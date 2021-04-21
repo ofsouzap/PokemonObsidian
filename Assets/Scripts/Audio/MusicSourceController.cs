@@ -9,6 +9,11 @@ namespace Audio
     public class MusicSourceController : MonoBehaviour
     {
 
+        /// <summary>
+        /// The time that should be taken for the music to both fade our AND then fade back in again with a new tune
+        /// </summary>
+        public const float musicFadeTime = 1;
+
         public static MusicSourceController singleton;
         private AudioSource AudioSource => GetComponent<AudioSource>();
 
@@ -33,23 +38,114 @@ namespace Audio
         }
 
         public void SetTrack(string resourceName,
+            bool hasStartingClip = false,
+            bool fadeTracks = true)
+        {
+
+            if (fadeTracks)
+            {
+
+                if (fadeTracksCoroutine != null)
+                    StopCoroutine(fadeTracksCoroutine);
+
+                fadeTracksCoroutine = StartCoroutine(FadeTracks(resourceName, musicFadeTime, hasStartingClip));
+
+            }
+            else
+            {
+
+                if (hasStartingClip)
+                {
+                    AudioSource.loop = false;
+                    AudioSource.clip = AudioStorage.GetMusicClip(resourceName, true);
+                    AudioSource.Play();
+                    SetNextClip(AudioStorage.GetMusicClip(resourceName, false));
+                }
+                else
+                {
+                    AudioSource.loop = true;
+                    AudioSource.clip = AudioStorage.GetMusicClip(resourceName, false);
+                    AudioSource.Play();
+                }
+
+            }
+
+        }
+
+        private Coroutine fadeTracksCoroutine = null;
+
+        private IEnumerator FadeTracks(string resourceName,
+            float totalFadeTime,
             bool hasStartingClip = false)
         {
 
-            AudioSource.Stop();
+            float singleFadeTime = totalFadeTime / 2;
+
+            #region Fade Out
+
+            float fadeOutStartTime = Time.time;
+            float startVolume = AudioSource.volume;
+
+            while (true)
+            {
+
+                float timeFactor = (Time.time - fadeOutStartTime) / singleFadeTime;
+
+                if (timeFactor >= 1)
+                    break;
+
+                AudioSource.volume = Mathf.Lerp(startVolume, 0, timeFactor);
+
+                yield return new WaitForFixedUpdate();
+
+            }
+
+            AudioSource.volume = 0;
+
+            #endregion
+
+            #region Set New Track
 
             if (hasStartingClip)
             {
                 AudioSource.loop = false;
                 AudioSource.clip = AudioStorage.GetMusicClip(resourceName, true);
                 AudioSource.Play();
-                SetNextClip(AudioStorage.GetMusicClip(resourceName, false));
             }
             else
             {
                 AudioSource.loop = true;
                 AudioSource.clip = AudioStorage.GetMusicClip(resourceName, false);
                 AudioSource.Play();
+            }
+
+            #endregion
+
+            #region Fade In
+
+            float fadeInStartTime = Time.time;
+
+            while (true)
+            {
+
+                float timeFactor = (Time.time - fadeInStartTime) / singleFadeTime;
+
+                if (timeFactor >= 1)
+                    break;
+
+                AudioSource.volume = Mathf.Lerp(0, startVolume, timeFactor);
+
+                yield return new WaitForFixedUpdate();
+
+            }
+
+            AudioSource.volume = startVolume;
+
+            #endregion
+
+            if (hasStartingClip)
+            {
+                SetNextClip(AudioStorage.GetMusicClip(resourceName, false));
             }
 
         }
