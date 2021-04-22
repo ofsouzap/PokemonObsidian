@@ -8,6 +8,9 @@ namespace FreeRoaming
     public class FreeRoamSprite : MonoBehaviour
     {
 
+        [SerializeField]
+        protected bool billboardSprite = true;
+
         private int previousSceneIndex;
         public UnityEvent SceneChanged;
 
@@ -66,6 +69,9 @@ namespace FreeRoaming
         /// </summary>
         protected virtual void RefreshSpriteAngling()
         {
+
+            if (!billboardSprite)
+                return;
 
             oldSceneCameraRotationEulerX = sceneCamera.transform.rotation.eulerAngles.x;
 

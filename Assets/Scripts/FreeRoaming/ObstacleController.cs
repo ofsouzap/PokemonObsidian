@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FreeRoaming;
@@ -9,6 +9,8 @@ namespace FreeRoaming
     {
 
         public List<Vector2Int> gridPositions { get; protected set; }
+
+        public Vector2Int[] additionalOccupiedPositionOffsets = new Vector2Int[0];
 
         public virtual Vector2Int[] GetPositions()
         {
@@ -21,7 +23,11 @@ namespace FreeRoaming
             base.Start();
 
             gridPositions = new List<Vector2Int>();
-            gridPositions.Add(Vector2Int.RoundToInt(transform.position));
+            Vector2Int rootGridPosition = Vector2Int.RoundToInt(transform.position);
+            gridPositions.Add(rootGridPosition);
+
+            if (additionalOccupiedPositionOffsets != null)
+                gridPositions.AddRange(additionalOccupiedPositionOffsets.Select(x => rootGridPosition + x));
 
         }
 

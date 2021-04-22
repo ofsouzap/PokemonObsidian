@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Game Area Ground
+    uniqueID: 3409006767
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Game Area On-Surface
+    uniqueID: 3907355685
     locked: 0
