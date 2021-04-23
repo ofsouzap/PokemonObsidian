@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FreeRoaming.WildPokemonArea
 {
+    [Obsolete] //Instead of this, wild grass can be added on the tilemaps for a game area
     [ExecuteInEditMode]
     [RequireComponent(typeof(WildPokemonAreaController))]
     public class WildGrassGenerator : MonoBehaviour

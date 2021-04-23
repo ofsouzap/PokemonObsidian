@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEditor;
 using FreeRoaming.WildPokemonArea;
 
 namespace Editor
 {
+    [Obsolete]
     [CustomEditor(typeof(WildGrassGenerator))]
     [CanEditMultipleObjects]
     public class WildGrassGeneratorEditor : UnityEditor.Editor
