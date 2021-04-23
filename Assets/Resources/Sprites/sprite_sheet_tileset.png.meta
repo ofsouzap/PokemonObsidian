@@ -157,7 +157,7 @@ TextureImporter:
     second: sprite_sheet_tileset_innerdirt_bottomleft
   - first:
       213: -7956450374780507986
-    second: sprite_sheet_tileset_51
+    second: sprite_sheet_tileset_innermountain_topleft
   - first:
       213: 7493612424778268667
     second: sprite_sheet_tileset_water_bottomleft
@@ -185,6 +185,15 @@ TextureImporter:
   - first:
       213: 6473403793378215820
     second: sprite_sheet_tileset_mountain_bottomright
+  - first:
+      213: 3542805893427202560
+    second: sprite_sheet_tileset_innermountain_topright
+  - first:
+      213: -5632760761942820955
+    second: sprite_sheet_tileset_innermountain_bottomleft
+  - first:
+      213: 4663028010673544322
+    second: sprite_sheet_tileset_innermountain_bottomright
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1482,7 +1491,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1503,7 +1512,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1524,7 +1533,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1545,7 +1554,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1553,6 +1562,90 @@ TextureImporter:
       bones: []
       spriteID: e2841ddb6704b3bf0800000000000000
       internalID: -343610067828783058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innermountain_topleft
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea82f2a0a82059190800000000000000
+      internalID: -7956450374780507986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innermountain_topright
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00a83e180339a2130800000000000000
+      internalID: 3542805893427202560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innermountain_bottomleft
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a7b3af3ee964d1b0800000000000000
+      internalID: -5632760761942820955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innermountain_bottomright
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28c94e9154766b040800000000000000
+      internalID: 4663028010673544322
       vertices: []
       indices: 
       edges: []
