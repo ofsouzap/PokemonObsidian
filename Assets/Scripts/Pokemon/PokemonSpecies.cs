@@ -176,9 +176,53 @@ namespace Pokemon
 
         public GrowthType growthType;
 
-        //TODO - abilities
+        public byte baseFriendship;
 
-        //TODO - breeding stuff incl. egg groups, egg hatch step count
+        #region Egg Properties
+
+        public EggGroup? eggGroup1;
+        public EggGroup? eggGroup2;
+
+        /// <summary>
+        /// Gets any of the pokemon species's egg groups that aren't null
+        /// </summary>
+        public EggGroup[] GetEggGroups()
+        {
+
+            List<EggGroup> groups = new List<EggGroup>();
+
+            if (eggGroup1 != null)
+                groups.Add((EggGroup)eggGroup1);
+
+            if (eggGroup2 != null)
+                groups.Add((EggGroup)eggGroup2);
+
+            return groups.ToArray();
+
+        }
+
+        /// <summary>
+        /// Checks whether two pokemon have any matching egg groups
+        /// </summary>
+        public bool CheckEggGroupCompatibility(PokemonSpecies other)
+        {
+
+            //Ditto can breed with any other pokemon
+            if (id == 132 || other.id == 132)
+                return true;
+
+            EggGroup[] selfEggGroups = GetEggGroups();
+            EggGroup[] otherEggGroups = other.GetEggGroups();
+
+            return otherEggGroups.Where(x => selfEggGroups.Contains(x)).Count() > 0;
+
+        }
+
+        public byte eggCycles;
+
+        #endregion
+
+        //TODO - abilities
 
     }
 }

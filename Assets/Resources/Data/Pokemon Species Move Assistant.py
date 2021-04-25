@@ -13,7 +13,7 @@ def load_data(filename):
 
     return data;
 
-def get_move_id(move_data, raw_move_name):
+def get_move_id(move_data, extra_move_ids, raw_move_name):
 
     move_name = raw_move_name.lower();
 
@@ -23,9 +23,13 @@ def get_move_id(move_data, raw_move_name):
 
             return entry[0];
 
+    if move_name in extra_move_ids.keys():
+
+        return extra_move_ids[move_name];
+
     return None;
 
-def parse_list(string, move_data):
+def parse_list(string, move_data, extra_move_ids):
 
     #For basic lists of moves (eg. base, egg, tutor)
 
@@ -41,7 +45,7 @@ def parse_list(string, move_data):
 
         move_name = move_name.strip(" ");
 
-        move_id = get_move_id(move_data, move_name);
+        move_id = get_move_id(move_data, extra_move_ids, move_name);
 
         if move_id != None:
             
@@ -55,7 +59,7 @@ def parse_list(string, move_data):
 
     return output, not_found;
 
-def parse_level_up(string, move_data):
+def parse_level_up(string, move_data, extra_move_ids):
 
     #For level-up moves
 
@@ -68,7 +72,7 @@ def parse_level_up(string, move_data):
 
         entry_parts[1] = entry_parts[1].strip(" ");
 
-        move_id = get_move_id(move_data, entry_parts[1]);
+        move_id = get_move_id(move_data, extra_move_ids, entry_parts[1]);
 
         if move_id != None:
 
@@ -82,9 +86,34 @@ def parse_level_up(string, move_data):
 
     return output, not_found;
 
+def get_extra_move_ids_input():
+
+    _input = input("Extra Move Ids (name:id,name:id...)> ");
+
+    if not (":" in _input) and (";" in _input):
+        entry_splitter = ";";
+    else:
+        entry_splitter = ":";
+
+    move_ids = {};
+
+    for entry in _input.split(","):
+
+        parts = entry.split(entry_splitter);
+
+        if len(parts) != 2:
+            print("Invalid extra move IDs format. Ignoring");
+            return {};
+
+        move_ids[parts[0]] = parts[1];
+
+    return move_ids;
+
 def main():
 
     filename = input("Moves File> ");
+
+    extra_move_ids = get_extra_move_ids_input();
 
     while True:
 
@@ -112,11 +141,11 @@ def main():
 
         if mode == 0:
             
-            output, not_found = parse_list(input_data, move_data);
+            output, not_found = parse_list(input_data, move_data, extra_move_ids);
             
         elif mode == 1:
             
-            output, not_found = parse_level_up(input_data, move_data);
+            output, not_found = parse_level_up(input_data, move_data, extra_move_ids);
 
         print(output);
 

@@ -52,6 +52,27 @@ namespace Pokemon
          * relative proportion of gender male (0 <= x <= 255)
          * relative proportion of gender female (0 <= x <= 255)
          * relative proportion of gender genderless (0 <= x <= 255)
+         * base friendship (0 <= x <= 255)
+         * egg group 1
+         *     blank will be taken as none
+         *     "undiscovered" will also be taken as none
+         *     options:
+         *         monster
+         *         human-like
+         *         water 1
+         *         water 2
+         *         water 3
+         *         bug
+         *         mineral
+         *         flying
+         *         amorphous
+         *         field
+         *         fairy
+         *         grass
+         *         dragon
+         * egg group 2 (as with egg group 1)
+         *     if egg group 1 is none, this shouldn't be set
+         * egg cycles (number of cycles needed to hatch an egg)
          */
 
         public static void LoadData()
@@ -76,7 +97,8 @@ namespace Pokemon
                 string name, spritesName;
                 int id;
                 byte baseAttack, baseDefense, baseSpecialAttack, baseSpecialDefense, baseSpeed, baseHealth, catchRate,
-                    maleRelativeGenderProportion, femaleRelativeGenderProportion, genderlessRelativeGenderProportion;
+                    maleRelativeGenderProportion, femaleRelativeGenderProportion, genderlessRelativeGenderProportion,
+                    baseFriendship, eggCycles;
                 Type type1;
                 Type? type2;
                 GrowthType growthType;
@@ -85,8 +107,9 @@ namespace Pokemon
                 Dictionary<byte, int[]> levelUpMoves;
                 Stats<byte> evYield;
                 ushort baseExperienceYield;
+                EggGroup? eggGroup1, eggGroup2;
 
-                if (entry.Length < 24)
+                if (entry.Length < 28)
                 {
                     Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
                     continue;
@@ -482,6 +505,71 @@ namespace Pokemon
 
                 #endregion
 
+                #region baseFriendship
+
+                if (!byte.TryParse(entry[24], out baseFriendship))
+                {
+                    Debug.LogError("Invalid base friendship entry for id " + id);
+                    baseFriendship = 0;
+                }
+
+                #endregion
+
+                #region eggGroups
+
+                string eggGroup1Entry = entry[25];
+                string eggGroup2Entry = entry[26];
+
+                if (eggGroup1Entry == "" || eggGroup1Entry == "undiscovered")
+                {
+                    eggGroup1 = null;
+                }
+                else
+                {
+
+                    try
+                    {
+                        eggGroup1 = EggGroupFunc.Parse(eggGroup1Entry);
+                    }
+                    catch (FormatException)
+                    {
+                        Debug.LogError("Unknown egg group 1 found for id " + id);
+                        eggGroup1 = null;
+                    }
+
+                }
+
+                if (eggGroup2Entry == "" || eggGroup2Entry == "undiscovered")
+                {
+                    eggGroup2 = null;
+                }
+                else
+                {
+
+                    try
+                    {
+                        eggGroup2 = EggGroupFunc.Parse(eggGroup2Entry);
+                    }
+                    catch (FormatException)
+                    {
+                        Debug.LogError("Unknown egg group 2 found for id " + id);
+                        eggGroup2 = null;
+                    }
+
+                }
+
+                #endregion
+
+                #region eggCycles
+
+                if (!byte.TryParse(entry[27], out eggCycles))
+                {
+                    Debug.LogError("Invalid egg cycles entry for id " + id);
+                    eggCycles = 0;
+                }
+
+                #endregion
+
                 species.Add(new PokemonSpecies()
                 {
                     name = name,
@@ -513,7 +601,13 @@ namespace Pokemon
 
                     evYield = evYield,
                     catchRate = catchRate,
-                    baseExperienceYield = baseExperienceYield
+                    baseExperienceYield = baseExperienceYield,
+
+                    baseFriendship = baseFriendship,
+
+                    eggGroup1 = eggGroup1,
+                    eggGroup2 = eggGroup2,
+                    eggCycles = eggCycles
 
                 });
 
