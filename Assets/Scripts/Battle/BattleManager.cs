@@ -63,6 +63,11 @@ namespace Battle
         /// For example if their pokemon has fainted and they have just changed pokemon
         /// </summary>
         private List<BattleParticipant> battleParticipantsToCancelActionsOf;
+
+        /// <summary>
+        /// Whether the victory music has already been started. If the music is triggered early, this will prevent it from being re-triggered
+        /// </summary>
+        private bool victoryMusicStarted = false;
         
         private void Start()
         {
@@ -336,6 +341,8 @@ namespace Battle
 
             battleParticipantsToCancelActionsOf = new List<BattleParticipant>();
 
+            victoryMusicStarted = false;
+
             battleData.battleTurnNumber = 0;
 
             #endregion
@@ -486,7 +493,7 @@ namespace Battle
 
             #endregion
 
-            if (battleData.participantPlayer.CheckIfDefeated())
+            if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
             {
 
                 //If player lost (a draw counts as the player losing)
@@ -528,32 +535,53 @@ namespace Battle
             else
             {
 
-                if (battleData.isWildBattle)
-                    MusicSourceController.singleton.SetTrack("victory_wild", true);
-                else
-                    MusicSourceController.singleton.SetTrack("victory_trainer", true);
-
-                if (battleData.participantOpponent is BattleParticipantNPC opponentNPCParticipant)
+                if (!battleData.playerFled)
                 {
 
-                    if (opponentNPCParticipant.basePayout > 0)
+                    TryTriggerVictoryMusic();
+
+                    if (battleData.isWildBattle)
                     {
 
-                        int playerPrizeMoney = CalculateTrainerOpponentPrizeMoney(opponentNPCParticipant);
+                        if (!battleData.opponentWasCaptured)
+                        {
 
-                        PlayerData.singleton.AddMoney(playerPrizeMoney);
+                            battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                                + " defeated the wild "
+                                + battleData.participantOpponent.ActivePokemon.GetDisplayName());
 
-                        battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
-                            + " defeated "
-                            + opponentNPCParticipant.GetName());
+                            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
-                        battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
-                            + " was given ₽"
-                            + playerPrizeMoney.ToString()
-                            + " for winning",
-                            true);
+                            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
-                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+                        }
+
+                    }
+                    else if (battleData.participantOpponent is BattleParticipantNPC opponentNPCParticipant)
+                    {
+
+                        if (opponentNPCParticipant.basePayout > 0)
+                        {
+
+                            int playerPrizeMoney = CalculateTrainerOpponentPrizeMoney(opponentNPCParticipant);
+
+                            PlayerData.singleton.AddMoney(playerPrizeMoney);
+
+                            battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                                + " defeated "
+                                + opponentNPCParticipant.GetName());
+
+                            battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                                + " was given ₽"
+                                + playerPrizeMoney.ToString()
+                                + " for winning",
+                                true);
+
+                            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+                        }
 
                     }
 
@@ -565,6 +593,26 @@ namespace Battle
             }
 
             #endregion
+
+        }
+
+        /// <summary>
+        /// If the victory music hasn't already been triggered, triggers it
+        /// </summary>
+        private void TryTriggerVictoryMusic()
+        {
+
+            if (!victoryMusicStarted)
+            {
+
+                if (battleData.isWildBattle)
+                    MusicSourceController.singleton.SetTrack("victory_wild", true);
+                else
+                    MusicSourceController.singleton.SetTrack("victory_trainer", true);
+
+                victoryMusicStarted = true;
+
+            }
 
         }
 
@@ -1896,6 +1944,9 @@ namespace Battle
         private IEnumerator ExecuteAction_Flee(BattleParticipant.Action action)
         {
 
+            if (action.user != battleData.participantPlayer)
+                Debug.LogWarning("Non-player participant is fleeing");
+
             if (!battleData.playerCanFlee)
             {
                 Debug.LogError("Player attempted to flee but shouldn't be allowed to");
@@ -1921,6 +1972,7 @@ namespace Battle
 
                 battleAnimationSequencer.EnqueueSingleText(battleData.participantPlayer.ActivePokemon.GetDisplayName() + " escaped successfully");
 
+                battleData.playerFled = true;
                 battleData.battleRunning = false;
 
             }
@@ -2052,16 +2104,26 @@ namespace Battle
             });
 
             if (shakeResults.All(x => x))
+            {
                 battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was caught!");
+            }
             else
+            {
                 battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " broke out!");
+            }
 
             #endregion
+
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             #region Successful Catch
 
             if (shakeResults.All(x => x)) //If the catch is successful
             {
+
+                battleData.opponentWasCaptured = true;
+
+                TryTriggerVictoryMusic();
 
                 #region Experience and EV Distribution
 

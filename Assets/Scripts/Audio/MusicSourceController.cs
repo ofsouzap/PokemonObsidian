@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 namespace Audio
@@ -12,10 +11,29 @@ namespace Audio
         /// <summary>
         /// The time that should be taken for the music to both fade our AND then fade back in again with a new tune
         /// </summary>
-        public const float musicFadeTime = 1;
+        public const float musicFadeTime = 0.5F;
 
         public static MusicSourceController singleton;
         private AudioSource AudioSource => GetComponent<AudioSource>();
+
+        private float initialVolume;
+        private bool initiallyLooping;
+
+        private Coroutine currentCoroutine = null;
+
+        /// <summary>
+        /// Ends the current coroutine if one is running and also resets the AudioSource's properties to the initial ones
+        /// </summary>
+        private void TryEndCurrentCoroutine()
+        {
+
+            if (currentCoroutine != null)
+                StopCoroutine(currentCoroutine);
+
+            AudioSource.volume = initialVolume;
+            AudioSource.loop = initiallyLooping;
+
+        }
 
         private void Awake()
         {
@@ -33,7 +51,37 @@ namespace Audio
         private void Start()
         {
 
+            initiallyLooping = AudioSource.loop;
+            initialVolume = AudioSource.volume;
+
             AudioStorage.TryLoadAll();
+
+        }
+
+        private IEnumerator FadeVolume(float startValue,
+            float endValue,
+            float timeToTake)
+        {
+
+            float startTime = Time.time;
+
+            AudioSource.volume = startValue;
+
+            while (true)
+            {
+
+                float t = (Time.time - startTime) / timeToTake;
+
+                if (t >= 1)
+                    break;
+
+                AudioSource.volume = Mathf.Lerp(startValue, endValue, t);
+
+                yield return new WaitForFixedUpdate();
+
+            }
+
+            AudioSource.volume = endValue;
 
         }
 
@@ -45,10 +93,9 @@ namespace Audio
             if (fadeTracks)
             {
 
-                if (fadeTracksCoroutine != null)
-                    StopCoroutine(fadeTracksCoroutine);
+                TryEndCurrentCoroutine();
 
-                fadeTracksCoroutine = StartCoroutine(FadeTracks(resourceName, musicFadeTime, hasStartingClip));
+                currentCoroutine = StartCoroutine(FadeTracks(resourceName, musicFadeTime, hasStartingClip));
 
             }
             else
@@ -72,37 +119,15 @@ namespace Audio
 
         }
 
-        private Coroutine fadeTracksCoroutine = null;
-
         private IEnumerator FadeTracks(string resourceName,
             float totalFadeTime,
             bool hasStartingClip = false)
         {
 
             float singleFadeTime = totalFadeTime / 2;
-
-            #region Fade Out
-
-            float fadeOutStartTime = Time.time;
             float startVolume = AudioSource.volume;
 
-            while (true)
-            {
-
-                float timeFactor = (Time.time - fadeOutStartTime) / singleFadeTime;
-
-                if (timeFactor >= 1)
-                    break;
-
-                AudioSource.volume = Mathf.Lerp(startVolume, 0, timeFactor);
-
-                yield return new WaitForFixedUpdate();
-
-            }
-
-            AudioSource.volume = 0;
-
-            #endregion
+            yield return StartCoroutine(FadeVolume(startVolume, 0, singleFadeTime));
 
             #region Set New Track
 
@@ -121,27 +146,7 @@ namespace Audio
 
             #endregion
 
-            #region Fade In
-
-            float fadeInStartTime = Time.time;
-
-            while (true)
-            {
-
-                float timeFactor = (Time.time - fadeInStartTime) / singleFadeTime;
-
-                if (timeFactor >= 1)
-                    break;
-
-                AudioSource.volume = Mathf.Lerp(0, startVolume, timeFactor);
-
-                yield return new WaitForFixedUpdate();
-
-            }
-
-            AudioSource.volume = startVolume;
-
-            #endregion
+            yield return StartCoroutine(FadeVolume(0, startVolume, singleFadeTime));
 
             if (hasStartingClip)
             {
@@ -175,13 +180,32 @@ namespace Audio
 
         }
 
-        public void StopMusic()
+        public void StopMusic(bool fadeOut = true)
         {
-
-            AudioSource.Stop();
 
             if (nextClipCoroutine != null)
                 StopCoroutine(nextClipCoroutine);
+
+            if (fadeOut)
+            {
+
+                currentCoroutine = StartCoroutine(FadeToStop(musicFadeTime / 2));
+
+            }
+            else
+            {
+
+                AudioSource.Stop();
+
+            }
+
+        }
+
+        private IEnumerator FadeToStop(float timeToTake)
+        {
+
+            yield return StartCoroutine(FadeVolume(GetVolume(), 0, timeToTake));
+            AudioSource.Stop();
 
         }
 

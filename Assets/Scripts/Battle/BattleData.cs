@@ -10,6 +10,16 @@ namespace Battle
         public bool battleRunning = true;
 
         /// <summary>
+        /// Whether the player has fled from the battle. If the battle is still running, this should be false
+        /// </summary>
+        public bool playerFled = false;
+
+        /// <summary>
+        /// Whether the opposing pokemon has been captured by the player (instead of being defeated or not yet being defeated)
+        /// </summary>
+        public bool opponentWasCaptured = false;
+
+        /// <summary>
         /// Which turn of the battle this currently is. This value IS 0-indexed so the first turn of the battle is turn 0
         /// </summary>
         public uint battleTurnNumber = 0;
