@@ -66,17 +66,31 @@ def parse_level_up(string, move_data, extra_move_ids):
     output = "";
     not_found = [];
 
+    using_space = not (MAIN_DELIMETER in string);
+
     for entry in string.split(SECONDARY_DELIMETER):
 
-        entry_parts = entry.split(MAIN_DELIMETER);
+        entry = entry.strip(" ");
 
-        entry_parts[1] = entry_parts[1].strip(" ");
+        lvl = name = None;
 
-        move_id = get_move_id(move_data, extra_move_ids, entry_parts[1]);
+        if not using_space:
+
+            entry_parts = entry.split(MAIN_DELIMETER);
+            lvl = entry_parts[0];
+            name = entry_parts[1];
+
+        else:
+
+            entry_parts = entry.split(" ");
+            lvl = entry_parts[0];
+            name = " ".join(entry_parts[1:]);
+
+        move_id = get_move_id(move_data, extra_move_ids, name);
 
         if move_id != None:
 
-            output = output + entry_parts[0] + MAIN_DELIMETER + move_id + SECONDARY_DELIMETER;
+            output = output + lvl + MAIN_DELIMETER + move_id + SECONDARY_DELIMETER;
 
         else:
 
