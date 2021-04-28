@@ -1,0 +1,902 @@
+Extra move ids:
+blizzard:59,growth:74,night shade:101,seismic toss:69,super fang:162,thunder:87,toxic:92
+
+Bulbasaur
+scratch
+3 Growl,7 Leech Seed,9 Vine Whip,13 PoisonPowder,13 Sleep Powder,15 Take Down,19 Razor Leaf,21 Sweet Scent,25 Growth,27 Double-Edge,31 Worry Seed,33 Synthesis,37 Seed Bomb
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Energy Ball,Endure,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut,Strength,Rock Smash
+Amnesia,Charm,Curse,GrassWhistle,Ingrain,Leaf Storm,Light Screen,Magical Leaf,Nature Power,Petal Dance,Power Whip,Safeguard,Skull Bash,Sludge
+
+Ivysaur
+scratch,growl,leech seed
+3 Growl,7 Leech Seed,9 Vine Whip,13 PoisonPowder,13 Sleep Powder,15 Take Down,20 Razor Leaf,23 Sweet Scent,28 Growth,31 Double-Edge,36 Worry Seed,39 Synthesis,44 SolarBeam
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Energy Ball,Endure,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut,Strength,Rock Smash
+Amnesia,Charm,Curse,GrassWhistle,Ingrain,Leaf Storm,Light Screen,Magical Leaf,Nature Power,Petal Dance,Power Whip,Safeguard,Skull Bash,Sludge
+
+Venosaur
+tackle,growl,leech seed,vine whip
+3 Growl,7 Leech Seed,9 Vine Whip,13 PoisonPowder,13 Sleep Powder,15 Take Down,20 Razor Leaf,23 Sweet Scent,28 Growth,31 Double-Edge,32 Petal Dance,39 Worry Seed,45 Synthesis,53 SolarBeam
+Roar,Toxic,Bullet Seed,Hidden Power,Sunny Day,Hyper Beam,Protect,Giga Drain,Frustration,SolarBeam,Earthquake,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Energy Ball,Endure,Giga Impact,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut,Strength,Rock Smash,Rock Climb
+Amnesia,Charm,Curse,GrassWhistle,Ingrain,Leaf Storm,Light Screen,Magical Leaf,Nature Power,Petal Dance,Power Whip,Safeguard,Skull Bash,Sludge
+
+Charmander
+Scratch,Growl
+7 Ember,10 SmokeScreen,16 Dragon Rage,19 Scary Face,25 Fire Fang,28 Slash,34 Flamethrower,37 Fire Spin
+Focus Punch,Dragon Claw,Toxic,Hidden Power,Sunny Day,Protect,Frustration,Iron Tail,Return,Dig,Brick Break,Double Team,Flamethrower,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Overheat,Fling,Endure,Will-O-Wisp,Shadow Claw,Swords Dance,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Strength,Rock Smash
+AncientPower,Beat Up,Belly Drum,Bite,Counter,Crunch,Dragon Dance,Dragon Rush,Flare Blitz,Metal Claw,Outrage,Rock Slide,Swords Dance
+
+Charmeleon
+scratch,growl,ember
+7 Ember,10 SmokeScreen,17 Dragon Rage,21 Scary Face,28 Fire Fang,32 Slash,39 Flamethrower,43 Fire Spin
+Focus Punch,Dragon Claw,Toxic,Hidden Power,Sunny Day,Protect,Frustration,Iron Tail,Return,Dig,Brick Break,Double Team,Flamethrower,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Overheat,Fling,Endure,Will-O-Wisp,Shadow Claw,Swords Dance,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Strength,Rock Smash
+AncientPower,Beat Up,Belly Drum,Bite,Counter,Crunch,Dragon Dance,Dragon Rush,Flare Blitz,Metal Claw,Outrage,Rock Slide,Swords Dance
+
+Charizard
+Dragon Claw,Shadow Claw,Air Slash,Scratch,Growl,Ember,SmokeScreen
+7 Ember,10 SmokeScreen,17 Dragon Rage,21 Scary Face,28 Fire Fang,32 Slash,36 Wing Attack,42 Flamethrower,49 Fire Spin,59 Heat Wave,66 Flare Blitz
+Focus Punch,Dragon Claw,Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Frustration,SolarBeam,Iron Tail,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Steel Wing,Overheat,Roost,Focus Blast,Fling,Endure,Dragon Pulse,Will-O-Wisp,Shadow Claw,Giga Impact,Swords Dance,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Fly,Strength,Defog,Rock Smash
+AncientPower,Beat Up,Belly Drum,Bite,Counter,Crunch,Dragon Dance,Dragon Rush,Flare Blitz,Metal Claw,Outrage,Rock Slide,Swords Dance
+
+Squirtle
+tackle
+4 Tail Whip,7 Bubble,10 Withdraw,13 Water Gun,16 Bite,19 Rapid Spin,22 Protect,25 Water Pulse,28 Aqua Tail,31 Skull Bash,34 Iron Defense,37 Rain Dance,40 Hydro Pump
+Focus Punch,Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Return,Dig,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Brine,Fling,Endure,Gyro Ball,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall
+Aqua Jet,Aqua Ring,Fake Out,Flail,Foresight,Haze,Mirror Coat,Mist,Mud Sport,Muddy Water,Refresh,Water Spout,Yawn
+
+Wartortle
+tackle,tail whip, bubble
+4 Tail Whip,7 Bubble,10 Withdraw,13 Water Gun,16 Bite,20 Rapid Spin,24 Protect,28 Water Pulse,32 Aqua Tail,36 Skull Bash,40 Iron Defense,44 Rain Dance,48 Hydro Pump
+Focus Punch,Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Return,Dig,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Brine,Fling,Endure,Gyro Ball,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall
+Aqua Jet,Aqua Ring,Fake Out,Flail,Foresight,Haze,Mirror Coat,Mist,Mud Sport,Muddy Water,Refresh,Water Spout,Yawn
+
+Blastoise
+Flash Cannon,Tackle,Tail Whip,Bubble,Withdraw
+4 Tail Whip,7 Bubble,10 Withdraw,13 Water Gun,16 Bite,20 Rapid Spin,24 Protect,28 Water Pulse,32 Aqua Tail,39 Skull Bash,46 Iron Defense,53 Rain Dance,60 Hydro Pump
+Focus Punch,Water Pulse,Roar,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Earthquake,Return,Dig,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Focus Blast,Brine,Fling,Endure,Giga Impact,Avalanche,Gyro Ball,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Flash Cannon,Surf,Strength,Whirlpool,Rock Smash,Waterfall,Rock Climb
+Aqua Jet,Aqua Ring,Fake Out,Flail,Foresight,Haze,Mirror Coat,Mist,Mud Sport,Muddy Water,Refresh,Water Spout,Yawn
+
+Caterpie
+tackle,string shot
+(no l-u)
+(no disc)
+(no egg)
+
+Metapod
+harden
+7 harden
+(no disc)
+(no egg)
+
+Butterfree
+confusion
+10 Confusion,12 PoisonPowder,12 Stun Spore,12 Sleep Powder,16 Gust,18 Supersonic,22 Whirlwind,24 Psybeam,28 Silver Wind,30 Tailwind,34 Safeguard,36 Captivate,40 Bug Buzz
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Giga Drain,Safeguard,Frustration,SolarBeam,Return,Psychic,Shadow Ball,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Roost,Energy Ball,Endure,Silver Wind,Giga Impact,Flash,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Swagger,U-turn,Substitute,Defog
+(no egg)
+
+Weedle
+poison sting,string shot
+(no l-u)
+(no disc)
+(no egg)
+
+Kakuna
+harden
+7 harden
+(no disc)
+(no egg)
+
+Beedrill
+fury attack
+10 Fury Attack,13 Focus Energy,16 Twineedle,19 Rage,22 Pursuit,25 Toxic Spikes,28 Pin Missile,31 Agility,34 Assurance,37 Poison Jab,40 Endeavor
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Giga Drain,Frustration,SolarBeam,Return,Brick Break,Double Team,Sludge Bomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Roost,False Swipe,Endure,Silver Wind,Payback,Giga Impact,Flash,Swords Dance,Captivate,X-Scissor,Sleep Talk,Natural Gift,Poison Jab,Swagger,U-turn,Substitute,Cut,Defog,Rock Smash
+(no egg)
+
+Pidgey
+tackle
+5 Sand-Attack,9 Gust,13 Quick Attack,17 Whirlwind,21 Twister,25 FeatherDance,29 Agility,33 Wing Attack,37 Roost,41 Tailwind,45 Mirror Move,49 Air Slash
+Toxic,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Return,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog
+Air Cutter,Air Slash,Brave Bird,Faint Attack,Foresight,Pursuit,Steel Wing,Uproar
+
+Pidgeotto
+Tackle,Sand-Attack,Gust
+5 Sand-Attack,9 Gust,13 Quick Attack,17 Whirlwind,22 Twister,27 FeatherDance,32 Agility,37 Wing Attack,42 Roost,47 Tailwind,52 Mirror Move,57 Air Slash
+Toxic,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Return,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog
+Air Cutter,Air Slash,Brave Bird,Faint Attack,Foresight,Pursuit,Steel Wing,Uproar
+
+Pigeot
+Tackle,Sand-Attack,Gust,Quick Attack
+5 Sand-Attack,9 Gust,13 Quick Attack,17 Whirlwind,22 Twister,27 FeatherDance,32 Agility,38 Wing Attack,44 Roost,50 Tailwind,56 Mirror Move,62 Air Slash
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Frustration,Return,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog
+Air Cutter,Air Slash,Brave Bird,Faint Attack,Foresight,Pursuit,Steel Wing,Uproar
+
+Rattata
+tackle,tail whip
+4 Quick Attack,7 Focus Energy,10 Bite,13 Pursuit,16 Hyper Fang,19 Sucker Punch,22 Crunch,25 Assurance,28 Super Fang,31 Double-Edge,34 Endeavor
+Toxic,Hidden Power,Sunny Day,Taunt,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Shadow Ball,Double Team,Shock Wave,Facade,Secret Power,Rest,Attract,Thief,Charge Beam,Endure,Thunder Wave,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Pluck,U-turn,Substitute,Cut,Rock Smash
+Bite,Counter,Flame Wheel,Fury Swipes,Last Resort,Me First,Reversal,Screech,Swagger,Uproar
+
+Raticate
+Swords Dance,Tackle,Tail Whip,Quick Attack,Focus Energy
+4 Quick Attack,7 Focus Energy,10 Bite,13 Pursuit,16 Hyper Fang,19 Sucker Punch,20 Scary Face,24 Crunch,29 Assurance,34 Super Fang,39 Double-Edge,44 Endeavor
+Roar,Toxic,Hidden Power,Sunny Day,Taunt,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Shadow Ball,Double Team,Shock Wave,Facade,Secret Power,Rest,Attract,Thief,Charge Beam,Endure,Giga Impact,Thunder Wave,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Pluck,U-turn,Substitute,Cut,Strength,Rock Smash
+Bite,Counter,Flame Wheel,Fury Swipes,Last Resort,Me First,Reversal,Screech,Swagger,Uproar
+
+Spearow
+peck,growl
+5 Leer,9 Fury Attack,13 Pursuit,17 Aerial Ace,21 Mirror Move,25 Agility,29 Assurance,33 Roost,37 Drill Peck
+Toxic,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Return,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog
+Astonish,Faint Attack,False Swipe,FeatherDance,Quick Attack,Scary Face,Sky Attack,Tri Attack,Uproar,Whirlwind
+
+Fearow
+Pluck,Peck,Growl,Leer,Fury Attack
+5 Leer,9 Fury Attack,13 Pursuit,17 Aerial Ace,23 Mirror Move,29 Agility,35 Assurance,41 Roost,47 Drill Peck
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Frustration,Return,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog
+Astonish,Faint Attack,False Swipe,FeatherDance,Quick Attack,Scary Face,Sky Attack,Tri Attack,Uproar,Whirlwind
+
+Ekans
+wrap,leer
+4 Poison Sting,9 Bite,12 Glare,17 Screech,20 Acid,25 Stockpile,25 Swallow,25 Spit Up,28 Mud Bomb,33 Gastro Acid,36 Haze,41 Gunk Shot
+Toxic,Hidden Power,Sunny Day,Protect,Rain Dance,Giga Drain,Frustration,Iron Tail,Earthquake,Return,Dig,Double Team,Sludge Bomb,Rock Tomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Snatch,Endure,Payback,Captivate,Dark Pulse,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength
+Beat Up,Disable,Poison Fang,Poison Tail,Pursuit,Scary Face,Slam,Spite,Switcheroo
+
+Arbok
+Fire Fang,Ice Fang,Thunder Fang,Wrap,Leer,Poison Sting,Bite
+4 Poison Sting,9 Bite,12 Glare,17 Screech,20 Acid,22 Crunch,28 Stockpile,28 Swallow,28 Spit Up,34 Mud Bomb,42 Gastro Acid,48 Haze,56 Gunk Shot
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Giga Drain,Frustration,Iron Tail,Earthquake,Return,Dig,Double Team,Sludge Bomb,Rock Tomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Snatch,Endure,Payback,Giga Impact,Captivate,Dark Pulse,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength
+Beat Up,Disable,Poison Fang,Poison Tail,Pursuit,Scary Face,Slam,Spite,Switcheroo
+
+Pikachu
+thundershock,growl
+5 Tail Whip,10 Thunder Wave,13 Quick Attack,18 Double Team,21 Slam,26 Thunderbolt,29 Feint,34 Agility,37 Discharge,42 Light Screen,45 Thunder
+Focus Punch,Toxic,Hidden Power,Light Screen,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Brick Break,Double Team,Shock Wave,Facade,Secret Power,Rest,Attract,Fling,Charge Beam,Endure,Flash,Thunder Wave,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Strength,Rock Smash
+Bide,Charge,DoubleSlap,Encore,Fake Out,Flail,Present,Reversal,ThunderPunch,Tickle,Volt Tackle,Wish
+
+Raichu
+thundershock,tail whip,quick attack,growl
+(no l-u)
+Focus Punch,Toxic,Hidden Power,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Brick Break,Double Team,Shock Wave,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Charge Beam,Endure,Giga Impact,Flash,Thunder Wave,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Strength,Rock Smash
+Bide,Charge,DoubleSlap,Encore,Fake Out,Flail,Present,Reversal,ThunderPunch,Tickle,Volt Tackle,Wish
+
+Sandshrew
+scratch
+3 Defense Curl,7 Sand-Attack,9 Poison Sting,13 Rapid Spin,15 Swift,19 Fury Swipes,21 Rollout,25 Fury Cutter,27 Sand Tomb,31 Slash,33 Gyro Ball,37 Sandstorm
+Focus Punch,Toxic,Hidden Power,Sunny Day,Protect,Frustration,Iron Tail,Earthquake,Return,Dig,Brick Break,Double Team,Sandstorm,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Fling,Endure,Shadow Claw,Gyro Ball,Swords Dance,Stealth Rock,Captivate,Rock Slide,X-Scissor,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Strength,Rock Smash,Rock Climb
+Counter,Crush Claw,Flail,Metal Claw,Mud Shot,Night Slash,Rapid Spin,Rock Slide,Safeguard,Swords Dance
+
+Sandslash
+scratch,defense curl,sand-attack
+3 Defense Curl,7 Sand-Attack,9 Poison Sting,13 Rapid Spin,15 Swift,19 Fury Swipes,21 Rollout,22 Crush Claw,28 Fury Cutter,33 Sand Tomb,40 Slash,45 Gyro Ball,52 Sandstorm
+Focus Punch,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Frustration,Iron Tail,Earthquake,Return,Dig,Brick Break,Double Team,Sandstorm,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Shadow Claw,Giga Impact,Stone Edge,Gyro Ball,Swords Dance,Stealth Rock,Captivate,Rock Slide,X-Scissor,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Strength,Rock Smash,Rock Climb
+Counter,Crush Claw,Flail,Metal Claw,Mud Shot,Night Slash,Rapid Spin,Rock Slide,Safeguard,Swords Dance
+
+Nidoran (f)
+growl,slash
+7 Tail Whip,9 Double Kick,13 Poison Sting,19 Fury Swipes,21 Bite,25 Helping Hand,31 Toxic Spikes,33 Flatter,37 Crunch,43 Captivate,45 Poison Fang
+Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Double Team,Shock Wave,Sludge Bomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Endure,Shadow Claw,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Strength,Rock Smash
+Beat Up,Charm,Counter,Disable,Focus Energy,Pursuit,Skull Bash,Supersonic,Take Down
+
+Nidorina
+growl,scratch
+7 Tail Whip,9 Double Kick,13 Poison Sting,20 Fury Swipes,23 Bite,28 Helping Hand,35 Toxic Spikes,38 Flatter,43 Crunch,50 Captivate,58 Poison Fang
+Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Double Team,Shock Wave,Sludge Bomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Endure,Shadow Claw,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Strength,Rock Smash
+Beat Up,Charm,Counter,Disable,Focus Energy,Pursuit,Skull Bash,Supersonic,Take Down
+
+Nidoqueen
+scratch,tail whip,double kick,poison sting
+23 Body Slam,43 Earth Power,58 Superpower
+Focus Punch,Water Pulse,Roar,Toxic,Hidden Power,Sunny Day,Taunt,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Shadow Ball,Brick Break,Double Team,Shock Wave,Flamethrower,Sludge Bomb,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Dragon Pulse,Shadow Claw,Giga Impact,Stone Edge,Avalanche,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Surf,Strength,Whirlpool,Rock Smash,Rock Climb
+Beat Up,Charm,Counter,Disable,Focus Energy,Pursuit,Skull Bash,Supersonic,Take Down
+
+Nidoran (m)
+leer,peck
+7 Focus Energy,9 Double Kick,13 Poison Sting,19 Fury Attack,21 Horn Attack,25 Helping Hand,31 Toxic Spikes,33 Flatter,37 Poison Jab,43 Captivate,45 Horn Drill
+Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Double Team,Shock Wave,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Endure,Shadow Claw,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Strength,Rock Smash
+Amnesia,Beat Up,Confusion,Disable,Counter,Head Smash,Sucker Punch,Supersonic,Take Down
+
+Nidorino
+leer,peck
+7 Focus Energy,9 Double Kick,13 Poison Sting,20 Fury Attack,23 Horn Attack,28 Helping Hand,35 Toxic Spikes,38 Flatter,43 Poison Jab,50 Captivate,58 Horn Drill
+Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Double Team,Shock Wave,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Endure,Shadow Claw,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Strength,Rock Smash
+Amnesia,Beat Up,Confusion,Disable,Counter,Head Smash,Sucker Punch,Supersonic,Take Down
+
+Nidoking
+peck,focus energy,doubole kick,poison sting
+23 Thrash,43 Earth Power,58 Megahorn
+Focus Punch,Water Pulse,Roar,Toxic,Hidden Power,Sunny Day,Taunt,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Shadow Ball,Brick Break,Double Team,Shock Wave,Flamethrower,Sludge Bomb,Sandstorm,Fire Blast,Rock Tomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Dragon Pulse,Shadow Claw,Giga Impact,Stone Edge,Avalanche,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Surf,Strength,Whirlpool,Rock Smash,Rock Climb
+Amnesia,Beat Up,Confusion,Disable,Counter,Head Smash,Sucker Punch,Supersonic,Take Down
+
+Clefairy
+pound,growl
+4 Encore,7 Sing,10 DoubleSlap,13 Defense Curl,16 Follow Me,19 Minimize,22 Wake-Up Slap,25 Cosmic Power,28 Lucky Chant,31 Metronome,34 Gravity,37 Moonlight,40 Light Screen,43 Meteor Mash,46 Healing Wish
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Return,Dig,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Snatch,Fling,Charge Beam,Endure,Drain Punch,Recycle,Flash,Thunder Wave,Stealth Rock,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Strength,Rock Smash
+Amnesia,Aromatherapy,Belly Drum,Covet,Fake Tears,Metronome,Mimic,Present,Splash,Substitute,Wish
+
+Clefable
+Minimize,DoubleSlap,Sing,Metronome
+(no l-u)
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Return,Dig,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Snatch,Focus Blast,Fling,Charge Beam,Endure,Drain Punch,Recycle,Giga Impact,Flash,Thunder Wave,Stealth Rock,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Strength,Rock Smash
+Amnesia,Aromatherapy,Belly Drum,Covet,Fake Tears,Metronome,Mimic,Present,Splash,Substitute,Wish
+
+Vulpix
+ember
+4 Tail Whip,7 Roar,11 Quick Attack,14 Will-O-Wisp,17 Confuse Ray,21 Imprison,24 Flamethrower,27 Safeguard,31 Payback,34 Fire Spin,37 Captivate,41 Grudge,44 Extrasensory,47 Fire Blast
+Roar,Toxic,Hidden Power,Sunny Day,Protect,Safeguard,Frustration,Iron Tail,Return,Dig,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Overheat,Endure,Will-O-Wisp,Payback,Psych Up,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Swagger,Substitute
+Disable,Energy Ball,Extrasensory,Faint Attack,Flail,Flare Blitz,Heat Wave,Howl,Hypnosis,Power Swap,Psych Up,Spite
+
+Ninetails
+Nasty Plot,Quick Attack,Confuse Ray,Safeguard,Ember
+(no l-u)
+Calm Mind,Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Safeguard,Frustration,SolarBeam,Iron Tail,Return,Dig,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Overheat,Endure,Will-O-Wisp,Payback,Giga Impact,Psych Up,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Dream Eater,Swagger,Substitute
+Disable,Energy Ball,Extrasensory,Faint Attack,Flail,Flare Blitz,Heat Wave,Howl,Hypnosis,Power Swap,Psych Up,Spite
+
+Jigglypuff
+sing
+5 Defense Curl,9 Pound,13 Disable,17 Rollout,21 DoubleSlap,25 Rest,29 Body Slam,33 Gyro Ball,37 Wake-Up Slap,41 Mimic,45 Hyper Voice,49 Double-Edge
+Focus Punch,Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Thunderbolt,Thunder,Return,Dig,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Snatch,Fling,Charge Beam,Endure,Drain Punch,Recycle,Flash,Thunder Wave,Gyro Ball,Stealth Rock,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Strength
+Covet,Faint Attack,Fake Tears,Gravity,Last Resort,Perish Song,Present,Wish
+
+Wigglytuff
+Sing,Disable,Defense Curl,DoubleSlap
+(no l-u)
+Focus Punch,Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Thunderbolt,Thunder,Return,Dig,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Snatch,Focus Blast,Fling,Charge Beam,Endure,Drain Punch,Recycle,Giga Impact,Flash,Thunder Wave,Gyro Ball,Stealth Rock,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Strength
+Covet,Faint Attack,Fake Tears,Gravity,Last Resort,Perish Song,Present,Wish
+
+Zubat
+leech life
+5 Supersonic,9 Astonish,13 Bite,17 Wing Attack,21 Confuse Ray,25 Air Cutter,29 Mean Look,33 Poison Fang,37 Haze,41 Air Slash
+Toxic,Hidden Power,Sunny Day,Taunt,Protect,Rain Dance,Giga Drain,Frustration,Return,Shadow Ball,Double Team,Sludge Bomb,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Snatch,Roost,Endure,Payback,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog
+Brave Bird,Curse,Faint Attack,Gust,Hypnosis,Nasty Plot,Pursuit,Quick Attack,Whirlwind,Zen Headbutt
+
+Golbat
+Screech,Leech Life,Supersonic,Astonish
+5 Supersonic,9 Astonish,13 Bite,17 Wing Attack,21 Confuse Ray,27 Air Cutter,33 Mean Look,39 Poison Fang,45 Haze,51 Air Slash
+Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Rain Dance,Giga Drain,Frustration,Return,Shadow Ball,Double Team,Sludge Bomb,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Snatch,Roost,Endure,Payback,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog
+Brave Bird,Curse,Faint Attack,Gust,Hypnosis,Nasty Plot,Pursuit,Quick Attack,Whirlwind,Zen Headbutt
+
+Oddish
+absorb
+5 Sweet Scent,9 Acid,13 PoisonPowder,15 Stun Spore,17 Sleep Powder,21 Mega Drain,25 Lucky Chant,29 Natural Gift,33 Moonlight,37 Giga Drain,41 Petal Dance
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Energy Ball,Endure,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut
+Charm,Flail,Ingrain,Razor Leaf,Swords Dance,Synthesis,Teeter Dance,Tickle
+
+Gloom
+Absorb,Sweet Scent,Acid
+5 Sweet Scent,9 Acid,13 PoisonPowder,15 Stun Spore,17 Sleep Powder,23 Mega Drain,29 Lucky Chant,35 Natural Gift,41 Moonlight,47 Giga Drain,53 Petal Dance
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Energy Ball,Fling,Endure,Drain Punch,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut
+Charm,Flail,Ingrain,Razor Leaf,Swords Dance,Synthesis,Teeter Dance,Tickle
+
+Vileplume
+Aromatherapy,Mega Drain,PoisonPowder,Stun Spore
+53 Petal Dance,65 SolarBeam
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Hyper Beam,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Energy Ball,Fling,Endure,Drain Punch,Giga Impact,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut
+Charm,Flail,Ingrain,Razor Leaf,Swords Dance,Synthesis,Teeter Dance,Tickle
+
+Paras
+scratch
+6 Stun Spore,6 PoisonPowder,11 Leech Life,17 Spore,22 Slash,27 Growth,33 Giga Drain,38 Aromatherapy,43 X-Scissor
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Dig,Brick Break,Double Team,Sludge Bomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Energy Ball,False Swipe,Endure,Flash,Swords Dance,Captivate,X-Scissor,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut,Rock Smash
+Agility,Bug Bite,Counter,Cross Poison,False Swipe,Flail,Light Screen,Metal Claw,Psybeam,Pursuit,Screech,Sweet Scent
+
+Parasect
+Cross Poison,Scratch,Stun Spore,PoisonPowder,Leech Life
+6 Stun Spore,6 PoisonPowder,11 Leech Life,17 Spore,22 Slash,30 Growth,39 Giga Drain,47 Aromatherapy,55 X-Scissor
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Hyper Beam,Protect,Giga Drain,Frustration,SolarBeam,Return,Dig,Brick Break,Double Team,Sludge Bomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Energy Ball,False Swipe,Endure,Giga Impact,Flash,Swords Dance,Captivate,X-Scissor,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut,Rock Smash
+Agility,Bug Bite,Counter,Cross Poison,False Swipe,Flail,Light Screen,Metal Claw,Psybeam,Pursuit,Screech,Sweet Scent
+
+Venonat
+Tackle,Disable,Foresight
+5 Supersonic,11 Confusion,13 PoisonPowder,17 Leech Life,23 Stun Spore,25 Psybeam,29 Sleep Powder,35 Signal Beam,37 Zen Headbutt,41 Poison Fang,47 Psychic
+Toxic,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Psychic,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Endure,Flash,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute
+Agility,Baton Pass,Bug Bite,Giga Drain,Morning Sun,Screech,Signal Beam,Toxic Spikes
+
+Venomoth
+Silver Wind,Tackle,Disable,Foresight,Supersonic
+5 Supersonic,11 Confusion,13 PoisonPowder,17 Leech Life,23 Stun Spore,25 Psybeam,29 Sleep Powder,31 Gust,37 Signal Beam,41 Zen Headbutt,47 Poison Fang,55 Psychic,59 Bug Buzz
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Giga Drain,Frustration,SolarBeam,Return,Psychic,Double Team,Sludge Bomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Roost,Energy Ball,Endure,Silver Wind,Giga Impact,Flash,Captivate,Sleep Talk,Natural Gift,Swagger,U-turn,Substitute,Defog
+Agility,Baton Pass,Bug Bite,Giga Drain,Morning Sun,Screech,Signal Beam,Toxic Spikes
+
+Diglett
+scratch,sand-attack
+4 Growl,7 Astonish,12 Magnitude,15 Mud-Slap,18 Dig,23 Sucker Punch,26 Earth Power,29 Mud Bomb,34 Slash,37 Earthquake,40 Fissure
+Toxic,Hidden Power,Sunny Day,Protect,Frustration,Earthquake,Return,Dig,Double Team,Sludge Bomb,Sandstorm,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Endure,Shadow Claw,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Rock Smash
+AncientPower,Astonish,Beat Up,Faint Attack,Mud Bomb,Pursuit,Reversal,Rock Slide,Screech,Uproar
+
+Dugtrio
+Night Slash,Tri Attack,Scratch,Sand-Attack,Growl
+4 Growl,7 Astonish,12 Magnitude,15 Mud-Slap,18 Dig,23 Sucker Punch,26 Sand Tomb,28 Earth Power,33 Mud Bomb,40 Slash,45 Earthquake,50 Fissure
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Frustration,Earthquake,Return,Dig,Double Team,Sludge Bomb,Sandstorm,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Endure,Shadow Claw,Giga Impact,Stone Edge,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Rock Smash
+AncientPower,Astonish,Beat Up,Faint Attack,Mud Bomb,Pursuit,Reversal,Rock Slide,Screech,Uproar
+
+Meowth
+Scratch,Growl
+6 Bite,9 Fake Out,14 Fury Swipes,17 Screech,22 Faint Attack,25 Taunt,30 Pay Day,33 Slash,38 Nasty Plot,41 Assurance,46 Captivate,49 Night Slash,54 Feint
+Water Pulse,Toxic,Hidden Power,Sunny Day,Taunt,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Shadow Ball,Double Team,Shock Wave,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Snatch,Endure,Shadow Claw,Payback,Flash,Psych Up,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Dream Eater,Swagger,U-turn,Substitute,Cut
+Amnesia,Assist,Charm,Flail,Hypnosis,Last Resort,Odor Sleuth,Psych Up,Punishment,Spite,Tail Whip
+
+Persian
+Switcheroo,Scratch,Growl,Bite,Fake Out
+6 Bite,9 Fake Out,14 Fury Swipes,17 Screech,22 Faint Attack,25 Taunt,32 Power Gem,37 Slash,44 Nasty Plot,49 Assurance,56 Captivate,61 Night Slash,68 Feint
+Water Pulse,Roar,Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Shadow Ball,Double Team,Shock Wave,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Snatch,Endure,Embargo,Shadow Claw,Payback,Giga Impact,Flash,Psych Up,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Dream Eater,Swagger,U-turn,Substitute,Cut
+Amnesia,Assist,Charm,Flail,Hypnosis,Last Resort,Odor Sleuth,Psych Up,Punishment,Spite,Tail Whip
+
+Psyduck
+Water Sport,Scratch
+5 Tail Whip,9 Water Gun,14 Disable,18 Confusion,22 Water Pulse,27 Fury Swipes,31 Screech,35 Psych Up,40 Zen Headbutt,44 Amnesia,48 Hydro Pump
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Return,Dig,Psychic,Brick Break,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Brine,Fling,Endure,Shadow Claw,Flash,Psych Up,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall
+Confuse Ray,Cross Chop,Encore,Foresight,Future Sight,Hypnosis,Light Screen,Mud Bomb,Psybeam,Psychic,Refresh,Yawn
+
+Golduck
+Aqua Jet,Scratch,Water Sport,Tail Whip,Water Gun
+5 Tail Whip,9 Water Gun,14 Disable,18 Confusion,22 Water Pulse,27 Fury Swipes,31 Screech,37 Psych Up,44 Zen Headbutt,50 Amnesia,56 Hydro Pump
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Return,Dig,Psychic,Brick Break,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Focus Blast,Brine,Fling,Endure,Shadow Claw,Giga Impact,Flash,Psych Up,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall,Rock Climb
+Confuse Ray,Cross Chop,Encore,Foresight,Future Sight,Hypnosis,Light Screen,Mud Bomb,Psybeam,Psychic,Refresh,Yawn
+
+Mankey
+Covet,Scratch,Low Kick,Leer,Focus Energy
+9 Fury Swipes,13 Karate Chop,17 Seismic Toss,21 Screech,25 Assurance,33 Swagger,37 Cross Chop,41 Thrash,45 Punishment,49 Close Combat
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Taunt,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Brick Break,Double Team,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Overheat,Focus Blast,Fling,Endure,Payback,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,U-turn,Substitute,Strength,Rock Smash,Rock Climb
+Beat Up,Close Combat,Counter,Encore,Foresight,Meditate,Reversal,Revenge,Rock Slide,SmellingSalt
+
+Primape
+Fling,Scratch,Leer,Low Kick,Focus Energy
+9 Fury Swipes,13 Karate Chop,17 Seismic Toss,21 Screech,25 Assurance,28 Rage,35 Swagger,41 Cross Chop,47 Thrash,53 Punishment,59 Close Combat
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Brick Break,Double Team,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Overheat,Focus Blast,Fling,Endure,Payback,Giga Impact,Stone Edge,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,U-turn,Substitute,Strength,Rock Smash,Rock Climb
+Beat Up,Close Combat,Counter,Encore,Foresight,Meditate,Reversal,Revenge,Rock Slide,SmellingSalt
+
+Growlithe
+Bite,Roar
+6 Ember,9 Leer,14 Odor Sleuth,17 Helping Hand,20 Flame Wheel,25 Reversal,28 Fire Fang,31 Take Down,34 Flamethrower,39 Agility,42 Crunch,45 Heat Wave,48 Flare Blitz
+Roar,Toxic,Hidden Power,Sunny Day,Protect,Frustration,Iron Tail,Return,Dig,Double Team,Flamethrower,Fire Blast,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Overheat,Endure,Will-O-Wisp,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash
+Body Slam,Crunch,Double-Edge,Fire Spin,Flare Blitz,Heat Wave,Howl,Morning Sun,Safeguard,Thrash
+
+Arcanine
+Thunder Fang,Bite,Odor Sleuth,Roar,Fire Fang
+39 extreme speed
+Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Frustration,SolarBeam,Iron Tail,Return,Dig,Double Team,Flamethrower,Fire Blast,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Overheat,Endure,Dragon Pulse,Will-O-Wisp,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Body Slam,Crunch,Double-Edge,Fire Spin,Flare Blitz,Heat Wave,Howl,Morning Sun,Safeguard,Thrash
+
+Poliwag
+water sport
+5 Bubble,8 Hypnosis,11 Water Gun,15 DoubleSlap,18 Rain Dance,21 Body Slam,25 BubbleBeam,28 Mud Shot,31 Belly Drum,35 Wake-Up Slap,38 Hydro Pump,41 Mud Bomb
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Return,Dig,Psychic,Double Team,Facade,Secret Power,Rest,Attract,Thief,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Waterfall
+BubbleBeam,Encore,Endeavor,Haze,Ice Ball,Mind Reader,Mist,Mud Shot,Refresh,Splash,Water Sport
+
+Poliwhirl
+Water Sport,Bubble,Hypnosis
+5 Bubble,8 Hypnosis,11 Water Gun,15 DoubleSlap,18 Rain Dance,21 Body Slam,27 BubbleBeam,32 Mud Shot,37 Belly Drum,43 Wake-Up Slap,48 Hydro Pump,53 Mud Bomb
+Focus Punch,Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Earthquake,Return,Dig,Psychic,Brick Break,Double Team,Facade,Secret Power,Rest,Attract,Thief,Fling,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall
+BubbleBeam,Encore,Endeavor,Haze,Ice Ball,Mind Reader,Mist,Mud Shot,Refresh,Splash,Water Sport
+
+Poliwrath
+BubbleBeam,DoubleSlap,Hypnosis,Submission
+43 DynamicPunch,53 Mind Reader
+Focus Punch,Water Pulse,Toxic,Hail,Bulk Up,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Earthquake,Return,Dig,Psychic,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Payback,Giga Impact,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall,Rock Climb
+BubbleBeam,Encore,Endeavor,Haze,Ice Ball,Mind Reader,Mist,Mud Shot,Refresh,Splash,Water Sport
+
+Abra
+teleport
+(no l-u)
+Focus Punch,Calm Mind,Toxic,Hidden Power,Sunny Day,Taunt,Light Screen,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Return,Psychic,Shadow Ball,Double Team,Reflect,Shock Wave,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Energy Ball,Fling,Charge Beam,Endure,Drain Punch,Embargo,Recycle,Flash,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room
+Barrier,Encore,Fire Punch,Guard Swap,Ice Punch,Power Trick,ThunderPunch,Knock Off
+
+Kadabra
+Kinesis,Teleport,Confusion
+16 Confusion,18 Disable,22 Miracle Eye,24 Psybeam,28 Reflect,30 Recover,34 Psycho Cut,36 Role Play,40 Psychic,42 Future Sight,46 Trick
+Focus Punch,Calm Mind,Toxic,Hidden Power,Sunny Day,Taunt,Light Screen,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Return,Psychic,Shadow Ball,Double Team,Reflect,Shock Wave,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Energy Ball,Fling,Charge Beam,Endure,Drain Punch,Embargo,Recycle,Flash,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room
+Barrier,Encore,Fire Punch,Guard Swap,Ice Punch,Power Trick,ThunderPunch,Knock Off
+
+Alakazam
+Kinesis,Teleport,Confusion
+16 Confusion,18 Disable,22 Miracle Eye,24 Psybeam,28 Reflect,30 Recover,34 Psycho Cut,36 Calm Mind,40 Psychic,42 Future Sight,46 Trick
+Focus Punch,Calm Mind,Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Return,Psychic,Shadow Ball,Double Team,Reflect,Shock Wave,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Focus Blast,Energy Ball,Fling,Charge Beam,Endure,Drain Punch,Embargo,Recycle,Giga Impact,Flash,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room
+Barrier,Encore,Fire Punch,Guard Swap,Ice Punch,Power Trick,ThunderPunch,Knock Off
+
+Machop
+low kick,leer
+7 Focus Energy,10 Karate Chop,13 Foresight,19 Seismic Toss,22 Revenge,25 Vital Throw,31 Submission,34 Wake-Up Slap,37 Cross Chop,43 Scary Face,46 DynamicPunch
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Payback,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Bullet Punch,Close Combat,Counter,Encore,Fire Punch,Ice Punch,Light Screen,Meditate,Power Trick,Rock Slide,Rolling Kick,SmellingSalt,ThunderPunch
+
+Machoke
+Low Kick,Leer,Focus Energy
+7 Focus Energy,10 Karate Chop,13 Foresight,19 Seismic Toss,22 Revenge,25 Vital Throw,32 Submission,36 Wake-Up Slap,40 Cross Chop,44 Scary Face,51 DynamicPunch
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Payback,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Bullet Punch,Close Combat,Counter,Encore,Fire Punch,Ice Punch,Light Screen,Meditate,Power Trick,Rock Slide,Rolling Kick,SmellingSalt,ThunderPunch
+
+Machamp
+Low Kick,Leer,Focus Energy
+7 Focus Energy,10 Karate Chop,13 Foresight,19 Seismic Toss,22 Revenge,25 Vital Throw,32 Submission,36 Wake-Up Slap,40 Cross Chop,44 Scary Face,51 DynamicPunch
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Frustration,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Payback,Giga Impact,Stone Edge,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Bullet Punch,Close Combat,Counter,Encore,Fire Punch,Ice Punch,Light Screen,Meditate,Power Trick,Rock Slide,Rolling Kick,SmellingSalt,ThunderPunch
+
+Bellsprout
+vine whip
+7 Growth,11 Wrap,13 Sleep Powder,15 PoisonPowder,17 Stun Spore,23 Acid,27 Knock Off,29 Sweet Scent,35 Gastro Acid,39 Razor Leaf,41 Slam,47 Wring Out
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Energy Ball,Endure,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut
+Encore,Ingrain,Leech Life,Magical Leaf,Reflect,Swords Dance,Synthesis,Tickle,Weather Ball,Worry Seed
+
+Weepinbell
+Vine Whip,Growth,Wrap
+7 Growth,11 Wrap,13 Sleep Powder,15 PoisonPowder,17 Stun Spore,23 Acid,27 Knock Off,29 Sweet Scent,35 Gastro Acid,39 Razor Leaf,41 Slam,47 Wring Out
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Energy Ball,Endure,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut
+Encore,Ingrain,Leech Life,Magical Leaf,Reflect,Swords Dance,Synthesis,Tickle,Weather Ball,Worry Seed
+
+Victreebell
+Stockpile,Swallow,Spit Up,Vine Whip,Sweet Scent,Razor Leaf,Sleep Powder
+leaf storm,leaf blade
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Hyper Beam,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Energy Ball,Endure,Giga Impact,Flash,Swords Dance,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut
+Encore,Ingrain,Leech Life,Magical Leaf,Reflect,Swords Dance,Synthesis,Tickle,Weather Ball,Worry Seed
+
+Tentacool
+poison sting
+5 Supersonic,8 Constrict,12 Acid,15 Toxic Spikes,19 BubbleBeam,22 Wrap,26 Barrier,29 Water Pulse,33 Poison Jab,36 Screech,40 Hydro Pump,43 Wring Out
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Giga Drain,Frustration,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Brine,Endure,Payback,Swords Dance,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Surf,Whirlpool,Waterfall
+Acupressure,Aurora Beam,Confuse Ray,Haze,Knock Off,Mirror Coat,Muddy Water,Rapid Spin,Safeguard
+
+Tentacruel
+Poison Sting,Supersonic,Constrict
+5 Supersonic,8 Constrict,12 Acid,15 Toxic Spikes,19 BubbleBeam,22 Wrap,26 Barrier,29 Water Pulse,36 Poison Jab,42 Screech,49 Hydro Pump,55 Wring Out
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Giga Drain,Frustration,Return,Double Team,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Brine,Endure,Payback,Giga Impact,Swords Dance,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Surf,Whirlpool,Waterfall
+Acupressure,Aurora Beam,Confuse Ray,Haze,Knock Off,Mirror Coat,Muddy Water,Rapid Spin,Safeguard
+
+Geodude
+Tackle,Defense Curl
+4 Mud Sport,8 Rock Polish,11 Rock Throw,15 Magnitude,18 Selfdestruct,22 Rollout,25 Rock Blast,29 Earthquake,32 Explosion,36 Double-Edge,39 Stone Edge
+Focus Punch,Toxic,Hidden Power,Sunny Day,Protect,Frustration,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Fling,Endure,Explosion,Rock Polish,Stone Edge,Gyro Ball,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Block,Curse,Flail,Hammer Arm,Mega Punch,Rock Slide
+
+Graveler
+Tackle,Defense Curl,Mud Sport,Rock Polish
+4 Mud Sport,8 Rock Polish,11 Rock Throw,15 Magnitude,18 Selfdestruct,22 Rollout,27 Rock Blast,33 Earthquake,38 Explosion,44 Double-Edge,49 Stone Edge
+Focus Punch,Toxic,Hidden Power,Sunny Day,Protect,Frustration,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Fling,Endure,Explosion,Rock Polish,Stone Edge,Gyro Ball,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Block,Curse,Flail,Hammer Arm,Mega Punch,Rock Slide
+
+Golem
+Tackle,Defense Curl,Mud Sport,Rock Polish
+4 Mud Sport,8 Rock Polish,11 Rock Throw,15 Magnitude,18 Selfdestruct,22 Rollout,27 Rock Blast,33 Earthquake,38 Explosion,44 Double-Edge,49 Stone Edge
+Focus Punch,Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Frustration,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Focus Blast,Fling,Endure,Explosion,Giga Impact,Rock Polish,Stone Edge,Gyro Ball,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Block,Curse,Flail,Hammer Arm,Mega Punch,Rock Slide
+
+Ponta
+tackle
+1 Growl,6 Tail Whip,10 Ember,15 Flame Wheel,19 Stomp,24 Fire Spin,28 Take Down,33 Agility,37 Fire Blast,42 Bounce,46 Flare Blitz
+Toxic,Hidden Power,Sunny Day,Protect,Frustration,SolarBeam,Iron Tail,Return,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Overheat,Endure,Will-O-Wisp,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Strength
+Charm,Double-Edge,Double Kick,Flame Wheel,Horn Drill,Hypnosis,Morning Sun,Thrash
+
+Rapidash
+Megahorn,Poison Jab,Quick Attack,Growl,Tail Whip,Ember
+7 Growl,6 Tail Whip,10 Ember,15 Flame Wheel,19 Stomp,24 Fire Spin,28 Take Down,33 Agility,37 Fire Blast,40 Fury Attack,47 Bounce,56 Flare Blitz
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Frustration,SolarBeam,Iron Tail,Return,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Overheat,Endure,Will-O-Wisp,Giga Impact,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength
+Charm,Double-Edge,Double Kick,Flame Wheel,Horn Drill,Hypnosis,Morning Sun,Thrash
+
+Slowpoke
+curse,tackle,yawn
+6 Growl,11 Water Gun,15 Confusion,20 Disable,25 Headbutt,29 Water Pulse,34 Zen Headbutt,39 Slack Off,43 Amnesia,48 Psychic,53 Rain Dance,57 Psych Up
+Water Pulse,Calm Mind,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Light Screen,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Earthquake,Return,Dig,Psychic,Shadow Ball,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Skill Swap,Brine,Endure,Recycle,Flash,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room,Surf,Strength,Whirlpool
+Belly Drum,Block,Future Sight,Me First,Mud Sport,Safeguard,Sleep Talk,Snore,Stomp,Zen Headbutt
+
+Slowbro
+Curse,Tackle,Yawn,Growl
+6 Growl,11 Water Gun,15 Confusion,20 Disable,25 Headbutt,29 Water Pulse,34 Zen Headbutt,37 Withdraw,41 Slack Off,47 Amnesia,54 Psychic,61 Rain Dance,67 Psych Up
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Earthquake,Return,Dig,Psychic,Shadow Ball,Brick Break,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Skill Swap,Focus Blast,Brine,Fling,Endure,Drain Punch,Recycle,Giga Impact,Flash,Avalanche,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room,Surf,Strength,Whirlpool,Rock Smash
+Belly Drum,Block,Future Sight,Me First,Mud Sport,Safeguard,Sleep Talk,Snore,Stomp,Zen Headbutt
+
+Magnemite
+tackle,metal sound
+6 ThunderShock,11 Supersonic,14 SonicBoom,17 Thunder Wave,22 Spark,27 Lock-On,30 Magnet Bomb,33 Screech,38 Discharge,43 Mirror Shot,46 Magnet Rise,49 Gyro Ball,54 Zap Cannon
+Toxic,Hidden Power,Sunny Day,Light Screen,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Double Team,Reflect,Shock Wave,Facade,Secret Power,Rest,Charge Beam,Endure,Explosion,Recycle,Flash,Thunder Wave,Gyro Ball,Psych Up,Sleep Talk,Natural Gift,Swagger,Substitute,Flash Cannon
+(no egg)
+
+Magneton
+Tri Attack,Tackle,Metal Sound,ThunderShock,Supersonic
+6 ThunderShock,11 Supersonic,14 SonicBoom,17 Thunder Wave,22 Spark,27 Lock-On,30 Magnet Bomb,34 Screech,40 Discharge,46 Mirror Shot,50 Magnet Rise,54 Gyro Ball,60 Zap Cannon
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Double Team,Reflect,Shock Wave,Facade,Secret Power,Rest,Charge Beam,Endure,Explosion,Recycle,Giga Impact,Flash,Thunder Wave,Gyro Ball,Psych Up,Sleep Talk,Natural Gift,Swagger,Substitute,Flash Cannon
+(no egg)
+
+Farfetch'd
+Poison Jab,Peck,Sand-Attack,Leer,Fury Cutter
+7 Fury Attack,9 Knock Off,13 Aerial Ace,19 Slash,21 Air Cutter,25 Swords Dance,31 Agility,33 Night Slash,37 Air Slash,43 Feint,45 False Swipe
+Toxic,Hidden Power,Sunny Day,Protect,Frustration,Iron Tail,Return,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,False Swipe,Endure,Swords Dance,Psych Up,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Pluck,U-turn,Substitute,Cut,Fly,Defog
+Covet,Curse,FeatherDance,Flail,Foresight,Gust,Leaf Blade,Mirror Move,Mud-Slap,Night Slash,Quick Attack,Steel Wing
+
+Doduo
+peck,growl
+5 Quick Attack,10 Rage,14 Fury Attack,19 Pursuit,23 Uproar,28 Acupressure,32 Double Hit,37 Agility,41 Drill Peck,46 Endeavor
+Toxic,Hidden Power,Sunny Day,Protect,Frustration,Return,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,Substitute,Fly
+Brave Bird,Endeavor,Faint Attack,Flail,Haze,Mirror Move,Quick Attack,Supersonic
+
+Dodrio
+Pluck,Peck,Growl,Quick Attack,Rage
+5 Quick Attack,10 Rage,14 Fury Attack,19 Pursuit,23 Uproar,28 Acupressure,34 Tri Attack,41 Agility,47 Drill Peck,54 Endeavor
+Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Frustration,Return,Double Team,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Payback,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Pluck,Substitute,Fly
+Brave Bird,Endeavor,Faint Attack,Flail,Haze,Mirror Move,Quick Attack,Supersonic
+
+Seel
+headbutt
+3 Growl,7 Water Sport,11 Icy Wind,13 Encore,17 Ice Shard,21 Rest,23 Aqua Ring,27 Aurora Beam,31 Aqua Jet,33 Brine,37 Take Down,41 Dive,43 Aqua Tail,47 Ice Beam,51 Safeguard
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Safeguard,Frustration,Return,Double Team,Facade,Secret Power,Rest,Attract,Thief,Brine,Fling,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Waterfall
+Disable,Encore,Fake Out,Horn Drill,Icicle Spear,Lick,Perish Song,Signal Beam,Slam,Spit Up,Stockpile,Swallow
+
+Dewgong
+Headbutt,Growl,Signal Beam,Icy Wind
+3 Growl,7 Signal Beam,11 Icy Wind,13 Encore,17 Ice Shard,21 Rest,23 Aqua Ring,27 Aurora Beam,31 Aqua Jet,33 Brine,34 Sheer Cold,37 Take Down,41 Dive,43 Aqua Tail,47 Ice Beam,51 Safeguard
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Safeguard,Frustration,Return,Double Team,Facade,Secret Power,Rest,Attract,Thief,Brine,Fling,Endure,Giga Impact,Avalanche,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Waterfall
+Disable,Encore,Fake Out,Horn Drill,Icicle Spear,Lick,Perish Song,Signal Beam,Slam,Spit Up,Stockpile,Swallow
+
+Grimer
+poison gas,pound
+4 Harden,7 Mud-Slap,12 Disable,17 Minimize,20 Sludge,23 Mud Bomb,28 Fling,33 Screech,36 Sludge Bomb,39 Acid Armor,44 Gunk Shot,49 Memento
+Toxic,Hidden Power,Sunny Day,Taunt,Protect,Rain Dance,Giga Drain,Frustration,Thunderbolt,Thunder,Return,Dig,Shadow Ball,Double Team,Shock Wave,Flamethrower,Sludge Bomb,Fire Blast,Rock Tomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Fling,Endure,Explosion,Payback,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength
+Curse,Explosion,Haze,Imprison,Lick,Mean Look,Shadow Punch,Shadow Sneak,Stockpile,Spit Up,Swallow
+
+Muk
+Poison Gas,Pound,Harden,Mud-Slap
+4 Harden,7 Mud-Slap,12 Disable,17 Minimize,20 Sludge,23 Mud Bomb,28 Fling,33 Screech,36 Sludge Bomb,44 Acid Armor,54 Gunk Shot,65 Memento
+Focus Punch,Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Rain Dance,Giga Drain,Frustration,Thunderbolt,Thunder,Return,Dig,Shadow Ball,Brick Break,Double Team,Shock Wave,Flamethrower,Sludge Bomb,Fire Blast,Rock Tomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Explosion,Payback,Giga Impact,Captivate,Dark Pulse,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength,Rock Smash
+Curse,Explosion,Haze,Imprison,Lick,Mean Look,Shadow Punch,Shadow Sneak,Stockpile,Spit Up,Swallow
+
+Shellder
+tackle
+4 Withdraw,8 Supersonic,13 Icicle Spear,16 Protect,20 Leer,25 Clamp,28 Ice Shard,32 Aurora Beam,37 Whirlpool,40 Iron Defense,44 Brine,49 Ice Beam
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Return,Double Team,Facade,Secret Power,Rest,Attract,Brine,Endure,Explosion,Payback,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool
+Barrier,BubbleBeam,Icicle Spear,Mud Shot,Rapid Spin,Rock Blast,Screech,Take Down
+
+Cloyster
+Toxic Spikes,Withdraw,Supersonic,Aurora Beam,protect
+28 Spikes,40 Spike Cannon
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Return,Double Team,Torment,Facade,Secret Power,Rest,Attract,Brine,Endure,Explosion,Payback,Giga Impact,Avalanche,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Surf,Whirlpool
+Barrier,BubbleBeam,Icicle Spear,Mud Shot,Rapid Spin,Rock Blast,Screech,Take Down
+
+Ghastly
+hypnosis,lick
+5 Spite,8 Mean Look,12 Curse,15 Night Shade,19 Confuse Ray,22 Sucker Punch,26 Payback,29 Shadow Ball,33 Dream Eater,36 Dark Pulse,40 Destiny Bond,43 Nightmare
+Toxic,Hidden Power,Sunny Day,Taunt,Protect,Rain Dance,Giga Drain,Frustration,Thunderbolt,Return,Psychic,Shadow Ball,Double Team,Sludge Bomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Energy Ball,Endure,Will-O-Wisp,Embargo,Explosion,Payback,Psych Up,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Dream Eater,Swagger,Substitute,Trick Room
+Astonish,Disable,Explosion,Fire Punch,Grudge,Haze,Ice Punch,Perish Song,Psywave,ThunderPunch,Will-O-Wisp
+
+Haunter
+hypnosis,lick,spite
+5 Spite,8 Mean Look,12 Curse,15 Night Shade,19 Confuse Ray,22 Sucker Punch,25 Shadow Punch,28 Payback,33 Shadow Ball,39 Dream Eater,44 Dark Pulse,50 Destiny Bond,55 Nightmare
+Toxic,Hidden Power,Sunny Day,Taunt,Protect,Rain Dance,Giga Drain,Frustration,Thunderbolt,Return,Psychic,Shadow Ball,Double Team,Sludge Bomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Energy Ball,Fling,Endure,Will-O-Wisp,Embargo,Explosion,Shadow Claw,Payback,Psych Up,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Poison Jab,Dream Eater,Swagger,Substitute,Trick Room
+Astonish,Disable,Explosion,Fire Punch,Grudge,Haze,Ice Punch,Perish Song,Psywave,ThunderPunch,Will-O-Wisp
+
+Gengar
+hypnosis,lick,spite
+5 Spite,8 Mean Look,12 Curse,15 Night Shade,19 Confuse Ray,22 Sucker Punch,25 Shadow Punch,28 Payback,33 Shadow Ball,39 Dream Eater,44 Dark Pulse,50 Destiny Bond,55 Nightmare
+Focus Punch,Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Rain Dance,Giga Drain,Frustration,Thunderbolt,Thunder,Return,Psychic,Shadow Ball,Brick Break,Double Team,Sludge Bomb,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Focus Blast,Energy Ball,Fling,Endure,Drain Punch,Will-O-Wisp,Embargo,Explosion,Shadow Claw,Payback,Giga Impact,Psych Up,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Poison Jab,Dream Eater,Swagger,Substitute,Trick Room,Strength,Rock Smash
+Astonish,Disable,Explosion,Fire Punch,Grudge,Haze,Ice Punch,Perish Song,Psywave,ThunderPunch,Will-O-Wisp
+
+Onix
+Mud Sport,Tackle,Harden,Bind
+6 Screech,9 Rock Throw,14 Rage,17 Rock Tomb,22 Sandstorm,25 Slam,30 Rock Polish,33 DragonBreath,38 Curse,41 Iron Tail,46 Sand Tomb,49 Double-Edge,54 Stone Edge
+Roar,Toxic,Hidden Power,Sunny Day,Taunt,Protect,Frustration,Iron Tail,Earthquake,Return,Dig,Double Team,Sandstorm,Rock Tomb,Torment,Facade,Secret Power,Rest,Attract,Endure,Dragon Pulse,Explosion,Payback,Rock Polish,Stone Edge,Gyro Ball,Stealth Rock,Psych Up,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Flash Cannon,Strength,Rock Smash,Rock Climb
+Block,Defense Curl,Explosion,Flail,Rock Blast,Rock Slide,Rollout
+
+Drowzee
+pound,hypnosis
+7 Disable,9 Confusion,15 Headbutt,18 Poison Gas,21 Meditate,26 Psybeam,29 Psych Up,32 Headbutt,37 Swagger,40 Psychic,43 Nasty Plot,50 Zen Headbutt,53 Future Sight
+Focus Punch,Calm Mind,Toxic,Hidden Power,Sunny Day,Taunt,Light Screen,Protect,Rain Dance,Safeguard,Frustration,Return,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Fling,Endure,Drain Punch,Recycle,Flash,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room
+Assist,Barrier,Fire Punch,Flatter,Guard Swap,Ice Punch,Nasty Plot,Role Play,Psycho Cut,ThunderPunch
+
+Hypno
+Nightmare,Switcheroo,Pound,Hypnosis,Disable,Confusion
+7 Disable,9 Confusion,15 Headbutt,18 Poison Gas,21 Meditate,28 Psybeam,33 Psych Up,38 Headbutt,45 Swagger,50 Psychic,55 Nasty Plot,64 Zen Headbutt,69 Future Sight
+Focus Punch,Calm Mind,Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,Return,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Focus Blast,Fling,Endure,Drain Punch,Recycle,Giga Impact,Flash,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room
+Assist,Barrier,Fire Punch,Flatter,Guard Swap,Ice Punch,Nasty Plot,Role Play,Psycho Cut,ThunderPunch
+
+Krabby
+mud sport,bubble
+5 ViceGrip,9 Leer,11 Harden,15 BubbleBeam,19 Mud Shot,21 Metal Claw,25 Stomp,29 Protect,31 Guillotine,35 Slam,39 Brine,41 Crabhammer,45 Flail
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Return,Dig,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,False Swipe,Brine,Fling,Endure,Swords Dance,Captivate,Rock Slide,X-Scissor,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Surf,Strength,Whirlpool,Rock Smash
+Agility,Amnesia,AncientPower,Dig,Flail,Haze,Knock Off,Slam,Swords Dance,Tickle
+
+Kingler
+mud sport,bubble,viceGrip
+5 ViceGrip,9 Leer,11 Harden,15 BubbleBeam,19 Mud Shot,21 Metal Claw,25 Stomp,32 Protect,37 Guillotine,44 Slam,51 Brine,56 Crabhammer,63 Flail
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Return,Dig,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,False Swipe,Brine,Fling,Endure,Giga Impact,Swords Dance,Captivate,Rock Slide,X-Scissor,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Surf,Strength,Whirlpool,Rock Smash
+Agility,Amnesia,AncientPower,Dig,Flail,Haze,Knock Off,Slam,Swords Dance,Tickle
+
+Voltorb
+charge
+5 Tackle,8 SonicBoom,12 Spark,15 Rollout,19 Screech,22 Light Screen,26 Charge Beam,29 Selfdestruct,33 Swift,36 Magnet Rise,40 Gyro Ball,43 Explosion,47 Mirror Coat
+Toxic,Hidden Power,Taunt,Light Screen,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Double Team,Shock Wave,Torment,Facade,Secret Power,Rest,Thief,Charge Beam,Endure,Explosion,Flash,Thunder Wave,Gyro Ball,Sleep Talk,Natural Gift,Swagger,Substitute
+(no egg)
+
+Electrode
+Charge,Tackle,SonicBoom,Spark
+5 Tackle,8 SonicBoom,12 Spark,15 Rollout,19 Screech,22 Light Screen,26 Charge Beam,29 Selfdestruct,35 Swift,40 Magnet Rise,46 Gyro Ball,51 Explosion,57 Mirror Coat
+Toxic,Hidden Power,Taunt,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Double Team,Shock Wave,Torment,Facade,Secret Power,Rest,Thief,Charge Beam,Endure,Explosion,Giga Impact,Flash,Thunder Wave,Gyro Ball,Sleep Talk,Natural Gift,Swagger,Substitute
+(no egg)
+
+Exeggcute
+Uproar,Barrage,Hypnosis
+7 Reflect,11 Leech Seed,17 Bullet Seed,19 Stun Spore,21 PoisonPowder,23 Sleep Powder,27 Confusion,33 Worry Seed,37 Natural Gift,43 SolarBeam,47 Psychic
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Light Screen,Protect,Giga Drain,Frustration,SolarBeam,Return,Psychic,Double Team,Reflect,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Energy Ball,Endure,Explosion,Flash,Swords Dance,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room,Strength
+AncientPower,Curse,Ingrain,Leaf Storm,Lucky Chant,Moonlight,Nature Power,Power Swap,Psych Up,Reflect,Synthesis
+
+Exeggutor
+Seed Bomb,Barrage,Confusion,Hypnosis,Stomp
+17 Stomp,27 Egg Bomb,37 Wood Hammer,47 Leaf Storm
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Hyper Beam,Light Screen,Protect,Giga Drain,Frustration,SolarBeam,Return,Psychic,Double Team,Reflect,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Energy Ball,Endure,Explosion,Giga Impact,Flash,Swords Dance,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room,Strength
+AncientPower,Curse,Ingrain,Leaf Storm,Lucky Chant,Moonlight,Nature Power,Power Swap,Psych Up,Reflect,Synthesis
+
+Cubone
+growl
+3 Tail Whip,7 Bone Club,11 Headbutt,13 Leer,17 Focus Energy,21 Bonemerang,23 Rage,27 False Swipe,31 Thrash,33 Fling,37 Bone Rush,41 Endeavor,43 Double-Edge
+Focus Punch,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Protect,Frustration,Iron Tail,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,False Swipe,Fling,Endure,Swords Dance,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+AncientPower,Belly Drum,Detect,Double Kick,Iron Head,Perish Song,Rock Slide,Screech,Skull Bash,Swords Dance
+
+Marowak
+Growl,Tail Whip,Bone Club,Headbutt
+3 Tail Whip,7 Bone Club,11 Headbutt,13 Leer,17 Focus Energy,21 Bonemerang,23 Rage,27 False Swipe,33 Thrash,37 Fling,43 Bone Rush,49 Endeavor,53 Double-Edge
+Focus Punch,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Frustration,Iron Tail,Earthquake,Return,Dig,Brick Break,Double Team,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,False Swipe,Fling,Endure,Giga Impact,Stone Edge,Swords Dance,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+AncientPower,Belly Drum,Detect,Double Kick,Iron Head,Perish Song,Rock Slide,Screech,Skull Bash,Swords Dance
+
+Hitmonlee
+double kick,revenge
+5 Meditate,9 Rolling Kick,13 Jump Kick,17 Brick Break,21 Focus Energy,25 Feint,29 Hi Jump Kick,33 Mind Reader,37 Foresight,41 Blaze Kick,45 Endure,49 Mega Kick,53 Close Combat,57 Reversal
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Earthquake,Return,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Stone Edge,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Bullet Punch,Counter,Helping Hand,Hi Jump Kick,Mach Punch,Mind Reader,Rapid Spin,Vacuum Wave
+
+Hitmonchan
+comet punch,revenge
+6 Agility,11 Pursuit,16 Bullet Punch,16 Mach Punch,21 Feint,26 Vacuum Wave,31 Fire Punch,31 Ice Punch,31 ThunderPunch,36 Sky Uppercut,41 Mega Punch,46 Detect,51 Counter,56 Close Combat
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Earthquake,Return,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Drain Punch,Stone Edge,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Bullet Punch,Counter,Helping Hand,Hi Jump Kick,Mach Punch,Mind Reader,Rapid Spin,Vacuum Wave
+
+Lickitung
+lick
+5 Supersonic,9 Defense Curl,13 Knock Off,17 Wrap,21 Stomp,25 Disable,29 Slam,33 Rollout,37 Me First,41 Refresh,45 Screech,49 Power Whip,53 Wring Out
+Focus Punch,Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Shadow Ball,Brick Break,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Fling,Endure,Giga Impact,Swords Dance,Psych Up,Captivate,Rock Slide,Sleep Talk,Natural Gift,Dream Eater,Swagger,Substitute,Cut,Surf,Strength,Whirlpool,Rock Smash,Rock Climb
+Amnesia,Belly Drum,Body Slam,Curse,Hammer Arm,Magnitude,Muddy Water,Sleep Talk,SmellingSalt,Snore,Substitute
+
+Koffing
+poison gas,tackle
+6 Smog,10 SmokeScreen,15 Assurance,19 Selfdestruct,24 Sludge,28 Haze,33 Gyro Ball,37 Explosion,42 Sludge Bomb,46 Destiny Bond,51 Memento
+Toxic,Hidden Power,Sunny Day,Taunt,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Shadow Ball,Double Team,Shock Wave,Flamethrower,Sludge Bomb,Fire Blast,Torment,Facade,Secret Power,Rest,Attract,Thief,Endure,Will-O-Wisp,Explosion,Payback,Flash,Gyro Ball,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Swagger,Substitute
+Curse,Destiny Bond,Grudge,Pain Split,Psybeam,Psywave,Screech,Spite,Will-O-Wisp
+
+Weezing
+Poison Gas,Tackle,Smog,SmokeScreen
+6 Smog,10 SmokeScreen,15 Assurance,19 Selfdestruct,24 Sludge,28 Haze,33 Double Hit,40 Explosion,48 Sludge Bomb,55 Destiny Bond,63 Memento
+Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Shadow Ball,Double Team,Shock Wave,Flamethrower,Sludge Bomb,Fire Blast,Torment,Facade,Secret Power,Rest,Attract,Thief,Endure,Will-O-Wisp,Explosion,Payback,Giga Impact,Flash,Gyro Ball,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Swagger,Substitute
+Curse,Destiny Bond,Grudge,Pain Split,Psybeam,Psywave,Screech,Spite,Will-O-Wisp
+
+Rhyhorn
+horn attack,tail whip
+9 Stomp,13 Fury Attack,21 Scary Face,25 Rock Blast,33 Take Down,37 Horn Drill,45 Stone Edge,49 Earthquake,57 Megahorn
+Roar,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Endure,Dragon Pulse,Payback,Rock Polish,Stone Edge,Swords Dance,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Counter,Crunch,Crush Claw,Curse,Dragon Rush,Fire Fang,Ice Fang,Magnitude,Reversal,Rock Slide,Skull Bash,Swords Dance,Thunder Fang
+
+Rhydon
+Horn Attack,Tail Whip,Stomp,Fury Attack
+9 Stomp,13 Fury Attack,21 Scary Face,25 Rock Blast,33 Take Down,37 Horn Drill,42 Hammer Arm,45 Stone Edge,49 Earthquake,57 Megahorn
+Focus Punch,Roar,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Brick Break,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Dragon Pulse,Shadow Claw,Payback,Giga Impact,Rock Polish,Stone Edge,Avalanche,Swords Dance,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Cut,Surf,Strength,Whirlpool,Rock Smash,Rock Climb
+Counter,Crunch,Crush Claw,Curse,Dragon Rush,Fire Fang,Ice Fang,Magnitude,Reversal,Rock Slide,Skull Bash,Swords Dance,Thunder Fang
+
+Chansey
+pound,growl
+5 Tail Whip,9 Refresh,12 Softboiled,16 DoubleSlap,20 Minimize,23 Sing,27 Fling,31 Defense Curl,34 Light Screen,38 Egg Bomb,42 Healing Wish,46 Double-Edge
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Psychic,Shadow Ball,Brick Break,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Skill Swap,Snatch,Fling,Charge Beam,Endure,Drain Punch,Recycle,Giga Impact,Flash,Thunder Wave,Stealth Rock,Psych Up,Captivate,Rock Slide,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Aromatherapy,Counter,Gravity,Heal Bell,Helping Hand,Last Resort,Metronome,Mud Bomb,Present,Substitute
+
+Tangela
+ingrain,constrict
+5 Sleep Powder,8 Absorb,12 Growth,15 PoisonPowder,19 Vine Whip,22 Bind,26 Mega Drain,29 Stun Spore,33 AncientPower,36 Knock Off,40 Natural Gift,43 Slam,47 Tickle,50 Wring Out,54 Power Whip
+Toxic,Bullet Seed,Hidden Power,Sunny Day,Hyper Beam,Protect,Giga Drain,Frustration,SolarBeam,Return,Double Team,Reflect,Shock Wave,Sludge Bomb,Facade,Secret Power,Rest,Attract,Thief,Energy Ball,Endure,Giga Impact,Flash,Swords Dance,Psych Up,Captivate,Sleep Talk,Natural Gift,Grass Knot,Swagger,Substitute,Cut,Rock Smash
+Amnesia,Confusion,Endeavor,Flail,Leaf Storm,Leech Seed,Mega Drain,Nature Power,Power Swap,Reflect
+
+Kangaskhan
+comet punch,leer
+7 Fake Out,10 Tail Whip,13 Bite,19 Mega Punch,22 Rage,25 Dizzy Punch,31 Crunch,34 Endure,37 Outrage,43 Double Hit,46 Sucker Punch,49 Reversal
+Focus Punch,Water Pulse,Roar,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Dig,Shadow Ball,Brick Break,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Endure,Drain Punch,Shadow Claw,Giga Impact,Avalanche,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Surf,Strength,Whirlpool,Rock Smash,Rock Climb
+Counter,Crush Claw,Disable,Double-Edge,Endeavor,Focus Energy,Foresight,Hammer Arm,Safeguard,Stomp,Substitute
+
+Horsea
+bubble
+4 SmokeScreen,8 Leer,11 Water Gun,14 Focus Energy,18 BubbleBeam,23 Agility,26 Twister,30 Brine,35 Hydro Pump,38 Dragon Dance,42 Dragon Pulse
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Return,Double Team,Facade,Secret Power,Rest,Attract,Brine,Endure,Dragon Pulse,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Flash Cannon,Surf,Whirlpool,Waterfall
+Aurora Beam,Disable,DragonBreath,Dragon Rage,Flail,Muddy Water,Octazooka,Razor Wind,Signal Beam,Splash
+
+Seadra
+Bubble,SmokeScreen,Leer,Water Gun
+4 SmokeScreen,8 Leer,11 Water Gun,14 Focus Energy,18 BubbleBeam,23 Agility,26 Twister,30 Brine,40 Hydro Pump,48 Dragon Dance,57 Dragon Pulse
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Return,Double Team,Facade,Secret Power,Rest,Attract,Brine,Endure,Dragon Pulse,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Flash Cannon,Surf,Whirlpool,Waterfall
+Aurora Beam,Disable,DragonBreath,Dragon Rage,Flail,Muddy Water,Octazooka,Razor Wind,Signal Beam,Splash
+
+Goldeen
+Peck,Tail Whip,Water Sport
+7 Supersonic,11 Horn Attack,17 Water Pulse,21 Flail,27 Aqua Ring,31 Fury Attack,37 Waterfall,41 Horn Drill,47 Agility,51 Megahorn
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Return,Double Team,Facade,Secret Power,Rest,Attract,Endure,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Surf,Whirlpool,Waterfall
+Aqua Tail,Body Slam,Haze,Hydro Pump,Mud-Slap,Mud Sport,Psybeam,Sleep Talk
+
+Seaking
+Poison Jab,Peck,Tail Whip,Water Sport,Supersonic
+7 Supersonic,11 Horn Attack,17 Water Pulse,21 Flail,27 Aqua Ring,31 Fury Attack,40 Waterfall,47 Horn Drill,56 Agility,63 Megahorn
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Return,Double Team,Facade,Secret Power,Rest,Attract,Endure,Giga Impact,Captivate,Sleep Talk,Natural Gift,Poison Jab,Swagger,Substitute,Surf,Whirlpool,Waterfall
+Aqua Tail,Body Slam,Haze,Hydro Pump,Mud-Slap,Mud Sport,Psybeam,Sleep Talk
+
+Staryu
+tackle,harden
+6 Water Gun,10 Rapid Spin,15 Recover,19 Camouflage,24 Swift,28 BubbleBeam,33 Minimize,37 Gyro Ball,42 Light Screen,46 Power Gem,51 Cosmic Power,55 Hydro Pump
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Light Screen,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Psychic,Double Team,Reflect,Facade,Secret Power,Rest,Brine,Endure,Recycle,Flash,Thunder Wave,Gyro Ball,Psych Up,Sleep Talk,Natural Gift,Swagger,Substitute,Flash Cannon,Surf,Whirlpool,Waterfall
+(no egg)
+
+Starmie
+Water Gun,Rapid Spin,Recover,Swift
+28 confuse ray
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Psychic,Double Team,Reflect,Facade,Secret Power,Rest,Skill Swap,Brine,Endure,Recycle,Giga Impact,Flash,Avalanche,Thunder Wave,Gyro Ball,Psych Up,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Flash Cannon,Trick Room,Surf,Whirlpool,Waterfall
+(no egg)
+
+Mr. Mime
+Magical Leaf,Power Swap,Guard Swap,Barrier,Confusion
+4 Copycat,8 Meditate,11 Encore,15 DoubleSlap,18 Mimic,22 Light Screen,22 Reflect,25 Psybeam,29 Substitute,32 Recycle,36 Trick,39 Psychic,43 Role Play,46 Baton Pass,50 Safeguard
+Focus Punch,Calm Mind,Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Thunderbolt,Thunder,Return,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Snatch,Focus Blast,Energy Ball,Fling,Charge Beam,Endure,Drain Punch,Payback,Recycle,Giga Impact,Flash,Thunder Wave,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room
+Charm,Confuse Ray,Fake Out,Future Sight,Healing Wish,Hypnosis,Mimic,Nasty Plot,Psych Up,Teeter Dance,Trick,Wake-Up Slap
+
+Scyther
+Vacuum Wave,Quick Attack,Leer
+5 Focus Energy,9 Pursuit,13 False Swipe,17 Agility,21 Wing Attack,25 Fury Cutter,29 Slash,33 Razor Wind,37 Double Team,41 X-Scissor,45 Night Slash,49 Double Hit,53 Air Slash,57 Swords Dance,61 Feint
+Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Frustration,Return,Brick Break,Double Team,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,False Swipe,Endure,Silver Wind,Giga Impact,Swords Dance,Captivate,X-Scissor,Sleep Talk,Natural Gift,Swagger,U-turn,Substitute,Cut,Defog,Rock Smash
+Baton Pass,Bug Buzz,Counter,Endure,Light Screen,Night Slash,Razor Wind,Reversal,Safeguard,Silver Wind
+
+Jynx
+Pound,Lick,Lovely Kiss,Powder Snow
+5 Lick,8 Lovely Kiss,11 Powder Snow,15 DoubleSlap,18 Ice Punch,21 Mean Look,25 Fake Tears,28 Wake-Up Slap,33 Avalanche,39 Body Slam,44 Wring Out,49 Perish Song,55 Blizzard
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hail,Hidden Power,Taunt,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Return,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Torment,Facade,Secret Power,Rest,Attract,Thief,Skill Swap,Focus Blast,Energy Ball,Fling,Endure,Drain Punch,Payback,Recycle,Giga Impact,Flash,Avalanche,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room
+Fake Out,Ice Punch,Meditate,Miracle Eye,Nasty Plot,Psych Up,Wish
+
+Electrabuzz
+Quick Attack,Leer,ThunderShock
+7 ThunderShock,10 Low Kick,16 Swift,19 Shock Wave,25 Light Screen,28 ThunderPunch,37 Discharge,43 Thunderbolt,52 Screech,58 Thunder
+Focus Punch,Toxic,Hidden Power,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Psychic,Brick Break,Double Team,Shock Wave,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,Fling,Charge Beam,Endure,Giga Impact,Flash,Thunder Wave,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Barrier,Cross Chop,DynamicPunch,Feint,Fire Punch,Ice Punch,Karate Chop,Meditate,Rolling Kick
+
+Magmar
+Smog,Leer,Ember
+7 Ember,10 SmokeScreen,16 Faint Attack,19 Fire Spin,25 Confuse Ray,28 Fire Punch,36 Lava Plume,41 Flamethrower,49 Sunny Day,54 Fire Blast
+Focus Punch,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Frustration,Iron Tail,Return,Psychic,Brick Break,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Thief,Overheat,Focus Blast,Fling,Endure,Will-O-Wisp,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash,Rock Climb
+Barrier,Belly Drum,Cross Chop,DynamicPunch,Flare Blitz,Karate Chop,Mach Punch,Mega Punch,Screech,ThunderPunch
+
+Pinsir
+ViceGrip,Focus Energy
+4 Bind,8 Seismic Toss,13 Harden,18 Revenge,21 Brick Break,25 Vital Throw,30 X-Scissor,35 Thrash,38 Swords Dance,42 Submission,47 Guillotine,52 Superpower
+Focus Punch,Toxic,Bulk Up,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Frustration,Earthquake,Return,Dig,Brick Break,Double Team,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Focus Blast,False Swipe,Fling,Endure,Giga Impact,Stone Edge,Swords Dance,Stealth Rock,Captivate,Rock Slide,X-Scissor,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Strength,Rock Smash,Rock Climb
+Close Combat,Faint Attack,False Swipe,Feint,Flail,Fury Attack,Quick Attack
+
+Tauros
+tackle
+3 Tail Whip,5 Rage,8 Horn Attack,11 Scary Face,15 Pursuit,19 Rest,24 Payback,29 Zen Headbutt,35 Take Down,41 Swagger,48 Thrash,55 Giga Impact
+Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Endure,Payback,Giga Impact,Stone Edge,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Rock Climb
+(no egg)
+
+Magikarp
+splash
+15 tackle,30 flail
+(no disc)
+(no egg)
+
+Gyarados
+thrash
+20 Bite,23 Dragon Rage,26 Leer,29 Twister,32 Ice Fang,35 Aqua Tail,38 Rain Dance,41 Hydro Pump,44 Dragon Dance,47 Hyper Beam
+Water Pulse,Roar,Toxic,Hail,Hidden Power,Taunt,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Earthquake,Return,Double Team,Flamethrower,Sandstorm,Fire Blast,Torment,Facade,Secret Power,Rest,Attract,Brine,Endure,Dragon Pulse,Payback,Giga Impact,Stone Edge,Avalanche,Thunder Wave,Captivate,Dark Pulse,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall
+(no egg)
+
+Lapras
+Water Gun,Growl,Sing
+4 Mist,7 Confuse Ray,10 Ice Shard,14 Water Pulse,18 Body Slam,22 Rain Dance,27 Perish Song,32 Ice Beam,37 Brine,43 Safeguard,49 Hydro Pump,55 Sheer Cold
+Water Pulse,Roar,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Psychic,Double Team,Shock Wave,Facade,Secret Power,Rest,Attract,Brine,Endure,Dragon Pulse,Giga Impact,Avalanche,Captivate,Sleep Talk,Natural Gift,Dream Eater,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall
+AncientPower,Curse,Dragon Dance,Fissure,Foresight,Horn Drill,Refresh,Sleep Talk,Substitute,Tickle,Whirlpool
+
+Ditto
+transform
+(no l-u)
+(no disc)
+(no egg)
+
+Eevee
+tackle,tail whip,helping hand
+8 Sand-Attack,15 Growl,22 Quick Attack,29 Bite,36 Baton Pass,43 Take Down,50 Last Resort,57 Trump Card
+Toxic,Hidden Power,Sunny Day,Protect,Rain Dance,Frustration,Iron Tail,Return,Dig,Shadow Ball,Double Team,Facade,Secret Power,Rest,Attract,Endure,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute
+Charm,Covet,Curse,Detect,Endure,Fake Tears,Flail,Tickle,Wish,Yawn
+
+Vaporeon
+Tackle,Tail Whip,Helping Hand
+8 Sand-Attack,15 Water Gun,22 Quick Attack,29 Bite,36 Aurora Beam,43 Aqua Ring,50 Last Resort,57 Haze,64 Acid Armor,71 Hydro Pump,78 Muddy Water
+Water Pulse,Roar,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Return,Dig,Shadow Ball,Double Team,Facade,Secret Power,Rest,Attract,Brine,Endure,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Waterfall
+Charm,Covet,Curse,Detect,Endure,Fake Tears,Flail,Tickle,Wish,Yawn
+
+Jolteon
+Tackle,Tail Whip,Helping Hand
+8 Sand-Attack,15 ThunderShock,22 Quick Attack,29 Double Kick,36 Pin Missile,43 Thunder Fang,50 Last Resort,57 Thunder Wave,64 Agility,71 Thunder,78 Discharge
+Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Dig,Shadow Ball,Double Team,Shock Wave,Facade,Secret Power,Rest,Attract,Charge Beam,Endure,Giga Impact,Flash,Thunder Wave,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash
+Charm,Covet,Curse,Detect,Endure,Fake Tears,Flail,Tickle,Wish,Yawn
+
+Flareon
+Tackle,Tail Whip,Helping Hand
+8 Sand-Attack,15 Ember,22 Quick Attack,29 Bite,36 Fire Spin,43 Fire Fang,50 Last Resort,57 Smog,64 Scary Face,71 Fire Blast,78 Lava Plume
+Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Return,Dig,Shadow Ball,Double Team,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Overheat,Endure,Will-O-Wisp,Giga Impact,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Strength,Rock Smash
+Charm,Covet,Curse,Detect,Endure,Fake Tears,Flail,Tickle,Wish,Yawn
+
+Porygon
+Tackle,Sharpen,Conversion,Conversion 2
+7 Psybeam,12 Agility,18 Recover,23 Magnet Rise,29 Signal Beam,34 Recycle,40 Discharge,45 Lock-On,51 Tri Attack,56 Magic Coat,62 Zap Cannon
+Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Return,Psychic,Shadow Ball,Double Team,Shock Wave,Aerial Ace,Facade,Secret Power,Rest,Thief,Charge Beam,Endure,Recycle,Giga Impact,Flash,Thunder Wave,Psych Up,Sleep Talk,Natural Gift,Dream Eater,Swagger,Substitute,Trick Room
+(no egg)
+
+Omanyte
+constrict,withdraw
+7 Bite,10 Water Gun,16 Rollout,19 Leer,25 Mud Shot,28 Brine,34 Protect,37 AncientPower,43 Tickle,46 Rock Blast,52 Hydro Pump
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Frustration,Return,Double Team,Sandstorm,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Brine,Endure,Rock Polish,Gyro Ball,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Rock Smash,Waterfall
+Aurora Beam,BubbleBeam,Haze,Knock Off,Muddy Water,Rock Slide,Slam,Spikes,Supersonic,Toxic Spikes,Wring Out
+
+Omastar
+Constrict,Withdraw,Bite
+7 Bite,10 Water Gun,16 Rollout,19 Leer,25 Mud Shot,28 Brine,34 Protect,37 AncientPower,40 Spike Cannon,48 Tickle,56 Rock Blast,67 Hydro Pump
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Return,Double Team,Sandstorm,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Brine,Endure,Giga Impact,Rock Polish,Stone Edge,Gyro Ball,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Rock Smash,Waterfall,Rock Climb
+Aurora Beam,BubbleBeam,Haze,Knock Off,Muddy Water,Rock Slide,Slam,Spikes,Supersonic,Toxic Spikes,Wring Out
+
+Kabuto
+scratch,harden
+6 Absorb,11 Leer,16 Mud Shot,21 Sand-Attack,26 Endure,31 Aqua Jet,36 Mega Drain,41 Metal Sound,46 AncientPower,51 Wring Out
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Protect,Rain Dance,Giga Drain,Frustration,Return,Dig,Double Team,Sandstorm,Rock Tomb,Facade,Secret Power,Rest,Attract,Thief,Brine,Endure,Rock Polish,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Rock Smash,Waterfall
+Aurora Beam,BubbleBeam,Confuse Ray,Dig,Flail,Icy Wind,Knock Off,Mud Shot,Rapid Spin,Screech
+
+Kabutops
+Feint,Scratch,Harden,Absorb
+1 Leer,6 Absorb,11 Leer,16 Mud Shot,21 Sand-Attack,26 Endure,31 Aqua Jet,36 Mega Drain,40 Slash,45 Metal Sound,54 AncientPower,63 Wring Out,72 Night Slash
+Water Pulse,Toxic,Hail,Hidden Power,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Giga Drain,Frustration,Return,Dig,Brick Break,Double Team,Sandstorm,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Thief,Brine,Endure,Giga Impact,Rock Polish,Stone Edge,Swords Dance,Stealth Rock,Captivate,Rock Slide,X-Scissor,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Surf,Whirlpool,Rock Smash,Waterfall,Rock Climb
+Aurora Beam,BubbleBeam,Confuse Ray,Dig,Flail,Icy Wind,Knock Off,Mud Shot,Rapid Spin,Screech
+
+Aerodactyl
+Fire Fang,Thunder Fang,Ice Fang,Wing Attack,Supersonic,Bite,scary face
+9 Roar,17 Agility,25 AncientPower,33 Crunch,41 Take Down,49 Iron Head,57 Hyper Beam,65 Rock Slide,73 Giga Impact
+Dragon Claw,Roar,Toxic,Hidden Power,Sunny Day,Taunt,Hyper Beam,Protect,Rain Dance,Frustration,Iron Tail,Earthquake,Return,Double Team,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Torment,Facade,Secret Power,Rest,Attract,Thief,Steel Wing,Roost,Endure,Dragon Pulse,Payback,Giga Impact,Rock Polish,Stone Edge,Stealth Rock,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Fly,Strength,Defog,Rock Smash
+Assurance,Curse,DragonBreath,Foresight,Pursuit,Steel Wing,Whirlwind
+
+Snorlax
+tackle
+4 Defense Curl,9 Amnesia,12 Lick,17 Belly Drum,20 Yawn,25 Rest,28 Snore,28 Sleep Talk,33 Body Slam,36 Block,41 Rollout,44 Crunch,49 Giga Impact
+Focus Punch,Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,SolarBeam,Thunderbolt,Thunder,Earthquake,Return,Psychic,Shadow Ball,Brick Break,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Facade,Secret Power,Rest,Attract,Focus Blast,Fling,Endure,Recycle,Giga Impact,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Strength,Whirlpool,Rock Smash,Rock Climb
+Charm,Counter,Curse,Double-Edge,Fissure,Lick,Pursuit,Substitute,Whirlwind,Zen Headbutt
+
+Articuno
+gust,powder snow
+8 Mist,15 Ice Shard,22 Mind Reader,29 AncientPower,36 Agility,43 Ice Beam,50 Reflect,57 Roost,64 Tailwind,71 Blizzard,78 Sheer Cold,85 Hail
+Water Pulse,Roar,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Frustration,Return,Double Team,Reflect,Sandstorm,Aerial Ace,Facade,Secret Power,Rest,Steel Wing,Roost,Endure,Giga Impact,Avalanche,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog,Rock Smash
+(no egg)
+
+Zapdos
+peck,thundershock
+8 Thunder Wave,15 Detect,22 Pluck,29 AncientPower,36 Charge,43 Agility,50 Discharge,57 Roost,64 Light Screen,71 Drill Peck,78 Thunder,85 Rain Dance
+Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Light Screen,Protect,Rain Dance,Frustration,Thunderbolt,Thunder,Return,Double Team,Shock Wave,Sandstorm,Aerial Ace,Facade,Secret Power,Rest,Steel Wing,Roost,Charge Beam,Endure,Giga Impact,Flash,Thunder Wave,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog,Rock Smash
+(no egg)
+
+Moltres
+wing attack,ember
+8 Fire Spin,15 Agility,22 Endure,29 AncientPower,36 Flamethrower,43 Safeguard,50 Air Slash,57 Roost,64 Heat Wave,71 SolarBeam,78 Sky Attack,85 Sunny Day
+Roar,Toxic,Hidden Power,Sunny Day,Hyper Beam,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Return,Double Team,Flamethrower,Sandstorm,Fire Blast,Aerial Ace,Facade,Secret Power,Rest,Steel Wing,Overheat,Roost,Endure,Will-O-Wisp,Giga Impact,Sleep Talk,Natural Gift,Swagger,Pluck,U-turn,Substitute,Fly,Defog,Rock Smash
+(no egg)
+
+Dratini
+wrap,leer
+5 Thunder Wave,11 Twister,15 Dragon Rage,21 Slam,25 Agility,31 Aqua Tail,35 Dragon Rush,41 Safeguard,45 Dragon Dance,51 Outrage,55 Hyper Beam
+Water Pulse,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Double Team,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Endure,Dragon Pulse,Thunder Wave,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Waterfall
+DragonBreath,Dragon Dance,Dragon Rush,ExtremeSpeed,Haze,Light Screen,Mist,Supersonic
+
+Dragonair
+Wrap,Leer,Thunder Wave,Twister
+5 Thunder Wave,11 Twister,15 Dragon Rage,21 Slam,25 Agility,33 Aqua Tail,39 Dragon Rush,47 Safeguard,53 Dragon Dance,61 Outrage,67 Hyper Beam
+Water Pulse,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Thunderbolt,Thunder,Return,Double Team,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Endure,Dragon Pulse,Thunder Wave,Captivate,Sleep Talk,Natural Gift,Swagger,Substitute,Surf,Whirlpool,Waterfall
+DragonBreath,Dragon Dance,Dragon Rush,ExtremeSpeed,Haze,Light Screen,Mist,Supersonic
+
+Dragonite
+Fire Punch,ThunderPunch,Roost,Wrap,Leer,Thunder Wave,Twister
+5 Thunder Wave,11 Twister,15 Dragon Rage,21 Slam,25 Agility,33 Aqua Tail,39 Dragon Rush,47 Safeguard,53 Dragon Dance,55 Wing Attack,64 Outrage,73 Hyper Beam
+Focus Punch,Dragon Claw,Water Pulse,Roar,Toxic,Hail,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Protect,Rain Dance,Safeguard,Frustration,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Brick Break,Double Team,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Attract,Steel Wing,Roost,Focus Blast,Fling,Endure,Dragon Pulse,Giga Impact,Stone Edge,Thunder Wave,Captivate,Rock Slide,Sleep Talk,Natural Gift,Swagger,Substitute,Cut,Fly,Surf,Strength,Defog,Whirlpool,Rock Smash,Waterfall
+DragonBreath,Dragon Dance,Dragon Rush,ExtremeSpeed,Haze,Light Screen,Mist,Supersonic
+
+Mewtwo
+confusion,disable
+8 Barrier,15 Swift,22 Future Sight,29 Psych Up,36 Miracle Eye,43 Mist,50 Psycho Cut,57 Amnesia,64 Power Swap,64 Guard Swap,71 Psychic,79 Me First,86 Recover,93 Safeguard,100 Aura Sphere
+Focus Punch,Water Pulse,Calm Mind,Toxic,Hail,Bulk Up,Hidden Power,Sunny Day,Taunt,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Torment,Facade,Secret Power,Rest,Skill Swap,Snatch,Focus Blast,Energy Ball,Fling,Charge Beam,Endure,Drain Punch,Will-O-Wisp,Embargo,Recycle,Giga Impact,Flash,Stone Edge,Avalanche,Thunder Wave,Psych Up,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room,Strength,Rock Smash,Rock Climb
+(no egg)

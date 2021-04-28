@@ -94,7 +94,7 @@ def parse_level_up(string, move_data, extra_move_ids):
 
         else:
 
-            not_found.append(entry_parts[1]);
+            not_found.append(name);
 
     output = output[:-1]; #Remove final SECONDARY_DELIMETER
 
@@ -123,11 +123,7 @@ def get_extra_move_ids_input():
 
     return move_ids;
 
-def main():
-
-    filename = input("Moves File> ");
-
-    extra_move_ids = get_extra_move_ids_input();
+def main_individual(filename, extra_move_ids):
 
     while True:
 
@@ -149,7 +145,7 @@ def main():
                 mode = 1;
                 break;
 
-        input_data = input("Input> ");
+        input_data = input("Input> ").replace("*","");
 
         move_data = load_data(filename);
 
@@ -168,6 +164,78 @@ def main():
 
         if len(not_found) > 0:
             print("Not Found:\n" + '\n'.join(not_found));
+
+def main_multiple(filename, extra_move_ids):
+
+    #Assumes that data is in form:
+    #Pokemon name (ignored)
+    #Base moves
+    #Level-up moves
+    #Disc moves
+    #Egg moves
+    #Blank line (ignored)
+    #(repeat)
+
+    lines = [];
+
+    print("End input by entering \"END\"");
+
+    while True:
+
+        x = input(">");
+        if x == "END":
+            break;
+        else:
+            lines.append(x);
+
+    move_data = load_data(filename);
+
+    output = "";
+    not_found = [];
+
+    for i in range(len(lines)):
+
+        entry_index = i % 6;
+        
+        if entry_index in [0,5]:
+            continue;
+        elif entry_index in [1,3,4]:
+            entry_output = parse_list(lines[i], move_data, extra_move_ids)
+        elif entry_index == 2:
+            entry_output = parse_level_up(lines[i], move_data, extra_move_ids)
+        else:
+            raise Exception("Unhandled entry_index");
+
+        for x in entry_output[1]:
+            not_found.append(x);
+
+        if entry_index == 4: #Final one
+            output = output + entry_output[0] + "\n";
+        else:
+            output = output + entry_output[0] + "\t";
+
+    if len(not_found) > 0:
+        print("Not Found:\n" + '\n'.join(sorted(list(set(not_found)))));
+    print("Copying output...");
+    pyperclip.copy(output);
+    print("Output Copied");
+
+def main():
+
+    #Modes
+    #0 - Individual
+    #1 - Multiple
+
+    mode = int(input("Mode> "));
+
+    filename = input("Moves File> ");
+
+    extra_move_ids = get_extra_move_ids_input();
+
+    if mode == 0:
+        main_individual(filename, extra_move_ids);
+    elif mode == 1:
+        main_multiple(filename, extra_move_ids);
 
 if __name__ == "__main__":
     
