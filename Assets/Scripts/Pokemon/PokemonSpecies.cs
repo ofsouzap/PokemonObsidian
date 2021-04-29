@@ -172,6 +172,9 @@ namespace Pokemon
         /// </summary>
         public int[] tutorMoves;
 
+        public bool CanLearnMove(int moveId)
+            => baseMoves.Contains(moveId) || discMoves.Contains(moveId) || levelUpMoves.Values.Count(x => x.Contains(moveId)) > 0;
+
         #endregion
 
         public GrowthType growthType;

@@ -573,7 +573,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             if (!CurrentItem.CheckCompatibility(pokemon))
             {
 
-                textBoxController.RevealText(pokemon.GetDisplayName() + " can't learn this move using a disc");
+                textBoxController.RevealText(pokemon.GetDisplayName() + " can't learn this move");
                 yield return new WaitForFixedUpdate(); //Explanation somewhere below
                 yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 

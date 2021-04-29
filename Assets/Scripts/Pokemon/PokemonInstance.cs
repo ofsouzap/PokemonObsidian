@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Pokemon;
@@ -388,6 +388,9 @@ namespace Pokemon
 
             }
         }
+
+        public bool CanLearnMove(int moveId)
+            => species.CanLearnMove(moveId) && !moveIds.Contains(moveId);
 
         #endregion
 

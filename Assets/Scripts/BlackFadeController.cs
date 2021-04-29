@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class BlackFadeController : MonoBehaviour
 {
 
-    public const float fadeTime = 0.2f;
+    public const float fadeTime = 0.6f;
 
     [SerializeField]
     private Image imageBlack;

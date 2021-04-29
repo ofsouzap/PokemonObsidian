@@ -53,7 +53,7 @@ namespace Items
             => null;
 
         public override bool CheckCompatibility(PokemonInstance pokemon)
-            => !pokemon.moveIds.Contains(moveId) && pokemon.species.discMoves.Contains(moveId);
+            => pokemon.CanLearnMove(moveId);
 
     }
 }

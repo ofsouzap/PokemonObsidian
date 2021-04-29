@@ -60,7 +60,8 @@ namespace Testing
                 playerPokemon.Add(pokemon);
 
             }
-            playerPokemon[0].moveIds[1] = playerPokemon[0].moveIds[2] = -1;
+            playerPokemon[0].moveIds[2] = -1;
+            playerPokemon[1].moveIds[0] = 24;
             PlayerData.singleton.partyPokemon = playerPokemon.ToArray();
 
             #endregion
@@ -106,7 +107,9 @@ namespace Testing
                 { Item.typeIdTM + 1, 3 },
                 { Item.typeIdTM + 39, 1 },
                 { Item.typeIdTM + 55, 20 },
-                { Item.typeIdTM + 72, 5 }
+                { Item.typeIdTM + 72, 5 },
+                { Item.typeIdTM + 24, 5 },
+                { Item.typeIdTM + 45, 2 }
             });
 
             #endregion

@@ -775,7 +775,8 @@ namespace Battle
 
                 if (levelUpMoves.ContainsKey(level))
                     foreach (int moveId in levelUpMoves[level])
-                        moveIdsToLearn.Enqueue(moveId);
+                        if (!pokemon.moveIds.Contains(moveId))
+                            moveIdsToLearn.Enqueue(moveId);
 
             }
 
