@@ -818,10 +818,10 @@ namespace Pokemon
                                     }
 
                                 if (statChangeFound
-                                    || userEvasionChange == 0
-                                    || userAccuracyChange == 0
-                                    || targetEvasionChange == 0
-                                    || targetAccuracyChange == 0)
+                                    || userEvasionChange != 0
+                                    || userAccuracyChange != 0
+                                    || targetEvasionChange != 0
+                                    || targetAccuracyChange != 0)
                                 {
                                     confusionOnly = false;
                                     break;

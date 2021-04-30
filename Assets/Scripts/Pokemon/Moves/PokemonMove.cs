@@ -605,7 +605,7 @@ namespace Pokemon.Moves
 
             if (!isInstantKO)
             {
-                if (power != 0)
+                if (absoluteTargetDamage == 0)
                 {
 
                     //https://bulbapedia.bulbagarden.net/wiki/Damage#Damage_calculation
@@ -624,7 +624,7 @@ namespace Pokemon.Moves
                     usageResults.targetDamageDealt = damageToDeal <= target.health ? damageToDeal : target.health;
 
                 }
-                else if (absoluteTargetDamage != 0)
+                else
                 {
 
                     usageResults.targetDamageDealt = absoluteTargetDamage <= target.health ? absoluteTargetDamage : target.health;

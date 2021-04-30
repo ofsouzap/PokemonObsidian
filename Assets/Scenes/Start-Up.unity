@@ -527,15 +527,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemon:
-  - speciesId: 5
-    level: 31
+  - speciesId: 94
+    level: 60
     levelExperience: 0.95
     initialNVSC: 0
-  - speciesId: 9
+  - speciesId: 148
     level: 60
     levelExperience: 0
-    initialNVSC: 4
-  - speciesId: 1
+    initialNVSC: 0
+  - speciesId: 145
+    level: 60
+    levelExperience: 0
+    initialNVSC: 0
+  - speciesId: 130
     level: 60
     levelExperience: 0
     initialNVSC: 0

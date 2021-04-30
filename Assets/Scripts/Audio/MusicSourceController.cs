@@ -22,6 +22,17 @@ namespace Audio
         private Coroutine currentCoroutine = null;
 
         /// <summary>
+        /// Resets the AudioSource's settings to initial settings including volume and looping
+        /// </summary>
+        private void ResetSourceSettings()
+        {
+
+            AudioSource.volume = initialVolume;
+            AudioSource.loop = initiallyLooping;
+
+        }
+
+        /// <summary>
         /// Ends the current coroutine if one is running and also resets the AudioSource's properties to the initial ones
         /// </summary>
         private void TryEndCurrentCoroutine()
@@ -30,8 +41,7 @@ namespace Audio
             if (currentCoroutine != null)
                 StopCoroutine(currentCoroutine);
 
-            AudioSource.volume = initialVolume;
-            AudioSource.loop = initiallyLooping;
+            ResetSourceSettings();
 
         }
 
@@ -89,6 +99,8 @@ namespace Audio
             bool hasStartingClip = false,
             bool fadeTracks = true)
         {
+
+            ResetSourceSettings();
 
             if (fadeTracks)
             {

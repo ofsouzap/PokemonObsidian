@@ -1570,7 +1570,7 @@ namespace Battle
                     {
 
                         //Confusion should last between 1-4 turns decided randomly
-                        targetPokemon.battleProperties.volatileStatusConditions.confusion = UnityEngine.Random.Range(0, 5);
+                        targetPokemon.battleProperties.volatileStatusConditions.confusion = UnityEngine.Random.Range(1, 5);
 
                         battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
                         //TODO - enqueue confusion animation
