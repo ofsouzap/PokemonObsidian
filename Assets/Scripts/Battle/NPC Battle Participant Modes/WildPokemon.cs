@@ -97,7 +97,7 @@ namespace Battle.NPCBattleParticipantModes
 
             float[] normalisedWeightings = NormaliseWeightings(rawWeightings);
 
-            float r = Random.Range(0F, 1F);
+            float r = 1;// Random.Range(0F, 1F);
 
             float currentTotal = 0;
             for (int i = 0; i < normalisedWeightings.Length; i++)
@@ -118,6 +118,9 @@ namespace Battle.NPCBattleParticipantModes
 
         private float[] NormaliseWeightings(float[] rawWeightings)
         {
+
+            if (rawWeightings.All(x => x == 0))
+                return rawWeightings.Select(x => 1F).ToArray();
 
             float total = rawWeightings.Sum();
 

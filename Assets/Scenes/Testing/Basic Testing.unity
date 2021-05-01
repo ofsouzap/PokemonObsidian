@@ -1461,19 +1461,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.maximumLevel
-      value: 11
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.minimumLevel
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.possibleSpeciesIds.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.possibleSpeciesIds.Array.data[0]
-      value: 1
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: pokemonSpecification.possibleSpeciesIds.Array.data[1]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: pokemonSpecification.possibleSpeciesIds.Array.data[2]
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: pokemonSpecification.possibleSpeciesIds.Array.data[3]
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: pokemonSpecification.possibleSpeciesIds.Array.data[4]
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4997453660144775056, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: m_Name

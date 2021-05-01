@@ -216,6 +216,9 @@ namespace Battle.NPCBattleParticipantModes
         private float[] NormaliseWeightings(float[] rawWeightings)
         {
 
+            if (rawWeightings.All(x => x == 0))
+                return rawWeightings.Select(x => 1F).ToArray();
+
             float total = rawWeightings.Sum();
 
             return rawWeightings.Select(x => x / total).ToArray();
