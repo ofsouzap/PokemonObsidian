@@ -795,77 +795,9 @@ namespace Pokemon
                         break;
 
                     case false:
+                    case null:
                         confusionOnly = false;
                         break;
-
-                    case null:
-
-                        if (entry[20] == "")
-                        {
-
-                            if (moveType == PokemonMove.MoveType.Status)
-                            {
-
-                                #region Check for Stat Changes
-
-                                bool statChangeFound = false;
-
-                                foreach (Stats<sbyte>.Stat stat in Enum.GetValues(typeof(Stats<sbyte>.Stat)))
-                                    if (userStatChanges.GetStat(stat) != 0 || targetStatChanges.GetStat(stat) != 0)
-                                    {
-                                        statChangeFound = true;
-                                        break;
-                                    }
-
-                                if (statChangeFound
-                                    || userEvasionChange != 0
-                                    || userAccuracyChange != 0
-                                    || targetEvasionChange != 0
-                                    || targetAccuracyChange != 0)
-                                {
-                                    confusionOnly = false;
-                                    break;
-                                }
-
-                                #endregion
-
-                                #region Check for NVSC chances
-
-                                bool nvscChanceFound = false;
-
-                                foreach (PokemonInstance.NonVolatileStatusCondition key in nonVolatileStatusConditionChances.Keys)
-                                    if (nonVolatileStatusConditionChances[key] != 0)
-                                    {
-                                        nvscChanceFound = true;
-                                        break;
-                                    }
-
-                                if (nvscChanceFound)
-                                {
-                                    confusionOnly = false;
-                                    break;
-                                }
-
-                                #endregion
-
-                                confusionOnly = true;
-                                break;
-
-                            }
-                            else
-                            {
-                                confusionOnly = false;
-                                break;
-                            }
-
-                        }
-
-                        else
-                        {
-                            Debug.LogError("Invalid stat modifier stage change only entry for id " + id);
-                            confusionOnly = false;
-                            break;
-                        }
 
                 }
 
