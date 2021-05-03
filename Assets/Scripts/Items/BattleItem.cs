@@ -28,7 +28,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 0,
+                    id = typeIdBattleItem + 57,
                     itemName = "X Attack",
                     resourceName = "x_attack",
                     description = GenerateDescription("Attack"),
@@ -37,7 +37,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 1,
+                    id = typeIdBattleItem + 58,
                     itemName = "X Defense",
                     resourceName = "x_defense",
                     description = GenerateDescription("Defense"),
@@ -46,7 +46,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 2,
+                    id = typeIdBattleItem + 61,
                     itemName = "X Sp. Attack",
                     resourceName = "x_special_attack",
                     description = GenerateDescription("Special Attack"),
@@ -55,7 +55,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 3,
+                    id = typeIdBattleItem + 62,
                     itemName = "X Sp. Defense",
                     resourceName = "x_special_defense",
                     description = GenerateDescription("Special Defense"),
@@ -64,7 +64,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 4,
+                    id = typeIdBattleItem + 59,
                     itemName = "X Speed",
                     resourceName = "x_speed",
                     description = GenerateDescription("Speed"),
@@ -73,7 +73,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 5,
+                    id = typeIdBattleItem + 60,
                     itemName = "X Accuracy",
                     resourceName = "x_accuracy",
                     description = GenerateDescription("Accuracy"),
@@ -82,7 +82,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 6,
+                    id = typeIdBattleItem + 56,
                     itemName = "X Dire Hit",
                     resourceName = "x_dire_hit",
                     description = GenerateDescription("critical hit ratio"),

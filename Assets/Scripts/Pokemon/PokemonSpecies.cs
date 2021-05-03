@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Pokemon;
+using Items;
 
 namespace Pokemon
 {
@@ -112,9 +112,9 @@ namespace Pokemon
             public byte? level;
 
             /// <summary>
-            /// Id of item that needs to be used to evolve if applicable else null
+            /// Id of item that needs to be used to evolve if applicable else null (this id *excludes* the general item type id)
             /// </summary>
-            public int? itemId; //TODO - change this so that doesn't use general item id
+            public int? itemId;
 
             /// <summary>
             /// Whether the pokemon must be traded to evolve
@@ -126,13 +126,24 @@ namespace Pokemon
             /// </summary>
             public Predicate<PokemonInstance> condition;
 
+            /// <summary>
+            /// Checks if a particular PokemonInstance can use this evolution
+            /// </summary>
+            /// <param name="pokemon">The pokemon being considered</param>
+            /// <param name="trading">Whether this is being checked after having traded</param>
+            /// <param name="itemIdUsed">An item that is being *used* (not held!) on the pokemon. This id *includes* the type id of the item</param>
             public bool PokemonCanUseEvolution(PokemonInstance pokemon,
-                bool trading = false)
+                bool trading = false,
+                int? itemIdUsed = null)
             {
 
                 bool tradeCondition = trading == requireTrade;
                 bool levelCondition = level == null ? true : pokemon.GetLevel() >= level;
-                bool itemCondition = true; //TODO
+
+                bool itemCondition =
+                       itemId == null
+                    || (itemIdUsed - Item.GetItemIdTypeId((int)itemIdUsed)) == itemId; //The type id of the item isn't included in Evolution.itemId
+
                 bool specialCondition = condition == null ? true : condition(pokemon);
 
                 return tradeCondition && levelCondition && itemCondition && specialCondition;

@@ -145,10 +145,12 @@ namespace Pokemon
         /// </summary>
         public bool? gender;
 
+        public const int defaultPokeBallId = Item.typeIdPokeBall + 4;
+
         /// <summary>
         /// The id of the type of poke ball this pokemon was caught in (including the poke ball type id). If the pokemon is wild, this shouldn't be used for anything
         /// </summary>
-        public int pokeBallId = Item.typeIdPokeBall;
+        public int pokeBallId = defaultPokeBallId;
 
         /// <summary>
         /// The time that the pokemon was caught as a time after the epoch (1 January 1970)

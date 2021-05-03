@@ -1212,6 +1212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54627cd1a584f84b98e6f77efc81d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCanvases:
+  - {fileID: 1236154050}
   backButton: {fileID: 786186822}
   textSpeedNameText: {fileID: 396702833}
   textSpeedSlider: {fileID: 32229264}

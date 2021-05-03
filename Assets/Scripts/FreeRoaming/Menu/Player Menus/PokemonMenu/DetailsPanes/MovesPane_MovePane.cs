@@ -31,8 +31,8 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
             textName.text = move.name;
             textPP.text = currentPP.ToString() + "/" + move.maxPP.ToString();
             textDescription.text = move.description;
-            textAccuracyValue.text = move.power.ToString();
-            textPowerValue.text = move.accuracy.ToString();
+            textPowerValue.text = move.power != 0 ? move.power.ToString() : "-";
+            textAccuracyValue.text = move.accuracy != 0 ? move.accuracy.ToString() : "-";
             imageType.sprite = SpriteStorage.GetTypeSymbolSprite(move.type);
             imageCategory.sprite = SpriteStorage.GetMoveTypeSprite(move.moveType);
 

@@ -343,10 +343,11 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             int index)
             => index switch
             {
-                0 => inventory.medicineItems,
-                1 => inventory.pokeBalls,
-                2 => inventory.tmItems,
-                3 => inventory.battleItems,
+                0 => inventory.generalItems,
+                1 => inventory.medicineItems,
+                2 => inventory.pokeBalls,
+                3 => inventory.tmItems,
+                4 => inventory.battleItems,
                 _ => null
             };
 
@@ -456,15 +457,72 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
             PokemonInstance pokemon = PlayerData.singleton.partyPokemon[index];
 
-            if (CurrentItem is MedicineItem)
+            if (CurrentItem is GeneralItem)
+            {
+
+                PokemonSpecies.Evolution[] validEvolutions = pokemon.species.evolutions.Where(x => x.PokemonCanUseEvolution(pokemon, itemIdUsed: CurrentItem.id)).ToArray();
+
+                if (validEvolutions.Length > 1)
+                {
+                    Debug.LogError("Multiple valid evolutions found when trying to use item on pokemon");
+                    yield break;
+                }
+                else if (validEvolutions.Length == 1)
+                    yield return StartCoroutine(OnPokemonSelected_UseItem_EvolvePokemon(pokemon, validEvolutions[0]));
+                else
+                {
+
+                    //TODO - deal with special usages for some general items
+
+                    //If the selected item can't be used on the selected pokemon
+                    textBoxController.Show();
+                    textBoxController.RevealText("The " + CurrentItem.itemName + " can't be used on " + pokemon.GetDisplayName());
+                    yield return new WaitForFixedUpdate();
+                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    textBoxController.Hide();
+
+                }
+
+            }
+            else if (CurrentItem is MedicineItem)
                 yield return StartCoroutine(OnPokemonSelected_UseItem_MedicineItem(pokemon));
             else if (CurrentItem is TMItem)
                 yield return StartCoroutine(OnPokemonSelected_UseItem_TMItem(pokemon));
-            //TODO - add branches for other usable item types
             else
                 Debug.LogError("Unhandled item (ID - " + CurrentItem.id + ")");
 
             ChangeToSectionSelection(false);
+
+        }
+
+        private IEnumerator OnPokemonSelected_UseItem_EvolvePokemon(PokemonInstance pokemon, PokemonSpecies.Evolution evolution)
+        {
+
+            EvolutionScene.EvolutionSceneController.entranceArguments = new EvolutionScene.EvolutionSceneController.EntranceArguments()
+            {
+                displayName = pokemon.GetDisplayName(),
+                startSpeciesId = pokemon.speciesId,
+                endSpeciesId = evolution.targetId,
+                useFemaleSprite = pokemon.gender == false
+            };
+
+            pokemon.Evolve(evolution);
+
+            controlAllowed = false;
+            HideMenu();
+
+            GameSceneManager.LaunchEvolutionScene();
+
+            bool canContinueAfterEvolution = false;
+            GameSceneManager.EvolutionSceneClosed += () =>
+            {
+                canContinueAfterEvolution = true;
+            };
+
+            yield return new WaitUntil(() => canContinueAfterEvolution);
+
+            ShowMenu();
+            controlAllowed = true;
 
         }
 

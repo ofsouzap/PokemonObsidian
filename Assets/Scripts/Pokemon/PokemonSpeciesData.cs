@@ -14,7 +14,7 @@ namespace Pokemon
         const string dataPath = "Data/pokemonSpecies";
         const bool ignoreDataFirstLine = true;
 
-        public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^([0-9]+;[0-9]*;[0-9]{0,3}?)(,([0-9]+;[0-9]*;[0-9]{0,3}?))*$");
+        public static readonly Regex validEvolutionsEntryRegex = new Regex(@"^([0-9]*;[0-9]*;[0-9]{0,3}?)(,([0-9]*;[0-9]*;[0-9]{0,3}?))*$");
         public static readonly Regex validLevelUpMovesEntryRegex = new Regex(@"^([0-9]+;[0-9]+)(,[0-9]+;[0-9]+)*$");
         public static readonly Regex validEVYieldRegex = new Regex(@"^[0-9]{0,3}(;[0-9]{0,3}){5}$");
 

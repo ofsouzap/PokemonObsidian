@@ -349,6 +349,8 @@ namespace Battle
 
             #region Main Loop
 
+            RefreshUsedPokemonPerOpposingPokemonRecord(); //In case initial pokemon is instantly switched out
+
             while (battleData.battleRunning)
             {
 

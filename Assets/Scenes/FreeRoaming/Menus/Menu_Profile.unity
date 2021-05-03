@@ -486,6 +486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc002f2597aad34cbc3ed422c8dcb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCanvases:
+  - {fileID: 623798253}
   buttonBack: {fileID: 1935180253}
   textName: {fileID: 1701872945}
   textMoney: {fileID: 2072806320}

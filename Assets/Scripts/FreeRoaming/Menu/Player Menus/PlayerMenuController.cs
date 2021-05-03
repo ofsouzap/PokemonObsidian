@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Menus;
@@ -7,6 +7,10 @@ namespace FreeRoaming.Menu.PlayerMenus
 {
     public abstract class PlayerMenuController : MenuController
     {
+
+        [Tooltip("Any canvases that are part of the menu. These are hidden when the menu needs to be hidden")]
+        public Canvas[] mainCanvases;
+        private List<Canvas> canvasesToShowOnMenuShow = new List<Canvas>();
 
         protected virtual void Start()
         {
@@ -33,6 +37,30 @@ namespace FreeRoaming.Menu.PlayerMenus
             {
                 CloseMenu();
             }
+
+        }
+
+        protected virtual void HideMenu()
+        {
+            foreach (Canvas canvas in mainCanvases)
+            {
+                if (canvas.enabled)
+                {
+                    canvasesToShowOnMenuShow.Add(canvas);
+                    canvas.enabled = false;
+                }
+            }
+        }
+
+        protected virtual void ShowMenu()
+        {
+
+            foreach (Canvas canvas in canvasesToShowOnMenuShow)
+            {
+                canvas.enabled = true;
+            }
+
+            canvasesToShowOnMenuShow.Clear();
 
         }
 

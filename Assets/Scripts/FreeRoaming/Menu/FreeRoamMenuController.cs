@@ -62,7 +62,7 @@ namespace FreeRoaming.Menu
             foreach (FreeRoamMenuButtonController mainButtonController in mainButtons)
                 mainButtonController.SetUpListener(this);
 
-            buttonBack.GetComponent<Button>().onClick.AddListener(() => Hide());
+            buttonBack.GetComponent<Button>().onClick.AddListener(() => CloseMenu());
 
             //TODO - save button on-click listener
 
@@ -82,6 +82,12 @@ namespace FreeRoaming.Menu
         }
 
         #endregion
+
+        private void CloseMenu()
+        {
+            Hide();
+            FreeRoamSceneController.GetFreeRoamSceneController(gameObject.scene).SetSceneRunningState(true);
+        }
 
         public void LaunchMenuScene(string sceneIdentifier)
         {

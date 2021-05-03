@@ -11,6 +11,9 @@ namespace Items
     public abstract class Item : IHasId
     {
 
+        //Original item ids:
+        //https://bulbapedia.bulbagarden.net/wiki/List_of_items_by_index_number_(Generation_IV)
+
         #region Type Ids
 
         public const int typeIdGeneral = 0x00000000;
@@ -97,11 +100,11 @@ namespace Items
 
             List<Item> items = new List<Item>();
 
-            //TODO - once other item types added (eg. general, key items etc.), add them to registry here
             items.AddRange(PokeBall.GetRegistryItems());
             items.AddRange(BattleItem.GetRegistryItems());
             items.AddRange(MedicineItem.GetRegistryItems());
             items.AddRange(TMItem.GetRegistryItems());
+            items.AddRange(GeneralItem.GetRegistryItems());
 
             registry.SetValues(items.ToArray());
 

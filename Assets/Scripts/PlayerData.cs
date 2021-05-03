@@ -447,6 +447,7 @@ public class PlayerData
 
         }
 
+        public InventorySection generalItems = new InventorySection((id) => GeneralItem.GetGeneralItemItemById(id));
         public InventorySection medicineItems = new InventorySection((id) => MedicineItem.GetMedicineItemById(id));
         public InventorySection battleItems = new InventorySection((id) => BattleItem.GetBattleItemById(id));
         public InventorySection pokeBalls = new InventorySection((id) => PokeBall.GetPokeBallById(id));

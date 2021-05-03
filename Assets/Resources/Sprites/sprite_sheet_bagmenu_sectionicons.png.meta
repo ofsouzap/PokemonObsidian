@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: 3136169266371458198
     second: bagmenu_section_battleitems
+  - first:
+      213: 4564197481017507887
+    second: bagmenu_section_general
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -206,6 +209,27 @@ TextureImporter:
       bones: []
       spriteID: 6947195e459e58b20800000000000000
       internalID: 3136169266371458198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bagmenu_section_general
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2008c44d69475f30800000000000000
+      internalID: 4564197481017507887
       vertices: []
       indices: 
       edges: []

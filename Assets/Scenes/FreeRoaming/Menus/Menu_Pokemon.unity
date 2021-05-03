@@ -2829,6 +2829,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2227703146925164c9c4f3395ac39110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCanvases:
+  - {fileID: 1238590633}
   pokemonOptionsController: {fileID: 937681174}
   toolbarController: {fileID: 1108462634}
   detailsPaneController: {fileID: 688665297}
