@@ -80,8 +80,6 @@ namespace Pokemon
 
             LoadPokemonSpeciesRegistry();
 
-            SetPokemonSpeciesSpecialData();
-
         }
 
         private static void LoadPokemonSpeciesRegistry()
@@ -570,6 +568,78 @@ namespace Pokemon
 
                 #endregion
 
+                #region Special Pokemon Data
+
+                #region Evolutions
+
+                //Kadabra evolves to Alakazam thorugh trade
+                if (id == 64)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 65,
+                        requireTrade = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Machoke evolves to Machamp through trade
+                if (id == 67)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 68,
+                        requireTrade = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Graveler evolves to Golem through trade
+                if (id == 75)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 76,
+                        requireTrade = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Haunter evolves to Gengar through trade
+                if (id == 93)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 94,
+                        requireTrade = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                #endregion
+
+                #endregion
+
                 species.Add(new PokemonSpecies()
                 {
                     name = name,
@@ -614,14 +684,6 @@ namespace Pokemon
             }
 
             PokemonSpecies.registry.SetValues(species.ToArray());
-
-        }
-
-        private static void SetPokemonSpeciesSpecialData()
-        {
-
-            //TODO - set special evolutions (eg. with trades)
-            //TODO - set anything special about certain species
 
         }
 
