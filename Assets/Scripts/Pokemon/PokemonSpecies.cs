@@ -140,9 +140,16 @@ namespace Pokemon
                 bool tradeCondition = trading == requireTrade;
                 bool levelCondition = level == null ? true : pokemon.GetLevel() >= level;
 
-                bool itemCondition =
-                       itemId == null
-                    || (itemIdUsed - Item.GetItemIdTypeId((int)itemIdUsed)) == itemId; //The type id of the item isn't included in Evolution.itemId
+                bool itemCondition;
+                if (itemId == null)
+                    itemCondition = true;
+                else
+                {
+                    if (itemIdUsed == null) //If an item wasn't used but an item was required
+                        itemCondition = false;
+                    else //Check whether the used item is the item required for the evolution
+                        itemCondition = (itemIdUsed - Item.GetItemIdTypeId((int)itemIdUsed)) == itemId; //The type id of the item isn't included in Evolution.itemId
+                }
 
                 bool specialCondition = condition == null ? true : condition(pokemon);
 

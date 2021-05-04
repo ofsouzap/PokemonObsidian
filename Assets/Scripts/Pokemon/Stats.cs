@@ -90,6 +90,10 @@ namespace Pokemon
         public static sbyte LimitStatModifierChange(sbyte origChange,
             sbyte targetStat)
         {
+
+            if (origChange == 0) //Prevent 0-division exceptions
+                return 0;
+
             return Mathf.Abs(origChange + targetStat) > 6 ?
                 (sbyte)(
                     (PokemonInstance.BattleProperties.maximumStatModifier * origChange / Mathf.Abs(origChange))

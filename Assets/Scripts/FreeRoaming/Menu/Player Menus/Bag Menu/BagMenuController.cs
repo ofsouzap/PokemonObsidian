@@ -460,15 +460,10 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             if (CurrentItem is GeneralItem)
             {
 
-                PokemonSpecies.Evolution[] validEvolutions = pokemon.species.evolutions.Where(x => x.PokemonCanUseEvolution(pokemon, itemIdUsed: CurrentItem.id)).ToArray();
+                PokemonSpecies.Evolution evolutionFound = pokemon.TryFindEvolution(false, CurrentItem.id);
 
-                if (validEvolutions.Length > 1)
-                {
-                    Debug.LogError("Multiple valid evolutions found when trying to use item on pokemon");
-                    yield break;
-                }
-                else if (validEvolutions.Length == 1)
-                    yield return StartCoroutine(OnPokemonSelected_UseItem_EvolvePokemon(pokemon, validEvolutions[0]));
+                if (evolutionFound != null)
+                    yield return StartCoroutine(OnPokemonSelected_UseItem_EvolvePokemon(pokemon, evolutionFound));
                 else
                 {
 

@@ -447,11 +447,12 @@ namespace Pokemon
         /// Tries to find an evolution that this PokemonInstance can perform
         /// </summary>
         /// <returns>An applicable evolution if one is found, otherwise null</returns>
-        public PokemonSpecies.Evolution TryFindEvolution(bool trading = false)
+        public PokemonSpecies.Evolution TryFindEvolution(bool trading = false,
+            int? itemIdUsed = null)
         {
 
             foreach (PokemonSpecies.Evolution evolution in species.evolutions)
-                if (evolution.PokemonCanUseEvolution(this, trading))
+                if (evolution.PokemonCanUseEvolution(this, trading, itemIdUsed))
                     return evolution;
 
             return null;

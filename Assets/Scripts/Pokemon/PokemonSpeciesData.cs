@@ -570,6 +570,8 @@ namespace Pokemon
 
                 #region Special Pokemon Data
 
+                //Setting special data about the pokemon that can't be stored in the data files
+
                 #region Evolutions
 
                 //Kadabra evolves to Alakazam thorugh trade
