@@ -20,6 +20,9 @@ TextureImporter:
   - first:
       213: 7343377909063759340
     second: pokemon_center_counter_tile_bottomleft
+  - first:
+      213: -7650497054568443883
+    second: pokemon_center_counter_tile_bottom_napkin
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -254,6 +257,27 @@ TextureImporter:
       bones: []
       spriteID: ce532392d4be8e560800000000000000
       internalID: 7343377909063759340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokemon_center_counter_tile_bottom_napkin
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 96
+        width: 16
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5, y: 0.364}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51096438679f3d590800000000000000
+      internalID: -7650497054568443883
       vertices: []
       indices: 
       edges: []

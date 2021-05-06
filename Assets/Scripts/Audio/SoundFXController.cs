@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using UnityEngine;
 
 namespace Audio
@@ -29,7 +29,8 @@ namespace Audio
 
         }
 
-        public void PlaySound(string resourceName)
+        public void PlaySound(string resourceName,
+            Action playCompleteAction = null)
         {
 
             AudioClip clip = AudioStorage.GetFXClip(resourceName);
@@ -43,7 +44,7 @@ namespace Audio
             {
 
                 GameObject fxSource = Instantiate(soundFXSourcePrefab);
-                fxSource.GetComponent<SoundFXSourceController>().PlayClip(clip);
+                fxSource.GetComponent<SoundFXSourceController>().PlayClip(clip, playCompleteAction);
 
             }
 

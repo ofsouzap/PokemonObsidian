@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FreeRoaming;
+using FreeRoaming.AreaControllers;
 
 namespace FreeRoaming
 {

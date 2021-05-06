@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Menus;
+using FreeRoaming.AreaControllers;
 
 namespace FreeRoaming.Menu
 {

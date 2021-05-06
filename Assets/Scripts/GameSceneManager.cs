@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using FreeRoaming;
 using FreeRoaming.Menu;
+using FreeRoaming.AreaControllers;
 
 public static class GameSceneManager
 {

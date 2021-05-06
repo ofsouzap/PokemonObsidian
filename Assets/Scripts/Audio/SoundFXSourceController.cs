@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Audio
@@ -9,21 +10,25 @@ namespace Audio
 
         private AudioSource AudioSource => GetComponent<AudioSource>();
 
-        public void PlayClip(AudioClip clip)
+        public void PlayClip(AudioClip clip,
+            Action playCompleteAction = null)
         {
 
             AudioSource.clip = clip;
             AudioSource.Play();
 
-            StartCoroutine(WaitToDestroy());
+            StartCoroutine(WaitToDestroy(playCompleteAction));
 
         }
 
-        private IEnumerator WaitToDestroy()
+        private IEnumerator WaitToDestroy(Action playCompleteAction = null)
         {
 
             yield return new WaitUntil(() => !AudioSource.isPlaying);
+
             Destroy(gameObject);
+
+            playCompleteAction?.Invoke();
 
         }
 

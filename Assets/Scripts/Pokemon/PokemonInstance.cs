@@ -871,6 +871,7 @@ namespace Pokemon
         {
             RestoreHealth();
             RestoreStatusConditions();
+            RestoreMovePPs();
         }
 
         public void RestoreHealth()
@@ -881,6 +882,15 @@ namespace Pokemon
         public void RestoreStatusConditions()
         {
             nonVolatileStatusCondition = NonVolatileStatusCondition.None;
+        }
+
+        public void RestoreMovePPs()
+        {
+            
+            for (byte i = 0; i < moveIds.Length; i++)
+                if (!Moves.PokemonMove.MoveIdIsUnset(moveIds[i]))
+                    movePPs[i] = Moves.PokemonMove.GetPokemonMoveById(moveIds[i]).maxPP;
+
         }
 
         #endregion
