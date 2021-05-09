@@ -42,6 +42,8 @@ namespace Items
 
         #endregion
 
+        public const int defaultPrice = 1500;
+
         public override bool CanBeUsedFromBag()
             => true;
 

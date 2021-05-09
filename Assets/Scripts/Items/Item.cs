@@ -106,9 +106,89 @@ namespace Items
             items.AddRange(TMItem.GetRegistryItems());
             items.AddRange(GeneralItem.GetRegistryItems());
 
-            registry.SetValues(items.ToArray());
+            Item[] itemsArray = items.ToArray();
+
+            SetItemPrices(ref itemsArray);
+
+            registry.SetValues(itemsArray);
 
             registrySet = true;
+
+        }
+
+        private static void SetItemPrices(ref Item[] items)
+        {
+
+            Dictionary<string, int> itemPrices = LoadItemPrices();
+
+            foreach (Item item in items)
+            {
+
+                if (itemPrices.ContainsKey(item.resourceName))
+                {
+                    item.price = itemPrices[item.resourceName];
+                }
+                else if (item is TMItem)
+                {
+                    item.price = TMItem.defaultPrice;
+                }
+                else if (item is BattleItem)
+                {
+                    item.price = BattleItem.defaultPrice;
+                }
+                else
+                {
+                    Debug.LogWarning("No price found for item named " + item.resourceName);
+                    item.price = 0;
+                }
+
+            }
+
+        }
+
+        //Item prices file should have two columns: item resource name and item price (respectively)
+        //Resource names are used as item ids would have to include the item type prefix
+
+        private const string itemPricesDataPath = "Data/itemPrices";
+
+        private static Dictionary<string, int> LoadItemPrices()
+        {
+
+            string[][] data = CSV.ReadCSVResource(itemPricesDataPath, true);
+
+            Dictionary<string, int> prices = new Dictionary<string, int>();
+
+            foreach (string[] entry in data)
+            {
+
+                string itemName;
+                int price;
+
+                itemName = entry[0];
+
+                if (prices.ContainsKey(itemName))
+                {
+                    Debug.LogError("Duplicated item name found: " + itemName);
+                    continue;
+                }
+
+                if (!int.TryParse(entry[1], out price))
+                {
+                    Debug.LogError("Invalid price found for item named " + itemName);
+                    price = 0;
+                }
+
+                if (price < 0)
+                {
+                    Debug.LogError("Price lesser than 0 found for item named " + itemName);
+                    price = 0;
+                }
+
+                prices.Add(itemName, price);
+
+            }
+
+            return prices;
 
         }
 
@@ -139,6 +219,11 @@ namespace Items
         /// A description of the item to provide the user with
         /// </summary>
         public string description;
+
+        /// <summary>
+        /// How much the item should be bought or sold for
+        /// </summary>
+        public int price;
 
         /// <summary>
         /// A method to get whether this item can be used directly from the bag menu in free-roaming. This is usually specific to item types and so they can implement the method

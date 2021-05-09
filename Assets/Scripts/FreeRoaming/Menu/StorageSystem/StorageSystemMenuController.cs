@@ -274,6 +274,9 @@ namespace FreeRoaming.Menu.StorageSystem
             if (!PlayerData.singleton.boxPokemon.boxes[currentBoxIndex].IsFull)
             {
 
+                //Pokemon should be fully restored when they are put in the storage system
+                pokemon.RestoreFully();
+
                 PlayerData.singleton.boxPokemon.boxes[currentBoxIndex].AddPokemon(pokemon);
                 PlayerData.singleton.partyPokemon[pokemonIndex] = null;
 
