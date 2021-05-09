@@ -567,6 +567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511881399}
   - component: {fileID: 1511881400}
+  - component: {fileID: 1511881401}
   m_Layer: 0
   m_Name: tmp - development stuff
   m_TagString: Untagged
@@ -621,6 +622,25 @@ MonoBehaviour:
     level: 60
     levelExperience: 0
     initialNVSC: 0
+--- !u!114 &1511881401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511881398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d37611e93f457049a61b6a412cc538d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeciesId: 150
+  minPokemonLevel: 1
+  maxPokemonLevel: 100
+  minBoxUsedCount: 2
+  maxBoxUsedCount: 18
+  minBoxPokemonCount: 5
+  maxBoxPokemonCount: 30
 --- !u!1 &1576829449
 GameObject:
   m_ObjectHideFlags: 0

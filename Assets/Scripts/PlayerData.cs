@@ -151,6 +151,28 @@ public class PlayerData
 
         }
 
+        /// <summary>
+        /// Removes any empty spaces in the box so that there is a continuous sequence of pokemon without any null
+        /// </summary>
+        public void CleanEmptySpaces()
+        {
+
+            List<PokemonInstance> newList = new List<PokemonInstance>();
+
+            foreach (PokemonInstance pokemonInstance in pokemon)
+            {
+                if (pokemonInstance != null)
+                    newList.Add(pokemonInstance);
+            }
+
+            PokemonInstance[] newArray = new PokemonInstance[size];
+
+            Array.Copy(newList.ToArray(), newArray, newList.Count);
+
+            pokemon = newArray;
+
+        }
+
     }
 
     /// <summary>
@@ -278,6 +300,15 @@ public class PlayerData
                     break;
                 }
 
+        }
+
+        /// <summary>
+        /// Removes any empty spaces in any boxes so that there are continuous sequences of pokemon without any null
+        /// </summary>
+        public void CleanEmptySpaces()
+        {
+            foreach (PokemonBox box in boxes)
+                box.CleanEmptySpaces();
         }
 
     }

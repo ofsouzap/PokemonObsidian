@@ -9,6 +9,9 @@ namespace Menus
     public class MenuSelectableController : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
 
+        private const string selectableSelectionPrefabPath = "Prefabs/Selected Button Border";
+        private static GameObject SelectableSelectionPrefab => Resources.Load<GameObject>(selectableSelectionPrefabPath);
+
         private bool selectedImageActive = false;
         private GameObject selectedImageGameObject = null;
 
@@ -29,7 +32,7 @@ namespace Menus
         private void ShowSelectedImage()
         {
             HideSelectedImage();
-            selectedImageGameObject = Instantiate(FreeRoamMenuController.singleton.selectableSelectionPrefab,
+            selectedImageGameObject = Instantiate(SelectableSelectionPrefab,
                     transform);
         }
 
