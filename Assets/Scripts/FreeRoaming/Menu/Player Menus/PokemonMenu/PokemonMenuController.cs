@@ -46,7 +46,17 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
             toolbarController.SetUp();
             detailsPaneController.SetUp();
 
-            TrySetCurrentPokemonIndex(0);
+            byte startingDisplayedPokemonIndex = 0;
+
+            for (byte i = 0; i < PlayerData.singleton.partyPokemon.Length; i++)
+                if (PlayerData.singleton.partyPokemon[i] != null)
+                {
+                    startingDisplayedPokemonIndex = i;
+                    break;
+                }
+
+            TrySetCurrentPokemonIndex(startingDisplayedPokemonIndex);
+
             SetCurrentDetailsPaneIndex(0);
 
         }

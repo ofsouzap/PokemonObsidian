@@ -271,7 +271,21 @@ namespace FreeRoaming.Menu.StorageSystem
 
             PokemonInstance pokemon = PlayerData.singleton.partyPokemon[pokemonIndex];
 
-            if (!PlayerData.singleton.boxPokemon.boxes[currentBoxIndex].IsFull)
+            if (PlayerData.singleton.GetNumberOfPartyPokemon() == 1) //Player shouldn't be allowed to deposit their last party pokemon
+            {
+
+                textBoxController.RevealText("You can't deposit your last party pokemon");
+                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+            }
+            else if (PlayerData.singleton.boxPokemon.boxes[currentBoxIndex].IsFull)
+            {
+
+                textBoxController.RevealText("Box is already full");
+                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+            }
+            else
             {
 
                 //Pokemon should be fully restored when they are put in the storage system
@@ -279,13 +293,6 @@ namespace FreeRoaming.Menu.StorageSystem
 
                 PlayerData.singleton.boxPokemon.boxes[currentBoxIndex].AddPokemon(pokemon);
                 PlayerData.singleton.partyPokemon[pokemonIndex] = null;
-
-            }
-            else
-            {
-
-                textBoxController.RevealText("Box is already full");
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             }
 
