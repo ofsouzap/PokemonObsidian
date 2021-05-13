@@ -6,16 +6,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using Items;
 
-namespace FreeRoaming.Menu.PlayerMenus.BagMenu
+namespace FreeRoaming.Menu
 {
-    public class ItemsListController : BagBarController
+    public class ItemsListController : MonoBehaviour
     {
 
         public Transform itemsListContentTransform;
         private Vector2 itemsListContentInitialAnchoredPosition;
 
         private GameObject[] itemGameObjects;
-        protected override GameObject[] GetItems()
+        public GameObject[] GetItems()
             => itemGameObjects;
 
         //This must have a ItemsListItemController component
@@ -29,6 +29,11 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         private int currentScrollIndex = 0;
 
+        protected GameObject currentBorder;
+        private GameObject borderPrefab;
+
+        private Action<int> itemSelectedAction;
+
         private void Start()
         {
 
@@ -36,6 +41,17 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                 Debug.LogWarning("Items list content transform shouldn't be set to items list controller's transform");
 
             itemsListContentInitialAnchoredPosition = itemsListContentTransform.GetComponent<RectTransform>().anchoredPosition;
+
+        }
+
+        public virtual void SetUp(GameObject borderPrefab,
+            Action<int> itemSelectedAction)
+        {
+
+            this.borderPrefab = borderPrefab;
+            this.itemSelectedAction = itemSelectedAction;
+
+            TryDestroyBorder();
 
         }
 
@@ -70,7 +86,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             GameObject newItem = Instantiate(itemListItemPrefab, itemsListContentTransform);
             ItemsListItemController controller = newItem.GetComponent<ItemsListItemController>();
 
-            newItem.GetComponent<Button>().onClick.AddListener(() => menuController.OnSelectItem(index));
+            newItem.GetComponent<Button>().onClick.AddListener(() => itemSelectedAction(index));
 
             controller.SetPositionIndex(index, itemsPadding);
             controller.SetValues(item.itemName, quantity);
@@ -95,12 +111,18 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         }
 
-        public override void SetCurrentSelectionIndex(int index)
+        private void TryDestroyBorder()
+        {
+            if (currentBorder != null)
+                Destroy(currentBorder);
+        }
+
+        public void SetCurrentSelectionIndex(int index)
         {
 
-            base.SetCurrentSelectionIndex(index);
+            TryDestroyBorder();
 
-            //TODO - Check about editing currentScrollIndex. If changed, call RefreshItemOffsets
+            currentBorder = Instantiate(borderPrefab, GetItems()[index].transform);
 
             int prospectiveScrollIndex = index - itemsNoScrollBuffer;
 

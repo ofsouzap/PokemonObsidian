@@ -10,6 +10,8 @@ using UnityEngine;
 public class PlayerData
 {
 
+    public const string currencySymbol = "₽";
+
     /// <summary>
     /// The instance of this
     /// </summary>
@@ -414,6 +416,23 @@ public class PlayerData
 
             private Dictionary<int, int> quantities = new Dictionary<int, int>();
 
+            public bool IsEmpty
+            {
+                get
+                {
+
+                    if (quantities.Count == 0)
+                        return true;
+
+                    foreach (int itemId in quantities.Keys)
+                        if (quantities[itemId] > 0)
+                            return false;
+
+                    return true;
+
+                }
+            }
+
             public void AddItem(int itemId,
                 uint amount = 1)
             {
@@ -487,7 +506,9 @@ public class PlayerData
         public InventorySection GetItemInventorySection(Item item)
         {
 
-            if (item is PokeBall)
+            if (item is GeneralItem)
+                return generalItems;
+            else if (item is PokeBall)
                 return pokeBalls;
             else if (item is TMItem)
                 return tmItems;
@@ -502,6 +523,13 @@ public class PlayerData
             }
 
         }
+
+        public bool IsEmpty
+            => generalItems.IsEmpty
+            && medicineItems.IsEmpty
+            && battleItems.IsEmpty
+            && pokeBalls.IsEmpty
+            && tmItems.IsEmpty;
 
         public void AddItem(Item item,
             uint amount = 1)

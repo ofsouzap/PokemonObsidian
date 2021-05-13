@@ -23,6 +23,9 @@ TextureImporter:
   - first:
       213: -7650497054568443883
     second: pokemon_center_counter_tile_bottom_napkin
+  - first:
+      213: -9169127129355854502
+    second: pokemon_center_wall_tile_blue
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -278,6 +281,27 @@ TextureImporter:
       bones: []
       spriteID: 51096438679f3d590800000000000000
       internalID: -7650497054568443883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pokemon_center_wall_tile_blue
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 48
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5dd85ab477b0c080800000000000000
+      internalID: -9169127129355854502
       vertices: []
       indices: 
       edges: []

@@ -25,7 +25,7 @@ namespace FreeRoaming.Menu.PlayerMenus
             buttonBack.onClick.AddListener(() => CloseMenu());
 
             textName.text = PlayerData.singleton.profile.name;
-            textMoney.text = "₽" + PlayerData.singleton.profile.money.ToString();
+            textMoney.text = PlayerData.currencySymbol + PlayerData.singleton.profile.money.ToString();
 
         }
 

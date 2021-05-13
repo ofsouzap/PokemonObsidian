@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Items;
 
-namespace FreeRoaming.Menu.PlayerMenus.BagMenu
+namespace FreeRoaming.Menu
 {
     [RequireComponent(typeof(Button))]
     public class ItemsListItemController : MonoBehaviour
@@ -33,7 +33,14 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             int quantity)
         {
             textName.text = name;
-            textQuantity.text = quantityPrefix + quantity.ToString();
+            if (quantity >= 0)
+            {
+                textQuantity.text = quantityPrefix + quantity.ToString();
+            }
+            else
+            {
+                textQuantity.text = "";
+            }
         }
 
     }

@@ -60,7 +60,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
             actionsBarController.SetUp(this, fullBorderPrefab);
             sectionsBarController.SetUp(this, fullBorderPrefab);
-            itemsListController.SetUp(this, fullBorderPrefab);
+            itemsListController.SetUp(fullBorderPrefab, (index) => OnSelectItem(index));
             pokemonSelectionController.SetUp(this);
 
             ChangeToSectionSelection();

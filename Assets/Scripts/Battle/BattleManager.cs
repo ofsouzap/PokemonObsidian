@@ -514,7 +514,7 @@ namespace Battle
 
                 string moneyDropMessage = battleData.isWildBattle ? "dropped" : "handed over";
 
-                battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name + ' ' + moneyDropMessage + " ₽" + moneyToDrop + "...");
+                battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name + ' ' + moneyDropMessage + " " + PlayerData.currencySymbol + moneyToDrop + "...");
 
                 #endregion
 
@@ -574,7 +574,8 @@ namespace Battle
                                 + opponentNPCParticipant.GetName());
 
                             battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
-                                + " was given ₽"
+                                + " was given "
+                                + PlayerData.currencySymbol
                                 + playerPrizeMoney.ToString()
                                 + " for winning",
                                 true);

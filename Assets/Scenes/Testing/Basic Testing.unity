@@ -1712,3 +1712,72 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7701890208919478301, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+--- !u!1001 &8336249947095698631
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7712211959006537662, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: pokeMartId
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373776, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336249946267373777, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_Name
+      value: Poke Mart
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375277305143054201, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375277305143054201, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa28d9a9671ac0745b538caba52b68ed, type: 3}

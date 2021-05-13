@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using FreeRoaming.AreaControllers;
 
 namespace FreeRoaming
@@ -21,6 +22,8 @@ namespace FreeRoaming
         private FreeRoamSceneController sceneController;
         private GridManager gridManager;
         private Vector2Int gridPosition;
+
+        private UnityEvent BeforeDoorUsed = new UnityEvent();
 
         private void Start()
         {
@@ -53,9 +56,18 @@ namespace FreeRoaming
                 
                 lastTrigger = Time.time;
 
+                BeforeDoorUsed.Invoke();
+
                 GameSceneManager.UseDoor(doorDetails);
 
             }
+        }
+
+        public void AddBeforeDoorUsedListener(UnityAction call)
+        {
+
+            BeforeDoorUsed.AddListener(call);
+
         }
 
     }

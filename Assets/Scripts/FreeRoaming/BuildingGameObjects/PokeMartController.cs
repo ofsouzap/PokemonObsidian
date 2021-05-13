@@ -1,37 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace FreeRoaming.BuildingGameObjects
 {
-    public class PokemonCenterController : MonoBehaviour
+    public class PokeMartController : MonoBehaviour
     {
 
-        public const string pokemonCenterSceneIdentifier = "Pokemon Center";
+        public const string pokeMartSceneIdentifier = "Poke Mart";
 
         /// <summary>
         /// A basic scene door details for pokemon center doors. Any instance-specific properties will be set in the instance
         /// </summary>
-        public static readonly SceneDoorDetails basePokemonCenterDoorDetails = new SceneDoorDetails()
+        public static readonly SceneDoorDetails basePokeMartDoorDetails = new SceneDoorDetails()
         {
             isDepthLevel = true,
             isLoadingDoor = true,
             newSceneTargetPosition = new Vector2Int(0, 0),
-            sceneName = pokemonCenterSceneIdentifier
+            sceneName = pokeMartSceneIdentifier
         };
 
         [SerializeField]
         private SceneDoor door;
 
         [SerializeField]
-        private int pokemonCenterId;
+        private int pokeMartId;
 
         private void Start()
         {
 
-            door.AddBeforeDoorUsedListener(() => AreaEntranceArguments.PokemonCenterEntranceArguments.SetArguments(pokemonCenterId));
-            door.doorDetails = GetInstanceSpecificDoorDetails(basePokemonCenterDoorDetails);
+            door.AddBeforeDoorUsedListener(() => AreaEntranceArguments.PokeMartEntranceArguments.SetArguments(pokeMartId));
+            door.doorDetails = GetInstanceSpecificDoorDetails(basePokeMartDoorDetails);
 
         }
 

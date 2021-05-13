@@ -1,7 +1,6 @@
 using Pokemon;
 using Items;
-using Items.PokeBalls;
-using Items.MedicineItems;
+using FreeRoaming.PokeMart;
 
 namespace StartUp
 {
@@ -18,6 +17,8 @@ namespace StartUp
             SpriteStorage.TryLoadAll();
 
             Item.TrySetRegistry(); //TMs must be loaded after moves
+
+            PokeMartData.LoadData(); //This must be loaded after all items
 
         }
 
