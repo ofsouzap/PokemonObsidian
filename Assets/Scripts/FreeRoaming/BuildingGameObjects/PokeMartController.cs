@@ -3,15 +3,12 @@ using UnityEngine;
 
 namespace FreeRoaming.BuildingGameObjects
 {
-    public class PokeMartController : MonoBehaviour
+    public class PokeMartController : SceneEntranceBuildingController
     {
 
         public const string pokeMartSceneIdentifier = "Poke Mart";
 
-        /// <summary>
-        /// A basic scene door details for pokemon center doors. Any instance-specific properties will be set in the instance
-        /// </summary>
-        public static readonly SceneDoorDetails basePokeMartDoorDetails = new SceneDoorDetails()
+        public override SceneDoorDetails GetBaseSceneDoorDetails() => new SceneDoorDetails()
         {
             isDepthLevel = true,
             isLoadingDoor = true,
@@ -19,25 +16,16 @@ namespace FreeRoaming.BuildingGameObjects
             sceneName = pokeMartSceneIdentifier
         };
 
-        [SerializeField]
-        private SceneDoor door;
-
-        [SerializeField]
-        private int pokeMartId;
-
-        private void Start()
+        protected override void SetBuildingEntranceArguments()
         {
-
-            door.AddBeforeDoorUsedListener(() => AreaEntranceArguments.PokeMartEntranceArguments.SetArguments(pokeMartId));
-            door.doorDetails = GetInstanceSpecificDoorDetails(basePokeMartDoorDetails);
-
+            AreaEntranceArguments.PokeMartEntranceArguments.SetArguments(buildingId);
         }
 
         /// <summary>
         /// Gets an instance-specific SceneDoorDetails for this specific pokemon center by setting the instance-specific properties of it (eg. the return position)
         /// </summary>
         /// <param name="baseDetails">The basic door details to base the output on</param>
-        private SceneDoorDetails GetInstanceSpecificDoorDetails(SceneDoorDetails baseDetails)
+        public override SceneDoorDetails GetInstanceSpecificSceneDoorDetails(SceneDoorDetails baseDetails)
         {
             return new SceneDoorDetails()
             {

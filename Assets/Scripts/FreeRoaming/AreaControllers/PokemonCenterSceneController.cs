@@ -12,8 +12,8 @@ namespace FreeRoaming.AreaControllers
 
             base.Start();
 
-            //If pokemon center entrance arguments aren't set or the id is negative, no special objects will be placed in the pokemon center
-            if (PokemonCenterEntranceArguments.argumentsSet || PokemonCenterEntranceArguments.pokemonCenterId < 0)
+            //If pokemon center entrance arguments aren't set or the id is 0, no special objects will be placed in the pokemon center
+            if (PokemonCenterEntranceArguments.argumentsSet && PokemonCenterEntranceArguments.pokemonCenterId != 0)
             {
 
                 //TODO - place objects in scene depending on id in PokemonCenterEntranceArguments

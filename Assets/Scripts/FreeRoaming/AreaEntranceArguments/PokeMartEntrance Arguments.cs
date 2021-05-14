@@ -16,7 +16,7 @@ namespace FreeRoaming.AreaEntranceArguments
         /// <summary>
         /// An id for the pokemon center to launch. This will be used when launching the Poke Mart scene
         /// </summary>
-        public static int pokeMartId = -1;
+        public static int pokeMartId = 0;
 
     }
 }
