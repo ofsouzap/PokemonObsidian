@@ -68,6 +68,9 @@ namespace FreeRoaming.NPCs
             if (interacter is PlayerController)
             {
 
+                usingAutomaticMovement = false;
+                CompleteMovement();
+
                 TryTurn(GetOppositeDirection(interacter.directionFacing));
 
                 if (CanBattlePlayer)

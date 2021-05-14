@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace FreeRoaming.NPCs
@@ -20,6 +21,23 @@ namespace FreeRoaming.NPCs
             => id == 0;
 
         #endregion
+
+        protected override void Start()
+        {
+
+            base.Start();
+
+            usingAutomaticMovement = automaticMovementStages != null && automaticMovementStages.Length > 0;
+
+            if (usingAutomaticMovement)
+            {
+
+                currentAutomaticMovementIndex = 0;
+                StartCoroutine(ExecuteNextAutomaticMovementStep());
+
+            }
+
+        }
 
         protected override void Update()
         {
@@ -46,6 +64,12 @@ namespace FreeRoaming.NPCs
                 }
 
             }
+            else if (usingAutomaticMovement && !currentlyExecutingAutomaticMovementStep)
+            {
+
+                StartCoroutine(ExecuteNextAutomaticMovementStep());
+
+            }
 
         }
 
@@ -66,10 +90,79 @@ namespace FreeRoaming.NPCs
         protected virtual void MoveForwardSteps(ushort maxDistance)
         {
 
+            usingAutomaticMovement = false;
+
             MoveForwardStepsComplete = null;
 
             movingForwardSteps = true;
             remainingForwardMoveDistance = maxDistance;
+
+        }
+
+        #endregion
+
+        #region Automatic Movement
+
+        protected bool usingAutomaticMovement;
+        private bool currentlyExecutingAutomaticMovementStep = false;
+        private int currentAutomaticMovementIndex = 0;
+
+        //If the NPC is currently using moveForward then they won't ever use automatic movement again
+
+        [Serializable]
+        public struct AutomaticMovementStage
+        {
+
+            [Min(0)]
+            /// <summary>
+            /// How lon got wait before trying to do this stage.
+            /// This can also be used with a distance of 0 set to mean to delay for some time without necessarily moving afterwards
+            /// </summary>
+            public float initialDelayTime;
+
+            /// <summary>
+            /// The direction to move in
+            /// </summary>
+            public FacingDirection direction;
+
+            /// <summary>
+            /// How far to move
+            /// </summary>
+            public byte distance;
+
+        }
+
+        [SerializeField]
+        [Tooltip("The stages of this NPC's automatic movement. These will be looped and so should return the NPC back to its original position")]
+        protected AutomaticMovementStage[] automaticMovementStages;
+
+        private IEnumerator ExecuteNextAutomaticMovementStep()
+        {
+
+            currentlyExecutingAutomaticMovementStep = true;
+
+            AutomaticMovementStage currentStage = automaticMovementStages[currentAutomaticMovementIndex];
+            currentAutomaticMovementIndex = (currentAutomaticMovementIndex + 1) % automaticMovementStages.Length;
+
+            yield return new WaitUntil(() => sceneController.SceneIsRunning);
+            yield return new WaitForSeconds(currentStage.initialDelayTime);
+            if (!usingAutomaticMovement)
+                yield break;
+
+            yield return new WaitUntil(() => sceneController.SceneIsRunning);
+            yield return new WaitUntil(() => !usingAutomaticMovement || TryTurn(currentStage.direction));
+            if (!usingAutomaticMovement)
+                yield break;
+
+            for (byte i = 0; i < currentStage.distance; i++)
+            {
+                yield return new WaitUntil(() => sceneController.SceneIsRunning);
+                yield return new WaitUntil(() => !usingAutomaticMovement || TryMoveForward());
+                if (!usingAutomaticMovement)
+                    yield break;
+            }
+
+            currentlyExecutingAutomaticMovementStep = false;
 
         }
 

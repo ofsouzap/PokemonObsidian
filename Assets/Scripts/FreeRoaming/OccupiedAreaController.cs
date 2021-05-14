@@ -21,14 +21,14 @@ namespace FreeRoaming
             return gridPositions.ToArray();
         }
 
-        protected void Start()
+        protected void Awake()
         {
 
             gridPositions = new List<Vector2Int>();
             Vector2Int rootGridPosition = Vector2Int.RoundToInt(transform.position);
 
             if (occupiedPositionOffsets != null)
-                gridPositions.AddRange(occupiedPositionOffsets.Select(x => rootGridPosition + x)); //TODO - test correct posiitons occupied
+                gridPositions.AddRange(occupiedPositionOffsets.Select(x => rootGridPosition + x));
 
         }
 
