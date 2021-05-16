@@ -4,11 +4,10 @@ using FreeRoaming.AreaControllers;
 
 namespace FreeRoaming.Decorations
 {
-    public class TownSignController : InteractableDecorationController
+    public class DeskPCController : InteractableDecorationController
     {
 
-        [Tooltip("An array of the messages to display when the player interacts with the sign")]
-        public string[] messages;
+        public const string interactionMessage = "This is your PC";
 
         public override void Interact(GameCharacterController interactee)
         {
@@ -23,11 +22,8 @@ namespace FreeRoaming.Decorations
             sceneController.SetSceneRunningState(false);
             textBoxController.Show();
 
-            foreach (string message in messages)
-            {
-                textBoxController.RevealText(message);
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
-            }
+            textBoxController.RevealText(interactionMessage);
+            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             textBoxController.Hide();
             sceneController.SetSceneRunningState(true);
