@@ -69,7 +69,9 @@ namespace FreeRoaming.NPCs
             {
 
                 usingAutomaticMovement = false;
-                CompleteMovement();
+
+                if (isMoving)
+                    CompleteMovement();
 
                 TryTurn(GetOppositeDirection(interacter.directionFacing));
 

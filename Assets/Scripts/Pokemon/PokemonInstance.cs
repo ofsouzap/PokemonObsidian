@@ -80,7 +80,7 @@ namespace Pokemon
             #endregion
 
             /// <summary>
-            /// The id of this pokemon's poke ball. This id does NOT include the type prefix for poke balls
+            /// The id of this pokemon's poke ball. This id does NOT include the type prefix for poke balls. If non-positive, a default value will be used
             /// </summary>
             public int pokeBallId;
 

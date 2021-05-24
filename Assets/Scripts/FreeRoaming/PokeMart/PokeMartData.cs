@@ -85,7 +85,11 @@ namespace FreeRoaming.PokeMart
 
             foreach (string part in list.Split(delimeter))
             {
-                if (!int.TryParse(part, out int newId))
+                if (part == "")
+                {
+                    continue;
+                }
+                else if (!int.TryParse(part, out int newId))
                 {
                     ids = new int[0];
                     Debug.LogError("Invalid item id found");

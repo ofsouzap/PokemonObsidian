@@ -730,7 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672062861eaa2cd46a2078afb43d0386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Basic Testing
+  sceneToLoad: Pokshire
   playerGameObject: {fileID: 416252835}
   freeRoamMenuGameObject: {fileID: 307454586}
   dontDestroyOnLoadGameObjects:

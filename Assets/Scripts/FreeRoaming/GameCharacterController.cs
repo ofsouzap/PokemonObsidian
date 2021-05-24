@@ -103,7 +103,6 @@ namespace FreeRoaming
         /// The position the character may be moving into which may also be reserved
         /// </summary>
         public Vector2Int movementTargettedGridPosition { get; protected set; }
-        public MovementType currentMovementMovementType { get; protected set; }
 
         protected bool ignoreScenePaused = false;
 

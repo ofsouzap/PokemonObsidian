@@ -200,7 +200,7 @@ namespace Pokemon
                 battleProperties: null,
                 gender: gender,
 
-                pokeBallId: spec.pokeBallId + Item.typeIdPokeBall,
+                pokeBallId: spec.pokeBallId > 0 ? spec.pokeBallId + Item.typeIdPokeBall : PokemonInstance.defaultPokeBallId,
                 nickname: spec.nickname
                 );
 

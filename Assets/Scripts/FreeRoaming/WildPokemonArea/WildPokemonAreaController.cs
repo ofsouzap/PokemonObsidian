@@ -27,8 +27,8 @@ namespace FreeRoaming.WildPokemonArea
         public float GetEncounterChance()
             => encounterChance;
 
-        public bool RunEncounterCheck()
-            => Random.Range(0F, 1F) <= encounterChance;
+        public bool RunEncounterCheck(float chanceMultiplier = 1)
+            => Random.Range(0F, 1F) <= encounterChance * chanceMultiplier;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

@@ -28,6 +28,20 @@ namespace FreeRoaming
 
         protected bool AllowedToMove => AllowedToAct && AllowedToMove_delay && AllowedToMove_locked;
 
+        #region Encounter Chance Multiplier
+
+        public const float runningEncounterChanceMultiplier = 2;
+
+        protected float CurrentEncounterChanceMultiplier
+            => currentMovementType switch
+            {
+                MovementType.Walk => 1,
+                MovementType.Run => runningEncounterChanceMultiplier,
+                _ => 1
+            };
+
+        #endregion
+
         protected override void Start()
         {
 
@@ -151,10 +165,9 @@ namespace FreeRoaming
 
             if (currentWildPokemonArea != null)
             {
-
-                if (currentWildPokemonArea.RunEncounterCheck())
+                
+                if (currentWildPokemonArea.RunEncounterCheck(CurrentEncounterChanceMultiplier))
                 {
-
                     LaunchWildPokemonBattle(currentWildPokemonArea);
 
                 }

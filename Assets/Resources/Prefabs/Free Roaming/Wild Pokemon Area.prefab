@@ -66,12 +66,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ceaab53735e1964393ff4b632d95545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleBackgroundResourceName: 
+  battleBackgroundResourceName: field
   pokemonSpecification:
     possibleSpeciesIds: 
     minimumLevel: 0
     maximumLevel: 0
-  encounterChance: 0.1
+  encounterChance: 0.08
 --- !u!61 &5073696586661529891
 BoxCollider2D:
   m_ObjectHideFlags: 0
