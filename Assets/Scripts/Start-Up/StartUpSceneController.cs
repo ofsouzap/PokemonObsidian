@@ -40,8 +40,8 @@ namespace StartUp
             LoadAllData.Load();
 
             //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
-            //TODO - also, use loaded player data to choose player sprite (male or female)
-            //TODO - also, use loaded player data to choose player starting position
+            //TODO - also, use loaded player data to choose player sprite
+            //TODO - also, use loaded player data to choose player starting position and scene stack
 
 #if UNITY_EDITOR
             foreach (GameObject go in extrasToActivate)

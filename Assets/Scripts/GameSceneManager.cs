@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,7 +36,7 @@ public static class GameSceneManager
     /// <summary>
     /// A struct describing the past scenes a player might return to (or the scene they are currently in) and the position that they should return to
     /// </summary>
-    private struct SceneRecord
+    public struct SceneRecord
     {
 
         /// <summary>
@@ -198,7 +199,9 @@ public static class GameSceneManager
         playerObject.GetComponent<PlayerController>().SetPosition(newPosition);
 
         SceneManager.MoveGameObjectToScene(playerObject, newScene);
-        SceneManager.MoveGameObjectToScene(freeRoamMenuObject, newScene);
+
+        if (freeRoamMenuObject != null)
+            SceneManager.MoveGameObjectToScene(freeRoamMenuObject, newScene);
 
         if (autoEnablePlayerRenderers)
             foreach (Renderer r in playerObject.GetComponentsInChildren<Renderer>())
@@ -206,8 +209,11 @@ public static class GameSceneManager
 
         playerObject.SetActive(true);
 
-        freeRoamMenuObject.SetActive(true);
-        freeRoamMenuObject.GetComponent<FreeRoamMenuController>().Hide();
+        if (freeRoamMenuObject != null)
+        {
+            freeRoamMenuObject.SetActive(true);
+            freeRoamMenuObject.GetComponent<FreeRoamMenuController>().Hide();
+        }
 
     }
 
@@ -267,6 +273,12 @@ public static class GameSceneManager
     }
 
     private static void LoadDepthLevelScene(SceneDoorDetails doorDetails)
+        => LoadDepthLevelScene(doorDetails.sceneName, doorDetails.returnPosition, doorDetails.newSceneTargetPosition);
+
+    private static void LoadDepthLevelScene(string sceneName,
+        Vector2Int returnPosition,
+        Vector2Int newSceneTargetPosition,
+        Action onCompleteAction = null)
     {
 
         if (battleSceneInUse)
@@ -290,12 +302,12 @@ public static class GameSceneManager
 
             PlayerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
 
-            sceneRecordStack.Push(new SceneRecord(oldScene, doorDetails.returnPosition));
+            sceneRecordStack.Push(new SceneRecord(oldScene, returnPosition));
 
             //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
             int newSceneIndex = SceneManager.sceneCount;
 
-            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(doorDetails.sceneName, LoadSceneMode.Additive);
+            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
             loadSceneOperation.completed += (ao) =>
             {
@@ -304,11 +316,13 @@ public static class GameSceneManager
 
                 sceneRecordStack.Push(new SceneRecord(newScene));
 
-                MovePlayerAndMenuToNewScene(PlayerGameObject, FreeRoamMenuGameObject, newScene, doorDetails.newSceneTargetPosition);
+                MovePlayerAndMenuToNewScene(PlayerGameObject, FreeRoamMenuGameObject, newScene, newSceneTargetPosition);
                 SceneManager.SetActiveScene(newScene);
 
                 StartFadeIn();
                 GetFreeRoamSceneController(newScene).SetDoorsEnabledState(true);
+
+                onCompleteAction?.Invoke();
 
             };
 
@@ -635,11 +649,12 @@ public static class GameSceneManager
 
     #endregion
 
-    public static void OpenStartingScene(Scene startUpScene,
+    public static void OpenStartingScene(Scene oldScene,
         string sceneName,
         GameObject playerGameObject,
         GameObject freeRoamMenuGameObject,
-        Vector2Int playerSceneStartPosition)
+        Vector2Int playerSceneStartPosition,
+        Action onCompleteAction = null)
     {
 
         //https://low-scope.com/unity-quick-get-a-reference-to-a-newly-loaded-scene/
@@ -660,16 +675,180 @@ public static class GameSceneManager
 
             GetFreeRoamSceneController(newScene).SetSceneRunningState(false);
 
-            SceneManager.UnloadSceneAsync(startUpScene).completed += (ao) =>
+            SceneManager.UnloadSceneAsync(oldScene).completed += (ao) =>
             {
 
                 GetFreeRoamSceneController(newScene).SetSceneRunningState(true);
                 GetFreeRoamSceneController(newScene).SetDoorsEnabledState(true);
                 StartFadeIn();
 
+                onCompleteAction?.Invoke();
+
             };
 
         };
+
+    }
+
+    #endregion
+
+    #region Loadable Scenes Storing and Loading
+
+    public struct LoadableScenes
+    {
+
+        //Final element is to be at top of stack
+
+        public struct Scene
+        {
+
+            public string sceneIdentifier;
+            public Vector2Int position;
+
+            public Scene(string sceneIdentifier, Vector2Int position)
+            {
+                this.sceneIdentifier = sceneIdentifier;
+                this.position = position;
+            }
+
+            public static readonly Regex sceneStringRegex = new Regex("^[a-zA-Z0-9/ ]+,-?[0-9]+,-?[0-9]+$");
+
+            public static bool TryParse(string s,
+                out Scene result)
+            {
+
+                string sceneIdetifier;
+                int positionX, positionY;
+
+                if (!sceneStringRegex.IsMatch(s))
+                {
+                    result = default;
+                    return false;
+                }
+
+                string[] sParts = s.Split(',');
+
+                sceneIdetifier = sParts[0];
+
+                if (!int.TryParse(sParts[1], out positionX))
+                {
+                    result = default;
+                    return false;
+                }
+
+                if (!int.TryParse(sParts[2], out positionY))
+                {
+                    result = default;
+                    return false;
+                }
+
+                result = new Scene(sceneIdetifier,
+                    new Vector2Int(positionX, positionY));
+
+                return true;
+
+            }
+
+        }
+
+        public Scene[] scenes;
+
+        public int Length => scenes.Length;
+
+        public Scene this[int index]
+        {
+            get => scenes[index];
+            set => scenes[index] = value;
+        }
+
+        public LoadableScenes(Scene[] scenes)
+        {
+            this.scenes = scenes;
+        }
+
+        public static readonly Regex loadableScenesStringRegex = new Regex("^([a-zA-Z0-9/ ]+,-?[0-9]+,-?[0-9]+)(;[a-zA-Z0-9/ ]+,-?[0-9]+,-?[0-9]+)*$");
+
+        public static bool TryParse(string s,
+            out LoadableScenes result)
+        {
+
+            if (!loadableScenesStringRegex.IsMatch(s))
+            {
+                result = default;
+                return false;
+            }
+
+            string[] sceneEntries = s.Split(';');
+
+            List<Scene> scenes = new List<Scene>();
+
+            foreach (string entry in sceneEntries)
+            {
+
+                if (Scene.TryParse(entry, out Scene scene))
+                {
+                    scenes.Add(scene);
+                }
+                else
+                {
+                    result = default;
+                    return false;
+                }
+
+            }
+
+            result = new LoadableScenes(scenes.ToArray());
+            return true;
+
+        }
+
+    }
+
+    /// <summary>
+    /// Clears the current scene stack and loads a new scene stack on top of the current one.
+    /// The position of the last loadable scene is used as the position to place the player in. The positions of the other loadable scenes are used as return positions
+    /// </summary>
+    /// <param name="loadableScenes">The loadable scenes instance to load</param>
+    public static void LoadLoadableScenes(LoadableScenes loadableScenes)
+    {
+
+        sceneRecordStack.Clear();
+
+        Action onStartingSceneLoadAction = loadableScenes.Length > 1
+            ? new Action(() =>
+            {
+
+                LoadLoadbleScenes_LoadDepthLevelScene(loadableScenes, 1);
+
+            }) : null;
+
+        //Load first scene
+        OpenStartingScene(SceneManager.GetActiveScene(),
+            loadableScenes[0].sceneIdentifier,
+            PlayerController.singleton.gameObject,
+            null,
+            loadableScenes[0].position,
+            onStartingSceneLoadAction);
+
+    }
+
+    private static void LoadLoadbleScenes_LoadDepthLevelScene(LoadableScenes loadableScenes, int index)
+    {
+
+        LoadableScenes.Scene scene = loadableScenes.scenes[index];
+
+        Action onSceneLoadAction = loadableScenes.Length - 1 > index //If there are still more scenes to load
+            ? new Action(() =>
+            {
+
+                LoadLoadbleScenes_LoadDepthLevelScene(loadableScenes, 1);
+
+            }) : null;
+
+        LoadDepthLevelScene(scene.sceneIdentifier,
+            PlayerController.singleton.position,
+            scene.position,
+            onSceneLoadAction);
 
     }
 
