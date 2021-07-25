@@ -52,7 +52,28 @@ namespace StartUp
 
             FindObjectOfType<EventSystem>().enabled = false; //This should be disabled for when the next scene is loaded
 
-            GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerGameObject, freeRoamMenuGameObject, playerSceneStartingPosition);
+            if (playerGameObject.GetComponent<PlayerController>() == null)
+            {
+                Debug.LogError("No PlayerController on playerGameObject");
+                return;
+            }
+            else
+            {
+                playerGameObject.GetComponent<PlayerController>().TrySetSingleton();
+            }
+
+            if (freeRoamMenuGameObject.GetComponent<FreeRoaming.Menu.FreeRoamMenuController>() == null)
+            {
+                Debug.LogError("No FreeRoamMenuController on freeRoamMenuGameObject");
+                return;
+            }
+            else
+            {
+                freeRoamMenuGameObject.GetComponent<FreeRoaming.Menu.FreeRoamMenuController>().TrySetSingleton();
+            }
+
+            //GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerGameObject, freeRoamMenuGameObject, playerSceneStartingPosition);
+            GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerSceneStartingPosition);
 
         }
 

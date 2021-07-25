@@ -28,10 +28,10 @@ namespace FreeRoaming.Menu
             return selectables.ToArray();
         }
 
-        private void Awake()
+        public void TrySetSingleton()
         {
 
-            if (singleton != null)
+            if (singleton != null && singleton != this)
             {
                 Debug.LogError("Free-roaming menu singleton already set. Destroying self.");
                 Destroy(this);
@@ -40,6 +40,13 @@ namespace FreeRoaming.Menu
             {
                 singleton = this;
             }
+
+        }
+
+        private void Awake()
+        {
+
+            TrySetSingleton();
 
         }
 

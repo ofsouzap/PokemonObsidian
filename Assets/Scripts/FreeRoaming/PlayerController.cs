@@ -42,18 +42,27 @@ namespace FreeRoaming
 
         #endregion
 
-        protected override void Start()
+        public void TrySetSingleton()
         {
 
-            base.Start();
-
-            if (singleton != null)
+            if (singleton != null && singleton != this)
             {
                 Debug.LogError("Multiple PlayerController instances present");
                 Destroy(gameObject);
             }
             else
+            {
                 singleton = this;
+            }
+
+        }
+
+        protected override void Start()
+        {
+
+            base.Start();
+
+            TrySetSingleton();
 
             //Whenever the player completes a movement, check if a wild pokemon battle should be launched
             MovementCompleted += () => WildPokemonBattleLaunchUpdate();

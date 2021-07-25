@@ -64007,7 +64007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5713558098489743023, guid: 6931900f9b4bd3049a0c3165793d0e25, type: 3}
       propertyPath: doorDetails.returnPosition.x
-      value: -4
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 5713558098489743023, guid: 6931900f9b4bd3049a0c3165793d0e25, type: 3}
       propertyPath: doorDetails.returnPosition.y
