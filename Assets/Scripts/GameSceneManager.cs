@@ -31,7 +31,7 @@ public static class GameSceneManager
     /// </summary>
     private static Stack<SceneRecord> sceneRecordStack = new Stack<SceneRecord>();
 
-    private struct SceneRecord
+    public struct SceneRecord
     {
 
         /// <summary>
@@ -616,7 +616,7 @@ public static class GameSceneManager
 
     #region Scene Stacks
 
-    public struct SceneStack : IEnumerable<SceneStack.Element>
+    public struct SceneStack
     {
 
         //Element regex pattern - [A-z]+,-?[0-9]+,-?[0-9]+
@@ -712,6 +712,35 @@ public static class GameSceneManager
         {
             this.elements = elements;
         }
+        
+        public SceneStack(Stack<SceneRecord> stack,
+            string currentSceneIdentifier,
+            Vector2Int currentScenePosition)
+        {
+
+            //Get queue of scene records to use in correct order (reverse of stack)
+            List<SceneRecord> stackQueueList = new List<SceneRecord>(stack);
+            stackQueueList.Reverse();
+            Queue<SceneRecord> stackQueue = new Queue<SceneRecord>(stackQueueList);
+
+            //Set elements from queue and parsing the SceneRecord's
+
+            elements = new Element[stackQueue.Count + 1];
+            for (int i = 0; i < stackQueue.Count; i++)
+            {
+
+                SceneRecord record = stackQueue.Dequeue();
+                Element newElement = new Element(record.sceneIdentifier, record.returnPosition);
+
+                elements[i] = newElement;
+
+            }
+
+            //Add current scene
+
+            elements[elements.Length - 1] = new Element(currentSceneIdentifier, currentScenePosition);
+
+        }
 
         public static bool TryParse(string s, out SceneStack r, out string errorMessage)
         {
@@ -749,16 +778,47 @@ public static class GameSceneManager
 
         }
 
-        public IEnumerator<Element> GetEnumerator()
+        public string AsString
         {
-            return (IEnumerator<Element>)elements.GetEnumerator();
-        }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return elements.GetEnumerator();
+
+            get
+            {
+
+                if (Length == 0)
+                    return "";
+
+                string output = "";
+
+                //Add elements to output string
+
+                foreach (Element ele in elements)
+                {
+
+                    output = output
+                        + ele.sceneIdentifier
+                        + ','
+                        + ele.position.x.ToString()
+                        + ','
+                        + ele.position.y.ToString()
+                        + ';';
+
+                }
+
+                //Remove final semicolon
+                output = output.Substring(0, output.Length - 1);
+
+                //Return output
+                return output;
+
+            }
+
         }
 
     }
+
+    public static SceneStack CurrentSceneStack => new SceneStack(sceneRecordStack,
+        CurrentScene.name,
+        PlayerController.singleton.position);
 
     public static void LoadSceneStack(SceneStack sceneStack)
     {

@@ -948,6 +948,111 @@ MonoBehaviour:
   _runSpeed: 8
   spriteGroupName: clown
   loadableScenesString: Basic Testing,3,1;Door Testing ab,0,0;Pokemon Center,0,0
+--- !u!1001 &1507560864
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5812969616901862827, guid: 3e28bddeb2b52194b96f90616c8f235d, type: 3}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800527, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Name
+      value: Scene Stack Creation NPC
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+--- !u!1 &1507560865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8609026627350800527, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+  m_PrefabInstance: {fileID: 1507560864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1507560866 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+  m_PrefabInstance: {fileID: 1507560864}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1507560867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507560865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c09ac6560dd3bd458fd2c229ada233f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  billboardSprite: 1
+  SceneChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  spriteRenderer: {fileID: 1507560866}
+  exclaimDuration: 1
+  initialDirectionFacing: 0
+  _walkSpeed: 4
+  _runSpeed: 8
+  spriteGroupName: connoisseur
 --- !u!1 &1757527635
 GameObject:
   m_ObjectHideFlags: 0
