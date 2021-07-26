@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FreeRoaming;
 using Pokemon;
 using Pokemon.Moves;
 using Items;
@@ -531,7 +532,9 @@ namespace Battle
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
-                //TODO - return player to last place they healed
+                MusicSourceController.singleton.StopMusic();
+
+                PlayerController.singleton.Respawn();
 
             }
             else

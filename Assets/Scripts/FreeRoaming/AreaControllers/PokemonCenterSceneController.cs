@@ -7,6 +7,8 @@ namespace FreeRoaming.AreaControllers
     public class PokemonCenterSceneController : FreeRoamSceneController
     {
 
+        public Vector2Int respawnPosition = Vector2Int.zero;
+
         protected override void Start()
         {
 
@@ -19,6 +21,9 @@ namespace FreeRoaming.AreaControllers
                 //TODO - place objects in scene depending on id in PokemonCenterEntranceArguments
 
             }
+
+            //Set the player's respawn point as this pokemon center
+            PlayerController.singleton.RefreshRespawnSceneStackFromCurrent(respawnPosition);
 
         }
 

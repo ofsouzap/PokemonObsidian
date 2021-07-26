@@ -399,14 +399,24 @@ public static class GameSceneManager
                 pausedSceneController.SetDoorsEnabledState(true);
                 pausedSceneController.SetEnabledState(true);
 
-                battleScene = null;
-                pausedFreeRoamScene = null;
+                CloseBattleScene_Variables();
 
                 StartFadeIn();
 
             };
 
         };
+
+    }
+
+    /// <summary>
+    /// Sets the variables to show that the battle scene has been closed. Allows for closing of battle scene instantly, outside of CloseBattleScene method
+    /// </summary>
+    private static void CloseBattleScene_Variables()
+    {
+
+        battleScene = null;
+        pausedFreeRoamScene = null;
 
     }
 
@@ -585,6 +595,9 @@ public static class GameSceneManager
             {
 
                 SceneManager.SetActiveScene((Scene)pausedFreeRoamScene);
+
+                playerMenuScene = null;
+                pausedFreeRoamScene = null;
 
                 StartFadeIn();
 
@@ -835,21 +848,25 @@ public static class GameSceneManager
 
         if (battleScene != null)
         {
-            Debug.LogError("Can't load scene stack whilst in battle scene");
-            return;
-        }
 
-        if (evolutionScene != null)
-        {
-            Debug.LogError("Can't load scene stack whilst in evolution scene");
-            return;
-        }
+            //Unload battle scene BEFORE loading scene stack
+            SceneManager.UnloadSceneAsync((Scene)battleScene).completed += (ao) => LoadSceneStack_Execute(sceneStack);
 
-        if (playerMenuScene != null)
+            CloseBattleScene_Variables();
+
+        }
+        else if (evolutionScene != null || playerMenuScene != null)
         {
-            Debug.LogError("Can't load scene stack whilst in player menu scene");
+            Debug.LogError("Can't load scene stack whilst in evolution or player menuscene");
             return;
         }
+        else
+            LoadSceneStack_Execute(sceneStack);
+
+    }
+
+    private static void LoadSceneStack_Execute(SceneStack sceneStack)
+    {
 
         //Clear record stack
 

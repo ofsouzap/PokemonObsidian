@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using FreeRoaming.Menu;
 using FreeRoaming.WildPokemonArea;
+using Pokemon;
 using Battle;
 using Audio;
 
@@ -61,6 +62,8 @@ namespace FreeRoaming
         {
 
             base.Start();
+
+            respawnSceneStackSet = false;
 
             TrySetSingleton();
 
@@ -169,6 +172,66 @@ namespace FreeRoaming
             movementLocked = state;
         }
 
+        #region Respawning
+
+        private bool respawnSceneStackSet = false;
+        private GameSceneManager.SceneStack respawnSceneStack;
+
+        /// <summary>
+        /// Sets the player's respawn scene stack as their current position and the current scene stack
+        /// </summary>
+        public void RefreshRespawnSceneStackFromCurrent()
+            => SetRespawnSceneStack(GameSceneManager.CurrentSceneStack);
+
+        /// <summary>
+        /// Sets the player's respawn scene stack as the provided position and the current scene stack
+        /// </summary>
+        public void RefreshRespawnSceneStackFromCurrent(Vector2Int position)
+        {
+
+            GameSceneManager.SceneStack stack = GameSceneManager.CurrentSceneStack;
+
+            //Manually set the respawn position
+            stack.elements[stack.Length - 1].position = position;
+
+            SetRespawnSceneStack(stack);
+
+        }
+
+        /// <summary>
+        /// Sets the player's respawn scene stack and position
+        /// </summary>
+        public void SetRespawnSceneStack(GameSceneManager.SceneStack stack)
+        {
+
+            respawnSceneStackSet = true;
+            respawnSceneStack = stack;
+
+        }
+
+        /// <summary>
+        /// Fully heals the player's party pokemon and returns them to their respawn point
+        /// </summary>
+        public void Respawn()
+        {
+
+            if (!respawnSceneStackSet)
+            {
+                Debug.LogError("No respawn scene stack has been set yet");
+                return;
+            }
+
+            foreach (PokemonInstance pokemon in PlayerData.singleton.partyPokemon)
+                pokemon?.RestoreFully(); //Restore all pokemon in the player's party (any unset pokemon are ignored)
+
+            GameSceneManager.LoadSceneStack(respawnSceneStack);
+
+        }
+
+        #endregion
+
+        #region Wild Pokemon Battle
+
         public void WildPokemonBattleLaunchUpdate()
         {
 
@@ -208,6 +271,8 @@ namespace FreeRoaming
             GameSceneManager.LaunchBattleScene();
 
         }
+
+        #endregion
 
     }
 }
