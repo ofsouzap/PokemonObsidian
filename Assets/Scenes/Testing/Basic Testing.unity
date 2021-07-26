@@ -842,6 +842,112 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+--- !u!1001 &1470710399
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5940100036633247112, guid: 3e28bddeb2b52194b96f90616c8f235d, type: 3}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800527, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Name
+      value: Scene Stack Loading Testing NPC
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+--- !u!1 &1470710400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8609026627350800527, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+  m_PrefabInstance: {fileID: 1470710399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1470710401 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+  m_PrefabInstance: {fileID: 1470710399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1470710402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470710400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0621df9f1d0bd34ea9091fb98c38be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  billboardSprite: 1
+  SceneChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  spriteRenderer: {fileID: 1470710401}
+  exclaimDuration: 1
+  initialDirectionFacing: 0
+  _walkSpeed: 4
+  _runSpeed: 8
+  spriteGroupName: clown
+  loadableScenesString: Basic Testing,3,1;Door Testing ab,0,0;Pokemon Center,0,0
 --- !u!1 &1757527635
 GameObject:
   m_ObjectHideFlags: 0

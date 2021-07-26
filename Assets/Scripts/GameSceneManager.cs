@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FreeRoaming;
@@ -608,6 +609,208 @@ public static class GameSceneManager
     {
 
         LoadScene(sceneName, oldScene, playerSceneStartPosition);
+
+    }
+
+    #endregion
+
+    #region Scene Stacks
+
+    public struct SceneStack : IEnumerable<SceneStack.Element>
+    {
+
+        //Element regex pattern - [A-z]+,-?[0-9]+,-?[0-9]+
+        public static readonly Regex pattern = new Regex("^([A-z0-9 ]+,-?[0-9]+,-?[0-9]+;)*([A-z0-9 ]+,-?[0-9]+,-?[0-9]+)$");
+
+        public struct Element
+        {
+
+            public string sceneIdentifier;
+            public Vector2Int position;
+
+            public Element(string sceneIdentifier, Vector2Int position)
+            {
+                this.sceneIdentifier = sceneIdentifier;
+                this.position = position;
+            }
+
+            public static bool TryParse(string s, out Element r, out string errorMessage)
+            {
+
+                string sceneIdentifier;
+                Vector2Int position;
+
+                string[] parts = s.Split(',');
+
+                if (parts.Length != 3)
+                {
+                    errorMessage = "Wrong number of commas";
+                    r = default;
+                    return false;
+                }
+
+                //Scene Identifier
+                sceneIdentifier = parts[0];
+
+                //Position
+
+                if (!int.TryParse(parts[1], out int pos_x))
+                {
+                    errorMessage = "Invalid position x";
+                    r = default;
+                    return false;
+                }
+
+                if (!int.TryParse(parts[2], out int pos_y))
+                {
+                    errorMessage = "Invalid position y";
+                    r = default;
+                    return false;
+                }
+
+                position = new Vector2Int(pos_x, pos_y);
+
+                //Output
+
+                errorMessage = default;
+                r = new Element(sceneIdentifier, position);
+                return true;
+
+            }
+
+        }
+
+        /// <summary>
+        /// The elements of the scene stack. The final element is the scene that should be loaded last (on the top of the stack)
+        /// </summary>
+        public readonly Element[] elements;
+
+        public int Length => elements.Length;
+
+        public Element FinalElement
+        {
+            get
+            {
+
+                if (Length == 0)
+                    throw new Exception("Empty scene stack");
+
+                return elements[Length - 1];
+
+            }
+        }
+
+        public Element this[int index]
+        {
+            get
+            {
+                return elements[index];
+            }
+        }
+
+        public SceneStack(Element[] elements)
+        {
+            this.elements = elements;
+        }
+
+        public static bool TryParse(string s, out SceneStack r, out string errorMessage)
+        {
+
+            if (!pattern.IsMatch(s))
+            {
+                errorMessage = "Provided string isn't in correct format";
+                r = default;
+                return false;
+            }
+
+            string[] parts = s.Split(';');
+
+            List<Element> elements = new List<Element>();
+
+            foreach (string part in parts)
+            {
+
+                if (!Element.TryParse(part, out Element partElement, out string errMsg))
+                {
+                    errorMessage = "Error parsing part:\n" + errMsg;
+                    r = default;
+                    return false;
+                }
+                else
+                {
+                    elements.Add(partElement);
+                }
+
+            }
+
+            errorMessage = default;
+            r = new SceneStack(elements.ToArray());
+            return true;
+
+        }
+
+        public IEnumerator<Element> GetEnumerator()
+        {
+            return (IEnumerator<Element>)elements.GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return elements.GetEnumerator();
+        }
+
+    }
+
+    public static void LoadSceneStack(SceneStack sceneStack)
+    {
+
+        //Ensure sceneStack isn't empty
+
+        if (sceneStack.Length == 0)
+        {
+            Debug.LogError("Can't load empty scene stack");
+            return;
+        }
+
+        //Ensure not in sub-scene (battle/evolution/player menu)
+
+        if (battleScene != null)
+        {
+            Debug.LogError("Can't load scene stack whilst in battle scene");
+            return;
+        }
+
+        if (evolutionScene != null)
+        {
+            Debug.LogError("Can't load scene stack whilst in evolution scene");
+            return;
+        }
+
+        if (playerMenuScene != null)
+        {
+            Debug.LogError("Can't load scene stack whilst in player menu scene");
+            return;
+        }
+
+        //Clear record stack
+
+        sceneRecordStack.Clear();
+
+        //Set new record stack to scene stack elements except final element (hence ".Length - 1")
+
+        for (int i = 0; i < sceneStack.Length - 1; i++)
+        {
+
+            SceneStack.Element element = sceneStack[i];
+
+            sceneRecordStack.Push(new SceneRecord(element.sceneIdentifier, element.position));
+
+        }
+
+        //Load final scene in scene stack
+
+        OpenStartingScene(CurrentScene,
+            sceneStack.FinalElement.sceneIdentifier,
+            sceneStack.FinalElement.position);
 
     }
 
