@@ -221,8 +221,7 @@ namespace FreeRoaming
                 return;
             }
 
-            foreach (PokemonInstance pokemon in PlayerData.singleton.partyPokemon)
-                pokemon?.RestoreFully(); //Restore all pokemon in the player's party (any unset pokemon are ignored)
+            PlayerData.singleton.HealPartyPokemon();
 
             GameSceneManager.LoadSceneStack(respawnSceneStack);
 

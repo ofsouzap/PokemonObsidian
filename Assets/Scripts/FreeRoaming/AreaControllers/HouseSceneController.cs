@@ -19,6 +19,8 @@ namespace FreeRoaming.AreaControllers
 
         public Transform houseSpecificRoot;
 
+        public Vector2Int respawnPosition;
+
         protected override void Start()
         {
 
@@ -39,6 +41,8 @@ namespace FreeRoaming.AreaControllers
                 {
                     Debug.LogError("No house specific prefab set for id - " + HouseEntranceArguments.houseId);
                 }
+
+                HouseEntranceArguments.argumentsSet = false;
 
             }
 

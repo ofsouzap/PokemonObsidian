@@ -50,6 +50,12 @@ public class PlayerData
 
     public bool PartyIsFull { get => GetNumberOfPartyPokemon() == partyPokemon.Length; }
 
+    public void HealPartyPokemon()
+    {
+        foreach (PokemonInstance pokemon in partyPokemon)
+            pokemon?.RestoreFully(); //Restore all pokemon in the player's party (any unset pokemon are ignored)
+    }
+
     public void AddNewPartyPokemon(PokemonInstance pokemon)
     {
 

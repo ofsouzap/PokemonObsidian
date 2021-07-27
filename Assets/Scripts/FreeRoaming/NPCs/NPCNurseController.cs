@@ -48,8 +48,7 @@ namespace FreeRoaming.NPCs
 
                 case 0: //Yes
 
-                    foreach (PokemonInstance pokemon in PlayerData.singleton.partyPokemon)
-                        pokemon?.RestoreFully(); //Restore all pokemon in the player's party (any unset pokemon are ignored)
+                    PlayerData.singleton.HealPartyPokemon();
 
                     textBoxController.RevealText("Please wait here for a moment.");
                     yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
