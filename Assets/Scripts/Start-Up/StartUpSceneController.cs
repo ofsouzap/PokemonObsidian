@@ -8,8 +8,8 @@ namespace StartUp
     public class StartUpSceneController : MonoBehaviour
     {
 
-        [Tooltip("The scene to load once the data has been loaded")]
-        public string sceneToLoad;
+        [Tooltip("The scene stack string to load once the data has been loaded")]
+        public string startupSceneStack = "Basic Testing,0,0";
 
         public GameObject playerGameObject;
         public GameObject freeRoamMenuGameObject;
@@ -18,9 +18,6 @@ namespace StartUp
         /// Game objects to put in DontDestroyOnLoad
         /// </summary>
         public GameObject[] dontDestroyOnLoadGameObjects;
-
-        [Tooltip("The position to start the player in in the new scene")]
-        public Vector2Int playerSceneStartingPosition;
 
 #if UNITY_EDITOR
         public GameObject[] extrasToActivate;
@@ -72,8 +69,15 @@ namespace StartUp
                 freeRoamMenuGameObject.GetComponent<FreeRoaming.Menu.FreeRoamMenuController>().TrySetSingleton();
             }
 
-            //GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerGameObject, freeRoamMenuGameObject, playerSceneStartingPosition);
-            GameSceneManager.OpenStartingScene(gameObject.scene, sceneToLoad, playerSceneStartingPosition);
+            if (!GameSceneManager.SceneStack.TryParse(startupSceneStack, out GameSceneManager.SceneStack sceneStack, out string stackParseErrMsg))
+            {
+
+                Debug.LogError("Unable to parse provided scene stack:\n" + stackParseErrMsg);
+                return;
+
+            }
+
+            GameSceneManager.LoadSceneStack(sceneStack);
 
         }
 
