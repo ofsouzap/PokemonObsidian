@@ -23,6 +23,11 @@ namespace FreeRoaming.NPCs
         public string challengeMusicResourceName = "look1";
         public string battleMusicResourceName = "";
 
+        /// <summary>
+        /// Whether the NPC is currently challenging the player but hasn't yet started the battle
+        /// </summary>
+        private bool challengingPlayer = false;
+
         #region Battle Details
 
         [Serializable]
@@ -48,7 +53,16 @@ namespace FreeRoaming.NPCs
         public BattleDetails battleDetails;
 
         public bool CanBattlePlayer
-            => !PlayerData.singleton.GetNPCBattled(id);
+            => !PlayerData.singleton.GetNPCBattled(id) && !challengingPlayer;
+
+        protected override void Start()
+        {
+
+            base.Start();
+
+            challengingPlayer = false;
+
+        }
 
         protected override void Update()
         {
@@ -65,7 +79,7 @@ namespace FreeRoaming.NPCs
 
         public override void Interact(GameCharacterController interacter)
         {
-            if (interacter is PlayerController)
+            if (interacter is PlayerController && sceneController.SceneIsActive)
             {
 
                 usingAutomaticMovement = false;
@@ -107,9 +121,7 @@ namespace FreeRoaming.NPCs
         protected virtual void BattleChallengeUpdate()
         {
 
-            if (AllowedToAct)
-                if (PlayerInView)
-                    if (CanBattlePlayer)
+            if (AllowedToAct && PlayerInView && CanBattlePlayer)
                         TriggerBattle();
 
         }
@@ -117,7 +129,10 @@ namespace FreeRoaming.NPCs
         protected virtual void TriggerBattle()
         {
 
-            PlayerData.singleton.SetNPCBattled(id);
+            challengingPlayer = true;
+
+            //Add listener to set the NPC as battled if the player defeats them
+            BattleManager.OnBattleVictory.AddListener(() => PlayerData.singleton.SetNPCBattled(id));
 
             ignoreScenePaused = true;
             sceneController.SetSceneRunningState(false);
@@ -205,6 +220,8 @@ namespace FreeRoaming.NPCs
             sceneController.SetSceneRunningState(false);
 
             GameSceneManager.LaunchBattleScene();
+
+            challengingPlayer = false;
 
         }
 

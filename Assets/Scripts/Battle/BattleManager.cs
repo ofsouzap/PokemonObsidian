@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using FreeRoaming;
 using Pokemon;
@@ -41,6 +42,12 @@ namespace Battle
             }
 
         }
+
+        /// <summary>
+        /// Event that triggers when the player completes their battle. When a battle is ended, all listeners are cleared whether or not the player wins.
+        /// Event listeners should be added when a battle is just about to be launched (for example to mark a trainer NPC as battled if the player defeats them)
+        /// </summary>
+        public static UnityEvent OnBattleVictory = new UnityEvent();
 
         public BattleAnimationSequencer battleAnimationSequencer;
 
@@ -499,6 +506,8 @@ namespace Battle
             if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
             {
 
+                OnBattleVictory.RemoveAllListeners();
+
                 //If player lost (a draw counts as the player losing)
 
                 #region Out of Usable Pokemon Message
@@ -590,6 +599,9 @@ namespace Battle
                         }
 
                     }
+
+                    OnBattleVictory.Invoke();
+                    OnBattleVictory.RemoveAllListeners();
 
                 }
 
