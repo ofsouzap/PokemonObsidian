@@ -349,6 +349,8 @@ public class PlayerData
         public const int maximumMoney = 9999999;
         public int money = 0;
 
+        public List<int> defeatedGymIds = new List<int>();
+
     }
 
     public Profile profile = new Profile();
@@ -374,6 +376,16 @@ public class PlayerData
                 profile.money += amount;
 
         }
+
+    }
+
+    public void SetGymDefeated(int gymId)
+    {
+
+        if (!profile.defeatedGymIds.Contains(gymId))
+            profile.defeatedGymIds.Add(gymId);
+        else
+            Debug.LogWarning("Trying to record gym as battled when already recorded");
 
     }
 

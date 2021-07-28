@@ -133,8 +133,7 @@ namespace FreeRoaming.NPCs
 
             challengingPlayer = true;
 
-            //Add listener to set the NPC as battled if the player defeats them
-            BattleManager.OnBattleVictory.AddListener(() => PlayerData.singleton.SetNPCBattled(id));
+            SetOnVictoryListeners();
 
             ignoreScenePaused = true;
             sceneController.SetSceneRunningState(false);
@@ -142,6 +141,14 @@ namespace FreeRoaming.NPCs
             PlayerController.singleton.CancelMovement();
 
             StartCoroutine(StartBattleCoroutine());
+
+        }
+
+        protected virtual void SetOnVictoryListeners()
+        {
+
+            //NPC as battled if the player defeats them
+            BattleManager.OnBattleVictory.AddListener(() => PlayerData.singleton.SetNPCBattled(id));
 
         }
 
@@ -184,22 +191,28 @@ namespace FreeRoaming.NPCs
 
         }
 
-        protected virtual void SetBattleEntranceArguments()
-        {
-
-            string fullName = TrainerClass.classNamesPrefixes.ContainsKey(battleDetails.trainerClass) && TrainerClass.classNamesPrefixes[battleDetails.trainerClass] != ""
+        protected virtual string GetFullName()
+            => TrainerClass.classNamesPrefixes.ContainsKey(battleDetails.trainerClass) && TrainerClass.classNamesPrefixes[battleDetails.trainerClass] != ""
                 ? TrainerClass.classNamesPrefixes[battleDetails.trainerClass] + ' ' + battleDetails.baseName
                 : battleDetails.baseName;
-            byte basePayout = TrainerClass.classBasePayouts.ContainsKey(battleDetails.trainerClass)
+
+        protected virtual byte GetBasePayout()
+            => TrainerClass.classBasePayouts.ContainsKey(battleDetails.trainerClass)
                 ? TrainerClass.classBasePayouts[battleDetails.trainerClass]
                 : (byte)0;
+
+        protected virtual string GetBattleSpriteResourceName()
+            => TrainerClass.classBattleSpriteNames[battleDetails.trainerClass];
+
+        protected virtual void SetBattleEntranceArguments()
+        {
 
             BattleEntranceArguments.npcTrainerBattleArguments = new BattleEntranceArguments.NPCTrainerBattleArguments()
             {
                 opponentPokemon = battleDetails.pokemon.Select(x => x.Generate()).ToArray(),
-                opponentSpriteResourceName = TrainerClass.classBattleSpriteNames[battleDetails.trainerClass],
-                opponentFullName = fullName,
-                opponentBasePayout = basePayout,
+                opponentSpriteResourceName = GetBattleSpriteResourceName(),
+                opponentFullName = GetFullName(),
+                opponentBasePayout = GetBasePayout(),
                 opponentDefeatMessages = battleDetails.defeatMessages,
                 mode = battleDetails.mode
             };

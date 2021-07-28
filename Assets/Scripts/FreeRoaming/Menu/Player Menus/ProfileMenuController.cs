@@ -13,6 +13,8 @@ namespace FreeRoaming.Menu.PlayerMenus
         public Text textName;
         public Text textMoney;
 
+        public Text textBadgesList;
+
         protected override MenuSelectableController[] GetSelectables()
             => new MenuSelectableController[0];
 
@@ -26,6 +28,29 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             textName.text = PlayerData.singleton.profile.name;
             textMoney.text = PlayerData.currencySymbol + PlayerData.singleton.profile.money.ToString();
+
+            textBadgesList.text = GetBadgesListTextContent(PlayerData.singleton);
+
+        }
+
+        protected string GetBadgesListTextContent(PlayerData player = null)
+        {
+
+            if (player == null)
+                player = PlayerData.singleton;
+
+            string output = "";
+
+            foreach (int gymId in player.profile.defeatedGymIds)
+            {
+
+                Gym gym = Gym.registry.LinearSearch(gymId);
+
+                output = output + gym.badgeName + "\n";
+
+            }
+
+            return output;
 
         }
 

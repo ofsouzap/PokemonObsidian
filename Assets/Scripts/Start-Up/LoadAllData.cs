@@ -10,6 +10,7 @@ namespace StartUp
         public static void Load()
         {
 
+            Gym.TryLoadRegistry();
             Weather.CreateWeathers();
             PokemonSpeciesData.LoadData();
             PokemonMoveData.LoadData();
