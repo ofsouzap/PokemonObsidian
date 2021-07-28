@@ -24,15 +24,15 @@ namespace Battle
             //TODO - add more
         }
 
-        public static readonly Dictionary<Mode, Func<string, PokemonInstance[], byte, BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], byte, BattleParticipantNPC>>()
+        public static readonly Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>>()
         {
-            { Mode.RandomAttack, (n, pmon, bp) => new RandomAttack(n, pmon, bp) },
+            { Mode.RandomAttack, (n, pmon, bp, dmsgs) => new RandomAttack(n, pmon, bp, dmsgs) },
 #if UNITY_EDITOR
-            { Mode.Debug_UseRandomMedicineItem, (n, pmon, bp) => new RandomMedicineItem(n, pmon, bp) },
-            { Mode.Debug_UseRandomBattleItem, (n, pmon, bp) => new RandomBattleItem(n, pmon, bp) },
+            { Mode.Debug_UseRandomMedicineItem, (n, pmon, bp, dmsgs) => new RandomMedicineItem(n, pmon, bp, dmsgs) },
+            { Mode.Debug_UseRandomBattleItem, (n, pmon, bp, dmsgs) => new RandomBattleItem(n, pmon, bp, dmsgs) },
 #endif
-            { Mode.BasicTrainer, (n, pmon, bp) => new BasicTrainer(n, pmon, bp) },
-            { Mode.WildPokemon, (n, pmon, bp) => new WildPokemon(n, pmon, bp) }
+            { Mode.BasicTrainer, (n, pmon, bp, dmsgs) => new BasicTrainer(n, pmon, bp, dmsgs) },
+            { Mode.WildPokemon, (n, pmon, bp, dmsgs) => new WildPokemon(n, pmon, bp, dmsgs) }
         };
 
         #endregion
@@ -44,6 +44,11 @@ namespace Battle
         public override PokemonInstance[] GetPokemon() => pokemon;
 
         public byte basePayout { get; protected set; }
+
+        /// <summary>
+        /// Any messages the NPC should say if the player wins
+        /// </summary>
+        public string[] defeatMessages { get; protected set; }
 
         public override bool CheckIfDefeated()
         {

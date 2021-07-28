@@ -50,6 +50,11 @@ namespace Battle
             public byte opponentBasePayout;
 
             /// <summary>
+            /// Any messages that the opponent should say if the player wins
+            /// </summary>
+            public string[] opponentDefeatMessages;
+
+            /// <summary>
             /// The "full" name of the opponent. This is used for announcing the battle opponent and their defeat. This could be a title with a name (eg. "Gym Leader Brock") or just a name (eg. "Ash")
             /// </summary>
             public string opponentFullName;

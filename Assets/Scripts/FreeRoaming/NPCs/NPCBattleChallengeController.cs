@@ -46,6 +46,8 @@ namespace FreeRoaming.NPCs
 
             public string battleBackgroundResourceName;
 
+            public string[] defeatMessages;
+
         }
 
         #endregion
@@ -198,6 +200,7 @@ namespace FreeRoaming.NPCs
                 opponentSpriteResourceName = TrainerClass.classBattleSpriteNames[battleDetails.trainerClass],
                 opponentFullName = fullName,
                 opponentBasePayout = basePayout,
+                opponentDefeatMessages = battleDetails.defeatMessages,
                 mode = battleDetails.mode
             };
 

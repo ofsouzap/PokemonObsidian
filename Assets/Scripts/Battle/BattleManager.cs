@@ -128,7 +128,8 @@ namespace Battle
                         new PokemonInstance[] {
                             BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance
                         },
-                        0
+                        0,
+                        new string[0]
                     );
 
                     break;
@@ -138,7 +139,8 @@ namespace Battle
                     participantOpponent = BattleParticipantNPC.modeInitialisers[BattleEntranceArguments.npcTrainerBattleArguments.mode](
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName,
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon,
-                        BattleEntranceArguments.npcTrainerBattleArguments.opponentBasePayout
+                        BattleEntranceArguments.npcTrainerBattleArguments.opponentBasePayout,
+                        BattleEntranceArguments.npcTrainerBattleArguments.opponentDefeatMessages
                     );
 
                     break;
@@ -158,7 +160,8 @@ namespace Battle
                                 1
                             )
                         },
-                        0
+                        0,
+                        new string[0]
                     );
 
                     break;
@@ -574,6 +577,42 @@ namespace Battle
                     else if (battleData.participantOpponent is BattleParticipantNPC opponentNPCParticipant)
                     {
 
+                        //Opponent defeat messages
+                        if (opponentNPCParticipant.defeatMessages.Length > 0)
+                        {
+
+                            Sprite opponentTrainerBattleSprite = SpriteStorage.GetCharacterBattleSprite(
+                                BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName
+                            );
+
+                            //Sprite showcase start
+                            if (opponentTrainerBattleSprite != null)
+                            {
+                                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                                {
+                                    type = BattleAnimationSequencer.Animation.Type.OpponentTrainerShowcaseStart,
+                                    opponentTrainerShowcaseSprite = opponentTrainerBattleSprite
+                                });
+                            }
+
+                            //Messages
+                            foreach (string message in opponentNPCParticipant.defeatMessages)
+                                battleAnimationSequencer.EnqueueSingleText(message, true);
+
+                            //Sprite showcase end
+                            if (opponentTrainerBattleSprite != null)
+                            {
+                                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                                {
+                                    type = BattleAnimationSequencer.Animation.Type.OpponentTrainerShowcaseStop
+                                });
+                            }
+
+                            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                        }
+
+                        //Payout
                         if (opponentNPCParticipant.basePayout > 0)
                         {
 

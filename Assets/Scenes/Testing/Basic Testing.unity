@@ -757,6 +757,14 @@ PrefabInstance:
       value: blackbelt
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.defeatMessages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.victoryMessages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].level
       value: 60
       objectReference: {fileID: 0}
@@ -769,8 +777,20 @@ PrefabInstance:
       value: indoor
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.defeatMessages.Array.data[0]
+      value: I didn't think anyone could beat me
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.defeatMessages.Array.data[1]
+      value: You have surprised me
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].gender
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: battleDetails.victoryMessages.Array.data[0]
+      value: No one can beat me
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].nickname

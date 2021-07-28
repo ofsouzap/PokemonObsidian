@@ -18,7 +18,8 @@ namespace Battle.NPCBattleParticipantModes
 
         public WildPokemon(string name,
             PokemonInstance[] pokemon,
-            byte basePayout)
+            byte basePayout,
+            string[] defeatMessages)
         {
 
             if (pokemon.Length > 1)
@@ -27,6 +28,7 @@ namespace Battle.NPCBattleParticipantModes
             npcName = name;
             this.pokemon = pokemon;
             this.basePayout = basePayout;
+            this.defeatMessages = defeatMessages;
 
         }
 
