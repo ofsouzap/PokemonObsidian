@@ -171,6 +171,11 @@ namespace FreeRoaming.NPCs
 
         }
 
+        protected virtual string GetBattleMusicName()
+            => battleMusicResourceName == "" || battleMusicResourceName == null
+                ? BattleEntranceArguments.defaultTrainerBattleMusicName
+                : battleMusicResourceName;
+
         protected virtual IEnumerator OnChallengeArriveAtPlayer()
         {
 
@@ -182,10 +187,7 @@ namespace FreeRoaming.NPCs
 
             textBoxController.Hide();
 
-            string musicName = battleMusicResourceName == "" || battleMusicResourceName == null
-                ? BattleEntranceArguments.defaultTrainerBattleMusicName
-                : battleMusicResourceName;
-            MusicSourceController.singleton.SetTrack(musicName, true);
+            MusicSourceController.singleton.SetTrack(GetBattleMusicName(), true);
 
             LaunchBattle();
 

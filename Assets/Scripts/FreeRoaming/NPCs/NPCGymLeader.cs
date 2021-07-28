@@ -6,7 +6,14 @@ namespace FreeRoaming.NPCs
     public class NPCGymLeader : NPCBattleChallengeController
     {
 
+        public const string gymBattleMusicResourcesPath = "battle_gym";
+
+        public bool useDefaultGymBattleMusic = true;
+
         public int gymId;
+
+        protected override string GetBattleMusicName()
+            => useDefaultGymBattleMusic ? gymBattleMusicResourcesPath : base.GetBattleMusicName();
 
         //Override to not look to challenge player if they are in view range
         protected override void BattleChallengeUpdate() { }
