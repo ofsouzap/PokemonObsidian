@@ -31,15 +31,24 @@ namespace FreeRoaming
 
         #region Encounter Chance Multiplier
 
+        /// <summary>
+        /// A multiplier for the player's wild encounter chance used only for cheats
+        /// </summary>
+        private float wildEncounterCheatMultiplier = 1;
+
+        public void SetWildEncounterCheatMultiplier(float value)
+            => wildEncounterCheatMultiplier = value;
+
         public const float runningEncounterChanceMultiplier = 2;
 
         protected float CurrentEncounterChanceMultiplier
-            => currentMovementType switch
+            => (currentMovementType switch
             {
                 MovementType.Walk => 1,
                 MovementType.Run => runningEncounterChanceMultiplier,
                 _ => 1
-            };
+            })
+            * wildEncounterCheatMultiplier;
 
         #endregion
 
@@ -64,6 +73,8 @@ namespace FreeRoaming
             base.Start();
 
             respawnSceneStackSet = false;
+
+            wildEncounterCheatMultiplier = 1;
 
             TrySetSingleton();
 

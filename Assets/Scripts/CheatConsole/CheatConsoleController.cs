@@ -113,7 +113,7 @@ namespace CheatConsole
 
         protected void SetInputAsSelectedObject() => EventSystem.current.SetSelectedGameObject(commandInputField.gameObject);
 
-        protected void RefreshVisibility()
+        protected virtual void RefreshVisibility()
         {
             if (consoleActive)
                 Show();
