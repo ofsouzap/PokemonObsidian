@@ -96,9 +96,10 @@ namespace Audio
         }
 
         public void SetTrack(string resourceName,
-            bool hasStartingClip = false,
             bool fadeTracks = true)
         {
+
+            bool hasStartingClip = AudioStorage.GetMusicClip(resourceName, true) != null;
 
             ResetSourceSettings();
 
@@ -133,7 +134,7 @@ namespace Audio
 
         private IEnumerator FadeTracks(string resourceName,
             float totalFadeTime,
-            bool hasStartingClip = false)
+            bool hasStartingClip)
         {
 
             float singleFadeTime = totalFadeTime / 2;

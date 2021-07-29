@@ -18,8 +18,6 @@ namespace FreeRoaming
         [Tooltip("The name of the audio music track to use for the area (should be stored in Resources/Audio/Music). If blank, won't be used")]
         private string musicTrackName = "";
 
-        public bool hasStartingClip = true;
-
         public void OnTriggerEnter2D(Collider2D collision)
         {
 
@@ -49,7 +47,6 @@ namespace FreeRoaming
 
             if (musicTrackName != null && musicTrackName != "")
                 MusicSourceController.singleton.SetTrack(musicTrackName,
-                        hasStartingClip: hasStartingClip,
                         fadeTracks: true);
 
         }
