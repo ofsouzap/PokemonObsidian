@@ -401,6 +401,8 @@ public static class GameSceneManager
 
                 CloseBattleScene_Variables();
 
+                PlayerGameObject.GetComponent<PlayerController>().PlaySceneAreaMusic();
+
                 StartFadeIn();
 
             };

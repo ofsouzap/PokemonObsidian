@@ -74,6 +74,8 @@ namespace FreeRoaming
 
             respawnSceneStackSet = false;
 
+            currentSceneArea = null;
+
             wildEncounterCheatMultiplier = 1;
 
             TrySetSingleton();
@@ -280,6 +282,19 @@ namespace FreeRoaming
 
             GameSceneManager.LaunchBattleScene();
 
+        }
+
+        #endregion
+
+        #region Current Scene Area
+
+        public SceneAreaController currentSceneArea = null;
+
+        public void SetCurrentSceneArea(SceneAreaController sceneArea) => currentSceneArea = sceneArea;
+
+        public void PlaySceneAreaMusic()
+        {
+            currentSceneArea.TryPlayAreaMusic();
         }
 
         #endregion
