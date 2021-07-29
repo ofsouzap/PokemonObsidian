@@ -124,7 +124,7 @@ namespace Battle
                     break;
 
                 case Animation.Type.PokeBallUse:
-                    yield return StartCoroutine(battleLayoutController.PokeBallUse(animation.pokeBallUsePokeBall, animation.pokeBallUseWobbleCount));
+                    yield return StartCoroutine(battleLayoutController.PokeBallUse(animation.pokeBallUsePokeBall, animation.pokeBallUseWobbleCount, animation.speciesId));
                     break;
 
             }

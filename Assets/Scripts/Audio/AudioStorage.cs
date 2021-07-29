@@ -23,6 +23,9 @@ namespace Audio
 
         private const string musicResourcesDirectory = "Audio/Music";
         private const string fxResourcesDirectory = "Audio/FX";
+        private const string criesResourcesDirectory = "Audio/Cries";
+
+        public const string pokemonCryFXPrefix = "pokemon_cry_";
 
         private static void LoadAll()
         {
@@ -42,6 +45,18 @@ namespace Audio
                     Debug.LogError("Duplicate fx clip name - " + clip.name);
                 else
                     fxClips.Add(clip.name, clip);
+
+            foreach (AudioClip clip in Resources.LoadAll<AudioClip>(criesResourcesDirectory))
+            {
+
+                string clipEntryName = pokemonCryFXPrefix + clip.name;
+
+                if (fxClips.ContainsKey(clipEntryName))
+                    Debug.LogError("Duplicate fx clip name - " + clipEntryName);
+                else
+                    fxClips.Add(clipEntryName, clip);
+
+            }
 
             audioLoaded = true;
 
@@ -72,6 +87,13 @@ namespace Audio
                 return fxClips[name];
             else
                 return null;
+        }
+
+        public static string GetPokemonCryClipName(int speciesId)
+        {
+
+            return pokemonCryFXPrefix + speciesId.ToString();
+
         }
 
         #endregion

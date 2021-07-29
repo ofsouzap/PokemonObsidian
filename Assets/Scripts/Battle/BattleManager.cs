@@ -2158,7 +2158,8 @@ namespace Battle
             {
                 type = BattleAnimationSequencer.Animation.Type.PokeBallUse,
                 pokeBallUsePokeBall = pokeBall,
-                pokeBallUseWobbleCount = wobbleCount
+                pokeBallUseWobbleCount = wobbleCount,
+                speciesId = targetPokemon.speciesId
             });
 
             if (shakeResults.All(x => x))

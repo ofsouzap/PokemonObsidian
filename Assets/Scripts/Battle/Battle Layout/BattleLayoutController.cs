@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Pokemon;
 using Items.PokeBalls;
+using Audio;
 
 namespace Battle.BattleLayout
 {
@@ -583,6 +584,7 @@ namespace Battle.BattleLayout
         {
             overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(pokemon);
             yield return StartCoroutine(SendInWildPokemon(pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1), opponentPokemonSprite, opponentPokemonSpriteRootX, pokemonSpriteOffScreenRightLocalPositionX));
+            SoundFXController.singleton.PlayPokemonCry(pokemon.speciesId);
             yield return StartCoroutine(AnimateOpponentPokemonEntrance(
                 opponentPokemonSprite.GetComponent<SpriteRenderer>(),
                 pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
@@ -618,10 +620,13 @@ namespace Battle.BattleLayout
         private IEnumerator AnimatePokemonEmerge(GameObject spriteObject,
             float initialSize,
             float targetSize,
-            float timeToTake)
+            float timeToTake,
+            int speciesId)
         {
 
             spriteObject.SetActive(true);
+
+            SoundFXController.singleton.PlayPokemonCry(speciesId);
 
             spriteObject.transform.localScale = Vector2.one * initialSize;
             yield return StartCoroutine(GradualChangeScale(spriteObject,
@@ -654,7 +659,8 @@ namespace Battle.BattleLayout
             yield return StartCoroutine(AnimatePokemonEmerge(playerPokemonSprite,
                 0,
                 playerPokemonSprite.transform.localScale.x,
-                pokemonEmergeTime));
+                pokemonEmergeTime,
+                pokemon.speciesId));
 
             playerPokeBallSprite.SetActive(false);
 
@@ -686,7 +692,8 @@ namespace Battle.BattleLayout
             yield return StartCoroutine(AnimatePokemonEmerge(opponentPokemonSprite,
                 0,
                 opponentPokemonSprite.transform.localScale.x,
-                pokemonEmergeTime));
+                pokemonEmergeTime,
+                pokemon.speciesId));
 
             opponentPokeBallSprite.SetActive(false);
 
@@ -1253,7 +1260,8 @@ namespace Battle.BattleLayout
         private IEnumerator PokeBallWobbling(GameObject pokeBallObject,
             byte wobbleCount,
             PokeBall pokeBall,
-            GameObject targetPokemonObject)
+            GameObject targetPokemonObject,
+            int speciesId)
         {
 
             byte wobbles = wobbleCount < PokeBall.shakeTrialsRequired ? wobbleCount : (byte)(PokeBall.shakeTrialsRequired - 1);
@@ -1284,7 +1292,7 @@ namespace Battle.BattleLayout
                 pokeBallObject.GetComponent<SpriteRenderer>().sprite = pokeBall.GetSprite(PokeBall.SpriteType.Open);
 
                 //Same as when trainer pokemon emerges
-                yield return StartCoroutine(AnimatePokemonEmerge(targetPokemonObject, 0, targetPokemonObject.transform.localScale.x, pokemonEmergeTime));
+                yield return StartCoroutine(AnimatePokemonEmerge(targetPokemonObject, 0, targetPokemonObject.transform.localScale.x, pokemonEmergeTime, speciesId));
 
             }
 
@@ -1296,7 +1304,7 @@ namespace Battle.BattleLayout
         /// Animation for the player throwing a poke ball and the poke ball wobbling, opening or staying caught
         /// </summary>
         /// <param name="wobbleCount">Below PokeBall.shakeTrialsRequired, this is the number of times the poke ball should wobble. If it is greater than PokeBall.shakeTrialsRequired, it means the pokemon should be caught</param>
-        public IEnumerator PokeBallUse(PokeBall pokeBall, byte wobbleCount)
+        public IEnumerator PokeBallUse(PokeBall pokeBall, byte wobbleCount, int speciesId)
         {
 
             pokeBallThrowGameObject.SetActive(true);
@@ -1311,7 +1319,8 @@ namespace Battle.BattleLayout
             yield return StartCoroutine(PokeBallWobbling(pokeBallThrowGameObject,
                 wobbleCount,
                 pokeBall,
-                opponentPokemonSprite));
+                opponentPokemonSprite,
+                speciesId));
 
             if (wobbleCount < PokeBall.shakeTrialsRequired)
             {

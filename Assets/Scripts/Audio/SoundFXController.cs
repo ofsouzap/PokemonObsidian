@@ -29,6 +29,10 @@ namespace Audio
 
         }
 
+        public void PlayPokemonCry(int speciesId,
+            Action playCompleteAction = null)
+            => PlaySound(AudioStorage.GetPokemonCryClipName(speciesId), playCompleteAction);
+
         public void PlaySound(string resourceName,
             Action playCompleteAction = null)
         {

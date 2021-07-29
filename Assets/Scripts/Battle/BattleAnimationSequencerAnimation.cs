@@ -98,6 +98,7 @@ namespace Battle
 
             public Items.PokeBalls.PokeBall pokeBallUsePokeBall;
             public byte pokeBallUseWobbleCount;
+            public int speciesId;
 
             #endregion
 
