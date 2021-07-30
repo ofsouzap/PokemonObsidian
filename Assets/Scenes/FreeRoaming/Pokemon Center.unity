@@ -652,6 +652,10 @@ PrefabInstance:
       value: Pokemon Center
       objectReference: {fileID: 0}
     - target: {fileID: 3338434255774705253, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
+      propertyPath: nameSignType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3338434255774705253, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
       propertyPath: musicTrackName
       value: pokemon_center
       objectReference: {fileID: 0}

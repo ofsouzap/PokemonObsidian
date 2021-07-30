@@ -1744,88 +1744,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 1}
   m_EdgeRadius: 0
---- !u!1001 &1632184485
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2074274419}
-    m_Modifications:
-    - target: {fileID: 3338413089916461845, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_Name
-      value: Research Lab Trigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3338434255774705253, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: areaName
-      value: Research Lab
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713650495297412521, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_Size.x
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713650495297412521, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_Size.y
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713650495297412521, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713650495297412521, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-      propertyPath: m_Offset.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
---- !u!4 &1632184486 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3338413089916461846, guid: 38730597fcd9a404e96223582cdd0cdb, type: 3}
-  m_PrefabInstance: {fileID: 1632184485}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1703414281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2419,8 +2337,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1632184486}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

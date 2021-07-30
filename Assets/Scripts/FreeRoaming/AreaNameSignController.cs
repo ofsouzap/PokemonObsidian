@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,10 +12,36 @@ namespace FreeRoaming
     public class AreaNameSignController : MonoBehaviour
     {
 
+        public enum SignBackground
+        {
+            Indoor,
+            City,
+            Town,
+            Field,
+            Meadow,
+            Cave,
+            Forest,
+            Sea,
+            Lake
+        }
+
+        public const SignBackground defaultAreaNameBackground = SignBackground.Forest;
+
+        private static readonly Dictionary<SignBackground, string> signBackgroundTypeNames = new Dictionary<SignBackground, string>()
+        {
+            { SignBackground.Indoor, "indoor" },
+            { SignBackground.City, "city" },
+            { SignBackground.Town, "town" },
+            { SignBackground.Field, "field" },
+            { SignBackground.Meadow, "meadow" },
+            { SignBackground.Cave, "cave" },
+            { SignBackground.Forest, "forest" },
+            { SignBackground.Sea, "sea" },
+            { SignBackground.Lake, "lake" },
+        };
+
         private const string areaNameSignSpriteSheetResourcesPath = "Sprites/sprite_sheet_area_name_signs";
         private const string areaNameSignSpriteNamePrefix = "area_name_sign_";
-
-        private const string defaultAreaNameSpriteTypeName = "forest";
 
         public static AreaNameSignController GetAreaNameSignController(Scene scene)
         {
@@ -61,6 +88,9 @@ namespace FreeRoaming
 
         }
 
+        private static Sprite LoadAreaNameSignSprite(SignBackground background)
+            => LoadAreaNameSignSprite(signBackgroundTypeNames[background]);
+
         private static Sprite LoadAreaNameSignSprite(string typeName)
         {
 
@@ -76,15 +106,14 @@ namespace FreeRoaming
 
         }
 
-        public void DisplayAreaName(string name)
+        public void DisplayAreaName(string name,
+            SignBackground background)
         {
-
-            //TODO - allow for specifying a specific area name sign sprite instead of using a default one
 
             if (showSignCoroutine != null)
                 StopCoroutine(showSignCoroutine);
 
-            showSignCoroutine = StartCoroutine(ShowAreaNameSignCoroutine(name, LoadAreaNameSignSprite(defaultAreaNameSpriteTypeName)));
+            showSignCoroutine = StartCoroutine(ShowAreaNameSignCoroutine(name, LoadAreaNameSignSprite(background)));
 
         }
 

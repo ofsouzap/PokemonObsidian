@@ -14,6 +14,9 @@ namespace FreeRoaming
         [Tooltip("The area's name to display to the player. If blank, won't be used")]
         public string areaName = "";
 
+        [Tooltip("The background to use for the area's name sign")]
+        public AreaNameSignController.SignBackground nameSignType = AreaNameSignController.defaultAreaNameBackground;
+
         [SerializeField]
         [Tooltip("The name of the audio music track to use for the area (should be stored in Resources/Audio/Music). If blank, won't be used")]
         private string musicTrackName = "";
@@ -55,7 +58,7 @@ namespace FreeRoaming
         {
 
             if (areaName != null && areaName != "")
-                AreaNameSignController.GetAreaNameSignController(gameObject.scene).DisplayAreaName(areaName);
+                AreaNameSignController.GetAreaNameSignController(gameObject.scene).DisplayAreaName(areaName, nameSignType);
 
         }
 
