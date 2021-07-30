@@ -1,5 +1,6 @@
 using Pokemon;
 using Items;
+using FreeRoaming;
 using FreeRoaming.PokeMart;
 
 namespace StartUp
@@ -10,6 +11,7 @@ namespace StartUp
         public static void Load()
         {
 
+            SceneArea.TryLoadRegistry();
             Gym.TryLoadRegistry();
             Weather.CreateWeathers();
             PokemonSpeciesData.LoadData();

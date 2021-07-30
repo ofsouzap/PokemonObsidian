@@ -11,15 +11,19 @@ namespace FreeRoaming
     public class SceneAreaController : MonoBehaviour
     {
 
-        [Tooltip("The area's name to display to the player. If blank, won't be used")]
-        public string areaName = "";
+        private SceneArea? area;
 
-        [Tooltip("The background to use for the area's name sign")]
-        public AreaNameSignController.SignBackground nameSignType = AreaNameSignController.defaultAreaNameBackground;
+        public int id = 0;
 
-        [SerializeField]
-        [Tooltip("The name of the audio music track to use for the area (should be stored in Resources/Audio/Music). If blank, won't be used")]
-        private string musicTrackName = "";
+        private void Start()
+        {
+
+            if (id != 0)
+                area = SceneArea.registry.LinearSearch(id);
+            else
+                area = null;
+
+        }
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
@@ -28,37 +32,28 @@ namespace FreeRoaming
             if (collision.GetComponent<PlayerController>() != null)
             {
 
-                SetAsPlayerCurrentSceneArea();
+                if (area != null)
+                {
 
-                TryPlayAreaMusic();
-                
-                TryDisplayAreaNameSign();
+                    if (TrySetAsPlayerCurrentSceneArea())
+                    {
+
+                        area?.TryPlayAreaMusic();
+
+                        area?.TryDisplayAreaNameSign(gameObject.scene);
+
+                    }
+
+                }
 
             }
 
         }
 
-        private void SetAsPlayerCurrentSceneArea()
+        private bool TrySetAsPlayerCurrentSceneArea()
         {
 
-            PlayerController.singleton.SetCurrentSceneArea(this);
-
-        }
-
-        public void TryPlayAreaMusic()
-        {
-
-            if (musicTrackName != null && musicTrackName != "")
-                MusicSourceController.singleton.SetTrack(musicTrackName,
-                        fadeTracks: true);
-
-        }
-
-        public void TryDisplayAreaNameSign()
-        {
-
-            if (areaName != null && areaName != "")
-                AreaNameSignController.GetAreaNameSignController(gameObject.scene).DisplayAreaName(areaName, nameSignType);
+            return PlayerController.singleton.TrySetCurrentSceneArea((SceneArea)area);
 
         }
 

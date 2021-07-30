@@ -288,13 +288,24 @@ namespace FreeRoaming
 
         #region Current Scene Area
 
-        public SceneAreaController currentSceneArea = null;
+        public SceneArea? currentSceneArea = null;
 
-        public void SetCurrentSceneArea(SceneAreaController sceneArea) => currentSceneArea = sceneArea;
+        public bool TrySetCurrentSceneArea(SceneArea sceneArea)
+        {
+
+            if (currentSceneArea != null && ((SceneArea)currentSceneArea).id == sceneArea.id)
+                return false;
+            else
+            {
+                currentSceneArea = sceneArea;
+                return true;
+            }
+
+        }
 
         public void PlaySceneAreaMusic()
         {
-            currentSceneArea.TryPlayAreaMusic();
+            currentSceneArea?.TryPlayAreaMusic();
         }
 
         #endregion

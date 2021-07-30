@@ -40,6 +40,24 @@ namespace FreeRoaming
             { SignBackground.Lake, "lake" },
         };
 
+        public static bool TryParseSignBackground(string s,
+            out SignBackground r)
+        {
+
+            foreach (SignBackground background in signBackgroundTypeNames.Keys)
+            {
+                if (signBackgroundTypeNames[background] == s.ToLower())
+                {
+                    r = background;
+                    return true;
+                }
+            }
+
+            r = default;
+            return false;
+
+        }
+
         private const string areaNameSignSpriteSheetResourcesPath = "Sprites/sprite_sheet_area_name_signs";
         private const string areaNameSignSpriteNamePrefix = "area_name_sign_";
 
