@@ -52,6 +52,17 @@ namespace FreeRoaming
 
         #endregion
 
+        #region Trainer Encounters Enabled (Cheat)
+
+        protected bool trainerEncounterCheatEnabled = true;
+
+        public void SetTrainerEncounterCheatEnabled(bool state)
+            => trainerEncounterCheatEnabled = state;
+
+        public bool GetTrainerEncountersCheatEnabled() => trainerEncounterCheatEnabled;
+
+        #endregion
+
         public void TrySetSingleton()
         {
 

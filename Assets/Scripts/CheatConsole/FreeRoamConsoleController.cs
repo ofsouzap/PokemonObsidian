@@ -40,6 +40,20 @@ namespace CheatConsole
             },
 
             {
+               new Regex("^trainerencounter (?<value>enable|disable)$"),
+               (m) =>
+               {
+
+                   bool state = m.Groups["value"].Value == "enable";
+
+                   PlayerController.singleton.SetTrainerEncounterCheatEnabled(state);
+
+                   return (state ? "Enabled" : "Disabled") + " trainer encounters";
+
+               }
+            },
+
+            {
                new Regex("^fullheal"),
                (m) =>
                {

@@ -123,8 +123,8 @@ namespace FreeRoaming.NPCs
         protected virtual void BattleChallengeUpdate()
         {
 
-            if (AllowedToAct && PlayerInView && CanBattlePlayer)
-                        TriggerBattle();
+            if (AllowedToAct && PlayerInView && CanBattlePlayer && PlayerController.singleton.GetTrainerEncountersCheatEnabled())
+                TriggerBattle();
 
         }
 
