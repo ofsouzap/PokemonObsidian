@@ -207,12 +207,12 @@ namespace Pokemon
             if (pointsToAddTotal + TotalEffortValue > maximumEffortValueTotal)
                 return;
 
-            effortValues.attack = maximumEffortValue - pointsToAdd.attack >= effortValues.attack ? pointsToAdd.attack : maximumEffortValue;
-            effortValues.defense = maximumEffortValue - pointsToAdd.defense >= effortValues.defense ? pointsToAdd.defense : maximumEffortValue;
-            effortValues.specialAttack = maximumEffortValue - pointsToAdd.specialAttack >= effortValues.specialAttack ? pointsToAdd.specialAttack : maximumEffortValue;
-            effortValues.specialDefense = maximumEffortValue - pointsToAdd.specialDefense >= effortValues.specialDefense ? pointsToAdd.specialDefense : maximumEffortValue;
-            effortValues.speed = maximumEffortValue - pointsToAdd.speed >= effortValues.speed ? pointsToAdd.speed : maximumEffortValue;
-            effortValues.health = maximumEffortValue - pointsToAdd.health >= effortValues.health ? pointsToAdd.health : maximumEffortValue;
+            effortValues.attack = maximumEffortValue - pointsToAdd.attack >= effortValues.attack ? (byte)(effortValues.attack + pointsToAdd.attack) : maximumEffortValue;
+            effortValues.defense = maximumEffortValue - pointsToAdd.defense >= effortValues.defense ? (byte)(effortValues.defense + pointsToAdd.defense) : maximumEffortValue;
+            effortValues.specialAttack = maximumEffortValue - pointsToAdd.specialAttack >= effortValues.specialAttack ? (byte)(effortValues.specialAttack + pointsToAdd.specialAttack) : maximumEffortValue;
+            effortValues.specialDefense = maximumEffortValue - pointsToAdd.specialDefense >= effortValues.specialDefense ? (byte)(effortValues.specialDefense + pointsToAdd.specialDefense) : maximumEffortValue;
+            effortValues.speed = maximumEffortValue - pointsToAdd.speed >= effortValues.speed ? (byte)(effortValues.speed + pointsToAdd.speed) : maximumEffortValue;
+            effortValues.health = maximumEffortValue - pointsToAdd.health >= effortValues.health ? (byte)(effortValues.health + pointsToAdd.health) : maximumEffortValue;
 
         }
 
