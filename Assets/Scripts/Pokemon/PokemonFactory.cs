@@ -103,7 +103,9 @@ namespace Pokemon
         public static PokemonInstance GenerateWild(
             int[] possibleSpeciesIds,
             byte minLevel,
-            byte maxLevel
+            byte maxLevel,
+            string originalTrainerName = "",
+            long catchTime = 0
             )
         {
 
@@ -155,7 +157,10 @@ namespace Pokemon
                 experience: experience,
                 nonVolatileStatusCondition: PokemonInstance.NonVolatileStatusCondition.None,
                 battleProperties: null,
-                gender: gender
+                gender: gender,
+
+                originalTrainerName: originalTrainerName,
+                catchTime: catchTime
                 );
 
         }

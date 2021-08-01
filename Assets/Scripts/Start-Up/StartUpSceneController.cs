@@ -54,15 +54,16 @@ namespace StartUp
 
 #if DEBUG_USE_DEFAULT_PLAYER_CHOICES
 
+            //Name
+            PlayerData.singleton.profile.name = "Debug User";
+
             //Sprite
             PlayerData.singleton.profile.spriteId = 0;
 
             //Party Pokemon (optionally box pokemon too)
+            //Pokemon must be set after profile details so that OT details can be set
             if (playerPartyPokemonSetUpGameObject != null)
                 playerPartyPokemonSetUpGameObject.SetActive(true);
-
-            //Name
-            PlayerData.singleton.profile.name = "Debug User";
 
 #else
 
@@ -146,7 +147,7 @@ namespace StartUp
 
             yield return StartCoroutine(ChoosePlayerData_Name());
             yield return StartCoroutine(ChoosePlayerData_Sprite());
-            yield return StartCoroutine(ChoosePlayerData_StarterPokemon());
+            yield return StartCoroutine(ChoosePlayerData_StarterPokemon()); //Pokemon must be set after profile details so that OT details can be set
 
         }
 

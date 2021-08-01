@@ -19,7 +19,9 @@ namespace StartUp.ChoosePlayerData.ChoosePlayerStarterPokemon
             PokemonInstance starterPokemon = PokemonFactory.GenerateWild(
                 new int[] { value },
                 starterPokemonInitialLevel,
-                starterPokemonInitialLevel);
+                starterPokemonInitialLevel,
+                originalTrainerName: PlayerData.singleton.profile.name,
+                catchTime: PokemonInstance.GetCurrentEpochTime());
 
             //Adds the starter pokemon
             PlayerData.singleton.AddNewPartyPokemon(starterPokemon);
