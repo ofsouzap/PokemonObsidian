@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define DEBUG_USE_DEFAULT_PLAYER_CHOICES
+
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -48,7 +50,16 @@ namespace StartUp
             //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
             //TODO - also, use loaded player data to choose player sprite (male or female)
 
+#if DEBUG_USE_DEFAULT_PLAYER_CHOICES
+
+            //Sprite
+            PlayerData.singleton.profile.spriteId = 0;
+
+#else
+
             yield return StartCoroutine(ChoosePlayerData());
+
+#endif
 
 #if UNITY_EDITOR
             foreach (GameObject go in extrasToActivate)
@@ -58,6 +69,8 @@ namespace StartUp
             ShowFreeRoamMenu();
 
             LaunchGame();
+
+            yield break;
 
         }
 
