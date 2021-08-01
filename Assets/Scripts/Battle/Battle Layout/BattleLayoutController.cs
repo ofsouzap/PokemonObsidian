@@ -970,11 +970,13 @@ namespace Battle.BattleLayout
             if (particleSystemObject.GetComponent<ParticleSystem>() == null)
                 throw new ArgumentException("particleSystemObject has no particle system");
 
-            if (particleSprite == null)
-                yield break;
+            if (particleSprite != null)
+            {
 
-            particleSystemObject.GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, particleSprite);
-            particleSystemObject.GetComponent<ParticleSystem>().Play();
+                particleSystemObject.GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, particleSprite);
+                particleSystemObject.GetComponent<ParticleSystem>().Play();
+
+            }
 
             #endregion
 
@@ -991,6 +993,8 @@ namespace Battle.BattleLayout
             SoundFXController.singleton.PlaySound(soundFXName);
 
             #endregion
+
+            yield break;
 
         }
 
