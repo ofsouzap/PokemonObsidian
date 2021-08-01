@@ -81,6 +81,8 @@ namespace FreeRoaming
         protected override void Start()
         {
 
+            spriteGroupName = PlayerData.singleton.profile.SpriteName;
+
             base.Start();
 
             respawnSceneStackSet = false;

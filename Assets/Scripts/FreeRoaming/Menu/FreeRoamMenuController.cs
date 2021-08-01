@@ -62,6 +62,8 @@ namespace FreeRoaming.Menu
 
             SetUp();
 
+            Hide();
+
         }
 
         private void SetUp()

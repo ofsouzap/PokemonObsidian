@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using FreeRoaming;
+using StartUp.ChoosePlayerData;
 
 namespace StartUp
 {
@@ -31,19 +34,45 @@ namespace StartUp
         private void Start()
         {
 
-            foreach (GameObject go in dontDestroyOnLoadGameObjects)
-                DontDestroyOnLoad(go);
+            StartCoroutine(StartUpCoroutine());
 
-            LoadAllData.Load();
+        }
+
+        private IEnumerator StartUpCoroutine()
+        {
+
+            HideFreeRoamMenu();
+
+            Initialise();
 
             //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
             //TODO - also, use loaded player data to choose player sprite (male or female)
-            //TODO - also, use loaded player data to choose player starting position
+
+            yield return StartCoroutine(ChoosePlayerData());
 
 #if UNITY_EDITOR
             foreach (GameObject go in extrasToActivate)
                 go.SetActive(true);
 #endif
+
+            ShowFreeRoamMenu();
+
+            LaunchGame();
+
+        }
+
+        private void Initialise()
+        {
+
+            foreach (GameObject go in dontDestroyOnLoadGameObjects)
+                DontDestroyOnLoad(go);
+
+            LoadAllData.Load();
+
+        }
+
+        private void LaunchGame()
+        {
 
             GameSceneManager.Initialise();
 
@@ -80,6 +109,71 @@ namespace StartUp
             GameSceneManager.LoadSceneStack(sceneStack);
 
         }
+
+        private void HideFreeRoamMenu() => freeRoamMenuGameObject.SetActive(false);
+        private void ShowFreeRoamMenu() => freeRoamMenuGameObject.SetActive(true);
+
+        #region Choosing Player Data
+
+        private const string choosePlayerDataSpriteSceneIdentifier = "Choose Player Data_Sprite";
+
+        private IEnumerator ChoosePlayerData()
+        {
+
+            yield return StartCoroutine(ChoosePlayerData_Sprite());
+            //TODO - once other choose player data scenes made, run them here
+
+        }
+
+        private void OpenChoosePlayerDataScene(string sceneIdentifier,
+            Action OnSceneCompleteAction = null)
+        {
+
+            EventSystem mainEventSystem = EventSystem.current;
+            mainEventSystem.enabled = false;
+
+            int newSceneIndex = SceneManager.sceneCount;
+            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneIdentifier, LoadSceneMode.Additive);
+
+            loadSceneOperation.completed += (ao) =>
+            {
+
+                Scene newScene = SceneManager.GetSceneAt(newSceneIndex);
+
+                foreach (GameObject go in newScene.GetRootGameObjects())
+                {
+
+                    ChoosePlayerDataController cpdController = go.GetComponentInChildren<ChoosePlayerDataController>();
+
+                    if (cpdController != null)
+                    {
+                        cpdController.OnSceneClose += () =>
+                        {
+                            OnSceneCompleteAction?.Invoke();
+                            mainEventSystem.enabled = true;
+                        };
+                        break;
+                    }
+
+                }
+
+            };
+
+        }
+
+        private IEnumerator ChoosePlayerData_Sprite()
+        {
+
+            bool spriteChosen = false;
+
+            OpenChoosePlayerDataScene(choosePlayerDataSpriteSceneIdentifier,
+                () => spriteChosen = true);
+
+            yield return new WaitUntil(() => spriteChosen);
+
+        }
+
+        #endregion
 
     }
 }

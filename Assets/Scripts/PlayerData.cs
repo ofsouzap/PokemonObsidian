@@ -344,6 +344,28 @@ public class PlayerData
     public class Profile
     {
 
+        #region Sprite
+
+        public static readonly Dictionary<byte, string> playerSpriteIdNames = new Dictionary<byte, string>()
+        {
+            { 0, "player_male_0" },
+            { 1, "player_female_0" },
+            { 2, "player_male_1" },
+            { 3, "player_female_1" },
+            { 4, "player_male_2" },
+            { 5, "player_female_2" }
+        };
+
+        public byte spriteId = 0;
+
+        public static string GetPlayerSpriteNameById(byte id)
+            => playerSpriteIdNames[id];
+
+        public string SpriteName
+            => GetPlayerSpriteNameById(spriteId);
+
+        #endregion
+
         public string name = "";
 
         public const int maximumMoney = 9999999;

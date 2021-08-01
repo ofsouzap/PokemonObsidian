@@ -138,8 +138,12 @@ public static class SpriteStorage
     private static readonly string[] characterSpriteSpriteSheets = new string[]
     {
         "sprite_sheet_npcs",
-        "sprite_sheet_player_male",
-        "sprite_sheet_player_female",
+        "sprite_sheet_player_male_0",
+        "sprite_sheet_player_male_1",
+        "sprite_sheet_player_male_2",
+        "sprite_sheet_player_female_0",
+        "sprite_sheet_player_female_1",
+        "sprite_sheet_player_female_2",
         "sprite_sheet_npcs_battlesprites"
     };
 

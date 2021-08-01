@@ -15,7 +15,7 @@ namespace Menus
         private bool selectedImageActive = false;
         private GameObject selectedImageGameObject = null;
 
-        private void Start()
+        protected virtual void Start()
         {
 
             InputMethodMonitor.singleton.InputMethodChanged.AddListener((o) => RefreshSelectedImage());
