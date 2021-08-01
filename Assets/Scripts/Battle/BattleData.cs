@@ -32,7 +32,7 @@ namespace Battle
         /// Eg. if the player's 1st and 3rd pokemon (in their party) had been used against the opponent's 2nd pokemon,
         ///     then the second entry in the array would be [ 0, 2 ] (N.B. 0-indexing)
         /// </summary>
-        public List<int>[] playerUsedPokemonPerOpponentPokemon = new List<int>[6]
+        public List<int>[] playerUsedPokemonPerOpponentPokemon = new List<int>[PlayerData.partyCapacity]
         {
             new List<int>(),
             new List<int>(),

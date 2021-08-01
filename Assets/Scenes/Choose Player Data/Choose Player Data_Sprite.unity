@@ -227,6 +227,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
+      propertyPath: instanceId
+      value: player_female_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: spriteName
       value: player_female_2
       objectReference: {fileID: 0}
@@ -352,6 +356,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
+      propertyPath: instanceId
+      value: player_female_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: spriteName
       value: player_female_1
       objectReference: {fileID: 0}
@@ -475,6 +483,10 @@ PrefabInstance:
     - target: {fileID: 6420684954771664855, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
+      propertyPath: instanceId
+      value: player_male_1
       objectReference: {fileID: 0}
     - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: spriteName
@@ -861,6 +873,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
+      propertyPath: instanceId
+      value: player_male_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: spriteName
       value: player_male_2
       objectReference: {fileID: 0}
@@ -1098,6 +1114,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
+      propertyPath: instanceId
+      value: player_female_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: spriteName
       value: player_female_0
       objectReference: {fileID: 0}
@@ -1163,7 +1183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultEventSystemSelection: {fileID: 606718199}
-  spriteOptions:
+  options:
   - {fileID: 6420684955293170376}
   - {fileID: 606718198}
   - {fileID: 1211053057}
@@ -1272,6 +1292,10 @@ PrefabInstance:
     - target: {fileID: 6420684954771664855, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
+      propertyPath: instanceId
+      value: player_male_0
       objectReference: {fileID: 0}
     - target: {fileID: 7529609937137251763, guid: 7ce87e7e29915be419e99128462c6cbd, type: 3}
       propertyPath: spriteName

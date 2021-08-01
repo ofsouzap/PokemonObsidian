@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 1511881402}
   - component: {fileID: 1511881401}
   m_Layer: 0
-  m_Name: tmp - development stuff
+  m_Name: debug - player pokemon setup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672062861eaa2cd46a2078afb43d0386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startupSceneStack: Okford,0,0
+  startupSceneStack: Pokshire,0,0
   playerGameObject: {fileID: 416252835}
   freeRoamMenuGameObject: {fileID: 307454586}
   dontDestroyOnLoadGameObjects:
@@ -940,8 +940,8 @@ MonoBehaviour:
   - {fileID: 987256330}
   - {fileID: 1470344673}
   - {fileID: 1499980451}
-  extrasToActivate:
-  - {fileID: 1511881398}
+  extrasToActivate: []
+  debug_playerPartyPokemonSetUpGameObject: {fileID: 1511881398}
 --- !u!1001 &2741363696117645964
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,39 +7,22 @@ using Menus;
 
 namespace StartUp.ChoosePlayerData.ChoosePlayerSprite
 {
-    public class SpriteOptionController : MenuSelectableController
+    public class SpriteOptionController : GenericImageOptionController<string>
     {
 
-        public UnityEvent OnClick = new UnityEvent();
-
-        public Image spriteImage;
-        public Button spriteButton;
-        public string spriteName;
-
-        protected override void Start()
-        {
-
-            base.Start();
-            
-            RefreshImage();
-
-            spriteButton.onClick.AddListener(() => OnClick.Invoke());
-
-        }
-
-        public void RefreshImage()
+        public override void RefreshImage()
         {
 
             bool flipSprite;
-            spriteImage.sprite = SpriteStorage.GetCharacterSprite(out flipSprite, spriteName, "idle", FreeRoaming.GameCharacterController.FacingDirection.Down);
+            image.sprite = SpriteStorage.GetCharacterSprite(out flipSprite, instanceId, "idle", FreeRoaming.GameCharacterController.FacingDirection.Down);
 
             int flipMultiplier = flipSprite ? -1 : 1;
 
             //If needing to flip sprite, make x-scale negative
-            spriteImage.rectTransform.localScale = new Vector3(
-                Mathf.Abs(spriteImage.rectTransform.localScale.x) * flipMultiplier,
-                spriteImage.rectTransform.localScale.y,
-                spriteImage.rectTransform.localScale.z
+            image.rectTransform.localScale = new Vector3(
+                Mathf.Abs(image.rectTransform.localScale.x) * flipMultiplier,
+                image.rectTransform.localScale.y,
+                image.rectTransform.localScale.z
                 );
 
         }

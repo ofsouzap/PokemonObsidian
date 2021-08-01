@@ -28,6 +28,8 @@ namespace StartUp
         public GameObject[] extrasToActivate;
 #endif
 
+        public GameObject debug_playerPartyPokemonSetUpGameObject = null;
+
         private void Awake()
         {
             playerGameObject.SetActive(false);
@@ -54,6 +56,10 @@ namespace StartUp
 
             //Sprite
             PlayerData.singleton.profile.spriteId = 0;
+
+            //Party Pokemon (optionally box pokemon too)
+            if (playerPartyPokemonSetUpGameObject != null)
+                playerPartyPokemonSetUpGameObject.SetActive(true);
 
 #else
 
@@ -129,11 +135,13 @@ namespace StartUp
         #region Choosing Player Data
 
         private const string choosePlayerDataSpriteSceneIdentifier = "Choose Player Data_Sprite";
+        private const string choosePlayerDataStarterPokemonSceneIdentifier = "Choose Player Data_Starter Pokemon";
 
         private IEnumerator ChoosePlayerData()
         {
 
             yield return StartCoroutine(ChoosePlayerData_Sprite());
+            yield return StartCoroutine(ChoosePlayerData_StarterPokemon());
             //TODO - once other choose player data scenes made, run them here
 
         }
@@ -183,6 +191,18 @@ namespace StartUp
                 () => spriteChosen = true);
 
             yield return new WaitUntil(() => spriteChosen);
+
+        }
+
+        private IEnumerator ChoosePlayerData_StarterPokemon()
+        {
+
+            bool starterPokemonChosen = false;
+
+            OpenChoosePlayerDataScene(choosePlayerDataStarterPokemonSceneIdentifier,
+                () => starterPokemonChosen = true);
+
+            yield return new WaitUntil(() => starterPokemonChosen);
 
         }
 

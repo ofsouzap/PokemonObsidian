@@ -24,23 +24,25 @@ public class PlayerData
 
     #region Pokemon
 
-    private PokemonInstance[] _partyPokemon = new PokemonInstance[6];
+    public const int partyCapacity = 6;
+
+    private PokemonInstance[] _partyPokemon = new PokemonInstance[partyCapacity];
     public PokemonInstance[] partyPokemon
     {
         get => _partyPokemon;
         set
         {
-            if (value.Length == 6)
+            if (value.Length == partyCapacity)
             {
                 _partyPokemon = value;
             }
-            else if (value.Length > 6)
+            else if (value.Length > partyCapacity)
             {
                 Debug.LogError("Provided party pokemon array length greater than 6");
             }
             else
             {
-                _partyPokemon = new PokemonInstance[6];
+                _partyPokemon = new PokemonInstance[partyCapacity];
                 Array.Copy(value, _partyPokemon, value.Length);
             }
         }
@@ -71,6 +73,14 @@ public class PlayerData
                 partyPokemon[i] = pokemon;
                 break;
             }
+
+    }
+
+    public void ClearAllPokemon()
+    {
+
+        boxPokemon.ResetBoxes();
+        partyPokemon = new PokemonInstance[partyCapacity];
 
     }
 
@@ -199,7 +209,7 @@ public class PlayerData
 
         public bool IsFull { get => boxes.All(x => x.IsFull); }
 
-        private void ResetBoxes()
+        public void ResetBoxes()
         {
             for (int i = 0; i < boxes.Length; i++)
                 boxes[i] = new PokemonBox();
