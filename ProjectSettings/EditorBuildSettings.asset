@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Choose Player Data/Choose Player Data_Starter Pokemon.unity
     guid: 515ccf7a01dcace44a7bfe404790cdd0
   - enabled: 1
+    path: Assets/Scenes/Choose Player Data/Choose Player Data_Name.unity
+    guid: 41dd5b0428ac5194495456625a152835
+  - enabled: 1
     path: Assets/Scenes/FreeRoaming/Menus/Menu_Bag.unity
     guid: 6bcf294819b238946974151c6e5722a6
   - enabled: 1

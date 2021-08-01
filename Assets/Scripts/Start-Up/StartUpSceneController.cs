@@ -61,6 +61,9 @@ namespace StartUp
             if (playerPartyPokemonSetUpGameObject != null)
                 playerPartyPokemonSetUpGameObject.SetActive(true);
 
+            //Name
+            PlayerData.singleton.profile.name = "Debug User";
+
 #else
 
             yield return StartCoroutine(ChoosePlayerData());
@@ -136,13 +139,14 @@ namespace StartUp
 
         private const string choosePlayerDataSpriteSceneIdentifier = "Choose Player Data_Sprite";
         private const string choosePlayerDataStarterPokemonSceneIdentifier = "Choose Player Data_Starter Pokemon";
+        private const string choosePlayerDataNameSceneIdentifier = "Choose Player Data_Name";
 
         private IEnumerator ChoosePlayerData()
         {
 
+            yield return StartCoroutine(ChoosePlayerData_Name());
             yield return StartCoroutine(ChoosePlayerData_Sprite());
             yield return StartCoroutine(ChoosePlayerData_StarterPokemon());
-            //TODO - once other choose player data scenes made, run them here
 
         }
 
@@ -203,6 +207,18 @@ namespace StartUp
                 () => starterPokemonChosen = true);
 
             yield return new WaitUntil(() => starterPokemonChosen);
+
+        }
+
+        private IEnumerator ChoosePlayerData_Name()
+        {
+
+            bool nameChosen = false;
+
+            OpenChoosePlayerDataScene(choosePlayerDataNameSceneIdentifier,
+                () => nameChosen = true);
+
+            yield return new WaitUntil(() => nameChosen);
 
         }
 
