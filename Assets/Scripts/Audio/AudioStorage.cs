@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Pokemon;
+using Pokemon.Moves;
 
 namespace Audio
 {
@@ -88,6 +90,24 @@ namespace Audio
             else
                 return null;
         }
+
+        #region Pokemon Moves
+
+        private const string moveTypeFXClipPrefix = "move_";
+        private const string statusMoveFXClipName = moveTypeFXClipPrefix + "status";
+
+        public static string GetPokemonMoveTypeFXClipName(Pokemon.Type type)
+            => moveTypeFXClipPrefix + TypeFunc.GetTypeResourceName(type);
+
+        public static string GetPokemonMoveFXClipName(PokemonMove move)
+        {
+            if (move.moveType == PokemonMove.MoveType.Status)
+                return statusMoveFXClipName;
+            else
+                return GetPokemonMoveTypeFXClipName(move.type);
+        }
+
+        #endregion
 
         public static string GetPokemonCryClipName(int speciesId)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Battle;
+using Audio;
 
 namespace Pokemon.Moves
 {
@@ -55,6 +56,9 @@ namespace Pokemon.Moves
 
         public string name;
         public string description;
+
+        public string GetSoundFXClip()
+            => AudioStorage.GetPokemonMoveFXClipName(this);
 
         public byte maxPP;
 

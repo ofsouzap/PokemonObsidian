@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useDefaultPlayerChoices: 1
-  startupSceneStack: Okford,0,0;Pokemon Center,0,2
+  startupSceneStack: Basic Testing,0,0
   playerGameObject: {fileID: 416252835}
   freeRoamMenuGameObject: {fileID: 307454586}
   dontDestroyOnLoadGameObjects:

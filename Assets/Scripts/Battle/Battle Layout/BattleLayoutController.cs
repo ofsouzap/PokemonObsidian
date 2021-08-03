@@ -911,7 +911,7 @@ namespace Battle.BattleLayout
         private Vector2 GetGenericPokemonMoveLungeDirection(Transform lunger, Transform target)
             => ((Vector2)(target.position - lunger.position)).normalized;
 
-        private IEnumerator GenericPokemonMovePhysicalAttackMovement(GameObject attacker, GameObject target, bool moveNoOpponentEffects, Sprite moveParticle, GameObject targetParticleSystemObject)
+        private IEnumerator GenericPokemonMovePhysicalAttackMovement(GameObject attacker, GameObject target, bool moveNoOpponentEffects, Sprite moveParticle, GameObject targetParticleSystemObject, string moveFXName)
         {
 
             Vector2 attackerStartPosition = attacker.transform.localPosition;
@@ -930,7 +930,7 @@ namespace Battle.BattleLayout
             yield return StartCoroutine(GradualTranslateLocalPosition(attacker, lungeTargetPosition, genericPhysicalMoveLungeTime));
 
             if (!moveNoOpponentEffects)
-                yield return StartCoroutine(GenericMoveEffects(targetParticleSystemObject, moveParticle, PokemonMove.MoveType.Physical));
+                yield return StartCoroutine(GenericMoveEffects(targetParticleSystemObject, moveParticle, moveFXName));
 
             Vector2 targetJerkBackTargetPosition = targetStartPosition + (lungeDirection * genericPhysicalMoveTargetJerkBackDistance);
 
@@ -942,7 +942,7 @@ namespace Battle.BattleLayout
 
         }
 
-        private IEnumerator GenericPokemonMoveSpecialAttackMovement(GameObject attacker, GameObject target, bool moveNoOpponentEffects, Sprite moveParticle, GameObject targetParticleSystemObject)
+        private IEnumerator GenericPokemonMoveSpecialAttackMovement(GameObject attacker, GameObject target, bool moveNoOpponentEffects, Sprite moveParticle, GameObject targetParticleSystemObject, string moveFXName)
         {
 
             Vector2 attackerStartPosition = attacker.transform.localPosition;
@@ -954,7 +954,7 @@ namespace Battle.BattleLayout
             yield return StartCoroutine(GradualTranslateLocalPosition(attacker, lungeTargetPosition, genericSpecialMoveLungeTime));
 
             if (!moveNoOpponentEffects)
-                yield return StartCoroutine(GenericMoveEffects(targetParticleSystemObject, moveParticle, PokemonMove.MoveType.Special));
+                yield return StartCoroutine(GenericMoveEffects(targetParticleSystemObject, moveParticle, moveFXName));
 
             yield return StartCoroutine(GradualTranslateLocalPosition(attacker, attackerStartPosition, genericMoveReturnBackTime));
 
@@ -962,7 +962,7 @@ namespace Battle.BattleLayout
 
         private IEnumerator GenericMoveEffects(GameObject particleSystemObject,
             Sprite particleSprite,
-            PokemonMove.MoveType moveType)
+            string moveFXName)
         {
 
             #region Particles
@@ -982,15 +982,7 @@ namespace Battle.BattleLayout
 
             #region Sound FX
 
-            string soundFXName = moveType switch
-            {
-                PokemonMove.MoveType.Physical => physicalMoveSoundFXName,
-                PokemonMove.MoveType.Special => specialMoveSoundFXName,
-                PokemonMove.MoveType.Status => statusMoveSoundFXName,
-                _ => ""
-            };
-
-            SoundFXController.singleton.PlaySound(soundFXName);
+            SoundFXController.singleton.PlaySound(moveFXName);
 
             #endregion
 
@@ -1003,20 +995,21 @@ namespace Battle.BattleLayout
 
             PokemonMove move = PokemonMove.GetPokemonMoveById(moveId);
             Sprite moveParticle = TypeFunc.LoadTypeParticleSprite(move.type);
+            string moveFXName = move.GetSoundFXClip();
 
             if (move.moveType == PokemonMove.MoveType.Physical)
             {
-                yield return StartCoroutine(GenericPokemonMovePhysicalAttackMovement(playerPokemonSprite, opponentPokemonSprite, move.noOpponentEffects, moveParticle, opponentPokemonMoveParticleSystemObject));
+                yield return StartCoroutine(GenericPokemonMovePhysicalAttackMovement(playerPokemonSprite, opponentPokemonSprite, move.noOpponentEffects, moveParticle, opponentPokemonMoveParticleSystemObject, moveFXName));
             }
             else if (move.moveType == PokemonMove.MoveType.Special)
             {
-                yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(playerPokemonSprite, opponentPokemonSprite, move.noOpponentEffects, moveParticle, opponentPokemonMoveParticleSystemObject));
+                yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(playerPokemonSprite, opponentPokemonSprite, move.noOpponentEffects, moveParticle, opponentPokemonMoveParticleSystemObject, moveFXName));
             }
             else if (move.moveType == PokemonMove.MoveType.Status)
             {
                 if (!move.noOpponentEffects)
                 {
-                    yield return StartCoroutine(GenericMoveEffects(opponentPokemonMoveParticleSystemObject, moveParticle, PokemonMove.MoveType.Status));
+                    yield return StartCoroutine(GenericMoveEffects(opponentPokemonMoveParticleSystemObject, moveParticle, moveFXName));
                     yield return new WaitUntil(() => !opponentPokemonMoveParticleSystemObject.GetComponent<ParticleSystem>().isPlaying);
                 }
             }
@@ -1028,20 +1021,21 @@ namespace Battle.BattleLayout
 
             PokemonMove move = PokemonMove.GetPokemonMoveById(moveId);
             Sprite moveParticle = TypeFunc.LoadTypeParticleSprite(move.type);
+            string moveFXName = move.GetSoundFXClip();
 
             if (move.moveType == PokemonMove.MoveType.Physical)
             {
-                yield return StartCoroutine(GenericPokemonMovePhysicalAttackMovement(opponentPokemonSprite, playerPokemonSprite, move.noOpponentEffects, moveParticle, playerPokemonMoveParticleSystemObject));
+                yield return StartCoroutine(GenericPokemonMovePhysicalAttackMovement(opponentPokemonSprite, playerPokemonSprite, move.noOpponentEffects, moveParticle, playerPokemonMoveParticleSystemObject, moveFXName));
             }
             else if (move.moveType == PokemonMove.MoveType.Special)
             {
-                yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(opponentPokemonSprite, playerPokemonSprite, move.noOpponentEffects, moveParticle, playerPokemonMoveParticleSystemObject));
+                yield return StartCoroutine(GenericPokemonMoveSpecialAttackMovement(opponentPokemonSprite, playerPokemonSprite, move.noOpponentEffects, moveParticle, playerPokemonMoveParticleSystemObject, moveFXName));
             }
             else if (move.moveType == PokemonMove.MoveType.Status)
             {
                 if (!move.noOpponentEffects)
                 {
-                    yield return StartCoroutine(GenericMoveEffects(playerPokemonMoveParticleSystemObject, moveParticle, PokemonMove.MoveType.Status));
+                    yield return StartCoroutine(GenericMoveEffects(playerPokemonMoveParticleSystemObject, moveParticle, moveFXName));
                     yield return new WaitUntil(() => !opponentPokemonMoveParticleSystemObject.GetComponent<ParticleSystem>().isPlaying);
                 }
             }
