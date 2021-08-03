@@ -15,10 +15,8 @@ namespace Battle
         public enum Mode
         {
             RandomAttack,
-#if UNITY_EDITOR
             Debug_UseRandomMedicineItem,
             Debug_UseRandomBattleItem,
-#endif
             BasicTrainer,
             WildPokemon
             //TODO - add more
@@ -27,10 +25,8 @@ namespace Battle
         public static readonly Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>>()
         {
             { Mode.RandomAttack, (n, pmon, bp, dmsgs) => new RandomAttack(n, pmon, bp, dmsgs) },
-#if UNITY_EDITOR
             { Mode.Debug_UseRandomMedicineItem, (n, pmon, bp, dmsgs) => new RandomMedicineItem(n, pmon, bp, dmsgs) },
             { Mode.Debug_UseRandomBattleItem, (n, pmon, bp, dmsgs) => new RandomBattleItem(n, pmon, bp, dmsgs) },
-#endif
             { Mode.BasicTrainer, (n, pmon, bp, dmsgs) => new BasicTrainer(n, pmon, bp, dmsgs) },
             { Mode.WildPokemon, (n, pmon, bp, dmsgs) => new WildPokemon(n, pmon, bp, dmsgs) }
         };

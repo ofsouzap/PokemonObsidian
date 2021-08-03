@@ -29,9 +29,7 @@ namespace StartUp
         /// </summary>
         public GameObject[] dontDestroyOnLoadGameObjects;
 
-#if UNITY_EDITOR
         public GameObject[] extrasToActivate;
-#endif
 
         public GameObject playerPartyPokemonSetUpGameObject = null;
 
@@ -84,10 +82,8 @@ namespace StartUp
 
             }
 
-#if UNITY_EDITOR
             foreach (GameObject go in extrasToActivate)
                 go.SetActive(true);
-#endif
 
             ShowFreeRoamMenu();
 
