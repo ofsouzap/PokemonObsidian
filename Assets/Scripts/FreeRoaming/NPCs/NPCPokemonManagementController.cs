@@ -7,10 +7,13 @@ namespace FreeRoaming.NPCs
     public class NPCPokemonManagementController : NPCPlayerInteractionController
     {
 
+        public PokemonNicknamingCanvasController nicknameCanvas;
+
         public static readonly string[] menuOptions = new string[]
         {
             "Goodbye",
-            "Check bond"
+            "Check bond",
+            "Change nickname"
         };
 
         public override IEnumerator PlayerInteraction()
@@ -58,6 +61,10 @@ namespace FreeRoaming.NPCs
                     yield return StartCoroutine(FriendshipCheck(target));
                     break;
 
+                case 2: //Change nickname
+                    yield return StartCoroutine(ChangeNickname(target));
+                    break;
+
 
             }
 
@@ -69,6 +76,40 @@ namespace FreeRoaming.NPCs
             string friendshipStatusMessage = GetFriendshipMessage(target.friendship);
 
             textBoxController.RevealText(friendshipStatusMessage);
+
+            yield return textBoxController.PromptAndWaitUntilUserContinue();
+
+        }
+
+        private IEnumerator ChangeNickname(PokemonInstance target)
+        {
+
+            string oldDisplayName = target.GetDisplayName();
+            string newNickname = null;
+
+            nicknameCanvas.RunCanvas((nn) =>
+            {
+
+                if (nn == null)
+                {
+                    Debug.LogError("New nickname was null");
+                    nn = "";
+                }
+                else
+                {
+                    newNickname = nn;
+                }
+
+            });
+
+            yield return new WaitUntil(() => newNickname != null);
+
+            target.nickname = newNickname;
+
+            textBoxController.RevealText(
+                oldDisplayName
+                + " is now called "
+                + target.GetDisplayName());
 
             yield return textBoxController.PromptAndWaitUntilUserContinue();
 
