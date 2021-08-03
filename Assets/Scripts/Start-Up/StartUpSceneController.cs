@@ -1,6 +1,4 @@
-﻿//#define DEBUG_USE_DEFAULT_PLAYER_CHOICES
-
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +10,12 @@ namespace StartUp
 {
     public class StartUpSceneController : MonoBehaviour
     {
+
+#if UNITY_EDITOR
+        public bool useDefaultPlayerChoices = false;
+#else
+        public const bool useDefaultPlayerChoices = false;
+#endif
 
         [Tooltip("The scene stack string to load once the data has been loaded")]
         public string startupSceneStack = "Basic Testing,0,0";
@@ -28,7 +32,7 @@ namespace StartUp
         public GameObject[] extrasToActivate;
 #endif
 
-        public GameObject debug_playerPartyPokemonSetUpGameObject = null;
+        public GameObject playerPartyPokemonSetUpGameObject = null;
 
         private void Awake()
         {
@@ -52,24 +56,28 @@ namespace StartUp
             //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
             //TODO - also, use loaded player data to choose player sprite (male or female)
 
-#if DEBUG_USE_DEFAULT_PLAYER_CHOICES
+            if (useDefaultPlayerChoices)
+            {
 
-            //Name
-            PlayerData.singleton.profile.name = "Debug User";
+                //Name
+                PlayerData.singleton.profile.name = "Debug User";
 
-            //Sprite
-            PlayerData.singleton.profile.spriteId = 0;
+                //Sprite
+                PlayerData.singleton.profile.spriteId = 0;
 
-            //Party Pokemon (optionally box pokemon too)
-            //Pokemon must be set after profile details so that OT details can be set
-            if (playerPartyPokemonSetUpGameObject != null)
-                playerPartyPokemonSetUpGameObject.SetActive(true);
+                //Party Pokemon (optionally box pokemon too)
+                //Pokemon must be set after profile details so that OT details can be set
+                if (playerPartyPokemonSetUpGameObject != null)
+                    playerPartyPokemonSetUpGameObject.SetActive(true);
 
-#else
+            }
 
-            yield return StartCoroutine(ChoosePlayerData());
+            else
+            {
 
-#endif
+                yield return StartCoroutine(ChoosePlayerData());
+
+            }
 
 #if UNITY_EDITOR
             foreach (GameObject go in extrasToActivate)

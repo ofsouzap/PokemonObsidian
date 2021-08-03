@@ -84,6 +84,37 @@ public class PlayerData
 
     }
 
+    /// <summary>
+    /// Has a 0.5 chance of increasing every pokemon in the player's party's friendship for completing a step cycle
+    /// </summary>
+    public void RefreshAddFriendshipForStepCycle()
+    {
+
+        //0.5 chance of not increasing frienship
+        if (UnityEngine.Random.Range(0, 2) == 0)
+            return;
+
+        foreach (PokemonInstance pokemon in partyPokemon)
+        {
+
+            if (pokemon != null)
+                pokemon.AddFriendship(1);
+
+        }
+
+    }
+
+    /// <summary>
+    /// Adds friendship to all the player's party pokemon for defeating a gym leader, elite four member or the champion
+    /// </summary>
+    public void AddPartyPokemonFriendshipForGymVictory()
+    {
+
+        foreach (PokemonInstance pokemon in partyPokemon)
+            pokemon?.AddFriendshipForGymVictory();
+
+    }
+
     #region Box Pokemon
 
     /// <summary>

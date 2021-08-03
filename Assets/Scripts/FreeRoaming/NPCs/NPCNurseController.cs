@@ -6,7 +6,7 @@ using Pokemon;
 
 namespace FreeRoaming.NPCs
 {
-    public class NPCNurseController : NPCController
+    public class NPCNurseController : NPCPlayerInteractionController
     {
 
         public HealingMachineScript healingMachineScript;
@@ -17,24 +17,8 @@ namespace FreeRoaming.NPCs
             "No"
         };
 
-        public override void Interact(GameCharacterController interacter)
+        public override IEnumerator PlayerInteraction()
         {
-
-            if (interacter is PlayerController)
-            {
-
-                StartCoroutine(PlayerInteraction());
-
-            }
-
-        }
-
-        public IEnumerator PlayerInteraction()
-        {
-
-            sceneController.SetSceneRunningState(false);
-
-            textBoxController.Show();
 
             textBoxController.RevealText("Welcome to this Pokemon Center. Here, we can restore your pokemon to their full health.");
             yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
@@ -72,12 +56,6 @@ namespace FreeRoaming.NPCs
                     break;
 
             }
-
-            //TODO - continue
-
-            textBoxController.Hide();
-
-            sceneController.SetSceneRunningState(true);
 
         }
 

@@ -85,6 +85,10 @@ namespace FreeRoaming
 
             base.Start();
 
+            stepCycle = 0;
+            MovementCompleted += () => IncrementStepCycle(); //Add a step everytime the player finishes a step
+            SetUpStepCycleListeners();
+
             respawnSceneStackSet = false;
 
             currentSceneArea = null;
@@ -197,6 +201,36 @@ namespace FreeRoaming
         {
             movementLocked = state;
         }
+
+        #region Step Cycle
+
+        private byte stepCycle = 0;
+
+        public event OnComplete OnStepCycleCompleted;
+
+        private void IncrementStepCycle()
+        {
+
+            //Overflow is intended
+            stepCycle++;
+
+            if (stepCycle == 0)
+                OnStepCycleCompleted?.Invoke();
+
+        }
+
+        private void SetUpStepCycleListeners()
+        {
+
+            //Adding pokemon friendship
+            OnStepCycleCompleted += () =>
+            {
+                PlayerData.singleton.RefreshAddFriendshipForStepCycle();
+            };
+
+        }
+
+        #endregion
 
         #region Respawning
 

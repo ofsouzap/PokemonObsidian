@@ -244,6 +244,7 @@ namespace Items
             public sbyte evasionModifierChange = 0;
             public sbyte accuracyModifierChange = 0;
             public bool increaseCritChance = false;
+            public byte friendshipGained = 0;
 
         }
 

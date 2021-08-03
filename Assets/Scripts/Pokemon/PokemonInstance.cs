@@ -366,6 +366,106 @@ namespace Pokemon
 
         #endregion
 
+        #region Friendship
+
+        public byte friendship = 0;
+
+        /// <summary>
+        /// Adds friendship to the pokemon without causing an overflow
+        /// </summary>
+        public void AddFriendship(int amount)
+        {
+
+            if (amount < 0)
+                throw new ArgumentException("Provided friendship increase amount should be non-negative");
+
+            if (byte.MaxValue - amount < friendship)
+                friendship = byte.MaxValue;
+            else
+                friendship += (byte)amount;
+
+        }
+
+        /// <summary>
+        /// Reduces friendship to the pokemon without causing an underflow
+        /// </summary>
+        public void ReduceFriendship(int amount)
+        {
+
+            if (amount < 0)
+                throw new ArgumentException("Provided friendship decrease amount should be non-negative");
+
+            if (amount > friendship)
+                friendship = 0;
+            else
+                friendship -= (byte)amount;
+
+        }
+
+        private void AddFriendshipForLevelUp()
+        {
+
+            if (friendship < 100)
+                AddFriendship(5);
+            else if (friendship < 200)
+                AddFriendship(3);
+            else
+                AddFriendship(2);
+
+        }
+
+        /// <summary>
+        /// Adds the appropriate amount of friendship for the player having defeated a gym leader, elite four member or the champion
+        /// </summary>
+        public void AddFriendshipForGymVictory()
+        {
+
+            if (friendship < 100)
+                AddFriendship(3);
+            else if (friendship < 200)
+                AddFriendship(2);
+            else
+                AddFriendship(1);
+
+        }
+
+        public byte GetPotentialFriendshipGainForBattleItemUsage()
+        {
+            if (friendship < 200)
+                return 1;
+            else
+                return 0;
+        }
+
+        public void AddFriendshipGainForTMUsage()
+        {
+            if (friendship < 200)
+                AddFriendship(1);
+        }
+
+        public void RemoveFriendshipForFaint(PokemonInstance opponent)
+            => RemoveFriendshipForFaint(opponent.GetLevel());
+
+        public void RemoveFriendshipForFaint(int opponentLevel)
+        {
+
+            int selfLevel = GetLevel();
+
+            byte reductionAmount;
+
+            if (opponentLevel < selfLevel + 30)
+                reductionAmount = 1;
+            else if (friendship < 200)
+                reductionAmount = 5;
+            else
+                reductionAmount = 10;
+
+            ReduceFriendship(reductionAmount);
+
+        }
+
+        #endregion
+
         #region Moves
 
         public int[] moveIds = new int[4] { -1, -1, -1, -1 };
@@ -436,6 +536,8 @@ namespace Pokemon
         {
 
             RefreshStats();
+
+            AddFriendshipForLevelUp();
 
         }
 

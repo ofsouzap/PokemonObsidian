@@ -592,6 +592,8 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                 Item.ItemUsageEffects itemUsageEffects = CurrentItem.GetUsageEffects(pokemon);
 
+                pokemon.AddFriendship(itemUsageEffects.friendshipGained);
+
                 if (itemUsageEffects.healthRecovered > 0)
                     pokemon.HealHealth(itemUsageEffects.healthRecovered);
 
@@ -653,6 +655,8 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                 pokemon.moveIds[newMoveIndex] = newMove.id;
                 pokemon.movePPs[newMoveIndex] = newMove.maxPP;
 
+                pokemon.AddFriendshipGainForTMUsage();
+
                 textBoxController.RevealText(pokemon.GetDisplayName() + " learnt " + newMove.name + "!");
                 yield return new WaitForFixedUpdate(); //Explanation of correspoding line in below branch
                 yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
@@ -706,6 +710,8 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                 pokemon.moveIds[changedMoveIndex] = learntMove.id;
                 pokemon.movePPs[changedMoveIndex] = learntMove.maxPP;
+
+                pokemon.AddFriendshipGainForTMUsage();
 
                 textBoxController.RevealText(pokemon.GetDisplayName() + " forgot " + forgottenMove.name + "...");
                 yield return new WaitForFixedUpdate(); //Need to wait an extra frame since current frame is the frame that user used a submit button

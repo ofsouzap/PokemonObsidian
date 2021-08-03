@@ -36,6 +36,7 @@ namespace Testing
             }
 
             List<PokemonInstance> playerPokemon = new List<PokemonInstance>();
+
             foreach (PokemonSpecification spec in pokemon)
             {
 
@@ -60,6 +61,7 @@ namespace Testing
                 playerPokemon.Add(pokemon);
 
             }
+
             PlayerData.singleton.partyPokemon = playerPokemon.ToArray();
 
             #endregion

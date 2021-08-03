@@ -684,6 +684,12 @@ namespace Battle
 
                 playerActivePokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
+                #region Reduce Friendship
+
+                playerActivePokemon.RemoveFriendshipForFaint(battleData.participantOpponent.ActivePokemon);
+
+                #endregion
+
                 #region Remove from Player Pokemon Contributions
 
                 if (battleData
@@ -2271,6 +2277,8 @@ namespace Battle
                 PPRestoreMedicineItem.singleMoveIndexToRecoverPP = action.useItemTargetMoveIndex;
 
             Item.ItemUsageEffects itemUsageEffects = action.useItemItemToUse.GetUsageEffects(affectedPokemon);
+
+            affectedPokemon.AddFriendship(itemUsageEffects.friendshipGained);
 
             if (itemUsageEffects.healthRecovered != 0)
             {

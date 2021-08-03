@@ -118,6 +118,8 @@ namespace Items
 
             ItemUsageEffects itemUsageEffects = new ItemUsageEffects();
 
+            itemUsageEffects.friendshipGained = pokemon.GetPotentialFriendshipGainForBattleItemUsage();
+
             itemUsageEffects.statModifierChanges = Stats<sbyte>.LimitStatModifierChanges(statModifiers, pokemon);
 
             itemUsageEffects.evasionModifierChange = Stats<sbyte>.LimitStatModifierChange(evasionModifier, pokemon.battleProperties.evasionModifier);

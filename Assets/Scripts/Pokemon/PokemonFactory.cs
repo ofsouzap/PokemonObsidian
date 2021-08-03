@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Pokemon;
 using Items;
 
 namespace Pokemon
@@ -31,7 +30,8 @@ namespace Pokemon
             Stats<int> currentStats = new Stats<int>(), //If all of these values are 0, they won't be used
             int pokeBallId = PokemonInstance.defaultPokeBallId, //The poke ball id INCLUDING the poke ball type id
             string originalTrainerName = "",
-            long catchTime = 0
+            long catchTime = 0,
+            byte? _friendship = null // If this is null, the species' base friendship is used
             )
         {
 
@@ -49,6 +49,8 @@ namespace Pokemon
 
             Array.Copy(_moves, moves, _moves.Length);
 
+            byte friendship = _friendship == null ? PokemonSpecies.GetPokemonSpeciesById(speciesId).baseFriendship : (byte)_friendship;
+
             PokemonInstance instance = new PokemonInstance(individualValues)
             {
                 speciesId = speciesId,
@@ -65,7 +67,8 @@ namespace Pokemon
                 gender = gender,
                 pokeBallId = pokeBallId,
                 originalTrainerName = originalTrainerName,
-                catchTime = catchTime
+                catchTime = catchTime,
+                friendship = friendship
             };
 
             #region Setting Current Stats
