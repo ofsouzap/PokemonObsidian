@@ -184,7 +184,9 @@ public class TextBoxController : MonoBehaviour
 
         ShowContinuePrompt();
 
-        yield return new WaitForEndOfFrame(); //In case continue is down in this frame
+        if (GetContinueDown())
+            yield return new WaitUntil(() => !GetContinueDown());
+
         yield return new WaitUntil(() => GetContinueDown());
 
         HideContinuePrompt();
