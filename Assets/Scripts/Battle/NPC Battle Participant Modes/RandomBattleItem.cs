@@ -4,8 +4,6 @@ using UnityEngine;
 using Pokemon;
 using Items;
 
-#if UNITY_EDITOR
-
 namespace Battle.NPCBattleParticipantModes
 {
     public class RandomBattleItem : Generic
@@ -59,5 +57,3 @@ namespace Battle.NPCBattleParticipantModes
 
     }
 }
-
-#endif

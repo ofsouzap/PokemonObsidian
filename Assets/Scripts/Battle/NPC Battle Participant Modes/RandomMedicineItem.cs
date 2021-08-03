@@ -5,8 +5,6 @@ using Pokemon;
 using Items;
 using Items.MedicineItems;
 
-#if UNITY_EDITOR
-
 namespace Battle.NPCBattleParticipantModes
 {
     public class RandomMedicineItem : Generic
@@ -82,5 +80,3 @@ namespace Battle.NPCBattleParticipantModes
 
     }
 }
-
-#endif
