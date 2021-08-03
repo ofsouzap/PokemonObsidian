@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using FreeRoaming;
 using StartUp.ChoosePlayerData;
+using Items;
 
 namespace StartUp
 {
@@ -76,6 +77,10 @@ namespace StartUp
             {
 
                 yield return StartCoroutine(ChoosePlayerData());
+
+                //ONLY FOR DEMO RELEASE
+                //Give the player 10 poke balls to start with
+                PlayerData.singleton.inventory.AddItem(Item.GetItemById(typeof(Items.PokeBalls.PokeBall), 4), 10);
 
             }
 

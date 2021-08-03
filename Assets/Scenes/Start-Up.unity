@@ -229,7 +229,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &700358547
 AudioSource:
@@ -422,7 +422,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9122673223149152493, guid: fe911f2993b33e5459836d96da7815ec, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9122673223149152493, guid: fe911f2993b33e5459836d96da7815ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -503,7 +503,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &987256332
 MonoBehaviour:
@@ -547,7 +547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1470344675
 AudioListener:
@@ -654,7 +654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7895982491258760251, guid: fe5bb8b02449a6e4c9f0e26b2bb06bc0, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7895982491258760251, guid: fe5bb8b02449a6e4c9f0e26b2bb06bc0, type: 3}
       propertyPath: m_AnchorMax.x
@@ -740,108 +740,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7895982491258760255, guid: fe5bb8b02449a6e4c9f0e26b2bb06bc0, type: 3}
   m_PrefabInstance: {fileID: 1499980450}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1511881398
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1511881399}
-  - component: {fileID: 1511881400}
-  - component: {fileID: 1511881402}
-  - component: {fileID: 1511881401}
-  m_Layer: 0
-  m_Name: debug - player pokemon setup
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1511881399
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511881398}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1511881400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511881398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d37611e93f457049a61b6a412cc538d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeciesId: 99
-  minPokemonLevel: 1
-  maxPokemonLevel: 99
-  minBoxUsedCount: 3
-  maxBoxUsedCount: 8
-  minBoxPokemonCount: 0
-  maxBoxPokemonCount: 20
---- !u!114 &1511881401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511881398}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70292a76c39dd9a4eab2e385c8fdf968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pokemon:
-  - speciesId: 70
-    level: 5
-    levelExperience: 0.95
-    initialNVSC: 0
---- !u!114 &1511881402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511881398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70292a76c39dd9a4eab2e385c8fdf968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pokemon:
-  - speciesId: 70
-    level: 20
-    levelExperience: 0.95
-    initialNVSC: 0
-  - speciesId: 94
-    level: 60
-    levelExperience: 0.95
-    initialNVSC: 0
-  - speciesId: 148
-    level: 60
-    levelExperience: 0
-    initialNVSC: 0
-  - speciesId: 145
-    level: 60
-    levelExperience: 0
-    initialNVSC: 0
-  - speciesId: 130
-    level: 60
-    levelExperience: 0
-    initialNVSC: 0
 --- !u!1 &1576829449
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,7 +769,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1576829451
 MonoBehaviour:
@@ -931,8 +829,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672062861eaa2cd46a2078afb43d0386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useDefaultPlayerChoices: 1
-  startupSceneStack: Basic Testing,0,0
+  useDefaultPlayerChoices: 0
+  startupSceneStack: Pokshire,0,0
   playerGameObject: {fileID: 416252835}
   freeRoamMenuGameObject: {fileID: 307454586}
   dontDestroyOnLoadGameObjects:
@@ -942,7 +840,7 @@ MonoBehaviour:
   - {fileID: 1470344673}
   - {fileID: 1499980451}
   extrasToActivate: []
-  playerPartyPokemonSetUpGameObject: {fileID: 1511881398}
+  playerPartyPokemonSetUpGameObject: {fileID: 0}
 --- !u!1001 &2741363696117645964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -964,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2741363695818760439, guid: 80c47f69d4654604e8f2e24dfa36a222, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2741363695818760439, guid: 80c47f69d4654604e8f2e24dfa36a222, type: 3}
       propertyPath: m_AnchorMax.x
