@@ -298,6 +298,8 @@ public static class GameSceneManager
         SceneManager.MoveGameObjectToScene(playerObject, newScene);
         SceneManager.MoveGameObjectToScene(freeRoamMenuObject, newScene);
 
+        playerObject.GetComponent<PlayerController>().SceneChanged.Invoke();
+
         if (autoEnablePlayerRenderers)
             foreach (Renderer r in playerObject.GetComponentsInChildren<Renderer>())
                 r.enabled = true;

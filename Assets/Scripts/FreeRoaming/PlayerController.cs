@@ -282,6 +282,7 @@ namespace FreeRoaming
             }
 
             PlayerData.singleton.HealPartyPokemon();
+            TryTurn(FacingDirection.Down);
 
             GameSceneManager.LoadSceneStack(respawnSceneStack);
 
