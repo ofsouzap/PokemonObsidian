@@ -62,25 +62,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FreeRoaming/Gyms/Okford Gym.unity
     guid: 62b85800a48c0d74cbbd1dcac3b4cf82
-  - enabled: 1
-    path: Assets/Scenes/Testing/Basic Testing.unity
-    guid: 705c0a6cd5d11594ea9223b7e3513bf5
-  - enabled: 1
-    path: Assets/Scenes/Testing/Door Testing aa.unity
-    guid: 80bf1423f0be20f409397a46c95d38d0
-  - enabled: 1
-    path: Assets/Scenes/Testing/Door Testing ab.unity
-    guid: ece0d11a323b69749b1d4e8fcd9ade48
-  - enabled: 1
-    path: Assets/Scenes/Testing/Door Testing ac.unity
-    guid: 64a508a490c1746439fa3f072d440c31
-  - enabled: 1
-    path: Assets/Scenes/Testing/Door Testing ba.unity
-    guid: 8f83c2e10f8445841bb7c8a39622dd5d
-  - enabled: 1
-    path: Assets/Scenes/Testing/Door Testing bb.unity
-    guid: f0e804025ae0ae046a39099232e79822
-  - enabled: 1
-    path: Assets/Scenes/Testing/Door Testing bc.unity
-    guid: 7bd19363421c0b24d8633bfaac95be9b
   m_configObjects: {}
