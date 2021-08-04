@@ -27,18 +27,18 @@ namespace CheatConsole
         [SerializeField]
         private Button submitButton;
 
-        private void Start()
+        protected virtual void Start()
         {
             SetVisibility(false);
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             
             if (!consoleActive)
             {
 
-                if (Input.GetButtonDown("Cheat Console"))
+                if (Input.GetButtonDown("Cheat Console") && CheckAllowedToOpen())
                 {
                     
                     SetVisibility(true);
@@ -98,6 +98,8 @@ namespace CheatConsole
             outputText.text = '[' + GetTimestampString() + "] " + text + '\n' + outputText.text;
 
         }
+
+        protected virtual bool CheckAllowedToOpen() => true;
 
         protected void SetVisibility(bool state)
         {
