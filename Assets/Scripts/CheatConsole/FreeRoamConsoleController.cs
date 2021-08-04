@@ -10,6 +10,8 @@ namespace CheatConsole
     public class FreeRoamConsoleController : CheatConsoleController
     {
 
+        private FreeRoamSceneController sceneController;
+
         protected static readonly Dictionary<Regex, Func<Match, string>> cheatCodes = new Dictionary<Regex, Func<Match, string>>()
         {
 
@@ -63,6 +65,25 @@ namespace CheatConsole
             },
 
         };
+
+        protected override void Start()
+        {
+
+            base.Start();
+
+            sceneController = FreeRoamSceneController.GetFreeRoamSceneController(gameObject.scene);
+
+        }
+
+        protected override bool CheckAllowedToOpen()
+        {
+
+            if (!sceneController.SceneIsEnabled)
+                return false;
+            else
+                return base.CheckAllowedToOpen();
+
+        }
 
         protected override void ProcessCommand(string command)
         {
