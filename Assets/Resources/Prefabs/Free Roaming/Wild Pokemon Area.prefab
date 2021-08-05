@@ -71,7 +71,7 @@ MonoBehaviour:
     possibleSpeciesIds: 
     minimumLevel: 0
     maximumLevel: 0
-  encounterChance: 0.08
+  encounterChance: 0.05
 --- !u!61 &5073696586661529891
 BoxCollider2D:
   m_ObjectHideFlags: 0
