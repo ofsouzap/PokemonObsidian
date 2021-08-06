@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FreeRoaming.Menu.PlayerMenus
+namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
 {
     public class ProfileMenuController : PlayerMenuController
     {
@@ -14,6 +14,12 @@ namespace FreeRoaming.Menu.PlayerMenus
         public Text textMoney;
 
         public Text textBadgesList;
+
+        public Image cheatsUsedImage;
+
+        public StatContainerController distanceWalkedContainer;
+        public StatContainerController npcsTalkedContainer;
+        public StatContainerController timePlayedContainer;
 
         protected override MenuSelectableController[] GetSelectables()
             => new MenuSelectableController[0];
@@ -30,6 +36,12 @@ namespace FreeRoaming.Menu.PlayerMenus
             textMoney.text = PlayerData.currencySymbol + PlayerData.singleton.profile.money.ToString();
 
             textBadgesList.text = GetBadgesListTextContent(PlayerData.singleton);
+
+            distanceWalkedContainer.SetValue(PlayerData.singleton.stats.distanceWalked.ToString());
+            npcsTalkedContainer.SetValue(PlayerData.singleton.stats.npcsTalkedTo.ToString());
+            timePlayedContainer.SetValue(PlayerData.singleton.stats.timePlayed.ToString());
+
+            cheatsUsedImage.enabled = PlayerData.singleton.stats.cheatsUsed;
 
         }
 

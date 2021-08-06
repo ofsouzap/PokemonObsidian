@@ -474,9 +474,34 @@ public class PlayerData
         /// </summary>
         public ulong timePlayed;
 
+        /// <summary>
+        /// Whether the player has used cheats or not (opening the cheat console without using any cheats doesn't count)
+        /// </summary>
+        public bool cheatsUsed = false;
+
     }
 
     public Stats stats = new Stats();
+
+    public void AddStepWalked()
+    {
+        stats.distanceWalked++;
+    }
+
+    public void AddNPCTalkedTo()
+    {
+        stats.npcsTalkedTo++;
+    }
+
+    public void AddSecondsPlayed(ulong seconds)
+    {
+        stats.timePlayed += seconds;
+    }
+
+    public void SetCheatsUsed()
+    {
+        stats.cheatsUsed = true;
+    }
 
     #endregion
 

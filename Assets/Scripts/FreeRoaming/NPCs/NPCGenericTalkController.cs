@@ -22,6 +22,9 @@ namespace FreeRoaming.NPCs
         private IEnumerator TalkingCoroutine()
         {
 
+            //Record NPC talked to
+            PlayerData.singleton.AddNPCTalkedTo();
+
             sceneController.SetSceneRunningState(false);
             textBoxController.Show();
 

@@ -99,6 +99,9 @@ namespace FreeRoaming
 
             //Whenever the player completes a movement, check if a wild pokemon battle should be launched
             MovementCompleted += () => WildPokemonBattleLaunchUpdate();
+
+            //Track player steps walked
+            MovementCompleted += () => PlayerData.singleton.AddStepWalked();
             
         }
 

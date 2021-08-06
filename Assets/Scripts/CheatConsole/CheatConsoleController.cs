@@ -78,6 +78,7 @@ namespace CheatConsole
         protected void EnterCurrentCommand()
         {
 
+            PlayerData.singleton.SetCheatsUsed();
             Output("Input - " + CurrentInputCommand);
             ProcessCommand(CurrentInputCommand);
             commandInputField.text = "";
