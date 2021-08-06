@@ -1259,7 +1259,9 @@ namespace Battle
 
                     //TODO - if playerPokemonInstance holding lucky egg, multiply by 1.5
 
-                    //TODO - if playerPokemonInstance was traded (aka isn't with original trainer), multiply by 1.5
+                    //If pokemon was traded (aka isn't with original trainer), multiply by 1.5
+                    if (playerPokemonInstance.originalTrainerGuid != PlayerData.singleton.profile.guid)
+                        experienceToAdd += Mathf.FloorToInt(experienceToAdd * 0.5F);
 
                     byte previousPlayerPokemonLevel = playerPokemonInstance.GetLevel();
                     int previousPlayerPokemonExperience = playerPokemonInstance.experience;
@@ -2200,6 +2202,7 @@ namespace Battle
 
                 targetPokemon.pokeBallId = pokeBall.id;
                 targetPokemon.originalTrainerName = PlayerData.singleton.profile.name;
+                targetPokemon.originalTrainerGuid = PlayerData.singleton.profile.guid;
                 targetPokemon.catchTime = PokemonInstance.GetCurrentEpochTime();
 
                 #endregion

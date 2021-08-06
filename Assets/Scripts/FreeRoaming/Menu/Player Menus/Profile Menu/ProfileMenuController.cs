@@ -1,7 +1,7 @@
-﻿using Menus;
-using System.Collections;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Menus;
 
 namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
 {
@@ -20,6 +20,7 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
         public StatContainerController distanceWalkedContainer;
         public StatContainerController npcsTalkedContainer;
         public StatContainerController timePlayedContainer;
+        public StatContainerController gameStartedContainer;
 
         protected override MenuSelectableController[] GetSelectables()
             => new MenuSelectableController[0];
@@ -40,6 +41,7 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
             distanceWalkedContainer.SetValue(PlayerData.singleton.stats.distanceWalked.ToString());
             npcsTalkedContainer.SetValue(PlayerData.singleton.stats.npcsTalkedTo.ToString());
             timePlayedContainer.SetValue(PlayerData.singleton.stats.timePlayed.ToString());
+            gameStartedContainer.SetValue(GetGameStartedContainerContent());
 
             cheatsUsedImage.enabled = PlayerData.singleton.stats.cheatsUsed;
 
@@ -63,6 +65,28 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
             }
 
             return output;
+
+        }
+
+        protected string GetTimePlayerContainerContent(PlayerData player = null)
+        {
+
+            if (player == null)
+                player = PlayerData.singleton;
+
+            return (player.stats.timePlayed / 60).ToString() + " mins";
+
+        }
+
+        protected string GetGameStartedContainerContent(PlayerData player = null)
+        {
+
+            if (player == null)
+                player = PlayerData.singleton;
+
+            DateTime dt = EpochTime.EpochTimeToDateTime(Convert.ToInt64(player.stats.gameStartTime)).ToLocalTime();
+
+            return dt.ToString("yyyy/MM/dd HH:mm");
 
         }
 

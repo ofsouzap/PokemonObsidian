@@ -21,6 +21,7 @@ namespace StartUp.ChoosePlayerData.ChoosePlayerStarterPokemon
                 starterPokemonInitialLevel,
                 starterPokemonInitialLevel,
                 originalTrainerName: PlayerData.singleton.profile.name,
+                originalTrainerGuid: PlayerData.singleton.profile.guid,
                 catchTime: PokemonInstance.GetCurrentEpochTime());
 
             //Adds the starter pokemon

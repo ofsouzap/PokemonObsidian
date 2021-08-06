@@ -30,6 +30,7 @@ namespace Pokemon
             Stats<int> currentStats = new Stats<int>(), //If all of these values are 0, they won't be used
             int pokeBallId = PokemonInstance.defaultPokeBallId, //The poke ball id INCLUDING the poke ball type id
             string originalTrainerName = "",
+            Guid? _originalTrainerGuid = null,
             long catchTime = 0,
             byte? _friendship = null // If this is null, the species' base friendship is used
             )
@@ -49,6 +50,8 @@ namespace Pokemon
 
             Array.Copy(_moves, moves, _moves.Length);
 
+            Guid originalTrainerGuid = _originalTrainerGuid == null ? Guid.Empty : (Guid)_originalTrainerGuid;
+
             byte friendship = _friendship == null ? PokemonSpecies.GetPokemonSpeciesById(speciesId).baseFriendship : (byte)_friendship;
 
             PokemonInstance instance = new PokemonInstance(individualValues)
@@ -67,6 +70,7 @@ namespace Pokemon
                 gender = gender,
                 pokeBallId = pokeBallId,
                 originalTrainerName = originalTrainerName,
+                originalTrainerGuid = originalTrainerGuid,
                 catchTime = catchTime,
                 friendship = friendship
             };
@@ -108,6 +112,7 @@ namespace Pokemon
             byte minLevel,
             byte maxLevel,
             string originalTrainerName = "",
+            Guid? originalTrainerGuid = null,
             long catchTime = 0
             )
         {
@@ -163,6 +168,7 @@ namespace Pokemon
                 gender: gender,
 
                 originalTrainerName: originalTrainerName,
+                _originalTrainerGuid: originalTrainerGuid,
                 catchTime: catchTime
                 );
 

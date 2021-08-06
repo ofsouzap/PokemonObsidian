@@ -407,6 +407,8 @@ public class PlayerData
 
         #endregion
 
+        public Guid guid = Guid.Empty;
+
         public string name = "";
 
         public const int maximumMoney = 9999999;
@@ -417,6 +419,11 @@ public class PlayerData
     }
 
     public Profile profile = new Profile();
+
+    public void SetRandomGuid()
+    {
+        profile.guid = Guid.NewGuid();
+    }
 
     public void AddMoney(int amount)
     {
@@ -475,6 +482,11 @@ public class PlayerData
         public ulong timePlayed;
 
         /// <summary>
+        /// The time the game was started (in epoch seconds)
+        /// </summary>
+        public ulong gameStartTime;
+
+        /// <summary>
         /// Whether the player has used cheats or not (opening the cheat console without using any cheats doesn't count)
         /// </summary>
         public bool cheatsUsed = false;
@@ -482,6 +494,11 @@ public class PlayerData
     }
 
     public Stats stats = new Stats();
+
+    public void SetGameStartTimeAsNow()
+    {
+        stats.gameStartTime = Convert.ToUInt64(EpochTime.SecondsNow);
+    }
 
     public void AddStepWalked()
     {

@@ -165,6 +165,8 @@ namespace Pokemon
 
         public string originalTrainerName;
 
+        public Guid originalTrainerGuid;
+
         #region Stats
 
         public const byte maximumEffortValue = 252;

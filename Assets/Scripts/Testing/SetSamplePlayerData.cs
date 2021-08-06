@@ -48,6 +48,7 @@ namespace Testing
 
                 pokemon.nonVolatileStatusCondition = spec.initialNVSC;
                 pokemon.originalTrainerName = PlayerData.singleton.profile.name;
+                pokemon.originalTrainerGuid = PlayerData.singleton.profile.guid;
 
                 if (pokemon.GetLevel() < 100)
                 {

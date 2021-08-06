@@ -51,31 +51,7 @@ namespace StartUp
 
             Initialise();
 
-            //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
-            //TODO - also, use loaded player data to choose player sprite (male or female)
-
-            if (useDefaultPlayerChoices)
-            {
-
-                //Name
-                PlayerData.singleton.profile.name = "Debug User";
-
-                //Sprite
-                PlayerData.singleton.profile.spriteId = 0;
-
-                //Party Pokemon (optionally box pokemon too)
-                //Pokemon must be set after profile details so that OT details can be set
-                if (playerPartyPokemonSetUpGameObject != null)
-                    playerPartyPokemonSetUpGameObject.SetActive(true);
-
-            }
-
-            else
-            {
-
-                yield return StartCoroutine(ChoosePlayerData());
-
-            }
+            yield return StartCoroutine(SetInitialPlayerData());
 
             foreach (GameObject go in extrasToActivate)
                 go.SetActive(true);
@@ -95,6 +71,43 @@ namespace StartUp
                 DontDestroyOnLoad(go);
 
             LoadAllData.Load();
+
+        }
+
+        private IEnumerator SetInitialPlayerData()
+        {
+
+            //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
+            //TODO - also, use loaded player data to choose player sprite (male or female)
+
+            if (useDefaultPlayerChoices) //Use default player data
+            {
+
+                //Game start time
+                PlayerData.singleton.SetGameStartTimeAsNow();
+
+                //Guid
+                PlayerData.singleton.SetRandomGuid();
+
+                //Name
+                PlayerData.singleton.profile.name = "Player";
+
+                //Sprite
+                PlayerData.singleton.profile.spriteId = 0;
+
+                //Party Pokemon (optionally box pokemon too)
+                //Pokemon must be set after profile details so that OT details can be set
+                if (playerPartyPokemonSetUpGameObject != null)
+                    playerPartyPokemonSetUpGameObject.SetActive(true);
+
+            }
+            else //Have player data chosen in ChoosePlayerData scenes
+            {
+
+                yield return StartCoroutine(ChoosePlayerData());
+
+            }
+            //TODO - have branch for loading player data from save file
 
         }
 
@@ -149,6 +162,8 @@ namespace StartUp
         private IEnumerator ChoosePlayerData()
         {
 
+            PlayerData.singleton.SetGameStartTimeAsNow();
+            PlayerData.singleton.SetRandomGuid();
             yield return StartCoroutine(ChoosePlayerData_Name());
             yield return StartCoroutine(ChoosePlayerData_Sprite());
             yield return StartCoroutine(ChoosePlayerData_StarterPokemon()); //Pokemon must be set after profile details so that OT details can be set
