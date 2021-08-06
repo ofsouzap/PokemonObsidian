@@ -806,11 +806,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.maximumLevel
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.minimumLevel
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.possibleSpeciesIds.Array.size
@@ -912,7 +912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.minimumLevel
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.possibleSpeciesIds.Array.size
@@ -1014,7 +1014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.maximumLevel
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.minimumLevel
