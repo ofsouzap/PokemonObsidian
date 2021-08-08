@@ -118,7 +118,7 @@ namespace StartUp
 
             Saving.LoadedData data = Saving.LoadData(slotIndex);
 
-            if (!data.dataExists)
+            if (data.status != Saving.LoadedData.Status.Success)
                 return;
 
             Saving.LaunchLoadedData(data);

@@ -75,27 +75,47 @@ public static class Saving
     public struct LoadedData
     {
 
-        public bool dataExists;
+        public enum Status
+        {
+            Success,
+            NoData,
+            Invalid
+        }
+
+        public static readonly Dictionary<Status, Func<LoadedData, string>> dataStatusMessages = new Dictionary<Status, Func<LoadedData, string>>()
+        {
+            { Status.Success, data => EpochTime.EpochTimeToDateTime(data.saveTime).ToString(Saving.saveTimeDisplayFormat) },
+            { Status.NoData, data => "(No Data)" },
+            { Status.Invalid, data => "(Data Corrupted)" }
+        };
+
+        public string StatusMessage
+            => dataStatusMessages[status].Invoke(this);
+
+        public Status status;
+
         public long saveTime;
         public PlayerData playerData;
         public GameSceneManager.SceneStack sceneStack;
 
-        public LoadedData(bool dataExists)
+        public LoadedData(Status status)
         {
 
-            if (dataExists)
-                throw new ArgumentException("If data exists, LoadedData must be initialised with loaded data's values");
+            if (status == Status.Success)
+                throw new ArgumentException("This initialiser should only be used when the data failed to load");
 
-            this.dataExists = dataExists;
+            this.status = status;
+
             saveTime = default;
             playerData = default;
             sceneStack = default;
 
+
         }
 
-        public LoadedData(long saveTime, PlayerData playerData, GameSceneManager.SceneStack sceneStack)
+        public LoadedData(Status status, long saveTime, PlayerData playerData, GameSceneManager.SceneStack sceneStack)
         {
-            dataExists = true;
+            this.status = status;
             this.saveTime = saveTime;
             this.playerData = playerData;
             this.sceneStack = sceneStack;
@@ -134,25 +154,38 @@ public static class Saving
         }
         catch (FileNotFoundException)
         {
-            return new LoadedData(false);
+            return new LoadedData(LoadedData.Status.NoData);
         }
 
-        Serialize.DeserializeData(data, 0,
-            out long saveTime,
-            out PlayerData playerData,
-            out GameSceneManager.SceneStack sceneStack,
-            out _);
+        try
+        {
 
-        return new LoadedData(saveTime, playerData, sceneStack);
+            Serialize.DeserializeData(data, 0,
+                out long saveTime,
+                out PlayerData playerData,
+                out GameSceneManager.SceneStack sceneStack,
+                out _);
+
+            return new LoadedData(LoadedData.Status.Success, saveTime, playerData, sceneStack);
+
+        }
+        catch (Exception e)
+        {
+
+            Debug.LogWarning("Failed to load save data:\n" + e.Message);
+
+            return new LoadedData(LoadedData.Status.Invalid);
+
+        }
 
     }
 
     public static void LaunchLoadedData(LoadedData data)
     {
 
-        if (!data.dataExists)
+        if (data.status != LoadedData.Status.Success)
         {
-            Debug.LogError("Data doesn't exist");
+            Debug.LogError("Data isn't loaded successfully");
         }
 
         PlayerData.singleton = data.playerData;

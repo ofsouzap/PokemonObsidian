@@ -30,8 +30,8 @@ namespace StartUp
             {
 
                 saveSlots[saveIndex].SetUp(saveIndex,
-                    data.dataExists ? EpochTime.EpochTimeToDateTime(data.saveTime).ToString(Saving.saveTimeDisplayFormat) : StartUpSaveSlot.noSaveFileDisplayText,
-                    data.dataExists ? loadSaveSlotListener : null);
+                    data.StatusMessage,
+                    data.status == Saving.LoadedData.Status.Success ? loadSaveSlotListener : null);
                 saveIndex++;
 
             }

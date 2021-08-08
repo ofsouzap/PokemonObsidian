@@ -27,15 +27,7 @@ namespace FreeRoaming.Menu.PlayerMenus.SaveMenu
 
             saveSlotIndexText.text = this.saveSlotIndex.ToString();
 
-            if (!data.dataExists)
-            {
-                saveTimeText.text = noSaveFileDisplayText;
-            }
-            else
-            {
-                saveTimeText.text = EpochTime.EpochTimeToDateTime(data.saveTime)
-                    .ToString(Saving.saveTimeDisplayFormat);
-            }
+            saveTimeText.text = data.StatusMessage;
 
             overwriteButton.onClick.RemoveAllListeners();
             overwriteButton.onClick.AddListener(() => overwriteListener.Invoke(this.saveSlotIndex));
