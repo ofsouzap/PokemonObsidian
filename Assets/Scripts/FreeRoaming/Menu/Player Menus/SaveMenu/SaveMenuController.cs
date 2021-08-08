@@ -75,8 +75,7 @@ namespace FreeRoaming.Menu.PlayerMenus.SaveMenu
             if (!data.dataExists)
                 return;
 
-            PlayerData.singleton = data.playerData;
-            GameSceneManager.LoadSceneStack(data.sceneStack);
+            Saving.LaunchLoadedData(data);
 
         }
 

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using FreeRoaming;
+using Menus;
 using StartUp.ChoosePlayerData;
 
 namespace StartUp
@@ -17,8 +20,10 @@ namespace StartUp
         public const bool useDefaultPlayerChoices = false;
 #endif
 
-        [Tooltip("The scene stack string to load once the data has been loaded")]
-        public string startupSceneStack = "Basic Testing,0,0";
+        [Tooltip("The scene stack to load when starting a new game")]
+        public string newGameSceneStack = "Pokshire,0,0";
+
+        public StartUpMenuController startUpMenuController;
 
         public GameObject playerGameObject;
         public GameObject freeRoamMenuGameObject;
@@ -27,8 +32,6 @@ namespace StartUp
         /// Game objects to put in DontDestroyOnLoad
         /// </summary>
         public GameObject[] dontDestroyOnLoadGameObjects;
-
-        public GameObject[] extrasToActivate;
 
         public GameObject playerPartyPokemonSetUpGameObject = null;
 
@@ -40,27 +43,12 @@ namespace StartUp
         private void Start()
         {
 
-            StartCoroutine(StartUpCoroutine());
-
-        }
-
-        private IEnumerator StartUpCoroutine()
-        {
-
             HideFreeRoamMenu();
 
             Initialise();
 
-            yield return StartCoroutine(SetInitialPlayerData());
-
-            foreach (GameObject go in extrasToActivate)
-                go.SetActive(true);
-
-            ShowFreeRoamMenu();
-
-            LaunchGame();
-
-            yield break;
+            startUpMenuController.SetUp((slotIndex) => LaunchSaveSlot(slotIndex),
+                () => LaunchNewGame());
 
         }
 
@@ -72,13 +60,101 @@ namespace StartUp
 
             LoadAllData.Load();
 
+            SetUpPlayer();
+
+            SetUpFreeRoamMenu();
+
+        }
+
+        private void SetUpPlayer()
+        {
+
+            if (playerGameObject.GetComponent<PlayerController>() == null)
+            {
+                Debug.LogError("No PlayerController on playerGameObject");
+                return;
+            }
+            else
+            {
+                playerGameObject.GetComponent<PlayerController>().TrySetSingleton();
+            }
+
+        }
+
+        private void SetUpFreeRoamMenu()
+        {
+
+            if (freeRoamMenuGameObject.GetComponent<FreeRoaming.Menu.FreeRoamMenuController>() == null)
+            {
+                Debug.LogError("No FreeRoamMenuController on freeRoamMenuGameObject");
+                return;
+            }
+            else
+            {
+                freeRoamMenuGameObject.GetComponent<FreeRoaming.Menu.FreeRoamMenuController>().TrySetSingleton();
+            }
+
+        }
+
+        #region Launching Game
+
+        #region Main Launching Methods
+
+        private void LaunchNewGame()
+        {
+
+            startUpMenuController.Hide();
+
+            StartCoroutine(NewGameCoroutine());
+
+        }
+
+        private void LaunchSaveSlot(int slotIndex)
+        {
+
+            startUpMenuController.Hide();
+
+            PrepareToLaunch();
+
+            Saving.LoadedData data = Saving.LoadData(slotIndex);
+
+            if (!data.dataExists)
+                return;
+
+            Saving.LaunchLoadedData(data);
+
+        }
+
+        #endregion
+
+        private void PrepareToLaunch()
+        {
+
+            GameSceneManager.Initialise();
+
+            FindObjectOfType<EventSystem>().enabled = false; //This should be disabled for when the next scene is loaded
+
+            ShowFreeRoamMenu();
+
+        }
+
+        private IEnumerator NewGameCoroutine()
+        {
+
+            yield return StartCoroutine(SetInitialPlayerData());
+
+            if (!GameSceneManager.SceneStack.TryParse(newGameSceneStack, out GameSceneManager.SceneStack sceneStack, out string stackParseErrMsg))
+            {
+                Debug.LogError("Unable to parse provided scene stack:\n" + stackParseErrMsg);
+                yield break;
+            }
+
+            LaunchSceneStack(sceneStack);
+
         }
 
         private IEnumerator SetInitialPlayerData()
         {
-
-            //TODO - once data loading done, use loaded player data to choose which scene to open and which scenes to have in stack (and loaded). Use GameSceneManager to help with this
-            //TODO - also, use loaded player data to choose player sprite (male or female)
 
             if (useDefaultPlayerChoices) //Use default player data
             {
@@ -107,48 +183,19 @@ namespace StartUp
                 yield return StartCoroutine(ChoosePlayerData());
 
             }
-            //TODO - have branch for loading player data from save file
 
         }
 
-        private void LaunchGame()
+        private void LaunchSceneStack(GameSceneManager.SceneStack sceneStack)
         {
 
-            GameSceneManager.Initialise();
-
-            FindObjectOfType<EventSystem>().enabled = false; //This should be disabled for when the next scene is loaded
-
-            if (playerGameObject.GetComponent<PlayerController>() == null)
-            {
-                Debug.LogError("No PlayerController on playerGameObject");
-                return;
-            }
-            else
-            {
-                playerGameObject.GetComponent<PlayerController>().TrySetSingleton();
-            }
-
-            if (freeRoamMenuGameObject.GetComponent<FreeRoaming.Menu.FreeRoamMenuController>() == null)
-            {
-                Debug.LogError("No FreeRoamMenuController on freeRoamMenuGameObject");
-                return;
-            }
-            else
-            {
-                freeRoamMenuGameObject.GetComponent<FreeRoaming.Menu.FreeRoamMenuController>().TrySetSingleton();
-            }
-
-            if (!GameSceneManager.SceneStack.TryParse(startupSceneStack, out GameSceneManager.SceneStack sceneStack, out string stackParseErrMsg))
-            {
-
-                Debug.LogError("Unable to parse provided scene stack:\n" + stackParseErrMsg);
-                return;
-
-            }
+            PrepareToLaunch();
 
             GameSceneManager.LoadSceneStack(sceneStack);
 
         }
+
+        #endregion
 
         private void HideFreeRoamMenu() => freeRoamMenuGameObject.SetActive(false);
         private void ShowFreeRoamMenu() => freeRoamMenuGameObject.SetActive(true);

@@ -147,6 +147,22 @@ public static class Saving
 
     }
 
+    public static void LaunchLoadedData(LoadedData data)
+    {
+
+        if (!data.dataExists)
+        {
+            Debug.LogError("Data doesn't exist");
+        }
+
+        PlayerData.singleton = data.playerData;
+
+        FreeRoaming.PlayerController.singleton.RefreshSpriteFromPlayerData();
+
+        GameSceneManager.LoadSceneStack(data.sceneStack);
+
+    }
+
     #endregion
 
 }

@@ -81,7 +81,7 @@ namespace FreeRoaming
         protected override void Start()
         {
 
-            spriteGroupName = PlayerData.singleton.profile.SpriteName;
+            RefreshSpriteFromPlayerData();
 
             base.Start();
 
@@ -191,6 +191,16 @@ namespace FreeRoaming
             }
 
             #endregion
+
+        }
+
+        public void RefreshSpriteFromPlayerData()
+        {
+
+            if (!isMoving)
+                RefreshNeutralSprite();
+
+            spriteGroupName = PlayerData.singleton.profile.SpriteName;
 
         }
 
