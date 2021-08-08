@@ -17,11 +17,6 @@ public class PlayerData
     /// </summary>
     public static PlayerData singleton = new PlayerData();
 
-    public PlayerData()
-    {
-        singleton = this;
-    }
-
     #region Pokemon
 
     public const int partyCapacity = 6;
@@ -674,7 +669,7 @@ public class PlayerData
     /// A list of which battle-challenging NPCs the player has battled and so won't try to challenge the player on spotting them.
     /// The elements are the IDs of the NPCs as set in their public properties (found in FreeRoaming.NPCs.NPCController)
     /// </summary>
-    private List<int> npcsBattled = new List<int>();
+    public List<int> npcsBattled = new List<int>();
 
     public void SetNPCBattled(int npcId)
     {
@@ -708,6 +703,13 @@ public class PlayerData
         return npcsBattled.Contains(npcId);
 
     }
+
+    #endregion
+
+    #region Respawning
+
+    public bool respawnSceneStackSet = false;
+    public GameSceneManager.SceneStack respawnSceneStack;
 
     #endregion
 

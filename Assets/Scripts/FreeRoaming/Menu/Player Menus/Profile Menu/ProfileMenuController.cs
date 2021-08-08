@@ -86,7 +86,7 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
 
             DateTime dt = EpochTime.EpochTimeToDateTime(Convert.ToInt64(player.stats.gameStartTime)).ToLocalTime();
 
-            return dt.ToString("yyyy/MM/dd HH:mm");
+            return dt.ToString("dd/MM/yyyy HH:mm");
 
         }
 

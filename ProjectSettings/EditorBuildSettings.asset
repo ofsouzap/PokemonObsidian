@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FreeRoaming/Menus/Menu_Storage System.unity
     guid: e0545306634333e46bcc4eb75a8dd74c
   - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Menus/Menu_Save.unity
+    guid: bcbbb2a309b91f94dba428fd94b8d9ba
+  - enabled: 1
     path: Assets/Scenes/FreeRoaming/Pokemon Center.unity
     guid: 1b274ecc7ebde484cbd94830fd87e157
   - enabled: 1

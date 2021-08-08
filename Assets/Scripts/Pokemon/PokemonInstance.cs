@@ -132,6 +132,11 @@ namespace Pokemon
         #endregion
 
         /// <summary>
+        /// The pokemon's GUID. Used to uniquely identify it
+        /// </summary>
+        public Guid guid;
+
+        /// <summary>
         /// The pokemon's nickname. If it is empty, the pokemon doesn't have a nickname
         /// </summary>
         public string nickname;

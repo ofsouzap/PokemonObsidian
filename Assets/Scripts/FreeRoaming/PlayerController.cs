@@ -89,7 +89,7 @@ namespace FreeRoaming
             MovementCompleted += () => IncrementStepCycle(); //Add a step everytime the player finishes a step
             SetUpStepCycleListeners();
 
-            respawnSceneStackSet = false;
+            PlayerData.singleton.respawnSceneStackSet = false;
 
             currentSceneArea = null;
 
@@ -237,9 +237,6 @@ namespace FreeRoaming
 
         #region Respawning
 
-        private bool respawnSceneStackSet = false;
-        private GameSceneManager.SceneStack respawnSceneStack;
-
         /// <summary>
         /// Sets the player's respawn scene stack as their current position and the current scene stack
         /// </summary>
@@ -267,8 +264,8 @@ namespace FreeRoaming
         public void SetRespawnSceneStack(GameSceneManager.SceneStack stack)
         {
 
-            respawnSceneStackSet = true;
-            respawnSceneStack = stack;
+            PlayerData.singleton.respawnSceneStackSet = true;
+            PlayerData.singleton.respawnSceneStack = stack;
 
         }
 
@@ -278,7 +275,7 @@ namespace FreeRoaming
         public void Respawn()
         {
 
-            if (!respawnSceneStackSet)
+            if (!PlayerData.singleton.respawnSceneStackSet)
             {
                 Debug.LogError("No respawn scene stack has been set yet");
                 return;
@@ -287,7 +284,7 @@ namespace FreeRoaming
             PlayerData.singleton.HealPartyPokemon();
             TryTurn(FacingDirection.Down);
 
-            GameSceneManager.LoadSceneStack(respawnSceneStack);
+            GameSceneManager.LoadSceneStack(PlayerData.singleton.respawnSceneStack);
 
         }
 

@@ -23,6 +23,7 @@ namespace Pokemon
             int experience,
             PokemonInstance.NonVolatileStatusCondition nonVolatileStatusCondition,
             PokemonInstance.BattleProperties battleProperties,
+            Guid? _guid = null,
             string nickname = "",
             Item heldItem = null,
             int _health = -1,
@@ -35,6 +36,8 @@ namespace Pokemon
             byte? _friendship = null // If this is null, the species' base friendship is used
             )
         {
+
+            Guid guid = _guid == null ? Guid.NewGuid() : (Guid)_guid;
 
             int[] moves = new int[4];
 
@@ -64,6 +67,7 @@ namespace Pokemon
                 experience = experience,
                 nonVolatileStatusCondition = nonVolatileStatusCondition,
                 battleProperties = battleProperties,
+                guid = guid,
                 nickname = nickname,
                 heldItem = heldItem,
                 health = _health > 0 ? _health : 1,

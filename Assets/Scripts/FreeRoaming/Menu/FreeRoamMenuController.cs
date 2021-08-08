@@ -17,7 +17,6 @@ namespace FreeRoaming.Menu
 
         public FreeRoamMenuButtonController[] mainButtons;
 
-        public MenuSelectableController buttonSave;
         public MenuSelectableController buttonBack;
 
         protected override MenuSelectableController[] GetSelectables()
@@ -58,7 +57,6 @@ namespace FreeRoaming.Menu
                     Debug.LogError("No Button component found in a main button");
 
             if (buttonBack.GetComponent<Button>() == null) Debug.LogError("No Button component in buttonBack");
-            if (buttonSave.GetComponent<Button>() == null) Debug.LogError("No Button component in buttonSave");
 
             SetUp();
 

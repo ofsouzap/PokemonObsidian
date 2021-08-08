@@ -600,8 +600,7 @@ public static class GameSceneManager
 
                 SceneManager.SetActiveScene((Scene)pausedFreeRoamScene);
 
-                playerMenuScene = null;
-                pausedFreeRoamScene = null;
+                ClosePlayerMenuScene_Variables();
 
                 StartFadeIn();
 
@@ -615,6 +614,17 @@ public static class GameSceneManager
             };
 
         };
+
+    }
+
+    /// <summary>
+    /// Sets the variables to show that the player menu scene has been closed. Allows for closing of player menu scene instantly, outside of ClosePlayerMenuScene method
+    /// </summary>
+    private static void ClosePlayerMenuScene_Variables()
+    {
+
+        playerMenuScene = null;
+        pausedFreeRoamScene = null;
 
     }
 
@@ -834,7 +844,7 @@ public static class GameSceneManager
     }
 
     public static SceneStack CurrentSceneStack => new SceneStack(sceneRecordStack,
-        CurrentScene.name,
+        pausedFreeRoamScene == null ? CurrentScene.name : pausedFreeRoamScene?.name,
         PlayerController.singleton.position);
 
     public static void LoadSceneStack(SceneStack sceneStack)
@@ -859,9 +869,18 @@ public static class GameSceneManager
             CloseBattleScene_Variables();
 
         }
-        else if (evolutionScene != null || playerMenuScene != null)
+        else if (playerMenuScene != null)
         {
-            Debug.LogError("Can't load scene stack whilst in evolution or player menuscene");
+
+            //Unload player menu scene BEFORE loading scene stack
+            SceneManager.UnloadSceneAsync((Scene)playerMenuScene).completed += (ao) => LoadSceneStack_Execute(sceneStack);
+
+            ClosePlayerMenuScene_Variables();
+
+        }
+        else if (evolutionScene != null)
+        {
+            Debug.LogError("Can't load scene stack whilst in evolution scene");
             return;
         }
         else
