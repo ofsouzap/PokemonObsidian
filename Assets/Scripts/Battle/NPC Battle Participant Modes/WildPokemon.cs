@@ -99,7 +99,7 @@ namespace Battle.NPCBattleParticipantModes
 
             float[] normalisedWeightings = NormaliseWeightings(rawWeightings);
 
-            float r = 1;// Random.Range(0F, 1F);
+            float r = Random.Range(0F, 1F);
 
             float currentTotal = 0;
             for (int i = 0; i < normalisedWeightings.Length; i++)
