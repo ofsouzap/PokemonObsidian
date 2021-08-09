@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-using FreeRoaming.AreaEntranceArguments;
 
 namespace FreeRoaming.AreaControllers
 {
@@ -26,23 +25,21 @@ namespace FreeRoaming.AreaControllers
 
             base.Start();
             
-            if (HouseEntranceArguments.argumentsSet && HouseEntranceArguments.houseId != 0)
+            if (GameSceneManager.CurrentSceneInstanceId != 0)
             {
 
-                if (houseSpecificPrefabs.Any(x => x.houseId == HouseEntranceArguments.houseId))
+                if (houseSpecificPrefabs.Any(x => x.houseId == GameSceneManager.CurrentSceneInstanceId))
                 {
                     Instantiate(houseSpecificPrefabs
-                        .Where(x => x.houseId == HouseEntranceArguments.houseId)
+                        .Where(x => x.houseId == GameSceneManager.CurrentSceneInstanceId)
                         .ToArray()
                         [0]
                         .prefab, houseSpecificRoot);
                 }
                 else
                 {
-                    Debug.LogError("No house specific prefab set for id - " + HouseEntranceArguments.houseId);
+                    Debug.LogError("No house specific prefab set for id - " + GameSceneManager.CurrentSceneInstanceId);
                 }
-
-                HouseEntranceArguments.argumentsSet = false;
 
             }
 

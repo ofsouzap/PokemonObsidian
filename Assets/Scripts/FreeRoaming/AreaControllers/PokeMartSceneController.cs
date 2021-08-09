@@ -2,7 +2,6 @@
 using System.Linq;
 using UnityEngine;
 using FreeRoaming.PokeMart;
-using FreeRoaming.AreaEntranceArguments;
 using Items;
 
 namespace FreeRoaming.AreaControllers
@@ -23,14 +22,7 @@ namespace FreeRoaming.AreaControllers
 
             textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
-            if (PokeMartEntranceArguments.argumentsSet)
-            {
-                pokeMartId = PokeMartEntranceArguments.pokeMartId;
-            }
-            else
-            {
-                Debug.LogError("Poke mart entrance arguments not set");
-            }
+            pokeMartId = GameSceneManager.CurrentSceneInstanceId;
 
         }
 

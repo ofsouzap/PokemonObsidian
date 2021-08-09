@@ -24,6 +24,9 @@ public static class GameSceneManager
 
     public const float sceneChangePlayerMoveDelay = 0.5F;
 
+    private static int currentInstanceId;
+    public static int CurrentSceneInstanceId => currentInstanceId;
+
     #region Scene Records
 
     /// <summary>
@@ -41,22 +44,26 @@ public static class GameSceneManager
         {
             this.sceneIdentifier = sceneIdentifier;
             returnPosition = Vector2Int.zero;
+            instanceId = 0;
         }
 
         public SceneRecord(string sceneIdentifier,
-            Vector2Int returnPosition)
+            Vector2Int returnPosition,
+            int instanceId)
         {
             this.sceneIdentifier = sceneIdentifier;
             this.returnPosition = returnPosition;
+            this.instanceId = instanceId;
         }
 
         public string sceneIdentifier;
         public Vector2Int returnPosition;
+        public int instanceId;
 
     }
 
     private static void AddSceneDoorToRecordStack(string sceneIdentifier, SceneDoorDetails doorDetails)
-        => sceneRecordStack.Push(new SceneRecord(sceneIdentifier, doorDetails.returnPosition));
+        => sceneRecordStack.Push(new SceneRecord(sceneIdentifier, doorDetails.returnPosition, doorDetails.instanceId));
 
     private static Scene? pausedFreeRoamScene;
 
@@ -245,7 +252,11 @@ public static class GameSceneManager
             if (doorDetails.isDepthLevel)
                 AddSceneDoorToRecordStack(oldScene.name, doorDetails);
 
-            LoadScene(doorDetails.sceneName, oldScene, doorDetails.newSceneTargetPosition);
+            currentInstanceId = doorDetails.instanceId;
+
+            LoadScene(doorDetails.sceneName,
+                oldScene,
+                doorDetails.newSceneTargetPosition);
 
         };
 
@@ -266,6 +277,8 @@ public static class GameSceneManager
         Scene oldScene = SceneManager.GetActiveScene();
 
         SceneRecord newSceneRecord = sceneRecordStack.Pop();
+
+        currentInstanceId = newSceneRecord.instanceId;
 
         LoadScene(newSceneRecord.sceneIdentifier, oldScene, newSceneRecord.returnPosition);
 
@@ -630,15 +643,6 @@ public static class GameSceneManager
 
     #endregion
 
-    public static void OpenStartingScene(Scene oldScene,
-        string sceneName,
-        Vector2Int playerSceneStartPosition)
-    {
-
-        LoadScene(sceneName, oldScene, playerSceneStartPosition);
-
-    }
-
     #endregion
 
     #region Scene Stacks
@@ -646,19 +650,21 @@ public static class GameSceneManager
     public struct SceneStack
     {
 
-        //Element regex pattern - [A-z]+,-?[0-9]+,-?[0-9]+
-        public static readonly Regex pattern = new Regex("^([A-z0-9 ]+,-?[0-9]+,-?[0-9]+;)*([A-z0-9 ]+,-?[0-9]+,-?[0-9]+)$");
+        //Element regex pattern - [A-z]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?
+        public static readonly Regex pattern = new Regex("^([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?;)*([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?)$");
 
         public struct Element
         {
 
             public string sceneIdentifier;
             public Vector2Int position;
+            public int instanceId;
 
-            public Element(string sceneIdentifier, Vector2Int position)
+            public Element(string sceneIdentifier, Vector2Int position, int instanceId)
             {
                 this.sceneIdentifier = sceneIdentifier;
                 this.position = position;
+                this.instanceId = instanceId;
             }
 
             public static bool TryParse(string s, out Element r, out string errorMessage)
@@ -666,10 +672,11 @@ public static class GameSceneManager
 
                 string sceneIdentifier;
                 Vector2Int position;
+                int instanceId;
 
                 string[] parts = s.Split(',');
 
-                if (parts.Length != 3)
+                if (parts.Length != 3 && parts.Length != 4)
                 {
                     errorMessage = "Wrong number of commas";
                     r = default;
@@ -697,10 +704,26 @@ public static class GameSceneManager
 
                 position = new Vector2Int(pos_x, pos_y);
 
+                //Instance Id
+
+                if (parts.Length == 4)
+                {
+                    if (!int.TryParse(parts[3], out instanceId))
+                    {
+                        errorMessage = "Invalid instance id";
+                        r = default;
+                        return false;
+                    }
+                }
+                else
+                {
+                    instanceId = 0;
+                }
+
                 //Output
 
                 errorMessage = default;
-                r = new Element(sceneIdentifier, position);
+                r = new Element(sceneIdentifier, position, instanceId);
                 return true;
 
             }
@@ -757,7 +780,7 @@ public static class GameSceneManager
             {
 
                 SceneRecord record = stackQueue.Dequeue();
-                Element newElement = new Element(record.sceneIdentifier, record.returnPosition);
+                Element newElement = new Element(record.sceneIdentifier, record.returnPosition, record.instanceId);
 
                 elements[i] = newElement;
 
@@ -765,7 +788,7 @@ public static class GameSceneManager
 
             //Add current scene
 
-            elements[elements.Length - 1] = new Element(currentSceneIdentifier, currentScenePosition);
+            elements[elements.Length - 1] = new Element(currentSceneIdentifier, currentScenePosition, currentInstanceId);
 
         }
 
@@ -827,6 +850,8 @@ public static class GameSceneManager
                         + ele.position.x.ToString()
                         + ','
                         + ele.position.y.ToString()
+                        + ','
+                        + ele.instanceId.ToString()
                         + ';';
 
                 }
@@ -902,14 +927,16 @@ public static class GameSceneManager
 
             SceneStack.Element element = sceneStack[i];
 
-            sceneRecordStack.Push(new SceneRecord(element.sceneIdentifier, element.position));
+            sceneRecordStack.Push(new SceneRecord(element.sceneIdentifier, element.position, element.instanceId));
 
         }
 
         //Load final scene in scene stack
 
-        OpenStartingScene(CurrentScene,
-            sceneStack.FinalElement.sceneIdentifier,
+        currentInstanceId = sceneStack.FinalElement.instanceId;
+
+        LoadScene(sceneStack.FinalElement.sceneIdentifier,
+            CurrentScene,
             sceneStack.FinalElement.position);
 
     }

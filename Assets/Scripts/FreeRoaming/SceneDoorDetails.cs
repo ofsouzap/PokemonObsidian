@@ -33,6 +33,11 @@ namespace FreeRoaming
         /// </summary>
         public Vector2Int returnPosition;
 
+        /// <summary>
+        /// The instance id of the scene to launch. For example, the id of the house to load when loading the house scene
+        /// </summary>
+        public int instanceId;
+
     }
 
 }

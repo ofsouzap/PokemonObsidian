@@ -17,11 +17,6 @@ namespace FreeRoaming.BuildingGameObjects
         /// <param name="baseDetails">The basic door details to base the output on</param>
         public abstract SceneDoorDetails GetInstanceSpecificSceneDoorDetails(SceneDoorDetails baseDoorDetails);
 
-        /// <summary>
-        /// A method to set the entrance arguments when entering a specified building
-        /// </summary>
-        protected abstract void SetBuildingEntranceArguments();
-
         [SerializeField]
         protected SceneDoor door;
 
@@ -31,7 +26,6 @@ namespace FreeRoaming.BuildingGameObjects
         protected virtual void Start()
         {
 
-            door.AddBeforeDoorUsedListener(() => SetBuildingEntranceArguments());
             door.doorDetails = GetInstanceSpecificSceneDoorDetails(GetBaseSceneDoorDetails());
 
         }

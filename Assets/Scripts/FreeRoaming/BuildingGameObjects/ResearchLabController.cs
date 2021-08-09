@@ -14,7 +14,8 @@ namespace FreeRoaming.BuildingGameObjects
                 isDepthLevel = true,
                 isLoadingDoor = true,
                 newSceneTargetPosition = new Vector2Int(0, 0),
-                sceneName = researchLabSceneIdentifier
+                sceneName = researchLabSceneIdentifier,
+                instanceId = 0
             };
 
         public override SceneDoorDetails GetInstanceSpecificSceneDoorDetails(SceneDoorDetails baseDoorDetails)
@@ -24,10 +25,9 @@ namespace FreeRoaming.BuildingGameObjects
                 isLoadingDoor = baseDoorDetails.isLoadingDoor,
                 newSceneTargetPosition = baseDoorDetails.newSceneTargetPosition,
                 returnPosition = Vector2Int.RoundToInt(door.transform.position) + Vector2Int.down,
-                sceneName = baseDoorDetails.sceneName
+                sceneName = baseDoorDetails.sceneName,
+                instanceId = baseDoorDetails.instanceId
             };
-
-        protected override void SetBuildingEntranceArguments() { }
 
     }
 }

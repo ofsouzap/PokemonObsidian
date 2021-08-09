@@ -15,13 +15,9 @@ namespace FreeRoaming.BuildingGameObjects
             isDepthLevel = true,
             isLoadingDoor = true,
             newSceneTargetPosition = new Vector2Int(0, 0),
-            sceneName = pokemonCenterSceneIdentifier
+            sceneName = pokemonCenterSceneIdentifier,
+            instanceId = 0
         };
-
-        protected override void SetBuildingEntranceArguments()
-        {
-            AreaEntranceArguments.PokemonCenterEntranceArguments.SetArguments(buildingId);
-        }
 
         public override SceneDoorDetails GetInstanceSpecificSceneDoorDetails(SceneDoorDetails baseDetails)
         {
@@ -31,7 +27,8 @@ namespace FreeRoaming.BuildingGameObjects
                 isLoadingDoor = baseDetails.isLoadingDoor,
                 newSceneTargetPosition = baseDetails.newSceneTargetPosition,
                 returnPosition = Vector2Int.RoundToInt(door.transform.position) + Vector2Int.down,
-                sceneName = baseDetails.sceneName
+                sceneName = baseDetails.sceneName,
+                instanceId = buildingId
             };
         }
 

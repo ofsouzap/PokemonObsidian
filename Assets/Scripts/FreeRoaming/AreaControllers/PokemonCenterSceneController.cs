@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using FreeRoaming.AreaEntranceArguments;
 
 namespace FreeRoaming.AreaControllers
 {
@@ -15,7 +14,7 @@ namespace FreeRoaming.AreaControllers
             base.Start();
 
             //If pokemon center entrance arguments aren't set or the id is 0, no special objects will be placed in the pokemon center
-            if (PokemonCenterEntranceArguments.argumentsSet && PokemonCenterEntranceArguments.pokemonCenterId != 0)
+            if (GameSceneManager.CurrentSceneInstanceId != 0)
             {
 
                 //TODO - place objects in scene depending on id in PokemonCenterEntranceArguments
