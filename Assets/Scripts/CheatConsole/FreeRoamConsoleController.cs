@@ -64,6 +64,24 @@ namespace CheatConsole
                }
             },
 
+            {
+               new Regex("^load scenestack (?<pattern>([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?;)*([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?))$"),
+               (m) =>
+               {
+
+                   if (!GameSceneManager.SceneStack.TryParse(m.Groups["pattern"].Value, out GameSceneManager.SceneStack sceneStack, out string parseErrMsg))
+                   {
+                       return "Unable to parse scene stack string provided:\n" + parseErrMsg;
+                   }
+                   else
+                   {
+                       GameSceneManager.LoadSceneStack(sceneStack);
+                       return "Loading scene stack";
+                   }
+
+               }
+            },
+
         };
 
         protected override void Start()

@@ -114,7 +114,11 @@ namespace CheatConsole
 
         }
 
-        protected void SetInputAsSelectedObject() => EventSystem.current.SetSelectedGameObject(commandInputField.gameObject);
+        protected void SetInputAsSelectedObject()
+        {
+            if (commandInputField != null && commandInputField.gameObject != null && EventSystem.current != null)
+                EventSystem.current.SetSelectedGameObject(commandInputField.gameObject);
+        }
 
         protected virtual void RefreshVisibility()
         {
