@@ -1550,6 +1550,13 @@ namespace Battle
 
             }
 
+            #region Move PP down
+
+            if (!action.fightUsingStruggle)
+                action.user.ActivePokemon.movePPs[action.fightMoveIndex]--;
+
+            #endregion
+
             string moveUsageMessage = action.user.ActivePokemon.GetDisplayName() + " used " + move.name;
             battleAnimationSequencer.EnqueueSingleText(moveUsageMessage);
 
@@ -1730,13 +1737,6 @@ namespace Battle
 
                     PokemonInstance userPokemon = action.user.ActivePokemon;
 
-                    #region Move PP down
-
-                    if (!action.fightUsingStruggle)
-                        userPokemon.movePPs[action.fightMoveIndex]--;
-
-                    #endregion
-
                     #region User Damage
 
                     if (usageResults.userDamageDealt > 0)
@@ -1826,9 +1826,6 @@ namespace Battle
             }
             else if (usageResults.missed)
             {
-
-                if (!action.fightUsingStruggle)
-                    action.user.ActivePokemon.movePPs[action.fightMoveIndex]--;
 
                 battleAnimationSequencer.EnqueueSingleText("It missed!");
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
