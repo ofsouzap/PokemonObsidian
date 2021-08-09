@@ -15,6 +15,7 @@ namespace Audio
         {
 
             AudioSource.clip = clip;
+            AudioSource.volume = GameSettings.sfxVolume;
             AudioSource.Play();
 
             StartCoroutine(WaitToDestroy(playCompleteAction));

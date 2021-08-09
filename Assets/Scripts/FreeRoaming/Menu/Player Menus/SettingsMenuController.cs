@@ -1,9 +1,8 @@
 ﻿using Menus;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Audio;
 
 namespace FreeRoaming.Menu.PlayerMenus
 {
@@ -15,6 +14,10 @@ namespace FreeRoaming.Menu.PlayerMenus
         [Header("Text Speed")]
         public Text textSpeedNameText;
         public Slider textSpeedSlider;
+
+        [Header("Sound")]
+        public Slider musicVolumeSlider;
+        public Slider sfxVolumeSlider;
 
         protected GameSettings.TextSpeed[] sortedTextSpeeds;
 
@@ -66,6 +69,12 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             #endregion
 
+            musicVolumeSlider.onValueChanged.AddListener(v => SetMusicVolumeValue(v));
+            musicVolumeSlider.value = GameSettings.musicVolume;
+
+            sfxVolumeSlider.onValueChanged.AddListener(v => SetSFXVolumeValue(v));
+            sfxVolumeSlider.value = GameSettings.sfxVolume;
+
         }
 
         public void SetTextSpeedSliderValue(float value)
@@ -78,6 +87,21 @@ namespace FreeRoaming.Menu.PlayerMenus
             textSpeedNameText.text = textSpeed.name;
 
             GameSettings.textSpeed = textSpeed;
+
+        }
+
+        public void SetMusicVolumeValue(float value)
+        {
+
+            GameSettings.musicVolume = value;
+            MusicSourceController.singleton.SetVolume(value);
+
+        }
+
+        public void SetSFXVolumeValue(float value)
+        {
+
+            GameSettings.sfxVolume = value;
 
         }
 

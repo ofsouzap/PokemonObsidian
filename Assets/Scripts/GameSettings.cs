@@ -7,6 +7,9 @@ public static class GameSettings
 
     #region General
 
+    public static float musicVolume = 0.5f;
+    public static float sfxVolume = 1;
+
     #endregion
 
     #region Text Speed

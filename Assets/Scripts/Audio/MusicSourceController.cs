@@ -62,7 +62,7 @@ namespace Audio
         {
 
             initiallyLooping = AudioSource.loop;
-            initialVolume = AudioSource.volume;
+            SetVolume(GameSettings.musicVolume);
 
             AudioStorage.TryLoadAll();
 
@@ -98,6 +98,8 @@ namespace Audio
         public void SetTrack(string resourceName,
             bool fadeTracks = true)
         {
+
+            RefreshMusicVolumeFromGameSettings();
 
             bool hasStartingClip = AudioStorage.GetMusicClip(resourceName, true) != null;
 
@@ -139,7 +141,7 @@ namespace Audio
 
             float singleFadeTime = totalFadeTime / 2;
             float startVolume = AudioSource.volume;
-
+            Debug.Log("Volume to return to " + startVolume);
             yield return StartCoroutine(FadeVolume(startVolume, 0, singleFadeTime));
 
             #region Set New Track
@@ -231,8 +233,11 @@ namespace Audio
         public float GetVolume()
             => AudioSource.volume;
 
+        private void RefreshMusicVolumeFromGameSettings()
+            => SetVolume(GameSettings.musicVolume);
+
         public void SetVolume(float volume)
-            => AudioSource.volume = volume;
+            => initialVolume = AudioSource.volume = volume;
 
     }
 }
