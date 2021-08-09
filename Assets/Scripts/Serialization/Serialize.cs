@@ -48,17 +48,20 @@ namespace Serialization
         public static void DeserializeData(byte[] data, int startOffset,
             out long saveTime,
             out PlayerData playerData,
+            out GameSettings gameSettings,
             out GameSceneManager.SceneStack sceneStack,
             out int byteLength)
             => DeserializeData(GetSaveDataVersionNumber(data, startOffset), data, startOffset,
             out saveTime,
             out playerData,
+            out gameSettings,
             out sceneStack,
             out byteLength);
 
         public static void DeserializeData(ushort versionNumber, byte[] data, int startOffset,
             out long saveTime,
             out PlayerData playerData,
+            out GameSettings gameSettings,
             out GameSceneManager.SceneStack sceneStack,
             out int byteLength)
         {
@@ -72,6 +75,7 @@ namespace Serialization
                 serializers[versionNumber].DeserializeData(data, startOffset,
                     out saveTime,
                     out playerData,
+                    out gameSettings,
                     out sceneStack,
                     out byteLength);
             }

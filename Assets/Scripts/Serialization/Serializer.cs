@@ -180,6 +180,7 @@ namespace Serialization {
             int startOffset,
             out long saveTime,
             out PlayerData playerData,
+            out GameSettings gameSettings,
             out GameSceneManager.SceneStack sceneStack,
             out int byteLength);
 

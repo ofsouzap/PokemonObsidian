@@ -72,6 +72,13 @@ namespace Serialization
             foreach (int npcId in player.npcsBattled)
                 bytes.AddRange(BitConverter.GetBytes(npcId));
 
+            //Settings
+            bytes.AddRange(BitConverter.GetBytes(Array.IndexOf(
+                GameSettings.textSpeedOptions, GameSettings.singleton.textSpeed
+                )));
+            bytes.AddRange(BitConverter.GetBytes(GameSettings.singleton.musicVolume));
+            bytes.AddRange(BitConverter.GetBytes(GameSettings.singleton.sfxVolume));
+
             //Return output
             return bytes.ToArray();
 
@@ -252,9 +259,11 @@ namespace Serialization
 
         #region Deserialization
 
-        public override void DeserializeData(byte[] data, int startOffset,
+        public override void DeserializeData(byte[] data,
+            int startOffset,
             out long saveTime,
             out PlayerData playerData,
+            out GameSettings gameSettings,
             out GameSceneManager.SceneStack sceneStack,
             out int byteLength)
         {
@@ -270,6 +279,8 @@ namespace Serialization
             List<int> defeatedGymIds, npcsBattled;
             bool respawnSceneStackSet, cheatsUsed;
             Dictionary<int, int> generalItems, medicineItems, battleItems, pokeBallItems, tmItems;
+            GameSettings.TextSpeed textSpeed;
+            float musicVolume, sfxVolume;
 
             int offset = startOffset;
 
@@ -372,6 +383,15 @@ namespace Serialization
                 offset += 4;
             }
 
+            textSpeed = GameSettings.textSpeedOptions[BitConverter.ToInt32(data, offset)];
+            offset += 4;
+
+            musicVolume = BitConverter.ToSingle(data, offset);
+            offset += 4;
+
+            sfxVolume = BitConverter.ToSingle(data, offset);
+            offset += 4;
+
             //Setting byte length
             byteLength = offset - startOffset;
 
@@ -407,6 +427,13 @@ namespace Serialization
             playerData.inventory.battleItems.SetItems(battleItems);
             playerData.inventory.pokeBalls.SetItems(pokeBallItems);
             playerData.inventory.tmItems.SetItems(tmItems);
+
+            gameSettings = new GameSettings()
+            {
+                textSpeed = textSpeed,
+                musicVolume = musicVolume,
+                sfxVolume = sfxVolume
+            };
 
         }
 

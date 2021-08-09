@@ -14,7 +14,7 @@ namespace Testing
 
         private void Update()
         {
-            GameSettings.textSpeed = new GameSettings.TextSpeed("Testing Speed", characterDelay);
+            GameSettings.singleton.textSpeed = new GameSettings.TextSpeed("Testing Speed", characterDelay);
         }
 
     }

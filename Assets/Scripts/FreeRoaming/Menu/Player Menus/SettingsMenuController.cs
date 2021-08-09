@@ -54,7 +54,7 @@ namespace FreeRoaming.Menu.PlayerMenus
             sortedTextSpeeds = GameSettings.textSpeedOptions;
             Array.Sort(sortedTextSpeeds, (a, b) => b.characterDelay.CompareTo(a.characterDelay)); //N.B. sorting in descending order by comparing b to a instead of a to b
 
-            GameSettings.TextSpeed textSpeed = GameSettings.textSpeed;
+            GameSettings.TextSpeed textSpeed = GameSettings.singleton.textSpeed;
 
             textSpeedSlider.minValue = 0;
             textSpeedSlider.maxValue = sortedTextSpeeds.Length - 1;
@@ -70,10 +70,10 @@ namespace FreeRoaming.Menu.PlayerMenus
             #endregion
 
             musicVolumeSlider.onValueChanged.AddListener(v => SetMusicVolumeValue(v));
-            musicVolumeSlider.value = GameSettings.musicVolume;
+            musicVolumeSlider.value = GameSettings.singleton.musicVolume;
 
             sfxVolumeSlider.onValueChanged.AddListener(v => SetSFXVolumeValue(v));
-            sfxVolumeSlider.value = GameSettings.sfxVolume;
+            sfxVolumeSlider.value = GameSettings.singleton.sfxVolume;
 
         }
 
@@ -86,14 +86,14 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             textSpeedNameText.text = textSpeed.name;
 
-            GameSettings.textSpeed = textSpeed;
+            GameSettings.singleton.textSpeed = textSpeed;
 
         }
 
         public void SetMusicVolumeValue(float value)
         {
 
-            GameSettings.musicVolume = value;
+            GameSettings.singleton.musicVolume = value;
             MusicSourceController.singleton.SetVolume(value);
 
         }
@@ -101,7 +101,7 @@ namespace FreeRoaming.Menu.PlayerMenus
         public void SetSFXVolumeValue(float value)
         {
 
-            GameSettings.sfxVolume = value;
+            GameSettings.singleton.sfxVolume = value;
 
         }
 

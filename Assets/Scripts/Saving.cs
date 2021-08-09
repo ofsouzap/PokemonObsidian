@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Serialization;
+using Audio;
 
 public static class Saving
 {
@@ -96,6 +97,7 @@ public static class Saving
 
         public long saveTime;
         public PlayerData playerData;
+        public GameSettings gameSettings;
         public GameSceneManager.SceneStack sceneStack;
 
         public LoadedData(Status status)
@@ -108,16 +110,18 @@ public static class Saving
 
             saveTime = default;
             playerData = default;
+            gameSettings = default;
             sceneStack = default;
 
 
         }
 
-        public LoadedData(Status status, long saveTime, PlayerData playerData, GameSceneManager.SceneStack sceneStack)
+        public LoadedData(Status status, long saveTime, PlayerData playerData, GameSettings gameSettings, GameSceneManager.SceneStack sceneStack)
         {
             this.status = status;
             this.saveTime = saveTime;
             this.playerData = playerData;
+            this.gameSettings = gameSettings;
             this.sceneStack = sceneStack;
         }
 
@@ -163,10 +167,11 @@ public static class Saving
             Serialize.DeserializeData(data, 0,
                 out long saveTime,
                 out PlayerData playerData,
+                out GameSettings gameSettings,
                 out GameSceneManager.SceneStack sceneStack,
                 out _);
 
-            return new LoadedData(LoadedData.Status.Success, saveTime, playerData, sceneStack);
+            return new LoadedData(LoadedData.Status.Success, saveTime, playerData, gameSettings, sceneStack);
 
         }
         catch (Exception e)
@@ -191,6 +196,10 @@ public static class Saving
         PlayerData.singleton = data.playerData;
 
         FreeRoaming.PlayerController.singleton.RefreshSpriteFromPlayerData();
+
+        GameSettings.singleton = data.gameSettings;
+
+        MusicSourceController.singleton.SetVolume(GameSettings.singleton.musicVolume);
 
         GameSceneManager.LoadSceneStack(data.sceneStack);
 

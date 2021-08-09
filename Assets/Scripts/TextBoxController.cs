@@ -104,7 +104,7 @@ public class TextBoxController : MonoBehaviour
         revealTextCoroutine = StartCoroutine(
            RevealTextCoroutine(
                text,
-               GameSettings.textSpeed.characterDelay
+               GameSettings.singleton.textSpeed.characterDelay
                )
            );
     }

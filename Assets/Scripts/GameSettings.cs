@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public static class GameSettings
+public class GameSettings
 {
+
+    public static GameSettings singleton = new GameSettings();
 
     #region General
 
-    public static float musicVolume = 0.5f;
-    public static float sfxVolume = 1;
+    public float musicVolume = 0.5f;
+    public float sfxVolume = 1;
 
     #endregion
 
@@ -42,7 +44,19 @@ public static class GameSettings
         }
     }
 
-    public static TextSpeed textSpeed = textSpeedOptions[0];
+    private int textSpeedIndex = 1;
+
+    public TextSpeed textSpeed
+    {
+        get
+        {
+            return textSpeedOptions[textSpeedIndex];
+        }
+        set
+        {
+            textSpeedIndex = Array.IndexOf(textSpeedOptions, value);
+        }
+    }
 
     #endregion
 
