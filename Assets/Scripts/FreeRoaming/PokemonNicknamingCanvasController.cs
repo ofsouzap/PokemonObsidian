@@ -61,6 +61,8 @@ namespace FreeRoaming
         {
             EventSystem.current.SetSelectedGameObject(inputField.gameObject);
             GetComponent<Canvas>().enabled = true;
+            inputField.interactable = true;
+            submitButton.interactable = true;
             isActive = true;
         }
 
@@ -68,6 +70,8 @@ namespace FreeRoaming
         {
             EventSystem.current.SetSelectedGameObject(null);
             GetComponent<Canvas>().enabled = false;
+            inputField.interactable = false;
+            submitButton.interactable = false;
             isActive = false;
         }
 

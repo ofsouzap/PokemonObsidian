@@ -128,10 +128,21 @@ namespace CheatConsole
                 Hide();
         }
 
-        private void Show() => consoleCanvasObject.SetActive(true);
-        private void Hide() => consoleCanvasObject.SetActive(false);
+        private void Show()
+        {
+            consoleCanvasObject.SetActive(true);
+            commandInputField.interactable = true;
+            submitButton.interactable = true;
+        }
 
-        public void CloseConsole()
+        private void Hide()
+        {
+            consoleCanvasObject.SetActive(false);
+            commandInputField.interactable = false;
+            submitButton.interactable = false;
+        }
+
+    public void CloseConsole()
         {
             SetVisibility(false);
         }
