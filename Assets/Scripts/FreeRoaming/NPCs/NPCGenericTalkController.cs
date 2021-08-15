@@ -25,17 +25,7 @@ namespace FreeRoaming.NPCs
             //Record NPC talked to
             PlayerData.singleton.AddNPCTalkedTo();
 
-            sceneController.SetSceneRunningState(false);
-            textBoxController.Show();
-
-            foreach (string dialog in dialogs)
-            {
-                textBoxController.RevealText(dialog);
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
-            }
-
-            textBoxController.Hide();
-            sceneController.SetSceneRunningState(true);
+            yield return StartCoroutine(Speak(dialogs));
 
         }
 

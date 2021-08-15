@@ -22,6 +22,11 @@ namespace FreeRoaming.NPCs
 
         #endregion
 
+        [SerializeField]
+        protected string npcName;
+
+        public virtual string GetFullName() => npcName;
+
         protected override void Start()
         {
 
@@ -170,32 +175,42 @@ namespace FreeRoaming.NPCs
 
         #region Talking
 
+        /// <summary>
+        /// Returns a string that should be displayed in the text box when this NPC should say the provided messages
+        /// </summary>
+        protected string GetFormattedSpokenMessage(string message)
+            => GetFullName() != null && GetFullName() != ""
+            ? GetFullName() + ": " + message
+            : message;
+
         protected IEnumerator Speak(string[] messages)
         {
-            foreach (string message in messages)
-                yield return StartCoroutine(Speak(message));
-        }
 
-        protected virtual IEnumerator Speak(string message)
-        {
-
-            textBoxController.Show();
-            
             bool thisPausedScene = sceneController.SceneIsRunning;
+            bool textBoxControllerWasHidden = !textBoxController.IsShown;
 
             if (thisPausedScene)
                 sceneController.SetSceneRunningState(false);
 
-            textBoxController.RevealText(message);
+            if (textBoxControllerWasHidden)
+                textBoxController.Show();
 
-            yield return new WaitUntil(() => textBoxController.textRevealComplete);
+            foreach (string message in messages)
+            {
+                textBoxController.RevealText(GetFormattedSpokenMessage(message));
+                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            }
+
+            if (textBoxControllerWasHidden)
+                textBoxController.Hide();
 
             if (thisPausedScene)
                 sceneController.SetSceneRunningState(true);
 
-            //Can't hide the text box instantly because it wouldn't give the user time to read the message
-
         }
+
+        protected IEnumerator Speak(string message)
+            => Speak(new string[] { message });
 
         #endregion
 

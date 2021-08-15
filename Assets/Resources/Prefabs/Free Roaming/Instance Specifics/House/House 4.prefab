@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2304046590161937821}
   m_Layer: 0
-  m_Name: House 3
+  m_Name: House 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,6 +104,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2304046590161937821}
     m_Modifications:
+    - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
+      propertyPath: npcName
+      value: Desmond
+      objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: spriteGroupName
       value: fisherman

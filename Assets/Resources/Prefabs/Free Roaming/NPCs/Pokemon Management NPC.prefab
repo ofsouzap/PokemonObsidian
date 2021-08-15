@@ -23,7 +23,9 @@ MonoBehaviour:
   _runSpeed: 8
   spriteGroupName: connoisseur
   id: 0
+  npcName: Poke Friend
   automaticMovementStages: []
+  nicknameCanvas: {fileID: 0}
 --- !u!1001 &1808275643082623005
 PrefabInstance:
   m_ObjectHideFlags: 0

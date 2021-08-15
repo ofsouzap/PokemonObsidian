@@ -39,9 +39,6 @@ namespace FreeRoaming.NPCs
             [Tooltip("The trainer's class. Used for base payout, battle sprite, trainer class name etc.")]
             public TrainerClass.Class trainerClass;
 
-            [Tooltip("The basic name of this opponent excluding any trainer class name")]
-            public string baseName;
-
             public BattleParticipantNPC.Mode mode;
 
             public string battleBackgroundResourceName;
@@ -109,14 +106,7 @@ namespace FreeRoaming.NPCs
         protected IEnumerator SpeakChatMessage()
         {
 
-            sceneController.SetSceneRunningState(false);
-
-            textBoxController.Show();
-            textBoxController.RevealText(chatMessage);
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
-            textBoxController.Hide();
-
-            sceneController.SetSceneRunningState(true);
+            yield return StartCoroutine(Speak(chatMessage));
 
         }
 
@@ -183,20 +173,37 @@ namespace FreeRoaming.NPCs
 
             yield return StartCoroutine(Speak(challengeMessage));
 
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
-
-            textBoxController.Hide();
-
             MusicSourceController.singleton.SetTrack(GetBattleMusicName(), true);
 
             LaunchBattle();
 
         }
 
-        protected virtual string GetFullName()
-            => TrainerClass.classNamesPrefixes.ContainsKey(battleDetails.trainerClass) && TrainerClass.classNamesPrefixes[battleDetails.trainerClass] != ""
-                ? TrainerClass.classNamesPrefixes[battleDetails.trainerClass] + ' ' + battleDetails.baseName
-                : battleDetails.baseName;
+        public override string GetFullName()
+        {
+
+            string prefixPart =
+                TrainerClass.classNamesPrefixes.ContainsKey(battleDetails.trainerClass)
+                    && TrainerClass.classNamesPrefixes[battleDetails.trainerClass] != ""
+                ? TrainerClass.classNamesPrefixes[battleDetails.trainerClass]
+                : "";
+
+            string namePart =
+                npcName != null
+                    && npcName != ""
+                ? npcName
+                : "";
+
+            if (namePart == "" && prefixPart == "")
+                return "Trainer";
+            else if (namePart == "")
+                return prefixPart;
+            else if (prefixPart == "")
+                return namePart;
+            else
+                return prefixPart + ' ' + namePart;
+
+        }
 
         protected virtual byte GetBasePayout()
             => TrainerClass.classBasePayouts.ContainsKey(battleDetails.trainerClass)

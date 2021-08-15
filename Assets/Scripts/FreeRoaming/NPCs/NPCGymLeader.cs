@@ -31,8 +31,8 @@ namespace FreeRoaming.NPCs
 
         }
 
-        protected override string GetFullName()
-            => "Leader " + battleDetails.baseName;
+        public override string GetFullName()
+            => "Leader " + npcName;
 
         protected override byte GetBasePayout()
             => 0;

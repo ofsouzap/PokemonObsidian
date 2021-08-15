@@ -23,6 +23,8 @@ MonoBehaviour:
   _runSpeed: 8
   spriteGroupName: nurse
   id: 0
+  npcName: Nurse
+  automaticMovementStages: []
   healingMachineScript: {fileID: 0}
 --- !u!1001 &1830818297483615
 PrefabInstance:

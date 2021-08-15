@@ -31,6 +31,7 @@ public class TextBoxController : MonoBehaviour
 
     public void Show() => mainCanvas.enabled = true;
     public void Hide() => mainCanvas.enabled = false;
+    public bool IsShown => mainCanvas.enabled;
 
     public static TextBoxController GetTextBoxController(Scene scene)
     {

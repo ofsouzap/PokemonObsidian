@@ -651,6 +651,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
+      propertyPath: npcName
+      value: Rob
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: chatMessage
       value: I wish you great luck on your travels
       objectReference: {fileID: 0}
