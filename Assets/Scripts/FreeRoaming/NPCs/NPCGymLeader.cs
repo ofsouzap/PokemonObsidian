@@ -12,6 +12,16 @@ namespace FreeRoaming.NPCs
 
         public int gymId;
 
+        protected override void Start()
+        {
+
+            base.Start();
+
+            //Gym leaders don't turn to face the player
+            turnsToFacePlayer = false;
+
+        }
+
         protected override string GetBattleMusicName()
             => useDefaultGymBattleMusic ? gymBattleMusicResourcesPath : base.GetBattleMusicName();
 

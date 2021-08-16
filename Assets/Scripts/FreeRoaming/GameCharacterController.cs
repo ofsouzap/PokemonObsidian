@@ -53,6 +53,21 @@ namespace FreeRoaming
 
         [Tooltip("The direction the this should be facing to start with")]
         public FacingDirection initialDirectionFacing;
+        
+        public static FacingDirection GetVector2MaximumMagnitudeDirection(Vector2 v)
+        {
+
+            Dictionary<FacingDirection, float> inputMagnitudes = new Dictionary<FacingDirection, float>();
+            inputMagnitudes.Add(FacingDirection.Down, -Mathf.Clamp(v.y, int.MinValue, 0));
+            inputMagnitudes.Add(FacingDirection.Up, Mathf.Clamp(v.y, 0, int.MaxValue));
+            inputMagnitudes.Add(FacingDirection.Left, -Mathf.Clamp(v.x, int.MinValue, 0));
+            inputMagnitudes.Add(FacingDirection.Right, Mathf.Clamp(v.x, 0, int.MaxValue));
+
+            KeyValuePair<FacingDirection, float> maximumMagnitude = inputMagnitudes.Aggregate((a, b) => a.Value > b.Value ? a : b);
+
+            return maximumMagnitude.Key;
+
+        }
 
         #endregion
 
@@ -65,6 +80,8 @@ namespace FreeRoaming
         }
 
         protected MovementType currentMovementType = MovementType.Walk;
+
+        public MovementType GetCurrentMovementType() => currentMovementType;
 
         [SerializeField]
         [Min(0)]
@@ -527,6 +544,27 @@ namespace FreeRoaming
             }
             else
                 return false;
+
+        }
+
+        /// <summary>
+        /// Makes the character face in the direction that faces the provided position the most
+        /// </summary>
+        /// <returns>Whether the character managed to face the position</returns>
+        public bool TryFacePosition(Vector2Int pos)
+        {
+
+            Vector2Int offset = pos - position;
+
+            if (offset == Vector2Int.zero)
+            {
+                Debug.LogWarning("Position told to face is current position");
+                return true;
+            }
+
+            FacingDirection newDirection = GetVector2MaximumMagnitudeDirection(offset);
+
+            return TryTurn(newDirection);
 
         }
 

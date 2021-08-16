@@ -430,6 +430,10 @@ PrefabInstance:
       value: Yay, let's battle!
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: turnsToFacePlayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: visibilityDistance
       value: 8
       objectReference: {fileID: 0}
@@ -1386,6 +1390,10 @@ PrefabInstance:
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: challengeMessage
       value: You look like you could battle me. Let's fight!
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
+      propertyPath: turnsToFacePlayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: visibilityDistance

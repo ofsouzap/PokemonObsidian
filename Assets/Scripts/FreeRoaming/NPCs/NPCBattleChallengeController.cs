@@ -23,6 +23,11 @@ namespace FreeRoaming.NPCs
         public string challengeMusicResourceName = "look1";
         public string battleMusicResourceName = "";
 
+        [Tooltip("Whether this NPC should turn to face the player when the player is running")]
+        public bool turnsToFacePlayer = true;
+
+        protected const float turnToFaceToPlayerRange = 10;
+
         /// <summary>
         /// Whether the NPC is currently challenging the player but hasn't yet started the battle
         /// </summary>
@@ -69,6 +74,7 @@ namespace FreeRoaming.NPCs
             base.Update();
 
             BattleChallengeUpdate();
+            FacingPlayerUpdate();
 
         }
 
@@ -103,18 +109,30 @@ namespace FreeRoaming.NPCs
             }
         }
 
+        protected virtual void FacingPlayerUpdate()
+        {
+            if (turnsToFacePlayer && AllowedToAct && CanBattlePlayer && PlayerController.singleton.GetCurrentMovementType() == MovementType.Run)
+                if (Vector2Int.Distance(PlayerController.singleton.position, position) <= turnToFaceToPlayerRange)
+                    FacePlayer();
+        }
+
+        protected void FacePlayer()
+        {
+            TryFacePosition(PlayerController.singleton.position);
+        }
+
+        #region Challenging
+
+        protected virtual void BattleChallengeUpdate()
+        {
+            if (AllowedToAct && PlayerInView && CanBattlePlayer && PlayerController.singleton.GetTrainerEncountersCheatEnabled())
+                TriggerBattle();
+        }
+
         protected IEnumerator SpeakChatMessage()
         {
 
             yield return StartCoroutine(Speak(chatMessage));
-
-        }
-
-        protected virtual void BattleChallengeUpdate()
-        {
-
-            if (AllowedToAct && PlayerInView && CanBattlePlayer && PlayerController.singleton.GetTrainerEncountersCheatEnabled())
-                TriggerBattle();
 
         }
 
@@ -249,6 +267,8 @@ namespace FreeRoaming.NPCs
             challengingPlayer = false;
 
         }
+
+        #endregion
 
     }
 }

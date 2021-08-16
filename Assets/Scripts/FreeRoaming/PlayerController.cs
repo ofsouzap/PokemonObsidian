@@ -115,16 +115,9 @@ namespace FreeRoaming
             if (AllowedToMove)
             {
 
-                FacingDirection selectedDirection = FacingDirection.Up;
+                Vector2 inputMovementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-                Dictionary<FacingDirection, float> inputMagnitudes = new Dictionary<FacingDirection, float>();
-                inputMagnitudes.Add(FacingDirection.Down, -Mathf.Clamp(Input.GetAxis("Vertical"), -1, 0));
-                inputMagnitudes.Add(FacingDirection.Up, Mathf.Clamp(Input.GetAxis("Vertical"), 0, 1));
-                inputMagnitudes.Add(FacingDirection.Left, -Mathf.Clamp(Input.GetAxis("Horizontal"), -1, 0));
-                inputMagnitudes.Add(FacingDirection.Right, Mathf.Clamp(Input.GetAxis("Horizontal"), 0, 1));
-
-                KeyValuePair<FacingDirection, float> maximumMagnitude = inputMagnitudes.Aggregate((a, b) => a.Value > b.Value ? a : b);
-                selectedDirection = maximumMagnitude.Key;
+                FacingDirection selectedDirection = GetVector2MaximumMagnitudeDirection(inputMovementVector);
 
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
