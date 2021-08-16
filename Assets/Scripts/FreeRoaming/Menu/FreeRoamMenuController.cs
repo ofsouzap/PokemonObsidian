@@ -13,11 +13,14 @@ namespace FreeRoaming.Menu
 
         public static FreeRoamMenuController singleton;
 
+        public QuitGamePanelController quitGamePanelController;
+
         public GameObject selectableSelectionPrefab;
 
         public FreeRoamMenuButtonController[] mainButtons;
 
         public MenuSelectableController buttonBack;
+        public MenuSelectableController buttonQuit;
 
         protected override MenuSelectableController[] GetSelectables()
         {
@@ -57,10 +60,16 @@ namespace FreeRoaming.Menu
                     Debug.LogError("No Button component found in a main button");
 
             if (buttonBack.GetComponent<Button>() == null) Debug.LogError("No Button component in buttonBack");
+            if (buttonQuit.GetComponent<Button>() == null) Debug.LogError("No Button component in buttonQuit");
 
             SetUp();
 
+            quitGamePanelController.SetUp(
+                cancelButtonPressAction: () => CancelQuitGame(),
+                quitGameButtonPressAction: () => QuitGame());
+
             Hide();
+            quitGamePanelController.Hide();
 
         }
 
@@ -71,10 +80,30 @@ namespace FreeRoaming.Menu
                 mainButtonController.SetUpListener(this);
 
             buttonBack.GetComponent<Button>().onClick.AddListener(() => CloseMenu());
-
-            //TODO - save button on-click listener
+            buttonQuit.GetComponent<Button>().onClick.AddListener(() => QuitButtonPressed());
 
         }
+
+        #region Quit Game
+
+        private void QuitButtonPressed()
+        {
+            quitGamePanelController.Show();
+            EventSystem.current.SetSelectedGameObject(quitGamePanelController.GetDefaultSelectedGameObject());
+        }
+
+        private void CancelQuitGame()
+        {
+            quitGamePanelController.Hide();
+            EventSystem.current.SetSelectedGameObject(buttonQuit.gameObject);
+        }
+
+        private void QuitGame()
+        {
+            Application.Quit();
+        }
+
+        #endregion
 
         #region Visibility
 
