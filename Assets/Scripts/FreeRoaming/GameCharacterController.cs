@@ -558,7 +558,7 @@ namespace FreeRoaming
 
             if (offset == Vector2Int.zero)
             {
-                Debug.LogWarning("Position told to face is current position");
+                Debug.LogWarning("Position told to face is current position (" + name + ")");
                 return true;
             }
 
@@ -621,6 +621,9 @@ namespace FreeRoaming
         {
             currentWildPokemonArea = areaController;
         }
+
+        public WildPokemonAreaController GetCurrentWildPokemonArea()
+            => currentWildPokemonArea;
 
         public void ExitWildPokemonArea()
         {

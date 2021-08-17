@@ -82,6 +82,21 @@ namespace CheatConsole
                }
             },
 
+            {
+               new Regex("^wildpokemonarea current get$"),
+               (m) =>
+               {
+
+                   var area = PlayerController.singleton.GetCurrentWildPokemonArea();
+
+                   if (area == null)
+                       return "No current wild pokemon area";
+                   else
+                       return "Current wild pokemon area name - " + area.name;
+
+               }
+            },
+
         };
 
         protected override void Start()

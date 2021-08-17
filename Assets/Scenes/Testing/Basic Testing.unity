@@ -516,6 +516,7 @@ MonoBehaviour:
   _runSpeed: 8
   spriteGroupName: worker
   id: 0
+  npcName: 
   automaticMovementStages:
   - initialDelayTime: 1
     direction: 3
@@ -1658,6 +1659,7 @@ MonoBehaviour:
   _runSpeed: 8
   spriteGroupName: professor1
   id: 0
+  npcName: 
   automaticMovementStages: []
   battleBackgroundResourceName: field
   pokemonSpecification:
@@ -2119,10 +2121,6 @@ PrefabInstance:
     - target: {fileID: 3306161485490917328, guid: 7aae8cd8207e75f40919b55b1983a989, type: 3}
       propertyPath: m_Name
       value: Text Box
-      objectReference: {fileID: 0}
-    - target: {fileID: 3306161485490917329, guid: 7aae8cd8207e75f40919b55b1983a989, type: 3}
-      propertyPath: startShown
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3306161485490917333, guid: 7aae8cd8207e75f40919b55b1983a989, type: 3}
       propertyPath: m_Pivot.x

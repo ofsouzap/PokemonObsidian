@@ -424,10 +424,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Text Box
       objectReference: {fileID: 0}
-    - target: {fileID: 3306161485490917329, guid: 7aae8cd8207e75f40919b55b1983a989, type: 3}
-      propertyPath: startShown
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3306161485490917333, guid: 7aae8cd8207e75f40919b55b1983a989, type: 3}
       propertyPath: m_Pivot.x
       value: 0

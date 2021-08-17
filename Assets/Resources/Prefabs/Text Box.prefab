@@ -271,7 +271,7 @@ MonoBehaviour:
   continuePromptBobbingInterval: 0.4
   continuePromptBobbingDistance: 1
   textArea: {fileID: 3306161485959940933}
-  startShown: 1
+  startShown: 0
   userChoicesController: {fileID: 6249385254513016463}
   userChoiceIndexSelected: -1
 --- !u!1 &3306161485959940932
