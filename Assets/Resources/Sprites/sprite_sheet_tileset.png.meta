@@ -70,7 +70,7 @@ TextureImporter:
     second: sprite_sheet_tileset_mountain_topright
   - first:
       213: 2397147747750882076
-    second: sprite_sheet_tileset_caveentrance
+    second: sprite_sheet_tileset_caveentrance_up
   - first:
       213: 6142704217915790337
     second: sprite_sheet_tileset_dirt_left
@@ -194,6 +194,9 @@ TextureImporter:
   - first:
       213: 4663028010673544322
     second: sprite_sheet_tileset_innermountain_bottomright
+  - first:
+      213: -190082027076247455
+    second: sprite_sheet_tileset_caveentrance_down
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -225,8 +228,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -748,7 +751,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_sheet_tileset_caveentrance
+      name: sprite_sheet_tileset_caveentrance_up
       rect:
         serializedVersion: 2
         x: 704
@@ -1575,7 +1578,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1596,7 +1599,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1617,7 +1620,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1638,7 +1641,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1646,6 +1649,27 @@ TextureImporter:
       bones: []
       spriteID: 28c94e9154766b040800000000000000
       internalID: 4663028010673544322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_caveentrance_down
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1602fe94761bc5df0800000000000000
+      internalID: -190082027076247455
       vertices: []
       indices: 
       edges: []

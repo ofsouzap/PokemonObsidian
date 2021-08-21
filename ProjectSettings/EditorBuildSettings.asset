@@ -72,6 +72,15 @@ EditorBuildSettings:
     path: Assets/Scenes/FreeRoaming/Main Areas/Cave 1.unity
     guid: 478df85eae65e15409fa69529c678681
   - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Main Areas/Tildahill.unity
+    guid: 88f73d3a9d62fd849a9388e15a63d873
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Gyms/Tildahill Gym.unity
+    guid: 0627e619dfe18aa4f9fe1ce4177fef40
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Main Areas/Cathedral.unity
+    guid: 8faabaacb5891c74e9242073a8e24551
+  - enabled: 1
     path: Assets/Scenes/Testing/Basic Testing.unity
     guid: 705c0a6cd5d11594ea9223b7e3513bf5
   - enabled: 1
