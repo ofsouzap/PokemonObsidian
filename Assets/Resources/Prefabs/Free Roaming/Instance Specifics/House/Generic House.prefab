@@ -105,6 +105,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7977126346067093873}
     m_Modifications:
+    - target: {fileID: 1782517504784084279, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
+      propertyPath: messages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782517504784084279, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
+      propertyPath: messages.Array.data[0]
+      value: Beware of tall grass.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782517504784084279, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
+      propertyPath: messages.Array.data[1]
+      value: Pokemon like to jump out at travelers from it.
+      objectReference: {fileID: 0}
     - target: {fileID: 2790867806729915254, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -152,6 +164,14 @@ PrefabInstance:
     - target: {fileID: 2790867806729915255, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
       propertyPath: m_Name
       value: Bookshelf
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311733321610556723, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
+      propertyPath: messages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311733321610556723, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
+      propertyPath: messages.Array.data[0]
+      value: Trainers on routes will challenge anyone they see
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaec8d18da6a711458efcc30dfd40abd, type: 3}
