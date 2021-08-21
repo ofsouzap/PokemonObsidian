@@ -1853,7 +1853,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: encounterChance
-      value: 0.025
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: battleBackgroundResourceName
@@ -1991,7 +1991,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: encounterChance
-      value: 0.025
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: battleBackgroundResourceName
