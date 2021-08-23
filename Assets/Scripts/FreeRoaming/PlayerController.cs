@@ -178,8 +178,7 @@ namespace FreeRoaming
             {
                 if (Input.GetButtonDown("Menu") || Input.GetButtonDown("Cancel"))
                 {
-                    FreeRoamMenuController.singleton.Hide();
-                    sceneController.SetSceneRunningState(true);
+                    FreeRoamMenuController.singleton.CloseMenu(); //Scene is resumed by FreeRoamMenuController.CloseMenu
                 }
             }
 

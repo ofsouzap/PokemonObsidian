@@ -120,9 +120,10 @@ namespace FreeRoaming.Menu
 
         #endregion
 
-        private void CloseMenu()
+        public void CloseMenu()
         {
             Hide();
+            quitGamePanelController.Hide();
             FreeRoamSceneController.GetFreeRoamSceneController(gameObject.scene).SetSceneRunningState(true);
         }
 
