@@ -1302,7 +1302,7 @@ PrefabInstance:
     - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
-      objectReference: {fileID: 1890145644979473814}
+      objectReference: {fileID: 4849798025400051439}
     - target: {fileID: 8161139033498708036, guid: d9dcb07fc6c8a5c4c979f29b76bc1517, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 

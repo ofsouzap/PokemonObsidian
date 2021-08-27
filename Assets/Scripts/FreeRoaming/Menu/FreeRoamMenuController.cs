@@ -114,7 +114,7 @@ namespace FreeRoaming.Menu
 
             base.Show();
 
-            EventSystem.current.SetSelectedGameObject(buttonBack.gameObject);
+            EventSystem.current.SetSelectedGameObject(mainButtons.Length > 0 ? mainButtons[0].gameObject : buttonBack.gameObject);
 
         }
 

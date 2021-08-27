@@ -9526,6 +9526,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5713558098489743023, guid: 289c6d6551d860141ac941ca06954ad7, type: 3}
+      propertyPath: doorDetails.sceneName
+      value: Route 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713558098489743023, guid: 289c6d6551d860141ac941ca06954ad7, type: 3}
+      propertyPath: doorDetails.newSceneTargetPosition.x
+      value: -41
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713558098489743023, guid: 289c6d6551d860141ac941ca06954ad7, type: 3}
+      propertyPath: doorDetails.newSceneTargetPosition.y
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 289c6d6551d860141ac941ca06954ad7, type: 3}
 --- !u!1001 &8118968386461619879
