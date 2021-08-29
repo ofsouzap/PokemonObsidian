@@ -21,6 +21,8 @@ namespace StartUp
 
             Item.TrySetRegistry(); //TMs must be loaded after moves
 
+            DroppedItem.TryLoadRegistry(); //Dropped items must be loaded after items
+
             PokeMartData.LoadData(); //This must be loaded after all items
 
         }

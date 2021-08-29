@@ -661,6 +661,25 @@ public class PlayerData
 
     public Inventory inventory = new Inventory();
 
+    #region Dropped Items
+
+    public List<int> collectedDroppedItemsIds = new List<int>();
+
+    public void SetDroppedItemCollected(int id)
+    {
+
+        if (collectedDroppedItemsIds.Contains(id))
+            Debug.LogWarning("Item id being set for collection already set as collected (" + id + ")");
+        else
+            collectedDroppedItemsIds.Add(id);
+
+    }
+
+    public bool GetDroppedItemHasBeenCollected(int id)
+        => collectedDroppedItemsIds.Contains(id);
+
+    #endregion
+
     #endregion
 
     #region NPCs Battled

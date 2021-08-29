@@ -156,7 +156,8 @@ namespace FreeRoaming
 
             base.Start();
 
-            textBoxController = TextBoxController.GetTextBoxController(Scene);
+            RefreshTextBoxController();
+            SceneChanged.AddListener(RefreshTextBoxController);
 
             position = Vector2Int.RoundToInt(transform.position);
             directionFacing = initialDirectionFacing;
@@ -194,6 +195,11 @@ namespace FreeRoaming
         protected void RefreshGridManager()
         {
             gridManager = GridManager.GetSceneGridManager(Scene);
+        }
+
+        protected void RefreshTextBoxController()
+        {
+            textBoxController = TextBoxController.GetTextBoxController(Scene);
         }
 
         #region Position and Movement

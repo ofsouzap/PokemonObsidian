@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using FreeRoaming.Menu;
 using FreeRoaming.WildPokemonArea;
-using Pokemon;
+using Items;
 using Battle;
 using Audio;
 
@@ -356,6 +356,65 @@ namespace FreeRoaming
         public void PlaySceneAreaMusic()
         {
             currentSceneArea?.TryPlayAreaMusic();
+        }
+
+        #endregion
+
+        #region Item Receiving
+
+        public static string GetItemAnnouncementMessage(Item item,
+            uint quantity)
+            => PlayerData.singleton.profile.name + " obtained " + item.itemName + " x" + quantity.ToString() + "!";
+
+        /// <summary>
+        /// Adds the specified item (and of the specified quantity) to the player's inventory and announces is using the text box
+        /// </summary>
+        /// <param name="item">The item to add to the player's inventory</param>
+        /// <param name="quantity">How many of the item to give the player</param>
+        public void ObtainItem(Item item,
+            uint quantity = 1)
+        {
+
+            #region Adding to player inventory
+
+            PlayerData.singleton.inventory.AddItem(item, quantity);
+
+            #endregion
+
+            #region Announcing
+
+            //Text box message
+            StartCoroutine(ObtainItemAnnouncementCoroutine(item, quantity));
+
+            //Sound FX
+            SoundFXController.singleton.PlaySound(DroppedItemController.getItemSoundFXName);
+
+            #endregion
+
+        }
+
+        protected IEnumerator ObtainItemAnnouncementCoroutine(Item item,
+            uint quantity = 1)
+        {
+
+            bool textBoxControllerWasShowing = textBoxController.IsShown;
+            bool wasPaused = !sceneController.SceneIsRunning;
+
+            if (!textBoxControllerWasShowing)
+                textBoxController.Show();
+
+            if (!wasPaused)
+                sceneController.SetSceneRunningState(false);
+
+            textBoxController.RevealText(GetItemAnnouncementMessage(item, quantity));
+            yield return textBoxController.PromptAndWaitUntilUserContinue();
+
+            if (!textBoxControllerWasShowing)
+                textBoxController.Hide();
+
+            if (!wasPaused)
+                sceneController.SetSceneRunningState(true);
+
         }
 
         #endregion

@@ -79,6 +79,11 @@ namespace Serialization
             bytes.AddRange(BitConverter.GetBytes(GameSettings.singleton.musicVolume));
             bytes.AddRange(BitConverter.GetBytes(GameSettings.singleton.sfxVolume));
 
+            //Dropped items collected
+            bytes.AddRange(BitConverter.GetBytes(player.collectedDroppedItemsIds.Count));
+            foreach (int droppedItemId in player.collectedDroppedItemsIds)
+                bytes.AddRange(BitConverter.GetBytes(droppedItemId));
+
             //Return output
             return bytes.ToArray();
 
@@ -276,7 +281,7 @@ namespace Serialization
             int money;
             byte spriteId;
             string name;
-            List<int> defeatedGymIds, npcsBattled;
+            List<int> defeatedGymIds, npcsBattled, collectedDroppedItemIds;
             bool respawnSceneStackSet, cheatsUsed;
             Dictionary<int, int> generalItems, medicineItems, battleItems, pokeBallItems, tmItems;
             GameSettings.TextSpeed textSpeed;
@@ -392,6 +397,16 @@ namespace Serialization
             sfxVolume = BitConverter.ToSingle(data, offset);
             offset += 4;
 
+            int numberOfCollectedDroppedItemIds = BitConverter.ToInt32(data, offset);
+            offset += 4;
+
+            collectedDroppedItemIds = new List<int>();
+            for (int i = 0; i < numberOfCollectedDroppedItemIds; i++)
+            {
+                collectedDroppedItemIds.Add(BitConverter.ToInt32(data, offset));
+                offset += 4;
+            }
+
             //Setting byte length
             byteLength = offset - startOffset;
 
@@ -419,7 +434,8 @@ namespace Serialization
                 inventory = new PlayerData.Inventory(),
                 npcsBattled = npcsBattled,
                 respawnSceneStackSet = respawnSceneStackSet,
-                respawnSceneStack = respawnSceneStack
+                respawnSceneStack = respawnSceneStack,
+                collectedDroppedItemsIds = collectedDroppedItemIds
             };
 
             playerData.inventory.generalItems.SetItems(generalItems);

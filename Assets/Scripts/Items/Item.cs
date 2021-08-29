@@ -24,6 +24,72 @@ namespace Items
         public const int typeIdBerry = 0x50000000;
         public const int typeIdKeyItem = 0x60000000;
 
+        #region Enumerator
+
+        public enum ItemType
+        {
+            General,
+            PokeBall,
+            BattleItem,
+            Medicine,
+            TM,
+            Berry,
+            KeyItem
+        }
+
+        private static Dictionary<ItemType, int> itemTypeIds = new Dictionary<ItemType, int>()
+        {
+            { ItemType.General, typeIdGeneral },
+            { ItemType.PokeBall, typeIdPokeBall },
+            { ItemType.BattleItem, typeIdBattleItem },
+            { ItemType.Medicine, typeIdMedicine },
+            { ItemType.TM, typeIdTM },
+            { ItemType.Berry, typeIdBerry },
+            { ItemType.KeyItem, typeIdKeyItem }
+        };
+
+        private static Dictionary<string, ItemType> itemTypeNames = new Dictionary<string, ItemType>()
+        {
+            { "general", ItemType.General },
+            { "pokeBall", ItemType.PokeBall },
+            { "battleItem", ItemType.BattleItem },
+            { "medicine", ItemType.Medicine },
+            { "tm", ItemType.TM },
+            { "berry", ItemType.Berry },
+            { "keyItem", ItemType.KeyItem }
+        };
+
+        public static int GetItemTypeId(ItemType itemType)
+        {
+            if (itemTypeIds.ContainsKey(itemType))
+            {
+                return itemTypeIds[itemType];
+            }
+            else
+            {
+                throw new ArgumentException("No item type id set for ItemType " + itemType);
+            }
+        }
+
+        public static bool TryParseItemType(string s,
+            out ItemType r)
+        {
+
+            if (itemTypeNames.ContainsKey(s))
+            {
+                r = itemTypeNames[s];
+                return true;
+            }
+            else
+            {
+                r = default;
+                return false;
+            }
+
+        }
+
+        #endregion
+
         protected static readonly Dictionary<System.Type, int> typeIds = new Dictionary<System.Type, int>()
         {
             //TODO - once more item types made (eg. general, key item etc.), add entries for them
