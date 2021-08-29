@@ -904,6 +904,10 @@ MonoBehaviour:
     prefab: {fileID: 3808236763506618751, guid: 434f032e9dc8c854a892b88b3258c380, type: 3}
   - houseId: 8
     prefab: {fileID: 8350262028073403614, guid: 3e00af9197481b3408ac44591903ea1b, type: 3}
+  - houseId: 9
+    prefab: {fileID: 8350262028073403614, guid: 2d844a3891980884b8c8e286a75a15b5, type: 3}
+  - houseId: 10
+    prefab: {fileID: 5014413139723432930, guid: 549d8810fd1c2e44abce1bb10255774a, type: 3}
   houseSpecificRoot: {fileID: 167164010}
   respawnPosition: {x: 0, y: 0}
 --- !u!4 &1682155822

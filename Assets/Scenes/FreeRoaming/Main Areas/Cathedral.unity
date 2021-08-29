@@ -412,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: dialogs.Array.data[0]
-      value: I wish there were tennis courts in this area
+      value: I wish there were tennis courts in this area.
       objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: automaticMovementStages.Array.size
@@ -980,12 +980,12 @@ PrefabInstance:
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: dialogs.Array.data[1]
       value: I've heard that some cities in other regions have them and they sound
-        really fun
+        really fun.
       objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: dialogs.Array.data[2]
       value: 'And they all have different vibes: there are some that are meant to
-        be really scary'
+        be really scary.'
       objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: initialDirectionFacing
@@ -1394,11 +1394,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: dialogs.Array.data[1]
-      value: It is said that it created the whole universe
+      value: It is said that it created the whole universe.
       objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: dialogs.Array.data[2]
-      value: I'm studying it with these books
+      value: I'm studying it with these books.
       objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: initialDirectionFacing

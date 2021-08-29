@@ -640,10 +640,6 @@ PrefabInstance:
       value: Have you met my team?
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
-      propertyPath: battleDetails.mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.trainerClass
       value: 20
       objectReference: {fileID: 0}

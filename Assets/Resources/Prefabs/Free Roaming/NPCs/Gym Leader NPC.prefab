@@ -23,19 +23,21 @@ MonoBehaviour:
   _runSpeed: 8
   spriteGroupName: 
   id: 0
+  npcName: 
   automaticMovementStages: []
   visibilityDistance: 0
   challengeMessage: 
   chatMessage: 
   challengeMusicResourceName: look1
   battleMusicResourceName: battle_trainer
+  turnsToFacePlayer: 1
   battleDetails:
     pokemon: []
     trainerClass: 0
-    baseName: 
-    mode: 0
+    mode: 3
     battleBackgroundResourceName: 
     defeatMessages: []
+  useDefaultGymBattleMusic: 1
   gymId: 0
 --- !u!1001 &3196298297156825579
 PrefabInstance:
