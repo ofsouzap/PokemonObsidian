@@ -44,14 +44,11 @@ public static class Saving
     #region Saving
 
     public static void SaveData(int saveSlotIndex)
-        => SaveData(Serialize.SerializeData(), saveSlotIndex);
-
-    public static void SaveData(byte[] data, int saveSlotIndex)
     {
 
         if (SaveSlotIndexIsInRange(saveSlotIndex))
         {
-            SaveData(data, GetSaveSlotIndexFullPath(saveSlotIndex));
+            SaveData(GetSaveSlotIndexFullPath(saveSlotIndex));
         }
         else
         {
@@ -60,11 +57,11 @@ public static class Saving
 
     }
 
-    public static void SaveData(byte[] data, string filename)
+    public static void SaveData(string filename)
     {
 
         FileStream stream = File.OpenWrite(filename);
-        stream.Write(data, 0, data.Length);
+        Serialize.SerializeData(stream);
         stream.Close();
 
     }
@@ -150,11 +147,11 @@ public static class Saving
     public static LoadedData LoadData(string filename)
     {
 
-        byte[] data;
+        FileStream fileStream;
 
         try
         {
-            data = File.ReadAllBytes(filename);
+            fileStream = File.OpenRead(filename);
         }
         catch (FileNotFoundException)
         {
@@ -164,20 +161,26 @@ public static class Saving
         try
         {
 
-            Serialize.DeserializeData(data, 0,
+            Serialize.DeserializeData(fileStream,
                 out long saveTime,
                 out PlayerData playerData,
                 out GameSettings gameSettings,
-                out GameSceneManager.SceneStack sceneStack,
-                out _);
+                out GameSceneManager.SceneStack sceneStack);
 
             return new LoadedData(LoadedData.Status.Success, saveTime, playerData, gameSettings, sceneStack);
 
         }
+        catch (Serializer.SerializerVersionMismatchException e)
+        {
+
+            Debug.LogWarning($"Serializer Version Mismatch for file {filename} (intended - {e.IntendedSerializerVersion}, used - {e.UsedSerializerVersion})");
+            return new LoadedData(LoadedData.Status.Invalid);
+            
+        }
         catch (Exception e)
         {
 
-            Debug.LogWarning("Failed to load save data:\n" + e.Message);
+            Debug.LogWarning("Failed to load save data:\n" + e.Message + '\n' + e.StackTrace);
 
             return new LoadedData(LoadedData.Status.Invalid);
 
