@@ -172,6 +172,18 @@ public static class SpriteStorage
     public static Sprite GetCharacterSprite(string name) => GetSprite(SpriteType.Character, name);
 
     /// <summary>
+    /// Gets a player's battle sprite using a PlayerData instance
+    /// </summary>
+    public static Sprite GetPlayerBattleSprite(PlayerData player)
+        => GetCharacterBattleSprite(player.profile.SpriteName);
+
+    /// <summary>
+    /// Gets the player's battle sprite using a player sprite id
+    /// </summary>
+    public static Sprite GetPlayerBattleSprite(byte id)
+        => GetCharacterBattleSprite(PlayerData.Profile.GetPlayerSpriteNameById(id));
+    
+    /// <summary>
     /// Gets the battle sprite for a character
     /// </summary>
     /// <param name="spriteName">The name of the sprite</param>

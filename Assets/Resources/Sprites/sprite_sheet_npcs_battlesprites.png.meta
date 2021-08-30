@@ -4,10 +4,10 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -6490358570233130996
-    second: player_male_battlesprite
+    second: player_male_0_battlesprite
   - first:
       213: 3733856943196915581
-    second: player_female_battlesprite
+    second: player_female_0_battlesprite
   - first:
       213: -6646765427480664689
     second: barry_battlesprite
@@ -31,7 +31,7 @@ TextureImporter:
     second: aromalady_battlesprite
   - first:
       213: -8602901402574775169
-    second: sprite_sheet_npcs_battlesprites_11
+    second: player_female_1_battlesprite
   - first:
       213: 3560267942925596138
     second: hiker_battlesprite
@@ -43,10 +43,10 @@ TextureImporter:
     second: fisherman_battlesprite
   - first:
       213: 8957032332719926506
-    second: sprite_sheet_npcs_battlesprites_15
+    second: player_male_2_battlesprite
   - first:
       213: -2986915364054722092
-    second: sprite_sheet_npcs_battlesprites_16
+    second: player_female_2_battlesprite
   - first:
       213: -4681373722446048328
     second: blackbelt_battlesprite
@@ -221,6 +221,9 @@ TextureImporter:
   - first:
       213: 5353636018849250917
     second: dragontamer_battlesprite
+  - first:
+      213: -4318503458432836574
+    second: player_male_1_battlesprite
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -252,8 +255,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -334,7 +337,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_male_battlesprite
+      name: player_male_0_battlesprite
       rect:
         serializedVersion: 2
         x: 1
@@ -355,7 +358,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_female_battlesprite
+      name: player_female_0_battlesprite
       rect:
         serializedVersion: 2
         x: 82
@@ -1203,7 +1206,7 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1211,6 +1214,90 @@ TextureImporter:
       bones: []
       spriteID: 56efe38289feb4a40800000000000000
       internalID: 5353636018849250917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_male_1_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 457
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22c90d62cf79114c0800000000000000
+      internalID: -4318503458432836574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_female_1_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 457
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7c12d521ca5c9880800000000000000
+      internalID: -8602901402574775169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_male_2_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 457
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeca5714375cd4c70800000000000000
+      internalID: 8957032332719926506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_female_2_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 457
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d99c5f3d485c86d0800000000000000
+      internalID: -2986915364054722092
       vertices: []
       indices: 
       edges: []
