@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using Pokemon;
 using Items;
 using Items.MedicineItems;
@@ -11,6 +11,23 @@ namespace Serialization {
     public abstract class Serializer
     {
 
+        public class SerializerVersionMismatchException : Exception
+        {
+
+            public int IntendedSerializerVersion { get; protected set; }
+            public int UsedSerializerVersion { get; protected set; }
+
+            public SerializerVersionMismatchException() : base() { }
+            public SerializerVersionMismatchException(string message) : base(message) { }
+            public SerializerVersionMismatchException(string message, Exception inner) : base(message, inner) { }
+            public SerializerVersionMismatchException(string message, int intendedSerializerVersion, int usedSerializerVersion) : base(message)
+            {
+                IntendedSerializerVersion = intendedSerializerVersion;
+                UsedSerializerVersion = usedSerializerVersion;
+            }
+
+        }
+
         public const long fileSignature = 0x4f4e4d500225251c; //N.B. will be reversed because little-/big-endian (one of the two, dunno which)
         public static byte[] fileSignatureBytes => BitConverter.GetBytes(fileSignature);
 
@@ -18,94 +35,123 @@ namespace Serialization {
 
         #region Serialization
 
-        public abstract byte[] SerializeData(PlayerData player = null);
+        public abstract void SerializeData(Stream stream, PlayerData player = null);
 
-        protected abstract byte[] SerializePokemonInstance(PokemonInstance pokemon);
-        protected abstract byte[] SerializeInventorySection(PlayerData.Inventory.InventorySection section);
-        protected abstract byte[] SerializeInventoryItem(int itemId, int quantity);
-        protected abstract byte[] SerializePlayerPartyAndStorageSystemPokemon(PlayerData player = null);
+        protected abstract void SerializePokemonInstance(Stream stream, PokemonInstance pokemon);
+        protected abstract void SerializeInventorySection(Stream stream, PlayerData.Inventory.InventorySection section);
+        protected abstract void SerializeInventoryItem(Stream stream, int itemId, int quantity);
+        protected abstract void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null);
+        protected abstract void SerializeString(Stream stream, string s);
 
-        /// <param name="bytes">The string as a byte array</param>
-        /// <returns>The length of the byte array</returns>
-        protected abstract int SerializeString(string s, out byte[] bytes);
-
-        protected static byte[] SerializeHeldItem(PokemonInstance pokemon)
+        protected static void SerializeHeldItem(Stream stream, PokemonInstance pokemon)
         {
+
+            byte[] buffer;
+
             if (pokemon.heldItem == null)
-                return BitConverter.GetBytes((int)-1);
+                buffer = BitConverter.GetBytes((int)-1);
             else
-                return BitConverter.GetBytes(pokemon.heldItem.GetId());
+                buffer = BitConverter.GetBytes(pokemon.heldItem.GetId());
+
+            stream.Write(buffer, 0, 4);
+
         }
 
-        protected abstract byte[] SerializeSceneStack(GameSceneManager.SceneStack stack);
+        protected abstract void SerializeSceneStack(Stream stream, GameSceneManager.SceneStack stack);
 
         #endregion
 
         #region Stats
 
-        protected static byte[] SerializeByteStats(Stats<byte> stats)
+        protected static void SerializeByteStats(Stream stream, Stats<byte> stats)
         {
 
-            List<byte> bytes = new List<byte>();
-            bytes.Add(stats.attack);
-            bytes.Add(stats.defense);
-            bytes.Add(stats.specialAttack);
-            bytes.Add(stats.specialDefense);
-            bytes.Add(stats.speed);
-            bytes.Add(stats.health);
-            return bytes.ToArray();
+            byte[] buffer = new byte[1];
+
+            buffer[0] = stats.attack;
+            stream.Write(buffer, 0, 1);
+
+            buffer[0] = stats.defense;
+            stream.Write(buffer, 0, 1);
+
+            buffer[0] = stats.specialAttack;
+            stream.Write(buffer, 0, 1);
+
+            buffer[0] = stats.specialDefense;
+            stream.Write(buffer, 0, 1);
+
+            buffer[0] = stats.speed;
+            stream.Write(buffer, 0, 1);
+
+            buffer[0] = stats.health;
+            stream.Write(buffer, 0, 1);
 
         }
 
-        protected Stats<byte> DeserializeByteStats(byte[] bytes,
-            int startOffset = 0)
+        protected Stats<byte> DeserializeByteStats(Stream stream)
         {
 
-            if (bytes.Length < 6)
-                throw new ArgumentException("Incompatible bytes provided");
+            if (stream.Length < 6)
+                throw new ArgumentException("Stream too short");
+
+            byte[] buffer = new byte[6];
+            stream.Read(buffer, 0, 6);
 
             return new Stats<byte>()
             {
-                attack = bytes[startOffset + 0],
-                defense = bytes[startOffset + 1],
-                specialAttack = bytes[startOffset + 2],
-                specialDefense = bytes[startOffset + 3],
-                speed = bytes[startOffset + 4],
-                health = bytes[startOffset + 5]
+                attack = buffer[0],
+                defense = buffer[1],
+                specialAttack = buffer[2],
+                specialDefense = buffer[3],
+                speed = buffer[4],
+                health = buffer[5]
             };
 
         }
 
-        protected static byte[] SerializeIntStats(Stats<int> stats)
+        protected static void SerializeIntStats(Stream stream, Stats<int> stats)
         {
 
-            List<byte> bytes = new List<byte>();
-            bytes.AddRange(BitConverter.GetBytes(stats.attack));
-            bytes.AddRange(BitConverter.GetBytes(stats.defense));
-            bytes.AddRange(BitConverter.GetBytes(stats.specialAttack));
-            bytes.AddRange(BitConverter.GetBytes(stats.specialDefense));
-            bytes.AddRange(BitConverter.GetBytes(stats.speed));
-            bytes.AddRange(BitConverter.GetBytes(stats.health));
-            return bytes.ToArray();
+            byte[] buffer;
+
+            buffer = BitConverter.GetBytes(stats.attack);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(stats.defense);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(stats.specialAttack);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(stats.specialDefense);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(stats.speed);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(stats.health);
+            stream.Write(buffer, 0, 4);
 
         }
 
-        protected Stats<int> DeserializeIntStats(byte[] bytes,
-            int startOffset = 0)
+        protected Stats<int> DeserializeIntStats(Stream stream)
         {
 
-            if (bytes.Length < 24) //6 * 4 = 24, 6 stat values, 4 bytes per int value
-                throw new ArgumentException("Incompatible bytes provided");
+            if (stream.Length < 24) //6 * 4 = 24, 6 stat values, 4 bytes per int value
+                throw new ArgumentException("Stream too short");
+
+            byte[] buffer = new byte[24];
+            stream.Read(buffer, 0, 24);
 
             //Return output
             return new Stats<int>()
             {
-                attack = BitConverter.ToInt32(bytes, startOffset + 0),
-                defense = BitConverter.ToInt32(bytes, startOffset + 4),
-                specialAttack = BitConverter.ToInt32(bytes, startOffset + 8),
-                specialDefense = BitConverter.ToInt32(bytes, startOffset + 12),
-                speed = BitConverter.ToInt32(bytes, startOffset + 16),
-                health = BitConverter.ToInt32(bytes, startOffset + 20),
+                attack = BitConverter.ToInt32(buffer, 0),
+                defense = BitConverter.ToInt32(buffer, 4),
+                specialAttack = BitConverter.ToInt32(buffer, 8),
+                specialDefense = BitConverter.ToInt32(buffer, 12),
+                speed = BitConverter.ToInt32(buffer, 16),
+                health = BitConverter.ToInt32(buffer, 20),
             };
 
         }
@@ -119,25 +165,35 @@ namespace Serialization {
         public const byte booleanByteTrue = 0xff;
         public const byte booleanByteFalse = 0x00;
 
-        protected static byte SerializeBool(bool state)
+        protected static void SerializeBool(Stream stream, bool state)
         {
 
-            return state switch
+            byte[] buffer = new byte[1]
             {
-                true => booleanByteTrue,
-                false => booleanByteFalse
+                state switch
+                {
+                    true => booleanByteTrue,
+                    false => booleanByteFalse
+                }
             };
+
+            stream.Write(buffer, 0, 1);
 
         }
 
-        protected static bool DeserializeBool(byte b)
+        protected static bool DeserializeBool(Stream stream)
         {
-            if (b == booleanByteTrue)
+
+            byte[] buffer = new byte[1];
+            stream.Read(buffer, 0, 1);
+
+            if (buffer[0] == booleanByteTrue)
                 return true;
-            else if (b == booleanByteFalse)
+            else if (buffer[0] == booleanByteFalse)
                 return false;
             else
                 throw new ArgumentException("Invalid byte provided");
+
         }
 
         #endregion
@@ -146,24 +202,34 @@ namespace Serialization {
 
         public const byte nullableBooleanByteNull = 0xc3;
 
-        protected static byte SerializeNullableBool(bool? state)
+        protected static void SerializeNullableBool(Stream stream, bool? state)
         {
-            return state switch
+
+            byte[] buffer = new byte[1]
             {
-                true => booleanByteTrue,
-                false => booleanByteFalse,
-                null => nullableBooleanByteNull
+                state switch
+                {
+                    true => booleanByteTrue,
+                    false => booleanByteFalse,
+                    null => nullableBooleanByteNull
+                }
             };
+
+            stream.Write(buffer, 0, 1);
+
         }
 
-        protected static bool? DeserializeNullableBool(byte b)
+        protected static bool? DeserializeNullableBool(Stream stream)
         {
 
-            if (b == booleanByteTrue)
+            byte[] buffer = new byte[1];
+            stream.Read(buffer, 0, 1);
+
+            if (buffer[0] == booleanByteTrue)
                 return true;
-            else if (b == booleanByteFalse)
+            else if (buffer[0] == booleanByteFalse)
                 return false;
-            else if (b == nullableBooleanByteNull)
+            else if (buffer[0] == nullableBooleanByteNull)
                 return null;
             else
                 throw new ArgumentException("Invalid byte provided");
@@ -176,35 +242,33 @@ namespace Serialization {
 
         #region Deserialization
 
-        public abstract void DeserializeData(byte[] data,
-            int startOffset,
+        public abstract void DeserializeData(Stream stream,
             out long saveTime,
             out PlayerData playerData,
             out GameSettings gameSettings,
-            out GameSceneManager.SceneStack sceneStack,
-            out int byteLength);
+            out GameSceneManager.SceneStack sceneStack);
 
-        protected abstract PokemonInstance DeserializePokemonInstance(byte[] data, int startOffset, out int byteLength);
+        protected abstract PokemonInstance DeserializePokemonInstance(Stream stream);
 
-        protected abstract Dictionary<int, int> DeserializeInventorySection(byte[] data, int startOffset, out int byteLength);
+        protected abstract Dictionary<int, int> DeserializeInventorySection(Stream stream);
 
-        protected abstract void DeserializeInventoryItem(byte[] data, int startOffset,
+        protected abstract void DeserializeInventoryItem(Stream stream,
             out int itemId,
-            out int quantity,
-            out int byteLength);
+            out int quantity);
 
-        protected abstract void DeserializePlayerPartyAndStorageSystemPokemon(byte[] data, int startOffset,
+        protected abstract void DeserializePlayerPartyAndStorageSystemPokemon(Stream stream,
             out PokemonInstance[] partyPokemon,
-            out PlayerData.PokemonStorageSystem storageSystem,
-            out int byteLength);
+            out PlayerData.PokemonStorageSystem storageSystem);
 
-        protected abstract string DeserializeString(byte[] data, int startOffset, out int byteLength);
+        protected abstract string DeserializeString(Stream stream);
 
-        protected static Item DeserializeItem(byte[] data, int startOffset, out int byteLength)
+        protected static Item DeserializeItem(Stream stream)
         {
 
-            int itemId = BitConverter.ToInt32(data, startOffset);
-            byteLength = 4;
+            byte[] buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+
+            int itemId = BitConverter.ToInt32(buffer, 0);
 
             if (itemId < 0)
                 return null;
@@ -213,7 +277,7 @@ namespace Serialization {
 
         }
 
-        protected abstract GameSceneManager.SceneStack DeserializeSceneStack(byte[] data, int startOffset, out int byteLength);
+        protected abstract GameSceneManager.SceneStack DeserializeSceneStack(Stream stream);
 
         #endregion
 

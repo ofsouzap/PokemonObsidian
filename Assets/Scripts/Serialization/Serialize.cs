@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace Serialization
 {
@@ -18,20 +19,29 @@ namespace Serialization
         private static ushort defaultSerializerVersion
             => serializers.Keys.Max();
 
-        public static ushort GetSaveDataVersionNumber(byte[] data, int startOffset)
+        public static ushort GetSaveDataVersionNumber(Stream stream)
         {
 
-            if (data.Length - startOffset < 10)
+            if (stream.Length < 10)
                 throw new ArgumentException("Not enough data provided to read version number");
 
-            return BitConverter.ToUInt16(data, startOffset + 8); //First 8 bytes are the file signature
+            byte[] buffer;
+
+            //First 8 bytes are the file signature
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+
+            //Next 2 btyes are the version number
+            buffer = new byte[2];
+            stream.Read(buffer, 0, 2);
+            return BitConverter.ToUInt16(buffer, 0);
 
         }
 
-        public static byte[] SerializeData()
-            => SerializeData(defaultSerializerVersion);
+        public static void SerializeData(Stream stream)
+            => SerializeData(stream, defaultSerializerVersion);
 
-        public static byte[] SerializeData(ushort versionNumber)
+        public static void SerializeData(Stream stream, ushort versionNumber)
         {
 
             if (!serializers.ContainsKey(versionNumber))
@@ -40,30 +50,27 @@ namespace Serialization
             }
             else
             {
-                return serializers[versionNumber].SerializeData();
+                serializers[versionNumber].SerializeData(stream);
             }
 
         }
 
-        public static void DeserializeData(byte[] data, int startOffset,
+        public static void DeserializeData(Stream stream,
             out long saveTime,
             out PlayerData playerData,
             out GameSettings gameSettings,
-            out GameSceneManager.SceneStack sceneStack,
-            out int byteLength)
-            => DeserializeData(GetSaveDataVersionNumber(data, startOffset), data, startOffset,
-            out saveTime,
-            out playerData,
-            out gameSettings,
-            out sceneStack,
-            out byteLength);
+            out GameSceneManager.SceneStack sceneStack)
+            => DeserializeData(defaultSerializerVersion, stream,
+                out saveTime,
+                out playerData,
+                out gameSettings,
+                out sceneStack);
 
-        public static void DeserializeData(ushort versionNumber, byte[] data, int startOffset,
+        public static void DeserializeData(ushort versionNumber, Stream stream,
             out long saveTime,
             out PlayerData playerData,
             out GameSettings gameSettings,
-            out GameSceneManager.SceneStack sceneStack,
-            out int byteLength)
+            out GameSceneManager.SceneStack sceneStack)
         {
 
             if (!serializers.ContainsKey(versionNumber))
@@ -72,12 +79,11 @@ namespace Serialization
             }
             else
             {
-                serializers[versionNumber].DeserializeData(data, startOffset,
+                serializers[versionNumber].DeserializeData(stream,
                     out saveTime,
                     out playerData,
                     out gameSettings,
-                    out sceneStack,
-                    out byteLength);
+                    out sceneStack);
             }
 
         }

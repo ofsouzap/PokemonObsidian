@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using Pokemon;
 using Items;
 using Items.MedicineItems;
@@ -17,88 +18,123 @@ namespace Serialization
 
         #region Serialization
 
-        public override byte[] SerializeData(PlayerData player = null)
+        public override void SerializeData(Stream stream, PlayerData player = null)
         {
+
+            byte[] buffer;
 
             if (player == null)
                 player = PlayerData.singleton;
 
-            List<byte> bytes = new List<byte>();
-
             //Save details
-            bytes.AddRange(fileSignatureBytes);
-            bytes.AddRange(BitConverter.GetBytes(GetVersionCode()));
-            bytes.AddRange(BitConverter.GetBytes(EpochTime.SecondsNow));
+            stream.Write(fileSignatureBytes, 0, 8);
+
+            buffer = BitConverter.GetBytes(GetVersionCode());
+            stream.Write(buffer, 0, 2);
+
+            buffer = BitConverter.GetBytes(EpochTime.SecondsNow);
+            stream.Write(buffer, 0, 8);
 
             //Player
-            bytes.AddRange(player.profile.guid.ToByteArray());
-            bytes.AddRange(BitConverter.GetBytes(player.stats.gameStartTime));
+            buffer = player.profile.guid.ToByteArray();
+            stream.Write(buffer, 0, 16);
+
+            buffer = BitConverter.GetBytes(player.stats.gameStartTime);
+            stream.Write(buffer, 0, 8);
 
             //Pokemon
-            bytes.AddRange(SerializePlayerPartyAndStorageSystemPokemon(player));
+            SerializePlayerPartyAndStorageSystemPokemon(stream, player);
 
             //Scene stacks
-            bytes.AddRange(SerializeSceneStack(GameSceneManager.CurrentSceneStack));
-            bytes.Add(SerializeBool(player.respawnSceneStackSet));
+            SerializeSceneStack(stream, GameSceneManager.CurrentSceneStack);
+            SerializeBool(stream, player.respawnSceneStackSet);
             if (player.respawnSceneStackSet)
-                bytes.AddRange(SerializeSceneStack(player.respawnSceneStack));
+                SerializeSceneStack(stream, player.respawnSceneStack);
 
             //Profile Details
-            bytes.Add(player.profile.spriteId);
-            bytes.AddRange(BitConverter.GetBytes(SerializeString(player.profile.name, out byte[] nameBytes)));
-            bytes.AddRange(nameBytes);
-            bytes.AddRange(BitConverter.GetBytes(player.profile.money));
+            buffer = new byte[1] { player.profile.spriteId };
+            stream.Write(buffer, 0, 1);
+
+            SerializeString(stream, player.profile.name);
+
+            buffer = BitConverter.GetBytes(player.profile.money);
+            stream.Write(buffer, 0, 4);
 
             //Defeated gyms
-            bytes.AddRange(BitConverter.GetBytes(player.profile.defeatedGymIds.Count));
+            buffer = BitConverter.GetBytes(player.profile.defeatedGymIds.Count);
+            stream.Write(buffer, 0, 4);
             foreach (int gymId in player.profile.defeatedGymIds)
-                bytes.AddRange(BitConverter.GetBytes(gymId));
+            {
+                buffer = BitConverter.GetBytes(gymId);
+                stream.Write(buffer, 0, 4);
+            }
 
             //Stats
-            bytes.AddRange(BitConverter.GetBytes(player.stats.distanceWalked));
-            bytes.AddRange(BitConverter.GetBytes(player.stats.npcsTalkedTo));
-            bytes.AddRange(BitConverter.GetBytes(player.stats.timePlayed));
-            bytes.Add(SerializeBool(player.stats.cheatsUsed));
+            buffer = BitConverter.GetBytes(player.stats.distanceWalked);
+            stream.Write(buffer, 0, 8);
+
+            buffer = BitConverter.GetBytes(player.stats.npcsTalkedTo);
+            stream.Write(buffer, 0, 8);
+
+            buffer = BitConverter.GetBytes(player.stats.timePlayed);
+            stream.Write(buffer, 0, 8);
+            
+            SerializeBool(stream, player.stats.cheatsUsed);
 
             //Inventory
-            bytes.AddRange(SerializeInventorySection(player.inventory.generalItems));
-            bytes.AddRange(SerializeInventorySection(player.inventory.medicineItems));
-            bytes.AddRange(SerializeInventorySection(player.inventory.battleItems));
-            bytes.AddRange(SerializeInventorySection(player.inventory.pokeBalls));
-            bytes.AddRange(SerializeInventorySection(player.inventory.tmItems));
+            SerializeInventorySection(stream, player.inventory.generalItems);
+            SerializeInventorySection(stream, player.inventory.medicineItems);
+            SerializeInventorySection(stream, player.inventory.battleItems);
+            SerializeInventorySection(stream, player.inventory.pokeBalls);
+            SerializeInventorySection(stream, player.inventory.tmItems);
 
             //NPCs battled
-            bytes.AddRange(BitConverter.GetBytes(player.npcsBattled.Count));
+            buffer = BitConverter.GetBytes(player.npcsBattled.Count);
+            stream.Write(buffer, 0, 4);
             foreach (int npcId in player.npcsBattled)
-                bytes.AddRange(BitConverter.GetBytes(npcId));
+            {
+                buffer = BitConverter.GetBytes(npcId);
+                stream.Write(buffer, 0, 4);
+            }
 
             //Settings
-            bytes.AddRange(BitConverter.GetBytes(Array.IndexOf(
+            buffer = BitConverter.GetBytes(Array.IndexOf(
                 GameSettings.textSpeedOptions, GameSettings.singleton.textSpeed
-                )));
-            bytes.AddRange(BitConverter.GetBytes(GameSettings.singleton.musicVolume));
-            bytes.AddRange(BitConverter.GetBytes(GameSettings.singleton.sfxVolume));
+                ));
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(GameSettings.singleton.musicVolume);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(GameSettings.singleton.sfxVolume);
+            stream.Write(buffer, 0, 4);
 
             //Dropped items collected
-            bytes.AddRange(BitConverter.GetBytes(player.collectedDroppedItemsIds.Count));
+            buffer = BitConverter.GetBytes(player.collectedDroppedItemsIds.Count);
+            stream.Write(buffer, 0, 4);
             foreach (int droppedItemId in player.collectedDroppedItemsIds)
-                bytes.AddRange(BitConverter.GetBytes(droppedItemId));
-
-            //Return output
-            return bytes.ToArray();
+            {
+                buffer = BitConverter.GetBytes(droppedItemId);
+                stream.Write(buffer, 0, 4);
+            }
 
         }
 
-        protected override byte[] SerializePlayerPartyAndStorageSystemPokemon(PlayerData player = null)
+        protected override void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null)
         {
 
-            List<byte> bytes = new List<byte>();
+            byte[] buffer;
 
             if (player == null)
                 player = PlayerData.singleton;
 
+            int totalPokemonCount =
+                PlayerData.singleton.partyPokemon.Count(x => x != null)
+                + PlayerData.singleton.boxPokemon.boxes.Sum(box => box.pokemon.Count(x => x != null));
+            buffer = BitConverter.GetBytes(totalPokemonCount);
+            stream.Write(buffer, 0, 4);
+
             int pokemonListIndex = 0;
-            List<byte> pokemonBytes = new List<byte>();
 
             int[] partyPokemonIndexes = new int[PlayerData.partyCapacity];
             int[] storageSystemPokemonIndexes = new int[PlayerData.PokemonStorageSystem.totalStorageSystemSize];
@@ -118,7 +154,7 @@ namespace Serialization
                 {
                     partyPokemonIndexes[i] = pokemonListIndex;
                     pokemonListIndex++;
-                    pokemonBytes.AddRange(SerializePokemonInstance(pokemon));
+                    SerializePokemonInstance(stream, pokemon);
                 }
 
             }
@@ -143,7 +179,7 @@ namespace Serialization
                     {
                         storageSystemPokemonIndexes[totalIndex] = pokemonListIndex;
                         pokemonListIndex++;
-                        pokemonBytes.AddRange(SerializePokemonInstance(pokemon));
+                        SerializePokemonInstance(stream, pokemon);
                     }
 
                 }
@@ -151,101 +187,127 @@ namespace Serialization
 
             #endregion
 
-            bytes.AddRange(BitConverter.GetBytes(pokemonListIndex)); //This is the number of serialized pokemon
-            bytes.AddRange(pokemonBytes);
-
             foreach (int value in partyPokemonIndexes)
-                bytes.AddRange(BitConverter.GetBytes(value));
+            {
+                buffer = BitConverter.GetBytes(value);
+                stream.Write(buffer, 0, 4);
+            }
 
             foreach (int value in storageSystemPokemonIndexes)
-                bytes.AddRange(BitConverter.GetBytes(value));
-
-            return bytes.ToArray();
+            {
+                buffer = BitConverter.GetBytes(value);
+                stream.Write(buffer, 0, 4);
+            }
 
         }
 
-        protected override byte[] SerializePokemonInstance(PokemonInstance pokemon)
+        protected override void SerializePokemonInstance(Stream stream, PokemonInstance pokemon)
         {
 
-            List<byte> bytes = new List<byte>();
+            byte[] buffer;
 
             //Species
-            bytes.AddRange(BitConverter.GetBytes(pokemon.speciesId));
+            buffer = BitConverter.GetBytes(pokemon.speciesId);
+            stream.Write(buffer, 0, 4);
 
             //Details
-            bytes.AddRange(pokemon.guid.ToByteArray());
-            bytes.AddRange(BitConverter.GetBytes(SerializeString(pokemon.nickname, out byte[] nicknameBytes)));
-            bytes.AddRange(nicknameBytes);
-            bytes.AddRange(SerializeHeldItem(pokemon));
-            bytes.Add(SerializeNullableBool(pokemon.gender));
+            buffer = pokemon.guid.ToByteArray();
+            stream.Write(buffer, 0, 16);
+
+            SerializeString(stream, pokemon.nickname);
+            SerializeHeldItem(stream, pokemon);
+            SerializeNullableBool(stream, pokemon.gender);
 
             //Catch
-            bytes.AddRange(BitConverter.GetBytes(pokemon.pokeBallId));
-            bytes.AddRange(BitConverter.GetBytes(pokemon.catchTime));
+            buffer = BitConverter.GetBytes(pokemon.pokeBallId);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(pokemon.catchTime);
+            stream.Write(buffer, 0, 8);
 
             //OT
-            bytes.AddRange(BitConverter.GetBytes(SerializeString(pokemon.originalTrainerName, out byte[] otNameBytes)));
-            bytes.AddRange(otNameBytes);
-            bytes.AddRange(pokemon.originalTrainerGuid.ToByteArray());
+            SerializeString(stream, pokemon.originalTrainerName);
+            buffer = pokemon.originalTrainerGuid.ToByteArray();
+            stream.Write(buffer, 0, 16);
 
             //Stats
-            bytes.AddRange(SerializeByteStats(pokemon.effortValues));
-            bytes.AddRange(SerializeByteStats(pokemon.individualValues));
-            bytes.AddRange(BitConverter.GetBytes(pokemon.natureId));
-            bytes.AddRange(SerializeIntStats(pokemon.GetStats()));
-            bytes.Add(pokemon.friendship);
+            SerializeByteStats(stream, pokemon.effortValues);
+            SerializeByteStats(stream, pokemon.individualValues);
+
+            buffer = BitConverter.GetBytes(pokemon.natureId);
+            stream.Write(buffer, 0, 4);
+
+            SerializeIntStats(stream, pokemon.GetStats());
+
+            buffer = new byte[1] { pokemon.friendship };
+            stream.Write(buffer, 0, 1);
 
             //Moves
-            bytes.AddRange(BitConverter.GetBytes(pokemon.moveIds[0]));
-            bytes.AddRange(BitConverter.GetBytes(pokemon.moveIds[1]));
-            bytes.AddRange(BitConverter.GetBytes(pokemon.moveIds[2]));
-            bytes.AddRange(BitConverter.GetBytes(pokemon.moveIds[3]));
-            bytes.AddRange(pokemon.movePPs);
+            buffer = BitConverter.GetBytes(pokemon.moveIds[0]);
+            stream.Write(buffer, 0, 4);
+            buffer = BitConverter.GetBytes(pokemon.moveIds[1]);
+            stream.Write(buffer, 0, 4);
+            buffer = BitConverter.GetBytes(pokemon.moveIds[2]);
+            stream.Write(buffer, 0, 4);
+            buffer = BitConverter.GetBytes(pokemon.moveIds[3]);
+            stream.Write(buffer, 0, 4);
 
-            bytes.AddRange(BitConverter.GetBytes(pokemon.experience));
-            bytes.AddRange(BitConverter.GetBytes((int)pokemon.nonVolatileStatusCondition));
-            bytes.AddRange(BitConverter.GetBytes(pokemon.health));
+            buffer = pokemon.movePPs;
+            stream.Write(buffer, 0, 4); //4 byte values
 
-            return bytes.ToArray();
+            buffer = BitConverter.GetBytes(pokemon.experience);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes((int)pokemon.nonVolatileStatusCondition);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(pokemon.health);
+            stream.Write(buffer, 0, 4);
 
         }
 
-        protected override byte[] SerializeInventorySection(PlayerData.Inventory.InventorySection section)
+        protected override void SerializeInventorySection(Stream stream, PlayerData.Inventory.InventorySection section)
         {
 
-            List<byte> bytes = new List<byte>();
+            byte[] buffer;
 
-            bytes.AddRange(BitConverter.GetBytes(section.ItemQuantites.Count));
+            buffer = BitConverter.GetBytes(section.ItemQuantites.Count);
+            stream.Write(buffer, 0, 4);
 
             foreach (Item item in section.ItemQuantites.Keys)
-                bytes.AddRange(SerializeInventoryItem(item.GetId(), section.ItemQuantites[item]));
-
-            return bytes.ToArray();
+            {
+                SerializeInventoryItem(stream, item.GetId(), section.ItemQuantites[item]);
+            }
             
         }
 
-        protected override byte[] SerializeInventoryItem(int itemId, int quantity)
+        protected override void SerializeInventoryItem(Stream stream, int itemId, int quantity)
         {
 
-            List<byte> bytes = new List<byte>();
+            byte[] buffer;
 
-            bytes.AddRange(BitConverter.GetBytes(itemId));
-            bytes.AddRange(BitConverter.GetBytes(quantity));
+            buffer = BitConverter.GetBytes(itemId);
+            stream.Write(buffer, 0, 4);
 
-            return bytes.ToArray();
+            buffer = BitConverter.GetBytes(quantity);
+            stream.Write(buffer, 0, 4);
 
         }
 
-        protected override int SerializeString(string s,
-            out byte[] bytes)
+        protected override void SerializeString(Stream stream, string s)
         {
 
-            bytes = Encoding.ASCII.GetBytes(s);
-            return bytes.Length;
+            byte[] buffer;
+
+            buffer = BitConverter.GetBytes(s.Length);
+            stream.Write(buffer, 0, 4);
+
+            buffer = Encoding.ASCII.GetBytes(s);
+            stream.Write(buffer, 0, s.Length);
 
         }
 
-        protected override byte[] SerializeSceneStack(GameSceneManager.SceneStack stack)
+        protected override void SerializeSceneStack(Stream stream, GameSceneManager.SceneStack stack)
         {
 
             List<byte> bytes = new List<byte>();
@@ -256,7 +318,7 @@ namespace Serialization
             bytes.AddRange(BitConverter.GetBytes(stringBytes.Length));
             bytes.AddRange(stringBytes);
 
-            return bytes.ToArray();
+            stream.Write(bytes.ToArray(), 0, bytes.Count);
 
         }
 
@@ -264,14 +326,14 @@ namespace Serialization
 
         #region Deserialization
 
-        public override void DeserializeData(byte[] data,
-            int startOffset,
+        public override void DeserializeData(Stream stream,
             out long saveTime,
             out PlayerData playerData,
             out GameSettings gameSettings,
-            out GameSceneManager.SceneStack sceneStack,
-            out int byteLength)
+            out GameSceneManager.SceneStack sceneStack)
         {
+
+            byte[] buffer;
 
             Guid playerGuid;
             ulong gameStartTime, distanceWalked, npcsTalkedTo, timePlayed;
@@ -287,128 +349,128 @@ namespace Serialization
             GameSettings.TextSpeed textSpeed;
             float musicVolume, sfxVolume;
 
-            int offset = startOffset;
-
-            long fileSignature = BitConverter.ToInt64(data, offset);
-            offset += 8;
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            long fileSignature = BitConverter.ToInt64(buffer, 0);
             if (fileSignature != Serializer.fileSignature)
                 throw new ArgumentException("Invalid file signature of provided data");
 
-            ushort saveFileVersion = BitConverter.ToUInt16(data, offset);
-            offset += 2;
+            buffer = new byte[2];
+            stream.Read(buffer, 0, 2);
+            ushort saveFileVersion = BitConverter.ToUInt16(buffer, 0);
             if (saveFileVersion != GetVersionCode())
-                throw new ArgumentException("Save file version of provided data isn't valid for this serializer");
+                throw new SerializerVersionMismatchException("Save file version of provided data isn't valid for this serializer", saveFileVersion, GetVersionCode());
 
-            saveTime = BitConverter.ToInt64(data, offset);
-            offset += 8;
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            saveTime = BitConverter.ToInt64(buffer, 0);
 
-            byte[] playerGuidBytes = new byte[16];
-            Array.Copy(data, offset, playerGuidBytes, 0, 16);
-            offset += 16;
-            playerGuid = new Guid(playerGuidBytes);
+            buffer = new byte[16];
+            stream.Read(buffer, 0, 16);
+            playerGuid = new Guid(buffer);
 
-            gameStartTime = BitConverter.ToUInt64(data, offset);
-            offset += 8;
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            gameStartTime = BitConverter.ToUInt64(buffer, 0);
 
-            DeserializePlayerPartyAndStorageSystemPokemon(data, offset,
+            DeserializePlayerPartyAndStorageSystemPokemon(stream,
                 out partyPokemon,
-                out storageSystemPokemon,
-                out int storedPokemonByteLength);
-            offset += storedPokemonByteLength;
+                out storageSystemPokemon);
 
-            sceneStack = DeserializeSceneStack(data, offset, out int sceneStackByteLength);
-            offset += sceneStackByteLength;
+            sceneStack = DeserializeSceneStack(stream);
 
-            respawnSceneStackSet = DeserializeBool(data[offset]);
-            offset += 1;
+            respawnSceneStackSet = DeserializeBool(stream);
 
             if (respawnSceneStackSet)
             {
-                respawnSceneStack = DeserializeSceneStack(data, offset, out int respawnSceneStackByteLength);
-                offset += respawnSceneStackByteLength;
+                respawnSceneStack = DeserializeSceneStack(stream);
             }
             else
             {
                 respawnSceneStack = default;
             }
 
-            spriteId = data[offset];
-            offset += 1;
+            buffer = new byte[1];
+            stream.Read(buffer, 0, 1);
+            spriteId = buffer[0];
 
-            name = DeserializeString(data, offset, out int nameByteLength);
-            offset += nameByteLength;
+            name = DeserializeString(stream);
 
-            money = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            money = BitConverter.ToInt32(buffer, 0);
 
-            int numberOfDefeatedGyms = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int numberOfDefeatedGyms = BitConverter.ToInt32(buffer, 0);
 
             defeatedGymIds = new List<int>();
             for (int i = 0; i < numberOfDefeatedGyms; i++)
             {
-                defeatedGymIds.Add(BitConverter.ToInt32(data, offset));
-                offset += 4;
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                defeatedGymIds.Add(BitConverter.ToInt32(buffer, 0));
             }
 
-            distanceWalked = BitConverter.ToUInt64(data, offset);
-            offset += 8;
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            distanceWalked = BitConverter.ToUInt64(buffer, 0);
 
-            npcsTalkedTo = BitConverter.ToUInt64(data, offset);
-            offset += 8;
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            npcsTalkedTo = BitConverter.ToUInt64(buffer, 0);
 
-            timePlayed = BitConverter.ToUInt64(data, offset);
-            offset += 8;
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            timePlayed = BitConverter.ToUInt64(buffer, 0);
 
-            cheatsUsed = DeserializeBool(data[offset]);
-            offset += 1;
+            cheatsUsed = DeserializeBool(stream);
 
-            generalItems = DeserializeInventorySection(data, offset, out int generalItemsByteLength);
-            offset += generalItemsByteLength;
+            generalItems = DeserializeInventorySection(stream);
 
-            medicineItems = DeserializeInventorySection(data, offset, out int medicineItemsByteLength);
-            offset += medicineItemsByteLength;
+            medicineItems = DeserializeInventorySection(stream);
 
-            battleItems = DeserializeInventorySection(data, offset, out int battleItemsByteLength);
-            offset += battleItemsByteLength;
+            battleItems = DeserializeInventorySection(stream);
 
-            pokeBallItems = DeserializeInventorySection(data, offset, out int pokeBallItemsByteLength);
-            offset += pokeBallItemsByteLength;
+            pokeBallItems = DeserializeInventorySection(stream);
 
-            tmItems = DeserializeInventorySection(data, offset, out int tmItemsByteLength);
-            offset += tmItemsByteLength;
+            tmItems = DeserializeInventorySection(stream);
 
-            int numberOfNpcsBattled = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int numberOfNpcsBattled = BitConverter.ToInt32(buffer, 0);
 
             npcsBattled = new List<int>();
             for (int i = 0; i < numberOfNpcsBattled; i++)
             {
-                npcsBattled.Add(BitConverter.ToInt32(data, offset));
-                offset += 4;
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                npcsBattled.Add(BitConverter.ToInt32(buffer, 0));
             }
 
-            textSpeed = GameSettings.textSpeedOptions[BitConverter.ToInt32(data, offset)];
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            textSpeed = GameSettings.textSpeedOptions[BitConverter.ToInt32(buffer, 0)];
 
-            musicVolume = BitConverter.ToSingle(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            musicVolume = BitConverter.ToSingle(buffer, 0);
 
-            sfxVolume = BitConverter.ToSingle(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            sfxVolume = BitConverter.ToSingle(buffer, 0);
 
-            int numberOfCollectedDroppedItemIds = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int numberOfCollectedDroppedItemIds = BitConverter.ToInt32(buffer, 0);
 
             collectedDroppedItemIds = new List<int>();
             for (int i = 0; i < numberOfCollectedDroppedItemIds; i++)
             {
-                collectedDroppedItemIds.Add(BitConverter.ToInt32(data, offset));
-                offset += 4;
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                collectedDroppedItemIds.Add(BitConverter.ToInt32(buffer, 0));
             }
-
-            //Setting byte length
-            byteLength = offset - startOffset;
 
             //Setting output
             playerData = new PlayerData()
@@ -453,13 +515,14 @@ namespace Serialization
 
         }
 
-        protected override void DeserializePlayerPartyAndStorageSystemPokemon(byte[] data, int startOffset, out PokemonInstance[] partyPokemon, out PlayerData.PokemonStorageSystem storageSystem, out int byteLength)
+        protected override void DeserializePlayerPartyAndStorageSystemPokemon(Stream stream, out PokemonInstance[] partyPokemon, out PlayerData.PokemonStorageSystem storageSystem)
         {
 
-            int offset = startOffset;
+            byte[] buffer;
 
-            int pokemonCount = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int pokemonCount = BitConverter.ToInt32(buffer, 0);
 
             //Pokemon list
 
@@ -467,8 +530,7 @@ namespace Serialization
 
             for (int i = 0; i < pokemonCount; i++)
             {
-                PokemonInstance newPokemon = DeserializePokemonInstance(data, offset, out int newPokemonByteLength);
-                offset += newPokemonByteLength;
+                PokemonInstance newPokemon = DeserializePokemonInstance(stream);
                 pokemonList.Add(newPokemon);
             }
 
@@ -479,8 +541,9 @@ namespace Serialization
             for (int i = 0; i < PlayerData.partyCapacity; i++)
             {
 
-                int pokeIndex = BitConverter.ToInt32(data, offset);
-                offset += 4;
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                int pokeIndex = BitConverter.ToInt32(buffer, 0);
 
                 if (pokeIndex < 0)
                 {
@@ -505,8 +568,9 @@ namespace Serialization
                 for (int slotIndex = 0; slotIndex < PlayerData.PokemonBox.size; slotIndex++)
                 {
 
-                    int pokeIndex = BitConverter.ToInt32(data, offset);
-                    offset += 4;
+                    buffer = new byte[4];
+                    stream.Read(buffer, 0, 4);
+                    int pokeIndex = BitConverter.ToInt32(buffer, 0);
 
                     if (pokeIndex < 0)
                     {
@@ -525,15 +589,12 @@ namespace Serialization
 
             storageSystem = new PlayerData.PokemonStorageSystem(boxes);
 
-            //Return outputs
-            byteLength = offset - startOffset;
-
         }
 
-        protected override PokemonInstance DeserializePokemonInstance(byte[] data, int startOffset, out int byteLength)
+        protected override PokemonInstance DeserializePokemonInstance(Stream stream)
         {
 
-            int offset = startOffset;
+            byte[] buffer;
 
             int speciesId, natureId, experience, health;
             Guid guid, originalTrainerGuid;
@@ -549,76 +610,76 @@ namespace Serialization
             byte[] movePPs;
             PokemonInstance.NonVolatileStatusCondition nonVolatileStatusCondition;
 
-            speciesId = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            speciesId = BitConverter.ToInt32(buffer, 0);
 
-            byte[] guidByteArray = new byte[16];
-            Array.Copy(data, offset, guidByteArray, 0, 16);
-            offset += 16;
-            guid = new Guid(guidByteArray);
+            buffer = new byte[16];
+            stream.Read(buffer, 0, 16);
+            guid = new Guid(buffer);
 
-            nickname = DeserializeString(data, offset, out int nicknameByteLength);
-            offset += nicknameByteLength;
+            nickname = DeserializeString(stream);
 
-            heldItem = DeserializeItem(data, offset, out int heldItemByteLength);
-            offset += heldItemByteLength;
+            heldItem = DeserializeItem(stream);
 
-            gender = DeserializeNullableBool(data[offset]);
-            offset += 1;
+            gender = DeserializeNullableBool(stream);
 
-            pokeBallId = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            pokeBallId = BitConverter.ToInt32(buffer, 0);
 
-            catchTime = BitConverter.ToInt64(data, offset);
-            offset += 8;
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            catchTime = BitConverter.ToInt64(buffer, 0);
 
-            originalTrainerName = DeserializeString(data, offset, out int otNameByteLength);
-            offset += otNameByteLength;
+            originalTrainerName = DeserializeString(stream);
 
-            byte[] otGuidByteArray = new byte[16];
-            Array.Copy(data, offset, otGuidByteArray, 0, 16);
-            offset += 16;
-            originalTrainerGuid = new Guid(otGuidByteArray);
+            buffer = new byte[16];
+            stream.Read(buffer, 0, 16);
+            originalTrainerGuid = new Guid(buffer);
 
-            effortValues = DeserializeByteStats(data, offset);
-            offset += 6;
+            effortValues = DeserializeByteStats(stream);
 
-            individualValues = DeserializeByteStats(data, offset);
-            offset += 6;
+            individualValues = DeserializeByteStats(stream);
 
-            natureId = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            natureId = BitConverter.ToInt32(buffer, 0);
 
-            currentStats = DeserializeIntStats(data, offset);
-            offset += 24;
+            currentStats = DeserializeIntStats(stream);
 
-            friendship = data[offset];
-            offset += 1;
+            buffer = new byte[1];
+            stream.Read(buffer, 0, 1);
+            friendship = buffer[0];
 
             moveIds = new int[4];
             for (int i = 0; i < 4; i++)
             {
-                moveIds[i] = BitConverter.ToInt32(data, offset);
-                offset += 4;
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                moveIds[i] = BitConverter.ToInt32(buffer, 0);
             }
 
             movePPs = new byte[4];
             for (int i = 0; i < 4; i++)
             {
-                movePPs[i] = data[offset];
-                offset += 1;
+                buffer = new byte[1];
+                stream.Read(buffer, 0, 1);
+                movePPs[i] = buffer[0];
             }
 
-            experience = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            experience = BitConverter.ToInt32(buffer, 0);
 
-            nonVolatileStatusCondition = (PokemonInstance.NonVolatileStatusCondition)BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            nonVolatileStatusCondition = (PokemonInstance.NonVolatileStatusCondition)BitConverter.ToInt32(buffer, 0);
 
-            health = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            health = BitConverter.ToInt32(buffer, 0);
 
-            byteLength = offset - startOffset;
             return PokemonFactory.GenerateFull(
                 speciesId: speciesId,
                 natureId: natureId,
@@ -643,80 +704,82 @@ namespace Serialization
 
         }
 
-        protected override Dictionary<int, int> DeserializeInventorySection(byte[] data, int startOffset, out int byteLength)
+        protected override Dictionary<int, int> DeserializeInventorySection(Stream stream)
         {
 
-            int offset = startOffset;
+            byte[] buffer;
 
-            int count = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int count = BitConverter.ToInt32(buffer, 0);
 
             Dictionary<int, int> entries = new Dictionary<int, int>();
 
             for (int i = 0; i < count; i++)
             {
 
-                DeserializeInventoryItem(data, offset, out int itemId, out int quantity, out int itemByteLength);
-                offset += itemByteLength;
+                DeserializeInventoryItem(stream, out int itemId, out int quantity);
 
                 entries.Add(itemId, quantity);
 
             }
 
-            byteLength = offset - startOffset;
             return entries;
 
         }
 
-        protected override void DeserializeInventoryItem(byte[] data, int startOffset, out int itemId, out int quantity, out int byteLength)
+        protected override void DeserializeInventoryItem(Stream stream, out int itemId, out int quantity)
         {
 
-            int offset = startOffset;
+            byte[] buffer;
 
-            itemId = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            itemId = BitConverter.ToInt32(buffer, 0);
 
-            quantity = BitConverter.ToInt32(data, offset);
-            offset += 4;
-
-            byteLength = offset - startOffset;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            quantity = BitConverter.ToInt32(buffer, 0);
 
         }
 
-        protected override string DeserializeString(byte[] data, int startOffset, out int byteLength)
+        protected override string DeserializeString(Stream stream)
         {
 
-            int offset = startOffset;
+            byte[] buffer;
 
-            int stringLength = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int stringLength = BitConverter.ToInt32(buffer, 0);
 
             string s;
             if (stringLength > 0)
             {
-                s = Encoding.ASCII.GetString(data, offset, stringLength);
-                offset += stringLength;
+                buffer = new byte[stringLength];
+                stream.Read(buffer, 0, stringLength);
+                s = Encoding.ASCII.GetString(buffer, 0, stringLength);
             }
             else
             {
                 s = "";
             }
 
-            byteLength = offset - startOffset;
             return s;
 
         }
 
-        protected override GameSceneManager.SceneStack DeserializeSceneStack(byte[] data, int startOffset, out int byteLength)
+        protected override GameSceneManager.SceneStack DeserializeSceneStack(Stream stream)
         {
 
-            int offset = startOffset;
+            byte[] buffer;
 
-            int stringLength = BitConverter.ToInt32(data, offset);
-            offset += 4;
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int stringLength = BitConverter.ToInt32(buffer, 0);
 
-            string sceneStackString = Encoding.ASCII.GetString(data, offset, stringLength);
-            offset += stringLength;
+            buffer = new byte[stringLength];
+            stream.Read(buffer, 0, stringLength);
+            string sceneStackString = Encoding.ASCII.GetString(buffer, 0, stringLength);
 
             if (!GameSceneManager.SceneStack.TryParse(sceneStackString,
                 out GameSceneManager.SceneStack sceneStack,
@@ -725,7 +788,6 @@ namespace Serialization
                 throw new ArgumentException("Unable to parse scene stack string when deserializing:\n" + errMsg);
             }
 
-            byteLength = offset - startOffset;
             return sceneStack;
 
         }
