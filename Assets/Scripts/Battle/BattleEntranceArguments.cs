@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using Pokemon;
 using Battle;
 
@@ -66,8 +67,42 @@ namespace Battle
 
         }
 
+        public struct NetworkBattleArguments
+        {
+
+            //The network stream should be closed at the end of the battle by the BattleManager
+            public NetworkStream stream;
+
+            public string opponentName;
+            public PokemonInstance[] opponentPokemon;
+            public string opponentSpriteResourceName;
+
+        }
+
+        public static void SetBattleEntranceArgumentsForNetworkBattle(NetworkStream stream,
+            string name,
+            PokemonInstance[] pokemon,
+            string spriteResourceName)
+        {
+
+            argumentsSet = true;
+            battleBackgroundResourceName = defaultBackgroundName;
+            battleType = BattleType.Network;
+            initialWeatherId = 0;
+
+            networkBattleArguments = new NetworkBattleArguments()
+            {
+                stream = stream,
+                opponentName = name,
+                opponentPokemon = pokemon,
+                opponentSpriteResourceName = spriteResourceName
+            };
+
+        }
+
         public static WildPokemonBattleArguments wildPokemonBattleArguments;
         public static NPCTrainerBattleArguments npcTrainerBattleArguments;
+        public static NetworkBattleArguments networkBattleArguments;
 
         #endregion
 

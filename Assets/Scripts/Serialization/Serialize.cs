@@ -16,8 +16,11 @@ namespace Serialization
             { 1, new Serializer_v1() }
         };
 
-        private static ushort defaultSerializerVersion
+        public static ushort defaultSerializerVersion
             => serializers.Keys.Max();
+
+        public static Serializer DefaultSerializer
+            => serializers[defaultSerializerVersion];
 
         public static ushort GetSaveDataVersionNumber(Stream stream)
         {

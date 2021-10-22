@@ -13,7 +13,7 @@ namespace Serialization
     public class Serializer_v1 : Serializer
     {
 
-        protected override ushort GetVersionCode()
+        public override ushort GetVersionCode()
             => 0x0001;
 
         #region Serialization
@@ -120,7 +120,7 @@ namespace Serialization
 
         }
 
-        protected override void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null)
+        public override void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null)
         {
 
             byte[] buffer;
@@ -201,7 +201,7 @@ namespace Serialization
 
         }
 
-        protected override void SerializePokemonInstance(Stream stream, PokemonInstance pokemon)
+        public override void SerializePokemonInstance(Stream stream, PokemonInstance pokemon)
         {
 
             byte[] buffer;
@@ -266,7 +266,7 @@ namespace Serialization
 
         }
 
-        protected override void SerializeInventorySection(Stream stream, PlayerData.Inventory.InventorySection section)
+        public override void SerializeInventorySection(Stream stream, PlayerData.Inventory.InventorySection section)
         {
 
             byte[] buffer;
@@ -281,7 +281,7 @@ namespace Serialization
             
         }
 
-        protected override void SerializeInventoryItem(Stream stream, int itemId, int quantity)
+        public override void SerializeInventoryItem(Stream stream, int itemId, int quantity)
         {
 
             byte[] buffer;
@@ -294,7 +294,7 @@ namespace Serialization
 
         }
 
-        protected override void SerializeString(Stream stream, string s)
+        public override void SerializeString(Stream stream, string s)
         {
 
             byte[] buffer;
@@ -307,7 +307,7 @@ namespace Serialization
 
         }
 
-        protected override void SerializeSceneStack(Stream stream, GameSceneManager.SceneStack stack)
+        public override void SerializeSceneStack(Stream stream, GameSceneManager.SceneStack stack)
         {
 
             List<byte> bytes = new List<byte>();
@@ -515,7 +515,7 @@ namespace Serialization
 
         }
 
-        protected override void DeserializePlayerPartyAndStorageSystemPokemon(Stream stream, out PokemonInstance[] partyPokemon, out PlayerData.PokemonStorageSystem storageSystem)
+        public override void DeserializePlayerPartyAndStorageSystemPokemon(Stream stream, out PokemonInstance[] partyPokemon, out PlayerData.PokemonStorageSystem storageSystem)
         {
 
             byte[] buffer;
@@ -591,7 +591,7 @@ namespace Serialization
 
         }
 
-        protected override PokemonInstance DeserializePokemonInstance(Stream stream)
+        public override PokemonInstance DeserializePokemonInstance(Stream stream)
         {
 
             byte[] buffer;
@@ -704,7 +704,7 @@ namespace Serialization
 
         }
 
-        protected override Dictionary<int, int> DeserializeInventorySection(Stream stream)
+        public override Dictionary<int, int> DeserializeInventorySection(Stream stream)
         {
 
             byte[] buffer;
@@ -728,7 +728,7 @@ namespace Serialization
 
         }
 
-        protected override void DeserializeInventoryItem(Stream stream, out int itemId, out int quantity)
+        public override void DeserializeInventoryItem(Stream stream, out int itemId, out int quantity)
         {
 
             byte[] buffer;
@@ -743,7 +743,7 @@ namespace Serialization
 
         }
 
-        protected override string DeserializeString(Stream stream)
+        public override string DeserializeString(Stream stream)
         {
 
             byte[] buffer;
@@ -768,7 +768,7 @@ namespace Serialization
 
         }
 
-        protected override GameSceneManager.SceneStack DeserializeSceneStack(Stream stream)
+        public override GameSceneManager.SceneStack DeserializeSceneStack(Stream stream)
         {
 
             byte[] buffer;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 using Pokemon;
 using Items;
 using Items.MedicineItems;
@@ -31,19 +32,19 @@ namespace Serialization {
         public const long fileSignature = 0x4f4e4d500225251c; //N.B. will be reversed because little-/big-endian (one of the two, dunno which)
         public static byte[] fileSignatureBytes => BitConverter.GetBytes(fileSignature);
 
-        protected abstract ushort GetVersionCode();
+        public abstract ushort GetVersionCode();
 
         #region Serialization
 
         public abstract void SerializeData(Stream stream, PlayerData player = null);
 
-        protected abstract void SerializePokemonInstance(Stream stream, PokemonInstance pokemon);
-        protected abstract void SerializeInventorySection(Stream stream, PlayerData.Inventory.InventorySection section);
-        protected abstract void SerializeInventoryItem(Stream stream, int itemId, int quantity);
-        protected abstract void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null);
-        protected abstract void SerializeString(Stream stream, string s);
+        public abstract void SerializePokemonInstance(Stream stream, PokemonInstance pokemon);
+        public abstract void SerializeInventorySection(Stream stream, PlayerData.Inventory.InventorySection section);
+        public abstract void SerializeInventoryItem(Stream stream, int itemId, int quantity);
+        public abstract void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null);
+        public abstract void SerializeString(Stream stream, string s);
 
-        protected static void SerializeHeldItem(Stream stream, PokemonInstance pokemon)
+        public static void SerializeHeldItem(Stream stream, PokemonInstance pokemon)
         {
 
             byte[] buffer;
@@ -57,14 +58,16 @@ namespace Serialization {
 
         }
 
-        protected abstract void SerializeSceneStack(Stream stream, GameSceneManager.SceneStack stack);
+        public abstract void SerializeSceneStack(Stream stream, GameSceneManager.SceneStack stack);
 
         #endregion
 
         #region Stats
 
-        protected static void SerializeByteStats(Stream stream, Stats<byte> stats)
+        public static void SerializeByteStats(Stream stream, Stats<byte> stats)
         {
+
+            Debug.Log($"Stats: {stats.attack},{stats.defense},{stats.specialAttack},{stats.specialDefense},{stats.speed},{stats.health}"); //TODO - remove once done debugging
 
             byte[] buffer = new byte[1];
 
@@ -88,14 +91,21 @@ namespace Serialization {
 
         }
 
-        protected Stats<byte> DeserializeByteStats(Stream stream)
+        public Stats<byte> DeserializeByteStats(Stream stream)
         {
-
-            if (stream.Length < 6)
-                throw new ArgumentException("Stream too short");
 
             byte[] buffer = new byte[6];
             stream.Read(buffer, 0, 6);
+
+            //TODO - remove once done debugging
+            #region tmp
+
+            string m = "Buffer: ";
+            foreach (byte b in buffer)
+                    m += b.ToString() + ',';
+            Debug.Log(m);
+
+            #endregion
 
             return new Stats<byte>()
             {
@@ -109,7 +119,7 @@ namespace Serialization {
 
         }
 
-        protected static void SerializeIntStats(Stream stream, Stats<int> stats)
+        public static void SerializeIntStats(Stream stream, Stats<int> stats)
         {
 
             byte[] buffer;
@@ -134,11 +144,8 @@ namespace Serialization {
 
         }
 
-        protected Stats<int> DeserializeIntStats(Stream stream)
+        public Stats<int> DeserializeIntStats(Stream stream)
         {
-
-            if (stream.Length < 24) //6 * 4 = 24, 6 stat values, 4 bytes per int value
-                throw new ArgumentException("Stream too short");
 
             byte[] buffer = new byte[24];
             stream.Read(buffer, 0, 24);
@@ -165,7 +172,7 @@ namespace Serialization {
         public const byte booleanByteTrue = 0xff;
         public const byte booleanByteFalse = 0x00;
 
-        protected static void SerializeBool(Stream stream, bool state)
+        public void SerializeBool(Stream stream, bool state)
         {
 
             byte[] buffer = new byte[1]
@@ -181,7 +188,7 @@ namespace Serialization {
 
         }
 
-        protected static bool DeserializeBool(Stream stream)
+        public bool DeserializeBool(Stream stream)
         {
 
             byte[] buffer = new byte[1];
@@ -202,7 +209,7 @@ namespace Serialization {
 
         public const byte nullableBooleanByteNull = 0xc3;
 
-        protected static void SerializeNullableBool(Stream stream, bool? state)
+        public void SerializeNullableBool(Stream stream, bool? state)
         {
 
             byte[] buffer = new byte[1]
@@ -219,7 +226,7 @@ namespace Serialization {
 
         }
 
-        protected static bool? DeserializeNullableBool(Stream stream)
+        public bool? DeserializeNullableBool(Stream stream)
         {
 
             byte[] buffer = new byte[1];
@@ -248,21 +255,21 @@ namespace Serialization {
             out GameSettings gameSettings,
             out GameSceneManager.SceneStack sceneStack);
 
-        protected abstract PokemonInstance DeserializePokemonInstance(Stream stream);
+        public abstract PokemonInstance DeserializePokemonInstance(Stream stream);
 
-        protected abstract Dictionary<int, int> DeserializeInventorySection(Stream stream);
+        public abstract Dictionary<int, int> DeserializeInventorySection(Stream stream);
 
-        protected abstract void DeserializeInventoryItem(Stream stream,
+        public abstract void DeserializeInventoryItem(Stream stream,
             out int itemId,
             out int quantity);
 
-        protected abstract void DeserializePlayerPartyAndStorageSystemPokemon(Stream stream,
+        public abstract void DeserializePlayerPartyAndStorageSystemPokemon(Stream stream,
             out PokemonInstance[] partyPokemon,
             out PlayerData.PokemonStorageSystem storageSystem);
 
-        protected abstract string DeserializeString(Stream stream);
+        public abstract string DeserializeString(Stream stream);
 
-        protected static Item DeserializeItem(Stream stream)
+        public static Item DeserializeItem(Stream stream)
         {
 
             byte[] buffer = new byte[4];
@@ -277,7 +284,7 @@ namespace Serialization {
 
         }
 
-        protected abstract GameSceneManager.SceneStack DeserializeSceneStack(Stream stream);
+        public abstract GameSceneManager.SceneStack DeserializeSceneStack(Stream stream);
 
         #endregion
 

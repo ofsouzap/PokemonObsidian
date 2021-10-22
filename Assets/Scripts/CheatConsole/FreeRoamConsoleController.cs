@@ -97,6 +97,34 @@ namespace CheatConsole
                }
             },
 
+            {
+               new Regex("^network timeout (?<value>enable|disable)"),
+               (m) =>
+               {
+
+                   bool state = m.Groups["value"].Value == "enable";
+
+                   GameSettings.singleton.networkTimeoutDisabled = !state;
+
+                   return (state ? "Enabled" : "Disabled") + " network timeout";
+
+               }
+            },
+
+            {
+               new Regex("^network log (?<value>enable|disable)"),
+               (m) =>
+               {
+
+                   bool state = m.Groups["value"].Value == "enable";
+
+                   GameSettings.singleton.networkLogEnabled = state;
+
+                   return (state ? "Enabled" : "Disabled") + " network log";
+
+               }
+            },
+
         };
 
         protected override void Start()

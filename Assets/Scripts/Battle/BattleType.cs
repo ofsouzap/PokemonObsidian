@@ -3,6 +3,7 @@
     public enum BattleType
     {
         WildPokemon,
-        NPCTrainer
+        NPCTrainer,
+        Network
     }
 }

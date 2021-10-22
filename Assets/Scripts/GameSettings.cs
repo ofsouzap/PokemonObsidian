@@ -12,6 +12,9 @@ public class GameSettings
     public float musicVolume = 0.5f;
     public float sfxVolume = 1;
 
+    public bool networkLogEnabled = false;
+    public bool networkTimeoutDisabled = false;
+
     #endregion
 
     #region Text Speed
