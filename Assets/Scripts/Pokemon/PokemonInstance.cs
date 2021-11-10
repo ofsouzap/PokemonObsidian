@@ -1004,5 +1004,63 @@ namespace Pokemon
 
         #endregion
 
+        #region Hash
+
+        public long Hash
+        {
+
+            get
+            {
+
+                long h = 0;
+
+                h += speciesId;
+
+                foreach (byte b in guid.ToByteArray())
+                    h += b;
+
+                foreach (char c in nickname)
+                    h += c;
+
+                h += (heldItem == null ? 1 : heldItem.id);
+
+                h += gender switch
+                {
+                    true => 1,
+                    false => 0,
+                    null => 2
+                };
+
+                h += pokeBallId << 2;
+
+                h += catchTime << 6;
+
+                foreach (char c in originalTrainerName)
+                    h += c;
+
+                foreach (byte b in originalTrainerGuid.ToByteArray())
+                    h += b;
+
+                h += effortValues.GetEnumerator(true).Sum(e => e) << 8;
+                h += individualValues.GetEnumerator(true).Sum(e => e) << 1;
+                h += currentStats.GetEnumerator(true).Sum(e => e) << 43;
+
+                h += friendship << 32;
+
+                h += moveIds.Sum() << 65;
+                h += movePPs.Sum(pp => pp) << 39;
+
+                h += experience;
+
+                h += (int)nonVolatileStatusCondition;
+
+                return h;
+
+            }
+
+        }
+
+        #endregion
+
     }
 }
