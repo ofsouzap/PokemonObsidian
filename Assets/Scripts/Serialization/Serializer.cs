@@ -69,25 +69,16 @@ namespace Serialization {
 
             Debug.Log($"Stats: {stats.attack},{stats.defense},{stats.specialAttack},{stats.specialDefense},{stats.speed},{stats.health}"); //TODO - remove once done debugging
 
-            byte[] buffer = new byte[1];
+            byte[] buffer = new byte[6];
 
             buffer[0] = stats.attack;
-            stream.Write(buffer, 0, 1);
+            buffer[1] = stats.defense;
+            buffer[2] = stats.specialAttack;
+            buffer[3] = stats.specialDefense;
+            buffer[4] = stats.speed;
+            buffer[5] = stats.health;
 
-            buffer[0] = stats.defense;
-            stream.Write(buffer, 0, 1);
-
-            buffer[0] = stats.specialAttack;
-            stream.Write(buffer, 0, 1);
-
-            buffer[0] = stats.specialDefense;
-            stream.Write(buffer, 0, 1);
-
-            buffer[0] = stats.speed;
-            stream.Write(buffer, 0, 1);
-
-            buffer[0] = stats.health;
-            stream.Write(buffer, 0, 1);
+            stream.Write(buffer, 0, 6);
 
         }
 

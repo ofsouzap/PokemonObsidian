@@ -499,7 +499,7 @@ namespace Networking
 
                     LogNetworkEvent("Receiving pokemon is not null");
                     bool pokemonIsNotNull = serializer.DeserializeBool(stream);
-                    LogNetworkEvent("Received pokemon is not null");
+                    LogNetworkEvent("Received pokemon is not null (" + (pokemonIsNotNull ? "true" : "false") + ")");
 
                     if (!pokemonIsNotNull)
                     {
