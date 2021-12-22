@@ -50,6 +50,46 @@ namespace Networking
             LogNetworkEvent("Socket connected - " + (socket.Connected ? "yes" : "no"));
         }
 
+        #region Standard Codes
+
+        private static void SendAck(NetworkStream stream)
+        {
+            stream.Write(AcknowledgementCodeBytes, 0, 4);
+        }
+
+        private static bool TryReceiveAck(NetworkStream stream)
+        {
+
+            byte[] buffer = new byte[4];
+
+            stream.Read(buffer, 0, 4);
+
+            uint recvAck = BitConverter.ToUInt32(buffer, 0);
+
+            return recvAck == acknowledgementCode;
+
+        }
+
+        private static void SendPokemonObsidianIdentifier(NetworkStream stream)
+        {
+            stream.Write(AcknowledgementCodeBytes, 0, 4);
+        }
+
+        private static bool TryReceivePokemonObsidianIdentifier(NetworkStream stream)
+        {
+
+            byte[] buffer = new byte[2];
+
+            stream.Read(buffer, 0, 2);
+
+            ushort recvPmonId = BitConverter.ToUInt16(buffer, 0);
+
+            return recvPmonId == pokemonObsidianIdentifier;
+
+        }
+
+        #endregion
+
         #region Connection Establishment
 
         /// <param name="port">The port to use. Negative means to use the default port</param>
@@ -281,23 +321,22 @@ namespace Networking
                 byte[] buffer;
 
                 //Server sends Pokemon Obsidian Identifier
-                buffer = new byte[2];
+
                 LogNetworkEvent("Receiving identifier...");
-                stream.Read(buffer, 0, 2);
-                LogNetworkEvent("Received identifier");
-                ushort serverIdentifier = BitConverter.ToUInt16(buffer, 0);
-                
-                if (serverIdentifier != pokemonObsidianIdentifier)
+
+                if (!TryReceivePokemonObsidianIdentifier(stream))
                 {
                     LogNetworkEvent("Identifier mismatch");
-                    Debug.LogWarning($"Pokemon Obsidian Identifier mismatch (server - {serverIdentifier}, client - {pokemonObsidianIdentifier})");
+                    Debug.LogWarning("Pokemon Obsidian Identifier mismatch");
                     return false;
+                }
+                else
+                {
+                    LogNetworkEvent("Identifier matches");
                 }
 
                 //Client sends acknowledgement
-                buffer = AcknowledgementCodeBytes;
-                LogNetworkEvent("Sending ack...");
-                stream.Write(buffer, 0, 4);
+                SendAck(stream);
                 LogNetworkEvent("Sent ack");
 
                 //Server sends game version
@@ -329,10 +368,7 @@ namespace Networking
                 }
 
                 //Client sends acknowledgement
-                buffer = AcknowledgementCodeBytes;
-                LogNetworkEvent("Sending ack");
-                stream.Write(buffer, 0, 4);
-                LogNetworkEvent("Sent ack");
+                SendAck(stream);
 
                 return true;
 
@@ -358,26 +394,23 @@ namespace Networking
 
                 byte[] buffer;
 
-                uint clientAcknowledgement;
-
                 //Server sends Pokemon Obsidian Identifier
-                buffer = PokemonObsidianIdentifierBytes;
-                LogNetworkEvent("Sending identifier...");
-                stream.Write(buffer, 0, 2);
+                SendPokemonObsidianIdentifier(stream);
                 LogNetworkEvent("Sent identifier");
 
                 //Client sends acknowledgement
-                buffer = new byte[4];
-                LogNetworkEvent("Receiving ack...");
-                stream.Read(buffer, 0, 4);
-                LogNetworkEvent("Received ack");
-                clientAcknowledgement = BitConverter.ToUInt32(buffer, 0);
 
-                if (clientAcknowledgement != acknowledgementCode)
+                LogNetworkEvent("Receiving ack...");
+
+                if (!TryReceiveAck(stream))
                 {
                     LogNetworkEvent("Invalid ack");
-                    Debug.LogWarning($"Incorrect acknowledgement code received (received - {clientAcknowledgement}, inteded - {acknowledgementCode})");
+                    Debug.LogWarning("Incorrect acknowledgement code received");
                     return false;
+                }
+                else
+                {
+                    LogNetworkEvent("Successfully received ack");
                 }
 
                 //Server sends game version
@@ -393,17 +426,18 @@ namespace Networking
                 LogNetworkEvent("Sent serializer version");
 
                 //Client sends acknowledgement
-                buffer = new byte[4];
+                
                 LogNetworkEvent("Receiving ack...");
-                stream.Read(buffer, 0, 4);
-                LogNetworkEvent("Received ack");
-                clientAcknowledgement = BitConverter.ToUInt32(buffer, 0);
 
-                if (clientAcknowledgement != acknowledgementCode)
+                if (!TryReceiveAck(stream))
                 {
                     LogNetworkEvent("Invalid ack");
-                    Debug.LogWarning($"Incorrect acknowledgement code received (received - {clientAcknowledgement}, inteded - {acknowledgementCode})");
+                    Debug.LogWarning("Incorrect acknowledgement code received");
                     return false;
+                }
+                else
+                {
+                    LogNetworkEvent("Successfully received ack");
                 }
 
                 return true;
@@ -461,7 +495,7 @@ namespace Networking
                     LogNetworkEvent($"Pmon EVs: {pokemon.effortValues.attack},{pokemon.effortValues.defense},{pokemon.effortValues.specialAttack},{pokemon.effortValues.specialDefense},{pokemon.effortValues.speed},{pokemon.effortValues.health}"); //TODO - remove once done debugging
                     LogNetworkEvent($"Pmon IVs: {pokemon.individualValues.attack},{pokemon.individualValues.defense},{pokemon.individualValues.specialAttack},{pokemon.individualValues.specialDefense},{pokemon.individualValues.speed},{pokemon.individualValues.health}"); //TODO - remove once done debugging
                     serializer.SerializePokemonInstance(stream, pokemon);
-                    LogNetworkEvent("Sent pokemon");
+                    LogNetworkEvent($"Sent pokemon  (Hash - {string.Format("{0:X}", pokemon.Hash)})");
                 }
 
             }
@@ -510,7 +544,7 @@ namespace Networking
                     {
                         LogNetworkEvent("Receiving pokemon instance...");
                         pokemon[i] = serializer.DeserializePokemonInstance(stream);
-                        LogNetworkEvent("Received pokemon instance");
+                        LogNetworkEvent($"Received pokemon instance (Hash - {string.Format("{0:X}", pokemon[i].Hash)})");
                     }
 
                 }
@@ -565,19 +599,16 @@ namespace Networking
                 }
 
                 //Client sends acknowledgement
-                stream.Write(AcknowledgementCodeBytes, 0, 4);
+                SendAck(stream);
 
                 //Client sends battle entrance arguments
                 SendBattleEntranceArguments(stream, serializer, player);
 
                 //Server sends acknowledgement
-                byte[] ackBuffer = new byte[4];
-                stream.Read(ackBuffer, 0, 4);
-                uint serverAck = BitConverter.ToUInt32(ackBuffer, 0);
 
-                if (serverAck != acknowledgementCode)
+                if (!TryReceiveAck(stream))
                 {
-                    Debug.LogWarning($"Incorrect acknowledgement code received (received - {serverAck}, inteded - {acknowledgementCode})");
+                    Debug.LogWarning($"Incorrect acknowledgement code received");
                     return false;
                 }
 
@@ -614,13 +645,10 @@ namespace Networking
                 SendBattleEntranceArguments(stream, serializer, player);
 
                 //Client sends acknowledgement
-                byte[] ackBuffer = new byte[4];
-                stream.Read(ackBuffer, 0, 4);
-                uint serverAck = BitConverter.ToUInt32(ackBuffer, 0);
 
-                if (serverAck != acknowledgementCode)
+                if (!TryReceiveAck(stream))
                 {
-                    Debug.LogWarning($"Incorrect acknowledgement code received (received - {serverAck}, inteded - {acknowledgementCode})");
+                    Debug.LogWarning($"Incorrect acknowledgement code received");
                     name = default;
                     pokemon = default;
                     spriteResourceName = default;
@@ -641,7 +669,7 @@ namespace Networking
                 }
 
                 //Server sends acknowledgement
-                stream.Write(AcknowledgementCodeBytes, 0, 4);
+                SendAck(stream);
 
                 return true;
 
