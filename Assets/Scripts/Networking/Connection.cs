@@ -3,8 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
-using System.Threading;
 using UnityEngine;
 using Serialization;
 using Pokemon;
@@ -57,14 +55,15 @@ namespace Networking
             stream.Write(AcknowledgementCodeBytes, 0, 4);
         }
 
-        private static bool TryReceiveAck(NetworkStream stream)
+        private static bool TryReceiveAck(NetworkStream stream,
+            out uint recvAck)
         {
 
             byte[] buffer = new byte[4];
 
             stream.Read(buffer, 0, 4);
 
-            uint recvAck = BitConverter.ToUInt32(buffer, 0);
+            recvAck = BitConverter.ToUInt32(buffer, 0);
 
             return recvAck == acknowledgementCode;
 
@@ -75,14 +74,15 @@ namespace Networking
             stream.Write(PokemonObsidianIdentifierBytes, 0, 2);
         }
 
-        private static bool TryReceivePokemonObsidianIdentifier(NetworkStream stream)
+        private static bool TryReceivePokemonObsidianIdentifier(NetworkStream stream,
+            out ushort recvPmonId)
         {
 
             byte[] buffer = new byte[2];
 
             stream.Read(buffer, 0, 2);
 
-            ushort recvPmonId = BitConverter.ToUInt16(buffer, 0);
+            recvPmonId = BitConverter.ToUInt16(buffer, 0);
 
             return recvPmonId == pokemonObsidianIdentifier;
 
@@ -224,19 +224,7 @@ namespace Networking
         public delegate void ClientConnected(bool success, string errMsg, Socket socket);
 
         /// <param name="port">The port to use. Negative means to use the default port</param>
-        public async static void TryStartHostServer(StartedListening startedListeningListener,
-            ClientConnected clientConnectedListener,
-            int port = -1)
-        {
-
-            await Task.Run(() =>
-                TryHostServer(startedListeningListener, clientConnectedListener, port)
-            );
-
-        }
-
-        /// <param name="port">The port to use. Negative means to use the default port</param>
-        private static void TryHostServer(StartedListening startedListeningListener,
+        public static void TryStartHostServer(StartedListening startedListeningListener,
             ClientConnected clientConnectedListener,
             int port = -1)
         {
@@ -324,10 +312,10 @@ namespace Networking
 
                 LogNetworkEvent("Receiving identifier...");
 
-                if (!TryReceivePokemonObsidianIdentifier(stream))
+                if (!TryReceivePokemonObsidianIdentifier(stream, out ushort recvPmonId))
                 {
                     LogNetworkEvent("Identifier mismatch");
-                    Debug.LogWarning("Pokemon Obsidian Identifier mismatch");
+                    Debug.LogWarning("Pokemon Obsidian Identifier mismatch. Received - " + recvPmonId.ToString() + ", expected - " + pokemonObsidianIdentifier.ToString());
                     return false;
                 }
                 else
@@ -394,6 +382,8 @@ namespace Networking
 
                 byte[] buffer;
 
+                uint recvAck;
+
                 //Server sends Pokemon Obsidian Identifier
                 SendPokemonObsidianIdentifier(stream);
                 LogNetworkEvent("Sent identifier");
@@ -402,10 +392,10 @@ namespace Networking
 
                 LogNetworkEvent("Receiving ack...");
 
-                if (!TryReceiveAck(stream))
+                if (!TryReceiveAck(stream, out recvAck))
                 {
                     LogNetworkEvent("Invalid ack");
-                    Debug.LogWarning("Incorrect acknowledgement code received");
+                    Debug.LogWarning("Incorrect acknowledgement code received. Received - " + recvAck.ToString());
                     return false;
                 }
                 else
@@ -429,10 +419,10 @@ namespace Networking
                 
                 LogNetworkEvent("Receiving ack...");
 
-                if (!TryReceiveAck(stream))
+                if (!TryReceiveAck(stream, out recvAck))
                 {
                     LogNetworkEvent("Invalid ack");
-                    Debug.LogWarning("Incorrect acknowledgement code received");
+                    Debug.LogWarning("Incorrect acknowledgement code received. Received - " + recvAck.ToString());
                     return false;
                 }
                 else
@@ -606,9 +596,9 @@ namespace Networking
 
                 //Server sends acknowledgement
 
-                if (!TryReceiveAck(stream))
+                if (!TryReceiveAck(stream, out uint recvAck))
                 {
-                    Debug.LogWarning($"Incorrect acknowledgement code received");
+                    Debug.LogWarning($"Incorrect acknowledgement code received. Recevied - " + recvAck.ToString());
                     return false;
                 }
 
@@ -646,9 +636,9 @@ namespace Networking
 
                 //Client sends acknowledgement
 
-                if (!TryReceiveAck(stream))
+                if (!TryReceiveAck(stream, out uint recvAck))
                 {
-                    Debug.LogWarning($"Incorrect acknowledgement code received");
+                    Debug.LogWarning($"Incorrect acknowledgement code received. Received - " + recvAck.ToString());
                     name = default;
                     pokemon = default;
                     spriteResourceName = default;

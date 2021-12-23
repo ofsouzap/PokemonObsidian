@@ -64,15 +64,6 @@ namespace Networking.NetworkInteractionCanvas
 
         }
 
-        protected override void Update()
-        {
-
-            base.Update();
-
-            UpdateProcessServerConnection();
-
-        }
-
         public override void Launch(ConnectionMode mode)
         {
 
@@ -180,38 +171,8 @@ namespace Networking.NetworkInteractionCanvas
 
         #region Running Modes
 
-        private void UpdateProcessServerConnection()
-        {
-
-            if (serverConnectionToProcess != null)
-            {
-                StartCoroutine(ProcessConnection_Server(serverConnectionToProcess));
-                SetServerConnectionToProcess(null);
-            }
-
-        }
-
-        private object serverConnectionToProcessLock = new object();
-        private Socket serverConnectionToProcess = null;
-
-        private void SetServerConnectionToProcess(Socket socket)
-        {
-            lock (serverConnectionToProcessLock)
-            {
-                serverConnectionToProcess = socket;
-            }
-        }
-
         protected void Run_Server(int port = -1)
         {
-
-            if (serverConnectionToProcess != null)
-            {
-                serverConnectionToProcess?.Close();
-                Debug.LogWarning("Connection waiting to be processed");
-                canvasController.SetStatusMessageError("Server connection trying to be opened whilst one already active");
-                SetInteractable(true);
-            }
 
             canvasController.SetStatusMessage("Setting up server...");
 
@@ -230,9 +191,7 @@ namespace Networking.NetworkInteractionCanvas
                 }
                 else
                 {
-                    //Can't directly start the ProcessConnection_Server coroutine as coroutines can only be started in the main thread...
-                    //...and this callback will be called in a different thread
-                    SetServerConnectionToProcess(socket);
+                    StartCoroutine(ProcessConnection_Server(socket));
                 }
 
             },
