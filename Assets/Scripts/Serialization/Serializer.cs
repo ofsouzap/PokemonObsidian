@@ -67,8 +67,6 @@ namespace Serialization {
         public static void SerializeByteStats(Stream stream, Stats<byte> stats)
         {
 
-            Debug.Log($"Stats: {stats.attack},{stats.defense},{stats.specialAttack},{stats.specialDefense},{stats.speed},{stats.health}"); //TODO - remove once done debugging
-
             byte[] buffer = new byte[6];
 
             buffer[0] = stats.attack;
@@ -87,16 +85,6 @@ namespace Serialization {
 
             byte[] buffer = new byte[6];
             stream.Read(buffer, 0, 6);
-
-            //TODO - remove once done debugging
-            #region tmp
-
-            string m = "Buffer: ";
-            foreach (byte b in buffer)
-                    m += b.ToString() + ',';
-            Debug.Log(m);
-
-            #endregion
 
             return new Stats<byte>()
             {

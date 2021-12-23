@@ -482,8 +482,6 @@ namespace Networking
                 {
                     LogNetworkEvent("Sending pokemon...");
                     serializer.SerializeBool(stream, true);
-                    LogNetworkEvent($"Pmon EVs: {pokemon.effortValues.attack},{pokemon.effortValues.defense},{pokemon.effortValues.specialAttack},{pokemon.effortValues.specialDefense},{pokemon.effortValues.speed},{pokemon.effortValues.health}"); //TODO - remove once done debugging
-                    LogNetworkEvent($"Pmon IVs: {pokemon.individualValues.attack},{pokemon.individualValues.defense},{pokemon.individualValues.specialAttack},{pokemon.individualValues.specialDefense},{pokemon.individualValues.speed},{pokemon.individualValues.health}"); //TODO - remove once done debugging
                     serializer.SerializePokemonInstance(stream, pokemon);
                     LogNetworkEvent($"Sent pokemon  (Hash - {string.Format("{0:X}", pokemon.Hash)})");
                 }
