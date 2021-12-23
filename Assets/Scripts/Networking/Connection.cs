@@ -72,7 +72,7 @@ namespace Networking
 
         private static void SendPokemonObsidianIdentifier(NetworkStream stream)
         {
-            stream.Write(PokemonObsidianIdentifierBytes, 0, 4);
+            stream.Write(PokemonObsidianIdentifierBytes, 0, 2);
         }
 
         private static bool TryReceivePokemonObsidianIdentifier(NetworkStream stream)
