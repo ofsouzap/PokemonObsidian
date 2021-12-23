@@ -220,7 +220,7 @@ namespace Networking
 
         }
 
-        public delegate void StartedListening();
+        public delegate void StartedListening(IPEndPoint endPoint);
         public delegate void ClientConnected(bool success, string errMsg, Socket socket);
 
         /// <param name="port">The port to use. Negative means to use the default port</param>
@@ -253,7 +253,7 @@ namespace Networking
             socket.Listen(1);
             LogNetworkEvent("Socket set to listen");
 
-            startedListeningListener?.Invoke();
+            startedListeningListener?.Invoke(endPoint);
 
             Socket cliSocket;
 

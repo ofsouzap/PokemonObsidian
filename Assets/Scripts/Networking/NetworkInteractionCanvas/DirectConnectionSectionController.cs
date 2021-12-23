@@ -74,6 +74,7 @@ namespace Networking.NetworkInteractionCanvas
 
                 case ConnectionMode.Server:
                     SetInteractivityForServer();
+                    addressInput.text = Connection.GetHostIPAddress().ToString();
                     break;
 
                 case ConnectionMode.Client:
@@ -176,9 +177,9 @@ namespace Networking.NetworkInteractionCanvas
 
             canvasController.SetStatusMessage("Setting up server...");
 
-            Connection.TryStartHostServer(() => //Started listening
+            Connection.TryStartHostServer((IPEndPoint endPoint) => //Started listening
             {
-                canvasController.SetStatusMessage("Awaiting connection...");
+                canvasController.SetStatusMessage($"Awaiting connection on {endPoint.Address}:{endPoint.Port}...");
             },
             (success, errMsg, socket) => //Connection made
             {
