@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 using Pokemon;
 using Items;
@@ -85,6 +86,8 @@ namespace Serialization {
 
             byte[] buffer = new byte[6];
             stream.Read(buffer, 0, 6);
+
+            Thread.Sleep(1);
 
             return new Stats<byte>()
             {
