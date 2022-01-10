@@ -191,7 +191,7 @@ namespace Networking.NetworkInteractionCanvas
 
         }
 
-        private object serverConnectionToProcessLock = new object();
+        private static readonly object serverConnectionToProcessLock = new object();
         private Socket serverConnectionToProcess = null;
 
         private void SetServerConnectionToProcess(Socket socket)

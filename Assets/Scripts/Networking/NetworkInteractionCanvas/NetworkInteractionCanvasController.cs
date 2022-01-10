@@ -41,7 +41,7 @@ namespace Networking.NetworkInteractionCanvas
         public void SetStatusMessageError(string s)
             => SetStatusMessage("Error: " + s);
 
-        private object statusMessageLock = new object();
+        private static readonly object statusMessageLock = new object();
 
         public void SetStatusMessage(string s)
         {
