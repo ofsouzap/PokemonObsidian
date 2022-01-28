@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Battle;
+using Serialization;
 
 namespace Battle
 {
@@ -97,6 +98,8 @@ namespace Battle
         public int initialWeatherId;
 
         #endregion
+
+        public Serializer serializer = Serialize.DefaultSerializer;
 
     }
 }

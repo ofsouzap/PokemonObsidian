@@ -21,7 +21,20 @@ namespace Battle
         /// <summary>
         /// The action that has been chosen. This is only valid if actionHasBeenChosen is true
         /// </summary>
-        public Action chosenAction;
+        protected Action chosenAction;
+
+        public virtual Action GetChosenAction() => chosenAction;
+
+        /// <summary>
+        /// Sets the participant's action. Mostly used for cheat codes
+        /// </summary>
+        public virtual void SetChosenAction(Action action)
+        {
+
+            chosenAction = action;
+            actionHasBeenChosen = true;
+
+        }
 
         public abstract void StartChoosingAction(BattleData battleData);
 

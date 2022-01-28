@@ -331,14 +331,13 @@ namespace Battle
             if (!useStruggle && PokemonMove.MoveIdIsUnset(battleData.participantOpponent.ActivePokemon.moveIds[moveIndex]))
                 return false;
 
-            battleData.participantOpponent.actionHasBeenChosen = true;
-            battleData.participantOpponent.chosenAction = new BattleParticipant.Action(battleData.participantOpponent)
+            battleData.participantOpponent.SetChosenAction(new BattleParticipant.Action(battleData.participantOpponent)
             {
                 type = BattleParticipant.Action.Type.Fight,
                 fightMoveTarget = battleData.participantPlayer,
                 fightMoveIndex = useStruggle ? 0 : moveIndex,
                 fightUsingStruggle = useStruggle
-            };
+            });
 
             return true;
 
@@ -360,12 +359,11 @@ namespace Battle
             if (battleData.participantOpponent.GetPokemon()[partyIndex] == null)
                 return false;
 
-            battleData.participantOpponent.actionHasBeenChosen = true;
-            battleData.participantOpponent.chosenAction = new BattleParticipant.Action(battleData.participantOpponent)
+            battleData.participantOpponent.SetChosenAction(new BattleParticipant.Action(battleData.participantOpponent)
             {
                 type = BattleParticipant.Action.Type.SwitchPokemon,
                 switchPokemonIndex = partyIndex
-            };
+            });
 
             return true;
 
@@ -386,15 +384,14 @@ namespace Battle
             if (moveIndex < 0 && item is PPRestoreMedicineItem)
                 return false;
 
-            battleData.participantPlayer.actionHasBeenChosen = true;
-            battleData.participantPlayer.chosenAction = new BattleParticipant.Action(battleData.participantPlayer)
+            battleData.participantPlayer.SetChosenAction(new BattleParticipant.Action(battleData.participantPlayer)
             {
                 type = BattleParticipant.Action.Type.UseItem,
                 useItemItemToUse = item,
                 useItemTargetPartyIndex = partyIndex >= 0 ? partyIndex : battleData.participantPlayer.activePokemonIndex,
                 useItemTargetMoveIndex = moveIndex,
                 useItemDontConsumeItem = true
-            };
+            });
 
             playerBattleUIController.DisableAllMenus();
 
@@ -417,14 +414,14 @@ namespace Battle
             if (moveIndex < 0 && item is PPRestoreMedicineItem)
                 return false;
 
-            battleData.participantOpponent.actionHasBeenChosen = true;
-            battleData.participantOpponent.chosenAction = new BattleParticipant.Action(battleData.participantOpponent)
+            battleData.participantOpponent.SetChosenAction(new BattleParticipant.Action(battleData.participantOpponent)
             {
                 type = BattleParticipant.Action.Type.UseItem,
                 useItemItemToUse = item,
                 useItemTargetPartyIndex = partyIndex >= 0 ? partyIndex : battleData.participantOpponent.activePokemonIndex,
                 useItemTargetMoveIndex = moveIndex
-            };
+            });
+
             return true;
 
         }
@@ -435,14 +432,13 @@ namespace Battle
         public bool CheatCommand_SetPlayerAction_UseItem_PokeBall(Item pokeBall)
         {
 
-            battleData.participantPlayer.actionHasBeenChosen = true;
-            battleData.participantPlayer.chosenAction = new BattleParticipant.Action(battleData.participantPlayer)
+            battleData.participantPlayer.SetChosenAction(new BattleParticipant.Action(battleData.participantPlayer)
             {
                 type = BattleParticipant.Action.Type.UseItem,
                 useItemItemToUse = pokeBall,
                 useItemPokeBallTarget = battleData.participantOpponent,
                 useItemDontConsumeItem = true
-            };
+            });
 
             playerBattleUIController.DisableAllMenus();
 

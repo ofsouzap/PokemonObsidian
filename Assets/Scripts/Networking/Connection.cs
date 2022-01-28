@@ -37,13 +37,13 @@ namespace Networking
                 .ToArray()[0];
         }
 
-        private static void LogNetworkEvent(string msg)
+        public static void LogNetworkEvent(string msg)
         {
             if (GameSettings.singleton.networkLogEnabled)
                 Debug.Log(msg);
         }
 
-        private static void LogNetworkEventSocketIsConnected(Socket socket)
+        public static void LogNetworkEventSocketIsConnected(Socket socket)
         {
             LogNetworkEvent("Socket connected - " + (socket.Connected ? "yes" : "no"));
         }

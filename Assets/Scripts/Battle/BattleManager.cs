@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@ using Items;
 using Items.MedicineItems;
 using Items.PokeBalls;
 using Audio;
+using Serialization;
 
 namespace Battle
 {
@@ -62,6 +64,8 @@ namespace Battle
         [HideInInspector]
         public BattleData battleData;
 
+        public Serializer Serializer => battleData.serializer;
+
         public BattleLayout.BattleLayoutController battleLayoutController;
 
         private TextBoxController textBoxController;
@@ -106,6 +110,9 @@ namespace Battle
         public IEnumerator MainBattleCoroutine()
         {
 
+            //The stream for a network battle. Only used if the battle is a network battle
+            Stream networkBattleStream = null;
+
             #region Initial Setup
 
             //If the battle entrance arguments don't seem to be set, use whatever values are present at the time but still log an error
@@ -113,6 +120,9 @@ namespace Battle
             {
                 Debug.LogError("Battle entrance arguments not set");
             }
+
+            if (BattleEntranceArguments.battleType == BattleType.Network)
+                networkBattleStream = BattleEntranceArguments.networkBattleArguments.stream;
 
             #region Opponent Participant
 
@@ -141,6 +151,16 @@ namespace Battle
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon,
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentBasePayout,
                         BattleEntranceArguments.npcTrainerBattleArguments.opponentDefeatMessages
+                    );
+
+                    break;
+
+                case BattleType.Network:
+
+                    participantOpponent = new BattleParticipantNetwork(
+                        BattleEntranceArguments.networkBattleArguments.opponentName,
+                        BattleEntranceArguments.networkBattleArguments.opponentPokemon,
+                        BattleEntranceArguments.networkBattleArguments.stream
                     );
 
                     break;
@@ -181,6 +201,9 @@ namespace Battle
                 initialWeatherId = BattleEntranceArguments.initialWeatherId
             };
 
+            if (BattleEntranceArguments.battleType == BattleType.Network)
+                ((BattleParticipantNetwork)battleData.participantOpponent).SetOpponent(battleData.participantPlayer);
+
             battleData.participantPlayer.battleManager = this;
             battleData.participantOpponent.battleManager = this;
 
@@ -193,6 +216,9 @@ namespace Battle
             battleData.participantPlayer.playerBattleUIController = playerBattleUIController;
             battleData.participantPlayer.playerPokemonSelectUIController = playerPokemonSelectUIController;
             battleData.participantPlayer.playerMoveSelectUIController = playerMoveSelectUIController;
+
+            if (BattleEntranceArguments.battleType == BattleType.Network)
+                ((BattleParticipantNetworkedPlayer)battleData.participantPlayer).SetPublishChosenActionAction(a => SendNetworkedPlayerChosenAction(networkBattleStream, a));
 
             #region Choose Starting Pokemon
 
@@ -291,7 +317,7 @@ namespace Battle
             {
 
                 Sprite opponentTrainerBattleSprite = SpriteStorage.GetCharacterBattleSprite(
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName
+                    BattleEntranceArguments.opponentSpriteResourceName
                 );
 
                 if (opponentTrainerBattleSprite != null)
@@ -406,8 +432,8 @@ namespace Battle
 
                 BattleParticipant.Action[] actionsUnsortedArray = new BattleParticipant.Action[]
                 {
-                    battleData.participantPlayer.chosenAction,
-                    battleData.participantOpponent.chosenAction
+                    battleData.participantPlayer.GetChosenAction(),
+                    battleData.participantOpponent.GetChosenAction()
                 };
 
                 Queue<BattleParticipant.Action> actionQueue = new Queue<BattleParticipant.Action>(
@@ -506,7 +532,35 @@ namespace Battle
 
             #endregion
 
-            if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
+            if (networkBattleStream != null) //If this is a network battle
+            {
+
+                networkBattleStream.Close();
+
+                if (battleData.participantPlayer.CheckIfDefeated()) //Loss
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText("You lost to " + battleData.participantOpponent.GetName() + "!", true);
+
+                }
+                else //Victory
+                {
+
+                    TryTriggerVictoryMusic();
+
+                    battleAnimationSequencer.EnqueueSingleText("You defeated " + battleData.participantOpponent.GetName() + "!", true);
+
+                }
+
+                PlayerData.singleton.HealPartyPokemon();
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                MusicSourceController.singleton.StopMusic();
+                GameSceneManager.CloseBattleScene();
+
+            }
+            else if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
             {
 
                 OnBattleVictory.RemoveAllListeners();
@@ -582,7 +636,7 @@ namespace Battle
                         {
 
                             Sprite opponentTrainerBattleSprite = SpriteStorage.GetCharacterBattleSprite(
-                                BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName
+                                BattleEntranceArguments.opponentSpriteResourceName
                             );
 
                             //Sprite showcase start
@@ -2374,6 +2428,13 @@ namespace Battle
             yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             #endregion
+
+        }
+
+        private void SendNetworkedPlayerChosenAction(Stream stream, BattleParticipant.Action action)
+        {
+
+            Serializer.SerializeBattleAction(stream, action);
 
         }
 

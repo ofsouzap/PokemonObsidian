@@ -7,6 +7,7 @@ using Pokemon;
 using Items;
 using Items.MedicineItems;
 using Items.PokeBalls;
+using Battle;
 
 namespace Serialization
 {
@@ -304,6 +305,35 @@ namespace Serialization
 
             buffer = Encoding.ASCII.GetBytes(s);
             stream.Write(buffer, 0, s.Length);
+
+        }
+
+        public override void SerializeBattleAction(Stream stream, BattleParticipant.Action action)
+        {
+
+            byte[] buffer;
+
+            buffer = BitConverter.GetBytes((int)action.type);
+            stream.Write(buffer, 0, 4);
+
+            SerializeBool(stream, action.fightUsingStruggle);
+
+            buffer = BitConverter.GetBytes(action.fightMoveIndex);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(action.switchPokemonIndex);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(action.useItemItemToUse.GetId());
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(action.useItemTargetPartyIndex);
+            stream.Write(buffer, 0, 4);
+
+            buffer = BitConverter.GetBytes(action.useItemTargetMoveIndex);
+            stream.Write(buffer, 0, 4);
+
+            SerializeBool(stream, action.useItemDontConsumeItem);
 
         }
 
@@ -765,6 +795,65 @@ namespace Serialization
             }
 
             return s;
+
+        }
+
+        public override BattleParticipant.Action DeserializeBattleAction(Stream stream,
+            BattleParticipant user,
+            BattleParticipant target)
+        {
+
+            BattleParticipant.Action.Type type;
+            bool fightUsingStruggle, useItemDontConsumeItem;
+            int fightMoveIndex, switchPokemonIndex, useItemTargetPartyIndex, useItemTargetMoveIndex;
+            Item useItemItemToUse;
+
+            byte[] buffer;
+
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            type = (BattleParticipant.Action.Type)BitConverter.ToInt32(buffer, 0);
+
+            fightUsingStruggle = DeserializeBool(stream);
+
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            fightMoveIndex = BitConverter.ToInt32(buffer, 0);
+
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            switchPokemonIndex = BitConverter.ToInt32(buffer, 0);
+
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            useItemItemToUse = Item.GetItemById(BitConverter.ToInt32(buffer, 0));
+
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            useItemTargetPartyIndex = BitConverter.ToInt32(buffer, 0);
+
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            useItemTargetMoveIndex = BitConverter.ToInt32(buffer, 0);
+
+            useItemDontConsumeItem = DeserializeBool(stream);
+
+            return new BattleParticipant.Action(user)
+            {
+
+                type = type,
+                fightUsingStruggle = fightUsingStruggle,
+                fightMoveIndex = fightMoveIndex,
+                switchPokemonIndex = switchPokemonIndex,
+                useItemItemToUse = useItemItemToUse,
+                useItemTargetPartyIndex = useItemTargetPartyIndex,
+                useItemTargetMoveIndex = useItemTargetMoveIndex,
+                useItemDontConsumeItem = useItemDontConsumeItem,
+
+                fightMoveTarget = target,
+                useItemPokeBallTarget = target
+
+            };
 
         }
 

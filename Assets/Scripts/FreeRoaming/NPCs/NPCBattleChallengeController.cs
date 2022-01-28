@@ -237,13 +237,13 @@ namespace FreeRoaming.NPCs
             BattleEntranceArguments.npcTrainerBattleArguments = new BattleEntranceArguments.NPCTrainerBattleArguments()
             {
                 opponentPokemon = battleDetails.pokemon.Select(x => x.Generate()).ToArray(),
-                opponentSpriteResourceName = GetBattleSpriteResourceName(),
                 opponentFullName = GetFullName(),
                 opponentBasePayout = GetBasePayout(),
                 opponentDefeatMessages = battleDetails.defeatMessages,
                 mode = battleDetails.mode
             };
 
+            BattleEntranceArguments.opponentSpriteResourceName = GetBattleSpriteResourceName();
             BattleEntranceArguments.battleBackgroundResourceName = battleDetails.battleBackgroundResourceName;
 
         }

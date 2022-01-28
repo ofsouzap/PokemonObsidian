@@ -32,6 +32,11 @@ namespace Battle
 
         }
 
+        /// <summary>
+        /// The name of the sprite for this opponent in battle
+        /// </summary>
+        public static string opponentSpriteResourceName;
+
         public struct NPCTrainerBattleArguments
         {
 
@@ -39,11 +44,6 @@ namespace Battle
             /// The opponent's pokemon. This must have a maximum length of 6 and must include at least 1 element. These instances are directly used for the battle
             /// </summary>
             public PokemonInstance[] opponentPokemon;
-
-            /// <summary>
-            /// The name of the sprite for this opponent in battle
-            /// </summary>
-            public string opponentSpriteResourceName;
 
             /// <summary>
             /// The opponent's base payout
@@ -75,7 +75,6 @@ namespace Battle
 
             public string opponentName;
             public PokemonInstance[] opponentPokemon;
-            public string opponentSpriteResourceName;
 
         }
 
@@ -94,9 +93,10 @@ namespace Battle
             {
                 stream = stream,
                 opponentName = name,
-                opponentPokemon = pokemon,
-                opponentSpriteResourceName = spriteResourceName
+                opponentPokemon = pokemon
             };
+
+            opponentSpriteResourceName = spriteResourceName;
 
         }
 

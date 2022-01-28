@@ -5,6 +5,7 @@ using System.Threading;
 using UnityEngine;
 using Pokemon;
 using Items;
+using Battle;
 using Items.MedicineItems;
 using Items.PokeBalls;
 
@@ -44,6 +45,7 @@ namespace Serialization {
         public abstract void SerializeInventoryItem(Stream stream, int itemId, int quantity);
         public abstract void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null);
         public abstract void SerializeString(Stream stream, string s);
+        public abstract void SerializeBattleAction(Stream stream, BattleParticipant.Action action);
 
         public static void SerializeHeldItem(Stream stream, PokemonInstance pokemon)
         {
@@ -231,6 +233,8 @@ namespace Serialization {
 
         #region Deserialization
 
+        public class DeserializationException : Exception { }
+
         public abstract void DeserializeData(Stream stream,
             out long saveTime,
             out PlayerData playerData,
@@ -250,6 +254,10 @@ namespace Serialization {
             out PlayerData.PokemonStorageSystem storageSystem);
 
         public abstract string DeserializeString(Stream stream);
+
+        public abstract BattleParticipant.Action DeserializeBattleAction(Stream stream,
+            BattleParticipant user,
+            BattleParticipant target);
 
         public static Item DeserializeItem(Stream stream)
         {

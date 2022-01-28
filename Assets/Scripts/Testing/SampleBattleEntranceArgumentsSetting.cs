@@ -96,7 +96,7 @@ namespace Testing
                     
                     BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon = opponentPokemonArray;
                     BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName = npcTrainerFullName;
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName = npcTrainerSpriteName;
+                    BattleEntranceArguments.opponentSpriteResourceName = npcTrainerSpriteName;
                     BattleEntranceArguments.npcTrainerBattleArguments.mode = npcTrainerMode;
 
                     break;
