@@ -16,14 +16,27 @@ namespace Battle
         /// <summary>
         /// Whether the action has been chosen
         /// </summary>
-        public bool actionHasBeenChosen = false;
+        protected bool actionHasBeenChosen = false;
+
+        public virtual bool GetActionHasBeenChosen() => actionHasBeenChosen;
 
         /// <summary>
         /// The action that has been chosen. This is only valid if actionHasBeenChosen is true
         /// </summary>
-        public Action chosenAction;
+        protected Action chosenAction;
+
+        public virtual Action GetChosenAction() => chosenAction;
 
         public abstract void StartChoosingAction(BattleData battleData);
+
+        /// <summary>
+        /// Forcefully set a participant's chosen action. Made for cheat commands
+        /// </summary>
+        public virtual void ForceSetChosenAction(Action action)
+        {
+            actionHasBeenChosen = true;
+            chosenAction = action;
+        }
 
         #endregion
 
@@ -50,12 +63,16 @@ namespace Battle
         /// <summary>
         /// Whether the next pokemon has been chosen
         /// </summary>
-        public bool nextPokemonHasBeenChosen = false;
+        protected bool nextPokemonHasBeenChosen = false;
+
+        public virtual bool GetNextPokemonHasBeenChosen() => nextPokemonHasBeenChosen;
 
         /// <summary>
         /// Index of pokemon chosen to replace current pokemon. This is only valid if nextPokemonHasBeenChosen is true
         /// </summary>
-        public int chosenNextPokemonIndex;
+        protected int chosenNextPokemonIndex;
+
+        public virtual int GetChosenNextPokemonIndex() => chosenNextPokemonIndex;
 
         public abstract void StartChoosingNextPokemon();
 

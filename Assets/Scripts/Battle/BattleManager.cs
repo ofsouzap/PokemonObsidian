@@ -393,8 +393,8 @@ namespace Battle
 
                 yield return new WaitUntil(() =>
                 {
-                    return battleData.participantPlayer.actionHasBeenChosen
-                    && battleData.participantOpponent.actionHasBeenChosen;
+                    return battleData.participantPlayer.GetActionHasBeenChosen()
+                    && battleData.participantOpponent.GetActionHasBeenChosen();
                 });
 
                 SetPlayerPokemonBobbingState(false);
@@ -406,8 +406,8 @@ namespace Battle
 
                 BattleParticipant.Action[] actionsUnsortedArray = new BattleParticipant.Action[]
                 {
-                    battleData.participantPlayer.chosenAction,
-                    battleData.participantOpponent.chosenAction
+                    battleData.participantPlayer.GetChosenAction(),
+                    battleData.participantOpponent.GetChosenAction()
                 };
 
                 Queue<BattleParticipant.Action> actionQueue = new Queue<BattleParticipant.Action>(
@@ -774,11 +774,11 @@ namespace Battle
 
                 textBoxController.SetTextInstant("Select your next pokemon");
 
-                yield return new WaitUntil(() => battleData.participantPlayer.nextPokemonHasBeenChosen);
+                yield return new WaitUntil(() => battleData.participantPlayer.GetNextPokemonHasBeenChosen());
 
                 textBoxController.SetTextInstant("");
 
-                battleData.participantPlayer.activePokemonIndex = battleData.participantPlayer.chosenNextPokemonIndex;
+                battleData.participantPlayer.activePokemonIndex = battleData.participantPlayer.GetChosenNextPokemonIndex();
 
                 battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantPlayer));
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
@@ -797,9 +797,9 @@ namespace Battle
 
                 battleData.participantOpponent.StartChoosingNextPokemon();
 
-                yield return new WaitUntil(() => battleData.participantOpponent.nextPokemonHasBeenChosen);
+                yield return new WaitUntil(() => battleData.participantOpponent.GetNextPokemonHasBeenChosen());
 
-                battleData.participantOpponent.activePokemonIndex = battleData.participantOpponent.chosenNextPokemonIndex;
+                battleData.participantOpponent.activePokemonIndex = battleData.participantOpponent.GetChosenNextPokemonIndex();
 
                 battleAnimationSequencer.EnqueueSingleText(GetReplacedPokemonMessage(battleData.participantOpponent));
                 battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
