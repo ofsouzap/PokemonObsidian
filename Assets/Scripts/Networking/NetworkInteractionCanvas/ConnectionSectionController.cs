@@ -77,13 +77,17 @@ namespace Networking.NetworkInteractionCanvas
                 yield break;
             }
 
+            //Choose random seed
+            int randomSeed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+
             //Get battle entrance arguments
             if (!Connection.TryExchangeBattleEntranceArguments_Server(stream,
                 errCallback: canvasController.SetStatusMessageError,
                 statusCallback: canvasController.SetStatusMessage,
                 out string opponentName,
                 out PokemonInstance[] opponentPokemon,
-                out string opponentSpriteResourceName))
+                out string opponentSpriteResourceName,
+                randomSeed: randomSeed))
             {
                 stream.Close();
                 Launch(connectionMode); //Reset section
@@ -91,7 +95,7 @@ namespace Networking.NetworkInteractionCanvas
             }
 
             //Set battle entrance arguments
-            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(stream, opponentName, opponentPokemon, opponentSpriteResourceName);
+            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(stream, opponentName, opponentPokemon, opponentSpriteResourceName, randomSeed);
 
             //Launch battle
             CloseMenu();
@@ -120,7 +124,8 @@ namespace Networking.NetworkInteractionCanvas
                 statusCallback: canvasController.SetStatusMessage,
                 out string opponentName,
                 out PokemonInstance[] opponentPokemon,
-                out string opponentSpriteResourceName))
+                out string opponentSpriteResourceName,
+                out int randomSeed))
             {
                 stream.Close();
                 Launch(connectionMode); //Reset section
@@ -128,7 +133,11 @@ namespace Networking.NetworkInteractionCanvas
             }
 
             //Set battle entrance arguments
-            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(stream, opponentName, opponentPokemon, opponentSpriteResourceName);
+            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(stream,
+                opponentName,
+                opponentPokemon,
+                opponentSpriteResourceName,
+                randomSeed);
 
             //Launch battle
             CloseMenu();

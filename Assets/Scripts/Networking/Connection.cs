@@ -704,6 +704,7 @@ namespace Networking
             out string name,
             out PokemonInstance[] pokemon,
             out string spriteResourceName,
+            out int randomSeed,
             PlayerData player = null)
         {
 
@@ -726,6 +727,7 @@ namespace Networking
 
                     errCallback("Failed to receive battle entrance arguments");
                     SendNo(stream);
+                    randomSeed = default;
                     return false;
 
                 }
@@ -739,6 +741,7 @@ namespace Networking
                     player))
                 {
                     errCallback("Failed to send battle arguments");
+                    randomSeed = default;
                     return false;
                 }
 
@@ -748,12 +751,19 @@ namespace Networking
                     case false:
                     case null:
                         errCallback("Didn't receive yes after sending battle entrance arguments");
+                        randomSeed = default;
                         return false;
 
                     case true:
                         break;
 
                 }
+
+                LogNetworkEvent("Receiving random seed...");
+                byte[] randomSeedBuffer = new byte[4];
+                stream.Read(randomSeedBuffer, 0, 4);
+                randomSeed = BitConverter.ToInt32(randomSeedBuffer, 0);
+                LogNetworkEvent($"Received random seed {randomSeed}");
 
                 return true;
 
@@ -764,6 +774,7 @@ namespace Networking
                 name = default;
                 pokemon = default;
                 spriteResourceName = default;
+                randomSeed = default;
                 return false;
             }
 
@@ -775,7 +786,8 @@ namespace Networking
             out string name,
             out PokemonInstance[] pokemon,
             out string spriteResourceName,
-            PlayerData player = null)
+            PlayerData player = null,
+            int randomSeed = 0)
         {
 
             if (player == null)
@@ -831,6 +843,10 @@ namespace Networking
                 }
 
                 SendYes(stream);
+
+                LogNetworkEvent($"Sending random seed ({randomSeed})...");
+                stream.Write(BitConverter.GetBytes(randomSeed), 0, 4);
+                LogNetworkEvent($"Sent random seed");
 
                 return true;
 

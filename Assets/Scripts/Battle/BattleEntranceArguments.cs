@@ -82,13 +82,15 @@ namespace Battle
         public static void SetBattleEntranceArgumentsForNetworkBattle(NetworkStream stream,
             string name,
             PokemonInstance[] pokemon,
-            string spriteResourceName)
+            string spriteResourceName,
+            int randomSeed)
         {
 
             argumentsSet = true;
             battleBackgroundResourceName = defaultBackgroundName;
             battleType = BattleType.Network;
             initialWeatherId = 0;
+            BattleEntranceArguments.randomSeed = randomSeed;
 
             networkBattleArguments = new NetworkBattleArguments()
             {
