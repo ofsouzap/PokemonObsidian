@@ -68,9 +68,10 @@ namespace Networking.NetworkInteractionCanvas
             NetworkStream stream = Connection.CreateNetworkStream(socket);
 
             //Verify connection
-            if (!Connection.VerifyConnection_Server(stream))
+            if (!Connection.VerifyConnection_Server(stream,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage))
             {
-                canvasController.SetStatusMessageError("Failed to verify connection as server");
                 stream.Close();
                 Launch(connectionMode); //Reset section
                 yield break;
@@ -78,11 +79,12 @@ namespace Networking.NetworkInteractionCanvas
 
             //Get battle entrance arguments
             if (!Connection.TryExchangeBattleEntranceArguments_Server(stream,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage,
                 out string opponentName,
                 out PokemonInstance[] opponentPokemon,
                 out string opponentSpriteResourceName))
             {
-                canvasController.SetStatusMessageError("Failed to exchange battle data");
                 stream.Close();
                 Launch(connectionMode); //Reset section
                 yield break;
@@ -103,9 +105,10 @@ namespace Networking.NetworkInteractionCanvas
             NetworkStream stream = Connection.CreateNetworkStream(socket);
 
             //Verify connection
-            if (!Connection.VerifyConnection_Client(stream))
+            if (!Connection.VerifyConnection_Client(stream,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage))
             {
-                canvasController.SetStatusMessageError("Failed to verify connection as client");
                 stream.Close();
                 Launch(connectionMode); //Reset section
                 yield break;
@@ -113,11 +116,12 @@ namespace Networking.NetworkInteractionCanvas
 
             //Get battle entrance arguments
             if (!Connection.TryExchangeBattleEntranceArguments_Client(stream,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage,
                 out string opponentName,
                 out PokemonInstance[] opponentPokemon,
                 out string opponentSpriteResourceName))
             {
-                canvasController.SetStatusMessageError("Failed to exchange battle data");
                 stream.Close();
                 Launch(connectionMode); //Reset section
                 yield break;

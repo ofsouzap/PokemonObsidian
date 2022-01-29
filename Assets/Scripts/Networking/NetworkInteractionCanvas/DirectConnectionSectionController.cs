@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -191,7 +192,7 @@ namespace Networking.NetworkInteractionCanvas
 
         }
 
-        private object serverConnectionToProcessLock = new object();
+        private static readonly object serverConnectionToProcessLock = new object();
         private Socket serverConnectionToProcess = null;
 
         private void SetServerConnectionToProcess(Socket socket)
@@ -205,6 +206,13 @@ namespace Networking.NetworkInteractionCanvas
         protected void Run_Server(int port = -1)
         {
 
+            StartCoroutine(Server_Coroutine(port));
+
+        }
+
+        protected IEnumerator Server_Coroutine(int port = -1)
+        {
+
             if (serverConnectionToProcess != null)
             {
                 serverConnectionToProcess?.Close();
@@ -215,28 +223,35 @@ namespace Networking.NetworkInteractionCanvas
 
             canvasController.SetStatusMessage("Setting up server...");
 
-            Connection.TryStartHostServer(() => //Started listening
-            {
-                canvasController.SetStatusMessage("Awaiting connection...");
-            },
-            (success, errMsg, socket) => //Connection made
+            Connection.TryStartHostServer(
+
+                startedListeningListener: (IPEndPoint endPoint) => //Started listening
+                {
+                    canvasController.SetStatusMessage($"Listening for connection at {endPoint.Address}:{endPoint.Port}...");
+                },
+
+                clientConnectedListener: null, //Async server doesn't use clientConnectedListener
+
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage,
+
+                port: port);
+
+            Socket sock;
+
+            while (true)
             {
 
-                if (!success)
-                {
-                    socket?.Close();
-                    canvasController.SetStatusMessageError(errMsg);
-                    SetInteractable(true);
-                }
-                else
-                {
-                    //Can't directly start the ProcessConnection_Server coroutine as coroutines can only be started in the main thread...
-                    //...and this callback will be called in a different thread
-                    SetServerConnectionToProcess(socket);
-                }
+                sock = Connection.FetchAsyncNewClient();
 
-            },
-            port);
+                if (sock != null)
+                    break;
+
+                yield return new WaitForFixedUpdate();
+
+            }
+
+            SetServerConnectionToProcess(sock);
 
         }
 
@@ -246,13 +261,13 @@ namespace Networking.NetworkInteractionCanvas
 
             if (!Connection.TryConnectToServer(
                 out Socket socket,
-                out string errMsg,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage,
                 addressString,
                 port))
             {
 
                 socket?.Close();
-                canvasController.SetStatusMessageError(errMsg);
                 SetInteractable(true);
                 return;
 

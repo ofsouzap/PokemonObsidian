@@ -4,8 +4,7 @@ using System.IO;
 using UnityEngine;
 using Pokemon;
 using Items;
-using Items.MedicineItems;
-using Items.PokeBalls;
+using Battle;
 
 namespace Serialization {
 
@@ -43,6 +42,7 @@ namespace Serialization {
         public abstract void SerializeInventoryItem(Stream stream, int itemId, int quantity);
         public abstract void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null);
         public abstract void SerializeString(Stream stream, string s);
+        public abstract void SerializeBattleAction(Stream stream, BattleParticipant.Action action);
 
         public static void SerializeHeldItem(Stream stream, PokemonInstance pokemon)
         {
@@ -67,8 +67,6 @@ namespace Serialization {
         public static void SerializeByteStats(Stream stream, Stats<byte> stats)
         {
 
-            Debug.Log($"Stats: {stats.attack},{stats.defense},{stats.specialAttack},{stats.specialDefense},{stats.speed},{stats.health}"); //TODO - remove once done debugging
-
             byte[] buffer = new byte[6];
 
             buffer[0] = stats.attack;
@@ -87,16 +85,6 @@ namespace Serialization {
 
             byte[] buffer = new byte[6];
             stream.Read(buffer, 0, 6);
-
-            //TODO - remove once done debugging
-            #region tmp
-
-            string m = "Buffer: ";
-            foreach (byte b in buffer)
-                    m += b.ToString() + ',';
-            Debug.Log(m);
-
-            #endregion
 
             return new Stats<byte>()
             {
@@ -138,18 +126,36 @@ namespace Serialization {
         public Stats<int> DeserializeIntStats(Stream stream)
         {
 
-            byte[] buffer = new byte[24];
-            stream.Read(buffer, 0, 24);
+            int attack, defense, specialAttack, specialDefense, speed, health;
 
-            //Return output
+            byte[] buffer = new byte[4];
+
+            stream.Read(buffer, 0, 4);
+            attack = BitConverter.ToInt32(buffer, 0);
+
+            stream.Read(buffer, 0, 4);
+            defense = BitConverter.ToInt32(buffer, 0);
+
+            stream.Read(buffer, 0, 4);
+            specialAttack = BitConverter.ToInt32(buffer, 0);
+
+            stream.Read(buffer, 0, 4);
+            specialDefense = BitConverter.ToInt32(buffer, 0);
+
+            stream.Read(buffer, 0, 4);
+            speed = BitConverter.ToInt32(buffer, 0);
+
+            stream.Read(buffer, 0, 4);
+            health = BitConverter.ToInt32(buffer, 0);
+
             return new Stats<int>()
             {
-                attack = BitConverter.ToInt32(buffer, 0),
-                defense = BitConverter.ToInt32(buffer, 4),
-                specialAttack = BitConverter.ToInt32(buffer, 8),
-                specialDefense = BitConverter.ToInt32(buffer, 12),
-                speed = BitConverter.ToInt32(buffer, 16),
-                health = BitConverter.ToInt32(buffer, 20),
+                attack = attack,
+                defense = defense,
+                specialAttack = specialAttack,
+                specialDefense = specialDefense,
+                speed = speed,
+                health = health
             };
 
         }
@@ -259,6 +265,10 @@ namespace Serialization {
             out PlayerData.PokemonStorageSystem storageSystem);
 
         public abstract string DeserializeString(Stream stream);
+
+        public abstract BattleParticipant.Action DeserializeBattleAction(Stream stream,
+            BattleParticipant user,
+            BattleParticipant target);
 
         public static Item DeserializeItem(Stream stream)
         {
