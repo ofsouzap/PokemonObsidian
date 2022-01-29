@@ -479,13 +479,13 @@ namespace Pokemon.Moves
 
         public virtual bool CalculateIfCriticalHit(float criticalChance,
             BattleData battleData)
-            => UnityEngine.Random.Range(0, 1000) / ((float)1000) <= criticalChance;
+            => battleData.RandomRange(0, 1000) / ((float)1000) <= criticalChance;
 
         //Default random multiplier should be random float in range [85%,100%]
         public virtual float CalculateRandomModifier(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-            => UnityEngine.Random.Range(0.85F, 1F);
+            => battleData.RandomRange(0.85F, 1F);
 
         public virtual float CalculateBurnModifier(PokemonInstance user,
             BattleData battleData)
@@ -674,7 +674,7 @@ namespace Pokemon.Moves
                 foreach (StatChangeChance statChangeChance in userStatChangeChances)
                 {
 
-                    if (UnityEngine.Random.Range(0F, 1F) <= statChangeChance.chance)
+                    if (battleData.RandomRange(0F, 1F) <= statChangeChance.chance)
                     {
 
                         userStatChanges.attack += statChangeChance.statChanges.attack;
@@ -695,7 +695,7 @@ namespace Pokemon.Moves
                 foreach (StatChangeChance statChangeChance in targetStatChangeChances)
                 {
 
-                    if (UnityEngine.Random.Range(0F, 1F) <= statChangeChance.chance)
+                    if (battleData.RandomRange(0F, 1F) <= statChangeChance.chance)
                     {
 
                         targetStatChanges.attack += statChangeChance.statChanges.attack;
@@ -730,12 +730,12 @@ namespace Pokemon.Moves
         public virtual bool CalculateIfTargetFlinch(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-            => UnityEngine.Random.Range(0f, 1f) < flinchChance;
+            => battleData.RandomRange(0f, 1f) < flinchChance;
 
         public virtual bool CalculateIfTargetConfused(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-            => UnityEngine.Random.Range(0f, 1f) < confusionChance;
+            => battleData.RandomRange(0f, 1f) < confusionChance;
 
         public virtual UsageResults CalculateNonVolatileStatusConditionChanges(UsageResults usageResults,
             PokemonInstance user,
@@ -760,7 +760,7 @@ namespace Pokemon.Moves
                             && PokemonInstance.typeNonVolatileStatusConditionImmunities[(Type)target.species.type2].Contains(key))
                             continue;
 
-                    if (UnityEngine.Random.Range(0f, 1f) < nonVolatileStatusConditionChances[key])
+                    if (battleData.RandomRange(0f, 1f) < nonVolatileStatusConditionChances[key])
                     {
                         usageResults.targetNonVolatileStatusCondition = key;
                         break;
@@ -785,7 +785,7 @@ namespace Pokemon.Moves
         public virtual byte CalculateAsleepInflictionDuration(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-            => (byte)UnityEngine.Random.Range(1, PokemonInstance.maximumDefaultSleepDuration + 1);
+            => (byte)battleData.RandomRange(1, PokemonInstance.maximumDefaultSleepDuration + 1);
 
         public virtual int CalculateUserHealthHealed(PokemonInstance user,
             BattleData battleData,
@@ -837,7 +837,7 @@ namespace Pokemon.Moves
 
             if (allowMissing)
             {
-                if (UnityEngine.Random.Range(0, 100) > CalculateNormalAccuracyValue(user, target, battleData))
+                if (battleData.RandomRange(0, 100) > CalculateNormalAccuracyValue(user, target, battleData))
                 {
                     usageResults.missed = true;
                     return usageResults;

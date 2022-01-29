@@ -113,6 +113,11 @@ namespace Battle
 
         public static string battleBackgroundResourceName;
 
+        /// <summary>
+        /// The seed to use for random number generation if wanted. Null if the default should be used
+        /// </summary>
+        public static int? randomSeed = null;
+
     }
 
 }

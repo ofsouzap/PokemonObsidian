@@ -178,7 +178,8 @@ namespace Battle
                 currentWeatherId = BattleEntranceArguments.initialWeatherId,
                 weatherHasBeenChanged = false,
                 turnsUntilWeatherFade = 0,
-                initialWeatherId = BattleEntranceArguments.initialWeatherId
+                initialWeatherId = BattleEntranceArguments.initialWeatherId,
+                random = BattleEntranceArguments.randomSeed == null ? new System.Random() : new System.Random((int)BattleEntranceArguments.randomSeed)
             };
 
             battleData.participantPlayer.battleManager = this;
@@ -1182,7 +1183,7 @@ namespace Battle
             if (participant.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
             {
 
-                if (UnityEngine.Random.Range(0F, 1F) < PokemonInstance.thawChancePerTurn)
+                if (battleData.RandomRange(0F, 1F) < PokemonInstance.thawChancePerTurn)
                 {
 
                     battleAnimationSequencer.EnqueueSingleText(
@@ -1451,7 +1452,7 @@ namespace Battle
             if (action.user.ActivePokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Paralysed)
             {
 
-                if (UnityEngine.Random.Range(0F, 1F) < PokemonInstance.paralysisFightFailChance)
+                if (battleData.RandomRange(0F, 1F) < PokemonInstance.paralysisFightFailChance)
                 {
 
                     battleAnimationSequencer.EnqueueSingleText(
@@ -1493,7 +1494,7 @@ namespace Battle
                     + " is confused"
                     );
 
-                if (UnityEngine.Random.Range(0F, 1F) <= PokemonInstance.BattleProperties.VolatileStatusConditions.confusionPokemonDamageChance)
+                if (battleData.RandomValue01() <= PokemonInstance.BattleProperties.VolatileStatusConditions.confusionPokemonDamageChance)
                 {
 
                     battleAnimationSequencer.EnqueueSingleText(
@@ -1576,7 +1577,7 @@ namespace Battle
             if (usageResults.Succeeded)
             {
 
-                byte moveHitCount = (byte)UnityEngine.Random.Range(move.minimumMultiHitAmount, move.maximumMultiHitAmount + 1);
+                byte moveHitCount = (byte)battleData.RandomRange(move.minimumMultiHitAmount, move.maximumMultiHitAmount + 1);
 
                 for (int i = 0; i < moveHitCount; i++)
                 {
@@ -1642,7 +1643,7 @@ namespace Battle
                     {
 
                         //Confusion should last between 1-4 turns decided randomly
-                        targetPokemon.battleProperties.volatileStatusConditions.confusion = UnityEngine.Random.Range(1, 5);
+                        targetPokemon.battleProperties.volatileStatusConditions.confusion = battleData.RandomRange(1, 5);
 
                         battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
                         //TODO - enqueue confusion animation
@@ -2028,7 +2029,7 @@ namespace Battle
                 battleData.playerEscapeAttempts
             );
 
-            bool escapeSuccess = UnityEngine.Random.Range(0, 256) <= escapeChance;
+            bool escapeSuccess = battleData.RandomRange(0, 256) <= escapeChance;
 
             if (escapeSuccess)
             {

@@ -43,7 +43,7 @@ namespace Battle.NPCBattleParticipantModes
                     if (!Pokemon.Moves.PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[moveIndex]))
                         validMoveIndexes.Add(moveIndex);
 
-                chosenMoveIndex = validMoveIndexes[Random.Range(0, validMoveIndexes.Count)];
+                chosenMoveIndex = validMoveIndexes[battleData.RandomRange(0, validMoveIndexes.Count)];
 
                 if (ActivePokemon.movePPs[chosenMoveIndex] > 0)
                     selectingMove = false;

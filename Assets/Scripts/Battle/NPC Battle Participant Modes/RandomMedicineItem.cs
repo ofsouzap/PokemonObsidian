@@ -38,7 +38,7 @@ namespace Battle.NPCBattleParticipantModes
             }
 
             if (validItems.Count > 0)
-                actionItem = validItems[Random.Range(0, validItems.Count)];
+                actionItem = validItems[battleData.RandomRange(0, validItems.Count)];
             else
             {
                 Debug.LogWarning("No valid item found. Choosing item with id 0");

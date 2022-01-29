@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Battle;
@@ -53,6 +54,21 @@ namespace Battle
         public int playerEscapeAttempts = 0;
 
         public bool isWildBattle;
+
+        #region Random
+
+        public System.Random random = new System.Random();
+
+        public int RandomRange(int minInclusive, int maxExclusive)
+            => random.Next(minInclusive, maxExclusive);
+
+        public float RandomValue01()
+            => (float)random.NextDouble();
+
+        public float RandomRange(float min, float max)
+            => (RandomValue01() * (max - min)) + min;
+
+        #endregion
 
         public class ItemUsagePermissions
         {
