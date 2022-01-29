@@ -322,7 +322,10 @@ namespace Serialization
             buffer = BitConverter.GetBytes(action.switchPokemonIndex);
             stream.Write(buffer, 0, 4);
 
-            buffer = BitConverter.GetBytes(action.useItemItemToUse.GetId());
+            int itemId = action.useItemItemToUse != null
+                ? action.useItemItemToUse.GetId()
+                : default;
+            buffer = BitConverter.GetBytes(itemId);
             stream.Write(buffer, 0, 4);
 
             buffer = BitConverter.GetBytes(action.useItemTargetPartyIndex);

@@ -963,7 +963,7 @@ namespace Networking
             Serializer serializer,
             BattleParticipant actionUser,
             BattleParticipant actionTarget,
-            int refreshDelay = 500)
+            int refreshDelay = 100)
         {
 
             networkBattleCommActionUser = actionUser;
@@ -990,7 +990,7 @@ namespace Networking
 
         private static void WaitForRecvAction(NetworkStream stream,
             Serializer serializer,
-            int refreshDelay = 500)
+            int refreshDelay = 100)
         {
 
             while (listeningForNetworkBattleComms)

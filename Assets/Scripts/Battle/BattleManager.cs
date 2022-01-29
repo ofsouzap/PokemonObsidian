@@ -12,6 +12,7 @@ using Items;
 using Items.MedicineItems;
 using Items.PokeBalls;
 using Audio;
+using Serialization;
 
 namespace Battle
 {
@@ -145,6 +146,17 @@ namespace Battle
 
                     break;
 
+                case BattleType.Network:
+
+                    participantOpponent = new BattleParticipantNetwork(
+                        BattleEntranceArguments.networkBattleArguments.stream,
+                        Serialize.DefaultSerializer,
+                        BattleEntranceArguments.networkBattleArguments.opponentName,
+                        BattleEntranceArguments.networkBattleArguments.opponentPokemon,
+                        BattleEntranceArguments.networkBattleArguments.opponentSpriteResourceName);
+                    
+                    break;
+
                 default:
 
                     Debug.LogError("Unknown battle type");
@@ -170,9 +182,26 @@ namespace Battle
 
             #endregion
 
+            #region Player Participant
+
+            BattleParticipantPlayer participantPlayer;
+
+            if (BattleEntranceArguments.battleType == BattleType.Network)
+            {
+                participantPlayer = new BattleParticipantNetworkedPlayer(
+                    BattleEntranceArguments.networkBattleArguments.stream,
+                    Serialize.DefaultSerializer);
+            }
+            else
+            {
+                participantPlayer = new BattleParticipantPlayer();
+            }
+
+            #endregion
+
             battleData = new BattleData()
             {
-                participantPlayer = new BattleParticipantPlayer(),
+                participantPlayer = participantPlayer,
                 participantOpponent = participantOpponent,
                 isWildBattle = BattleEntranceArguments.battleType == BattleType.WildPokemon,
                 currentWeatherId = BattleEntranceArguments.initialWeatherId,
@@ -184,6 +213,9 @@ namespace Battle
 
             battleData.participantPlayer.battleManager = this;
             battleData.participantOpponent.battleManager = this;
+
+            if (participantOpponent is BattleParticipantNetwork participantOpponentNetwork)
+                participantOpponentNetwork.StartListeningForNetworkComms(battleData.participantPlayer);
 
             foreach (PokemonInstance pokemon in battleData.participantPlayer.GetPokemon().Where(x => x != null))
                 pokemon.ResetBattleProperties();

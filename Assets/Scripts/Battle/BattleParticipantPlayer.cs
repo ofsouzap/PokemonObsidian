@@ -78,6 +78,18 @@ namespace Battle
             }
         }
 
+        protected virtual void SetChosenAction(Action action)
+        {
+            chosenAction = action;
+            actionHasBeenChosen = true;
+        }
+
+        protected virtual void SetChosenPokemonIndex(int index)
+        {
+            chosenNextPokemonIndex = index;
+            nextPokemonHasBeenChosen = true;
+        }
+
         #region Player Battle UI
 
         private void OpenBattleUIRoot()
@@ -96,12 +108,10 @@ namespace Battle
         public void ChooseActionFlee()
         {
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.Flee
-            };
-
-            actionHasBeenChosen = true;
+            });
 
             HideBattleUI();
 
@@ -236,13 +246,12 @@ namespace Battle
             else
             {
 
-                chosenAction = new Action(this)
+                SetChosenAction(new Action(this)
                 {
                     type = Action.Type.UseItem,
                     useItemItemToUse = itemToUseForSelectedPokemonFromPokemonSelectUI,
                     useItemTargetPartyIndex = partyIndex
-                };
-                actionHasBeenChosen = true;
+                });
 
             }
 
@@ -251,27 +260,25 @@ namespace Battle
         public void SelectMoveItemUsageTargetMoveIndex(int moveIndex)
         {
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.UseItem,
                 useItemItemToUse = itemToUseForSelectedPokemonFromPokemonSelectUI,
                 useItemTargetPartyIndex = partyIndexForSelectedMoveIndexFromMoveSelectUI,
                 useItemTargetMoveIndex = moveIndex
-            };
-            actionHasBeenChosen = true;
+            });
 
         }
 
         private void ChooseActionUseItem_TargetNotRequired(Item item)
         {
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.UseItem,
                 useItemItemToUse = item,
                 useItemPokeBallTarget = (item is PokeBall) ? recentBattleData.participantOpponent : null
-            };
-            actionHasBeenChosen = true;
+            });
 
         }
 
@@ -290,14 +297,12 @@ namespace Battle
                 return;
             }
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.Fight,
                 fightMoveIndex = moveIndex,
                 fightMoveTarget = recentBattleData.participantOpponent
-            };
-
-            actionHasBeenChosen = true;
+            });
 
             HideBattleUI();
 
@@ -309,14 +314,12 @@ namespace Battle
         public void ChooseActionFightStruggle()
         {
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.Fight,
                 fightUsingStruggle = true,
                 fightMoveTarget = recentBattleData.participantOpponent
-            };
-
-            actionHasBeenChosen = true;
+            });
 
             HideBattleUI();
 
@@ -335,13 +338,11 @@ namespace Battle
                 return;
             }
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.SwitchPokemon,
                 switchPokemonIndex = partyIndex
-            };
-
-            actionHasBeenChosen = true;
+            });
 
             HideBattleUI();
 
@@ -434,8 +435,7 @@ namespace Battle
             if (pokemonSelectUIPurpose == PokemonSelectUIPurpose.ReplacingPokemon)
             {
 
-                nextPokemonHasBeenChosen = true;
-                chosenNextPokemonIndex = partyIndex;
+                SetChosenPokemonIndex(partyIndex);
 
                 HidePokemonSelectUI();
 
