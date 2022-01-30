@@ -38,5 +38,14 @@ namespace Battle
 
         }
 
+        public override void ChooseActionFight(int moveIndex)
+        {
+
+            base.ChooseActionFight(moveIndex);
+
+            battleManager.SetTextBoxTextToWaitingForOpponent();
+
+        }
+
     }
 }

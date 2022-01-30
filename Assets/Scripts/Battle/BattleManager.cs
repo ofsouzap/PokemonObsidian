@@ -1106,6 +1106,9 @@ namespace Battle
                 + battleData.participantPlayer.ActivePokemon.GetDisplayName()
                 + " do?");
 
+        public void SetTextBoxTextToWaitingForOpponent()
+            => textBoxController.SetTextInstant("Waiting for opponent...");
+
         #region Player Invalid Selection Messages
 
         private Coroutine displayPlayerInvalidSelectionMessageCouroutine;

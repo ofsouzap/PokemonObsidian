@@ -288,7 +288,7 @@ namespace Battle
         /// Choose to fight using the move with index moveIndex in the active pokemon's moves
         /// </summary>
         /// <param name="partyIndex">The indexx of the move in the active pokemon's moves</param>
-        public void ChooseActionFight(int moveIndex)
+        public virtual void ChooseActionFight(int moveIndex)
         {
 
             if (moveIndex < 0 || moveIndex > 3)
