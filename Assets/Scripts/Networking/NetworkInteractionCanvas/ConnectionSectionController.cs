@@ -8,6 +8,7 @@ using FreeRoaming.AreaControllers;
 using Menus;
 using Pokemon;
 using Battle;
+using Audio;
 
 namespace Networking.NetworkInteractionCanvas
 {
@@ -39,6 +40,9 @@ namespace Networking.NetworkInteractionCanvas
 
         public virtual void Launch(ConnectionMode mode)
         {
+
+            //The player's pokemon should be healed before network battles
+            PlayerData.singleton.HealPartyPokemon();
 
             if (defaultSelectedGameObject != null)
                 EventSystem.current.SetSelectedGameObject(defaultSelectedGameObject);
@@ -103,9 +107,7 @@ namespace Networking.NetworkInteractionCanvas
                 spriteResourceName: opponentSpriteResourceName,
                 randomSeed: randomSeed);
 
-            //Launch battle
-            CloseMenu();
-            GameSceneManager.LaunchBattleScene();
+            LaunchBattle();
 
         }
 
@@ -147,13 +149,26 @@ namespace Networking.NetworkInteractionCanvas
                 spriteResourceName: opponentSpriteResourceName,
                 randomSeed: randomSeed);
 
-            //Launch battle
-            CloseMenu();
-            GameSceneManager.LaunchBattleScene();
+            LaunchBattle();
 
         }
 
         #endregion
+
+        /// <summary>
+        /// Close the menu and launch the battle after the battle entrance arguments have already been set
+        /// </summary>
+        private void LaunchBattle()
+        {
+
+            CloseMenu();
+            canvasController.ClearStatusMessage();
+
+            MusicSourceController.singleton.SetTrack(BattleEntranceArguments.defaultTrainerBattleMusicName);
+
+            GameSceneManager.LaunchBattleScene();
+
+        }
 
     }
 }

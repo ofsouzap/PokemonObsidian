@@ -210,6 +210,7 @@ namespace Battle
                 initialWeatherId = BattleEntranceArguments.initialWeatherId,
                 random = BattleEntranceArguments.randomSeed == null ? new System.Random() : new System.Random((int)BattleEntranceArguments.randomSeed),
                 isNetworkBattle = BattleEntranceArguments.battleType == BattleType.Network,
+                networkStream = BattleEntranceArguments.networkBattleArguments.stream,
                 isNetworkClient = !BattleEntranceArguments.networkBattleArguments.isServer
             };
 
@@ -558,7 +559,51 @@ namespace Battle
 
             #endregion
 
-            if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
+            if (battleData.isNetworkBattle)
+            {
+
+                #region Battle End Message
+
+                if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                        + " was defeated by "
+                        + battleData.participantOpponent.GetName());
+
+                }
+                else
+                {
+
+                    TryTriggerVictoryMusic();
+
+                    battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                        + " defeated "
+                        + battleData.participantOpponent.GetName());
+
+                    OnBattleVictory.Invoke();
+                    OnBattleVictory.RemoveAllListeners();
+
+                }
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+                #endregion
+
+                #region Ending the Battle
+
+                //After a network battle, the player's pokemon should be fully restored
+                PlayerData.singleton.HealPartyPokemon();
+
+                battleData.networkStream?.Close();
+                MusicSourceController.singleton.StopMusic();
+                GameSceneManager.CloseBattleScene();
+
+                #endregion
+
+            }
+            else if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
             {
 
                 OnBattleVictory.RemoveAllListeners();

@@ -1,4 +1,4 @@
-using System;
+using System.Net.Sockets;
 using System.Collections.Generic;
 using UnityEngine;
 using Battle;
@@ -148,6 +148,7 @@ namespace Battle
         #region Network
 
         public bool isNetworkBattle = false;
+        public NetworkStream networkStream = null;
         public bool isNetworkClient = false;
 
         #endregion

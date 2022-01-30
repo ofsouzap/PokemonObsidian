@@ -53,19 +53,27 @@ namespace Networking.NetworkInteractionCanvas
 
         private void StatusMessageTextUpdate()
         {
-
-            if (statusMessageToUpdateTo != null)
+            lock (statusMessageLock)
             {
-                statusMessageText.text = statusMessageToUpdateTo;
-                statusMessageToUpdateTo = null;
-                SetStatusMessageTextState(true);
+                if (statusMessageToUpdateTo != null)
+                {
+                    statusMessageText.text = statusMessageToUpdateTo;
+                    statusMessageToUpdateTo = null;
+                    SetStatusMessageTextState(true);
+                }
             }
-
         }
 
         public void ClearStatusMessage()
         {
+
             SetStatusMessageTextState(false);
+
+            lock (statusMessageLock)
+            {
+                statusMessageToUpdateTo = null;
+            }
+
         }
 
         private void SetStatusMessageTextState(bool state)
