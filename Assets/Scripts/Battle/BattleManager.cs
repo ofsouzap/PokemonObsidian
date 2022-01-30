@@ -13,6 +13,7 @@ using Items.MedicineItems;
 using Items.PokeBalls;
 using Audio;
 using Serialization;
+using Networking;
 
 namespace Battle
 {
@@ -597,6 +598,9 @@ namespace Battle
                 PlayerData.singleton.HealPartyPokemon();
 
                 battleData.networkStream?.Close();
+                Connection.StopListenForNetworkBattleComms();
+                ((BattleParticipantNetwork)battleData.participantOpponent).StopRefreshingForNetworkComms();
+
                 MusicSourceController.singleton.StopMusic();
                 GameSceneManager.CloseBattleScene();
 
