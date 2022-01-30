@@ -145,5 +145,12 @@ namespace Battle
 
         #endregion
 
+        #region Network
+
+        public bool isNetworkBattle = false;
+        public bool isNetworkClient = false;
+
+        #endregion
+
     }
 }

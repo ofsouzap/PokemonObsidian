@@ -73,6 +73,8 @@ namespace Battle
             //The network stream should be closed at the end of the battle by the BattleManager
             public NetworkStream stream;
 
+            public bool isServer;
+
             public string opponentName;
             public PokemonInstance[] opponentPokemon;
             public string opponentSpriteResourceName;
@@ -80,6 +82,7 @@ namespace Battle
         }
 
         public static void SetBattleEntranceArgumentsForNetworkBattle(NetworkStream stream,
+            bool isServer,
             string name,
             PokemonInstance[] pokemon,
             string spriteResourceName,
@@ -95,6 +98,7 @@ namespace Battle
             networkBattleArguments = new NetworkBattleArguments()
             {
                 stream = stream,
+                isServer = isServer,
                 opponentName = name,
                 opponentPokemon = pokemon,
                 opponentSpriteResourceName = spriteResourceName

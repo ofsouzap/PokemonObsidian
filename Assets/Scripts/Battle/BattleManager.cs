@@ -208,7 +208,9 @@ namespace Battle
                 weatherHasBeenChanged = false,
                 turnsUntilWeatherFade = 0,
                 initialWeatherId = BattleEntranceArguments.initialWeatherId,
-                random = BattleEntranceArguments.randomSeed == null ? new System.Random() : new System.Random((int)BattleEntranceArguments.randomSeed)
+                random = BattleEntranceArguments.randomSeed == null ? new System.Random() : new System.Random((int)BattleEntranceArguments.randomSeed),
+                isNetworkBattle = BattleEntranceArguments.battleType == BattleType.Network,
+                isNetworkClient = !BattleEntranceArguments.networkBattleArguments.isServer
             };
 
             battleData.participantPlayer.battleManager = this;
@@ -454,11 +456,17 @@ namespace Battle
                     battleData.participantOpponent.GetChosenAction()
                 };
 
+                //So that the instances stay in sync in network battles
+                if (battleData.isNetworkBattle && battleData.isNetworkClient)
+                    actionsUnsortedArray = actionsUnsortedArray.Reverse().ToArray();
+
+                var actionsSorted = actionsUnsortedArray.OrderByDescending(
+                    x => x,
+                    new BattleParticipant.Action.PriorityComparer()
+                );
+
                 Queue<BattleParticipant.Action> actionQueue = new Queue<BattleParticipant.Action>(
-                    actionsUnsortedArray.OrderByDescending(
-                        x => x,
-                        new BattleParticipant.Action.PriorityComparer()
-                    )
+                    actionsSorted
                 );
 
                 #endregion

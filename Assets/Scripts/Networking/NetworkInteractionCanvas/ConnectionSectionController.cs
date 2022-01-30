@@ -95,7 +95,13 @@ namespace Networking.NetworkInteractionCanvas
             }
 
             //Set battle entrance arguments
-            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(stream, opponentName, opponentPokemon, opponentSpriteResourceName, randomSeed);
+            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(
+                stream: stream,
+                isServer: true,
+                name: opponentName,
+                pokemon: opponentPokemon,
+                spriteResourceName: opponentSpriteResourceName,
+                randomSeed: randomSeed);
 
             //Launch battle
             CloseMenu();
@@ -133,11 +139,13 @@ namespace Networking.NetworkInteractionCanvas
             }
 
             //Set battle entrance arguments
-            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(stream,
-                opponentName,
-                opponentPokemon,
-                opponentSpriteResourceName,
-                randomSeed);
+            BattleEntranceArguments.SetBattleEntranceArgumentsForNetworkBattle(
+                stream: stream,
+                isServer: false,
+                name: opponentName,
+                pokemon: opponentPokemon,
+                spriteResourceName: opponentSpriteResourceName,
+                randomSeed: randomSeed);
 
             //Launch battle
             CloseMenu();
