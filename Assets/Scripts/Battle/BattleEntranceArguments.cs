@@ -108,6 +108,14 @@ namespace Battle
 
         #endregion
 
+        public static string GetOpponentSpriteResourceName()
+            => battleType switch
+            {
+                BattleType.NPCTrainer => npcTrainerBattleArguments.opponentSpriteResourceName,
+                BattleType.Network => networkBattleArguments.opponentSpriteResourceName,
+                _ => ""
+            };
+
         /// <summary>
         /// The id of the initial weather for the battle. Defaults to clear skies (id 0)
         /// </summary>

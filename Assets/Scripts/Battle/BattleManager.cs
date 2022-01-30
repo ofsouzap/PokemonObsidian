@@ -282,12 +282,23 @@ namespace Battle
 
                 case BattleType.WildPokemon:
                     battleData.SetPlayerCanFlee(true);
-                    battleData.itemUsagePermissions = new BattleData.ItemUsagePermissions();
+                    battleData.SetCheatsAllowed(true);
+                    battleData.SetExpEVGainEnabled(true);
+                    battleData.itemUsagePermissions = BattleData.wildBattleItemUsagePermissions;
                     break;
 
                 case BattleType.NPCTrainer:
                     battleData.SetPlayerCanFlee(false);
-                    battleData.itemUsagePermissions = new BattleData.ItemUsagePermissions() { pokeBalls = false };
+                    battleData.SetCheatsAllowed(true);
+                    battleData.SetExpEVGainEnabled(true);
+                    battleData.itemUsagePermissions = BattleData.trainerBattleItemUsagePermissions;
+                    break;
+
+                case BattleType.Network:
+                    battleData.SetPlayerCanFlee(false);
+                    battleData.SetCheatsAllowed(false);
+                    battleData.SetExpEVGainEnabled(false);
+                    battleData.itemUsagePermissions = BattleData.networkBattleItemUsagePermissions;
                     break;
 
                 default:
@@ -324,7 +335,7 @@ namespace Battle
             {
 
                 Sprite opponentTrainerBattleSprite = SpriteStorage.GetCharacterBattleSprite(
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName
+                    BattleEntranceArguments.GetOpponentSpriteResourceName()
                 );
 
                 if (opponentTrainerBattleSprite != null)
@@ -785,7 +796,8 @@ namespace Battle
 
                 #region Experience and EV Yielding
 
-                yield return StartCoroutine(DistributeExperienceAndEVsForCurrentOpponentPokemon());
+                if (battleData.expEvGainEnabled)
+                    yield return StartCoroutine(DistributeExperienceAndEVsForCurrentOpponentPokemon());
 
                 #endregion
 
@@ -2224,7 +2236,8 @@ namespace Battle
 
                 #region Experience and EV Distribution
 
-                yield return StartCoroutine(DistributeExperienceAndEVsForCurrentOpponentPokemon());
+                if (battleData.expEvGainEnabled)
+                    yield return StartCoroutine(DistributeExperienceAndEVsForCurrentOpponentPokemon());
 
                 #endregion
 

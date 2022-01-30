@@ -70,6 +70,8 @@ namespace Battle
 
         #endregion
 
+        #region Item Usage Permissions
+
         public class ItemUsagePermissions
         {
             public bool pokeBalls = true;
@@ -81,6 +83,35 @@ namespace Battle
         }
 
         public ItemUsagePermissions itemUsagePermissions = new ItemUsagePermissions();
+
+        public static readonly ItemUsagePermissions wildBattleItemUsagePermissions = new ItemUsagePermissions();
+
+        public static readonly ItemUsagePermissions trainerBattleItemUsagePermissions = new ItemUsagePermissions()
+        {
+            pokeBalls = false
+        };
+
+        public static readonly ItemUsagePermissions networkBattleItemUsagePermissions = new ItemUsagePermissions()
+        {
+            battleItems = false,
+            hpRestorationItems = false,
+            ppRestorationItems = false,
+            pokeBalls = false,
+            revivalItems = false,
+            statusItems = false
+        };
+
+        #endregion
+
+        public bool cheatsAllowed = true;
+
+        public void SetCheatsAllowed(bool state)
+            => cheatsAllowed = state;
+
+        public bool expEvGainEnabled = true;
+
+        public void SetExpEVGainEnabled(bool state)
+            => expEvGainEnabled = state;
 
         #region Weather
 

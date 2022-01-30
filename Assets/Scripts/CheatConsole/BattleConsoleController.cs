@@ -424,6 +424,9 @@ namespace CheatConsole
 
         };
 
+        protected override bool CheckAllowedToOpen()
+            => battleManager.battleData.cheatsAllowed;
+
         protected override void ProcessCommand(string command)
         {
 
