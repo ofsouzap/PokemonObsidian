@@ -373,6 +373,21 @@ public class PlayerData
 
     #endregion
 
+    public void HealStorageSystemPokemon()
+    {
+
+        foreach (PokemonBox box in boxPokemon.boxes)
+            foreach (PokemonInstance pmon in box.pokemon)
+                pmon?.RestoreFully();
+
+    }
+
+    public void HealAllPokemon()
+    {
+        HealPartyPokemon();
+        HealStorageSystemPokemon();
+    }
+
     #endregion
 
     #region Profile
