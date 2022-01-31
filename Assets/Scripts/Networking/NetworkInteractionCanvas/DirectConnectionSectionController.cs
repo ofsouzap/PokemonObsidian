@@ -83,6 +83,7 @@ namespace Networking.NetworkInteractionCanvas
             {
 
                 case ConnectionMode.Server:
+                    addressInput.text = Connection.GetHostIPAddress().ToString();
                     SetInteractivityForServer();
                     break;
 
@@ -105,7 +106,7 @@ namespace Networking.NetworkInteractionCanvas
 
             base.CloseMenu();
 
-
+            Connection.TryStopAsyncServerListening();
 
         }
 
@@ -138,6 +139,15 @@ namespace Networking.NetworkInteractionCanvas
             interactive = true;
         }
 
+        protected override void SetInteractivityForServerListening()
+        {
+            addressInput.interactable = false;
+            portInput.interactable = false;
+            goButton.interactable = false;
+            closeButton.interactable = true;
+            interactive = false;
+        }
+
         #endregion
 
         private void GoButtonListener()
@@ -162,7 +172,7 @@ namespace Networking.NetworkInteractionCanvas
             {
 
                 case ConnectionMode.Server:
-                    SetInteractable(false);
+                    SetInteractivityForServerListening();
                     Run_Server(port);
                     break;
 

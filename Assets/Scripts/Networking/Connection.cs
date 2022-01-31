@@ -58,6 +58,22 @@ namespace Networking
                 Debug.Log(msg);
         }
 
+        public static string GetSocketExceptionMessage(SocketError err)
+            => err switch
+            {
+                SocketError.TimedOut => "Connection timed out",
+                SocketError.NetworkUnreachable => "Unable to connect to network",
+                SocketError.ConnectionReset => "Connection reset",
+                SocketError.ConnectionRefused => "Connection refused",
+                SocketError.AddressAlreadyInUse => "This device's address already in use",
+                SocketError.AddressNotAvailable => "Unable to use device's address",
+                SocketError.AccessDenied => "Access denied",
+                SocketError.HostUnreachable => "Host unreachable",
+                SocketError.HostNotFound => "Host not found",
+                SocketError.HostDown => "Host down",
+                _ => null
+            };
+
         #region Standard Codes
 
         private static void SendYes(NetworkStream stream)
@@ -188,7 +204,8 @@ namespace Networking
             LogCallback errCallback,
             LogCallback statusCallback,
             string ipAddress,
-            int port)
+            int port,
+            int timeout = defaultTimeout)
         {
 
             IPAddress address;
@@ -210,11 +227,12 @@ namespace Networking
                 return false;
             }
 
-            return TryConnectToServer(out socket,
-                errCallback,
-                statusCallback,
-                address,
-                port);
+            return TryConnectToServer(socket: out socket,
+                errCallback: errCallback,
+                statusCallback: statusCallback,
+                ipAddress: address,
+                port: port,
+                timeout: timeout);
 
         }
 
@@ -223,7 +241,8 @@ namespace Networking
             LogCallback errCallback,
             LogCallback statusCallback,
             IPAddress ipAddress,
-            int port = -1)
+            int port = -1,
+            int timeout = defaultTimeout)
         {
 
             if (port < 0)
@@ -252,6 +271,7 @@ namespace Networking
             if (!GameSettings.singleton.networkTimeoutDisabled)
             {
                 socket.ReceiveTimeout = defaultTimeout;
+                socket.SendTimeout = defaultTimeout;
                 LogNetworkEvent("Set socket receive timeout");
             }
 
@@ -259,7 +279,25 @@ namespace Networking
             {
 
                 statusCallback("Connecting to server...");
-                socket.Connect(endPoint);
+
+                LogNetworkEvent("Beginning connection...");
+                IAsyncResult res = socket.BeginConnect(endPoint, null, null);
+
+                bool x = res.AsyncWaitHandle.WaitOne(timeout, true);
+                
+                if (socket.Connected)
+                {
+                    LogNetworkEvent("Connected");
+                    socket.EndConnect(res);
+                }
+                else
+                {
+                    socket.Close();
+                    errCallback("Connection timed out");
+                    LogNetworkEvent("Connection timed out");
+                    return false;
+                }
+
                 LogNetworkEvent("Connected to server");
                 statusCallback("Connected to server");
 
@@ -267,7 +305,8 @@ namespace Networking
             catch (SocketException e)
             {
                 socket.Close();
-                errCallback("Socket Error: " + e.Message);
+                string msg = GetSocketExceptionMessage(e.SocketErrorCode);
+                errCallback(msg ?? e.Message);
                 LogNetworkEvent("Socket Error Message: \"" + e.Message + "\". Error Stack: " + e.StackTrace);
                 return false;
             }
@@ -372,6 +411,8 @@ namespace Networking
 
         }
 
+        private static Socket asyncServerListenerSocket = null;
+
         private static void StartAsyncServerListening(IPEndPoint ep,
             LogCallback errCallback,
             LogCallback statusCallback)
@@ -379,9 +420,24 @@ namespace Networking
 
             awaitingClient = true;
 
-            Task serverTask = new Task(() => AsyncServerListeningTask(ep));
+            asyncServerListenerSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
 
-            serverTask.Start();
+            Task asyncServerTask = new Task(() => AsyncServerListeningTask(asyncServerListenerSocket, ep));
+
+            asyncServerTask.Start();
+
+        }
+
+        public static bool TryStopAsyncServerListening()
+        {
+
+            if (asyncServerListenerSocket != null)
+            {
+                asyncServerListenerSocket.Close();
+                return true;
+            }
+            else
+                return false;
 
         }
 
@@ -414,17 +470,28 @@ namespace Networking
 
         }
 
-        private static void AsyncServerListeningTask(IPEndPoint ep)
+        private static void AsyncServerListeningTask(Socket listenerSock, IPEndPoint ep)
         {
-
-            Socket listenerSock = new Socket(SocketType.Stream, ProtocolType.Tcp);
 
             listenerSock.Bind(ep);
             listenerSock.Listen(1);
 
-            Socket sock = listenerSock.Accept();
+            IAsyncResult res = listenerSock.BeginAccept(null, null);
 
-            SetAsyncNewClient(sock);
+            res.AsyncWaitHandle.WaitOne();
+
+            Socket cliSock = null;
+
+            try
+            {
+                cliSock = listenerSock.EndAccept(res);
+            }
+            catch (ObjectDisposedException)
+            {
+                return;
+            }
+
+            SetAsyncNewClient(cliSock);
 
         }
 

@@ -57,12 +57,14 @@ namespace Networking.NetworkInteractionCanvas
 
             sceneController.SetSceneRunningState(true);
             Hide();
+            canvasController.ClearStatusMessage();
 
         }
 
         protected abstract void SetInteractable(bool state);
         protected abstract void SetInteractivityForServer();
         protected abstract void SetInteractivityForClient();
+        protected abstract void SetInteractivityForServerListening();
 
         #region Processing Established Connection
 
