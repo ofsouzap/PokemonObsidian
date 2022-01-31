@@ -88,6 +88,16 @@ namespace Battle
 
         }
 
+        private void OnDestroy()
+        {
+
+            //Just to make sure (eg when stopping Play mode on the editor)
+            StopNetworkBattleNetworking();
+
+            StopCoroutine(mainBattleCoroutine);
+
+        }
+
         private void SetUpScene()
         {
 
@@ -440,13 +450,33 @@ namespace Battle
                 SetTextBoxTextToPlayerActionPrompt();
 
                 yield return new WaitUntil(() =>
-                {
-                    return battleData.participantPlayer.GetActionHasBeenChosen()
-                    && battleData.participantOpponent.GetActionHasBeenChosen();
-                });
+
+                    (battleData.participantPlayer.GetActionHasBeenChosen()
+                    && battleData.participantOpponent.GetActionHasBeenChosen())
+
+                    ||
+
+                    (battleData.isNetworkBattle
+                    && Connection.NetworkCommsConnErrorOccured)
+
+                );
 
                 SetPlayerPokemonBobbingState(false);
                 textBoxController.SetTextInstant("");
+
+                #endregion
+
+                #region Network Connection Error Handling
+
+                if (battleData.isNetworkBattle && Connection.NetworkCommsConnErrorOccured)
+                {
+                    
+                    battleAnimationSequencer.EnqueueSingleText("Connection error occured, ending battle...", true);
+                    yield return battleAnimationSequencer.PlayAll();
+
+                    break;
+
+                }
 
                 #endregion
 
@@ -565,46 +595,38 @@ namespace Battle
 
                 #region Battle End Message
 
-                if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
+                if (!Connection.NetworkCommsConnErrorOccured)
                 {
 
-                    battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
-                        + " was defeated by "
-                        + battleData.participantOpponent.GetName());
+                    if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
+                    {
+
+                        battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                            + " was defeated by "
+                            + battleData.participantOpponent.GetName(), true);
+
+                    }
+                    else
+                    {
+
+                        TryTriggerVictoryMusic();
+
+                        battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
+                            + " defeated "
+                            + battleData.participantOpponent.GetName(), true);
+
+                        OnBattleVictory.Invoke();
+                        OnBattleVictory.RemoveAllListeners();
+
+                    }
+
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                 }
-                else
-                {
-
-                    TryTriggerVictoryMusic();
-
-                    battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
-                        + " defeated "
-                        + battleData.participantOpponent.GetName());
-
-                    OnBattleVictory.Invoke();
-                    OnBattleVictory.RemoveAllListeners();
-
-                }
-
-                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
                 #endregion
 
-                #region Ending the Battle
-
-                //After a network battle, the player's pokemon should be fully restored
-                PlayerData.singleton.HealPartyPokemon();
-
-                battleData.networkStream?.Close();
-                Connection.StopListenForNetworkBattleComms();
-                ((BattleParticipantNetwork)battleData.participantOpponent).StopRefreshingForNetworkComms();
-
-                MusicSourceController.singleton.StopMusic();
-                GameSceneManager.CloseBattleScene();
-
-                #endregion
+                CloseNetworkBattle();
 
             }
             else if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
@@ -771,6 +793,34 @@ namespace Battle
                 victoryMusicStarted = true;
 
             }
+
+        }
+
+        /// <summary>
+        /// Stops networking fuctionality for a network battle (eg closing the network stream, stopping refreshing threads etc)
+        /// </summary>
+        private void StopNetworkBattleNetworking()
+        {
+
+            battleData?.networkStream?.Close();
+            Connection.StopListenForNetworkBattleComms();
+            ((BattleParticipantNetwork)battleData?.participantOpponent)?.StopRefreshingForNetworkComms();
+
+        }
+
+        /// <summary>
+        /// Close sockets/network streams and stop a network battle by stopping music and returning the player to where they launched the battle
+        /// </summary>
+        private void CloseNetworkBattle()
+        {
+
+            //After a network battle, the player's pokemon should be fully restored
+            PlayerData.singleton.HealPartyPokemon();
+
+            StopNetworkBattleNetworking();
+
+            MusicSourceController.singleton.StopMusic();
+            GameSceneManager.CloseBattleScene();
 
         }
 

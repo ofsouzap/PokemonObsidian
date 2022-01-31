@@ -31,6 +31,9 @@ namespace Networking
         public const uint networkBattleCommChosenPokemonCode = 0x809fceab;
         public static byte[] NetworkBattleCommChosenPokemonCodeBytes => BitConverter.GetBytes(networkBattleCommChosenPokemonCode);
 
+        public const uint networkBattleCommConnectionTestPingCode = 0x676e6970;
+        public static byte[] NetworkBattleCommConnectionTestPingCodeBytes => BitConverter.GetBytes(networkBattleCommConnectionTestPingCode);
+
         public const int mainPort = 59004;
         public const int discoveryPort = 59005;
 
@@ -105,23 +108,53 @@ namespace Networking
 
         }
 
-        private static void SendNetworkBattleCommType(NetworkStream stream, NetworkBattleCommType type)
+        private static bool TrySendNetworkBattleCommType(NetworkStream stream, NetworkBattleCommType type)
         {
 
-            switch (type)
+            try
             {
 
-                case NetworkBattleCommType.Action:
-                    stream.Write(NetworkBattleCommActionCodeBytes, 0, 4);
-                    break;
+                switch (type)
+                {
 
-                case NetworkBattleCommType.ChosenPokemon:
-                    stream.Write(NetworkBattleCommChosenPokemonCodeBytes, 0, 4);
-                    break;
+                    case NetworkBattleCommType.Action:
+                        stream.Write(NetworkBattleCommActionCodeBytes, 0, 4);
+                        break;
 
-                default:
-                    throw new Exception("Unknown type");
+                    case NetworkBattleCommType.ChosenPokemon:
+                        stream.Write(NetworkBattleCommChosenPokemonCodeBytes, 0, 4);
+                        break;
 
+                    case NetworkBattleCommType.ConnectionTestPing:
+                        stream.Write(NetworkBattleCommConnectionTestPingCodeBytes, 0, 4);
+                        break;
+
+                    default:
+                        throw new Exception("Unknown type");
+
+                }
+
+                return true;
+
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+
+        }
+
+        private static bool TrySendNetworkBattleCommConnectionTestPing(NetworkStream stream)
+        {
+
+            try
+            {
+                stream.Write(NetworkBattleCommConnectionTestPingCodeBytes, 0, 4);
+                return true;
+            }
+            catch (IOException)
+            {
+                return false;
             }
 
         }
@@ -139,6 +172,8 @@ namespace Networking
                 return NetworkBattleCommType.Action;
             else if (recvCode == networkBattleCommChosenPokemonCode)
                 return NetworkBattleCommType.ChosenPokemon;
+            else if (recvCode == networkBattleCommConnectionTestPingCode)
+                return NetworkBattleCommType.ConnectionTestPing;
             else
                 return null;
 
@@ -869,7 +904,8 @@ namespace Networking
         public enum NetworkBattleCommType
         {
             Action,
-            ChosenPokemon
+            ChosenPokemon,
+            ConnectionTestPing
         }
 
         public struct NetworkBattleComm
@@ -879,6 +915,12 @@ namespace Networking
             public BattleParticipant.Action battleAction; //For actions
             public int pokemonIndex; //For chosen pokemon
 
+            public NetworkBattleComm(NetworkBattleCommType type)
+            {
+                this.type = type;
+                battleAction = default;
+                pokemonIndex = -1;
+            }
 
             public NetworkBattleComm(BattleParticipant.Action battleAction)
             {
@@ -990,13 +1032,35 @@ namespace Networking
 
         private static void WaitForRecvAction(NetworkStream stream,
             Serializer serializer,
-            int refreshDelay = 100)
+            int refreshDelay = 100,
+            byte connectionTestPingRefreshDelays = 10) //How many refreshes should be executed before trying a test ping
         {
+
+            byte connectionTestPingRefreshCounter = 0;
 
             while (listeningForNetworkBattleComms)
             {
 
-                if (stream.CanRead && stream.DataAvailable)
+                if (!NetworkCommsConnErrorOccured) //If a connection error has already been detected, no need to check for one
+                {
+
+                    connectionTestPingRefreshCounter++;
+
+                    if (connectionTestPingRefreshCounter >= connectionTestPingRefreshDelays)
+                    {
+
+                        if (!TrySendNetworkBattleCommConnectionTestPing(stream))
+                        {
+                            SetNetworkCommsConnErrorOccured(true);
+                        }
+
+                        connectionTestPingRefreshCounter = 0;
+
+                    }
+
+                }
+
+                if (stream.DataAvailable)
                 {
                     if (!TryReceiveNetworkBattleComm(stream, serializer, out NetworkBattleComm comm))
                     {
@@ -1004,7 +1068,10 @@ namespace Networking
                     }
                     else
                     {
-                        EnqueueNetworkBattleComm(comm);
+
+                        if (comm.type != NetworkBattleCommType.ConnectionTestPing)
+                            EnqueueNetworkBattleComm(comm);
+
                     }
                 }
 
@@ -1050,6 +1117,11 @@ namespace Networking
 
                     return true;
 
+                case NetworkBattleCommType.ConnectionTestPing:
+
+                    comm = new NetworkBattleComm(NetworkBattleCommType.ConnectionTestPing);
+                    return true;
+
                 case null:
                     comm = default;
                     return false;
@@ -1067,10 +1139,14 @@ namespace Networking
             BattleParticipant.Action action)
         {
 
+            if (!TrySendNetworkBattleCommType(stream, NetworkBattleCommType.Action))
+            {
+                SetNetworkCommsConnErrorOccured(true);
+                return false;
+            }
+
             try
             {
-
-                SendNetworkBattleCommType(stream, NetworkBattleCommType.Action);
 
                 serializer.SerializeBattleAction(stream, action);
 
@@ -1090,7 +1166,11 @@ namespace Networking
             int index)
         {
 
-            SendNetworkBattleCommType(stream, NetworkBattleCommType.ChosenPokemon);
+            if (!TrySendNetworkBattleCommType(stream, NetworkBattleCommType.ChosenPokemon))
+            {
+                SetNetworkCommsConnErrorOccured(true);
+                return false;
+            }
 
             byte[] buffer = BitConverter.GetBytes(index);
             stream.Write(buffer, 0, 4);
