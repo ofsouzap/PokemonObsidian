@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class Testing_LoadAllData : MonoBehaviour
@@ -13,5 +11,3 @@ namespace Testing
         }
     }
 }
-
-#endif

@@ -14,11 +14,7 @@ namespace StartUp
     public class StartUpSceneController : MonoBehaviour
     {
 
-#if UNITY_EDITOR
         public bool useDefaultPlayerChoices = false;
-#else
-        public const bool useDefaultPlayerChoices = false;
-#endif
 
         [Tooltip("The scene stack to load when starting a new game")]
         public string newGameSceneStack = "Pokshire,0,0";

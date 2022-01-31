@@ -5,8 +5,6 @@ using UnityEngine;
 using Pokemon;
 using Items;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class SetSamplePlayerData : MonoBehaviour
@@ -136,5 +134,3 @@ namespace Testing
 
     }
 }
-
-#endif

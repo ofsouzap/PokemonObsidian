@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class KeyCodeLogger : MonoBehaviour
@@ -27,5 +25,3 @@ namespace Testing
 
     }
 }
-
-#endif

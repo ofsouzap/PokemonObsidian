@@ -5,8 +5,6 @@ using Battle;
 using FreeRoaming.NPCs;
 using FreeRoaming;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class WildPokemonBattleLaunchNPC : NPCController
@@ -34,4 +32,3 @@ namespace Testing
     }
 }
 
-#endif

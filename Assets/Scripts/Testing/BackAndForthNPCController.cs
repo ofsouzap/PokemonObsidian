@@ -4,9 +4,6 @@ using UnityEngine;
 using FreeRoaming;
 using FreeRoaming.NPCs;
 
-//This shouldn't be included in builds
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class BackAndForthNPCController : NPCController
@@ -70,5 +67,3 @@ namespace Testing
 
     }
 }
-
-#endif

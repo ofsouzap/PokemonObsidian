@@ -4,8 +4,6 @@ using Items;
 using Items.MedicineItems;
 using Items.PokeBalls;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class LoadItems : MonoBehaviour
@@ -33,5 +31,3 @@ namespace Testing
 
     }
 }
-
-#endif

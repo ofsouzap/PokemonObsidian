@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using FreeRoaming;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class LoadAllSprites : MonoBehaviour
@@ -21,5 +19,3 @@ namespace Testing
 
     }
 }
-
-#endif

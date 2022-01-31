@@ -5,8 +5,6 @@ using UnityEngine;
 using Battle;
 using Pokemon;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class SampleBattleEntranceArgumentsSetting : MonoBehaviour
@@ -109,5 +107,3 @@ namespace Testing
 
     }
 }
-
-#endif
