@@ -111,7 +111,7 @@ namespace CheatConsole
         protected override bool CheckAllowedToOpen()
         {
 
-            if (!sceneController.SceneIsEnabled)
+            if (!sceneController.SceneIsActive)
                 return false;
             else
                 return base.CheckAllowedToOpen();
