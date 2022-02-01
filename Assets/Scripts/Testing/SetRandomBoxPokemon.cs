@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pokemon;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class SetRandomBoxPokemon : MonoBehaviour
@@ -74,5 +72,3 @@ namespace Testing
 
     }
 }
-
-#endif

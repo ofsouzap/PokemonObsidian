@@ -32,7 +32,7 @@ namespace FreeRoaming.NPCs
 
                 case 0: //Yes
 
-                    PlayerData.singleton.HealPartyPokemon();
+                    PlayerData.singleton.HealAllPokemon();
 
                     textBoxController.RevealText("Please wait here for a moment.");
                     yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());

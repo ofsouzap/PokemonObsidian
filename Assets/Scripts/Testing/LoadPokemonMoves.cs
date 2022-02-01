@@ -1,8 +1,6 @@
 using UnityEngine;
 using Pokemon;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class LoadPokemonMoves : MonoBehaviour
@@ -17,5 +15,3 @@ namespace Testing
 
     }
 }
-
-#endif

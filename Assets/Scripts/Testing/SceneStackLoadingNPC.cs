@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using FreeRoaming;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class SceneStackLoadingNPC : GameCharacterController, IInteractable
@@ -26,5 +24,3 @@ namespace Testing
 
     }
 }
-
-#endif

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class CoroutineTesting : MonoBehaviour
@@ -37,5 +35,3 @@ namespace Testing
 
     }
 }
-
-#endif

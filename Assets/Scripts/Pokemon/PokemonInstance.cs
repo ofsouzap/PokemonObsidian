@@ -12,7 +12,12 @@ namespace Pokemon
 
         public PokemonInstance(Stats<byte> individualValues)
         {
+
             this.individualValues = individualValues;
+
+            if (individualValues.GetEnumerator(true).Any(v => v > maximumIndividualValue))
+                Debug.LogWarning("Individual value exeeding maximum allowed value encountered");
+
         }
 
         #region Species

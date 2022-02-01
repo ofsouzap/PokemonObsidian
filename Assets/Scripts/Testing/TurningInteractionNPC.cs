@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using FreeRoaming;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class TurningInteractionNPC : GameCharacterController, IInteractable
@@ -17,5 +15,3 @@ namespace Testing
 
     }
 }
-
-#endif

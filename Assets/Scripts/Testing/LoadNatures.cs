@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using Pokemon;
 
-#if UNITY_EDITOR
-
 namespace Testing
 {
     public class LoadNatures : MonoBehaviour
@@ -15,5 +13,3 @@ namespace Testing
 
     }
 }
-
-#endif

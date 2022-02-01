@@ -97,9 +97,10 @@ namespace Serialization
             }
 
             //Settings
-            buffer = BitConverter.GetBytes(Array.IndexOf(
+            int textSpeedIndex = Array.IndexOf(
                 GameSettings.textSpeedOptions, GameSettings.singleton.textSpeed
-                ));
+                );
+            buffer = BitConverter.GetBytes(textSpeedIndex);
             stream.Write(buffer, 0, 4);
 
             buffer = BitConverter.GetBytes(GameSettings.singleton.musicVolume);
@@ -481,7 +482,8 @@ namespace Serialization
 
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
-            textSpeed = GameSettings.textSpeedOptions[BitConverter.ToInt32(buffer, 0)];
+            int textSpeedIndex = BitConverter.ToInt32(buffer, 0);
+            textSpeed = GameSettings.textSpeedOptions[textSpeedIndex];
 
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
