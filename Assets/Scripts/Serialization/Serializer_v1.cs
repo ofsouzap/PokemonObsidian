@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using UnityEngine;
 using Pokemon;
 using Items;
 using Items.MedicineItems;
@@ -98,9 +99,8 @@ namespace Serialization
             }
 
             //Settings
-            int textSpeedIndex = Array.IndexOf(
-                GameSettings.textSpeedOptions, GameSettings.singleton.textSpeed
-                );
+            int textSpeedIndex = GameSettings.singleton.textSpeedIndex;
+            
             buffer = BitConverter.GetBytes(textSpeedIndex);
             stream.Write(buffer, 0, 4);
 

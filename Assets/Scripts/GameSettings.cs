@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
 public class GameSettings
 {
@@ -18,10 +17,10 @@ public class GameSettings
 
     public static readonly TextSpeed[] textSpeedOptions = new TextSpeed[]
     {
-        new TextSpeed("Fast", 0.01F),
-        new TextSpeed("Very Fast", 0),
+        new TextSpeed("Slow", 0.1F),
         new TextSpeed("Medium", 0.05F),
-        new TextSpeed("Slow", 0.1F)
+        new TextSpeed("Fast", 0.01F),
+        new TextSpeed("Very Fast", 0)
     };
 
     public struct TextSpeed
@@ -44,7 +43,7 @@ public class GameSettings
         }
     }
 
-    private int textSpeedIndex = 1;
+    public int textSpeedIndex = 1;
 
     public TextSpeed textSpeed
     {

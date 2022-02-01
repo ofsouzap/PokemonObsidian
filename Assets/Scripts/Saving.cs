@@ -166,7 +166,7 @@ public static class Saving
                 out PlayerData playerData,
                 out GameSettings gameSettings,
                 out GameSceneManager.SceneStack sceneStack);
-
+            
             return new LoadedData(LoadedData.Status.Success, saveTime, playerData, gameSettings, sceneStack);
 
         }
