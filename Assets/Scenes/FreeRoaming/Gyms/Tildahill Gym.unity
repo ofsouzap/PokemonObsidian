@@ -697,7 +697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.speed
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].speciesId
@@ -709,7 +709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].IVs.speed
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].speciesId
@@ -721,7 +721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].IVs.speed
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].speciesId
@@ -733,7 +733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].IVs.speed
-      value: 128
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].speciesId
@@ -749,11 +749,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.attack
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.health
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].EVs.attack
@@ -765,11 +765,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].IVs.attack
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].IVs.health
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].EVs.attack
@@ -781,11 +781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].IVs.attack
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].IVs.health
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].EVs.attack
@@ -797,11 +797,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].IVs.attack
-      value: 128
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].IVs.health
-      value: 128
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].EVs.defense
@@ -809,7 +809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.defense
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].EVs.defense
@@ -817,7 +817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].IVs.defense
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].EVs.defense
@@ -825,7 +825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].IVs.defense
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].EVs.defense
@@ -833,7 +833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].IVs.defense
-      value: 128
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].EVs.specialAttack
@@ -841,7 +841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.specialAttack
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].useAutomaticMoves
@@ -853,7 +853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].IVs.specialAttack
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].useAutomaticMoves
@@ -865,7 +865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].IVs.specialAttack
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].useAutomaticMoves
@@ -877,7 +877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].IVs.specialAttack
-      value: 128
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].EVs.specialDefense
@@ -885,7 +885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[0].IVs.specialDefense
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].EVs.specialDefense
@@ -893,7 +893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[1].IVs.specialDefense
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].EVs.specialDefense
@@ -901,7 +901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[2].IVs.specialDefense
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].EVs.specialDefense
@@ -909,7 +909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].IVs.specialDefense
-      value: 128
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5051188957040813492, guid: 16083b2e357c695489e416da846cf2b5, type: 3}
       propertyPath: battleDetails.pokemon.Array.data[3].moveIds.Array.size
