@@ -14,6 +14,8 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
     public class BagMenuController : PlayerMenuController
     {
 
+        public Button buttonBack;
+
         public SectionsBarController sectionsBarController;
         public ActionsBarController actionsBarController;
         public ItemsListController itemsListController;
@@ -53,6 +55,8 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
         {
 
             textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
+
+            buttonBack.onClick.AddListener(() => CloseMenu());
 
             currentSectionIndex = 0;
             currentActionIndex = 0;
