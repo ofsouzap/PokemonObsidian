@@ -53,6 +53,8 @@ namespace FreeRoaming.PokeMart
 
             itemDetailsController.SetItem(null);
             itemsListController.SetUp(fullBorderPrefab, (index) => OnItemSelected(index));
+            itemsListController.itemIndexSelected.RemoveAllListeners();
+            itemsListController.itemIndexSelected.AddListener(index => SetCurrentSelectionIndex(index));
 
             textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
@@ -362,7 +364,12 @@ namespace FreeRoaming.PokeMart
 
             }
 
-            itemsListController.SetItems(currentItems, itemQuantities);
+            KeyValuePair<Item, int>[] itemVs = new KeyValuePair<Item, int>[currentItems.Length];
+
+            for (int i = 0; i < currentItems.Length; i++)
+                itemVs[i] = new KeyValuePair<Item, int>(currentItems[i], itemQuantities[i]);
+
+            itemsListController.SetItems(itemVs);
 
             itemsListController.SetCurrentSelectionIndex(0);
 

@@ -3,35 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Menus;
 using Items;
 
 namespace FreeRoaming.Menu
 {
-    [RequireComponent(typeof(Button))]
-    public class ItemsListItemController : MonoBehaviour
+    public class ItemsListItemController : ScrollListItemController<KeyValuePair<Item, int>>
     {
 
         public Text textName;
         public Text textQuantity;
         public const string quantityPrefix = "x";
 
-        public void SetPositionIndex(int index,
-            float padding)
+        public override void SetValues(KeyValuePair<Item, int> itemVs)
         {
 
-            RectTransform rt = GetComponent<RectTransform>();
+            string name = itemVs.Key.itemName;
+            int quantity = itemVs.Value;
 
-            float yAnchoredPos = -1 * (((2 * padding) + index * (rt.rect.height + padding)) + (rt.rect.height / 2));
-
-            rt.anchoredPosition = new Vector2(
-                rt.anchoredPosition.x,
-                yAnchoredPos);
-
-        }
-
-        public void SetValues(string name,
-            int quantity)
-        {
             textName.text = name;
             if (quantity >= 0)
             {

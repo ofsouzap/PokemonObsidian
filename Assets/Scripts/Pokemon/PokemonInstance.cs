@@ -31,15 +31,7 @@ namespace Pokemon
         #region Sprites
 
         public Sprite LoadSprite(PokemonSpecies.SpriteType spriteType)
-        {
-
-            return SpriteStorage.GetPokemonSprite(
-                species.resourceName == "" || species.resourceName == null ? speciesId.ToString() : species.resourceName,
-                spriteType,
-                gender
-                );
-
-        }
+            => species.LoadSprite(spriteType, gender);
 
         public Sprite LoadGenderSprite()
         {

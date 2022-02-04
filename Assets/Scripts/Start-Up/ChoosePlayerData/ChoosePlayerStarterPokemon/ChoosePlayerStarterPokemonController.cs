@@ -27,6 +27,8 @@ namespace StartUp.ChoosePlayerData.ChoosePlayerStarterPokemon
             //Adds the starter pokemon
             PlayerData.singleton.AddNewPartyPokemon(starterPokemon);
 
+            PlayerData.singleton.pokedex.AddPokemonCaught(starterPokemon);
+
         }
 
     }

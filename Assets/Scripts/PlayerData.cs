@@ -532,6 +532,121 @@ public class PlayerData
 
     #endregion
 
+    #region Pokedex
+
+    public class Pokedex
+    {
+
+        public Pokedex()
+        {
+            entries = new List<Entry>();
+        }
+
+        public Pokedex(Entry[] entries)
+        {
+            this.entries = new List<Entry>(entries);
+        }
+
+        public struct Entry
+        {
+
+            public int speciesId;
+            public int seen;
+            public int caught;
+
+            public Entry(int speciesId, int seen, int caught)
+            {
+                this.speciesId = speciesId;
+                this.seen = seen;
+                this.caught = caught;
+            }
+
+            public Entry(int speciesId) : this(speciesId, 0, 0) { }
+
+        }
+
+        private List<Entry> entries;
+
+        public Entry this[int speciesId]
+        {
+
+            private set
+            {
+
+                if (value.speciesId != speciesId)
+                    throw new ArgumentException("Species id to set mismatch");
+
+                int i = entries.FindIndex(e => e.speciesId == speciesId);
+
+                if (i >= 0)
+                    entries[i] = value;
+                else
+                    entries.Add(value);
+
+            }
+
+            get
+            {
+
+                Entry[] es = entries.Where(e => e.speciesId == speciesId).ToArray();
+
+                if (es.Length > 0)
+                    return es[0];
+                else
+                    return new Entry(speciesId);
+
+            }
+
+        }
+
+        public int GetSeenCount(int speciesId)
+            => this[speciesId].seen;
+
+        public bool GetHasBeenEncountered(int speciesId)
+            => GetSeenCount(speciesId) > 0 || GetHasBeenCaught(speciesId);
+
+        public int GetCaughtCount(int speciesId)
+            => this[speciesId].caught;
+
+        public bool GetHasBeenCaught(int speciesId)
+            => GetCaughtCount(speciesId) > 0;
+
+        public void AddPokemonSeen(int speciesId, int count = 1)
+        {
+
+            Entry oldEntry = this[speciesId];
+            Entry newEntry = new Entry(speciesId, oldEntry.seen + count, oldEntry.caught);
+            this[speciesId] = newEntry;
+
+        }
+
+        public void AddPokemonSeen(PokemonInstance pmon)
+            => AddPokemonSeen(pmon.speciesId);
+
+        public void AddPokemonCaught(int speciesId, int count = 1)
+        {
+
+            Entry oldEntry = this[speciesId];
+            Entry newEntry = new Entry(speciesId, oldEntry.seen, oldEntry.caught + count);
+            this[speciesId] = newEntry;
+
+        }
+
+        public void AddPokemonCaught(PokemonInstance pmon)
+            => AddPokemonCaught(pmon.speciesId);
+
+        /// <summary>
+        /// Get all the entries that have been saved without creating fake ones with values of 0. To be used for serialization of the pokedex
+        /// </summary>
+        public Entry[] GetAllSavedEntries()
+            => entries.ToArray();
+
+    }
+
+    public Pokedex pokedex = new Pokedex();
+
+    #endregion
+
     #region Items
 
     public class Inventory
