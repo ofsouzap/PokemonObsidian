@@ -125,6 +125,20 @@ namespace CheatConsole
                }
             },
 
+            {
+                new Regex("^money add (?<amount>[0-9]+)"),
+                (m) =>
+                {
+
+                    int amount = int.Parse(m.Groups["amount"].Value);
+
+                    PlayerData.singleton.profile.money += amount;
+
+                    return "Added " + PlayerData.currencySymbol + amount + " to player";
+
+                }
+            }
+
         };
 
         protected override void Start()
