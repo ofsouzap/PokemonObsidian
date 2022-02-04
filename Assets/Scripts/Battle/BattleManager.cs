@@ -92,7 +92,8 @@ namespace Battle
         {
 
             //Just to make sure (eg when stopping Play mode on the editor)
-            StopNetworkBattleNetworking();
+            if (battleData.isNetworkBattle)
+                StopNetworkBattleNetworking();
 
             StopCoroutine(mainBattleCoroutine);
 
@@ -558,6 +559,24 @@ namespace Battle
 
                 if (!CheckIfBattleRunning())
                     break;
+
+                #endregion
+
+                #region Volatile Status Conditions
+
+                #region Bound
+
+                yield return StartCoroutine(RefreshParticipantBound(battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantBound(battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
 
                 #endregion
 
@@ -1398,6 +1417,47 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantBound(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.bound > 0)
+            {
+
+                participantPokemon.battleProperties.volatileStatusConditions.bound--;
+
+                if (participantPokemon.battleProperties.volatileStatusConditions.bound <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participantPokemon.GetDisplayName()
+                        + " escaped from its bonds!"
+                        );
+
+                }
+                else
+                {
+
+                    //Being bound deals 1/16 of the target pokemon's max health
+
+                    int damageToDeal = participantPokemon.GetStats().health / 16;
+
+                    int initialHealth = participantPokemon.health;
+
+                    participantPokemon.TakeDamage(damageToDeal);
+
+                    battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by being bound");
+                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
+
+                }
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
         {
 
@@ -1814,6 +1874,19 @@ namespace Battle
 
                         battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
                         //TODO - enqueue confusion animation
+
+                    }
+
+                    #endregion
+
+                    #region Bound
+
+                    if (usageResults.boundTurns > 0 && targetPokemon.battleProperties.volatileStatusConditions.bound <= 0)
+                    {
+
+                        targetPokemon.battleProperties.volatileStatusConditions.bound = usageResults.boundTurns;
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was bound!");
 
                     }
 

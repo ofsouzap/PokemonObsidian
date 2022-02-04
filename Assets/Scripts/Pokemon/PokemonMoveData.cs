@@ -68,6 +68,7 @@ namespace Pokemon
          * Minimum multi-hit amount (inclusive) (defaults to 1)
          * Maximum multi-hit amount (inclusive) (defaults to 1)
          * Is instant-KO move (defaults to false)
+         * Inflicts bound volatile status condition (defaults to false)
          */
 
         public static void LoadData()
@@ -101,13 +102,13 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO, inflictsBound;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage, targetDamageDealtRelativeHealthHealed, userMaxHealthRelativeHealthHealed;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
                 bool? movePriority;
 
-                if (entry.Length < 32)
+                if (entry.Length < 33)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -1028,6 +1029,40 @@ namespace Pokemon
 
                 #endregion
 
+                #region inflictsBound
+
+                string inflictsBoundEntry = entry[32];
+
+                if (inflictsBoundEntry == "")
+                {
+                    inflictsBound = false;
+                }
+                else
+                {
+
+                    bool? inflictsBoundParsed = ParseBooleanProperty(inflictsBoundEntry);
+
+                    switch (inflictsBoundParsed)
+                    {
+                        case true:
+                            inflictsBound = true;
+                            break;
+
+                        case false:
+                            inflictsBound = false;
+                            break;
+
+                        default:
+                            Debug.LogError("Invalid inflictsBound entry for id - " + id);
+                            inflictsBound = false;
+                            break;
+
+                    }
+
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1062,7 +1097,8 @@ namespace Pokemon
                     movePriority = movePriority,
                     minimumMultiHitAmount = minimumMultiHitAmount,
                     maximumMultiHitAmount = maximumMultiHitAmount,
-                    isInstantKO = isInstantKO
+                    isInstantKO = isInstantKO,
+                    inflictsBound = inflictsBound
                 });
 
             }

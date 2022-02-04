@@ -66,17 +66,19 @@ namespace Battle
 
         }
 
+        protected bool playerCanFlee = true;
+
         public void SetPlayerCanFlee(bool state)
         {
-            if (playerBattleUIController != null)
-            {
-                playerBattleUIController.SetPlayerCanFlee(state);
-            }
-            else
-            {
-                Debug.LogWarning("Setting player can flee before player battle UI controller set");
-            }
+            playerCanFlee = state;
         }
+
+        public bool GetPlayerAllowedToFlee()
+            => playerCanFlee
+                && !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0);
+
+        public bool GetPlayerAllowedToSwitchPokemon()
+            => !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0);
 
         protected virtual void SetChosenAction(Action action)
         {

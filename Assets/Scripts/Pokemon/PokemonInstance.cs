@@ -704,6 +704,15 @@ namespace Pokemon
                 public bool curse = false;
 
                 /// <summary>
+                /// At the end of the turn after a pokemon is inflicted with drowsiness, it falls asleep.
+                /// Stage 0 - Not drowsy
+                /// Stage 1 - Fall asleep this turn
+                /// Stage 2 - Fall asleep next turn (should be set to this when the pokemon is given drowsiness)
+                /// Stage shouldn't take any other value
+                /// </summary>
+                public int drowsyStage = 0;
+
+                /// <summary>
                 /// Remaining turns of embargo
                 /// </summary>
                 public int embargo = -1;
@@ -715,7 +724,10 @@ namespace Pokemon
 
                 public bool flinch = false;
 
-                public bool healBlock = false;
+                /// <summary>
+                /// Remaining turns of being blocked from healing
+                /// </summary>
+                public int healBlock = 0;
 
                 public bool identified = false;
 
@@ -748,7 +760,6 @@ namespace Pokemon
 
                 public bool aquaRing = false,
                     charging = false,
-                    centerOfAttention = false,
                     defenseCurl = false,
                     rooting = false,
                     magicCoat = false,
@@ -758,16 +769,27 @@ namespace Pokemon
                     recharging = false,
                     semiInvurnerable = false,
                     aiming = false,
-                    withdrawing = false;
+                    withdrawing = false,
+                    takingAim = false;
 
                 /// <summary>
                 /// Whether a substitute is being used
                 /// </summary>
-                public bool substitue;
+                public bool substitute;
                 /// <summary>
                 /// Health remaining on substitute
                 /// </summary>
                 public byte substituteHealth = 0;
+
+                /// <summary>
+                /// The number of remaining turns of thrashing
+                /// </summary>
+                public int thrashTurns = -1;
+
+                /// <summary>
+                /// The index of the move being thrashed with
+                /// </summary>
+                public int thrashMoveIndex = -1;
 
             }
 

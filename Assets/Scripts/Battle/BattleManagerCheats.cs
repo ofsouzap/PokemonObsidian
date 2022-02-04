@@ -24,7 +24,7 @@ namespace Battle
         {
             
             foreach (PokemonInstance pokemon in battleData.participantPlayer.GetPokemon())
-                pokemon.RestoreFully();
+                pokemon?.RestoreFully();
 
             FullUpdatePlayerOverviewPane();
 
@@ -37,7 +37,7 @@ namespace Battle
         {
 
             foreach (PokemonInstance pokemon in battleData.participantOpponent.GetPokemon())
-                pokemon.RestoreFully();
+                pokemon?.RestoreFully();
 
             FullUpdateOpponentOverviewPane();
 
@@ -475,6 +475,22 @@ namespace Battle
         {
             PokemonInstance pokemon = partyIndex >= 0 ? battleData.participantOpponent.GetPokemon()[partyIndex] : battleData.participantOpponent.ActivePokemon;
             pokemon.movePPs[moveIndex] = newPP;
+        }
+
+        /// <summary>
+        /// Makes the player's active pokemon bound for the number of turns provided
+        /// </summary>
+        public void CheatCommand_PlayerInflictBound(int turns)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.bound = turns;
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon bound for the number of turns provided
+        /// </summary>
+        public void CheatCommand_OpponentInflictBound(int turns)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.bound = turns;
         }
 
     }

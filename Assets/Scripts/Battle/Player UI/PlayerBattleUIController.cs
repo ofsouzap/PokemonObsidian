@@ -36,8 +36,7 @@ namespace Battle.PlayerUI
         private PlayerData player;
         private BattleManager battleManager;
 
-        private bool playerAllowedToFlee = true;
-        public void SetPlayerCanFlee(bool state) => playerAllowedToFlee = state;
+        public bool GetPlayerAllowedToFlee() => playerBattleParticipant.GetPlayerAllowedToFlee();
 
         public byte currentSelectedPartyPokemonIndex;
 
@@ -96,13 +95,13 @@ namespace Battle.PlayerUI
                 menuRootController.buttonRun.onClick.AddListener(() =>
                 {
 
-                    if (playerAllowedToFlee)
+                    if (GetPlayerAllowedToFlee())
                     {
                         playerBattleParticipant.ChooseActionFlee();
                     }
                     else
                     {
-                        battleManager.DisplayPlayerInvalidSelectionMessage("You can't run from a trainer battle!");
+                        battleManager.DisplayPlayerInvalidSelectionMessage("You can't flee!");
                     }
 
                 });
@@ -213,6 +212,12 @@ namespace Battle.PlayerUI
                     if (currentSelectedPartyPokemonIndex == playerBattleParticipant.activePokemonIndex)
                     {
                         battleManager.DisplayPlayerInvalidSelectionMessage("That is already your active pokemon");
+                        return;
+                    }
+
+                    if (!playerBattleParticipant.GetPlayerAllowedToSwitchPokemon())
+                    {
+                        battleManager.DisplayPlayerInvalidSelectionMessage("You can't switch pokemon now!");
                         return;
                     }
 

@@ -223,6 +223,11 @@ namespace Pokemon.Moves
         /// </summary>
         public bool isInstantKO = false;
 
+        /// <summary>
+        /// Whether the move is a move that inflicts the bound volatile status condition to the target
+        /// </summary>
+        public bool inflictsBound = false;
+
         #endregion
 
         #region Move Using
@@ -331,6 +336,11 @@ namespace Pokemon.Moves
             /// Whether the target should be confused (if it isn't already)
             /// </summary>
             public bool targetConfuse = false;
+
+            /// <summary>
+            /// The number of turns that the target should be bound for (volatile status condition)
+            /// </summary>
+            public int boundTurns = -1;
 
         }
 
@@ -802,6 +812,10 @@ namespace Pokemon.Moves
 
         }
 
+        public virtual int CalculateBoundTurnCount(PokemonInstance user,
+            BattleData battleData)
+            => battleData.RandomRange(3, 7); //Need to use one more than intended turn count as timer is decreased on the inflicting turn
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -833,6 +847,11 @@ namespace Pokemon.Moves
             {
                 usageResults.failed = true;
                 return usageResults;
+            }
+
+            if (inflictsBound)
+            {
+                usageResults.boundTurns = CalculateBoundTurnCount(user, battleData);
             }
 
             if (allowMissing)
