@@ -43,6 +43,19 @@ namespace Battle
             new List<int>()
         };
 
+        /// <summary>
+        /// Which of the opponent's pokemon have already been recorded as seen by the player
+        /// </summary>
+        public bool[] opponentPokemonSeenRecorded = new bool[PlayerData.partyCapacity]
+        {
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        };
+
         public bool playerCanFlee;
 
         public void SetPlayerCanFlee(bool state)

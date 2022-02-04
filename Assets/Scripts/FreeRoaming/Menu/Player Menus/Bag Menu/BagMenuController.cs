@@ -1,5 +1,6 @@
 using Menus;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,6 +63,12 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             sectionsBarController.SetUp(this, fullBorderPrefab);
             itemsListController.SetUp(fullBorderPrefab, (index) => OnSelectItem(index));
             pokemonSelectionController.SetUp(this);
+            itemsListController.itemIndexSelected.RemoveAllListeners();
+            itemsListController.itemIndexSelected.AddListener(index =>
+            {
+                currentItemIndex = index;
+                RefreshCurrentItem();
+            });
 
             ChangeToSectionSelection();
 
@@ -354,9 +361,14 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
         private void SetItemsList(Item[] items,
             int[] quantities)
         {
+            
+            KeyValuePair<Item, int>[] itemVs = new KeyValuePair<Item, int>[items.Length];
+
+            for (int i = 0; i < items.Length; i++)
+                itemVs[i] = new KeyValuePair<Item, int>(items[i], quantities[i]);
 
             currentItems = items;
-            itemsListController.SetItems(items, quantities);
+            itemsListController.SetItems(itemVs);
             currentItemIndex = 0;
             RefreshCurrentItem();
 

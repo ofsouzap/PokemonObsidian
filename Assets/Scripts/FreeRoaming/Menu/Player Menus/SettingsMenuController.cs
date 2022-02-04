@@ -19,8 +19,6 @@ namespace FreeRoaming.Menu.PlayerMenus
         public Slider musicVolumeSlider;
         public Slider sfxVolumeSlider;
 
-        protected GameSettings.TextSpeed[] sortedTextSpeeds;
-
         protected override MenuSelectableController[] GetSelectables()
         {
 
@@ -51,16 +49,13 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             #region Text Speed
 
-            sortedTextSpeeds = GameSettings.textSpeedOptions;
-            Array.Sort(sortedTextSpeeds, (a, b) => b.characterDelay.CompareTo(a.characterDelay)); //N.B. sorting in descending order by comparing b to a instead of a to b
-
             GameSettings.TextSpeed textSpeed = GameSettings.singleton.textSpeed;
 
             textSpeedSlider.minValue = 0;
-            textSpeedSlider.maxValue = sortedTextSpeeds.Length - 1;
+            textSpeedSlider.maxValue = GameSettings.textSpeedOptions.Length - 1;
             textSpeedSlider.wholeNumbers = true;
 
-            textSpeedSlider.value = Array.IndexOf(sortedTextSpeeds, textSpeed);
+            textSpeedSlider.value = Array.IndexOf(GameSettings.textSpeedOptions, textSpeed);
 
             textSpeedSlider.onValueChanged.RemoveAllListeners();
             textSpeedSlider.onValueChanged.AddListener(SetTextSpeedSliderValue);
@@ -82,7 +77,7 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             int index = Mathf.FloorToInt(value);
 
-            GameSettings.TextSpeed textSpeed = sortedTextSpeeds[index];
+            GameSettings.TextSpeed textSpeed = GameSettings.textSpeedOptions[index];
 
             textSpeedNameText.text = textSpeed.name;
 

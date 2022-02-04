@@ -402,6 +402,8 @@ namespace Battle
 
             #endregion
 
+            TryAddSeenOpponentCurrentPokemon();
+
             //TODO - when and if abilities made, apply them and announce them if needed
 
             BattleEntranceArguments.argumentsSet = false;
@@ -1275,6 +1277,17 @@ namespace Battle
             if (!battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Contains(playerPokemonIndex))
                 battleData.playerUsedPokemonPerOpponentPokemon[opponentPokemonIndex].Add(playerPokemonIndex);
 
+        }
+
+        private void TryAddSeenOpponentCurrentPokemon()
+        {
+            if (!battleData.opponentPokemonSeenRecorded[battleData.participantOpponent.activePokemonIndex])
+            {
+
+                PlayerData.singleton.pokedex.AddPokemonSeen(battleData.participantOpponent.ActivePokemon);
+                battleData.opponentPokemonSeenRecorded[battleData.participantOpponent.activePokemonIndex] = true;
+
+            }
         }
 
         private static bool CheckIfBattleRunning(BattleData battleData)
@@ -2216,6 +2229,9 @@ namespace Battle
 
             action.user.activePokemonIndex = action.switchPokemonIndex;
 
+            if (action.user == battleData.participantOpponent)
+                TryAddSeenOpponentCurrentPokemon();
+
             battleAnimationSequencer.EnqueueSingleText(action.user.GetName() + " switched in " + action.user.ActivePokemon.GetDisplayName());
 
             battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
@@ -2361,6 +2377,8 @@ namespace Battle
                 #endregion
 
                 #region Add Pokemon to Player Pokemon
+
+                PlayerData.singleton.pokedex.AddPokemonCaught(targetPokemon);
 
                 if (PlayerData.singleton.partyPokemon.Any(x => x == null)) //If the player has space for the new pokemon in their party
                 {

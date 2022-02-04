@@ -2071,7 +2071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsListContentTransform: {fileID: 2147118601}
-  itemListItemPrefab: {fileID: 4151975709133081386, guid: a6fe62ab0dfa3c649853ed923fbee175, type: 3}
+  scrollListItemPrefab: {fileID: 4151975709133081386, guid: a6fe62ab0dfa3c649853ed923fbee175, type: 3}
   itemsPadding: 5
   itemsNoScrollBuffer: 3
 --- !u!114 &1845253722

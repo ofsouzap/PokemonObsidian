@@ -31,6 +31,13 @@ namespace Pokemon
             Icon
         }
 
+        public Sprite LoadSprite(SpriteType spriteType, bool? gender)
+            => SpriteStorage.GetPokemonSprite(
+                resourceName == "" || resourceName == null ? id.ToString() : resourceName,
+                spriteType,
+                gender
+                );
+
         #endregion
 
         #region Basic Properties
@@ -89,6 +96,7 @@ namespace Pokemon
         #region Stats
 
         public Stats<byte> baseStats;
+        public const byte maxBaseStatValue = 255;
 
         public Stats<byte> evYield;
         public ushort baseExperienceYield;

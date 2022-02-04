@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using UnityEngine;
 using Pokemon;
 using Items;
 using Battle;
@@ -87,6 +88,9 @@ namespace Serialization
             SerializeInventorySection(stream, player.inventory.pokeBalls);
             SerializeInventorySection(stream, player.inventory.tmItems);
 
+            //Pokedex
+            SerializePokedex(stream, player.pokedex);
+
             //NPCs battled
             buffer = BitConverter.GetBytes(player.npcsBattled.Count);
             stream.Write(buffer, 0, 4);
@@ -97,9 +101,8 @@ namespace Serialization
             }
 
             //Settings
-            int textSpeedIndex = Array.IndexOf(
-                GameSettings.textSpeedOptions, GameSettings.singleton.textSpeed
-                );
+            int textSpeedIndex = GameSettings.singleton.textSpeedIndex;
+            
             buffer = BitConverter.GetBytes(textSpeedIndex);
             stream.Write(buffer, 0, 4);
 
@@ -294,6 +297,37 @@ namespace Serialization
 
         }
 
+        public override void SerializePokedex(Stream stream, PlayerData.Pokedex pokedex)
+        {
+
+            byte[] buffer;
+
+            PlayerData.Pokedex.Entry[] entries = pokedex.GetAllSavedEntries();
+
+            //Number of entries
+            buffer = BitConverter.GetBytes(entries.Length);
+            stream.Write(buffer, 0, 4);
+            
+            //Entries
+            foreach (PlayerData.Pokedex.Entry entry in entries)
+            {
+
+                //Species id
+                buffer = BitConverter.GetBytes(entry.speciesId);
+                stream.Write(buffer, 0, 4);
+
+                //Seen
+                buffer = BitConverter.GetBytes(entry.seen);
+                stream.Write(buffer, 0, 4);
+
+                //Caught
+                buffer = BitConverter.GetBytes(entry.caught);
+                stream.Write(buffer, 0, 4);
+                
+            }
+
+        }
+
         public override void SerializeString(Stream stream, string s)
         {
 
@@ -378,6 +412,7 @@ namespace Serialization
             List<int> defeatedGymIds, npcsBattled, collectedDroppedItemIds;
             bool respawnSceneStackSet, cheatsUsed;
             Dictionary<int, int> generalItems, medicineItems, battleItems, pokeBallItems, tmItems;
+            PlayerData.Pokedex pokedex;
             GameSettings.TextSpeed textSpeed;
             float musicVolume, sfxVolume;
 
@@ -468,6 +503,8 @@ namespace Serialization
 
             tmItems = DeserializeInventorySection(stream);
 
+            pokedex = DeserializePokedex(stream);
+
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
             int numberOfNpcsBattled = BitConverter.ToInt32(buffer, 0);
@@ -527,6 +564,7 @@ namespace Serialization
                     cheatsUsed = cheatsUsed
                 },
                 inventory = new PlayerData.Inventory(),
+                pokedex = pokedex,
                 npcsBattled = npcsBattled,
                 respawnSceneStackSet = respawnSceneStackSet,
                 respawnSceneStack = respawnSceneStack,
@@ -773,6 +811,54 @@ namespace Serialization
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
             quantity = BitConverter.ToInt32(buffer, 0);
+
+        }
+
+        public override PlayerData.Pokedex DeserializePokedex(Stream stream)
+        {
+
+            byte[] buffer;
+
+            PlayerData.Pokedex pokedex;
+            int entryCount;
+            PlayerData.Pokedex.Entry[] entries;
+
+            //Number of entries
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            entryCount = BitConverter.ToInt32(buffer, 0);
+            
+            entries = new PlayerData.Pokedex.Entry[entryCount];
+            
+            //Entries
+            for (int i = 0; i < entryCount; i++)
+            {
+
+                int speciesId, seen, caught;
+
+                //Species id
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                speciesId = BitConverter.ToInt32(buffer, 0);
+
+                //Seen
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                seen = BitConverter.ToInt32(buffer, 0);
+
+                //Caught
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                caught = BitConverter.ToInt32(buffer, 0);
+
+                //Add entry
+                entries[i] = new PlayerData.Pokedex.Entry(speciesId, seen, caught);
+
+            }
+
+            pokedex = new PlayerData.Pokedex(entries);
+
+            return pokedex;
 
         }
 
