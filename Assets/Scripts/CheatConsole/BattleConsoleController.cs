@@ -441,6 +441,44 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set curse (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetCurse(state);
+                        return "Set player pokemon curse state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetCurse(state);
+                        return "Set opponent pokemon curse state to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) inflict drowsy"),
+                (bm, m) =>
+                {
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerInflictDrowsy();
+                        return "Made player's pokemon drowsy";
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentInflictDrowsy();
+                        return "Made opponent's pokemon drowsy";
+                    }
+                }
             }
 
         };

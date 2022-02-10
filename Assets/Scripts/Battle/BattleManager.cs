@@ -578,6 +578,34 @@ namespace Battle
 
                 #endregion
 
+                #region Curse
+
+                yield return StartCoroutine(RefreshParticipantCurse(battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantCurse(battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Drowsy
+
+                yield return StartCoroutine(RefreshParticipantDrowsy(battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantDrowsy(battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
                 #endregion
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
@@ -1458,6 +1486,75 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantCurse(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.curse)
+            {
+
+                //Being cursed deals 1/4 of the target pokemon's max health
+
+                int damageToDeal = participantPokemon.GetStats().health / 4;
+
+                int initialHealth = participantPokemon.health;
+
+                participantPokemon.TakeDamage(damageToDeal);
+
+                battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " was hurt by its curse");
+                battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
+        private IEnumerator RefreshParticipantDrowsy(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            switch (participantPokemon.battleProperties.volatileStatusConditions.drowsyStage)
+            {
+
+                case 2:
+
+                    participantPokemon.battleProperties.volatileStatusConditions.drowsyStage = 1;
+
+                    break;
+
+                case 1:
+
+                    if (participantPokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
+                    {
+                        participantPokemon.battleProperties.volatileStatusConditions.drowsyStage = 0;
+                        break;
+                    }
+
+                    participantPokemon.battleProperties.volatileStatusConditions.drowsyStage = 0;
+                    participantPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.Asleep;
+
+                    battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName()
+                        + ' '
+                        + PokemonInstance.nonVolatileStatusConditionMessages[PokemonInstance.NonVolatileStatusCondition.Asleep]);
+
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    Debug.LogWarning("Invalid drowsy stage");
+                    break;
+
+            }
+
+        }
+
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
         {
 
@@ -1892,6 +1989,45 @@ namespace Battle
 
                     #endregion
 
+                    #region Cant Escape
+
+                    if (usageResults.inflictCantEscape)
+                    {
+
+                        targetPokemon.battleProperties.volatileStatusConditions.cantEscape = true;
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was locked into the battle!");
+
+                    }
+
+                    #endregion
+
+                    #region Curse
+
+                    if (usageResults.inflictCurse)
+                    {
+
+                        targetPokemon.battleProperties.volatileStatusConditions.curse = true;
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was cursed!");
+
+                    }
+
+                    #endregion
+
+                    #region Drowsy
+
+                    if (usageResults.inflictDrowsy)
+                    {
+
+                        targetPokemon.battleProperties.volatileStatusConditions.drowsyStage = 2;
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " is feeling sleepy");
+
+                    }
+
+                    #endregion
+
                     #region Thawing
 
                     if (usageResults.thawTarget)
@@ -2301,6 +2437,7 @@ namespace Battle
             action.user.ActivePokemon.battleProperties.ResetVolatileProperties();
 
             action.user.activePokemonIndex = action.switchPokemonIndex;
+            action.user.ActivePokemon.battleProperties.ResetVolatileProperties();
 
             if (action.user == battleData.participantOpponent)
                 TryAddSeenOpponentCurrentPokemon();

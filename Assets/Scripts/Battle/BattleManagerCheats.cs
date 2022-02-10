@@ -493,5 +493,37 @@ namespace Battle
             battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.bound = turns;
         }
 
+        /// <summary>
+        /// Makes the player's active pokemon cursed or removes it
+        /// </summary>
+        public void CheatCommand_PlayerSetCurse(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.curse = state;
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon cursed or removes it
+        /// </summary>
+        public void CheatCommand_OpponentSetCurse(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.curse = state;
+        }
+
+        /// <summary>
+        /// Makes the player's active pokemon drowsy
+        /// </summary>
+        public void CheatCommand_PlayerInflictDrowsy()
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.drowsyStage = 2;
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon drowsy
+        /// </summary>
+        public void CheatCommand_OpponentInflictDrowsy()
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.drowsyStage = 2;
+        }
+
     }
 }

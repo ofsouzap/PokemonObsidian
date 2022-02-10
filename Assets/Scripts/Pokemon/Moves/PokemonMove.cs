@@ -228,6 +228,12 @@ namespace Pokemon.Moves
         /// </summary>
         public bool inflictsBound = false;
 
+        /// <summary>
+        /// Whether the move stops the target from being able to escape/switch out of the battle
+        /// </summary>
+        public bool inflictsCantEscape = false;
+
+
         #endregion
 
         #region Move Using
@@ -341,6 +347,21 @@ namespace Pokemon.Moves
             /// The number of turns that the target should be bound for (volatile status condition)
             /// </summary>
             public int boundTurns = -1;
+
+            /// <summary>
+            /// Whether the move stops the target from escaping
+            /// </summary>
+            public bool inflictCantEscape = false;
+
+            /// <summary>
+            /// Whether the move inflicts curse on the target
+            /// </summary>
+            public bool inflictCurse = false;
+
+            /// <summary>
+            /// Whether the move makes the target fall asleep on the next turn
+            /// </summary>
+            public bool inflictDrowsy = false;
 
         }
 
@@ -813,8 +834,19 @@ namespace Pokemon.Moves
         }
 
         public virtual int CalculateBoundTurnCount(PokemonInstance user,
+            PokemonInstance target,
             BattleData battleData)
             => battleData.RandomRange(3, 7); //Need to use one more than intended turn count as timer is decreased on the inflicting turn
+
+        public virtual bool GetInflictsCurse(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual bool GetInflictsDrowsy(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
 
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
@@ -851,7 +883,22 @@ namespace Pokemon.Moves
 
             if (inflictsBound)
             {
-                usageResults.boundTurns = CalculateBoundTurnCount(user, battleData);
+                usageResults.boundTurns = CalculateBoundTurnCount(user, target, battleData);
+            }
+
+            if (inflictsCantEscape)
+            {
+                usageResults.inflictCantEscape = true;
+            }
+
+            if (GetInflictsCurse(user, target, battleData))
+            {
+                usageResults.inflictCurse = true;
+            }
+
+            if (GetInflictsDrowsy(user, target, battleData) && target.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
+            {
+                usageResults.inflictDrowsy = true;
             }
 
             if (allowMissing)

@@ -75,10 +75,12 @@ namespace Battle
 
         public bool GetPlayerAllowedToFlee()
             => playerCanFlee
-                && !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0);
+                && !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0)
+                && !ActivePokemon.battleProperties.volatileStatusConditions.cantEscape;
 
         public bool GetPlayerAllowedToSwitchPokemon()
-            => !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0);
+            => !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0)
+                && !ActivePokemon.battleProperties.volatileStatusConditions.cantEscape;
 
         protected virtual void SetChosenAction(Action action)
         {
