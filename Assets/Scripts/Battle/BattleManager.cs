@@ -606,6 +606,34 @@ namespace Battle
 
                 #endregion
 
+                #region Embargo
+
+                yield return StartCoroutine(RefreshParticipantEmbargo(battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantEmbargo(battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Encore
+
+                yield return StartCoroutine(RefreshParticipantEncore(battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantEncore(battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
                 #endregion
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
@@ -1555,6 +1583,58 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantEmbargo(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.embargo > 0)
+            {
+
+                participantPokemon.battleProperties.volatileStatusConditions.embargo--;
+
+                if (participantPokemon.battleProperties.volatileStatusConditions.embargo <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participantPokemon.GetDisplayName()
+                        + " escaped from the embargo!"
+                        );
+
+                }
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
+        private IEnumerator RefreshParticipantEncore(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.encoreTurns > 0)
+            {
+
+                participantPokemon.battleProperties.volatileStatusConditions.encoreTurns--;
+
+                if (participantPokemon.battleProperties.volatileStatusConditions.encoreTurns <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participantPokemon.GetDisplayName()
+                        + " escaped from the encore!"
+                        );
+
+                }
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
         {
 
@@ -2028,6 +2108,33 @@ namespace Battle
 
                     #endregion
 
+                    #region Embargo
+
+                    if (usageResults.inflictEmbargo)
+                    {
+
+                        targetPokemon.battleProperties.volatileStatusConditions.embargo = 6; //Lasts 5 turns but counter will be reduced at end of this turn which shouldn't count
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " feels on-edge");
+
+                    }
+
+                    #endregion
+
+                    #region Encore
+
+                    if (usageResults.encoreTurns > 0)
+                    {
+
+                        targetPokemon.battleProperties.volatileStatusConditions.encoreTurns = usageResults.encoreTurns;
+                        targetPokemon.battleProperties.volatileStatusConditions.encoreMoveId = targetPokemon.battleProperties.lastMoveId;
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " must provide an encore!");
+
+                    }
+
+                    #endregion
+
                     #region Thawing
 
                     if (usageResults.thawTarget)
@@ -2173,6 +2280,12 @@ namespace Battle
 
                     foreach (BattleAnimationSequencer.Animation animation in userStatModifierAnimations)
                         battleAnimationSequencer.EnqueueAnimation(animation);
+
+                    #endregion
+
+                    #region Set Last-Used Move
+
+                    userPokemon.battleProperties.lastMoveId = move.id;
 
                     #endregion
 

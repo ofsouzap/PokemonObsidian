@@ -84,5 +84,16 @@ namespace Battle
         /// <returns>Whether the participant has been defeated</returns>
         public abstract bool CheckIfDefeated();
 
+        public virtual bool GetAllowedToFlee()
+            => !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0)
+            && !ActivePokemon.battleProperties.volatileStatusConditions.cantEscape;
+
+        public virtual bool GetAllowedToSwitchPokemon()
+            => !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0)
+                && !ActivePokemon.battleProperties.volatileStatusConditions.cantEscape;
+
+        public virtual bool GetAllowedToUseItem()
+            => ActivePokemon.battleProperties.volatileStatusConditions.embargo <= 0;
+
     }
 }

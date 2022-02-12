@@ -479,6 +479,50 @@ namespace CheatConsole
                         return "Made opponent's pokemon drowsy";
                     }
                 }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) inflict embargo"),
+                (bm, m) =>
+                {
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerInflictEmbargo();
+                        return "Given player's pokemon embargo";
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentInflictEmbargo();
+                        return "Given opponent's pokemon embargo";
+                    }
+
+                }
+            },
+
+            {
+                new Regex("(?<participant>player|opponent) inflict encore (?<turns>[0-9]+)"),
+                (bm, m) =>
+                {
+
+                    int turns = int.Parse(m.Groups["turns"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        if (bm.CheatCommand_TryPlayerInflictEncore(turns))
+                            return "Inflicted player pokemon with encore for " + turns + " turns";
+                        else
+                            return "Couldn't inflict encore on player pokemon";
+                    }
+                    else
+                    {
+                        if (bm.CheatCommand_TryOpponentInflictEncore(turns))
+                            return "Inflicted opponent pokemon with encore for " + turns + " turns";
+                        else
+                            return "Couldn't inflict encore on opponent pokemon";
+                    }
+
+                }
             }
 
         };

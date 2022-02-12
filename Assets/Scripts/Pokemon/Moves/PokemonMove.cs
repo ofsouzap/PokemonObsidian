@@ -363,6 +363,16 @@ namespace Pokemon.Moves
             /// </summary>
             public bool inflictDrowsy = false;
 
+            /// <summary>
+            /// Whether the move stops the target from using items for 5 turns
+            /// </summary>
+            public bool inflictEmbargo = false;
+
+            /// <summary>
+            /// How long the move forces the target to continue using their last-used move for 
+            /// </summary>
+            public int encoreTurns = 0;
+
         }
 
         public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
@@ -848,6 +858,16 @@ namespace Pokemon.Moves
             BattleData battleData)
             => false;
 
+        public virtual bool GetInflictsEmbargo(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual int CalculateEncoreTurnCount(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => 0;
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -881,6 +901,13 @@ namespace Pokemon.Moves
                 return usageResults;
             }
 
+            //Failing because pokemon is encored to a different move
+            if (user.battleProperties.volatileStatusConditions.encoreTurns > 0 && id != user.battleProperties.volatileStatusConditions.encoreMoveId)
+            {
+                usageResults.failed = true;
+                return usageResults;
+            }
+
             if (inflictsBound)
             {
                 usageResults.boundTurns = CalculateBoundTurnCount(user, target, battleData);
@@ -899,6 +926,27 @@ namespace Pokemon.Moves
             if (GetInflictsDrowsy(user, target, battleData) && target.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
             {
                 usageResults.inflictDrowsy = true;
+            }
+
+            if (GetInflictsEmbargo(user, target, battleData))
+            {
+                usageResults.inflictEmbargo = true;
+            }
+
+            int encoreTurns = CalculateEncoreTurnCount(user, target, battleData);
+            if (encoreTurns > 0)
+            {
+
+                if (target.battleProperties.lastMoveId > 0)
+                {
+                    usageResults.encoreTurns = encoreTurns;
+                }
+                else
+                {
+                    usageResults.failed = true;
+                    return usageResults;
+                }
+
             }
 
             if (allowMissing)

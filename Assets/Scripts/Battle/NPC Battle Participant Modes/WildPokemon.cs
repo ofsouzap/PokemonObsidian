@@ -70,23 +70,29 @@ namespace Battle.NPCBattleParticipantModes
 
             float[] weightings = new float[ActivePokemon.moveIds.Length];
 
-            for (int i = 0; i < ActivePokemon.moveIds.Length; i++)
+            if (ActivePokemon.battleProperties.volatileStatusConditions.encoreTurns > 0)
+                weightings = GetEncoreMoveWeightings();
+            else
             {
-
-                weightings[i] = 1;
-
-                if (PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[i]))
+                for (int i = 0; i < ActivePokemon.moveIds.Length; i++)
                 {
-                    weightings[i] = 0;
-                    continue;
+
+                    weightings[i] = 1;
+
+                    if (PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[i]))
+                    {
+                        weightings[i] = 0;
+                        continue;
+                    }
+
+                    if (ActivePokemon.movePPs[i] <= 0)
+                        weightings[i] = 0;
+
+                    PokemonMove move = PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[i]);
+
+                    weightings[i] *= GetTypeAdvantageWeighting(TypeAdvantage.CalculateMultiplier(move.type, opposingPokemon.species));
+
                 }
-
-                if (ActivePokemon.movePPs[i] <= 0)
-                    weightings[i] = 0;
-
-                PokemonMove move = PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[i]);
-
-                weightings[i] *= GetTypeAdvantageWeighting(TypeAdvantage.CalculateMultiplier(move.type, opposingPokemon.species));
 
             }
 

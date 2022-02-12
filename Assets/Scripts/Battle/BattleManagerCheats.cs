@@ -525,5 +525,57 @@ namespace Battle
             battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.drowsyStage = 2;
         }
 
+        /// <summary>
+        /// Gives the player's active pokemon an embargo
+        /// </summary>
+        public void CheatCommand_PlayerInflictEmbargo()
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.embargo = 6;
+        }
+
+        /// <summary>
+        /// Gives the opponent's active pokemon an embargo
+        /// </summary>
+        public void CheatCommand_OpponentInflictEmbargo()
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.embargo = 6;
+        }
+
+        /// <summary>
+        /// Makes the player's active pokemon have encore for the number of turns provided
+        /// </summary>
+        public bool CheatCommand_TryPlayerInflictEncore(int turns)
+        {
+
+            PokemonInstance pokemon = battleData.participantPlayer.ActivePokemon;
+
+            if (pokemon.battleProperties.lastMoveId < 0)
+                return false;
+
+            pokemon.battleProperties.volatileStatusConditions.encoreTurns = turns;
+            pokemon.battleProperties.volatileStatusConditions.encoreMoveId = pokemon.battleProperties.lastMoveId;
+
+            return true;
+
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon have encore for the number of turns provided
+        /// </summary>
+        public bool CheatCommand_TryOpponentInflictEncore(int turns)
+        {
+
+            PokemonInstance pokemon = battleData.participantOpponent.ActivePokemon;
+
+            if (pokemon.battleProperties.lastMoveId < 0)
+                return false;
+
+            pokemon.battleProperties.volatileStatusConditions.encoreTurns = turns;
+            pokemon.battleProperties.volatileStatusConditions.encoreMoveId = pokemon.battleProperties.lastMoveId;
+
+            return true;
+
+        }
+
     }
 }

@@ -36,7 +36,7 @@ namespace Battle.PlayerUI
         private PlayerData player;
         private BattleManager battleManager;
 
-        public bool GetPlayerAllowedToFlee() => playerBattleParticipant.GetPlayerAllowedToFlee();
+        public bool GetPlayerAllowedToFlee() => playerBattleParticipant.GetAllowedToFlee();
 
         public byte currentSelectedPartyPokemonIndex;
 
@@ -215,7 +215,7 @@ namespace Battle.PlayerUI
                         return;
                     }
 
-                    if (!playerBattleParticipant.GetPlayerAllowedToSwitchPokemon())
+                    if (!playerBattleParticipant.GetAllowedToSwitchPokemon())
                     {
                         battleManager.DisplayPlayerInvalidSelectionMessage("You can't switch pokemon now!");
                         return;
@@ -281,15 +281,26 @@ namespace Battle.PlayerUI
         public void SuggestChooseMoveIndex(int index)
         {
 
-            if (playerBattleParticipant.ActivePokemon.movePPs[index] > 0)
+            if (playerBattleParticipant.ActivePokemon.movePPs[index] <= 0)
             {
-                menuFightController.CloseMenu();
-                playerBattleParticipant.ChooseActionFight(index);
+
+                battleManager.DisplayPlayerInvalidSelectionMessage("That move has no PP");
+                
+            }
+            else if (playerBattleParticipant.ActivePokemon.battleProperties.volatileStatusConditions.encoreTurns > 0
+                && playerBattleParticipant.ActivePokemon.moveIds[index] != playerBattleParticipant.ActivePokemon.battleProperties.volatileStatusConditions.encoreMoveId)
+            {
+
+                //If under influence of encore and trying to use a non-encored move
+
+                battleManager.DisplayPlayerInvalidSelectionMessage(playerBattleParticipant.ActivePokemon.GetDisplayName() + " must provide an encore!");
+
             }
             else
             {
 
-                battleManager.DisplayPlayerInvalidSelectionMessage("That move has no PP");
+                menuFightController.CloseMenu();
+                playerBattleParticipant.ChooseActionFight(index);
 
             }
 

@@ -167,32 +167,39 @@ namespace Battle.NPCBattleParticipantModes
         private float[] GetMoveWeightings(PokemonInstance target)
         {
 
-            float[] weightings = new float[] { 1, 1, 1, 1 };
+            float[] weightings = new float[4] { 1, 1, 1, 1 };
 
-            for (int i = 0; i < ActivePokemon.moveIds.Length; i++)
+            if (ActivePokemon.battleProperties.volatileStatusConditions.encoreTurns > 0)
+                weightings = GetEncoreMoveWeightings();
+            else
             {
 
-                if (PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[i]))
+                for (int i = 0; i < ActivePokemon.moveIds.Length; i++)
                 {
-                    weightings[i] = 0;
-                    continue;
+
+                    if (PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[i]))
+                    {
+                        weightings[i] = 0;
+                        continue;
+                    }
+
+                    PokemonMove move = PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[i]);
+
+                    float effectivenessModifier = target.species.type2 == null
+                        ? TypeAdvantage.CalculateMultiplier(move.type, target.species.type1)
+                        : TypeAdvantage.CalculateMultiplier(move.type, target.species.type1, (Type)target.species.type2);
+
+                    if (ActivePokemon.movePPs[i] <= 0)
+                        weightings[i] = 0;
+
+                    if (move.moveType == PokemonMove.MoveType.Status)
+                        weightings[i] *= GetStatOEWeighting(statOEMovesUsed);
+                    else
+                        weightings[i] *= GetAttackMoveWeighting(effectivenessModifier);
+
+                    weightings[i] *= GetHealingMoveWeighint((float)ActivePokemon.health / ActivePokemon.GetStats().health);
+
                 }
-
-                PokemonMove move = PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[i]);
-
-                float effectivenessModifier = target.species.type2 == null
-                    ? TypeAdvantage.CalculateMultiplier(move.type, target.species.type1)
-                    : TypeAdvantage.CalculateMultiplier(move.type, target.species.type1, (Type)target.species.type2);
-
-                if (ActivePokemon.movePPs[i] <= 0)
-                    weightings[i] = 0;
-
-                if (move.moveType == PokemonMove.MoveType.Status)
-                    weightings[i] *= GetStatOEWeighting(statOEMovesUsed);
-                else
-                    weightings[i] *= GetAttackMoveWeighting(effectivenessModifier);
-
-                weightings[i] *= GetHealingMoveWeighint((float)ActivePokemon.health / ActivePokemon.GetStats().health);
 
             }
 

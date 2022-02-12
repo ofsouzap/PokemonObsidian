@@ -656,6 +656,8 @@ namespace Pokemon
 
                 ResetVolatileProperties();
 
+                lastMoveId = -1;
+
                 statModifiers.attack = 0;
                 statModifiers.defense = 0;
                 statModifiers.specialAttack = 0;
@@ -720,7 +722,12 @@ namespace Pokemon
                 /// <summary>
                 /// Remaining turns of encore
                 /// </summary>
-                public int encore = -1;
+                public int encoreTurns = -1;
+
+                /// <summary>
+                /// Id of move that is being encored
+                /// </summary>
+                public int encoreMoveId = -1;
 
                 public bool flinch = false;
 
@@ -794,6 +801,11 @@ namespace Pokemon
             }
 
             public VolatileBattleStatus volatileBattleStatus;
+
+            /// <summary>
+            /// Id of the last move used
+            /// </summary>
+            public int lastMoveId = -1;
 
             /// <summary>
             /// Each modifier should only be in [-6,6]. Health isn't used

@@ -73,14 +73,9 @@ namespace Battle
             playerCanFlee = state;
         }
 
-        public bool GetPlayerAllowedToFlee()
+        public override bool GetAllowedToFlee()
             => playerCanFlee
-                && !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0)
-                && !ActivePokemon.battleProperties.volatileStatusConditions.cantEscape;
-
-        public bool GetPlayerAllowedToSwitchPokemon()
-            => !(ActivePokemon.battleProperties.volatileStatusConditions.bound > 0)
-                && !ActivePokemon.battleProperties.volatileStatusConditions.cantEscape;
+                && base.GetAllowedToFlee();
 
         protected virtual void SetChosenAction(Action action)
         {
@@ -134,6 +129,12 @@ namespace Battle
         {
 
             BattleData.ItemUsagePermissions itemPermissions = recentBattleData.itemUsagePermissions;
+
+            if (!GetAllowedToUseItem())
+            {
+                message = "You aren't able to use items";
+                return false;
+            }
 
             if (!itemPermissions.pokeBalls && item is PokeBall)
             {
