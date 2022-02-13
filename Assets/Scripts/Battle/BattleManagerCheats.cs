@@ -62,7 +62,7 @@ namespace Battle
         public void CheatCommand_OpponentInflictNonVolatileStatusCondition(int partyIndex, PokemonInstance.NonVolatileStatusCondition nvsc)
         {
 
-            PokemonInstance pokemon = partyIndex >= 0 ? battleData.participantPlayer.GetPokemon()[partyIndex] : battleData.participantPlayer.ActivePokemon;
+            PokemonInstance pokemon = partyIndex >= 0 ? battleData.participantOpponent.GetPokemon()[partyIndex] : battleData.participantOpponent.ActivePokemon;
             if (pokemon == null) return;
             pokemon.nonVolatileStatusCondition = nvsc;
             FullUpdateOpponentOverviewPane();
@@ -623,6 +623,22 @@ namespace Battle
         public void CheatCommand_OpponentSetInfatuated(bool state)
         {
             battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.infatuated = state;
+        }
+
+        /// <summary>
+        /// Inflicts the player's pokemon with leech seed
+        /// </summary>
+        public void CheatCommand_PlayerSetLeechSeed(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.leechSeed = state;
+        }
+
+        /// <summary>
+        /// Inflicts the opponent's pokemon with leech seed
+        /// </summary>
+        public void CheatCommand_OpponentSetLeechSeed(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.leechSeed = state;
         }
 
     }

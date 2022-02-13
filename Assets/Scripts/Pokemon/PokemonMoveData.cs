@@ -1155,6 +1155,7 @@ namespace Pokemon
             moves.Add(new Move_Toxic());
             moves.Add(new Move_NightShade());
             moves.Add(new Move_SuperFang());
+            moves.Add(new Move_LeechSeed());
 
             return moves.ToArray();
 

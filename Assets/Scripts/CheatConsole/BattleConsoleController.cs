@@ -584,6 +584,27 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set leechseed (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetLeechSeed(state);
+                        return "Set player pokemon leech seed to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetLeechSeed(state);
+                        return "Set opponent pokemon leech seed to " + (state ? "true" : "false");
+                    }
+
+                }
             }
 
         };

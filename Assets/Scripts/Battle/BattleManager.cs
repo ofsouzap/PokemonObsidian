@@ -648,6 +648,20 @@ namespace Battle
 
                 #endregion
 
+                #region Leech Seed
+
+                yield return StartCoroutine(RefreshParticipantLeechSeed(battleData.participantPlayer, battleData.participantOpponent));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantLeechSeed(battleData.participantOpponent, battleData.participantPlayer));
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
                 #endregion
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
@@ -1678,6 +1692,49 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantLeechSeed(BattleParticipant participant, BattleParticipant opponent)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+            PokemonInstance opponentPokemon = opponent.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.leechSeed)
+            {
+
+                // Leech seed leeches 1/8 of a pokemon's maximum health
+                int damageToDeal = participantPokemon.GetStats().health / 8;
+
+                int initialHealth = participantPokemon.health;
+
+                // Damage pokemon
+                participantPokemon.TakeDamage(damageToDeal);
+
+                int damageDone = initialHealth - participantPokemon.health;
+
+                // Heal opponent
+                int opponentInitialHealth = opponentPokemon.health;
+                opponentPokemon.HealHealth(damageDone);
+
+                battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " had its health leeched");
+
+                battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
+
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = opponent is BattleParticipantPlayer
+                        ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
+                        : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                    takeDamageOldHealth = opponentInitialHealth,
+                    takeDamageNewHealth = opponentPokemon.health,
+                    takeDamageMaxHealth = opponentPokemon.GetStats().health
+                });
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
         {
 
@@ -2236,6 +2293,16 @@ namespace Battle
                     {
                         targetPokemon.battleProperties.volatileStatusConditions.infatuated = true;
                         battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " has fallen in love!");
+                    }
+
+                    #endregion
+
+                    #region Leech Seed
+
+                    if (usageResults.inflictLeechSeed)
+                    {
+                        targetPokemon.battleProperties.volatileStatusConditions.leechSeed = true;
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was leeched!");
                     }
 
                     #endregion

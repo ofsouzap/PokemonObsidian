@@ -1,5 +1,5 @@
 Extra move ids:
-blizzard:59,growth:74,night shade:101,seismic toss:69,super fang:162,thunder:87,toxic:92
+blizzard:59,growth:74,leech seed:73,night shade:101,seismic toss:69,super fang:162,thunder:87,toxic:92
 
 Bulbasaur
 scratch

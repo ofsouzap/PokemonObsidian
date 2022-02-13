@@ -388,6 +388,11 @@ namespace Pokemon.Moves
             /// </summary>
             public bool inflictInfatuated = false;
 
+            /// <summary>
+            /// Whether the move should inflict the target with leech seed
+            /// </summary>
+            public bool inflictLeechSeed = false;
+
         }
 
         public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
@@ -901,6 +906,17 @@ namespace Pokemon.Moves
             BattleData battleData)
             => false;
 
+        public virtual bool GetInflictsLeechSeed(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual UsageResults CalculateLeechSeedChanges(UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => usageResults;
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -996,6 +1012,15 @@ namespace Pokemon.Moves
             {
                 usageResults.inflictInfatuated = true;
             }
+
+            #region Leech Seed
+
+            usageResults = CalculateLeechSeedChanges(usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
 
             if (allowMissing)
             {
