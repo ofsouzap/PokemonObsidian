@@ -895,7 +895,10 @@ namespace Battle
 
             battleData?.networkStream?.Close();
             Connection.StopListenForNetworkBattleComms();
-            ((BattleParticipantNetwork)battleData?.participantOpponent)?.StopRefreshingForNetworkComms();
+            if (battleData?.participantOpponent is BattleParticipantNetwork netOpp)
+            {
+                netOpp.StopRefreshingForNetworkComms();
+            }
 
         }
 

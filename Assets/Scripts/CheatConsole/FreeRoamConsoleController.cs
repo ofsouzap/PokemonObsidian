@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using FreeRoaming;
 using FreeRoaming.AreaControllers;
+using Battle;
+using Pokemon;
+using Audio;
 
 namespace CheatConsole
 {
@@ -137,6 +140,39 @@ namespace CheatConsole
                     return "Added " + PlayerData.currencySymbol + amount + " to player";
 
                 }
+            },
+
+            {
+                new Regex("^wildencounter create species (?<speciesId>[0-9]+) level (?<level>[0-2]?[0-9]?[0-9])"),
+                (m) =>
+                {
+
+                    int speciesId = int.Parse(m.Groups["speciesId"].Value);
+
+                    byte level = byte.Parse(m.Groups["level"].Value);
+
+                    PokemonInstance opp = PokemonFactory.GenerateWild(
+                        new int[1] { speciesId },
+                        level,
+                        level);
+
+                    BattleEntranceArguments.argumentsSet = true;
+
+                    BattleEntranceArguments.battleBackgroundResourceName = BattleEntranceArguments.defaultBackgroundName;
+
+                    BattleEntranceArguments.battleType = BattleType.WildPokemon;
+                    BattleEntranceArguments.wildPokemonBattleArguments = new BattleEntranceArguments.WildPokemonBattleArguments()
+                    {
+                        opponentInstance = opp
+                    };
+
+                    MusicSourceController.singleton.SetTrack(BattleEntranceArguments.defaultPokemonBattleMusicName, true);
+
+                    GameSceneManager.LaunchBattleScene();
+
+                    return "Launching battle with specified wild opponent";
+
+                }
             }
 
         };
@@ -179,6 +215,8 @@ namespace CheatConsole
 
             if (!matchFound)
                 Output("Unknown command or invalid syntax");
+
+            RefreshVisibility();
 
         }
 
