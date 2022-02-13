@@ -523,6 +523,67 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) inflict healblock"),
+                (bm, m) =>
+                {
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerInflictHealBlock();
+                        return "Inflicted player pokemon with heal block";
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentInflictHealBlock();
+                        return "Inflicted opponent pokemon with heal block";
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set identified (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetIdentified(state);
+                        return "Set player pokemon identified to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetIdentified(state);
+                        return "Set opponent pokemon identified to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set infatuated (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetInfatuated(state);
+                        return "Set player pokemon infatuated to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetInfatuated(state);
+                        return "Set opponent pokemon infatuated to " + (state ? "true" : "false");
+                    }
+
+                }
             }
 
         };

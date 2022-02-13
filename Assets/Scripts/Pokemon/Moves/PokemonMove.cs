@@ -373,6 +373,21 @@ namespace Pokemon.Moves
             /// </summary>
             public int encoreTurns = 0;
 
+            /// <summary>
+            /// Whether the move should stop the target from healing for 5 turns
+            /// </summary>
+            public bool inflictHealBlock = false;
+
+            /// <summary>
+            /// Whether the move should inflict the target with identified
+            /// </summary>
+            public bool inflictIdentified = false;
+
+            /// <summary>
+            /// Whether the move should inflict the target with infatuated
+            /// </summary>
+            public bool inflictInfatuated = false;
+
         }
 
         public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
@@ -833,6 +848,9 @@ namespace Pokemon.Moves
             int targetDamageDealt = 0)
         {
 
+            if (user.battleProperties.volatileStatusConditions.healBlock > 0)
+                return 0;
+
             int healthHealed = 0;
 
             healthHealed += Mathf.RoundToInt(targetDamageDealt * targetDamageDealtRelativeHealthHealed);
@@ -867,6 +885,21 @@ namespace Pokemon.Moves
             PokemonInstance target,
             BattleData battleData)
             => 0;
+
+        public virtual bool GetInflictsHealBlock(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual bool GetInflictsIdentified(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual bool GetInflictsInfatuated(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
 
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
@@ -947,6 +980,21 @@ namespace Pokemon.Moves
                     return usageResults;
                 }
 
+            }
+
+            if (GetInflictsHealBlock(user, target, battleData))
+            {
+                usageResults.inflictHealBlock = true;
+            }
+
+            if (GetInflictsIdentified(user, target, battleData))
+            {
+                usageResults.inflictIdentified = true;
+            }
+
+            if (GetInflictsInfatuated(user, target, battleData))
+            {
+                usageResults.inflictInfatuated = true;
             }
 
             if (allowMissing)

@@ -740,6 +740,8 @@ namespace Pokemon
 
                 public bool infatuated = false;
 
+                public const float infatuatedMoveFailChance = 0.5F;
+
                 public bool leechSeed = false;
 
                 public bool nightmare = false;
@@ -967,7 +969,10 @@ namespace Pokemon
         /// </summary>
         public float GetBattleEvasion()
         {
-            return CalculateEvasionBattleStat(battleProperties.evasionModifier);
+            if (battleProperties.volatileStatusConditions.identified) // Being identified prevents the target's evasion modifier from effecting it
+                return 1;
+            else
+                return CalculateEvasionBattleStat(battleProperties.evasionModifier);
         }
 
         #endregion

@@ -577,5 +577,53 @@ namespace Battle
 
         }
 
+        /// <summary>
+        /// Gives the player participant a heal block
+        /// </summary>
+        public void CheatCommand_PlayerInflictHealBlock()
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.healBlock = 5;
+        }
+
+        /// <summary>
+        /// Gives the opponent participant a heal block
+        /// </summary>
+        public void CheatCommand_OpponentInflictHealBlock()
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.healBlock = 5;
+        }
+
+        /// <summary>
+        /// Identifies the player's pokemon
+        /// </summary>
+        public void CheatCommand_PlayerSetIdentified(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.identified = state;
+        }
+
+        /// <summary>
+        /// Identifies the opponent's pokemon
+        /// </summary>
+        public void CheatCommand_OpponentSetIdentified(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.identified = state;
+        }
+
+        /// <summary>
+        /// Infatuates the player's pokemon
+        /// </summary>
+        public void CheatCommand_PlayerSetInfatuated(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.infatuated = state;
+        }
+
+        /// <summary>
+        /// Infatuates the opponent's pokemon
+        /// </summary>
+        public void CheatCommand_OpponentSetInfatuated(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.infatuated = state;
+        }
+
     }
 }
