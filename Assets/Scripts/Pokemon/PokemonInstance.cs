@@ -747,7 +747,7 @@ namespace Pokemon
                 public bool nightmare = false;
 
                 /// <summary>
-                /// Remaining turns until fainting from perish song
+                /// Remaining turns until fainting from perish song. Negative if not under influence of perish song
                 /// </summary>
                 public int perishSong = -1;
 

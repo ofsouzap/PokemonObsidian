@@ -538,10 +538,14 @@ namespace Battle
 
                 yield return StartCoroutine(MainBattleCoroutine_ApplyWeatherDamageToParticipant(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(MainBattleCoroutine_ApplyWeatherDamageToParticipant(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -552,10 +556,14 @@ namespace Battle
 
                 yield return StartCoroutine(MainBattleCoroutine_ApplyNonVolatileStatusConditionDamageUsingParticipant(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(MainBattleCoroutine_ApplyNonVolatileStatusConditionDamageUsingParticipant(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -568,10 +576,14 @@ namespace Battle
 
                 yield return StartCoroutine(RefreshParticipantBound(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(RefreshParticipantBound(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -582,10 +594,14 @@ namespace Battle
 
                 yield return StartCoroutine(RefreshParticipantCurse(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(RefreshParticipantCurse(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -596,10 +612,14 @@ namespace Battle
 
                 yield return StartCoroutine(RefreshParticipantDrowsy(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(RefreshParticipantDrowsy(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -610,10 +630,14 @@ namespace Battle
 
                 yield return StartCoroutine(RefreshParticipantEmbargo(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(RefreshParticipantEmbargo(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -624,10 +648,14 @@ namespace Battle
 
                 yield return StartCoroutine(RefreshParticipantEncore(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(RefreshParticipantEncore(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -638,10 +666,14 @@ namespace Battle
 
                 yield return StartCoroutine(RefreshParticipantHealBlock(battleData.participantPlayer));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(RefreshParticipantHealBlock(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -652,10 +684,50 @@ namespace Battle
 
                 yield return StartCoroutine(RefreshParticipantLeechSeed(battleData.participantPlayer, battleData.participantOpponent));
 
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
                 if (!CheckIfBattleRunning())
                     break;
 
                 yield return StartCoroutine(RefreshParticipantLeechSeed(battleData.participantOpponent, battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Nightmare
+
+                yield return StartCoroutine(RefreshParticipantNightmare(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantNightmare(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Perish Song
+
+                yield return StartCoroutine(RefreshParticipantPerishSong(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantPerishSong(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
 
                 if (!CheckIfBattleRunning())
                     break;
@@ -1254,11 +1326,6 @@ namespace Battle
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
-                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
-
-                if (!CheckIfBattleRunning())
-                    yield break;
-
             }
 
         }
@@ -1730,6 +1797,66 @@ namespace Battle
                 });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
+        private IEnumerator RefreshParticipantNightmare(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.Asleep)
+                participantPokemon.battleProperties.volatileStatusConditions.nightmare = false;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.nightmare)
+            {
+
+                //Nightmares inflict 1/4 of a pokemon's maximum health each turn
+
+                int damageToDeal = participantPokemon.GetStats().health / 4;
+
+                int initialHealth = participantPokemon.health;
+
+                participantPokemon.TakeDamage(damageToDeal);
+
+                battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " is having nightmares");
+                battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
+        private IEnumerator RefreshParticipantPerishSong(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.perishSong > 0)
+            {
+
+                participantPokemon.battleProperties.volatileStatusConditions.perishSong--;
+
+                if (participantPokemon.battleProperties.volatileStatusConditions.perishSong == 0)
+                {
+
+                    participantPokemon.battleProperties.volatileStatusConditions.perishSong = -1;
+
+                    int damageToDeal = participantPokemon.health;
+
+                    int initialHealth = participantPokemon.health;
+
+                    participantPokemon.TakeDamage(damageToDeal);
+
+                    battleAnimationSequencer.EnqueueSingleText(participant.ActivePokemon.GetDisplayName() + " fell to the perish song!");
+                    battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(participant.ActivePokemon, initialHealth, participant is BattleParticipantPlayer));
+
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                }
 
             }
 
@@ -2303,6 +2430,33 @@ namespace Battle
                     {
                         targetPokemon.battleProperties.volatileStatusConditions.leechSeed = true;
                         battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was leeched!");
+                    }
+
+                    #endregion
+
+                    #region Nightmare
+
+                    if (usageResults.inflictNightmare)
+                    {
+
+                        targetPokemon.battleProperties.volatileStatusConditions.nightmare = true;
+
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " started having nightmares!");
+
+                    }
+
+                    #endregion
+
+                    #region Perish Song
+
+                    if (usageResults.inflictPerishSong)
+                    {
+
+                        userPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
+                        targetPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
+
+                        battleAnimationSequencer.EnqueueSingleText("The pokemon don't feel so good..."); //Marvel's Avengers: Infinity War reference
+
                     }
 
                     #endregion

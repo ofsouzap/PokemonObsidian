@@ -393,6 +393,16 @@ namespace Pokemon.Moves
             /// </summary>
             public bool inflictLeechSeed = false;
 
+            /// <summary>
+            /// Whether the move should inflict the target with nightmare
+            /// </summary>
+            public bool inflictNightmare = false;
+
+            /// <summary>
+            /// Whether the move should inflict the target *and the user* with perish song
+            /// </summary>
+            public bool inflictPerishSong = false;
+
         }
 
         public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
@@ -917,6 +927,16 @@ namespace Pokemon.Moves
             BattleData battleData)
             => usageResults;
 
+        public virtual bool GetInflictsNightmare(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual bool GetInflictsPerishSong(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -1021,6 +1041,16 @@ namespace Pokemon.Moves
                 return usageResults;
 
             #endregion
+
+            if (GetInflictsNightmare(user, target, battleData))
+            {
+                usageResults.inflictNightmare = true;
+            }
+
+            if (GetInflictsPerishSong(user, target, battleData))
+            {
+                usageResults.inflictPerishSong = true;
+            }
 
             if (allowMissing)
             {

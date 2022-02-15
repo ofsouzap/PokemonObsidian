@@ -641,5 +641,37 @@ namespace Battle
             battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.leechSeed = state;
         }
 
+        /// <summary>
+        /// Makes the player's active pokemon have nightmares or removes them
+        /// </summary>
+        public void CheatCommand_PlayerSetNightmare(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.nightmare = state;
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon have nightmares or removes them
+        /// </summary>
+        public void CheatCommand_OpponentSetNightmare(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.nightmare = state;
+        }
+
+        /// <summary>
+        /// Gives the player's active pokemon perish song for the number of turns provided
+        /// </summary>
+        public void CheatCommand_PlayerInflictPerishSong(int turns)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.perishSong = turns;
+        }
+
+        /// <summary>
+        /// Gives the opponent's active pokemon perish song for the number of turns provided
+        /// </summary>
+        public void CheatCommand_OpponentInflictPerishSong(int turns)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.perishSong = turns;
+        }
+
     }
 }

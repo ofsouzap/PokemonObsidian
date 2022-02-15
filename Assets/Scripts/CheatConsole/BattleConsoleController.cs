@@ -605,6 +605,48 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set nightmare (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetNightmare(state);
+                        return "Set player pokemon nightmare state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetNightmare(state);
+                        return "Set opponent pokemon nightmare state to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) inflict perishsong (?<turns>[0-9]+)"),
+                (bm, m) =>
+                {
+
+                    int turns = int.Parse(m.Groups["turns"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerInflictPerishSong(turns);
+                        return "Player pokemon inflicted with perish song for " + turns + "turns";
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentInflictPerishSong(turns);
+                        return "Opponent pokemon inflicted with perish song for " + turns + "turns";
+                    }
+
+                }
             }
 
         };
