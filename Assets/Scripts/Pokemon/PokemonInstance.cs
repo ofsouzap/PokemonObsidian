@@ -768,17 +768,13 @@ namespace Pokemon
                 //https://bulbapedia.bulbagarden.net/wiki/Status_condition#Volatile_battle_status
 
                 public bool aquaRing = false,
+                    bracing = false,
                     charging = false,
                     defenseCurl = false,
                     rooting = false,
-                    magicCoat = false,
-                    magneticLevitation = false,
-                    minimise = false,
                     protection = false,
                     recharging = false,
                     semiInvurnerable = false,
-                    aiming = false,
-                    withdrawing = false,
                     takingAim = false;
 
                 /// <summary>

@@ -754,6 +754,82 @@ namespace Battle
 
                 #endregion
 
+                #region Volatile Battle Statuses
+
+                #region Aqua Ring
+
+                yield return StartCoroutine(RefreshParticipantAquaRing(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantAquaRing(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Bracing
+
+                yield return StartCoroutine(RefreshParticipantBracing(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantBracing(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Rooting
+
+                yield return StartCoroutine(RefreshParticipantRooting(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantRooting(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #region Protection
+
+                yield return StartCoroutine(RefreshParticipantProtection(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantProtection(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
+                #endregion
+
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
                 battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
 
@@ -1563,6 +1639,8 @@ namespace Battle
 
         }
 
+        #region Volatile Status Conditions
+
         private IEnumerator RefreshParticipantConfusion(BattleParticipant participant)
         {
 
@@ -1905,6 +1983,108 @@ namespace Battle
             }
 
         }
+
+        #endregion
+
+        #region Volatile Battle Statuses
+
+        private IEnumerator RefreshParticipantAquaRing(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileBattleStatus.aquaRing && (participantPokemon.health < participantPokemon.GetStats().health))
+            {
+
+                int initialHealth = participantPokemon.health;
+
+                //Aqua ring heals 1/16th of pokemon's maximum health each turn
+                int healthToHeal = participantPokemon.GetStats().health / 16;
+
+                //Heal pokemon
+                participantPokemon.HealHealth(healthToHeal);
+
+                battleAnimationSequencer.EnqueueSingleText(participantPokemon.GetDisplayName() + " was healed by its aqua ring");
+
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = participant is BattleParticipantPlayer
+                        ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
+                        : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                    takeDamageOldHealth = initialHealth,
+                    takeDamageNewHealth = participantPokemon.health,
+                    takeDamageMaxHealth = participantPokemon.GetStats().health
+                });
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
+        private IEnumerator RefreshParticipantBracing(BattleParticipant participant)
+        {
+
+            //Bracing only lasts for 1 turn
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileBattleStatus.bracing)
+                participantPokemon.battleProperties.volatileBattleStatus.bracing = false;
+
+            yield break;
+
+        }
+
+        private IEnumerator RefreshParticipantRooting(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileBattleStatus.rooting && (participantPokemon.health < participantPokemon.GetStats().health))
+            {
+
+                int initialHealth = participantPokemon.health;
+
+                //Rooting heals 1/16th of pokemon's maximum health each turn
+                int healthToHeal = participantPokemon.GetStats().health / 16;
+
+                //Heal pokemon
+                participantPokemon.HealHealth(healthToHeal);
+
+                battleAnimationSequencer.EnqueueSingleText(participantPokemon.GetDisplayName() + " absorbed energy from the ground");
+
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                {
+                    type = participant is BattleParticipantPlayer
+                        ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
+                        : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                    takeDamageOldHealth = initialHealth,
+                    takeDamageNewHealth = participantPokemon.health,
+                    takeDamageMaxHealth = participantPokemon.GetStats().health
+                });
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
+        private IEnumerator RefreshParticipantProtection(BattleParticipant participant)
+        {
+
+            //Protection only lasts for 1 turn
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileBattleStatus.protection)
+                participantPokemon.battleProperties.volatileBattleStatus.protection = false;
+
+            yield break;
+
+        }
+
+        #endregion
 
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
         {
@@ -2299,314 +2479,329 @@ namespace Battle
 
                     PokemonInstance targetPokemon = action.fightMoveTarget.ActivePokemon;
 
-                    #region Target Damage
-
-                    //No need to animate damage dealing or try take damage is no damage is dealt
-                    if (usageResults.targetDamageDealt > 0)
+                    if (targetPokemon.battleProperties.volatileBattleStatus.protection && !move.noOpponentEffects)
                     {
 
-                        int targetInitialHealth = targetPokemon.health;
-
-                        targetPokemon.TakeDamage(usageResults.targetDamageDealt);
-
-                        battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(targetPokemon, targetInitialHealth, !userIsPlayer));
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " protected itself!");
 
                     }
-
-                    //Stop loop if target fainted
-                    if (targetPokemon.IsFainted)
-                        break;
-
-                    #region Effectiveness Message
-
-                    if (usageResults.effectiveness == true)
-                    {
-                        battleAnimationSequencer.EnqueueSingleText("It was super effective!");
-                    }
-                    else if (usageResults.effectiveness == false)
-                    {
-                        battleAnimationSequencer.EnqueueSingleText("It was not very effective!");
-                    }
-
-                    #endregion
-
-                    #region Critical Hit
-
-                    if (usageResults.criticalHit)
-                    {
-                        battleAnimationSequencer.EnqueueSingleText("It was a critical hit!");
-                    }
-
-                    #endregion
-
-                    #endregion
-
-                    #region Target Confusion
-
-                    if (usageResults.targetConfuse)
+                    else
                     {
 
-                        //Confusion should last between 1-4 turns decided randomly
-                        targetPokemon.battleProperties.volatileStatusConditions.confusion = battleData.RandomRange(1, 5);
+                        #region Target Damage
 
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
-                        //TODO - enqueue confusion animation
-
-                    }
-
-                    #endregion
-
-                    #region Bound
-
-                    if (usageResults.boundTurns > 0 && targetPokemon.battleProperties.volatileStatusConditions.bound <= 0)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.bound = usageResults.boundTurns;
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was bound!");
-
-                    }
-
-                    #endregion
-
-                    #region Cant Escape
-
-                    if (usageResults.inflictCantEscape)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.cantEscape = true;
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was locked into the battle!");
-
-                    }
-
-                    #endregion
-
-                    #region Curse
-
-                    if (usageResults.inflictCurse)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.curse = true;
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was cursed!");
-
-                    }
-
-                    #endregion
-
-                    #region Drowsy
-
-                    if (usageResults.inflictDrowsy)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.drowsyStage = 2;
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " is feeling sleepy");
-
-                    }
-
-                    #endregion
-
-                    #region Embargo
-
-                    if (usageResults.inflictEmbargo)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.embargo = 6; //Lasts 5 turns but counter will be reduced at end of this turn which shouldn't count
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " feels on-edge");
-
-                    }
-
-                    #endregion
-
-                    #region Encore
-
-                    if (usageResults.encoreTurns > 0)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.encoreTurns = usageResults.encoreTurns;
-                        targetPokemon.battleProperties.volatileStatusConditions.encoreMoveId = targetPokemon.battleProperties.lastMoveId;
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " must provide an encore!");
-
-                    }
-
-                    #endregion
-
-                    #region Heal Block
-
-                    if (usageResults.inflictHealBlock)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.healBlock = 6; //One more than the intended 5 turns as the counter is decremented on this turn
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was stopped from healing itself");
-
-                    }
-
-                    #endregion
-
-                    #region Identified
-
-                    if (usageResults.inflictIdentified)
-                    {
-                        targetPokemon.battleProperties.volatileStatusConditions.identified = true;
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was identified!");
-                    }
-
-                    #endregion
-
-                    #region Infatuated
-
-                    if (usageResults.inflictInfatuated)
-                    {
-                        targetPokemon.battleProperties.volatileStatusConditions.infatuated = true;
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " has fallen in love!");
-                    }
-
-                    #endregion
-
-                    #region Leech Seed
-
-                    if (usageResults.inflictLeechSeed)
-                    {
-                        targetPokemon.battleProperties.volatileStatusConditions.leechSeed = true;
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was leeched!");
-                    }
-
-                    #endregion
-
-                    #region Nightmare
-
-                    if (usageResults.inflictNightmare)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.nightmare = true;
-
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " started having nightmares!");
-
-                    }
-
-                    #endregion
-
-                    #region Perish Song
-
-                    if (usageResults.inflictPerishSong)
-                    {
-
-                        if (userPokemon.battleProperties.volatileStatusConditions.perishSong < 0)
-                            userPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
-
-                        if (targetPokemon.battleProperties.volatileStatusConditions.perishSong < 0)
-                            targetPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
-
-                        battleAnimationSequencer.EnqueueSingleText("The pokemon don't feel so good..."); //Marvel's Avengers: Infinity War reference
-
-                    }
-
-                    #endregion
-
-                    #region Taunt
-
-                    if (usageResults.tauntTurns > 0)
-                    {
-                        targetPokemon.battleProperties.volatileStatusConditions.tauntTurns = usageResults.tauntTurns;
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " fell for the taunt!");
-                    }
-
-                    #endregion
-
-                    #region Torment
-
-                    if (usageResults.inflictTorment)
-                    {
-                        targetPokemon.battleProperties.volatileStatusConditions.torment = true;
-                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " is being tormented!");
-                    }
-
-                    #endregion
-
-                    #region Thawing
-
-                    if (usageResults.thawTarget)
-                    {
-                        targetPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
-                        battleAnimationSequencer.EnqueueSingleText(
-                            targetPokemon.GetDisplayName()
-                            + " was thawed out"
-                            );
-
-                        if (userIsPlayer)
-                            battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
-                        else
-                            battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
-
-                    }
-
-                    #endregion
-
-                    #region Non-Volatile Status Conditions
-
-                    if (usageResults.targetNonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None
-                        && targetPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
-                    {
-
-                        targetPokemon.nonVolatileStatusCondition = usageResults.targetNonVolatileStatusCondition;
-
-                        if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
-                            targetPokemon.remainingSleepTurns = usageResults.targetAsleepInflictionDuration;
-
-                        string nvscInflictionMessage = targetPokemon.GetDisplayName()
-                            + ' '
-                            + PokemonInstance.nonVolatileStatusConditionMessages[
-                                usageResults.targetNonVolatileStatusCondition
-                                ];
-
-                        battleAnimationSequencer.EnqueueSingleText(nvscInflictionMessage);
-
-                        //TODO - enqueue NVSC animation
-
-                        if (userIsPlayer)
-                            battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
-                        else
-                            battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
-
-                    }
-
-                    #endregion
-
-                    #region Target Stat Modifiers
-
-                    BattleAnimationSequencer.Animation[] targetStatModifierAnimations = ExecuteAction_Fight_StatModifiers(
-                        targetPokemon,
-                        action.fightMoveTarget == battleData.participantOpponent,
-                        usageResults.targetStatChanges,
-                        usageResults.targetEvasionChange,
-                        usageResults.targetAccuracyChange
-                        );
-
-                    foreach (BattleAnimationSequencer.Animation animation in targetStatModifierAnimations)
-                        battleAnimationSequencer.EnqueueAnimation(animation);
-
-                    #endregion
-
-                    #region Target Flinching
-
-                    if (usageResults.targetFlinch)
-                    {
-
-                        targetPokemon.battleProperties.volatileStatusConditions.flinch = true;
-
-                        if (targetPokemon.IsFainted)
+                        //No need to animate damage dealing or try take damage is no damage is dealt
+                        if (usageResults.targetDamageDealt > 0)
                         {
-                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " flinched!");
+
+                            int targetInitialHealth = targetPokemon.health;
+
+                            targetPokemon.TakeDamage(usageResults.targetDamageDealt);
+
+                            battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(targetPokemon, targetInitialHealth, !userIsPlayer));
+
                         }
 
-                    }
+                        //Stop loop if target fainted
+                        if (targetPokemon.IsFainted)
+                            break;
 
-                    #endregion
+                        #region Effectiveness Message
+
+                        if (usageResults.effectiveness == true)
+                        {
+                            battleAnimationSequencer.EnqueueSingleText("It was super effective!");
+                        }
+                        else if (usageResults.effectiveness == false)
+                        {
+                            battleAnimationSequencer.EnqueueSingleText("It was not very effective!");
+                        }
+
+                        #endregion
+
+                        #region Critical Hit
+
+                        if (usageResults.criticalHit)
+                        {
+                            battleAnimationSequencer.EnqueueSingleText("It was a critical hit!");
+                        }
+
+                        #endregion
+
+                        #endregion
+
+                        #region Volatile Status Conditions
+
+                        #region Target Confusion
+
+                        if (usageResults.targetConfuse)
+                        {
+
+                            //Confusion should last between 1-4 turns decided randomly
+                            targetPokemon.battleProperties.volatileStatusConditions.confusion = battleData.RandomRange(1, 5);
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " became confused!");
+                            //TODO - enqueue confusion animation
+
+                        }
+
+                        #endregion
+
+                        #region Bound
+
+                        if (usageResults.boundTurns > 0 && targetPokemon.battleProperties.volatileStatusConditions.bound <= 0)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.bound = usageResults.boundTurns;
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was bound!");
+
+                        }
+
+                        #endregion
+
+                        #region Cant Escape
+
+                        if (usageResults.inflictCantEscape)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.cantEscape = true;
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was locked into the battle!");
+
+                        }
+
+                        #endregion
+
+                        #region Curse
+
+                        if (usageResults.inflictCurse)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.curse = true;
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was cursed!");
+
+                        }
+
+                        #endregion
+
+                        #region Drowsy
+
+                        if (usageResults.inflictDrowsy)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.drowsyStage = 2;
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " is feeling sleepy");
+
+                        }
+
+                        #endregion
+
+                        #region Embargo
+
+                        if (usageResults.inflictEmbargo)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.embargo = 6; //Lasts 5 turns but counter will be reduced at end of this turn which shouldn't count
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " feels on-edge");
+
+                        }
+
+                        #endregion
+
+                        #region Encore
+
+                        if (usageResults.encoreTurns > 0)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.encoreTurns = usageResults.encoreTurns;
+                            targetPokemon.battleProperties.volatileStatusConditions.encoreMoveId = targetPokemon.battleProperties.lastMoveId;
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " must provide an encore!");
+
+                        }
+
+                        #endregion
+
+                        #region Heal Block
+
+                        if (usageResults.inflictHealBlock)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.healBlock = 6; //One more than the intended 5 turns as the counter is decremented on this turn
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was stopped from healing itself");
+
+                        }
+
+                        #endregion
+
+                        #region Identified
+
+                        if (usageResults.inflictIdentified)
+                        {
+                            targetPokemon.battleProperties.volatileStatusConditions.identified = true;
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was identified!");
+                        }
+
+                        #endregion
+
+                        #region Infatuated
+
+                        if (usageResults.inflictInfatuated)
+                        {
+                            targetPokemon.battleProperties.volatileStatusConditions.infatuated = true;
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " has fallen in love!");
+                        }
+
+                        #endregion
+
+                        #region Leech Seed
+
+                        if (usageResults.inflictLeechSeed)
+                        {
+                            targetPokemon.battleProperties.volatileStatusConditions.leechSeed = true;
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " was leeched!");
+                        }
+
+                        #endregion
+
+                        #region Nightmare
+
+                        if (usageResults.inflictNightmare)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.nightmare = true;
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " started having nightmares!");
+
+                        }
+
+                        #endregion
+
+                        #region Perish Song
+
+                        if (usageResults.inflictPerishSong)
+                        {
+
+                            if (userPokemon.battleProperties.volatileStatusConditions.perishSong < 0)
+                                userPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
+
+                            if (targetPokemon.battleProperties.volatileStatusConditions.perishSong < 0)
+                                targetPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
+
+                            battleAnimationSequencer.EnqueueSingleText("The pokemon don't feel so good..."); //Marvel's Avengers: Infinity War reference
+
+                        }
+
+                        #endregion
+
+                        #region Taunt
+
+                        if (usageResults.tauntTurns > 0)
+                        {
+                            targetPokemon.battleProperties.volatileStatusConditions.tauntTurns = usageResults.tauntTurns;
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " fell for the taunt!");
+                        }
+
+                        #endregion
+
+                        #region Torment
+
+                        if (usageResults.inflictTorment)
+                        {
+                            targetPokemon.battleProperties.volatileStatusConditions.torment = true;
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " is being tormented!");
+                        }
+
+                        #endregion
+
+                        #endregion
+
+                        #region Thawing
+
+                        if (usageResults.thawTarget)
+                        {
+                            targetPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+                            battleAnimationSequencer.EnqueueSingleText(
+                                targetPokemon.GetDisplayName()
+                                + " was thawed out"
+                                );
+
+                            if (userIsPlayer)
+                                battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                            else
+                                battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+
+                        }
+
+                        #endregion
+
+                        #region Non-Volatile Status Conditions
+
+                        if (usageResults.targetNonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None
+                            && targetPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
+                        {
+
+                            targetPokemon.nonVolatileStatusCondition = usageResults.targetNonVolatileStatusCondition;
+
+                            if (usageResults.targetNonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
+                                targetPokemon.remainingSleepTurns = usageResults.targetAsleepInflictionDuration;
+
+                            string nvscInflictionMessage = targetPokemon.GetDisplayName()
+                                + ' '
+                                + PokemonInstance.nonVolatileStatusConditionMessages[
+                                    usageResults.targetNonVolatileStatusCondition
+                                    ];
+
+                            battleAnimationSequencer.EnqueueSingleText(nvscInflictionMessage);
+
+                            //TODO - enqueue NVSC animation
+
+                            if (userIsPlayer)
+                                battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                            else
+                                battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+
+                        }
+
+                        #endregion
+
+                        #region Target Stat Modifiers
+
+                        BattleAnimationSequencer.Animation[] targetStatModifierAnimations = ExecuteAction_Fight_StatModifiers(
+                            targetPokemon,
+                            action.fightMoveTarget == battleData.participantOpponent,
+                            usageResults.targetStatChanges,
+                            usageResults.targetEvasionChange,
+                            usageResults.targetAccuracyChange
+                            );
+
+                        foreach (BattleAnimationSequencer.Animation animation in targetStatModifierAnimations)
+                            battleAnimationSequencer.EnqueueAnimation(animation);
+
+                        #endregion
+
+                        #region Target Flinching
+
+                        if (usageResults.targetFlinch)
+                        {
+
+                            targetPokemon.battleProperties.volatileStatusConditions.flinch = true;
+
+                            if (targetPokemon.IsFainted)
+                            {
+                                battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " flinched!");
+                            }
+
+                        }
+
+                        #endregion
+
+                    }
 
                     #endregion
 
@@ -2671,6 +2866,59 @@ namespace Battle
 
                     foreach (BattleAnimationSequencer.Animation animation in userStatModifierAnimations)
                         battleAnimationSequencer.EnqueueAnimation(animation);
+
+                    #endregion
+
+                    #region Volatile Battle Statuses
+
+                    #region Aqua Ring
+
+                    if (usageResults.setAquaRing)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.aquaRing = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " was veiled by water");
+                    }
+
+                    #endregion
+
+                    #region Bracing
+
+                    if (usageResults.setBracing)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.bracing = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " braces itself");
+                    }
+
+                    #endregion
+
+                    #region Defense Curl
+
+                    if (usageResults.setDefenseCurl)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.defenseCurl = true;
+                    }
+
+                    #endregion
+
+                    #region Rooting
+
+                    if (usageResults.setRooting)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.rooting = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " planted its roots");
+                    }
+
+                    #endregion
+
+                    #region Protection
+
+                    if (usageResults.setProtection)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.protection = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " protects itself");
+                    }
+
+                    #endregion
 
                     #endregion
 

@@ -689,6 +689,111 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set aquaring (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetAquaRing(state);
+                        return "Set player pokemon aqua ring state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetAquaRing(state);
+                        return "Set opponent pokemon aqua ring state to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set bracing (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetBracing(state);
+                        return "Set player pokemon bracing state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetBracing(state);
+                        return "Set opponent pokemon bracing state to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set defensecurl (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetDefenseCurl(state);
+                        return "Set player pokemon defense curl state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetDefenseCurl(state);
+                        return "Set opponent pokemon defense curl state to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set rooting (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetRooting(state);
+                        return "Set player pokemon rooting state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetRooting(state);
+                        return "Set opponent pokemon rooting state to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set protection (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetProtection(state);
+                        return "Set player pokemon protection state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetProtection(state);
+                        return "Set opponent pokemon protection state to " + (state ? "true" : "false");
+                    }
+
+                }
             }
 
         };

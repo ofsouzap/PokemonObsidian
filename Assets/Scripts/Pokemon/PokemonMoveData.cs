@@ -70,6 +70,7 @@ namespace Pokemon
          * Is instant-KO move (defaults to false)
          * Inflicts bound volatile status condition (defaults to false)
          * Inflicts can't escape (defaults to false)
+         * Sets protection
          */
 
         public static void LoadData()
@@ -103,13 +104,13 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO, inflictsBound, inflictsCantEscape;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO, inflictsBound, inflictsCantEscape, setsProtection;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage, targetDamageDealtRelativeHealthHealed, userMaxHealthRelativeHealthHealed;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
                 bool? movePriority;
 
-                if (entry.Length < 34)
+                if (entry.Length < 35)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -1098,6 +1099,40 @@ namespace Pokemon
 
                 #endregion
 
+                #region setsProtection
+
+                string setsProtectionEntry = entry[34];
+
+                if (setsProtectionEntry == "")
+                {
+                    setsProtection = false;
+                }
+                else
+                {
+
+                    bool? setsProtectionParsed = ParseBooleanProperty(setsProtectionEntry);
+
+                    switch (setsProtectionParsed)
+                    {
+                        case true:
+                            setsProtection = true;
+                            break;
+
+                        case false:
+                            setsProtection = false;
+                            break;
+
+                        default:
+                            Debug.LogError("Invalid setsProtection entry for id - " + id);
+                            setsProtection = false;
+                            break;
+
+                    }
+
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1134,7 +1169,8 @@ namespace Pokemon
                     maximumMultiHitAmount = maximumMultiHitAmount,
                     isInstantKO = isInstantKO,
                     inflictsBound = inflictsBound,
-                    inflictsCantEscape = inflictsCantEscape
+                    inflictsCantEscape = inflictsCantEscape,
+                    setsProtection = setsProtection
                 });
 
             }
@@ -1156,6 +1192,7 @@ namespace Pokemon
             moves.Add(new Move_NightShade());
             moves.Add(new Move_SuperFang());
             moves.Add(new Move_LeechSeed());
+            moves.Add(new Move_DefenseCurl());
 
             return moves.ToArray();
 

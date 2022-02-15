@@ -477,6 +477,8 @@ namespace Battle
             pokemon.movePPs[moveIndex] = newPP;
         }
 
+        #region Volatile Status Conditions
+
         /// <summary>
         /// Makes the player's active pokemon bound for the number of turns provided
         /// </summary>
@@ -704,6 +706,92 @@ namespace Battle
         {
             battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.torment = state;
         }
+
+        #endregion
+
+        #region Volatile Battle Statuses
+
+        /// <summary>
+        /// Makes the player's active pokemon have a aqua ring or removes it
+        /// </summary>
+        public void CheatCommand_PlayerSetAquaRing(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.aquaRing = state;
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon have a aqua ring or removes it
+        /// </summary>
+        public void CheatCommand_OpponentSetAquaRing(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.aquaRing = state;
+        }
+
+        /// <summary>
+        /// Makes the player's active pokemon brace or stop bracing
+        /// </summary>
+        public void CheatCommand_PlayerSetBracing(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.bracing = state;
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon brace or stop bracing
+        /// </summary>
+        public void CheatCommand_OpponentSetBracing(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.bracing = state;
+        }
+
+        /// <summary>
+        /// Sets the player's pokemon's defense curl state
+        /// </summary>
+        public void CheatCommand_PlayerSetDefenseCurl(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.defenseCurl = state;
+        }
+
+        /// <summary>
+        /// Sets the opponent's pokemon's defense curl state
+        /// </summary>
+        public void CheatCommand_OpponentSetDefenseCurl(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.defenseCurl = state;
+        }
+
+        /// <summary>
+        /// Sets the player's pokemon's rooting state
+        /// </summary>
+        public void CheatCommand_PlayerSetRooting(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.rooting = state;
+        }
+
+        /// <summary>
+        /// Sets the opponent's pokemon's rooting state
+        /// </summary>
+        public void CheatCommand_OpponentSetRooting(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.rooting = state;
+        }
+
+        /// <summary>
+        /// Sets the player's pokemon's protection state
+        /// </summary>
+        public void CheatCommand_PlayerSetProtection(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.protection = state;
+        }
+
+        /// <summary>
+        /// Sets the opponent's pokemon's protection state
+        /// </summary>
+        public void CheatCommand_OpponentSetProtection(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.protection = state;
+        }
+
+        #endregion
 
     }
 }

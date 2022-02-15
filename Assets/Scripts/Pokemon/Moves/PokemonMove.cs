@@ -233,6 +233,10 @@ namespace Pokemon.Moves
         /// </summary>
         public bool inflictsCantEscape = false;
 
+        /// <summary>
+        /// Whether the move gives the user protection for this turn
+        /// </summary>
+        public bool setsProtection = false;
 
         #endregion
 
@@ -412,6 +416,31 @@ namespace Pokemon.Moves
             /// Whether the move should inflict torment on the target
             /// </summary>
             public bool inflictTorment = false;
+
+            /// <summary>
+            /// Whether the move should give the user aqua ring
+            /// </summary>
+            public bool setAquaRing = false;
+
+            /// <summary>
+            /// Whether the move should make the user brace and endure this turn
+            /// </summary>
+            public bool setBracing = false;
+
+            /// <summary>
+            /// Whether the move should enable defense curl for the user
+            /// </summary>
+            public bool setDefenseCurl = false;
+
+            /// <summary>
+            /// Whether the move should enable rooting for the user
+            /// </summary>
+            public bool setRooting = false;
+
+            /// <summary>
+            /// Whether the move should enable protection for the user
+            /// </summary>
+            public bool setProtection = false;
 
         }
 
@@ -721,6 +750,16 @@ namespace Pokemon.Moves
                 usageResults.targetDamageDealt = target.health;
             }
 
+            if (usageResults.targetDamageDealt > 0 && target.battleProperties.volatileBattleStatus.bracing)
+            {
+
+                //If target is bracing, leave them with at least 1 health remaining
+
+                if (usageResults.targetDamageDealt >= target.health)
+                    usageResults.targetDamageDealt = target.health - 1;
+
+            }
+
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData, usageResults.targetDamageDealt);
 
             if (usageResults.userDamageDealt == 0)
@@ -886,6 +925,8 @@ namespace Pokemon.Moves
 
         }
 
+        #region Volatile Status Conditions
+
         public virtual int CalculateBoundTurnCount(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
@@ -957,6 +998,42 @@ namespace Pokemon.Moves
             BattleData battleData)
             => false;
 
+        #endregion
+
+        #region Volatile Battle Statuses
+
+        public virtual void DoAquaRingUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        public virtual void DoBracingUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        public virtual void DoDefenseCurlUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        public virtual void DoRootingUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        public virtual void DoProtectionUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        #endregion
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -989,6 +1066,8 @@ namespace Pokemon.Moves
                 usageResults.failed = true;
                 return usageResults;
             }
+
+            #region Volatile Status Conditions
 
             //Failing because pokemon is encored to a different move
             if (user.battleProperties.volatileStatusConditions.encoreTurns > 0 && id != user.battleProperties.volatileStatusConditions.encoreMoveId)
@@ -1082,6 +1161,57 @@ namespace Pokemon.Moves
             {
                 usageResults.inflictTorment = true;
             }
+
+            #endregion
+
+            #region Volatile Battle Statuses
+
+            #region Aqua Ring
+
+            DoAquaRingUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Bracing
+
+            DoBracingUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Defense Curl
+
+            DoDefenseCurlUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Rooting
+
+            DoRootingUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Protection
+
+            DoProtectionUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #endregion
 
             if (allowMissing)
             {
