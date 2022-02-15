@@ -238,6 +238,11 @@ namespace Pokemon.Moves
         /// </summary>
         public bool setsProtection = false;
 
+        /// <summary>
+        /// Whether the move requires a recharging turn
+        /// </summary>
+        public bool requireRecharging = false;
+
         #endregion
 
         #region Move Using
@@ -441,6 +446,11 @@ namespace Pokemon.Moves
             /// Whether the move should enable protection for the user
             /// </summary>
             public bool setProtection = false;
+
+            /// <summary>
+            /// Whether to set the user to require a recharging turn next turn
+            /// </summary>
+            public bool setRecharging = false;
 
         }
 
@@ -1032,6 +1042,19 @@ namespace Pokemon.Moves
             BattleData battleData)
         { }
 
+        public virtual void DoRechargingUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            if (usageResults.Succeeded && requireRecharging)
+            {
+                usageResults.setRecharging = true;
+            }
+
+        } 
+
         #endregion
 
         /// <summary>
@@ -1205,6 +1228,15 @@ namespace Pokemon.Moves
             #region Protection
 
             DoProtectionUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Recharging
+
+            DoRechargingUpdate(ref usageResults, user, target, battleData);
 
             if (usageResults.failed)
                 return usageResults;

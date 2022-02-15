@@ -23,7 +23,8 @@ namespace Battle
                 Fight,
                 UseItem,
                 Flee,
-                SwitchPokemon
+                SwitchPokemon,
+                Recharge //When the participant's pokemon is recharging and so the participant is not allowed to act in order to wait for this to happen
             }
 
             public Type type;
@@ -35,9 +36,10 @@ namespace Battle
             public static readonly Dictionary<Type, byte> typePriorities = new Dictionary<Type, byte>
             {
                 { Type.Fight, 1 },
-                { Type.Flee, 4 },
-                { Type.SwitchPokemon, 3 },
-                { Type.UseItem, 2 }
+                { Type.Flee, 5 },
+                { Type.SwitchPokemon, 4 },
+                { Type.UseItem, 3 },
+                { Type.Recharge, 2 }
             };
 
             public class PriorityComparer : Comparer<Action>

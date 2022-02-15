@@ -29,10 +29,16 @@ namespace Battle
 
         public override void StartChoosingAction(BattleData battleData)
         {
+
+            base.StartChoosingAction(battleData);
+
+            if (actionHasBeenChosen)
+                return;
+
             recentBattleData = battleData;
-            actionHasBeenChosen = false;
             playerBattleUIController.RefreshMenus();
             OpenBattleUIRoot();
+
         }
 
         public override void StartChoosingNextPokemon()

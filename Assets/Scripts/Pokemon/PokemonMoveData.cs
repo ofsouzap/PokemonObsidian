@@ -71,6 +71,7 @@ namespace Pokemon
          * Inflicts bound volatile status condition (defaults to false)
          * Inflicts can't escape (defaults to false)
          * Sets protection
+         * Requires recharging
          */
 
         public static void LoadData()
@@ -104,13 +105,13 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO, inflictsBound, inflictsCantEscape, setsProtection;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO, inflictsBound, inflictsCantEscape, setsProtection, requireRecharging;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage, targetDamageDealtRelativeHealthHealed, userMaxHealthRelativeHealthHealed;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
                 bool? movePriority;
 
-                if (entry.Length < 35)
+                if (entry.Length < 36)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -1133,6 +1134,40 @@ namespace Pokemon
 
                 #endregion
 
+                #region requireRecharging
+
+                string requireRechargingEntry = entry[35];
+
+                if (requireRechargingEntry == "")
+                {
+                    requireRecharging = false;
+                }
+                else
+                {
+
+                    bool? requireRechargingParsed = ParseBooleanProperty(requireRechargingEntry);
+
+                    switch (requireRechargingParsed)
+                    {
+                        case true:
+                            requireRecharging = true;
+                            break;
+
+                        case false:
+                            requireRecharging = false;
+                            break;
+
+                        default:
+                            Debug.LogError("Invalid requireRecharging entry for id - " + id);
+                            requireRecharging = false;
+                            break;
+
+                    }
+
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1170,7 +1205,8 @@ namespace Pokemon
                     isInstantKO = isInstantKO,
                     inflictsBound = inflictsBound,
                     inflictsCantEscape = inflictsCantEscape,
-                    setsProtection = setsProtection
+                    setsProtection = setsProtection,
+                    requireRecharging = requireRecharging
                 });
 
             }

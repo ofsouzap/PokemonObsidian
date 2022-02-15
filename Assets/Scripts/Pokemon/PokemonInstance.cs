@@ -773,9 +773,14 @@ namespace Pokemon
                     defenseCurl = false,
                     rooting = false,
                     protection = false,
-                    recharging = false,
                     semiInvurnerable = false,
                     takingAim = false;
+
+
+                /// <summary>
+                /// The stage of recharging the pokemon is in: (0) none, (1) in recharging turn, (2) using move that will need next turn for recharging
+                /// </summary>
+                public int rechargingStage = 0;
 
                 /// <summary>
                 /// Whether a substitute is being used

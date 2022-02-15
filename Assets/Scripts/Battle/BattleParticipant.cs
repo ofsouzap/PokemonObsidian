@@ -27,7 +27,25 @@ namespace Battle
 
         public virtual Action GetChosenAction() => chosenAction;
 
-        public abstract void StartChoosingAction(BattleData battleData);
+        public virtual void StartChoosingAction(BattleData battleData)
+        {
+
+            actionHasBeenChosen = false;
+
+            if (ActivePokemon.battleProperties.volatileBattleStatus.rechargingStage > 0)
+            {
+
+                chosenAction = new Action(this)
+                {
+                    type = Action.Type.Recharge
+                };
+                actionHasBeenChosen = true;
+
+                return;
+
+            }
+
+        }
 
         /// <summary>
         /// Forcefully set a participant's chosen action. Made for cheat commands

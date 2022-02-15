@@ -24,6 +24,11 @@ namespace Battle.NPCBattleParticipantModes
         public override void StartChoosingAction(BattleData battleData)
         {
 
+            base.StartChoosingAction(battleData);
+
+            if (actionHasBeenChosen)
+                return;
+
             int actionItemTargetIndex = activePokemonIndex;
             Item actionItem;
 

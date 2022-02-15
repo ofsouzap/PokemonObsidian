@@ -828,6 +828,24 @@ namespace Battle
 
                 #endregion
 
+                #region Recharging
+
+                yield return StartCoroutine(RefreshParticipantRecharging(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantRecharging(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
                 #endregion
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
@@ -2084,6 +2102,34 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantRecharging(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            switch (participantPokemon.battleProperties.volatileBattleStatus.rechargingStage)
+            {
+
+                case 2:
+                case 1:
+
+                    participantPokemon.battleProperties.volatileBattleStatus.rechargingStage--;
+
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    Debug.LogWarning("Invalid recharging stage");
+                    break;
+
+            }
+
+            yield break;
+
+        }
+
         #endregion
 
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
@@ -2234,6 +2280,8 @@ namespace Battle
             
         }
 
+        #region Action Execution
+
         /// <summary>
         /// Select the action execution method for the provided action and run it using the action. This includes adding and running animations
         /// </summary>
@@ -2268,6 +2316,10 @@ namespace Battle
 
                 case BattleParticipant.Action.Type.UseItem:
                     yield return StartCoroutine(ExecuteAction_UseItem(action));
+                    break;
+
+                case BattleParticipant.Action.Type.Recharge:
+                    yield return StartCoroutine(ExecuteAction_Recharging(action));
                     break;
 
                 default:
@@ -2807,6 +2859,68 @@ namespace Battle
 
                     #region User Effects
 
+                    #region Volatile Battle Statuses
+
+                    #region Aqua Ring
+
+                    if (usageResults.setAquaRing)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.aquaRing = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " was veiled by water");
+                    }
+
+                    #endregion
+
+                    #region Bracing
+
+                    if (usageResults.setBracing)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.bracing = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " braces itself");
+                    }
+
+                    #endregion
+
+                    #region Defense Curl
+
+                    if (usageResults.setDefenseCurl)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.defenseCurl = true;
+                    }
+
+                    #endregion
+
+                    #region Rooting
+
+                    if (usageResults.setRooting)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.rooting = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " planted its roots");
+                    }
+
+                    #endregion
+
+                    #region Protection
+
+                    if (usageResults.setProtection)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.protection = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " protects itself");
+                    }
+
+                    #endregion
+
+                    #region Recharging
+
+                    if (usageResults.setRecharging)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.rechargingStage = 2;
+                    }
+
+                    #endregion
+
+                    #endregion
+
                     #region User Damage
 
                     if (usageResults.userDamageDealt > 0)
@@ -2866,59 +2980,6 @@ namespace Battle
 
                     foreach (BattleAnimationSequencer.Animation animation in userStatModifierAnimations)
                         battleAnimationSequencer.EnqueueAnimation(animation);
-
-                    #endregion
-
-                    #region Volatile Battle Statuses
-
-                    #region Aqua Ring
-
-                    if (usageResults.setAquaRing)
-                    {
-                        userPokemon.battleProperties.volatileBattleStatus.aquaRing = true;
-                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " was veiled by water");
-                    }
-
-                    #endregion
-
-                    #region Bracing
-
-                    if (usageResults.setBracing)
-                    {
-                        userPokemon.battleProperties.volatileBattleStatus.bracing = true;
-                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " braces itself");
-                    }
-
-                    #endregion
-
-                    #region Defense Curl
-
-                    if (usageResults.setDefenseCurl)
-                    {
-                        userPokemon.battleProperties.volatileBattleStatus.defenseCurl = true;
-                    }
-
-                    #endregion
-
-                    #region Rooting
-
-                    if (usageResults.setRooting)
-                    {
-                        userPokemon.battleProperties.volatileBattleStatus.rooting = true;
-                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " planted its roots");
-                    }
-
-                    #endregion
-
-                    #region Protection
-
-                    if (usageResults.setProtection)
-                    {
-                        userPokemon.battleProperties.volatileBattleStatus.protection = true;
-                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " protects itself");
-                    }
-
-                    #endregion
 
                     #endregion
 
@@ -3512,6 +3573,20 @@ namespace Battle
             #endregion
 
         }
+
+        /// <summary>
+        /// Executes a recharging action where the participant's pokemon must recharge
+        /// </summary>
+        private IEnumerator ExecuteAction_Recharging(BattleParticipant.Action action)
+        {
+
+            battleAnimationSequencer.EnqueueSingleText(action.user.ActivePokemon.GetDisplayName() + " must recharge");
+
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+        }
+
+        #endregion
 
     }
 

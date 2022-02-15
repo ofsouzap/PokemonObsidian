@@ -22,6 +22,11 @@ namespace Battle.NPCBattleParticipantModes
         public override void StartChoosingAction(BattleData battleData)
         {
 
+            base.StartChoosingAction(battleData);
+
+            if (actionHasBeenChosen)
+                return;
+
             if (!ActivePokemon.HasUsableMove)
             {
                 chosenAction = new Action(this)
