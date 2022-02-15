@@ -754,7 +754,7 @@ namespace Pokemon
                 /// <summary>
                 /// Remaining turns of taunt
                 /// </summary>
-                public int taunt = -1;
+                public int tauntTurns = -1;
 
                 public bool torment = false;
 

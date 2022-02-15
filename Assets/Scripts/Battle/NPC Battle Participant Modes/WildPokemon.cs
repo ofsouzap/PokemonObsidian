@@ -79,17 +79,30 @@ namespace Battle.NPCBattleParticipantModes
 
                     weightings[i] = 1;
 
+                    //Move unset
                     if (PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[i]))
                     {
                         weightings[i] = 0;
                         continue;
                     }
 
+                    //Out of PP
                     if (ActivePokemon.movePPs[i] <= 0)
                         weightings[i] = 0;
 
                     PokemonMove move = PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[i]);
 
+                    //Being taunted
+                    if (ActivePokemon.battleProperties.volatileStatusConditions.tauntTurns > 0
+                        && move.moveType == PokemonMove.MoveType.Status)
+                        weightings[i] = 0;
+
+                    //Being tormented
+                    if (ActivePokemon.battleProperties.volatileStatusConditions.torment
+                        && ActivePokemon.battleProperties.lastMoveId == move.id)
+                        weightings[i] = 0;
+
+                    //Type advantage
                     weightings[i] *= GetTypeAdvantageWeighting(TypeAdvantage.CalculateMultiplier(move.type, opposingPokemon.species));
 
                 }

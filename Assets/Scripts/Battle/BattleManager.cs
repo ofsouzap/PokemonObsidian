@@ -734,6 +734,24 @@ namespace Battle
 
                 #endregion
 
+                #region Taunt
+
+                yield return StartCoroutine(RefreshParticipantTaunt(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantTaunt(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
                 #endregion
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
@@ -1862,6 +1880,32 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantTaunt(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileStatusConditions.tauntTurns > 0)
+            {
+
+                participantPokemon.battleProperties.volatileStatusConditions.tauntTurns--;
+
+                if (participantPokemon.battleProperties.volatileStatusConditions.tauntTurns <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(
+                        participantPokemon.GetDisplayName()
+                        + " escaped from the taunt!"
+                        );
+
+                }
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
         {
 
@@ -2452,11 +2496,34 @@ namespace Battle
                     if (usageResults.inflictPerishSong)
                     {
 
-                        userPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
-                        targetPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
+                        if (userPokemon.battleProperties.volatileStatusConditions.perishSong < 0)
+                            userPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
+
+                        if (targetPokemon.battleProperties.volatileStatusConditions.perishSong < 0)
+                            targetPokemon.battleProperties.volatileStatusConditions.perishSong = 4;
 
                         battleAnimationSequencer.EnqueueSingleText("The pokemon don't feel so good..."); //Marvel's Avengers: Infinity War reference
 
+                    }
+
+                    #endregion
+
+                    #region Taunt
+
+                    if (usageResults.tauntTurns > 0)
+                    {
+                        targetPokemon.battleProperties.volatileStatusConditions.tauntTurns = usageResults.tauntTurns;
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " fell for the taunt!");
+                    }
+
+                    #endregion
+
+                    #region Torment
+
+                    if (usageResults.inflictTorment)
+                    {
+                        targetPokemon.battleProperties.volatileStatusConditions.torment = true;
+                        battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " is being tormented!");
                     }
 
                     #endregion

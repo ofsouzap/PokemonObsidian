@@ -403,6 +403,16 @@ namespace Pokemon.Moves
             /// </summary>
             public bool inflictPerishSong = false;
 
+            /// <summary>
+            /// How long the move should inflict taunt on the target for
+            /// </summary>
+            public int tauntTurns = 0;
+
+            /// <summary>
+            /// Whether the move should inflict torment on the target
+            /// </summary>
+            public bool inflictTorment = false;
+
         }
 
         public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
@@ -937,6 +947,16 @@ namespace Pokemon.Moves
             BattleData battleData)
             => false;
 
+        public virtual int CalculateTauntTurnCount(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => 0;
+
+        public virtual bool GetInflictsTorment(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -1050,6 +1070,17 @@ namespace Pokemon.Moves
             if (GetInflictsPerishSong(user, target, battleData))
             {
                 usageResults.inflictPerishSong = true;
+            }
+
+            int tauntTurns = CalculateTauntTurnCount(user, target, battleData);
+            if (tauntTurns > 0)
+            {
+                usageResults.tauntTurns = tauntTurns;
+            }
+
+            if (GetInflictsTorment(user, target, battleData))
+            {
+                usageResults.inflictTorment = true;
             }
 
             if (allowMissing)

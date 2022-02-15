@@ -177,6 +177,7 @@ namespace Battle.NPCBattleParticipantModes
                 for (int i = 0; i < ActivePokemon.moveIds.Length; i++)
                 {
 
+                    //Move unset
                     if (PokemonMove.MoveIdIsUnset(ActivePokemon.moveIds[i]))
                     {
                         weightings[i] = 0;
@@ -185,18 +186,31 @@ namespace Battle.NPCBattleParticipantModes
 
                     PokemonMove move = PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[i]);
 
+                    //Being taunted
+                    if (ActivePokemon.battleProperties.volatileStatusConditions.tauntTurns > 0
+                        && move.moveType == PokemonMove.MoveType.Status)
+                        weightings[i] = 0;
+
+                    //Being tormented
+                    if (ActivePokemon.battleProperties.volatileStatusConditions.torment
+                        && ActivePokemon.battleProperties.lastMoveId == move.id)
+                        weightings[i] = 0;
+
                     float effectivenessModifier = target.species.type2 == null
                         ? TypeAdvantage.CalculateMultiplier(move.type, target.species.type1)
                         : TypeAdvantage.CalculateMultiplier(move.type, target.species.type1, (Type)target.species.type2);
 
+                    //Out of PP
                     if (ActivePokemon.movePPs[i] <= 0)
                         weightings[i] = 0;
 
+                    //Status or attack move
                     if (move.moveType == PokemonMove.MoveType.Status)
                         weightings[i] *= GetStatOEWeighting(statOEMovesUsed);
                     else
                         weightings[i] *= GetAttackMoveWeighting(effectivenessModifier);
 
+                    //Healing weight
                     weightings[i] *= GetHealingMoveWeighint((float)ActivePokemon.health / ActivePokemon.GetStats().health);
 
                 }

@@ -673,5 +673,37 @@ namespace Battle
             battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.perishSong = turns;
         }
 
+        /// <summary>
+        /// Gives the player's active pokemon taunt for the number of turns provided
+        /// </summary>
+        public void CheatCommand_PlayerInflictTaunt(int turns)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.tauntTurns = turns;
+        }
+
+        /// <summary>
+        /// Gives the opponent's active pokemon taunt for the number of turns provided
+        /// </summary>
+        public void CheatCommand_OpponentInflictTaunt(int turns)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.tauntTurns = turns;
+        }
+
+        /// <summary>
+        /// Makes the player's active pokemon have a torment or removes it
+        /// </summary>
+        public void CheatCommand_PlayerSetTorment(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.torment = state;
+        }
+
+        /// <summary>
+        /// Makes the opponent's active pokemon have a torment or removes it
+        /// </summary>
+        public void CheatCommand_OpponentSetTorment(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.torment = state;
+        }
+
     }
 }

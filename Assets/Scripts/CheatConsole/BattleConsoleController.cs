@@ -432,12 +432,12 @@ namespace CheatConsole
                     if (m.Groups["participant"].Value == "player")
                     {
                         bm.CheatCommand_PlayerInflictBound(turns + 1);
-                        return "Player pokemon inflicted with bound for " + turns + "turns";
+                        return "Player pokemon inflicted with bound for " + turns + " turns";
                     }
                     else
                     {
                         bm.CheatCommand_OpponentInflictBound(turns + 1);
-                        return "Opponent pokemon inflicted with bound for " + turns + "turns";
+                        return "Opponent pokemon inflicted with bound for " + turns + " turns";
                     }
 
                 }
@@ -638,12 +638,54 @@ namespace CheatConsole
                     if (m.Groups["participant"].Value == "player")
                     {
                         bm.CheatCommand_PlayerInflictPerishSong(turns);
-                        return "Player pokemon inflicted with perish song for " + turns + "turns";
+                        return "Player pokemon inflicted with perish song for " + turns + " turns";
                     }
                     else
                     {
                         bm.CheatCommand_OpponentInflictPerishSong(turns);
-                        return "Opponent pokemon inflicted with perish song for " + turns + "turns";
+                        return "Opponent pokemon inflicted with perish song for " + turns + " turns";
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) inflict taunt (?<turns>[0-9]+)"),
+                (bm, m) =>
+                {
+
+                    int turns = int.Parse(m.Groups["turns"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerInflictTaunt(turns);
+                        return "Player pokemon inflicted with taunt for " + turns + " turns";
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentInflictTaunt(turns);
+                        return "Opponent pokemon inflicted with taunt for " + turns + " turns";
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set torment (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetTorment(state);
+                        return "Set player pokemon torment state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetTorment(state);
+                        return "Set opponent pokemon torment state to " + (state ? "true" : "false");
                     }
 
                 }

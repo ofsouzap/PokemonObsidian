@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Items;
 using Items.MedicineItems;
-using Items.PokeBalls;
+using Pokemon.Moves;
 
 namespace Battle.PlayerUI
 {
@@ -281,6 +281,9 @@ namespace Battle.PlayerUI
         public void SuggestChooseMoveIndex(int index)
         {
 
+            int moveId = playerBattleParticipant.ActivePokemon.moveIds[index];
+            PokemonMove move = PokemonMove.GetPokemonMoveById(moveId);
+
             if (playerBattleParticipant.ActivePokemon.movePPs[index] <= 0)
             {
 
@@ -288,12 +291,30 @@ namespace Battle.PlayerUI
                 
             }
             else if (playerBattleParticipant.ActivePokemon.battleProperties.volatileStatusConditions.encoreTurns > 0
-                && playerBattleParticipant.ActivePokemon.moveIds[index] != playerBattleParticipant.ActivePokemon.battleProperties.volatileStatusConditions.encoreMoveId)
+                && moveId != playerBattleParticipant.ActivePokemon.battleProperties.volatileStatusConditions.encoreMoveId)
             {
 
                 //If under influence of encore and trying to use a non-encored move
 
                 battleManager.DisplayPlayerInvalidSelectionMessage(playerBattleParticipant.ActivePokemon.GetDisplayName() + " must provide an encore!");
+
+            }
+            else if (playerBattleParticipant.ActivePokemon.battleProperties.volatileStatusConditions.tauntTurns > 0
+                && move.moveType == PokemonMove.MoveType.Status)
+            {
+
+                //If under influence of taunt and trying to use a status move
+
+                battleManager.DisplayPlayerInvalidSelectionMessage(playerBattleParticipant.ActivePokemon.GetDisplayName() + " can't use status moves while being taunted!");
+
+            }
+            else if (playerBattleParticipant.ActivePokemon.battleProperties.volatileStatusConditions.torment
+                && playerBattleParticipant.ActivePokemon.battleProperties.lastMoveId == moveId)
+            {
+
+                //If under influence of torment and trying to use same move as last turn
+
+                battleManager.DisplayPlayerInvalidSelectionMessage(playerBattleParticipant.ActivePokemon.GetDisplayName() + " can't use the same move as last turn while being tormented!");
 
             }
             else
