@@ -791,6 +791,40 @@ namespace Battle
             battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.protection = state;
         }
 
+        /// <summary>
+        /// Sets the player's pokemon's taking aim state
+        /// </summary>
+        public void CheatCommand_PlayerSetTakingAim(bool state)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.takingAim = state;
+        }
+
+        /// <summary>
+        /// Sets the player's pokemon's taking aim state
+        /// </summary>
+        public void CheatCommand_OpponentSetTakingAim(bool state)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.takingAim = state;
+        }
+
+        /// <summary>
+        /// Gives the player's active pokemon thrashing for the number of turns provided on the move with the given index
+        /// </summary>
+        public void CheatCommand_PlayerInflictThrashing(int turns, int moveIndex)
+        {
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.thrashTurns = turns;
+            battleData.participantPlayer.ActivePokemon.battleProperties.volatileBattleStatus.thrashMoveId = battleData.participantPlayer.ActivePokemon.moveIds[moveIndex];
+        }
+
+        /// <summary>
+        /// Gives the opponent's active pokemon thrashing for the number of turns provided on the move with the given index
+        /// </summary>
+        public void CheatCommand_OpponentInflictThrashing(int turns, int moveIndex)
+        {
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.thrashTurns = turns;
+            battleData.participantOpponent.ActivePokemon.battleProperties.volatileBattleStatus.thrashMoveId = battleData.participantOpponent.ActivePokemon.moveIds[moveIndex];
+        }
+
         #endregion
 
     }

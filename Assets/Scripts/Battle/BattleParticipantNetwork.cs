@@ -186,6 +186,8 @@ namespace Battle
 
         public void StartChoosingAction() { }
 
+        public override void ChooseActionFight(BattleData battleData, bool useStruggle, int moveIndex) { }
+
         public override bool GetActionHasBeenChosen()
         {
             return GetChosenActionQueueLength() > 0;

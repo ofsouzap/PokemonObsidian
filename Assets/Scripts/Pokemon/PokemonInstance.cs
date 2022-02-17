@@ -498,6 +498,17 @@ namespace Pokemon
         public bool CanLearnMove(int moveId)
             => species.CanLearnMove(moveId) && !moveIds.Contains(moveId);
 
+        public int GetMoveIndexById(int id)
+        {
+
+            for (int i = 0; i < moveIds.Length; i++)
+                if (moveIds[i] == id)
+                    return i;
+
+            return -1;
+
+        }
+
         #endregion
 
         #region Experience
@@ -776,7 +787,6 @@ namespace Pokemon
                     semiInvurnerable = false,
                     takingAim = false;
 
-
                 /// <summary>
                 /// The stage of recharging the pokemon is in: (0) none, (1) in recharging turn, (2) using move that will need next turn for recharging
                 /// </summary>
@@ -792,14 +802,14 @@ namespace Pokemon
                 public byte substituteHealth = 0;
 
                 /// <summary>
-                /// The number of remaining turns of thrashing
+                /// The number of remaining turns of thrashing. Negative if not thrashing
                 /// </summary>
                 public int thrashTurns = -1;
 
                 /// <summary>
-                /// The index of the move being thrashed with
+                /// The id of the move being thrashed with. Negative if unset
                 /// </summary>
-                public int thrashMoveIndex = -1;
+                public int thrashMoveId = -1;
 
             }
 

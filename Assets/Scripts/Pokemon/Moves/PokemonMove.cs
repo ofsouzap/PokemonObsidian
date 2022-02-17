@@ -452,6 +452,21 @@ namespace Pokemon.Moves
             /// </summary>
             public bool setRecharging = false;
 
+            /// <summary>
+            /// Whether the move should enable taking aim for the user
+            /// </summary>
+            public bool setTakingAim = false;
+
+            /// <summary>
+            /// Whether the move should disable taking aim for the user
+            /// </summary>
+            public bool unsetTakingAim = false;
+
+            /// <summary>
+            /// How long the move should cause the user to start thrashing on this move for
+            /// </summary>
+            public int thrashingTurns = 0;
+
         }
 
         public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
@@ -706,6 +721,10 @@ namespace Pokemon.Moves
             bool allowMissing = true)
         {
 
+            //If the user is taking aim, they shouldn't be able to miss
+            if (user.battleProperties.volatileBattleStatus.takingAim)
+                allowMissing = false;
+
             //The results from calculating status effects are a base for the results returned from this function.
             //    The results shouldn't usually overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
             UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData, allowMissing);
@@ -769,6 +788,10 @@ namespace Pokemon.Moves
                     usageResults.targetDamageDealt = target.health - 1;
 
             }
+
+            //If user deals damage, they should stop taking aim
+            if (usageResults.targetDamageDealt > 0)
+                usageResults.unsetTakingAim = true;
 
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData, usageResults.targetDamageDealt);
 
@@ -1053,7 +1076,19 @@ namespace Pokemon.Moves
                 usageResults.setRecharging = true;
             }
 
-        } 
+        }
+
+        public virtual void DoSetTakingAimUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        public virtual void DoThrashingUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
 
         #endregion
 
@@ -1237,6 +1272,24 @@ namespace Pokemon.Moves
             #region Recharging
 
             DoRechargingUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Set Taking Aim
+
+            DoSetTakingAimUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Thrashing
+
+            DoThrashingUpdate(ref usageResults, user, target, battleData);
 
             if (usageResults.failed)
                 return usageResults;

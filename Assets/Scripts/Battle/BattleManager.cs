@@ -846,6 +846,24 @@ namespace Battle
 
                 #endregion
 
+                #region Thrashing
+
+                yield return StartCoroutine(RefreshParticipantThrashing(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantThrashing(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
                 #endregion
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
@@ -2130,6 +2148,36 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantThrashing(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            if (participantPokemon.battleProperties.volatileBattleStatus.thrashTurns > 0)
+            {
+
+                participantPokemon.battleProperties.volatileBattleStatus.thrashTurns--;
+
+                if (participantPokemon.battleProperties.volatileBattleStatus.thrashTurns == 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText(participantPokemon.GetDisplayName() + " calmed down...");
+
+                    //Confuse if not already confused
+                    if (participantPokemon.battleProperties.volatileStatusConditions.confusion <= 0)
+                    {
+                        participantPokemon.battleProperties.volatileStatusConditions.confusion = battleData.RandomRange(2, 6);
+                        battleAnimationSequencer.EnqueueSingleText(participantPokemon.GetDisplayName() + " became confused from its thrashing!");
+                    }
+
+                }
+
+            }
+
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+        }
+
         #endregion
 
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
@@ -2915,6 +2963,31 @@ namespace Battle
                     if (usageResults.setRecharging)
                     {
                         userPokemon.battleProperties.volatileBattleStatus.rechargingStage = 2;
+                    }
+
+                    #endregion
+
+                    #region Taking Aim
+
+                    if (usageResults.setTakingAim)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.takingAim = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " locked on");
+                    }
+
+                    if (usageResults.unsetTakingAim)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.takingAim = false;
+                    }
+
+                    #endregion
+
+                    #region Thrashing
+
+                    if (usageResults.thrashingTurns > 0)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.thrashTurns = usageResults.thrashingTurns;
+                        userPokemon.battleProperties.volatileBattleStatus.thrashMoveId = move.id;
                     }
 
                     #endregion

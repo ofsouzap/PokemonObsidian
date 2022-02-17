@@ -32,6 +32,7 @@ namespace Battle
 
             actionHasBeenChosen = false;
 
+            //Forced to recharge
             if (ActivePokemon.battleProperties.volatileBattleStatus.rechargingStage > 0)
             {
 
@@ -45,6 +46,16 @@ namespace Battle
 
             }
 
+            //Force to continue thrashing
+            if (ActivePokemon.battleProperties.volatileBattleStatus.thrashTurns > 0)
+            {
+                ChooseActionFight(
+                    battleData,
+                    false,
+                    ActivePokemon.GetMoveIndexById(ActivePokemon.battleProperties.volatileBattleStatus.thrashMoveId)
+                );
+            }
+
         }
 
         /// <summary>
@@ -55,6 +66,11 @@ namespace Battle
             actionHasBeenChosen = true;
             chosenAction = action;
         }
+
+        /// <summary>
+        /// Set the participant's action to fighting with the specified move or struggle
+        /// </summary>
+        public abstract void ChooseActionFight(BattleData battleData, bool useStruggle, int moveIndex);
 
         #endregion
 

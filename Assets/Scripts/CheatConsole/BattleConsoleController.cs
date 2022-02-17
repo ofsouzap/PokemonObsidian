@@ -794,6 +794,49 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) set takingaim (?<state>true|false)"),
+                (bm, m) =>
+                {
+
+                    bool state = bool.Parse(m.Groups["state"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerSetTakingAim(state);
+                        return "Set player pokemon taking aim state to " + (state ? "true" : "false");
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentSetTakingAim(state);
+                        return "Set opponent pokemon taking aim state to " + (state ? "true" : "false");
+                    }
+
+                }
+            },
+
+            {
+                new Regex("^(?<participant>player|opponent) inflict thrashing (?<turns>[0-9]+) with (?<moveIndex>[0-3])"),
+                (bm, m) =>
+                {
+
+                    int turns = int.Parse(m.Groups["turns"].Value);
+                    int moveIndex = int.Parse(m.Groups["moveIndex"].Value);
+
+                    if (m.Groups["participant"].Value == "player")
+                    {
+                        bm.CheatCommand_PlayerInflictThrashing(turns, moveIndex);
+                        return "Set player pokemon thrashing for " + turns.ToString() + " turns";
+                    }
+                    else
+                    {
+                        bm.CheatCommand_OpponentInflictThrashing(turns, moveIndex);
+                        return "Set opponent pokemon thrashing for " + turns.ToString() + " turns";
+                    }
+
+                }
             }
 
         };

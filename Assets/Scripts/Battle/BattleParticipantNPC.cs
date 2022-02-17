@@ -51,5 +51,19 @@ namespace Battle
             return GetPokemon().Where(x => x != null).All((x) => x.IsFainted);
         }
 
+        public override void ChooseActionFight(BattleData battleData, bool useStruggle, int moveIndex)
+        {
+
+            actionHasBeenChosen = true;
+            chosenAction = new Action(this)
+            {
+                type = Action.Type.Fight,
+                fightUsingStruggle = useStruggle,
+                fightMoveTarget = battleData.participantPlayer,
+                fightMoveIndex = moveIndex
+            };
+
+        }
+
     }
 }

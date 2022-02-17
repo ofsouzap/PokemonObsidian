@@ -295,6 +295,21 @@ namespace Battle
 
         #endregion
 
+        public override void ChooseActionFight(BattleData battleData, bool useStruggle, int moveIndex)
+        {
+
+            if (!useStruggle)
+                ChooseActionFight(moveIndex);
+            else
+                SetChosenAction(new Action(this)
+                {
+                    type = Action.Type.Fight,
+                    fightUsingStruggle = true,
+                    fightMoveTarget = battleData.participantOpponent
+                });
+
+        }
+
         /// <summary>
         /// Choose to fight using the move with index moveIndex in the active pokemon's moves
         /// </summary>
