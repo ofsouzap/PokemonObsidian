@@ -35,7 +35,9 @@ namespace Battle
                 OpponentTrainerShowcaseStop,
                 PokeBallUse,
                 Blackout,
-                Custom
+                Custom,
+                PokemonSemiInvulnerableStart,
+                PokemonSemiInvulnerableStop
             }
 
             public Type type;
@@ -99,6 +101,12 @@ namespace Battle
             public Items.PokeBalls.PokeBall pokeBallUsePokeBall;
             public byte pokeBallUseWobbleCount;
             public int speciesId;
+
+            #endregion
+
+            #region Pokemon Semi-Invulnerable Start/Stop
+
+            public bool pokemonSemiInvulnerableParticipantIsPlayer = false;
 
             #endregion
 

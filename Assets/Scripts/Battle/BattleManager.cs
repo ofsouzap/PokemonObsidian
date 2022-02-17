@@ -2614,6 +2614,31 @@ namespace Battle
 
                     multiHitsLanded++;
 
+                    #region Semi-Invulnerable Animation
+
+                    switch (usageResults.setSemiInvulnerable)
+                    {
+
+                        case true:
+                            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                            {
+                                type = BattleAnimationSequencer.Animation.Type.PokemonSemiInvulnerableStart,
+                                pokemonSemiInvulnerableParticipantIsPlayer = userIsPlayer
+                            });
+                            break;
+
+                        case false:
+                            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                            {
+                                type = BattleAnimationSequencer.Animation.Type.PokemonSemiInvulnerableStop,
+                                pokemonSemiInvulnerableParticipantIsPlayer = userIsPlayer
+                            });
+                            break;
+
+                    }
+
+                    #endregion
+
                     if (!usageResults.setCharging) //Don't show move animation if this is the charging stage of the move
                     {
                         battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
@@ -3161,6 +3186,12 @@ namespace Battle
 
                 //If move failed, cancel any charging
                 userPokemon.battleProperties.volatileBattleStatus.chargingStage = 0;
+                if (userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable)
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                    {
+                        type = BattleAnimationSequencer.Animation.Type.PokemonSemiInvulnerableStop,
+                        pokemonSemiInvulnerableParticipantIsPlayer = userIsPlayer
+                    });
                 userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = false;
 
                 battleAnimationSequencer.EnqueueSingleText("It failed!");
@@ -3172,6 +3203,12 @@ namespace Battle
 
                 //If move missed, cancel any charging
                 userPokemon.battleProperties.volatileBattleStatus.chargingStage = 0;
+                if (userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable)
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                    {
+                        type = BattleAnimationSequencer.Animation.Type.PokemonSemiInvulnerableStop,
+                        pokemonSemiInvulnerableParticipantIsPlayer = userIsPlayer
+                    });
                 userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = false;
 
                 battleAnimationSequencer.EnqueueSingleText("It missed!");

@@ -1368,5 +1368,31 @@ namespace Battle.BattleLayout
 
         #endregion
 
+        #region Pokemon Semi-Invulnerable
+
+        public IEnumerator PokemonSemiInvunlerableStart(bool usePlayer)
+        {
+
+            GameObject target = usePlayer ? playerPokemonSprite : opponentPokemonSprite;
+
+            target.SetActive(false);
+
+            yield break;
+
+        }
+
+        public IEnumerator PokemonSemiInvunlerableStop(bool usePlayer)
+        {
+
+            GameObject target = usePlayer ? playerPokemonSprite : opponentPokemonSprite;
+
+            target.SetActive(true);
+
+            yield break;
+
+        }
+
+        #endregion
+
     }
 }

@@ -127,6 +127,14 @@ namespace Battle
                     yield return StartCoroutine(battleLayoutController.PokeBallUse(animation.pokeBallUsePokeBall, animation.pokeBallUseWobbleCount, animation.speciesId));
                     break;
 
+                case Animation.Type.PokemonSemiInvulnerableStart:
+                    yield return StartCoroutine(battleLayoutController.PokemonSemiInvunlerableStart(animation.pokemonSemiInvulnerableParticipantIsPlayer));
+                    break;
+
+                case Animation.Type.PokemonSemiInvulnerableStop:
+                    yield return StartCoroutine(battleLayoutController.PokemonSemiInvunlerableStop(animation.pokemonSemiInvulnerableParticipantIsPlayer));
+                    break;
+
             }
 
         }
