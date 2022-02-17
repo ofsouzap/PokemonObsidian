@@ -648,6 +648,9 @@ namespace Pokemon
         public byte remainingSleepTurns = 0;
         public int badlyPoisonedCounter = 1;
 
+        public static byte GetRandomSleepDuration(BattleData battleData)
+            => (byte)battleData.RandomRange(1, maximumDefaultSleepDuration + 1);
+
         #endregion
 
         #region BattleProperties
@@ -769,6 +772,12 @@ namespace Pokemon
                 public int tauntTurns = -1;
 
                 public bool torment = false;
+
+                public static int GetRandomBoundDuration(BattleData battleData)
+                    => battleData.RandomRange(3, 7); //Need to use one more than intended turn count as timer is decreased on the inflicting turn
+
+                public static int GetRandomConfusionDuration(BattleData battleData)
+                    => battleData.RandomRange(1, 5);
 
             }
 

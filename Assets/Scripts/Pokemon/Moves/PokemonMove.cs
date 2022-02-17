@@ -988,7 +988,7 @@ namespace Pokemon.Moves
         public virtual byte CalculateAsleepInflictionDuration(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-            => (byte)battleData.RandomRange(1, PokemonInstance.maximumDefaultSleepDuration + 1);
+            => PokemonInstance.GetRandomSleepDuration(battleData);
 
         public virtual int CalculateUserHealthHealed(PokemonInstance user,
             BattleData battleData,
@@ -1013,7 +1013,7 @@ namespace Pokemon.Moves
         public virtual int CalculateBoundTurnCount(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-            => battleData.RandomRange(3, 7); //Need to use one more than intended turn count as timer is decreased on the inflicting turn
+            => PokemonInstance.BattleProperties.VolatileStatusConditions.GetRandomBoundDuration(battleData);
 
         public virtual bool GetInflictsCurse(PokemonInstance user,
             PokemonInstance target,
