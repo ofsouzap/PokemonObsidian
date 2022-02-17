@@ -72,6 +72,12 @@ namespace Pokemon
          * Inflicts can't escape (defaults to false)
          * Sets protection
          * Requires recharging
+         * Charging type
+         *     0 - none (default)
+         *     1 - requires charging and provides semi-invulnerability whilst charging
+         *     2 - requires charging but doesn't provide semi-invulnerability whilst charging
+         * Semi-invulnerability vulnerability move ids
+         *     ;-separated list of move ids
          */
 
         public static void LoadData()
@@ -105,13 +111,14 @@ namespace Pokemon
                 PokemonMove.MoveType moveType;
                 Stats<sbyte> userStatChanges, targetStatChanges;
                 sbyte userEvasionChange, userAccuracyChange, targetEvasionChange, targetAccuracyChange;
-                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO, inflictsBound, inflictsCantEscape, setsProtection, requireRecharging;
+                bool boostedCriticalChance, nonVolatileStatusConditionOnly, statModifierStageChangeOnly, noOpponentEffects, confusionOnly, isInstantKO, inflictsBound, inflictsCantEscape, setsProtection, requireRecharging, requireCharging, chargingSemiInvulnerability;
                 float flinchChance, confusionChance, maxHealthRelativeRecoilDamage, targetDamageRelativeRecoilDamage, targetDamageDealtRelativeHealthHealed, userMaxHealthRelativeHealthHealed;
                 Dictionary<PokemonInstance.NonVolatileStatusCondition, float> nonVolatileStatusConditionChances;
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
                 bool? movePriority;
+                int[] semiInvulnerabilityVulnerabilityMoveIds;
 
-                if (entry.Length < 36)
+                if (entry.Length < 38)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -1168,6 +1175,83 @@ namespace Pokemon
 
                 #endregion
 
+                #region requireCharging, chargingSemiInvulnerability and semiInvulnerabilityVulnerabilityMoveIds
+
+                string chargingEntry = entry[36];
+
+                if (chargingEntry == "")
+                {
+                    requireCharging = false;
+                    chargingSemiInvulnerability = false;
+                }
+                else
+                {
+
+                    if (!int.TryParse(chargingEntry, out int chargingParsed))
+                    {
+                        Debug.LogError("Unknown charging type entry for id - " + id);
+                        requireCharging = false;
+                        chargingSemiInvulnerability = false;
+                    }
+                    else
+                    {
+
+                        switch (chargingParsed)
+                        {
+
+                            case 0:
+                                requireCharging = false;
+                                chargingSemiInvulnerability = false;
+                                break;
+
+                            case 1:
+                                requireCharging = true;
+                                chargingSemiInvulnerability = true;
+                                break;
+
+                            case 2:
+                                requireCharging = true;
+                                chargingSemiInvulnerability = false;
+                                break;
+
+                            default:
+                                Debug.LogError("Invalid charging type entry for id - " + id);
+                                requireCharging = false;
+                                chargingSemiInvulnerability = false;
+                                break;
+
+                        }
+
+                    }
+
+                }
+
+                if (!chargingSemiInvulnerability)
+                {
+                    semiInvulnerabilityVulnerabilityMoveIds = new int[0];
+                }
+                else
+                {
+
+                    string semiInvulnVulnsEntry = entry[37];
+
+                    try
+                    {
+                        semiInvulnerabilityVulnerabilityMoveIds = semiInvulnVulnsEntry
+                            .Split(';')
+                            .Select(x => int.Parse(x))
+                            .ToArray();
+                    }
+                    catch (FormatException)
+                    {
+                        Debug.LogError("Invalid semiInvulnerabilityVulnerabilityMoveIds for id - " + id);
+                        semiInvulnerabilityVulnerabilityMoveIds = new int[0];
+                    }
+
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1206,7 +1290,10 @@ namespace Pokemon
                     inflictsBound = inflictsBound,
                     inflictsCantEscape = inflictsCantEscape,
                     setsProtection = setsProtection,
-                    requireRecharging = requireRecharging
+                    requireRecharging = requireRecharging,
+                    requireCharging = requireCharging,
+                    chargingSemiInvulnerability = chargingSemiInvulnerability,
+                    semiInvulnerabilityVulnerabilityMoveIds = semiInvulnerabilityVulnerabilityMoveIds
                 });
 
             }

@@ -173,6 +173,31 @@ namespace CheatConsole
                     return "Launching battle with specified wild opponent";
 
                 }
+            },
+
+            {
+                new Regex("^item get (?<id>[0-9]+) (?<quantity>[0-9]+)"),
+                (m) =>
+                {
+
+                    int itemId = int.Parse(m.Groups["id"].Value);
+                    Items.Item item = Items.Item.GetItemById(itemId);
+
+                    uint quantity = uint.Parse(m.Groups["quantity"].Value);
+
+                    if (item == null)
+                    {
+                        return "Unknown item id provided";
+                    }
+                    else
+                    {
+
+                        PlayerData.singleton.inventory.AddItem(item, quantity);
+                        return "Given player " + quantity.ToString() + ' ' + item.itemName;
+
+                    }
+
+                }
             }
 
         };

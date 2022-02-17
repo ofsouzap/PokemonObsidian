@@ -49,11 +49,29 @@ namespace Battle
             //Force to continue thrashing
             if (ActivePokemon.battleProperties.volatileBattleStatus.thrashTurns > 0)
             {
+
                 ChooseActionFight(
                     battleData,
                     false,
                     ActivePokemon.GetMoveIndexById(ActivePokemon.battleProperties.volatileBattleStatus.thrashMoveId)
                 );
+
+                return;
+
+            }
+
+            //Force to use the move that has charged for this turn
+            if (ActivePokemon.battleProperties.IsUsingChargedMove)
+            {
+
+                ChooseActionFight(
+                    battleData,
+                    false,
+                    ActivePokemon.GetMoveIndexById(ActivePokemon.battleProperties.volatileBattleStatus.chargingMoveId)
+                );
+
+                return;
+
             }
 
         }

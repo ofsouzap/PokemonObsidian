@@ -243,6 +243,21 @@ namespace Pokemon.Moves
         /// </summary>
         public bool requireRecharging = false;
 
+        /// <summary>
+        /// Whether the move requires a charging turn
+        /// </summary>
+        public bool requireCharging = false;
+
+        /// <summary>
+        /// Whether the move provides semi-invulnerability during its charging stage (if applicable)
+        /// </summary>
+        public bool chargingSemiInvulnerability = false;
+
+        /// <summary>
+        /// Ids of any moves that the user should be vulnerable to even when the user is in a semi-invulnerable state due to this move
+        /// </summary>
+        public int[] semiInvulnerabilityVulnerabilityMoveIds = new int[0];
+
         #endregion
 
         #region Move Using
@@ -466,6 +481,16 @@ namespace Pokemon.Moves
             /// How long the move should cause the user to start thrashing on this move for
             /// </summary>
             public int thrashingTurns = 0;
+
+            /// <summary>
+            /// Whether to set the user's charging stage to the stage of charging
+            /// </summary>
+            public bool setCharging = false;
+
+            /// <summary>
+            /// What to set the user's semi-invulnerability to or null if it should be left as-is
+            /// </summary>
+            public bool? setSemiInvulnerable = null;
 
         }
 
@@ -729,6 +754,10 @@ namespace Pokemon.Moves
             //    The results shouldn't usually overlap but, if they do, the effects calculated in CalculateNormalAttackEffect take priority
             UsageResults usageResults = CalculateNormalStatusEffect(user, target, battleData, allowMissing);
 
+            //If move requires charging and pokemon hasn't charged, they should only start charging this turn and do nothing else (calculated in normal status effects calculation)
+            if (usageResults.setCharging)
+                return usageResults;
+
             //If CalculateNormalStatusEffect has already deemed that the move hasn't succeeded, don't continue calculating its effects
             if (!usageResults.Succeeded)
                 return usageResults;
@@ -801,6 +830,27 @@ namespace Pokemon.Moves
             usageResults.thawTarget = CheckIfThawTarget(user, target, battleData);
 
             return usageResults;
+
+        }
+
+        /// <summary>
+        /// Runs a check using a random value to see if the move should miss
+        /// </summary>
+        /// <returns>Whether the move should miss</returns>
+        public virtual bool RunMissingCheck(BattleData battleData,
+            PokemonInstance user,
+            PokemonInstance target)
+        {
+
+            if ( // If...
+                   target.battleProperties.volatileBattleStatus.semiInvulnerable // ...the target is semi-invulnerable...
+                && !noOpponentEffects // ...and this move affects the opponent...
+                && !user.battleProperties.volatileBattleStatus.takingAim // ...and the user isn't taking aim...
+                && !target.battleProperties.MoveBeingCharged.semiInvulnerabilityVulnerabilityMoveIds.Contains(id) // ...and the move the target is using doesn't still leaves it vulnerable to this move
+                )
+                return true;
+
+            return battleData.RandomRange(0, 100) > CalculateNormalAccuracyValue(user, target, battleData);
 
         }
 
@@ -1107,6 +1157,18 @@ namespace Pokemon.Moves
 
             UsageResults usageResults = new UsageResults();
 
+            //If move requires charging and pokemon hasn't charged, they should only start charging this turn and do nothing else
+            if (requireCharging && !user.battleProperties.IsUsingChargedMove)
+            {
+                usageResults.setCharging = true;
+                usageResults.setSemiInvulnerable = chargingSemiInvulnerability;
+                return usageResults;
+            }
+
+            //If pokemon is using charged move and was semi-invulnerable because of it, disable the semi-invulnerability
+            if (requireCharging && user.battleProperties.IsUsingChargedMove && chargingSemiInvulnerability)
+                usageResults.setSemiInvulnerable = false;
+
             if (nonVolatileStatusConditionOnly && target.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
             {
                 usageResults.failed = true;
@@ -1300,7 +1362,7 @@ namespace Pokemon.Moves
 
             if (allowMissing)
             {
-                if (battleData.RandomRange(0, 100) > CalculateNormalAccuracyValue(user, target, battleData))
+                if (RunMissingCheck(battleData, user, target))
                 {
                     usageResults.missed = true;
                     return usageResults;

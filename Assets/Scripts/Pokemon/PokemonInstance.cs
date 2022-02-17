@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Battle;
 using Items;
+using Pokemon.Moves;
 
 namespace Pokemon
 {
@@ -780,11 +781,10 @@ namespace Pokemon
 
                 public bool aquaRing = false,
                     bracing = false,
-                    charging = false,
                     defenseCurl = false,
                     rooting = false,
                     protection = false,
-                    semiInvurnerable = false,
+                    semiInvulnerable = false,
                     takingAim = false;
 
                 /// <summary>
@@ -811,12 +811,26 @@ namespace Pokemon
                 /// </summary>
                 public int thrashMoveId = -1;
 
+                /// <summary>
+                /// The stage of recharging the pokemon is in: (0) none, (1) using move that needed charging, (2) in charging turn
+                /// </summary>
+                public int chargingStage = 0;
+
+                /// <summary>
+                /// Index of move being charged
+                /// </summary>
+                public int chargingMoveId = -1;
+
                 public static int GetRandomThrashingDuration(BattleData battleData)
                     => battleData.RandomRange(2, 4);
 
             }
 
             public VolatileBattleStatus volatileBattleStatus;
+
+            public PokemonMove MoveBeingCharged => !PokemonMove.MoveIdIsUnset(MoveIdBeingCharged) ? PokemonMove.GetPokemonMoveById(MoveIdBeingCharged) : null;
+            public int MoveIdBeingCharged => volatileBattleStatus.chargingMoveId;
+            public bool IsUsingChargedMove => volatileBattleStatus.chargingStage == 1;
 
             /// <summary>
             /// Id of the last move used

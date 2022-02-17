@@ -864,6 +864,24 @@ namespace Battle
 
                 #endregion
 
+                #region Charging
+
+                yield return StartCoroutine(RefreshParticipantCharging(battleData.participantPlayer));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                yield return StartCoroutine(RefreshParticipantCharging(battleData.participantOpponent));
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
+
                 #endregion
 
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
@@ -2178,6 +2196,34 @@ namespace Battle
 
         }
 
+        private IEnumerator RefreshParticipantCharging(BattleParticipant participant)
+        {
+
+            PokemonInstance participantPokemon = participant.ActivePokemon;
+
+            switch (participantPokemon.battleProperties.volatileBattleStatus.chargingStage)
+            {
+
+                case 2:
+                case 1:
+
+                    participantPokemon.battleProperties.volatileBattleStatus.chargingStage--;
+
+                    break;
+
+                case 0:
+                    break;
+
+                default:
+                    Debug.LogWarning("Invalid charging stage");
+                    break;
+
+            }
+
+            yield break;
+
+        }
+
         #endregion
 
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
@@ -2568,12 +2614,15 @@ namespace Battle
 
                     multiHitsLanded++;
 
-                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                    if (!usageResults.setCharging) //Don't show move animation if this is the charging stage of the move
                     {
-                        type = BattleAnimationSequencer.Animation.Type.PokemonMove,
-                        pokemonMoveId = move.id,
-                        pokemonMovePlayerIsUser = userIsPlayer
-                    });
+                        battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation
+                        {
+                            type = BattleAnimationSequencer.Animation.Type.PokemonMove,
+                            pokemonMoveId = move.id,
+                            pokemonMovePlayerIsUser = userIsPlayer
+                        });
+                    }
 
                     #region Target Effects
 
@@ -2992,6 +3041,33 @@ namespace Battle
 
                     #endregion
 
+                    #region Charging and Semi-Invulnerable
+
+                    if (usageResults.setCharging)
+                    {
+
+                        userPokemon.battleProperties.volatileBattleStatus.chargingStage = 2;
+                        userPokemon.battleProperties.volatileBattleStatus.chargingMoveId = move.id;
+
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " started charging");
+
+                    }
+
+                    switch (usageResults.setSemiInvulnerable)
+                    {
+
+                        case true:
+                            userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = true;
+                            break;
+
+                        case false:
+                            userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = false;
+                            break;
+
+                    }
+
+                    #endregion
+
                     #endregion
 
                     #region User Damage
@@ -3083,12 +3159,20 @@ namespace Battle
             else if (usageResults.failed)
             {
 
+                //If move failed, cancel any charging
+                userPokemon.battleProperties.volatileBattleStatus.chargingStage = 0;
+                userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = false;
+
                 battleAnimationSequencer.EnqueueSingleText("It failed!");
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
             }
             else if (usageResults.missed)
             {
+
+                //If move missed, cancel any charging
+                userPokemon.battleProperties.volatileBattleStatus.chargingStage = 0;
+                userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = false;
 
                 battleAnimationSequencer.EnqueueSingleText("It missed!");
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
