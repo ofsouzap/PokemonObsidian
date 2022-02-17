@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Pokemon;
+using Battle;
 using Items;
 
 namespace Pokemon
@@ -810,6 +810,9 @@ namespace Pokemon
                 /// The id of the move being thrashed with. Negative if unset
                 /// </summary>
                 public int thrashMoveId = -1;
+
+                public static int GetRandomThrashingDuration(BattleData battleData)
+                    => battleData.RandomRange(2, 4);
 
             }
 

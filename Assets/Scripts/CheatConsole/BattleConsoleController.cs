@@ -167,7 +167,7 @@ namespace CheatConsole
             },
 
             {
-               new Regex("^(?<participant>player|opponent) pokemon (?<partyIndex>0|1|2|3|4|5|active) statmodifier (?<stat>attack|defense|specialattack|specialdefense|speed|evasion|accuracy) set (?<amount>-?[0-6])$"),
+               new Regex("^(?<participant>player|opponent) pokemon (?<partyIndex>0|1|2|3|4|5|active) statmodifier (?<stat>attack|defense|specialAttack|specialDefense|speed|evasion|accuracy) set (?<amount>-?[0-6])$"),
                (bm, m) =>
                {
 
@@ -198,7 +198,7 @@ namespace CheatConsole
             },
 
             {
-               new Regex("^(?<participant>player|opponent) pokemon (?<partyIndex>0|1|2|3|4|5|active) statmodifier (?<stat>attack|defense|specialattack|specialdefense|speed|evasion|accuracy) change (?<amount>-?[0-6])$"),
+               new Regex("^(?<participant>player|opponent) pokemon (?<partyIndex>0|1|2|3|4|5|active) statmodifier (?<stat>attack|defense|specialAttack|specialDefense|speed|evasion|accuracy) change (?<amount>-?[0-6])$"),
                (bm, m) =>
                {
 

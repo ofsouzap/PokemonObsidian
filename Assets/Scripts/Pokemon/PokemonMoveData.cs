@@ -1229,6 +1229,8 @@ namespace Pokemon
             moves.Add(new Move_SuperFang());
             moves.Add(new Move_LeechSeed());
             moves.Add(new Move_DefenseCurl());
+            moves.Add(new Move_Thrash());
+            moves.Add(new Move_PetalDance());
 
             return moves.ToArray();
 
