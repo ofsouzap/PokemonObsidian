@@ -32,14 +32,18 @@ namespace EvolutionScene
         public delegate void OnComplete();
         public event OnComplete EvolutionAnimationComplete;
 
+        private bool evolutionHasBeenCancelled = false;
+
         #region Entrance Arguments
 
         public struct EntranceArguments
         {
-            public string displayName;
-            public int startSpeciesId;
-            public int endSpeciesId;
-            public bool useFemaleSprite;
+
+            public PokemonInstance pokemon;
+            public PokemonSpecies.Evolution evolution;
+
+            public Sprite PokemonSprite => pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1);
+
         }
 
         public static EntranceArguments entranceArguments;
@@ -81,13 +85,20 @@ namespace EvolutionScene
 
         }
 
+        private void Update()
+        {
+            
+            if (Input.GetButtonDown("Cancel"))
+            {
+                evolutionHasBeenCancelled = true;
+            }
+
+        }
+
         private void SetUp()
         {
-
-            pokemonSpriteController.SetSprite(SpriteStorage.GetPokemonSprite(
-                PokemonSpecies.GetPokemonSpeciesById(entranceArguments.startSpeciesId).resourceName,
-                PokemonSpecies.SpriteType.Front1,
-                entranceArguments.useFemaleSprite));
+            
+            pokemonSpriteController.SetSprite(entranceArguments.PokemonSprite);
 
         }
 
@@ -99,23 +110,18 @@ namespace EvolutionScene
         private IEnumerator AnimationCoroutine()
         {
 
+            evolutionHasBeenCancelled = false;
             EvolutionAnimationComplete = null;
 
             float musicInitialVolume = MusicSourceController.singleton.GetVolume();
 
             MusicSourceController.singleton.SetVolume(musicVolume);
 
-            Sprite startSprite = SpriteStorage.GetPokemonSprite(
-                PokemonSpecies.GetPokemonSpeciesById(entranceArguments.startSpeciesId).resourceName,
-                PokemonSpecies.SpriteType.Front1,
-                entranceArguments.useFemaleSprite);
+            Sprite startSprite = entranceArguments.PokemonSprite;
 
-            PokemonSpecies endSpecies = PokemonSpecies.GetPokemonSpeciesById(entranceArguments.endSpeciesId);
+            PokemonSpecies endSpecies = PokemonSpecies.GetPokemonSpeciesById(entranceArguments.evolution.targetId);
 
-            Sprite endSprite = SpriteStorage.GetPokemonSprite(
-                endSpecies.resourceName,
-                PokemonSpecies.SpriteType.Front1,
-                entranceArguments.useFemaleSprite);
+            Sprite endSprite = endSpecies.LoadSprite(PokemonSpecies.SpriteType.Front1, entranceArguments.pokemon.gender);
 
             pokemonSpriteController.SetSprite(startSprite);
 
@@ -133,7 +139,8 @@ namespace EvolutionScene
             },
             shrinkTime));
 
-            pokemonSpriteController.SetSprite(endSprite);
+            if (!evolutionHasBeenCancelled)
+                pokemonSpriteController.SetSprite(endSprite);
 
             yield return StartCoroutine(GradualEffect((t) =>
             {
@@ -142,12 +149,32 @@ namespace EvolutionScene
             },
             unshrinkTime));
 
-            SoundFXController.singleton.PlaySound("evolution_end");
+            if (!evolutionHasBeenCancelled)
+            {
 
-            textBoxController.RevealText(entranceArguments.displayName
-                + " evolved into a "
-                + endSpecies.name
-                + '!');
+                //Evolution is allowed to be completed
+
+                SoundFXController.singleton.PlaySound("evolution_end");
+
+                textBoxController.RevealText(entranceArguments.pokemon.GetDisplayName()
+                    + " evolved into a "
+                    + endSpecies.name
+                    + '!');
+
+                //Once animation is completed, evolve the pokemon
+                entranceArguments.pokemon.Evolve(entranceArguments.evolution);
+
+            }
+            else
+            {
+
+                //Evolution is cancelled
+
+                textBoxController.RevealText("Oh, "
+                    + entranceArguments.pokemon.GetDisplayName()
+                    + " stopped evolving");
+
+            }
 
             yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 

@@ -511,13 +511,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
             EvolutionScene.EvolutionSceneController.entranceArguments = new EvolutionScene.EvolutionSceneController.EntranceArguments()
             {
-                displayName = pokemon.GetDisplayName(),
-                startSpeciesId = pokemon.speciesId,
-                endSpeciesId = evolution.targetId,
-                useFemaleSprite = pokemon.gender == false
+                pokemon = pokemon,
+                evolution = evolution
             };
-
-            pokemon.Evolve(evolution);
 
             controlAllowed = false;
             HideMenu();

@@ -2312,7 +2312,7 @@ namespace Battle
                         if (evolution != null)
                         {
                             yield return StartCoroutine(EvolvePokemon(playerPokemonInstance,
-                                evolution.targetId,
+                                evolution,
                                 playerPokemonIndex == battleData.participantPlayer.activePokemonIndex));
                         }
 
@@ -2341,22 +2341,15 @@ namespace Battle
         private bool readyToCarryOnAfterEvolution;
 
         private IEnumerator EvolvePokemon(PokemonInstance pokemon,
-            int newSpeciesId,
+            PokemonSpecies.Evolution evolution,
             bool isActivePokemon)
         {
 
             EvolutionScene.EvolutionSceneController.entranceArguments = new EvolutionScene.EvolutionSceneController.EntranceArguments()
             {
-                displayName = pokemon.GetDisplayName(),
-                startSpeciesId = pokemon.speciesId,
-                endSpeciesId = newSpeciesId,
-                useFemaleSprite = pokemon.gender == false
+                pokemon = pokemon,
+                evolution = evolution
             };
-
-            pokemon.Evolve(newSpeciesId);
-
-            if (isActivePokemon)
-                battleLayoutController.UpdatePlayerPokemon(pokemon);
 
             DisableScene();
 
@@ -2369,6 +2362,9 @@ namespace Battle
             };
 
             yield return new WaitUntil(() => readyToCarryOnAfterEvolution);
+
+            if (isActivePokemon)
+                battleLayoutController.UpdatePlayerPokemon(pokemon);
 
             EnableScene();
             
