@@ -2672,10 +2672,6 @@ namespace Battle
 
                         }
 
-                        //Stop loop if target fainted
-                        if (targetPokemon.IsFainted)
-                            break;
-
                         #region Effectiveness Message
 
                         if (usageResults.effectiveness == true)
@@ -2697,6 +2693,36 @@ namespace Battle
                         }
 
                         #endregion
+
+                        #region User Healing
+
+                        //User healing done here so that it isn't skipped if the move defeats the opponent
+
+                        if (usageResults.userHealthHealed > 0)
+                        {
+
+                            int userInitialHealth = userPokemon.health;
+
+                            userPokemon.HealHealth(usageResults.userHealthHealed);
+
+                            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                            {
+                                type = action.user is BattleParticipantPlayer
+                                    ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
+                                    : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                                takeDamageOldHealth = userInitialHealth,
+                                takeDamageNewHealth = userPokemon.health,
+                                takeDamageMaxHealth = userPokemon.GetStats().health
+                            });
+                            battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " recovered some health");
+
+                        }
+
+                        #endregion
+
+                        //Stop loop if target fainted
+                        if (targetPokemon.IsFainted)
+                            break;
 
                         #endregion
 
@@ -3111,29 +3137,7 @@ namespace Battle
 
                     #endregion
 
-                    #region User Healing
-
-                    if (usageResults.userHealthHealed > 0)
-                    {
-
-                        int userInitialHealth = userPokemon.health;
-
-                        userPokemon.HealHealth(usageResults.userHealthHealed);
-
-                        battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
-                        {
-                            type = action.user is BattleParticipantPlayer
-                                ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
-                                : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
-                            takeDamageOldHealth = userInitialHealth,
-                            takeDamageNewHealth = userPokemon.health,
-                            takeDamageMaxHealth = userPokemon.GetStats().health
-                        });
-                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " recovered some health");
-
-                    }
-
-                    #endregion
+                    
 
                     if (usageResults.userHealthHealed > 0 && usageResults.userDamageDealt > 0)
                         Debug.LogError("Usage results contained health reduction and health increase for user pokemon");
