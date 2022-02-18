@@ -479,7 +479,12 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                 PokemonSpecies.Evolution evolutionFound = pokemon.TryFindEvolution(false, CurrentItem.id);
 
                 if (evolutionFound != null)
+                {
+
+                    PlayerData.singleton.inventory.RemoveItem(CurrentItem, 1);
                     yield return StartCoroutine(OnPokemonSelected_UseItem_EvolvePokemon(pokemon, evolutionFound));
+
+                }
                 else
                 {
 
