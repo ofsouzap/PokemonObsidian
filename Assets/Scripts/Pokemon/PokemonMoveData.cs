@@ -1307,17 +1307,52 @@ namespace Pokemon
 
             List<PokemonMove> moves = new List<PokemonMove>();
 
+            // moves.Add(new Move_());
+
+            // Gen I
+
             moves.Add(new Move_Blizzard());
-            moves.Add(new Move_SeismicToss());
+            moves.Add(new Move_Seismic_Toss());
             moves.Add(new Move_Growth());
             moves.Add(new Move_Thunder());
             moves.Add(new Move_Toxic());
-            moves.Add(new Move_NightShade());
-            moves.Add(new Move_SuperFang());
-            moves.Add(new Move_LeechSeed());
-            moves.Add(new Move_DefenseCurl());
+            moves.Add(new Move_Night_Shade());
+            moves.Add(new Move_Super_Fang());
+            moves.Add(new Move_Leech_Seed());
+            moves.Add(new Move_Defense_Curl());
             moves.Add(new Move_Thrash());
-            moves.Add(new Move_PetalDance());
+            moves.Add(new Move_Petal_Dance());
+
+            // Gen II
+
+            moves.Add(new Move_Mind_Reader());
+            moves.Add(new Move_Nightmare());
+            moves.Add(new Move_Snore());
+            moves.Add(new Move_Curse());
+            moves.Add(new Move_Flail());
+            moves.Add(new Move_Reversal());
+            moves.Add(new Move_Belly_Drum());
+            moves.Add(new Move_Foresight());
+            moves.Add(new Move_Perish_Song());
+            moves.Add(new Move_Lock_On());
+            moves.Add(new Move_Outrage());
+            moves.Add(new Move_Endure());
+            moves.Add(new Move_False_Swipe());
+            moves.Add(new Move_Steel_Wing());
+            moves.Add(new Move_Attract());
+            moves.Add(new Move_Return());
+            moves.Add(new Move_Present());
+            moves.Add(new Move_Frustration());
+            moves.Add(new Move_Pain_Split());
+            moves.Add(new Move_Magnitude());
+            moves.Add(new Move_Encore());
+            moves.Add(new Move_Metal_Claw());
+            moves.Add(new Move_Morning_Sun());
+            moves.Add(new Move_Synthesis());
+            moves.Add(new Move_Moonlight());
+            moves.Add(new Move_Psych_Up());
+            moves.Add(new Move_AncientPower());
+            moves.Add(new Move_Beat_Up());
 
             return moves.ToArray();
 

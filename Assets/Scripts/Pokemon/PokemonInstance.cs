@@ -27,6 +27,8 @@ namespace Pokemon
 
         public PokemonSpecies species => PokemonSpecies.GetPokemonSpeciesById(speciesId);
 
+        public bool HasType(Type type) => species.HasType(type);
+
         #endregion
 
         #region Sprites
@@ -374,6 +376,7 @@ namespace Pokemon
         #region Friendship
 
         public byte friendship = 0;
+        public const byte maximumFriendship = 255;
 
         /// <summary>
         /// Adds friendship to the pokemon without causing an overflow
@@ -468,6 +471,15 @@ namespace Pokemon
             ReduceFriendship(reductionAmount);
 
         }
+
+        public static byte GetReturnAttackPower(byte friendship)
+            => (byte)(2 * friendship / 5);
+
+        public byte GetReturnAttackPower()
+            => GetReturnAttackPower(friendship);
+
+        public byte GetFrustrationAttackPower()
+            => GetReturnAttackPower((byte)(maximumFriendship - friendship));
 
         #endregion
 
@@ -778,6 +790,9 @@ namespace Pokemon
 
                 public static int GetRandomConfusionDuration(BattleData battleData)
                     => battleData.RandomRange(1, 5);
+
+                public static int GetRandomEncoreDuration(BattleData battleData)
+                    => battleData.RandomRange(3, 8);
 
             }
 

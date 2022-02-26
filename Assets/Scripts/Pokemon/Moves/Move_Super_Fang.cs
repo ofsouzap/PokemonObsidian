@@ -3,10 +3,10 @@ using Battle;
 
 namespace Pokemon.Moves
 {
-    public class Move_SuperFang : PokemonMove
+    public class Move_Super_Fang : PokemonMove
     {
         
-        public Move_SuperFang()
+        public Move_Super_Fang()
         {
 
             id = 162;

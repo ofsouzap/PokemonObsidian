@@ -2,10 +2,10 @@
 
 namespace Pokemon.Moves
 {
-    public class Move_LeechSeed : PokemonMove
+    public class Move_Leech_Seed : PokemonMove
     {
 
-        public Move_LeechSeed()
+        public Move_Leech_Seed()
         {
 
             id = 73;
@@ -22,7 +22,7 @@ namespace Pokemon.Moves
         public override UsageResults CalculateLeechSeedChanges(UsageResults usageResults, PokemonInstance user, PokemonInstance target, BattleData battleData)
         {
 
-            if (target.battleProperties.volatileStatusConditions.leechSeed || target.species.type1 == Type.Grass || target.species.type2 == Type.Grass)
+            if (target.battleProperties.volatileStatusConditions.leechSeed || target.HasType(Type.Grass))
             {
                 usageResults.failed = true;
                 return usageResults;

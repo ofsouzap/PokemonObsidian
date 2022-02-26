@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Registry<T> : IEnumerable where T : IHasId
@@ -35,11 +36,31 @@ public class Registry<T> : IEnumerable where T : IHasId
     public void SetValues(T[] values)
     {
 
+        int? dupId = FindDuplicateIds(values);
+        if (dupId != null)
+            Debug.LogError("Duplicate id found: " + ((int)dupId).ToString());
+
         entries = new T[values.Length];
 
         Array.Copy(values, entries, values.Length);
 
         Sort();
+
+    }
+
+    private int? FindDuplicateIds(T[] values)
+    {
+
+        IEnumerable<IGrouping<int, T>> grouped = values.GroupBy(v => v.GetId());
+
+        if (grouped.Any(g => g.Count() > 1))
+        {
+            return grouped.Where(g => g.Count() > 1).ToArray()[0].Key;
+        }
+        else
+        {
+            return null;
+        }
 
     }
 

@@ -2,10 +2,10 @@
 
 namespace Pokemon.Moves
 {
-    public class Move_SeismicToss : PokemonMove
+    public class Move_Seismic_Toss : PokemonMove
     {
 
-        public Move_SeismicToss()
+        public Move_Seismic_Toss()
         {
 
             id = 69;

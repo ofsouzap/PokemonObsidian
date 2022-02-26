@@ -79,6 +79,14 @@ namespace Pokemon.Moves
         public byte power;
 
         /// <summary>
+        /// Get the move's power to be used for calculation when being used in a battle
+        /// </summary>
+        public virtual byte GetUsagePower(BattleData battleData,
+            PokemonInstance user,
+            PokemonInstance target)
+            => power;
+
+        /// <summary>
         /// The chance of the move hitting its target [0,100] (if it is a status move, this should be 0)
         /// </summary>
         public byte accuracy;
@@ -287,6 +295,11 @@ namespace Pokemon.Moves
             public bool failed = false;
 
             /// <summary>
+            /// How many times the move should hit
+            /// </summary>
+            public byte hitCount = 1;
+
+            /// <summary>
             /// The damage to deal to the user
             /// </summary>
             public int userDamageDealt = 0;
@@ -300,6 +313,11 @@ namespace Pokemon.Moves
             /// The damage to deal to the target
             /// </summary>
             public int targetDamageDealt = 0;
+
+            /// <summary>
+            /// The amount of health to give the target.
+            /// </summary>
+            public int targetHealthHealed = 0;
 
             /// <summary>
             /// false if the move is not very effective, null if it is "effective" (multiplier of 1) or true if it is super effective
@@ -704,7 +722,10 @@ namespace Pokemon.Moves
             BattleData battleData)
         {
 
-            int damageToDeal = CalculateNormalDamageToDeal(user.GetLevel(), power, attackDefenseRatio, modifiersValue);
+            int damageToDeal = CalculateNormalDamageToDeal(user.GetLevel(),
+                GetUsagePower(battleData, user, target),
+                attackDefenseRatio,
+                modifiersValue);
 
             return damageToDeal <= target.health ? damageToDeal : target.health;
 
@@ -825,7 +846,7 @@ namespace Pokemon.Moves
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData, usageResults.targetDamageDealt);
 
             if (usageResults.userDamageDealt == 0)
-                usageResults.userHealthHealed = CalculateUserHealthHealed(user, battleData, usageResults.targetDamageDealt);
+                usageResults.userHealthHealed = CalculateUserHealthHealed(user, target, battleData, usageResults.targetDamageDealt);
 
             usageResults.thawTarget = CheckIfThawTarget(user, target, battleData);
 
@@ -853,6 +874,21 @@ namespace Pokemon.Moves
             return battleData.RandomRange(0, 100) > CalculateNormalAccuracyValue(user, target, battleData);
 
         }
+
+        /// <summary>
+        /// For PokemonMove child classes to implement any special causes for the move to fail
+        /// </summary>
+        public virtual bool RunFailureCheck(BattleData battleData,
+            PokemonInstance user,
+            PokemonInstance target)
+            => false;
+
+        public virtual byte GetHitCount(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => IsMultiHit
+                ? (byte)battleData.RandomRange(minimumMultiHitAmount, maximumMultiHitAmount + 1)
+                : (byte)1;
 
         public virtual UsageResults CalculateStatChanges(UsageResults usageResults,
             PokemonInstance user,
@@ -990,7 +1026,13 @@ namespace Pokemon.Moves
             BattleData battleData)
             => PokemonInstance.GetRandomSleepDuration(battleData);
 
+        public virtual float GetUserMaxHealthRelativeHealthHealed(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => userMaxHealthRelativeHealthHealed;
+
         public virtual int CalculateUserHealthHealed(PokemonInstance user,
+            PokemonInstance target,
             BattleData battleData,
             int targetDamageDealt = 0)
         {
@@ -1002,11 +1044,16 @@ namespace Pokemon.Moves
 
             healthHealed += Mathf.RoundToInt(targetDamageDealt * targetDamageDealtRelativeHealthHealed);
 
-            healthHealed += Mathf.RoundToInt(user.GetStats().health * userMaxHealthRelativeHealthHealed);
+            healthHealed += Mathf.RoundToInt(user.GetStats().health * GetUserMaxHealthRelativeHealthHealed(user, target, battleData));
 
             return healthHealed + user.health < user.GetStats().health ? healthHealed : user.GetStats().health - user.health;
 
         }
+
+        public virtual int CalculateTargetHealthHealed(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => 0;
 
         #region Volatile Status Conditions
 
@@ -1186,6 +1233,8 @@ namespace Pokemon.Moves
                 usageResults.failed = true;
                 return usageResults;
             }
+
+            usageResults.hitCount = GetHitCount(user, target, battleData);
 
             #region Volatile Status Conditions
 
@@ -1369,6 +1418,12 @@ namespace Pokemon.Moves
                 }
             }
 
+            if (RunFailureCheck(battleData, user, target))
+            {
+                usageResults.failed = true;
+                return usageResults;
+            }
+
             usageResults = CalculateStatChanges(usageResults, user, target, battleData);
 
             #region Stat Modify Only Failure Check
@@ -1421,7 +1476,9 @@ namespace Pokemon.Moves
             usageResults.userDamageDealt = CalculateUserRecoilDamage(user, target, battleData);
 
             if (usageResults.userDamageDealt == 0)
-                usageResults.userHealthHealed = CalculateUserHealthHealed(user, battleData);
+                usageResults.userHealthHealed = CalculateUserHealthHealed(user, target, battleData);
+
+            usageResults.targetHealthHealed = CalculateTargetHealthHealed(user, target, battleData);
 
             return usageResults;
 

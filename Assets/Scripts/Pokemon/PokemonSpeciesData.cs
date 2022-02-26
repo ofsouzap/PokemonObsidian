@@ -269,7 +269,7 @@ namespace Pokemon
                                 evolutionsList.Add(new PokemonSpecies.Evolution()
                                 {
                                     targetId = targetId,
-                                    itemId = usingItemId ? usedItemId : (int?)null,
+                                    useItemId = usingItemId ? usedItemId : (int?)null,
                                     level = usingLevel ? level : (byte?)null
                                 });
 
@@ -630,6 +630,289 @@ namespace Pokemon
                     {
                         targetId = 94,
                         requireTrade = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Golbat evolves to Crobat through friendship
+                if (id == 42)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 169,
+                        requireFriendship = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Pichu evolves to Pikachu through friendship
+                if (id == 172)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 25,
+                        requireFriendship = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Cleffa evolves to Clefairy through friendship
+                if (id == 173)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 35,
+                        requireFriendship = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Igglybuff evolves to Jigglypuff through friendship
+                if (id == 174)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 39,
+                        requireFriendship = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Togepi evolves to Togetic through friendship
+                if (id == 175)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 176,
+                        requireFriendship = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Poliwhirl evolves to Politoed through trade whilst holding a king's rock
+                if (id == 61)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 186,
+                        requireTrade = true,
+                        heldItemId = 221
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Eevee evolves to Espeon through friendship in daytime
+                if (id == 133)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 196,
+                        requireFriendship = true,
+                        condition = _ => Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Eevee evolves to Umbreon through friendship in daytime
+                if (id == 133)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 197,
+                        requireFriendship = true,
+                        condition = _ => !Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Slowpoke evolves to Slowking through trade whilst holding a king's rock
+                if (id == 79)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 199,
+                        requireTrade = true,
+                        heldItemId = 221
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Onix evolves to Steelix through trade whilst holding a metal coat
+                if (id == 95)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 208,
+                        requireTrade = true,
+                        heldItemId = 233
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Scyther evolves to Scizor through trade whilst holding a metal coat
+                if (id == 123)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 212,
+                        requireTrade = true,
+                        heldItemId = 233
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Seadra evolves to Kingdra through trade whilst holding a dragon scale
+                if (id == 117)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 230,
+                        requireTrade = true,
+                        heldItemId = 235
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Porygon evolves to Porygon2 through trade whilst holding a Up-Grade
+                if (id == 137)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 223,
+                        requireTrade = true,
+                        heldItemId = 252
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Tyrogue evolves to Hitmonlee through trade at level 20 when its attack stat exeeds its defense stat
+                if (id == 236)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 106,
+                        level = 20,
+                        condition = pmon => pmon.GetStats().attack > pmon.GetStats().defense
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Tyrogue evolves to Hitmonchan through trade at level 20 when its attack stat is lesser than its defense stat
+                if (id == 236)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 107,
+                        level = 20,
+                        condition = pmon => pmon.GetStats().attack < pmon.GetStats().defense
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Tyrogue evolves to Hitmontop through trade at level 20 when its attack stat equals its defense stat
+                if (id == 236)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 237,
+                        level = 20,
+                        condition = pmon => pmon.GetStats().attack == pmon.GetStats().defense
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Chansey evolves to Blissey through friendship
+                if (id == 113)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 242,
+                        requireFriendship = true,
                     };
 
                     List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);

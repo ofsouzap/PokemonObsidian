@@ -128,6 +128,18 @@ TextureImporter:
   - first:
       213: 2540603354622841785
     second: itemsprite_dusk_stone
+  - first:
+      213: 7029421955559102330
+    second: itemsprite_kings_rock
+  - first:
+      213: -3000159912263135310
+    second: itemsprite_metal_coat
+  - first:
+      213: -1645807599134076747
+    second: itemsprite_dragon_scale
+  - first:
+      213: -18427582504648500
+    second: itemsprite_up_grade
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -159,8 +171,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -1118,6 +1130,90 @@ TextureImporter:
       bones: []
       spriteID: 9b3d5735a49024320800000000000000
       internalID: 2540603354622841785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_kings_rock
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 784
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a779e6d66068d8160800000000000000
+      internalID: 7029421955559102330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_metal_coat
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 784
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bf4030947a4d56d0800000000000000
+      internalID: -3000159912263135310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_dragon_scale
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 833
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b099fc55bae829e0800000000000000
+      internalID: -1645807599134076747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_up_grade
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 783
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc0cdba16388ebff0800000000000000
+      internalID: -18427582504648500
       vertices: []
       indices: 
       edges: []

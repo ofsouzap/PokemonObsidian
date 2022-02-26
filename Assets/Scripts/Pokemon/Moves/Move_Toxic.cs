@@ -26,7 +26,7 @@ namespace Pokemon.Moves
 
         public override ushort CalculateAccuracyValue(PokemonInstance user, PokemonInstance target, BattleData battleData)
         {
-            if (user.species.type1 == Type.Poison || user.species.type2 == Type.Poison)
+            if (user.HasType(Type.Poison))
                 return 100;
             else
                 return base.CalculateAccuracyValue(user, target, battleData);

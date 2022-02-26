@@ -51,6 +51,9 @@ namespace Pokemon
         public Type type1;
         public Type? type2;
 
+        public bool HasType(Type type)
+            => type1 == type || type2 == type;
+
         /// <summary>
         /// Name of the resources (eg. sprites and audio) for the pokemon. Will be used as eg. "Resources/Sprites/Pokemon/{resourceName}". If this is empty, the pokemon's id will be used instead
         /// </summary>
@@ -122,12 +125,21 @@ namespace Pokemon
             /// <summary>
             /// Id of item that needs to be used to evolve if applicable else null (this id *excludes* the general item type id)
             /// </summary>
-            public int? itemId;
+            public int? useItemId;
+
+            public int? heldItemId;
 
             /// <summary>
             /// Whether the pokemon must be traded to evolve
             /// </summary>
-            public bool requireTrade;
+            public bool requireTrade = false;
+
+            /// <summary>
+            /// Whether the pokemon must have a high friendship to evolve
+            /// </summary>
+            public bool requireFriendship = false;
+
+            public const byte friendshipEvolutionMinimum = 220;
 
             /// <summary>
             /// A condition that must be met by a pokemon to evolve if applicable else null
@@ -148,20 +160,33 @@ namespace Pokemon
                 bool tradeCondition = trading == requireTrade;
                 bool levelCondition = level == null ? true : pokemon.GetLevel() >= level;
 
-                bool itemCondition;
-                if (itemId == null)
-                    itemCondition = true;
+                bool useItemCondition;
+                if (useItemId == null)
+                    useItemCondition = true;
                 else
                 {
                     if (itemIdUsed == null) //If an item wasn't used but an item was required
-                        itemCondition = false;
+                        useItemCondition = false;
                     else //Check whether the used item is the item required for the evolution
-                        itemCondition = (itemIdUsed - Item.GetItemIdTypeId((int)itemIdUsed)) == itemId; //The type id of the item isn't included in Evolution.itemId
+                        useItemCondition = (itemIdUsed - Item.GetItemIdTypeId((int)itemIdUsed)) == useItemId; //The type id of the item isn't included in Evolution.itemId
+                }
+
+                bool heldItemCondition;
+                if (useItemId == null)
+                    heldItemCondition = true;
+                else
+                {
+                    if (pokemon.heldItem == null) //If an item isn't held but an item was required
+                        heldItemCondition = false;
+                    else //Check whether the used item is the item required for the evolution
+                        heldItemCondition = (pokemon.heldItem.id - Item.GetItemIdTypeId((int)pokemon.heldItem.id)) == useItemId; //The type id of the item isn't included in Evolution.itemId
                 }
 
                 bool specialCondition = condition == null ? true : condition(pokemon);
 
-                return tradeCondition && levelCondition && itemCondition && specialCondition;
+                bool friendshipCondition = !(requireFriendship && (pokemon.friendship < friendshipEvolutionMinimum));
+
+                return tradeCondition && levelCondition && useItemCondition && heldItemCondition && specialCondition && friendshipCondition;
 
             }
 

@@ -8,3 +8,7 @@ id (w/o category id),item name,resourceName,description,usable from bag
 107,Shiny Stone,shiny_stone,A peculiar stone that causes some species of pokemon to evolve.,1
 108,Dusk Stone,dusk_stone,A peculiar stone that causes some species of pokemon to evolve.,1
 109,Dawn Stone,dawn_stone,A peculiar stone that causes some species of pokemon to evolve.,1
+221,King's Rock,kings_rock,An item to be held by a Pokemon. It may cause the foe to flinch when the holder inflicts damage.,
+233,Metal Coat,metal_coat,An item to be held by a Pokemon. It is a special metallic film that ups the power of Steel-type moves.,
+235,Dragon Scale,dragon_scale,A thick and tough scale. Dragon-type Pokemon may be holding this item when caught.,
+252,Up-Grade,up_grade,A transparent device filled with all sorts of data. It was produced by Silph Co.,

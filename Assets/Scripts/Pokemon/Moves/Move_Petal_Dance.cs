@@ -3,10 +3,10 @@ using Battle;
 
 namespace Pokemon.Moves
 {
-    public class Move_PetalDance : PokemonMove
+    public class Move_Petal_Dance : PokemonMove
     {
 
-        public Move_PetalDance()
+        public Move_Petal_Dance()
         {
 
             id = 80;

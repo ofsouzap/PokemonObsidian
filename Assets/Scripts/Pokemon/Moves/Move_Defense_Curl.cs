@@ -3,10 +3,10 @@ using Battle;
 
 namespace Pokemon.Moves
 {
-    public class Move_DefenseCurl : PokemonMove
+    public class Move_Defense_Curl : PokemonMove
     {
 
-        public Move_DefenseCurl()
+        public Move_Defense_Curl()
         {
 
             id = 111;

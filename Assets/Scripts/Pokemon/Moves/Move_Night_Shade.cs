@@ -2,10 +2,10 @@
 
 namespace Pokemon.Moves
 {
-    public class Move_NightShade : PokemonMove
+    public class Move_Night_Shade : PokemonMove
     {
 
-        public Move_NightShade()
+        public Move_Night_Shade()
         {
 
             id = 101;

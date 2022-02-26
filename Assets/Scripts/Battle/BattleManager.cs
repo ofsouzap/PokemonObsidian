@@ -2603,7 +2603,7 @@ namespace Battle
             if (usageResults.Succeeded)
             {
 
-                byte moveHitCount = (byte)battleData.RandomRange(move.minimumMultiHitAmount, move.maximumMultiHitAmount + 1);
+                byte moveHitCount = usageResults.hitCount;
 
                 for (int i = 0; i < moveHitCount; i++)
                 {
@@ -2723,6 +2723,30 @@ namespace Battle
                         //Stop loop if target fainted
                         if (targetPokemon.IsFainted)
                             break;
+
+                        #endregion
+
+                        #region Target Healing
+
+                        if (usageResults.targetHealthHealed > 0)
+                        {
+
+                            int targetInitialHealth = targetPokemon.health;
+
+                            targetPokemon.HealHealth(usageResults.targetHealthHealed);
+
+                            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                            {
+                                type = action.fightMoveTarget is BattleParticipantPlayer
+                                    ? BattleAnimationSequencer.Animation.Type.PlayerHealHealth
+                                    : BattleAnimationSequencer.Animation.Type.OpponentHealHealth,
+                                takeDamageOldHealth = targetInitialHealth,
+                                takeDamageNewHealth = targetPokemon.health,
+                                takeDamageMaxHealth = targetPokemon.GetStats().health
+                            });
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " recovered some health");
+
+                        }
 
                         #endregion
 
