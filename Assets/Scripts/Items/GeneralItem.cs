@@ -44,6 +44,8 @@ namespace Items
 
         }
 
+        public const float kingsRockFlinchChance = 0.1F;
+
         #region Registry
 
         public static GeneralItem GetGeneralItemItemById(int id)

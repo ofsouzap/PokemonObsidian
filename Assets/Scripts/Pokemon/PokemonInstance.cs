@@ -696,6 +696,8 @@ namespace Pokemon
 
                 criticalHitChanceBoosted = false;
 
+                ResetConsevutiveProtectionMoves();
+
             }
 
             public void ResetVolatileProperties()
@@ -880,6 +882,16 @@ namespace Pokemon
             /// Whether the chance of a critical hit has been boosted (eg. by focus energy or dire hit)
             /// </summary>
             public bool criticalHitChanceBoosted;
+
+            /// <summary>
+            /// How many consecutive times the pokemon has used a move that gives it protection. As this increases, the chance of protection moves succeeding decreases.
+            /// </summary>
+            public int consecutiveProtectionMoves = 0;
+
+            public void ResetConsevutiveProtectionMoves() => consecutiveProtectionMoves = 0;
+
+            public bool GetRandomProtectionSucceeds(BattleData battleData)
+                => battleData.RandomValue01() <= Mathf.Pow(2F, -consecutiveProtectionMoves);
 
         }
 

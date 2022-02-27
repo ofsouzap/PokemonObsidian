@@ -2438,6 +2438,9 @@ namespace Battle
             if (userPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Asleep)
             {
 
+                //If move missed, cancel thrashing
+                userPokemon.battleProperties.volatileBattleStatus.thrashTurns = 0;
+
                 battleAnimationSequencer.EnqueueSingleText(
                     userPokemon.GetDisplayName()
                     + " is fast asleep");
@@ -2454,6 +2457,9 @@ namespace Battle
                 if (battleData.RandomRange(0F, 1F) < PokemonInstance.paralysisFightFailChance)
                 {
 
+                    //If move missed, cancel thrashing
+                    userPokemon.battleProperties.volatileBattleStatus.thrashTurns = 0;
+
                     battleAnimationSequencer.EnqueueSingleText(
                         userPokemon.GetDisplayName()
                         + " is paralysed and couldn't move!"
@@ -2469,6 +2475,9 @@ namespace Battle
 
             if (userPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.Frozen)
             {
+
+                //If move missed, cancel thrashing
+                userPokemon.battleProperties.volatileBattleStatus.thrashTurns = 0;
 
                 battleAnimationSequencer.EnqueueSingleText(
                         userPokemon.GetDisplayName()
@@ -2495,6 +2504,9 @@ namespace Battle
 
                 if (battleData.RandomValue01() <= PokemonInstance.BattleProperties.VolatileStatusConditions.confusionPokemonDamageChance)
                 {
+
+                    //If move missed, cancel thrashing
+                    userPokemon.battleProperties.volatileBattleStatus.thrashTurns = 0;
 
                     battleAnimationSequencer.EnqueueSingleText(
                         userPokemon.GetDisplayName()
@@ -2542,6 +2554,9 @@ namespace Battle
 
                 if (battleData.RandomValue01() <= PokemonInstance.BattleProperties.VolatileStatusConditions.infatuatedMoveFailChance)
                 {
+
+                    //If move missed, cancel thrashing
+                    userPokemon.battleProperties.volatileBattleStatus.thrashTurns = 0;
 
                     battleAnimationSequencer.EnqueueSingleText(
                         userPokemon.GetDisplayName()
@@ -3074,6 +3089,12 @@ namespace Battle
                     {
                         userPokemon.battleProperties.volatileBattleStatus.protection = true;
                         battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " protects itself");
+                        userPokemon.battleProperties.consecutiveProtectionMoves++;
+                    }
+                    else
+                    {
+                        //If move isn't protection move, reset user consecutive protection moves
+                        userPokemon.battleProperties.ResetConsevutiveProtectionMoves();
                     }
 
                     #endregion
@@ -3218,6 +3239,12 @@ namespace Battle
                     });
                 userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = false;
 
+                //If move failed, cancel thrashing
+                userPokemon.battleProperties.volatileBattleStatus.thrashTurns = 0;
+
+                //If move failed, reset consecutive protection moves
+                userPokemon.battleProperties.ResetConsevutiveProtectionMoves();
+
                 battleAnimationSequencer.EnqueueSingleText("It failed!");
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -3234,6 +3261,12 @@ namespace Battle
                         pokemonSemiInvulnerableParticipantIsPlayer = userIsPlayer
                     });
                 userPokemon.battleProperties.volatileBattleStatus.semiInvulnerable = false;
+
+                //If move missed, cancel thrashing
+                userPokemon.battleProperties.volatileBattleStatus.thrashTurns = 0;
+
+                //If move missed, reset consecutive protection moves
+                userPokemon.battleProperties.ResetConsevutiveProtectionMoves();
 
                 battleAnimationSequencer.EnqueueSingleText("It missed!");
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());

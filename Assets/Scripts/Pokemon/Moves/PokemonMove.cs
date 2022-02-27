@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Battle;
 using Audio;
+using Items;
 
 namespace Pokemon.Moves
 {
@@ -84,7 +85,16 @@ namespace Pokemon.Moves
         public virtual byte GetUsagePower(BattleData battleData,
             PokemonInstance user,
             PokemonInstance target)
-            => power;
+        {
+
+            if (user.heldItem != null && user.heldItem.id == 233 && type == Type.Steel) // Metal coat sets power to 1.2x if steel move
+            {
+                return (byte)(power + (power / 5));
+            }
+            else
+                return power;
+
+        } 
 
         /// <summary>
         /// The chance of the move hitting its target [0,100] (if it is a status move, this should be 0)
@@ -969,7 +979,12 @@ namespace Pokemon.Moves
         public virtual bool CalculateIfTargetFlinch(PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-            => battleData.RandomRange(0f, 1f) < flinchChance;
+        { 
+            if (user.heldItem != null && user.heldItem.id == 221 && flinchChance == 0) // King's rock gives non-flinching moves flinch chance
+                return battleData.RandomRange(0f, 1f) < GeneralItem.kingsRockFlinchChance;
+            else
+                return battleData.RandomRange(0f, 1f) < flinchChance;
+        }
 
         public virtual bool CalculateIfTargetConfused(PokemonInstance user,
             PokemonInstance target,
@@ -1160,7 +1175,21 @@ namespace Pokemon.Moves
             PokemonInstance user,
             PokemonInstance target,
             BattleData battleData)
-        { }
+        {
+
+            if (setsProtection)
+            {
+                if (user.battleProperties.GetRandomProtectionSucceeds(battleData))
+                {
+                    usageResults.setProtection = true;
+                }
+                else
+                {
+                    usageResults.failed = true;
+                }
+            }
+
+        }
 
         public virtual void DoRechargingUpdate(ref UsageResults usageResults,
             PokemonInstance user,
