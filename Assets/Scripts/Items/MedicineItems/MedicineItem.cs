@@ -8,11 +8,9 @@ namespace Items.MedicineItems
 
         #region Registry
 
-        public static MedicineItem GetMedicineItemById(int id,
-            bool addTypeId = false)
+        public static MedicineItem GetMedicineItemById(int id)
         {
-            int queryId = addTypeId ? id + typeIdMedicine : id;
-            return (MedicineItem)registry.LinearSearch(queryId);
+            return (MedicineItem)registry.LinearSearch(id);
         }
 
         public static Item[] GetRegistryItems()
@@ -38,7 +36,7 @@ namespace Items.MedicineItems
 
                 new HealthMedicineItem
                 {
-                    id = typeIdMedicine + 24,
+                    id = 24,
                     itemName = "Max Potion",
                     resourceName = "maxpotion",
                     description = "A spray-type medicine for wounds. It completely restores the HP of a single Pokemon",
@@ -47,7 +45,7 @@ namespace Items.MedicineItems
 
                 new HealthMedicineItem
                 {
-                    id = typeIdMedicine + 17,
+                    id = 17,
                     itemName = "Potion",
                     resourceName = "potion",
                     description = "A spray-type medicine for wounds. It restores the HP of one Pokemon by 20 points",
@@ -56,7 +54,7 @@ namespace Items.MedicineItems
 
                 new HealthMedicineItem
                 {
-                    id = typeIdMedicine + 26,
+                    id = 26,
                     itemName = "Super Potion",
                     resourceName = "superpotion",
                     description = "A spray-type medicine for wounds. It restores the HP of one Pokemon by 50 points",
@@ -65,7 +63,7 @@ namespace Items.MedicineItems
 
                 new HealthMedicineItem
                 {
-                    id = typeIdMedicine + 25,
+                    id = 25,
                     itemName = "Hyper Potion",
                     resourceName = "hyperpotion",
                     description = "A spray-type medicine for wounds. It restores the HP of one Pokemon by 200 points",
@@ -80,7 +78,7 @@ namespace Items.MedicineItems
 
                 new RevivalMedicineItem
                 {
-                    id = typeIdMedicine + 28,
+                    id = 28,
                     itemName = "Revive",
                     resourceName = "revive",
                     description = "A medicine that revives a fainted Pokemon. It restores half the Pokemon's maximum HP",
@@ -89,7 +87,7 @@ namespace Items.MedicineItems
 
                 new RevivalMedicineItem
                 {
-                    id = typeIdMedicine + 29,
+                    id = 29,
                     itemName = "Max Revive",
                     resourceName = "maxrevive",
                     description = "A medicine that revives a fainted Pokemon. It restores all of the Pokemon's maximum HP",
@@ -104,7 +102,7 @@ namespace Items.MedicineItems
 
                 new NVSCCureMedicineItem
                 {
-                    id = typeIdMedicine + 27,
+                    id = 27,
                     itemName = "Full Heal",
                     resourceName = "fullheal",
                     description = "A spray-type medicine. It heals all the status problems of a single Pokemon",
@@ -121,7 +119,7 @@ namespace Items.MedicineItems
 
                 new NVSCCureMedicineItem
                 {
-                    id = typeIdMedicine + 22,
+                    id = 22,
                     itemName = "Paralyse Heal",
                     resourceName = "paralyseheal",
                     description = "A spray-type medicine. It cures paralysis for a single Pokemon",
@@ -130,7 +128,7 @@ namespace Items.MedicineItems
 
                 new NVSCCureMedicineItem
                 {
-                    id = typeIdMedicine + 18,
+                    id = 18,
                     itemName = "Antidote",
                     resourceName = "antidote",
                     description = "A spray-type medicine. It cures poisoning for a single Pokemon",
@@ -139,7 +137,7 @@ namespace Items.MedicineItems
 
                 new NVSCCureMedicineItem
                 {
-                    id = typeIdMedicine + 21,
+                    id = 21,
                     itemName = "Awakening",
                     resourceName = "awakening",
                     description = "A spray-type medicine. It awakens a single Pokemon",
@@ -148,7 +146,7 @@ namespace Items.MedicineItems
 
                 new NVSCCureMedicineItem
                 {
-                    id = typeIdMedicine + 19,
+                    id = 19,
                     itemName = "Burn Heal",
                     resourceName = "burnheal",
                     description = "A spray-type medicine. It cures burns for a single Pokemon",
@@ -157,7 +155,7 @@ namespace Items.MedicineItems
 
                 new NVSCCureMedicineItem
                 {
-                    id = typeIdMedicine + 20,
+                    id = 20,
                     itemName = "Ice Heal",
                     resourceName = "iceheal",
                     description = "A spray-type medicine. It thaws a single Pokemon",
@@ -172,7 +170,7 @@ namespace Items.MedicineItems
 
                 new PPRestoreMedicineItem
                 {
-                    id = typeIdMedicine + 38,
+                    id = 38,
                     itemName = "Ether",
                     resourceName = "ether",
                     description = "Restores the PP of one of a Pokemon's moves by 10 points",
@@ -183,7 +181,7 @@ namespace Items.MedicineItems
 
                 new PPRestoreMedicineItem
                 {
-                    id = typeIdMedicine + 39,
+                    id = 39,
                     itemName = "Max Ether",
                     resourceName = "maxether",
                     description = "Fully restores the PP of one of a Pokemon's moves",
@@ -193,7 +191,7 @@ namespace Items.MedicineItems
 
                 new PPRestoreMedicineItem
                 {
-                    id = typeIdMedicine + 40,
+                    id = 40,
                     itemName = "Elixir",
                     resourceName = "elixir",
                     description = "Restores the PP of all of a Pokemon's moves by 10 points",
@@ -204,7 +202,7 @@ namespace Items.MedicineItems
 
                 new PPRestoreMedicineItem
                 {
-                    id = typeIdMedicine + 41,
+                    id = 41,
                     itemName = "Max Elixir",
                     resourceName = "maxelixir",
                     description = "Fully restores the PP of all of a Pokemon's moves",

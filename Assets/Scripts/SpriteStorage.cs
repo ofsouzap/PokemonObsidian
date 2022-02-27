@@ -639,11 +639,10 @@ public static class SpriteStorage
     }
 
     public static Sprite GetPokeBallSprite(int pokeBallId,
-        PokeBall.SpriteType spriteType,
-        bool addTypeId = false)
+        PokeBall.SpriteType spriteType)
     {
 
-        string resourceName = PokeBall.GetPokeBallById(pokeBallId, addTypeId).resourceName + '_' + PokeBall.spriteTypeResourceNames[spriteType];
+        string resourceName = PokeBall.GetPokeBallById(pokeBallId).resourceName + '_' + PokeBall.spriteTypeResourceNames[spriteType];
 
         return GetSprite(SpriteType.PokeBall, resourceName);
 

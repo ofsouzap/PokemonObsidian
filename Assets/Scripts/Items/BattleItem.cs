@@ -10,11 +10,9 @@ namespace Items
 
         #region Registry
 
-        public static BattleItem GetBattleItemById(int id,
-            bool addTypeId = false)
+        public static BattleItem GetBattleItemById(int id)
         {
-            int queryId = addTypeId ? id + typeIdBattleItem : id;
-            return (BattleItem)registry.LinearSearch(queryId);
+            return (BattleItem)registry.LinearSearch(id);
         }
 
         private static string GenerateDescription(string statName)
@@ -28,7 +26,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 57,
+                    id = 57,
                     itemName = "X Attack",
                     resourceName = "x_attack",
                     description = GenerateDescription("Attack"),
@@ -37,7 +35,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 58,
+                    id = 58,
                     itemName = "X Defense",
                     resourceName = "x_defense",
                     description = GenerateDescription("Defense"),
@@ -46,7 +44,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 61,
+                    id = 61,
                     itemName = "X Sp. Attack",
                     resourceName = "x_special_attack",
                     description = GenerateDescription("Special Attack"),
@@ -55,7 +53,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 62,
+                    id = 62,
                     itemName = "X Sp. Defense",
                     resourceName = "x_special_defense",
                     description = GenerateDescription("Special Defense"),
@@ -64,7 +62,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 59,
+                    id = 59,
                     itemName = "X Speed",
                     resourceName = "x_speed",
                     description = GenerateDescription("Speed"),
@@ -73,7 +71,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 60,
+                    id = 60,
                     itemName = "X Accuracy",
                     resourceName = "x_accuracy",
                     description = GenerateDescription("Accuracy"),
@@ -82,7 +80,7 @@ namespace Items
 
                 new BattleItem
                 {
-                    id = typeIdBattleItem + 56,
+                    id = 56,
                     itemName = "X Dire Hit",
                     resourceName = "x_dire_hit",
                     description = GenerateDescription("critical hit ratio"),

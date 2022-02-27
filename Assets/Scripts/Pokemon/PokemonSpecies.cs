@@ -123,7 +123,7 @@ namespace Pokemon
             public byte? level;
 
             /// <summary>
-            /// Id of item that needs to be used to evolve if applicable else null (this id *excludes* the general item type id)
+            /// Id of item that needs to be used to evolve if applicable else null
             /// </summary>
             public int? useItemId;
 
@@ -151,7 +151,7 @@ namespace Pokemon
             /// </summary>
             /// <param name="pokemon">The pokemon being considered</param>
             /// <param name="trading">Whether this is being checked after having traded</param>
-            /// <param name="itemIdUsed">An item that is being *used* (not held!) on the pokemon. This id *includes* the type id of the item</param>
+            /// <param name="itemIdUsed">An item that is being *used* (not held!) on the pokemon</param>
             public bool PokemonCanUseEvolution(PokemonInstance pokemon,
                 bool trading = false,
                 int? itemIdUsed = null)
@@ -168,7 +168,7 @@ namespace Pokemon
                     if (itemIdUsed == null) //If an item wasn't used but an item was required
                         useItemCondition = false;
                     else //Check whether the used item is the item required for the evolution
-                        useItemCondition = (itemIdUsed - Item.GetItemIdTypeId((int)itemIdUsed)) == useItemId; //The type id of the item isn't included in Evolution.itemId
+                        useItemCondition = itemIdUsed == useItemId; //The type id of the item isn't included in Evolution.itemId
                 }
 
                 bool heldItemCondition;
@@ -179,7 +179,7 @@ namespace Pokemon
                     if (pokemon.heldItem == null) //If an item isn't held but an item was required
                         heldItemCondition = false;
                     else //Check whether the used item is the item required for the evolution
-                        heldItemCondition = (pokemon.heldItem.id - Item.GetItemIdTypeId((int)pokemon.heldItem.id)) == useItemId; //The type id of the item isn't included in Evolution.itemId
+                        heldItemCondition = pokemon.heldItem.id == useItemId; //The type id of the item isn't included in Evolution.itemId
                 }
 
                 bool specialCondition = condition == null ? true : condition(pokemon);

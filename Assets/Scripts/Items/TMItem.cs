@@ -10,11 +10,14 @@ namespace Items
 
         #region Registry
 
-        public static TMItem GetTMItemById(int id,
-            bool addTypeId = false)
+        /// <summary>
+        /// The id of a TM for a move with id x is this value plus x
+        /// </summary>
+        public const int tmItemStart = 1000;
+
+        public static TMItem GetTMItemById(int id)
         {
-            int queryId = addTypeId ? id + typeIdTM : id;
-            return (TMItem)registry.LinearSearch(queryId);
+            return (TMItem)registry.LinearSearch(id);
         }
 
         public static Item[] GetRegistryItems()
@@ -27,7 +30,7 @@ namespace Items
 
                 tmItems.Add(new TMItem
                 {
-                    id = typeIdTM + move.id,
+                    id = tmItemStart + move.id,
                     moveId = move.id,
                     itemName = "TM" + move.id + ' ' + move.name,
                     resourceName = "tm_" + TypeFunc.GetTypeResourceName(move.type),

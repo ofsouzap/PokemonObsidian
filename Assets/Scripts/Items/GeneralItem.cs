@@ -46,17 +46,15 @@ namespace Items
 
         #region Registry
 
-        public static GeneralItem GetGeneralItemItemById(int id,
-            bool addTypeId = false)
+        public static GeneralItem GetGeneralItemItemById(int id)
         {
-            int queryId = addTypeId ? id + typeIdGeneral : id;
-            return (GeneralItem)registry.LinearSearch(queryId);
+            return (GeneralItem)registry.LinearSearch(id);
         }
 
         public const string dataPath = "Data/generalItems";
 
         /* Data CSV columns:
-         * id (int) (excluding general item type id)
+         * id (int)
          * name (string)
          * resource name (string)
          * description (string)
@@ -87,8 +85,6 @@ namespace Items
                     Debug.LogError("Invalid entry id found - " + entry[0]);
                     id = -1;
                 }
-
-                id += typeIdGeneral;
 
                 #endregion
 

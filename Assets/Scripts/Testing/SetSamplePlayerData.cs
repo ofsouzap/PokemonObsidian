@@ -69,61 +69,61 @@ namespace Testing
 
             PlayerData.singleton.inventory.battleItems.SetItems(new Dictionary<int, int>()
             {
-                { Item.typeIdBattleItem + 56, 1 },
-                { Item.typeIdBattleItem + 57, 1 },
-                { Item.typeIdBattleItem + 58, 102 },
-                { Item.typeIdBattleItem + 59, 10 },
-                { Item.typeIdBattleItem + 60, 4 },
-                { Item.typeIdBattleItem + 61, 1 },
-                { Item.typeIdBattleItem + 62, 3 }
+                { 56, 1 },
+                { 57, 1 },
+                { 58, 102 },
+                { 59, 10 },
+                { 60, 4 },
+                { 61, 1 },
+                { 62, 3 }
             });
 
             PlayerData.singleton.inventory.medicineItems.SetItems(new Dictionary<int, int>()
             {
-                { Item.typeIdMedicine + 17, 1 },
-                { Item.typeIdMedicine + 18, 102 },
-                { Item.typeIdMedicine + 19, 10 },
-                { Item.typeIdMedicine + 20, 4 },
-                { Item.typeIdMedicine + 21, 3 },
-                { Item.typeIdMedicine + 22, 4 },
-                { Item.typeIdMedicine + 29, 1 },
-                { Item.typeIdMedicine + 24, 1 },
-                { Item.typeIdMedicine + 28, 2 },
-                { Item.typeIdMedicine + 25, 2 },
+                { 17, 1 },
+                { 18, 102 },
+                { 19, 10 },
+                { 20, 4 },
+                { 21, 3 },
+                { 22, 4 },
+                { 29, 1 },
+                { 24, 1 },
+                { 28, 2 },
+                { 25, 2 },
             });
 
             PlayerData.singleton.inventory.pokeBalls.SetItems(new Dictionary<int, int>()
             {
-                { Item.typeIdPokeBall + 2, 14 },
-                { Item.typeIdPokeBall + 3, 3 },
-                { Item.typeIdPokeBall + 4, 7 },
-                { Item.typeIdPokeBall + 6, 10 },
-                { Item.typeIdPokeBall + 1, 10 },
+                { 2, 14 },
+                { 3, 3 },
+                { 4, 7 },
+                { 6, 10 },
+                { 1, 10 },
             });
 
             PlayerData.singleton.inventory.tmItems.SetItems(new Dictionary<int, int>()
             {
-                { Item.typeIdTM + 1, 3 },
-                { Item.typeIdTM + 39, 1 },
-                { Item.typeIdTM + 55, 20 },
-                { Item.typeIdTM + 72, 5 },
-                { Item.typeIdTM + 24, 5 },
-                { Item.typeIdTM + 45, 2 },
-                { Item.typeIdTM + 95, 2 },
-                { Item.typeIdTM + 101, 2 },
-                { Item.typeIdTM + 85, 2 },
+                { TMItem.tmItemStart + 1, 3 },
+                { TMItem.tmItemStart + 39, 1 },
+                { TMItem.tmItemStart + 55, 20 },
+                { TMItem.tmItemStart + 72, 5 },
+                { TMItem.tmItemStart + 24, 5 },
+                { TMItem.tmItemStart + 45, 2 },
+                { TMItem.tmItemStart + 95, 2 },
+                { TMItem.tmItemStart + 101, 2 },
+                { TMItem.tmItemStart + 85, 2 },
             });
 
             PlayerData.singleton.inventory.generalItems.SetItems(new Dictionary<int, int>()
             {
-                { Item.typeIdGeneral + 80, 3 },
-                { Item.typeIdGeneral + 81, 3 },
-                { Item.typeIdGeneral + 82, 3 },
-                { Item.typeIdGeneral + 83, 3 },
-                { Item.typeIdGeneral + 84, 3 },
-                { Item.typeIdGeneral + 85, 3 },
-                { Item.typeIdGeneral + 108, 3 },
-                { Item.typeIdGeneral + 109, 3 },
+                { 80, 3 },
+                { 81, 3 },
+                { 82, 3 },
+                { 83, 3 },
+                { 84, 3 },
+                { 85, 3 },
+                { 108, 3 },
+                { 109, 3 },
             });
 
             #endregion
