@@ -3,8 +3,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Audio;
+using UnityEngine.EventSystems;
 
-namespace FreeRoaming.Menu.PlayerMenus
+namespace FreeRoaming.Menu.PlayerMenus.SettingsMenu
 {
     public class SettingsMenuController : PlayerMenuController
     {
@@ -19,18 +20,30 @@ namespace FreeRoaming.Menu.PlayerMenus
         public Slider musicVolumeSlider;
         public Slider sfxVolumeSlider;
 
+        [Header("Credits")]
+        public CreditsCanvasController creditsCanvasController;
+        public Button creditsButton;
+
+
         protected override MenuSelectableController[] GetSelectables()
         {
 
             return new MenuSelectableController[]
             {
-                textSpeedSlider.GetComponent<MenuSelectableController>()
+                textSpeedSlider.GetComponent<MenuSelectableController>(),
+                musicVolumeSlider.GetComponent<MenuSelectableController>(),
+                sfxVolumeSlider.GetComponent<MenuSelectableController>(),
+                creditsButton.GetComponent<MenuSelectableController>()
             };
 
         }
 
         protected override GameObject GetDefaultSelectedGameObject()
              => backButton.gameObject;
+
+
+        public void SelectDefaultSelectedGameObject()
+            => EventSystem.current.SetSelectedGameObject(GetDefaultSelectedGameObject());
 
         protected override void Start()
         {
@@ -69,6 +82,9 @@ namespace FreeRoaming.Menu.PlayerMenus
 
             sfxVolumeSlider.onValueChanged.AddListener(v => SetSFXVolumeValue(v));
             sfxVolumeSlider.value = GameSettings.singleton.sfxVolume;
+
+            creditsCanvasController.SetUp(this);
+            creditsButton.onClick.AddListener(() => creditsCanvasController.Show());
 
         }
 
