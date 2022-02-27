@@ -17,7 +17,6 @@ namespace FreeRoaming.PokeMart
          *     Positive ids should be usde for release
          *     0 should never be used
          * general item ids
-         *     Item ids should be *without* their type id. This applies to all id fields in this file
          *     Seperated by ';'. This applies to all id fields in this file
          * medicine item ids
          * poke ball ids
@@ -117,19 +116,22 @@ namespace FreeRoaming.PokeMart
             List<int> itemIds = new List<int>();
 
             foreach (int itemId in generalItems)
-                itemIds.Add(Item.typeIdGeneral + itemId);
+                itemIds.Add(itemId);
 
             foreach (int itemId in medicineItems)
-                itemIds.Add(Item.typeIdMedicine + itemId);
+                itemIds.Add(itemId);
 
             foreach (int itemId in pokeBallItems)
-                itemIds.Add(Item.typeIdPokeBall + itemId);
+                itemIds.Add(itemId);
 
             foreach (int itemId in tmItems)
-                itemIds.Add(Item.typeIdTM + itemId);
+                if (itemId < TMItem.tmItemStart)
+                    itemIds.Add(TMItem.tmItemStart + itemId);
+                else
+                    itemIds.Add(itemId);
 
             foreach (int itemId in battleItems)
-                itemIds.Add(Item.typeIdBattleItem + itemId);
+                itemIds.Add(itemId);
 
             SetPokeMartInventory(id, itemIds.ToArray());
 

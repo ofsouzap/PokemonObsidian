@@ -1,8 +1,8 @@
-id,itemType,itemId (-typeId),quantity
--2,pokeBall,4,20
--1,general,107,1
-1,pokeBall,4,5
-2,medicine,17,5
-3,pokeBall,6,2
-4,general,84,1
-5,general,82,1
+id,itemId (-typeId),quantity
+-2,4,20
+-1,107,1
+1,4,5
+2,17,5
+3,6,2
+4,84,1
+5,82,1

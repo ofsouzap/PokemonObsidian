@@ -20,7 +20,7 @@ namespace FreeRoaming
             => DroppedItem.registry.LinearSearch(droppedItemId);
 
         protected Item GetItem()
-            => Item.GetItemById(DroppedItem.ItemTypeId, DroppedItem.itemId);
+            => Item.GetItemById(DroppedItem.itemId);
 
         protected override void Start()
         {

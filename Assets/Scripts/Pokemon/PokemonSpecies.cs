@@ -120,7 +120,7 @@ namespace Pokemon
             public byte? level;
 
             /// <summary>
-            /// Id of item that needs to be used to evolve if applicable else null (this id *excludes* the general item type id)
+            /// Id of item that needs to be used to evolve if applicable else null
             /// </summary>
             public int? itemId;
 
@@ -139,7 +139,7 @@ namespace Pokemon
             /// </summary>
             /// <param name="pokemon">The pokemon being considered</param>
             /// <param name="trading">Whether this is being checked after having traded</param>
-            /// <param name="itemIdUsed">An item that is being *used* (not held!) on the pokemon. This id *includes* the type id of the item</param>
+            /// <param name="itemIdUsed">An item that is being *used* (not held!) on the pokemon</param>
             public bool PokemonCanUseEvolution(PokemonInstance pokemon,
                 bool trading = false,
                 int? itemIdUsed = null)
@@ -156,7 +156,7 @@ namespace Pokemon
                     if (itemIdUsed == null) //If an item wasn't used but an item was required
                         itemCondition = false;
                     else //Check whether the used item is the item required for the evolution
-                        itemCondition = (itemIdUsed - Item.GetItemIdTypeId((int)itemIdUsed)) == itemId; //The type id of the item isn't included in Evolution.itemId
+                        itemCondition = itemIdUsed == itemId;
                 }
 
                 bool specialCondition = condition == null ? true : condition(pokemon);

@@ -29,7 +29,7 @@ namespace Pokemon
             int _health = -1,
             bool? gender = true,
             Stats<int> currentStats = new Stats<int>(), //If all of these values are 0, they won't be used
-            int pokeBallId = PokemonInstance.defaultPokeBallId, //The poke ball id INCLUDING the poke ball type id
+            int pokeBallId = PokemonInstance.defaultPokeBallId, //The poke ball id
             string originalTrainerName = "",
             Guid? _originalTrainerGuid = null,
             long catchTime = 0,
@@ -218,7 +218,7 @@ namespace Pokemon
                 battleProperties: null,
                 gender: gender,
 
-                pokeBallId: spec.pokeBallId > 0 ? spec.pokeBallId + Item.typeIdPokeBall : PokemonInstance.defaultPokeBallId,
+                pokeBallId: spec.pokeBallId > 0 ? spec.pokeBallId : PokemonInstance.defaultPokeBallId,
                 nickname: spec.nickname
                 );
 

@@ -30,23 +30,16 @@ public class DroppedItem : IHasId
         {
 
             int id, itemId;
-            Item.ItemType itemType;
             uint quantity;
             
             id = int.Parse(entry[0]);
-            
-            if (!Item.TryParseItemType(entry[1], out itemType))
-            {
-                Debug.LogError("Unable to parse item type for dropped item id " + id.ToString());
-            }
 
-            itemId = int.Parse(entry[2]);
-            quantity = uint.Parse(entry[3]);
+            itemId = int.Parse(entry[1]);
+            quantity = uint.Parse(entry[2]);
 
             droppedItemList.Add(new DroppedItem()
             {
                 id = id,
-                itemType = itemType,
                 itemId = itemId,
                 quantity = quantity
             });
@@ -66,14 +59,7 @@ public class DroppedItem : IHasId
     public int GetId() => id;
 
     /// <summary>
-    /// The type of the dropped item (used to get a type id)
-    /// </summary>
-    public Item.ItemType itemType;
-
-    public int ItemTypeId => Item.GetItemTypeId(itemType);
-
-    /// <summary>
-    /// The dropped item's id excluding its type id
+    /// The dropped item's id
     /// </summary>
     public int itemId;
 

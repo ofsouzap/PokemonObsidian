@@ -24,8 +24,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
         {
 
             imagePokeBall.sprite = SpriteStorage.GetItemSprite(
-                PokeBall.GetPokeBallById(
-                    pokemon.pokeBallId, false)
+                PokeBall.GetPokeBallById(pokemon.pokeBallId)
                 .resourceName
                 );
 
