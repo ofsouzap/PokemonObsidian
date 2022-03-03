@@ -135,6 +135,26 @@ namespace Battle
                     yield return StartCoroutine(battleLayoutController.PokemonSemiInvunlerableStop(animation.pokemonSemiInvulnerableParticipantIsPlayer));
                     break;
 
+                case Animation.Type.WeatherDisplay:
+
+                    Weather weather = Weather.GetWeatherById(animation.weatherDisplayTargetWeatherId);
+
+                    // Announcement
+                    if (weather.announcement != null)
+                    {
+                        yield return StartCoroutine(RunAnimation(new Animation()
+                        {
+                            type = Animation.Type.Text,
+                            messages = new string[1] { weather.announcement },
+                            requireUserContinue = false
+                        }));
+                    }
+
+                    // Animation
+                    yield return StartCoroutine(battleLayoutController.WeatherDisplay(weather));
+
+                    break;
+
             }
 
         }

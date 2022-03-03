@@ -276,6 +276,11 @@ namespace Pokemon.Moves
         /// </summary>
         public int[] semiInvulnerabilityVulnerabilityMoveIds = new int[0];
 
+        /// <summary>
+        /// Id of the weather the move changes the battle's weather to or null if the move doesn't change the battle's weather
+        /// </summary>
+        public int? changedWeatherId = null;
+
         #endregion
 
         #region Move Using
@@ -519,6 +524,11 @@ namespace Pokemon.Moves
             /// What to set the user's semi-invulnerability to or null if it should be left as-is
             /// </summary>
             public bool? setSemiInvulnerable = null;
+
+            /// <summary>
+            /// The id of the weather to change the battle to or null if weather shouldn't be changed
+            /// </summary>
+            public int? newWeatherId = null;
 
         }
 
@@ -1218,6 +1228,17 @@ namespace Pokemon.Moves
 
         #endregion
 
+        public virtual void DoWeatherChangeUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            if (changedWeatherId != null)
+                usageResults.newWeatherId = changedWeatherId;
+
+        }
+
         /// <summary>
         /// Calculates the results of using this move assuming that it is a status move
         /// </summary>
@@ -1437,6 +1458,9 @@ namespace Pokemon.Moves
             #endregion
 
             #endregion
+
+            // Changing battle weather
+            DoWeatherChangeUpdate(ref usageResults, user, target, battleData);
 
             if (allowMissing)
             {

@@ -78,6 +78,7 @@ namespace Pokemon
          *     2 - requires charging but doesn't provide semi-invulnerability whilst charging
          * Semi-invulnerability vulnerability move ids
          *     ;-separated list of move ids
+         * Id of weather that the move changes the battle to (int) (defaults to null meaning don't change weather)
          */
 
         public static void LoadData()
@@ -117,8 +118,9 @@ namespace Pokemon
                 PokemonMove.StatChangeChance[] targetStatChangeChances;
                 bool? movePriority;
                 int[] semiInvulnerabilityVulnerabilityMoveIds;
+                int? changedWeatherId;
 
-                if (entry.Length < 38)
+                if (entry.Length < 39)
                 {
                     Debug.LogWarning("Invalid PokemonMove entry to load - " + entry);
                     continue;
@@ -1252,6 +1254,24 @@ namespace Pokemon
 
                 #endregion
 
+                #region changedWeatherId
+
+                if (entry[38] == "")
+                {
+                    changedWeatherId = null;
+                }
+                else if (int.TryParse(entry[38], out int entryChangedWeatherId))
+                {
+                    changedWeatherId = entryChangedWeatherId;
+                }
+                else
+                {
+                    Debug.LogError("Invalid changed weather id for id " + id);
+                    changedWeatherId = null;
+                }
+
+                #endregion
+
                 moves.Add(new PokemonMove()
                 {
                     id = id,
@@ -1293,7 +1313,8 @@ namespace Pokemon
                     requireRecharging = requireRecharging,
                     requireCharging = requireCharging,
                     chargingSemiInvulnerability = chargingSemiInvulnerability,
-                    semiInvulnerabilityVulnerabilityMoveIds = semiInvulnerabilityVulnerabilityMoveIds
+                    semiInvulnerabilityVulnerabilityMoveIds = semiInvulnerabilityVulnerabilityMoveIds,
+                    changedWeatherId = changedWeatherId
                 });
 
             }

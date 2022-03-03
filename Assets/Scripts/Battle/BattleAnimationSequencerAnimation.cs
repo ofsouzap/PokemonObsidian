@@ -110,6 +110,12 @@ namespace Battle
 
             #endregion
 
+            #region Weather Display
+
+            public int weatherDisplayTargetWeatherId = 0;
+
+            #endregion
+
             #endregion
 
         }

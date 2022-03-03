@@ -428,17 +428,11 @@ namespace Battle
 
                 #region Weather Announcement
 
-                if (battleData.CurrentWeather.announcement != null)
+                battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                 {
-                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
-                    {
-                        type = BattleAnimationSequencer.Animation.Type.Text,
-                        messages = new string[] { Weather.GetWeatherById(battleData.currentWeatherId).announcement },
-                        requireUserContinue = false
-                    });
-                }
-
-                //TODO - when ready (if weather has one) show weather display animation
+                    type = BattleAnimationSequencer.Animation.Type.WeatherDisplay,
+                    weatherDisplayTargetWeatherId = battleData.currentWeatherId
+                });
 
                 yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
@@ -533,6 +527,17 @@ namespace Battle
                 #endregion
 
                 #region End of Turn
+
+                #region Weather Refreshing
+
+                yield return StartCoroutine(RefreshCurrentWeather());
+
+                yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted());
+
+                if (!CheckIfBattleRunning())
+                    break;
+
+                #endregion
 
                 #region Weather Damage
 
@@ -2370,6 +2375,47 @@ namespace Battle
             
         }
 
+        #region Weather
+
+        /// <summary>
+        /// Sets the current weather of the battle assuming it will be changed back later when its duration is finished. Also performs animation for changing weather
+        /// </summary>
+        private void SetChangedWeather(int newWeatherId,
+            int duration = 5)
+        {
+
+            battleData.SetChangedWeather(newWeatherId, duration);
+
+        }
+
+        private IEnumerator RefreshCurrentWeather()
+        {
+
+            if (battleData.weatherHasBeenChanged)
+            {
+
+                battleData.turnsUntilWeatherFade--;
+
+                if (battleData.turnsUntilWeatherFade <= 0)
+                {
+
+                    int newWeatherId = battleData.RevertToInitialWeather();
+                    battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                    {
+                        type = BattleAnimationSequencer.Animation.Type.WeatherDisplay,
+                        weatherDisplayTargetWeatherId = newWeatherId
+                    });
+
+                }
+
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            }
+
+        }
+
+        #endregion
+
         #region Action Execution
 
         /// <summary>
@@ -3209,6 +3255,22 @@ namespace Battle
                     #endregion
 
                     #endregion
+
+                    // Weather effect
+                    if (usageResults.newWeatherId != null && usageResults.newWeatherId != battleData.currentWeatherId)
+                    {
+
+                        // Logic
+                        SetChangedWeather((int)usageResults.newWeatherId);
+
+                        // Animation
+                        battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
+                        {
+                            type = BattleAnimationSequencer.Animation.Type.WeatherDisplay,
+                            weatherDisplayTargetWeatherId = (int)usageResults.newWeatherId
+                        });
+
+                    }
 
                     //Prepare usage results (not allowing misses) for next hit
                     if (i < moveHitCount - 1)

@@ -149,12 +149,31 @@ namespace Battle
         /// <summary>
         /// The numnber of turns until the weather should fade back to the initial weather
         /// </summary>
-        public byte turnsUntilWeatherFade;
+        public int turnsUntilWeatherFade;
 
         /// <summary>
         /// The id of the initial weather. This is what should be faded back to if the weather is changed
         /// </summary>
         public int initialWeatherId;
+
+        /// <summary>
+        /// Sets the current weather back to the initial weather of the battle and disables weatherHasBeenChanged flag
+        /// </summary>
+        /// <returns>The id of the weather being returned to</returns>
+        public int RevertToInitialWeather()
+        {
+            weatherHasBeenChanged = false;
+            currentWeatherId = initialWeatherId;
+            return currentWeatherId;
+        }
+
+        public void SetChangedWeather(int newWeatherId,
+            int duration)
+        {
+            weatherHasBeenChanged = true;
+            currentWeatherId = newWeatherId;
+            turnsUntilWeatherFade = duration;
+        }
 
         #endregion
 

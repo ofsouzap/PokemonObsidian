@@ -11,6 +11,8 @@ namespace Battle.BattleLayout
     public partial class BattleLayoutController : MonoBehaviour
     {
 
+        private TextBoxController textBoxController;
+
         public float pokemonSpriteOffScreenLeftLocalPositionX;
         public float pokemonSpriteOffScreenRightLocalPositionX;
 
@@ -170,6 +172,8 @@ namespace Battle.BattleLayout
 
         private void Start()
         {
+
+            textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
             if (playerPokemonSprite.GetComponent<SpriteRenderer>() == null)
                 Debug.LogError("No SpriteRenderer component found for playerPokemonObject");
@@ -1389,6 +1393,22 @@ namespace Battle.BattleLayout
             target.SetActive(true);
 
             yield break;
+
+        }
+
+        #endregion
+
+        #region Weather Display
+
+        public IEnumerator WeatherDisplay(int weatherId)
+            => WeatherDisplay(Weather.GetWeatherById(weatherId));
+
+        public IEnumerator WeatherDisplay(Weather weather)
+        {
+
+            // No animation for clear sky
+
+            yield break; //TODO - weather animations
 
         }
 
