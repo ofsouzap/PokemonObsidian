@@ -224,7 +224,10 @@ namespace Pokemon
         public int[] tutorMoves;
 
         public bool CanLearnMove(int moveId)
-            => baseMoves.Contains(moveId) || discMoves.Contains(moveId) || levelUpMoves.Values.Count(x => x.Contains(moveId)) > 0;
+            => baseMoves.Contains(moveId)
+            || discMoves.Contains(moveId)
+            || levelUpMoves.Values.Count(x => x.Contains(moveId)) > 0
+            || id == 151; // Mew (id 151) can learn any move
 
         #endregion
 

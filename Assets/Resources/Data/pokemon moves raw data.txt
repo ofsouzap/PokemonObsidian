@@ -901,6 +901,12 @@ confusion,disable
 Focus Punch,Water Pulse,Calm Mind,Toxic,Hail,Bulk Up,Hidden Power,Sunny Day,Taunt,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Torment,Facade,Secret Power,Rest,Skill Swap,Snatch,Focus Blast,Energy Ball,Fling,Charge Beam,Endure,Drain Punch,Will-O-Wisp,Embargo,Recycle,Giga Impact,Flash,Stone Edge,Avalanche,Thunder Wave,Psych Up,Rock Slide,Sleep Talk,Natural Gift,Poison Jab,Dream Eater,Grass Knot,Swagger,Substitute,Trick Room,Strength,Rock Smash,Rock Climb
 (no egg)
 
+Mew
+Pound,Transform
+10 Mega Punch,20 Metronome,30 Psychic,40 Barrier,50 AncientPower,60 Amnesia,70 Me First,80 Baton Pass,90 Nasty Plot,100 Aura Sphere
+(every disc)
+(no egg)
+
 Chikorita
 Tackle,Growl
 6 Razor Leaf,9 PoisonPowder,12 Synthesis,17 Reflect,20 Magical Leaf,23 Natural Gift,28 Sweet Scent,31 Light Screen,34 Body Slam,39 Safeguard,42 Aromatherapy,45 SolarBeam
