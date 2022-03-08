@@ -1375,6 +1375,26 @@ namespace Pokemon
             moves.Add(new Move_AncientPower());
             moves.Add(new Move_Beat_Up());
 
+            // Gen III
+
+            moves.Add(new Move_Stockpile());
+            moves.Add(new Move_Spit_Up());
+            moves.Add(new Move_Swallow());
+            moves.Add(new Move_Torment());
+            moves.Add(new Move_Facade());
+            moves.Add(new Move_Focus_Punch());
+            moves.Add(new Move_SmellingSalt());
+            moves.Add(new Move_Taunt());
+            moves.Add(new Move_Ingrain());
+            moves.Add(new Move_Revenge());
+            moves.Add(new Move_Yawn());
+            moves.Add(new Move_Endeavor());
+            moves.Add(new Move_Eruption());
+            moves.Add(new Move_Meteor_Mash());
+            moves.Add(new Move_Silver_Wind());
+            moves.Add(new Move_Water_Spout());
+            moves.Add(new Move_Sheer_Cold());
+
             return moves.ToArray();
 
         }

@@ -574,6 +574,33 @@ namespace Pokemon
 
                 #region Evolutions
 
+                /* Template
+
+                //SPECIES1 evolves to SPECIES1 through METHOD
+                if (id == ID)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = TRGT,
+                        level = LVL,
+                        requireTrade = REQT,
+                        heldItemId = ITEM,
+                        useItemId = ITEM,
+                        requireFriendship = REQF,
+                        condition = (pmon) => COND
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                */
+
+                #region Gen I
+
                 //Kadabra evolves to Alakazam thorugh trade
                 if (id == 64)
                 {
@@ -653,6 +680,10 @@ namespace Pokemon
                     evolutions = evolutionsList.ToArray();
 
                 }
+
+                #endregion
+
+                #region Gen II
 
                 //Pichu evolves to Pikachu through friendship
                 if (id == 172)
@@ -920,6 +951,112 @@ namespace Pokemon
                     evolutions = evolutionsList.ToArray();
 
                 }
+
+                #endregion
+
+                #region Gen III
+
+                //Wurmple evolves to Silcoon at level 7 with guid first byte ending with 0
+                if (id == 265)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 266,
+                        level = 7,
+                        condition = (pmon) => pmon.guid.ToByteArray()[0] % 2 == 0
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Wurmple evolves to Cascoon at level 7 with guid first byte ending with 1
+                if (id == 265)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 268,
+                        level = 7,
+                        condition = (pmon) => pmon.guid.ToByteArray()[0] % 2 == 1
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Azurill evolves to Marill through friendship
+                if (id == 298)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 183,
+                        requireFriendship = true
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Feebas evolves to Milotic through trade
+                if (id == 349)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 350,
+                        requireTrade = true
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Clamperl evolves to Huntail through trade whilst holding deep sea tooth
+                if (id == 366)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 367,
+                        requireTrade = true,
+                        heldItemId = 226
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Clamperl evolves to Gorebyss through trade whilst holding deep sea scale
+                if (id == 366)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 368,
+                        requireTrade = true,
+                        heldItemId = 227
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                #endregion
 
                 #endregion
 

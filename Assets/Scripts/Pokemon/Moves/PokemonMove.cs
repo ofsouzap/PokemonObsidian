@@ -89,8 +89,10 @@ namespace Pokemon.Moves
 
             if (user.heldItem != null && user.heldItem.id == 233 && type == Type.Steel) // Metal coat sets power to 1.2x if steel move
             {
-                return (byte)(power + (power / 5));
+                return Convert.ToByte(power + (power / 5));
             }
+            else if (type == Type.Electric && user.battleProperties.volatileBattleStatus.electricCharged)
+                return Convert.ToByte(power * 2);
             else
                 return power;
 
@@ -386,6 +388,11 @@ namespace Pokemon.Moves
             public PokemonInstance.NonVolatileStatusCondition targetNonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
 
             /// <summary>
+            /// Whether to clear the target's non-volatile status condition;
+            /// </summary>
+            public bool clearTargetNonVolatileStatusCondition = false;
+
+            /// <summary>
             /// How long the target should be put to sleep for if targetNonVolatileStatsCondition is Asleep
             /// </summary>
             public byte targetAsleepInflictionDuration = 0;
@@ -529,6 +536,16 @@ namespace Pokemon.Moves
             /// The id of the weather to change the battle to or null if weather shouldn't be changed
             /// </summary>
             public int? newWeatherId = null;
+
+            /// <summary>
+            /// How much to change the user's stockpile amount
+            /// </summary>
+            public sbyte stockpileChange = 0;
+
+            /// <summary>
+            /// What to set the pokemon's electric charge property to or null if not to change it
+            /// </summary>
+            public bool? setElectricCharged = null;
 
         }
 
@@ -869,6 +886,11 @@ namespace Pokemon.Moves
                 usageResults.userHealthHealed = CalculateUserHealthHealed(user, target, battleData, usageResults.targetDamageDealt);
 
             usageResults.thawTarget = CheckIfThawTarget(user, target, battleData);
+
+            if (usageResults.Succeeded && type == Type.Electric && user.battleProperties.volatileBattleStatus.electricCharged)
+            {
+                usageResults.setElectricCharged = false;
+            }
 
             return usageResults;
 
@@ -1226,6 +1248,78 @@ namespace Pokemon.Moves
             BattleData battleData)
         { }
 
+        #region Stockpile
+
+        public virtual bool GetResetStockpile(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual bool GetIncrementStockpile(PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+            => false;
+
+        public virtual void DoStockpileUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            bool incrementStockpile = GetIncrementStockpile(user, target, battleData);
+            bool resetStockpile = GetResetStockpile(user, target, battleData);
+
+            if (incrementStockpile && resetStockpile)
+            {
+                Debug.LogError($"Move shouldn't increment and reset user's stockpile (move id {id})");
+            }
+            else if (incrementStockpile)
+            {
+                if (user.battleProperties.volatileBattleStatus.stockpileAmount < PokemonInstance.BattleProperties.VolatileBattleStatus.maxStockpileAmount)
+                {
+                    usageResults.stockpileChange = 1;
+                    DoIncrementStockpileUpdate(ref usageResults, user, target, battleData);
+                }
+                else
+                {
+                    usageResults.failed = true;
+                }
+            }
+            else if (resetStockpile)
+            {
+                usageResults.stockpileChange = Convert.ToSByte(-user.battleProperties.volatileBattleStatus.stockpileAmount);
+                DoResetStockpileUpdate(ref usageResults, user, target, battleData);
+            }
+
+        }
+
+        public virtual void DoIncrementStockpileUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        public virtual void DoResetStockpileUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        { }
+
+        #endregion
+
+        public virtual void DoElectricChargeUpdate(ref UsageResults usageResults,
+            PokemonInstance user,
+            PokemonInstance target,
+            BattleData battleData)
+        {
+
+            if (id == 268) // Charge (move)
+            {
+                usageResults.setElectricCharged = true;
+            }
+
+        }
+
         #endregion
 
         public virtual void DoWeatherChangeUpdate(ref UsageResults usageResults,
@@ -1451,6 +1545,24 @@ namespace Pokemon.Moves
             #region Thrashing
 
             DoThrashingUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Stockpile
+
+            DoStockpileUpdate(ref usageResults, user, target, battleData);
+
+            if (usageResults.failed)
+                return usageResults;
+
+            #endregion
+
+            #region Electric Charge
+
+            DoElectricChargeUpdate(ref usageResults, user, target, battleData);
 
             if (usageResults.failed)
                 return usageResults;

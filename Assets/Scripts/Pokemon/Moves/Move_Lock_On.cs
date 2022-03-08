@@ -10,7 +10,7 @@ namespace Pokemon.Moves
         public Move_Lock_On()
         {
 
-            id = 0; // ID here
+            id = 199; // ID here
             name = "Lock-On"; // Full name here
             description = "The user takes sure aim at the foe. It ensures the next attack does not fail to hit the target."; // Description here
             type = Type.Normal; // Type here

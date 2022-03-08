@@ -892,6 +892,10 @@ namespace Battle
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
                 battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
 
+                // Reset damage this turn
+                battleData.participantPlayer.ActivePokemon.battleProperties.ResetDamageThisTurn();
+                battleData.participantOpponent.ActivePokemon.battleProperties.ResetDamageThisTurn();
+
                 //At the end of each turn, the overview panes should be refreshed in case anything was missed during the turn execution
                 battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(battleData.participantPlayer.ActivePokemon);
                 battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(battleData.participantOpponent.ActivePokemon);
@@ -2727,7 +2731,8 @@ namespace Battle
 
                             int targetInitialHealth = targetPokemon.health;
 
-                            targetPokemon.TakeDamage(usageResults.targetDamageDealt);
+                            int damageDealt = targetPokemon.TakeDamage(usageResults.targetDamageDealt);
+                            targetPokemon.battleProperties.AddDamageThisTurn(damageDealt);
 
                             battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(targetPokemon, targetInitialHealth, !userIsPlayer));
 
@@ -3048,6 +3053,19 @@ namespace Battle
                                 battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
 
                         }
+                        else if (usageResults.clearTargetNonVolatileStatusCondition)
+                        {
+
+                            targetPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+
+                            battleAnimationSequencer.EnqueueSingleText(targetPokemon.GetDisplayName() + " recovered from its condition");
+
+                            if (userIsPlayer)
+                                battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+                            else
+                                battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(targetPokemon.nonVolatileStatusCondition);
+
+                        }
 
                         #endregion
 
@@ -3206,6 +3224,35 @@ namespace Battle
 
                     #endregion
 
+                    #region Stockpile
+
+                    if (usageResults.stockpileChange > 0)
+                    {
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " stockpiled " + usageResults.stockpileChange.ToString());
+                        userPokemon.battleProperties.volatileBattleStatus.stockpileAmount += usageResults.stockpileChange;
+                    }
+                    else if (usageResults.stockpileChange < 0)
+                    {
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " used " + Mathf.Abs(usageResults.stockpileChange).ToString() + " stockpile");
+                        userPokemon.battleProperties.volatileBattleStatus.stockpileAmount += usageResults.stockpileChange;
+                    }
+
+                    #endregion
+
+                    #region Electric Charging
+
+                    if (usageResults.setElectricCharged == true)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.electricCharged = true;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " charged itself");
+                    }
+                    else if (usageResults.setElectricCharged == false)
+                    {
+                        userPokemon.battleProperties.volatileBattleStatus.electricCharged = false;
+                    }
+
+                    #endregion
+
                     #endregion
 
                     #region User Damage
@@ -3227,8 +3274,6 @@ namespace Battle
                         break;
 
                     #endregion
-
-                    
 
                     if (usageResults.userHealthHealed > 0 && usageResults.userDamageDealt > 0)
                         Debug.LogError("Usage results contained health reduction and health increase for user pokemon");

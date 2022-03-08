@@ -140,6 +140,12 @@ TextureImporter:
   - first:
       213: -18427582504648500
     second: itemsprite_up_grade
+  - first:
+      213: 923420265406521289
+    second: itemsprite_deep_sea_scale
+  - first:
+      213: 7432944590852275268
+    second: itemsprite_deep_sea_tooth
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1206,7 +1212,7 @@ TextureImporter:
         width: 20
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1214,6 +1220,48 @@ TextureImporter:
       bones: []
       spriteID: cc0cdba16388ebff0800000000000000
       internalID: -18427582504648500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_deep_sea_scale
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 833
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cfd3f1c6d5a0dc00800000000000000
+      internalID: 923420265406521289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_deep_sea_tooth
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 810
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44c39e459bf172760800000000000000
+      internalID: 7432944590852275268
       vertices: []
       indices: 
       edges: []

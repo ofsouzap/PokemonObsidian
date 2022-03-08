@@ -236,16 +236,22 @@ namespace Pokemon
             get => health <= 0;
         }
 
-        public void TakeDamage(int maximumAmount)
+        /// <summary>
+        /// Damages the pokemon to a maximum amount without letting them have negative health then returns the damage done to them
+        /// </summary>
+        public int TakeDamage(int maximumAmount)
         {
 
             if (maximumAmount < health)
             {
                 health -= maximumAmount;
+                return maximumAmount;
             }
             else
             {
+                int damageDealt = health;
                 health = 0;
+                return damageDealt;
             }
 
         }
@@ -796,6 +802,9 @@ namespace Pokemon
                 public static int GetRandomEncoreDuration(BattleData battleData)
                     => battleData.RandomRange(3, 8);
 
+                public static int GetRandomTauntDuration(BattleData battleData)
+                    => battleData.RandomRange(3, 6);
+
             }
 
             public VolatileStatusConditions volatileStatusConditions;
@@ -847,6 +856,18 @@ namespace Pokemon
                 /// </summary>
                 public int chargingMoveId = -1;
 
+                /// <summary>
+                /// The number of stockpiles the pokemon has. Should always be positive
+                /// </summary>
+                public sbyte stockpileAmount = 0;
+
+                public const sbyte maxStockpileAmount = 3;
+
+                /// <summary>
+                /// Whether the pokemon is charged using the move charge
+                /// </summary>
+                public bool electricCharged = false;
+
                 public static int GetRandomThrashingDuration(BattleData battleData)
                     => battleData.RandomRange(2, 4);
 
@@ -862,6 +883,23 @@ namespace Pokemon
             /// Id of the last move used
             /// </summary>
             public int lastMoveId = -1;
+
+            /// <summary>
+            /// How much damage this pokemon has sustained in this turn by the opponent. Should be reset at the end of every turn
+            /// </summary>
+            private int damageThisTurn = 0;
+
+            public void AddDamageThisTurn(int amount)
+            {
+                damageThisTurn += amount;
+            }
+
+            public int GetDamageThisTurn() => damageThisTurn;
+
+            public void ResetDamageThisTurn()
+            {
+                damageThisTurn = 0;
+            }
 
             /// <summary>
             /// Each modifier should only be in [-6,6]. Health isn't used
@@ -1009,7 +1047,7 @@ namespace Pokemon
 
             Stats<int> stats = GetStats();
 
-            return new Stats<int>()
+            Stats<int> battleStats = new Stats<int>()
             {
                 attack = CalculateNormalBattleStat(stats.attack, battleProperties.statModifiers.attack),
                 defense = CalculateNormalBattleStat(stats.defense, battleProperties.statModifiers.defense),
@@ -1017,6 +1055,24 @@ namespace Pokemon
                 specialDefense = CalculateNormalBattleStat(stats.specialDefense, battleProperties.statModifiers.specialDefense),
                 speed = Mathf.RoundToInt(CalculateNormalBattleStat(stats.speed, battleProperties.statModifiers.speed) * speedParalysisMultiplier)
             };
+
+            #region Item Effects
+
+            //Deep Sea Tooth (226) doubles the special attack of Clamperl #366
+            if (speciesId == 366 && heldItem != null && heldItem.id == 226)
+            {
+                battleStats.specialAttack *= 2;
+            }
+
+            //Deep Sea Scale (227) doubles the special attack of Clamperl #366
+            if (speciesId == 366 && heldItem != null && heldItem.id == 227)
+            {
+                battleStats.specialDefense *= 2;
+            }
+
+            #endregion
+
+            return battleStats;
 
         }
 
