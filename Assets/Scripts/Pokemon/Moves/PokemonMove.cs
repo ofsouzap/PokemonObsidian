@@ -393,6 +393,11 @@ namespace Pokemon.Moves
             public bool clearTargetNonVolatileStatusCondition = false;
 
             /// <summary>
+            /// Whether to clear the user's non-volatile status condition
+            /// </summary>
+            public bool clearUserNonVolatileStatusCondition = false;
+
+            /// <summary>
             /// How long the target should be put to sleep for if targetNonVolatileStatsCondition is Asleep
             /// </summary>
             public byte targetAsleepInflictionDuration = 0;
@@ -547,6 +552,41 @@ namespace Pokemon.Moves
             /// </summary>
             public bool? setElectricCharged = null;
 
+            /// <summary>
+            /// How long to set trick room for
+            /// </summary>
+            public int setTrickRoomDuration = 0;
+
+            /// <summary>
+            /// Whether to increase the level of entry hazard spikes for the target
+            /// </summary>
+            public bool increaseTargetStageSpikes = false;
+
+            /// <summary>
+            /// Whether to clear the entry hazard spikes for the user
+            /// </summary>
+            public bool clearUserStageSpikes = false;
+
+            /// <summary>
+            /// Whether to increase the level of entry hazard toxic spikes for the target
+            /// </summary>
+            public bool increaseTargetToxicStageSpikes = false;
+
+            /// <summary>
+            /// Whether to clear the entry hazard toxic spikes for the user
+            /// </summary>
+            public bool clearUserStageToxicSpikes = false;
+
+            /// <summary>
+            /// Whether to set the entry hazard pointed stones for the target
+            /// </summary>
+            public bool setTargetStagePointedStones = false;
+
+            /// <summary>
+            /// Whether to clear the entry hazard pointed stones for the user
+            /// </summary>
+            public bool clearUserStagePointedStones = false;
+
         }
 
         public static int CalculateNormalDamageToDeal(int userLevel, byte power, float ad, float modifier)
@@ -655,7 +695,8 @@ namespace Pokemon.Moves
             if (boostedCriticalChance)
                 criticalHitStage++;
 
-            //TODO - items that increase crit stage
+            if (user.heldItem?.id == 326)
+                criticalHitStage++;
 
             return criticalHitStage;
 
@@ -1014,6 +1055,8 @@ namespace Pokemon.Moves
         { 
             if (user.heldItem != null && user.heldItem.id == 221 && flinchChance == 0) // King's rock gives non-flinching moves flinch chance
                 return battleData.RandomRange(0f, 1f) < GeneralItem.kingsRockFlinchChance;
+            else if (user.heldItem != null && user.heldItem.id == 327 && flinchChance == 0) // Razor fang gives non-flinching moves flinch chance
+                return battleData.RandomRange(0f, 1f) < GeneralItem.razorFangFlinchChance;
             else
                 return battleData.RandomRange(0f, 1f) < flinchChance;
         }

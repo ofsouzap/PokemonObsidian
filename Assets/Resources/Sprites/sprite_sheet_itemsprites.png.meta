@@ -146,6 +146,30 @@ TextureImporter:
   - first:
       213: 7432944590852275268
     second: itemsprite_deep_sea_tooth
+  - first:
+      213: -2498768469261138932
+    second: itemsprite_electirizer
+  - first:
+      213: 2829652465841179715
+    second: itemsprite_magmarizer
+  - first:
+      213: -368118508039178301
+    second: itemsprite_oval stone
+  - first:
+      213: -1459214045071219413
+    second: itemsprite_protector
+  - first:
+      213: -3912702253172725396
+    second: itemsprite_razor_claw
+  - first:
+      213: 8880605494734975141
+    second: itemsprite_razor_fang
+  - first:
+      213: 1189864368408150654
+    second: itemsprite_reaper_cloth
+  - first:
+      213: 8819731812196654529
+    second: itemsprite_dubious_disc
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1233,7 +1257,7 @@ TextureImporter:
         width: 20
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1254,7 +1278,7 @@ TextureImporter:
         width: 20
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1262,6 +1286,174 @@ TextureImporter:
       bones: []
       spriteID: 44c39e459bf172760800000000000000
       internalID: 7432944590852275268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_electirizer
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 783
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c044eb5f057925dd0800000000000000
+      internalID: -2498768469261138932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_magmarizer
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 783
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34c8540fce1f44720800000000000000
+      internalID: 2829652465841179715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_oval stone
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 785
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7f315da2e24eaf0800000000000000
+      internalID: -368118508039178301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_protector
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 784
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25e448ae84dfbbe0800000000000000
+      internalID: -1459214045071219413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_razor_claw
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 784
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c69e4c7f70a43b9c0800000000000000
+      internalID: -3912702253172725396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_razor_fang
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 784
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a07f0065af3e3b70800000000000000
+      internalID: 8880605494734975141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_reaper_cloth
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 782
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e72ccd1c65f338010800000000000000
+      internalID: 1189864368408150654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_dubious_disc
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 764
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd9130ba5bf56a70800000000000000
+      internalID: 8819731812196654529
       vertices: []
       indices: 
       edges: []

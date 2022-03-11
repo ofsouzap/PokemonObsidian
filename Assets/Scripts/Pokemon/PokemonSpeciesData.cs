@@ -73,6 +73,8 @@ namespace Pokemon
          * egg group 2 (as with egg group 1)
          *     if egg group 1 is none, this shouldn't be set
          * egg cycles (number of cycles needed to hatch an egg)
+         * weight (float)
+         * height (float)
          */
 
         public static void LoadData()
@@ -106,8 +108,9 @@ namespace Pokemon
                 Stats<byte> evYield;
                 ushort baseExperienceYield;
                 EggGroup? eggGroup1, eggGroup2;
+                float height, weight;
 
-                if (entry.Length < 28)
+                if (entry.Length < 30)
                 {
                     Debug.LogWarning("Invalid PokemonSpecies entry to load - " + entry);
                     continue;
@@ -564,6 +567,26 @@ namespace Pokemon
                 {
                     Debug.LogError("Invalid egg cycles entry for id " + id);
                     eggCycles = 0;
+                }
+
+                #endregion
+
+                #region height
+
+                if (!float.TryParse(entry[28], out height))
+                {
+                    Debug.LogError("Invalid height entry for id " + id);
+                    height = 0;
+                }
+
+                #endregion
+
+                #region weight
+
+                if (!float.TryParse(entry[29], out weight))
+                {
+                    Debug.LogError("Invalid weight entry for id " + id);
+                    weight = 0;
                 }
 
                 #endregion
@@ -1058,6 +1081,442 @@ namespace Pokemon
 
                 #endregion
 
+                #region Gen IV
+
+                //Budew evolves to Roselia through 315
+                if (id == 406)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 315,
+                        requireFriendship = true,
+                        condition = (pmon) => Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Burmy evolves to Wormadam through level 20 and female
+                if (id == 412)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 413,
+                        level = 20,
+                        condition = (pmon) => pmon.gender == false
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Burmy evolves to Mothim through level 20 and male
+                if (id == 412)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 414,
+                        level = 20,
+                        condition = (pmon) => pmon.gender == true
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Combee evolves to Vespiquen through level 21 and female
+                if (id == 415)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 416,
+                        level = 21,
+                        condition = (pmon) => pmon.gender == false
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Aipom evolves to Ambipom through level up knowing double hit (move)
+                if (id == 190)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 424,
+                        condition = (pmon) => pmon.moveIds.Contains(458) //Double hit move id is 458
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Buneary evolves to Lopunny through friendship
+                if (id == 427)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 428,
+                        requireFriendship = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Chingling evolves to Chimecho through friendship during night
+                if (id == 433)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 358,
+                        requireFriendship = true,
+                        condition = (pmon) => !Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Bonsly evolves to Sudowoodo through level up knowing mimic (move)
+                if (id == 438)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 185,
+                        condition = (pmon) => pmon.moveIds.Contains(102)
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Mime Jr. evolves to Mr. Mime through level up knowing mimic (move)
+                if (id == 439)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 122,
+                        condition = (pmon) => pmon.moveIds.Contains(102)
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Happiny evolves to Chansey through level up holding oval stone during day
+                if (id == 440)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 113,
+                        heldItemId = 110,
+                        condition = (pmon) => Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Muchlax evolves to Snorlax through friendship
+                if (id == 446)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 143,
+                        requireFriendship = true,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Riolu evolves to Lucario through friendship during day
+                if (id == 447)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 448,
+                        requireFriendship = true,
+                        condition = (pmon) => Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Mantyke evolves to Mantine through level up with remoraid in party
+                if (id == 458)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 226,
+                        condition = (pmon) => PlayerData.singleton.partyPokemon.Where(p => p.speciesId == 223).Count() > 0 //Player has remoraid (id 223) in party
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Sneasel evolves to Weavile through level up holding razor claw during night
+                if (id == 215)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 461,
+                        heldItemId = 326,
+                        condition = (pmon) => !Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Lickitung evolves to Lickilicky through level up knowing rollout (move)
+                if (id == 108)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 463,
+                        condition = (pmon) => pmon.moveIds.Contains(205)
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Rhydon evolves to Rhyperior through trade holding protector
+                if (id == 112)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 464,
+                        requireTrade = true,
+                        heldItemId = 321,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Tangela evolves to Tangrowth through level up knowing ancient power (move)
+                if (id == 114)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 465,
+                        condition = (pmon) => pmon.moveIds.Contains(246)
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Electabuzz evolves to Electivire through trade holding electirizer
+                if (id == 125)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 466,
+                        requireTrade = true,
+                        heldItemId = 322,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Magmar evolves to Magmortar through trade holding magmariser
+                if (id == 126)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 467,
+                        requireTrade = true,
+                        heldItemId = 323,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Yanma evolves to Yanmega through level up knowing ancient power (move)
+                if (id == 193)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 469,
+                        condition = (pmon) => pmon.moveIds.Contains(246)
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Gligar evolves to Gliscor through level up holding razor fang during night
+                if (id == 207)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 472,
+                        heldItemId = 327,
+                        condition = (pmon) => !Daytime.IsDaytime
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Piloswine evolves to Mamoswine through level up knowing ancient power (move)
+                if (id ==221)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 473,
+                        condition = (pmon) => pmon.moveIds.Contains(246)
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Porygon2 evolves to Porygon-Z through trade holding dubious disc
+                if (id == 233)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 474,
+                        requireTrade = true,
+                        heldItemId = 324,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Kirlia evolves to Gallade through using dawn stone and male
+                if (id == 281)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 475,
+                        useItemId = 109,
+                        condition = (pmon) => pmon.gender == true
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Dusclops evolves to Dusknoir through trade holding reaper cloth
+                if (id == 356)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 477,
+                        requireTrade = true,
+                        heldItemId = 325,
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                //Snorunt evolves to Froslass through using dawn stone and female
+                if (id == 361)
+                {
+
+                    PokemonSpecies.Evolution newEvolution = new PokemonSpecies.Evolution()
+                    {
+                        targetId = 478,
+                        useItemId = 475,
+                        condition = (pmon) => pmon.gender == false
+                    };
+
+                    List<PokemonSpecies.Evolution> evolutionsList = new List<PokemonSpecies.Evolution>(evolutions);
+                    evolutionsList.Add(newEvolution);
+                    evolutions = evolutionsList.ToArray();
+
+                }
+
+                #endregion
+
                 #endregion
 
                 #endregion
@@ -1099,7 +1558,10 @@ namespace Pokemon
 
                     eggGroup1 = eggGroup1,
                     eggGroup2 = eggGroup2,
-                    eggCycles = eggCycles
+                    eggCycles = eggCycles,
+
+                    height = height,
+                    weight = weight
 
                 });
 

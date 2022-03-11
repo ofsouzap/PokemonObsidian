@@ -1,7 +1,8 @@
+using System;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using UnityEngine;
-using Battle;
+using Pokemon;
 
 namespace Battle
 {
@@ -113,6 +114,58 @@ namespace Battle
             revivalItems = false,
             statusItems = false
         };
+
+        #endregion
+
+        #region Stage Modifiers
+
+        public class StageModifiers
+        {
+
+            /// <summary>
+            /// The number of turns of trick room remaining
+            /// </summary>
+            public int trickRoomRemainingTurns = 0;
+
+            public static int GetRandomTrickRoomDuration(BattleData battleData)
+                => 5;
+
+            public const byte maxSpikesStage = 3;
+            public byte playerSpikesStage = 0;
+            public byte opponentSpikesStage = 0;
+
+            public static int CalculateSpikesDamage(byte spikesLevel, PokemonInstance pokemon)
+                => Convert.ToInt32((float)pokemon.health / (spikesLevel switch
+                {
+                    0 => 0,
+                    1 => 8,
+                    2 => 6,
+                    3 => 4,
+                    _ => 4
+                }));
+
+            public const byte maxToxicSpikesStage = 3;
+            public byte playerToxicSpikesStage = 0;
+            public byte opponentToxicSpikesStage = 0;
+
+            public bool playerPointedStonesEnabled = false;
+            public bool opponentPointedStonesEnabled = false;
+
+            public static int CalculatePointedStonesDamage(PokemonInstance pokemon)
+                => Convert.ToInt32(pokemon.health * 0.125F);
+
+        }
+
+        public StageModifiers stageModifiers = new StageModifiers();
+
+        public byte GetParticipantSpikesLevel(bool isPlayer)
+            => isPlayer ? stageModifiers.playerSpikesStage : stageModifiers.opponentSpikesStage;
+
+        public byte GetParticipantToxicSpikesLevel(bool isPlayer)
+            => isPlayer ? stageModifiers.playerToxicSpikesStage : stageModifiers.opponentToxicSpikesStage;
+
+        public bool GetParticipantPointedStonesEnabled(bool isPlayer)
+            => isPlayer ? stageModifiers.playerPointedStonesEnabled : stageModifiers.opponentPointedStonesEnabled;
 
         #endregion
 

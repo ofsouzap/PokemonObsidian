@@ -44,6 +44,9 @@ namespace Battle
 
             public class PriorityComparer : Comparer<Action>
             {
+
+                public BattleData battleData = null;
+
                 public override int Compare(Action x, Action y)
                 {
                     
@@ -73,7 +76,15 @@ namespace Battle
                         };
 
                         if (xMovePriority == yMovePriority)
-                            return x.user.ActivePokemon.GetBattleStats().speed.CompareTo(y.user.ActivePokemon.GetBattleStats().speed);
+                        {
+
+                            if (battleData != null && battleData.stageModifiers.trickRoomRemainingTurns > 0)
+                                return y.user.ActivePokemon.GetBattleStats().speed.CompareTo(x.user.ActivePokemon.GetBattleStats().speed); //Reverse speed comparison
+
+                            else
+                                return x.user.ActivePokemon.GetBattleStats().speed.CompareTo(y.user.ActivePokemon.GetBattleStats().speed); //Normal speed comparison
+
+                        }
                         else
                             return xMovePriority.CompareTo(yMovePriority);
 
@@ -84,7 +95,6 @@ namespace Battle
                     }
                     else if (x.type == Type.SwitchPokemon)
                     {
-                        //TODO - check if there is a priority for switching pokemon
                         return 0;
                     }
                     else if (x.type == Type.UseItem)
@@ -114,6 +124,7 @@ namespace Battle
                     }
 
                 }
+
             }
 
             #endregion

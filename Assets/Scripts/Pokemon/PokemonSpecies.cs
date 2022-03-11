@@ -105,6 +105,16 @@ namespace Pokemon
         public ushort baseExperienceYield;
         public byte catchRate;
 
+        /// <summary>
+        /// The species' weight in kilograms
+        /// </summary>
+        public float weight;
+
+        /// <summary>
+        /// The species' height in metres
+        /// </summary>
+        public float height;
+
         #endregion
 
         #region Evolution

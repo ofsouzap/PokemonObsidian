@@ -1237,17 +1237,26 @@ namespace Pokemon
 
                     string semiInvulnVulnsEntry = entry[37];
 
-                    try
+                    if (semiInvulnVulnsEntry == "")
                     {
-                        semiInvulnerabilityVulnerabilityMoveIds = semiInvulnVulnsEntry
-                            .Split(';')
-                            .Select(x => int.Parse(x))
-                            .ToArray();
-                    }
-                    catch (FormatException)
-                    {
-                        Debug.LogError("Invalid semiInvulnerabilityVulnerabilityMoveIds for id - " + id);
                         semiInvulnerabilityVulnerabilityMoveIds = new int[0];
+                    }
+                    else
+                    {
+
+                        try
+                        {
+                            semiInvulnerabilityVulnerabilityMoveIds = semiInvulnVulnsEntry
+                                .Split(';')
+                                .Select(x => int.Parse(x))
+                                .ToArray();
+                        }
+                        catch (FormatException)
+                        {
+                            Debug.LogError("Invalid semiInvulnerabilityVulnerabilityMoveIds for id - " + id);
+                            semiInvulnerabilityVulnerabilityMoveIds = new int[0];
+                        }
+
                     }
 
                 }
@@ -1374,6 +1383,7 @@ namespace Pokemon
             moves.Add(new Move_Psych_Up());
             moves.Add(new Move_AncientPower());
             moves.Add(new Move_Beat_Up());
+            moves.Add(new Move_Spikes());
 
             // Gen III
 
@@ -1394,6 +1404,32 @@ namespace Pokemon
             moves.Add(new Move_Silver_Wind());
             moves.Add(new Move_Water_Spout());
             moves.Add(new Move_Sheer_Cold());
+
+            // Gen IV
+
+            moves.Add(new Move_Wake_Up_Slap());
+            moves.Add(new Move_Gyro_Ball());
+            moves.Add(new Move_Brine());
+            moves.Add(new Move_Payback());
+            moves.Add(new Move_Assurance());
+            moves.Add(new Move_Embargo());
+            moves.Add(new Move_Psycho_Shift());
+            moves.Add(new Move_Heal_Block());
+            moves.Add(new Move_Wring_Out());
+            moves.Add(new Move_Power_Swap());
+            moves.Add(new Move_Guard_Swap());
+            moves.Add(new Move_Punishment());
+            moves.Add(new Move_Heart_Swap());
+            moves.Add(new Move_Aqua_Ring());
+            moves.Add(new Move_Avalanche());
+            moves.Add(new Move_Grass_Knot());
+            moves.Add(new Move_Charge_Beam());
+            moves.Add(new Move_Crush_Grip());
+            moves.Add(new Move_Ominous_Wind());
+            moves.Add(new Move_Toxic_Spikes());
+            moves.Add(new Move_Stealth_Rock());
+            moves.Add(new Move_Trick_Room());
+            moves.Add(new Move_Defog());
 
             return moves.ToArray();
 

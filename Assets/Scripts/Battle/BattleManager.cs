@@ -489,9 +489,13 @@ namespace Battle
                 if (battleData.isNetworkBattle && battleData.isNetworkClient)
                     actionsUnsortedArray = actionsUnsortedArray.Reverse().ToArray();
 
+                BattleParticipant.Action.PriorityComparer actionComparer = new BattleParticipant.Action.PriorityComparer();
+
+                actionComparer.battleData = battleData;
+
                 var actionsSorted = actionsUnsortedArray.OrderByDescending(
                     x => x,
-                    new BattleParticipant.Action.PriorityComparer()
+                    actionComparer
                 );
 
                 Queue<BattleParticipant.Action> actionQueue = new Queue<BattleParticipant.Action>(
@@ -554,6 +558,12 @@ namespace Battle
 
                 if (!CheckIfBattleRunning())
                     break;
+
+                #endregion
+
+                #region Stage Modifiers
+
+                StartCoroutine(RefreshStageTrickRoom());
 
                 #endregion
 
@@ -888,7 +898,7 @@ namespace Battle
                 #endregion
 
                 #endregion
-
+                
                 battleData.participantPlayer.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
                 battleData.participantOpponent.ActivePokemon.battleProperties.volatileStatusConditions.flinch = false;
 
@@ -2235,6 +2245,30 @@ namespace Battle
 
         #endregion
 
+        #region Stage Modifiers
+
+        private IEnumerator RefreshStageTrickRoom()
+        {
+
+            if (battleData.stageModifiers.trickRoomRemainingTurns > 0)
+            {
+
+                battleData.stageModifiers.trickRoomRemainingTurns--;
+
+                if (battleData.stageModifiers.trickRoomRemainingTurns <= 0)
+                {
+
+                    battleAnimationSequencer.EnqueueSingleText("Things started to feel normal again");
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                }
+
+            }
+
+        }
+
+        #endregion
+
         private IEnumerator DistributeExperienceAndEVsForCurrentOpponentPokemon()
         {
 
@@ -3275,6 +3309,23 @@ namespace Battle
 
                     #endregion
 
+                    #region Non-Volatile Status Condition
+
+                    if (usageResults.clearUserNonVolatileStatusCondition)
+                    {
+
+                        userPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.None;
+                        battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " was cleared of its status condition");
+
+                        if (userIsPlayer)
+                            battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(userPokemon.nonVolatileStatusCondition);
+                        else
+                            battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(userPokemon.nonVolatileStatusCondition);
+
+                    }
+
+                    #endregion
+
                     if (usageResults.userHealthHealed > 0 && usageResults.userDamageDealt > 0)
                         Debug.LogError("Usage results contained health reduction and health increase for user pokemon");
 
@@ -3301,7 +3352,139 @@ namespace Battle
 
                     #endregion
 
-                    // Weather effect
+                    #region Stage Effects
+
+                    #region Stage Modifiers
+
+                    #region Trick Room
+
+                    if (usageResults.setTrickRoomDuration > 0)
+                    {
+
+                        battleAnimationSequencer.EnqueueSingleText("Something started feeling backwards...");
+
+                        battleData.stageModifiers.trickRoomRemainingTurns = usageResults.setTrickRoomDuration;
+
+                    }
+
+                    #endregion
+
+                    #region Spikes
+
+                    if (usageResults.clearUserStageSpikes)
+                    {
+
+                        if ((userIsPlayer && battleData.stageModifiers.playerSpikesStage > 0) || (!userIsPlayer && battleData.stageModifiers.opponentSpikesStage > 0))
+                            battleAnimationSequencer.EnqueueSingleText("The spikes surrounding " + action.user.GetName() + "'s team disappeared");
+
+                        if (userIsPlayer)
+                            battleData.stageModifiers.playerSpikesStage = 0;
+                        else
+                            battleData.stageModifiers.opponentSpikesStage = 0;
+
+                    }
+                    else if (usageResults.increaseTargetStageSpikes)
+                    {
+
+                        if (userIsPlayer)
+                        {
+
+                            battleData.stageModifiers.opponentSpikesStage++;
+
+                            if (battleData.stageModifiers.opponentSpikesStage > BattleData.StageModifiers.maxSpikesStage)
+                                battleData.stageModifiers.opponentSpikesStage = BattleData.StageModifiers.maxSpikesStage;
+
+                        }
+                        else
+                        {
+
+                            battleData.stageModifiers.playerSpikesStage++;
+
+                            if (battleData.stageModifiers.playerSpikesStage > BattleData.StageModifiers.maxSpikesStage)
+                                battleData.stageModifiers.playerSpikesStage = BattleData.StageModifiers.maxSpikesStage;
+
+                        }
+
+                        battleAnimationSequencer.EnqueueSingleText("Spikes were lain around " + action.user.GetName() + "'s team");
+
+                    }
+
+                    #endregion
+
+                    #region Toxic Spikes
+
+                    if (usageResults.clearUserStageToxicSpikes)
+                    {
+
+                        if ((userIsPlayer && battleData.stageModifiers.playerToxicSpikesStage > 0) || (!userIsPlayer && battleData.stageModifiers.opponentToxicSpikesStage > 0))
+                            battleAnimationSequencer.EnqueueSingleText("The toxic spikes surrounding " + action.user.GetName() + "'s team disappeared");
+
+                        if (userIsPlayer)
+                            battleData.stageModifiers.playerToxicSpikesStage = 0;
+                        else
+                            battleData.stageModifiers.opponentToxicSpikesStage = 0;
+
+                    }
+                    else if (usageResults.increaseTargetToxicStageSpikes)
+                    {
+
+                        if (userIsPlayer)
+                        {
+
+                            battleData.stageModifiers.opponentToxicSpikesStage++;
+
+                            if (battleData.stageModifiers.opponentToxicSpikesStage > BattleData.StageModifiers.maxToxicSpikesStage)
+                                battleData.stageModifiers.opponentToxicSpikesStage = BattleData.StageModifiers.maxToxicSpikesStage;
+
+                        }
+                        else
+                        {
+
+                            battleData.stageModifiers.playerToxicSpikesStage++;
+
+                            if (battleData.stageModifiers.playerToxicSpikesStage > BattleData.StageModifiers.maxToxicSpikesStage)
+                                battleData.stageModifiers.playerToxicSpikesStage = BattleData.StageModifiers.maxToxicSpikesStage;
+
+                        }
+
+                        battleAnimationSequencer.EnqueueSingleText("Toxic spikes were lain around " + action.user.GetName() + "'s team");
+
+                    }
+
+                    #endregion
+
+                    #region Pointed Stones
+
+                    if (usageResults.clearUserStagePointedStones)
+                    {
+
+                        if ((userIsPlayer && battleData.stageModifiers.playerPointedStonesEnabled) || (!userIsPlayer && battleData.stageModifiers.opponentPointedStonesEnabled))
+                            battleAnimationSequencer.EnqueueSingleText("The pointed stones surrounding " + action.user.GetName() + "'s team disappeared");
+
+                        if (userIsPlayer)
+                            battleData.stageModifiers.playerPointedStonesEnabled = false;
+                        else
+                            battleData.stageModifiers.opponentPointedStonesEnabled = false;
+
+                    }
+                    else if (usageResults.setTargetStagePointedStones)
+                    {
+
+                        if (userIsPlayer)
+                            battleData.stageModifiers.opponentPointedStonesEnabled = true;
+                        else
+                            battleData.stageModifiers.playerPointedStonesEnabled = true;
+
+                        battleAnimationSequencer.EnqueueSingleText("Pointed stones hover around " + action.user.GetName() + "'s team");
+
+                    }
+
+                    #endregion
+
+                    #endregion
+
+                    #region Weather
+
                     if (usageResults.newWeatherId != null && usageResults.newWeatherId != battleData.currentWeatherId)
                     {
 
@@ -3316,6 +3499,10 @@ namespace Battle
                         });
 
                     }
+
+                    #endregion
+
+                    #endregion
 
                     //Prepare usage results (not allowing misses) for next hit
                     if (i < moveHitCount - 1)
@@ -3604,32 +3791,113 @@ namespace Battle
         private IEnumerator ExecuteAction_SwitchPokemon(BattleParticipant.Action action)
         {
 
+            bool userIsPlayer = action.user == battleData.participantPlayer;
+
             action.user.ActivePokemon.badlyPoisonedCounter = 1;
             action.user.ActivePokemon.battleProperties.ResetVolatileProperties();
 
             action.user.activePokemonIndex = action.switchPokemonIndex;
             action.user.ActivePokemon.battleProperties.ResetVolatileProperties();
 
+            PokemonInstance newPokemon = action.user.ActivePokemon;
+
             if (action.user == battleData.participantOpponent)
                 TryAddSeenOpponentCurrentPokemon();
 
-            battleAnimationSequencer.EnqueueSingleText(action.user.GetName() + " switched in " + action.user.ActivePokemon.GetDisplayName());
+            battleAnimationSequencer.EnqueueSingleText(action.user.GetName() + " switched in " + newPokemon.GetDisplayName());
 
             battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
             {
-                type = action.user == battleData.participantPlayer
+                type = userIsPlayer
                 ? BattleAnimationSequencer.Animation.Type.PlayerRetract
                 : BattleAnimationSequencer.Animation.Type.OpponentRetract
             });
 
             battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
             {
-                type = action.user == battleData.participantPlayer
+                type = userIsPlayer
                 ? BattleAnimationSequencer.Animation.Type.PlayerSendOut
                 : BattleAnimationSequencer.Animation.Type.OpponentSendOutTrainer,
-                sendOutPokemon = action.user.ActivePokemon,
+                sendOutPokemon = newPokemon,
                 participantPokemonStates = action.user.GetPokemon().Select(x => BattleLayout.PokeBallLineController.GetPokemonInstanceBallState(x)).ToArray()
             });
+
+            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+            #region Entry Hazards
+
+            #region Spikes
+
+            byte spikesLevel = battleData.GetParticipantSpikesLevel(userIsPlayer);
+
+            if (spikesLevel > 0)
+            {
+
+                int targetInitialHealth = newPokemon.health;
+
+                int damageDealt = newPokemon.TakeDamage(BattleData.StageModifiers.CalculateSpikesDamage(spikesLevel, newPokemon));
+                newPokemon.battleProperties.AddDamageThisTurn(damageDealt);
+
+                battleAnimationSequencer.EnqueueSingleText(newPokemon.GetDisplayName() + " was damaged by the spikes");
+                battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(newPokemon, targetInitialHealth, userIsPlayer));
+
+            }
+
+            #endregion
+
+            #region Toxic Spikes
+
+            byte toxicSpikesLevel = battleData.GetParticipantToxicSpikesLevel(userIsPlayer);
+
+            if (toxicSpikesLevel > 0 && newPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None && !newPokemon.HasType(Pokemon.Type.Poison))
+            {
+
+                if (toxicSpikesLevel == 1)
+                {
+
+                    newPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.Poisoned;
+
+                    battleAnimationSequencer.EnqueueSingleText(newPokemon.GetDisplayName() + " was poisoned by the toxic spikes");
+
+                }
+                else
+                {
+
+                    newPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.BadlyPoisoned;
+
+                    battleAnimationSequencer.EnqueueSingleText(newPokemon.GetDisplayName() + " was badly poisoned by the toxic spikes");
+
+                }
+
+                if (userIsPlayer)
+                    battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(newPokemon.nonVolatileStatusCondition);
+                else
+                    battleLayoutController.overviewPaneManager.opponentPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(newPokemon.nonVolatileStatusCondition);
+
+            }
+
+            #endregion
+
+            #region Pointed Stones
+
+            bool pointedStonesEnabled = battleData.GetParticipantPointedStonesEnabled(userIsPlayer);
+
+            if (pointedStonesEnabled)
+            {
+
+                int targetInitialHealth = newPokemon.health;
+
+                int damageDealt = newPokemon.TakeDamage(BattleData.StageModifiers.CalculatePointedStonesDamage(newPokemon));
+                newPokemon.battleProperties.AddDamageThisTurn(damageDealt);
+
+                battleAnimationSequencer.EnqueueSingleText(newPokemon.GetDisplayName() + " was damaged by the pointed stones");
+                battleAnimationSequencer.EnqueueAnimation(GenerateDamageAnimation(newPokemon, targetInitialHealth, userIsPlayer));
+
+            }
+
+            #endregion
+
+            #endregion
 
             //TODO - apply effects for newly-switched in pokemon's ability (if abilities included)
 
