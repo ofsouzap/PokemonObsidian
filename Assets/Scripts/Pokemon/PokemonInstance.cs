@@ -68,6 +68,14 @@ namespace Pokemon
 
             public Gender gender;
 
+            public static Gender GetGenderEnumVal(bool? g)
+                => g switch
+                {
+                    true => Gender.Male,
+                    false => Gender.Female,
+                    null => Gender.Genderless
+                };
+
             public bool? GetGender()
                 => gender switch
                 {
@@ -797,7 +805,7 @@ namespace Pokemon
                     => battleData.RandomRange(3, 7); //Need to use one more than intended turn count as timer is decreased on the inflicting turn
 
                 public static int GetRandomConfusionDuration(BattleData battleData)
-                    => battleData.RandomRange(1, 5);
+                    => battleData.RandomRange(2, 6);
 
                 public static int GetRandomEncoreDuration(BattleData battleData)
                     => battleData.RandomRange(3, 8);

@@ -191,4 +191,26 @@ public static class TrainerClass
         { Class.DragonTamer, "Dragon Tamer" }
     };
 
+    public static bool TryParse(string s,
+        out Class c)
+    {
+
+        s = s.ToLower();
+
+        foreach (KeyValuePair<Class, string> pair in classBattleSpriteNames)
+        {
+
+            if (pair.Value == s)
+            {
+                c = pair.Key;
+                return true;
+            }
+
+        }
+
+        c = default;
+        return false;
+
+    }
+
 }

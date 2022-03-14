@@ -14,12 +14,6 @@ namespace FreeRoaming.NPCs
         [Tooltip("How far away this NPC can challenge a trainer from")]
         public ushort visibilityDistance;
 
-        [Tooltip("The message this NPC should say when it challenges the player")]
-        public string challengeMessage;
-
-        [Tooltip("The message this NPC should say if the player interacts with them but they can't battle. If blank or null, is ignored")]
-        public string chatMessage;
-
         public string challengeMusicResourceName = "look1";
         public string battleMusicResourceName = "";
 
@@ -33,28 +27,7 @@ namespace FreeRoaming.NPCs
         /// </summary>
         private bool challengingPlayer = false;
 
-        #region Battle Details
-
-        [Serializable]
-        public struct BattleDetails
-        {
-
-            public PokemonInstance.BasicSpecification[] pokemon;
-
-            [Tooltip("The trainer's class. Used for base payout, battle sprite, trainer class name etc.")]
-            public TrainerClass.Class trainerClass;
-
-            public BattleParticipantNPC.Mode mode;
-
-            public string battleBackgroundResourceName;
-
-            public string[] defeatMessages;
-
-        }
-
-        #endregion
-
-        public BattleDetails battleDetails;
+        protected TrainersData.TrainerDetails trainerDetails;
 
         public bool CanBattlePlayer
             => !PlayerData.singleton.GetNPCBattled(id) && !challengingPlayer;
@@ -63,6 +36,8 @@ namespace FreeRoaming.NPCs
         {
 
             base.Start();
+            
+            trainerDetails = TrainersData.GetTrainerDetailsByTrainerId(id);
 
             challengingPlayer = false;
 
@@ -100,7 +75,7 @@ namespace FreeRoaming.NPCs
                 }
                 else
                 {
-                    if (chatMessage != "" && chatMessage != null)
+                    if (trainerDetails.chatMessage != "" && trainerDetails.chatMessage != null)
                     {
                         StartCoroutine(SpeakChatMessage());
                     }
@@ -132,7 +107,7 @@ namespace FreeRoaming.NPCs
         protected IEnumerator SpeakChatMessage()
         {
 
-            yield return StartCoroutine(Speak(chatMessage));
+            yield return StartCoroutine(Speak(trainerDetails.chatMessage));
 
         }
 
@@ -189,7 +164,7 @@ namespace FreeRoaming.NPCs
 
             PlayerController.singleton.TryTurn(GetOppositeDirection(directionFacing));
 
-            yield return StartCoroutine(Speak(challengeMessage));
+            yield return StartCoroutine(Speak(trainerDetails.challengeMessage));
 
             MusicSourceController.singleton.SetTrack(GetBattleMusicName(), true);
 
@@ -201,9 +176,9 @@ namespace FreeRoaming.NPCs
         {
 
             string prefixPart =
-                TrainerClass.classNamesPrefixes.ContainsKey(battleDetails.trainerClass)
-                    && TrainerClass.classNamesPrefixes[battleDetails.trainerClass] != ""
-                ? TrainerClass.classNamesPrefixes[battleDetails.trainerClass]
+                TrainerClass.classNamesPrefixes.ContainsKey(trainerDetails.trainerClass)
+                    && TrainerClass.classNamesPrefixes[trainerDetails.trainerClass] != ""
+                ? TrainerClass.classNamesPrefixes[trainerDetails.trainerClass]
                 : "";
 
             string namePart =
@@ -224,27 +199,27 @@ namespace FreeRoaming.NPCs
         }
 
         protected virtual byte GetBasePayout()
-            => TrainerClass.classBasePayouts.ContainsKey(battleDetails.trainerClass)
-                ? TrainerClass.classBasePayouts[battleDetails.trainerClass]
+            => TrainerClass.classBasePayouts.ContainsKey(trainerDetails.trainerClass)
+                ? TrainerClass.classBasePayouts[trainerDetails.trainerClass]
                 : (byte)0;
 
         protected virtual string GetBattleSpriteResourceName()
-            => TrainerClass.classBattleSpriteNames[battleDetails.trainerClass];
+            => TrainerClass.classBattleSpriteNames[trainerDetails.trainerClass];
 
         protected virtual void SetBattleEntranceArguments()
         {
 
             BattleEntranceArguments.npcTrainerBattleArguments = new BattleEntranceArguments.NPCTrainerBattleArguments()
             {
-                opponentPokemon = battleDetails.pokemon.Select(x => x.Generate()).ToArray(),
+                opponentPokemon = trainerDetails.pokemonSpecifications.Select(x => x.Generate()).ToArray(),
                 opponentSpriteResourceName = GetBattleSpriteResourceName(),
                 opponentFullName = GetFullName(),
                 opponentBasePayout = GetBasePayout(),
-                opponentDefeatMessages = battleDetails.defeatMessages,
-                mode = battleDetails.mode
+                opponentDefeatMessages = trainerDetails.defeatMessages,
+                mode = trainerDetails.mode
             };
 
-            BattleEntranceArguments.battleBackgroundResourceName = battleDetails.battleBackgroundResourceName;
+            BattleEntranceArguments.battleBackgroundResourceName = trainerDetails.battleBackgroundResourceName;
 
         }
 

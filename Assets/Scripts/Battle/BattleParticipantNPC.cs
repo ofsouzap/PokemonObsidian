@@ -19,7 +19,41 @@ namespace Battle
             Debug_UseRandomBattleItem,
             BasicTrainer,
             WildPokemon
-            //TODO - add more
+        }
+
+        public const Mode defaultTrainerMode = Mode.BasicTrainer;
+
+        public static bool TryParse(string s,
+            out Mode m)
+        {
+
+            switch (s.ToLower().Replace(" ", ""))
+            {
+
+                case "":
+                    m = defaultTrainerMode;
+                    break;
+
+                case "randomattack":
+                    m = Mode.RandomAttack;
+                    break;
+
+                case "basictrainer":
+                    m = Mode.BasicTrainer;
+                    break;
+
+                case "wildpokemon":
+                    m = Mode.WildPokemon;
+                    break;
+
+                default:
+                    m = default;
+                    return false;
+
+            }
+
+            return true;
+
         }
 
         public static readonly Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>>()

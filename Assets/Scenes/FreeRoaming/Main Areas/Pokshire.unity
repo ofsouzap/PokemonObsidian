@@ -818,6 +818,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2065827999}
     m_Modifications:
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: wildPokemonAreaId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: battleBackgroundResourceName
       value: forest
       objectReference: {fileID: 0}
@@ -919,6 +923,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2065827999}
     m_Modifications:
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: wildPokemonAreaId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: battleBackgroundResourceName
       value: forest
@@ -1025,6 +1033,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2065827999}
     m_Modifications:
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: wildPokemonAreaId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: battleBackgroundResourceName
       value: forest

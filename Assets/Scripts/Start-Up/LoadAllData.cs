@@ -2,6 +2,7 @@ using Pokemon;
 using Items;
 using FreeRoaming;
 using FreeRoaming.PokeMart;
+using FreeRoaming.WildPokemonArea;
 
 namespace StartUp
 {
@@ -18,6 +19,8 @@ namespace StartUp
             PokemonMoveData.LoadData();
             Nature.LoadRegistry();
             SpriteStorage.TryLoadAll();
+            WildPokemonAreaData.LoadData();
+            TrainersData.LoadData();
 
             Item.TrySetRegistry(); //TMs must be loaded after moves
 

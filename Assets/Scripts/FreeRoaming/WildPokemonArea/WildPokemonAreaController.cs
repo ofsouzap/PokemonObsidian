@@ -15,10 +15,13 @@ namespace FreeRoaming.WildPokemonArea
         public string GetBattleBackgroundResourceName() => battleBackgroundResourceName;
 
         [SerializeField]
-        private PokemonInstance.WildSpecification pokemonSpecification;
+        private int wildPokemonAreaId;
+
+        public PokemonInstance.WildSpecification GetWildSpecification()
+            => WildPokemonAreaData.GetSpecificationById(wildPokemonAreaId);
 
         public PokemonInstance GenerateWildPokemon()
-            => pokemonSpecification.Generate();
+            => GetWildSpecification().Generate();
 
         [SerializeField]
         [Range(0,1)]

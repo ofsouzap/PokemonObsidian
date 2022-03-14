@@ -13,7 +13,7 @@ namespace Battle
 
         public const string defaultBackgroundName = "field";
 
-        public static  bool argumentsSet;
+        public static bool argumentsSet;
 
         #region Battle Type
 

@@ -1352,6 +1352,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2094734802}
     m_Modifications:
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: wildPokemonAreaId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.maximumLevel
       value: 10
       objectReference: {fileID: 0}
@@ -2112,6 +2116,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2094734802}
     m_Modifications:
+    - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
+      propertyPath: wildPokemonAreaId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2057201351983302040, guid: bc3f01521a0dfde449155d3c70d5c244, type: 3}
       propertyPath: pokemonSpecification.maximumLevel
       value: 12
