@@ -44,9 +44,9 @@ namespace FreeRoaming.NPCs
 
             #endregion
 
-            textBoxController.RevealText("Hi there. What would you like to do with "
+            textBoxController.RevealText(GetFormattedSpokenMessage("Hi there. What would you like to do with "
                 + target.GetDisplayName()
-                + '?');
+                + '?'));
 
             yield return StartCoroutine(textBoxController.GetUserChoice(menuOptions));
 
@@ -75,7 +75,7 @@ namespace FreeRoaming.NPCs
 
             string friendshipStatusMessage = GetFriendshipMessage(target.friendship);
 
-            textBoxController.RevealText(friendshipStatusMessage);
+            textBoxController.RevealText(GetFormattedSpokenMessage(friendshipStatusMessage));
 
             yield return textBoxController.PromptAndWaitUntilUserContinue();
 
@@ -106,10 +106,10 @@ namespace FreeRoaming.NPCs
 
             target.nickname = newNickname;
 
-            textBoxController.RevealText(
+            textBoxController.RevealText(GetFormattedSpokenMessage(
                 oldDisplayName
                 + " is now called "
-                + target.GetDisplayName());
+                + target.GetDisplayName()));
 
             yield return textBoxController.PromptAndWaitUntilUserContinue();
 

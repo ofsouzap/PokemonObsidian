@@ -20,10 +20,10 @@ namespace FreeRoaming.NPCs
         public override IEnumerator PlayerInteraction()
         {
 
-            textBoxController.RevealText("Welcome to this Pokemon Center. Here, we can restore your pokemon to their full health.");
+            textBoxController.RevealText(GetFormattedSpokenMessage("Welcome to this Pokemon Center. Here, we can restore your pokemon to their full health."));
             yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
-            textBoxController.RevealText("Would you like us to restore your pokemon?");
+            textBoxController.RevealText(GetFormattedSpokenMessage("Would you like us to restore your pokemon?"));
 
             yield return StartCoroutine(textBoxController.GetUserChoice(restorePokemonUserOptions));
 
@@ -34,7 +34,7 @@ namespace FreeRoaming.NPCs
 
                     PlayerData.singleton.HealAllPokemon();
 
-                    textBoxController.RevealText("Please wait here for a moment.");
+                    textBoxController.RevealText(GetFormattedSpokenMessage("Please wait here for a moment."));
                     yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
                     //Play the healing animation
@@ -42,7 +42,7 @@ namespace FreeRoaming.NPCs
                         PlayerData.singleton.GetNumberOfPartyPokemon()
                         ));
 
-                    textBoxController.RevealText("Here you go, all your pokemon fully recovered. Thank you for coming, have a nice day!");
+                    textBoxController.RevealText(GetFormattedSpokenMessage("Here you go, all your pokemon fully recovered. Thank you for coming, have a nice day!"));
                     yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
                     break;

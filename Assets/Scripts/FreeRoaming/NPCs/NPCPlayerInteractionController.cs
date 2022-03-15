@@ -12,6 +12,7 @@ namespace FreeRoaming.NPCs
             if (interacter is PlayerController)
             {
 
+                TryTurn(GetOppositeDirection(interacter.directionFacing));
                 StartCoroutine(InteractionCoroutine());
 
             }

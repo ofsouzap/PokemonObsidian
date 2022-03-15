@@ -45,7 +45,7 @@ namespace FreeRoaming.NPCs
 
             TryTurn(GetOppositeDirection(PlayerController.singleton.directionFacing));
 
-            textBoxController.RevealText("Hi, how would you like to connect to another trainer?");
+            textBoxController.RevealText(GetFormattedSpokenMessage("Hi, how would you like to connect to another trainer?"));
 
             yield return textBoxController.GetUserChoice(connectionModeMenuOptions);
 
