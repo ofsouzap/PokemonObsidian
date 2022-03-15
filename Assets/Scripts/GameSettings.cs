@@ -46,7 +46,7 @@ public class GameSettings
         }
     }
 
-    public int textSpeedIndex = 1;
+    public int textSpeedIndex = 2;
 
     public TextSpeed textSpeed
     {

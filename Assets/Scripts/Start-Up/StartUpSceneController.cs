@@ -145,6 +145,8 @@ namespace StartUp
                 yield break;
             }
 
+            playerGameObject.GetComponent<PlayerController>().SetRespawnSceneStack(sceneStack);
+
             LaunchSceneStack(sceneStack);
 
         }

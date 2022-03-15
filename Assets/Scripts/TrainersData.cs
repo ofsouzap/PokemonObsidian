@@ -133,7 +133,11 @@ public class TrainersData
             chatMessage = entry[4];
 
             // Defeat messages
-            defeatMessages = entry[5].Split(';');
+            string defeatMessagesEntry = entry[5];
+            if (defeatMessagesEntry == "")
+                defeatMessages = new string[0];
+            else
+                defeatMessages = defeatMessagesEntry.Split(';');
 
             // Battle background resource
             string battleBackgroundResourceNameEntry = entry[6];
