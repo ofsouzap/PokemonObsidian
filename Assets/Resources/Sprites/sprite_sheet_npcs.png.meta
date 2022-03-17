@@ -835,7 +835,7 @@ TextureImporter:
     second: man1_walk_l_2
   - first:
       213: 6465954431665528162
-    second: woman1_walk_l_2
+    second: pokefanf_walk_l_2
   - first:
       213: -4070923285444990080
     second: waiter_walk_l_2
@@ -1263,8 +1263,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -7162,7 +7162,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: woman1_walk_l_2
+      name: pokefanf_walk_l_2
       rect:
         serializedVersion: 2
         x: 672
