@@ -127,6 +127,8 @@ namespace EvolutionScene
 
             yield return new WaitForSeconds(initialPauseTime);
 
+            SoundFXController.singleton.PlayPokemonCry(entranceArguments.pokemon.speciesId);
+
             for (byte i = 0; i < bounceCount; i++)
                 yield return StartCoroutine(Animation_Bounce(pokemonSpriteController.pokemonSpriteObject, bounceHeight, bounceSingleTime));
 
@@ -155,6 +157,7 @@ namespace EvolutionScene
                 //Evolution is allowed to be completed
 
                 SoundFXController.singleton.PlaySound("evolution_end");
+                SoundFXController.singleton.PlayPokemonCry(endSpecies.id);
 
                 textBoxController.RevealText(entranceArguments.pokemon.GetDisplayName()
                     + " evolved into a "
