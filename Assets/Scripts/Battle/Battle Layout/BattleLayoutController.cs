@@ -12,6 +12,7 @@ namespace Battle.BattleLayout
     {
 
         private TextBoxController textBoxController;
+        private WeatherCanvasController weatherCanvasController;
 
         public float pokemonSpriteOffScreenLeftLocalPositionX;
         public float pokemonSpriteOffScreenRightLocalPositionX;
@@ -174,6 +175,7 @@ namespace Battle.BattleLayout
         {
 
             textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
+            weatherCanvasController = WeatherCanvasController.GetWeatherCanvasController(gameObject.scene);
 
             if (playerPokemonSprite.GetComponent<SpriteRenderer>() == null)
                 Debug.LogError("No SpriteRenderer component found for playerPokemonObject");
@@ -1406,9 +1408,7 @@ namespace Battle.BattleLayout
         public IEnumerator WeatherDisplay(Weather weather)
         {
 
-            // No animation for clear sky
-
-            yield break; //TODO - weather animations
+            yield return StartCoroutine(weatherCanvasController.ShowcaseWeather(weather));
 
         }
 
