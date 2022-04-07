@@ -6707,8 +6707,8 @@ Camera:
   m_GameObject: {fileID: 460103828}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.5296191, g: 0.7082478, b: 0.8207547, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -18174,7 +18174,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 11627601}
-    m_SelectOnDown: {fileID: 2046574263}
+    m_SelectOnDown: {fileID: 858960659}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1

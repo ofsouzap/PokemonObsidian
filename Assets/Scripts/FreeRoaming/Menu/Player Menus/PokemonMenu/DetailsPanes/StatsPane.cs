@@ -35,8 +35,6 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
                 (float)pokemon.effortValues.health / PokemonInstance.maximumEffortValue
             };
 
-            evHex.SetVerticesDirty();
-
             ivHex.values = new float[]
             {
                 (float)pokemon.individualValues.attack / PokemonInstance.maximumIndividualValue,
@@ -46,8 +44,6 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
                 (float)pokemon.individualValues.speed / PokemonInstance.maximumIndividualValue,
                 (float)pokemon.individualValues.health / PokemonInstance.maximumIndividualValue
             };
-
-            ivHex.SetVerticesDirty();
 
             textAttackValue.text = pokemon.GetStats().attack.ToString();
             textDefenseValue.text = pokemon.GetStats().defense.ToString();

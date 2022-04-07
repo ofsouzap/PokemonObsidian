@@ -13,7 +13,7 @@ using Battle;
 
 namespace Networking
 {
-    public static class Connection
+    public static partial class Connection
     {
 
         public const ushort pokemonObsidianIdentifier = 0x6f70;
@@ -25,15 +25,6 @@ namespace Networking
         public const uint noCode = 0x6e686170;
         public static byte[] NoCodeBytes => BitConverter.GetBytes(noCode);
 
-        public const uint networkBattleCommActionCode = 0x809ef0ab;
-        public static byte[] NetworkBattleCommActionCodeBytes => BitConverter.GetBytes(networkBattleCommActionCode);
-
-        public const uint networkBattleCommChosenPokemonCode = 0x809fceab;
-        public static byte[] NetworkBattleCommChosenPokemonCodeBytes => BitConverter.GetBytes(networkBattleCommChosenPokemonCode);
-
-        public const uint networkBattleCommConnectionTestPingCode = 0x676e6970;
-        public static byte[] NetworkBattleCommConnectionTestPingCodeBytes => BitConverter.GetBytes(networkBattleCommConnectionTestPingCode);
-
         public const int mainPort = 59004;
         public const int discoveryPort = 59005;
 
@@ -41,6 +32,22 @@ namespace Networking
         public const ProtocolType protocolType = ProtocolType.Tcp;
 
         public const int defaultTimeout = 5000;
+
+        #region Connection Purpose
+
+        public enum ConnectionPurpose
+        {
+            Battle,
+            Trade
+        };
+
+        public static ushort GetConnectionPurposeCode(ConnectionPurpose p)
+            => (ushort)p;
+
+        public static byte[] GetConnectionPurposeBytes(ConnectionPurpose p)
+            => BitConverter.GetBytes(GetConnectionPurposeCode(p));
+
+        #endregion
 
         public static IPAddress GetHostIPAddress()
         {
@@ -121,77 +128,6 @@ namespace Networking
             recvPmonId = BitConverter.ToUInt16(buffer, 0);
 
             return recvPmonId == pokemonObsidianIdentifier;
-
-        }
-
-        private static bool TrySendNetworkBattleCommType(NetworkStream stream, NetworkBattleCommType type)
-        {
-
-            try
-            {
-
-                switch (type)
-                {
-
-                    case NetworkBattleCommType.Action:
-                        stream.Write(NetworkBattleCommActionCodeBytes, 0, 4);
-                        break;
-
-                    case NetworkBattleCommType.ChosenPokemon:
-                        stream.Write(NetworkBattleCommChosenPokemonCodeBytes, 0, 4);
-                        break;
-
-                    case NetworkBattleCommType.ConnectionTestPing:
-                        stream.Write(NetworkBattleCommConnectionTestPingCodeBytes, 0, 4);
-                        break;
-
-                    default:
-                        throw new Exception("Unknown type");
-
-                }
-
-                return true;
-
-            }
-            catch (IOException)
-            {
-                return false;
-            }
-
-        }
-
-        private static bool TrySendNetworkBattleCommConnectionTestPing(NetworkStream stream)
-        {
-
-            try
-            {
-                stream.Write(NetworkBattleCommConnectionTestPingCodeBytes, 0, 4);
-                return true;
-            }
-            catch (IOException)
-            {
-                return false;
-            }
-
-        }
-
-        private static NetworkBattleCommType? ReceiveNetworkBattleCommType(NetworkStream stream)
-        {
-
-            byte[] buffer = new byte[4];
-
-            stream.Read(buffer, 0, 4);
-
-            uint recvCode = BitConverter.ToUInt32(buffer, 0);
-
-            if (recvCode == networkBattleCommActionCode)
-                return NetworkBattleCommType.Action;
-            else if (recvCode == networkBattleCommChosenPokemonCode)
-                return NetworkBattleCommType.ChosenPokemon;
-            else if (recvCode == networkBattleCommConnectionTestPingCode)
-                return NetworkBattleCommType.ConnectionTestPing;
-            else
-                return null;
 
         }
 
@@ -517,6 +453,7 @@ namespace Networking
         #region Connection Verification
 
         public static bool VerifyConnection_Client(NetworkStream stream,
+            ConnectionPurpose purpose,
             LogCallback errCallback,
             LogCallback statusCallback)
         {
@@ -588,6 +525,25 @@ namespace Networking
                 //Client sends yes
                 SendYes(stream);
 
+                //Server sends connection purpose
+                ushort clientPurposeCode = GetConnectionPurposeCode(purpose);
+                buffer = new byte[2];
+                LogNetworkEvent("Receiving purpose bytes");
+                stream.Read(buffer, 0, 2);
+                LogNetworkEvent("Received purpose bytes");
+                ushort serverPurposeCode = BitConverter.ToUInt16(buffer, 0);
+
+                if (serverPurposeCode != clientPurposeCode)
+                {
+                    statusCallback("Different connection purposes");
+                    errCallback("Connection purpose mismatch");
+                    SendNo(stream);
+                    return false;
+                }
+
+                //Client sends yes
+                SendYes(stream);
+
                 return true;
 
             }
@@ -602,6 +558,7 @@ namespace Networking
         }
 
         public static bool VerifyConnection_Server(NetworkStream stream,
+            ConnectionPurpose purpose,
             LogCallback errCallback,
             LogCallback statusCallback)
         {
@@ -610,7 +567,7 @@ namespace Networking
 
             try
             {
-
+                
                 byte[] buffer;
 
                 //Server sends Pokemon Obsidian Identifier
@@ -651,10 +608,25 @@ namespace Networking
                 stream.Write(buffer, 0, 2);
                 statusCallback("Sent serializer version");
 
+                //Try receive yes response
                 if (TryReceiveResponseYN(stream, out _) != true)
                 {
                     statusCallback("Mismatching game versions");
                     errCallback("Failed to receive versions yes response");
+                    return false;
+                }
+
+                //Server sends connection purpose
+                buffer = GetConnectionPurposeBytes(purpose);
+                statusCallback("Sending connection purpose...");
+                stream.Write(buffer, 0, 2);
+                statusCallback("Sent connection purpose...");
+
+                //Try receive yes response
+                if (TryReceiveResponseYN(stream, out _) != true)
+                {
+                    statusCallback("Different connection purposes");
+                    errCallback("Failed to receive connection purpose yes response");
                     return false;
                 }
 
@@ -966,283 +938,212 @@ namespace Networking
 
         #endregion
 
-        #region Network Battle Comms
+        #region Exchange Trade Entrance Arguments
 
-        public enum NetworkBattleCommType
-        {
-            Action,
-            ChosenPokemon,
-            ConnectionTestPing
-        }
-
-        public struct NetworkBattleComm
-        {
-
-            public NetworkBattleCommType type;
-            public BattleParticipant.Action battleAction; //For actions
-            public int pokemonIndex; //For chosen pokemon
-
-            public NetworkBattleComm(NetworkBattleCommType type)
-            {
-                this.type = type;
-                battleAction = default;
-                pokemonIndex = -1;
-            }
-
-            public NetworkBattleComm(BattleParticipant.Action battleAction)
-            {
-                type = NetworkBattleCommType.Action;
-                this.battleAction = battleAction;
-                pokemonIndex = -1;
-            }
-
-            public NetworkBattleComm(int pokemonIndex)
-            {
-                type = NetworkBattleCommType.ChosenPokemon;
-                battleAction = default;
-                this.pokemonIndex = pokemonIndex;
-            }
-
-        }
-
-        private static bool listeningForNetworkBattleComms = false;
-        private static Task listenForNetworkBattleCommsTask = null;
-
-        private static BattleParticipant networkBattleCommActionUser = null;
-        private static BattleParticipant networkBattleCommActionTarget = null;
-
-        #region Network Battle Comms Queue
-
-        private static readonly object recvBattleCommLock = new object();
-        private static Queue<NetworkBattleComm> networkBattleCommsQueue = new Queue<NetworkBattleComm>();
-
-        private static void ClearNetworkBattleCommsQueue()
-        {
-            lock (recvBattleCommLock)
-            {
-                networkBattleCommsQueue.Clear();
-            }
-        }
-
-        private static void EnqueueNetworkBattleComm(NetworkBattleComm comm)
-        {
-            lock (recvBattleCommLock)
-            {
-                networkBattleCommsQueue.Enqueue(comm);
-            }
-        }
-
-        public static NetworkBattleComm? GetNextNetworkBattleComm()
-        {
-            lock (recvBattleCommLock)
-            {
-
-                if (networkBattleCommsQueue.Count > 0)
-                    return networkBattleCommsQueue.Dequeue();
-
-                else
-                    return null;
-
-            }
-        }
-
-        #endregion
-
-        #region Connection Error Occured
-
-        private static readonly object networkCommsConnErrorOccuredLock = new object();
-        private static bool networkCommsConnErrorOccured = false;
-
-        private static void SetNetworkCommsConnErrorOccured(bool state)
-        {
-            lock (networkCommsConnErrorOccuredLock)
-            {
-                networkCommsConnErrorOccured = state;
-            }
-        }
-
-        public static bool NetworkCommsConnErrorOccured
-        {
-            get => networkCommsConnErrorOccured;
-        }
-
-        #endregion
-
-        public static void StartListenForNetworkBattleComms(NetworkStream stream,
+        private static bool TrySendTradeEntranceArguments(NetworkStream stream,
+            LogCallback errCallback,
+            LogCallback statusCallback,
             Serializer serializer,
-            BattleParticipant actionUser,
-            BattleParticipant actionTarget,
-            int refreshDelay = 100)
+            PlayerData player = null)
         {
-
-            networkBattleCommActionUser = actionUser;
-            networkBattleCommActionTarget = actionTarget;
-
-            if (listenForNetworkBattleCommsTask != null && listenForNetworkBattleCommsTask.Status == TaskStatus.Running)
-            {
-                throw new Exception("Network battle comms listener task already running");
-            }
-
-            ClearNetworkBattleCommsQueue();
-            SetNetworkCommsConnErrorOccured(false);
-            listeningForNetworkBattleComms = true;
-
-            listenForNetworkBattleCommsTask = new Task(() => WaitForRecvAction(stream, serializer, refreshDelay));
-            listenForNetworkBattleCommsTask.Start();
-
-        }
-
-        public static void StopListenForNetworkBattleComms()
-        {
-            listeningForNetworkBattleComms = false;
-        }
-
-        private static void WaitForRecvAction(NetworkStream stream,
-            Serializer serializer,
-            int refreshDelay = 100,
-            byte connectionTestPingRefreshDelays = 10) //How many refreshes should be executed before trying a test ping
-        {
-
-            byte connectionTestPingRefreshCounter = 0;
-
-            while (listeningForNetworkBattleComms)
-            {
-
-                if (!NetworkCommsConnErrorOccured) //If a connection error has already been detected, no need to check for one
-                {
-
-                    connectionTestPingRefreshCounter++;
-
-                    if (connectionTestPingRefreshCounter >= connectionTestPingRefreshDelays)
-                    {
-
-                        if (!TrySendNetworkBattleCommConnectionTestPing(stream))
-                        {
-                            SetNetworkCommsConnErrorOccured(true);
-                        }
-
-                        connectionTestPingRefreshCounter = 0;
-
-                    }
-
-                }
-
-                if (stream.DataAvailable)
-                {
-                    if (!TryReceiveNetworkBattleComm(stream, serializer, out NetworkBattleComm comm))
-                    {
-                        SetNetworkCommsConnErrorOccured(true);
-                    }
-                    else
-                    {
-
-                        if (comm.type != NetworkBattleCommType.ConnectionTestPing)
-                            EnqueueNetworkBattleComm(comm);
-
-                    }
-                }
-
-                Thread.Sleep(refreshDelay);
-
-            }
-
-        }
-
-        private static bool TryReceiveNetworkBattleComm(NetworkStream stream,
-            Serializer serializer,
-            out NetworkBattleComm comm)
-        {
-
-            switch (ReceiveNetworkBattleCommType(stream))
-            {
-
-                case NetworkBattleCommType.Action:
-
-                    #region Read Action
-
-                    BattleParticipant.Action action = serializer.DeserializeBattleAction(stream,
-                        networkBattleCommActionUser,
-                        networkBattleCommActionTarget);
-                    comm = new NetworkBattleComm(action);
-
-                    #endregion
-
-                    return true;
-
-                case NetworkBattleCommType.ChosenPokemon:
-
-                    #region Read Chosen Pokemon
-
-                    byte[] indexBuffer = new byte[4];
-                    stream.Read(indexBuffer, 0, 4);
-
-                    int index = BitConverter.ToInt32(indexBuffer, 0);
-
-                    comm = new NetworkBattleComm(index);
-
-                    #endregion
-
-                    return true;
-
-                case NetworkBattleCommType.ConnectionTestPing:
-
-                    comm = new NetworkBattleComm(NetworkBattleCommType.ConnectionTestPing);
-                    return true;
-
-                case null:
-                    comm = default;
-                    return false;
-
-                default:
-                    comm = default;
-                    return false;
-
-            }
-
-        }
-
-        public static bool TrySendNetworkBattleAction(NetworkStream stream,
-            Serializer serializer,
-            BattleParticipant.Action action)
-        {
-
-            if (!TrySendNetworkBattleCommType(stream, NetworkBattleCommType.Action))
-            {
-                SetNetworkCommsConnErrorOccured(true);
-                return false;
-            }
 
             try
             {
 
-                serializer.SerializeBattleAction(stream, action);
+                LogNetworkEvent("Starting to send trade arguments");
+
+                LogNetworkEvent($"Sending name ({player.profile.name})...");
+                serializer.SerializeString(stream, player.profile.name);
+                LogNetworkEvent("Sent name");
+
+                LogNetworkEvent("Starting to send trade-received pokemon...");
+                serializer.SerializePlayerTradeReceivedPokemonGuids(stream, player.TradeReceivedPokemonArray);
+                LogNetworkEvent("Sent trade-received pokemon pokemon");
+
+                LogNetworkEvent("Trade entrance arguments sent");
+
+                return true;
+
+            }
+            catch (IOException e)
+            {
+                errCallback("IOException\n-->Message: \"" + e.Message + "\"\n-->Stack Trace:\n" + e.StackTrace);
+                return false;
+            }
+
+        }
+
+        private static bool TryReceiveTradeEntranceArguments(NetworkStream stream,
+            LogCallback errCallback,
+            LogCallback statusCallback,
+            Serializer serializer,
+            out string name,
+            out Guid[] tradeReceivedPokemonGuids)
+        {
+
+            try
+            {
+
+                LogNetworkEvent("Starting to receive trade entrance arguments");
+
+                LogNetworkEvent("Receiving name...");
+                name = serializer.DeserializeString(stream);
+                LogNetworkEvent($"Received name ({name})");
+
+                LogNetworkEvent("Receiving trade-received pokemon...");
+                serializer.DeserializePlayerTradeReceivedPokemonGuids(stream, out tradeReceivedPokemonGuids);
+                LogNetworkEvent("Received trade-received pokemon");
+
+                return true;
+
+            }
+            catch (IOException e)
+            {
+                errCallback("IOException\n-->Message: \"" + e.Message + "\"\n-->Stack Trace:\n" + e.StackTrace);
+                name = default;
+                tradeReceivedPokemonGuids = default;
+                return false;
+            }
+
+        }
+
+        public static bool TryExchangeTradeEntranceArguments_Client(NetworkStream stream,
+            LogCallback errCallback,
+            LogCallback statusCallback,
+            out string name,
+            out Guid[] tradeReceivedPokemonGuids,
+            PlayerData player = null)
+        {
+
+            if (player == null)
+                player = PlayerData.singleton;
+
+            Serializer serializer = Serialize.DefaultSerializer;
+
+            try
+            {
+
+                if (!TryReceiveTradeEntranceArguments(stream,
+                    errCallback,
+                    statusCallback,
+                    serializer,
+                    out name,
+                    out tradeReceivedPokemonGuids))
+                {
+
+                    errCallback("Failed to receive trade entrance arguments");
+                    SendNo(stream);
+                    return false;
+
+                }
+
+                SendYes(stream);
+
+                if (!TrySendTradeEntranceArguments(stream,
+                    errCallback,
+                    statusCallback,
+                    serializer,
+                    player))
+                {
+                    errCallback("Failed to send trade arguments");
+                    return false;
+                }
+
+                switch (TryReceiveResponseYN(stream, out _))
+                {
+
+                    case false:
+                    case null:
+                        errCallback("Didn't receive yes after sending trade entrance arguments");
+                        return false;
+
+                    case true:
+                        break;
+
+                }
 
                 return true;
 
             }
             catch (IOException)
             {
-                SetNetworkCommsConnErrorOccured(true);
+                errCallback("Connection lost");
+                name = default;
+                tradeReceivedPokemonGuids = default;
                 return false;
             }
 
         }
 
-        public static bool TrySendNetworkBattleNextPokemonIndex(NetworkStream stream,
-            Serializer serializer,
-            int index)
+        public static bool TryExchangeTradeEntranceArguments_Server(NetworkStream stream,
+            LogCallback errCallback,
+            LogCallback statusCallback,
+            out string name,
+            out Guid[] tradeReceivedPokemonGuids,
+            PlayerData player = null)
         {
 
-            if (!TrySendNetworkBattleCommType(stream, NetworkBattleCommType.ChosenPokemon))
+            if (player == null)
+                player = PlayerData.singleton;
+
+            Serializer serializer = Serialize.DefaultSerializer;
+
+            try
             {
-                SetNetworkCommsConnErrorOccured(true);
+
+                if (!TrySendTradeEntranceArguments(stream,
+                    errCallback,
+                    statusCallback,
+                    serializer,
+                    player))
+                {
+                    errCallback("Failed to send trade arguments");
+                    name = default;
+                    tradeReceivedPokemonGuids = default;
+                    return false;
+                }
+
+                switch (TryReceiveResponseYN(stream, out _))
+                {
+
+                    case false:
+                    case null:
+                        errCallback("Didn't receive yes after sending trade entrance arguments");
+                        name = default;
+                        tradeReceivedPokemonGuids = default;
+                        return false;
+
+                    case true:
+                        break;
+
+                }
+
+                if (!TryReceiveTradeEntranceArguments(stream,
+                    errCallback,
+                    statusCallback,
+                    serializer,
+                    out name,
+                    out tradeReceivedPokemonGuids))
+                {
+
+                    errCallback("Failed to receive trade entrance arguments");
+                    SendNo(stream);
+                    return false;
+
+                }
+
+                SendYes(stream);
+
+                return true;
+
+            }
+            catch (IOException)
+            {
+                errCallback("Connection lost");
+                name = default;
+                tradeReceivedPokemonGuids = default;
                 return false;
             }
-
-            byte[] buffer = BitConverter.GetBytes(index);
-            stream.Write(buffer, 0, 4);
-
-            return true;
 
         }
 

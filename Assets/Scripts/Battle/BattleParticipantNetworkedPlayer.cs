@@ -8,14 +8,11 @@ namespace Battle
     public class BattleParticipantNetworkedPlayer : BattleParticipantPlayer
     {
 
-        protected NetworkStream stream;
-        protected Serializer serializer;
+        protected Connection.NetworkBattleCommsManager commsManager;
 
-        public BattleParticipantNetworkedPlayer(NetworkStream stream,
-            Serializer serializer)
+        public BattleParticipantNetworkedPlayer(Connection.NetworkBattleCommsManager commsManager)
         {
-            this.stream = stream;
-            this.serializer = serializer;
+            this.commsManager = commsManager;
         }
 
         protected override void SetChosenAction(Action action)
@@ -24,7 +21,7 @@ namespace Battle
             base.SetChosenAction(action);
 
             //Chosen action must be sent to other player
-            Connection.TrySendNetworkBattleAction(stream, serializer, action);
+            commsManager.TrySendBattleAction(action);
 
         }
 
@@ -34,7 +31,7 @@ namespace Battle
             base.SetChosenPokemonIndex(index);
 
             //Chosen next pokemon index must be sent to other player
-            Connection.TrySendNetworkBattleNextPokemonIndex(stream, serializer, index);
+            commsManager.TrySendNextPokemonIndex(index);
 
         }
 

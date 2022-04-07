@@ -42,6 +42,7 @@ namespace Serialization {
         public abstract void SerializeInventoryItem(Stream stream, int itemId, int quantity);
         public abstract void SerializePokedex(Stream stream, PlayerData.Pokedex pokedex);
         public abstract void SerializePlayerPartyAndStorageSystemPokemon(Stream stream, PlayerData player = null);
+        public abstract void SerializePlayerTradeReceivedPokemonGuids(Stream stream, Guid[] guids);
         public abstract void SerializeString(Stream stream, string s);
         public abstract void SerializeBattleAction(Stream stream, BattleParticipant.Action action);
 
@@ -266,6 +267,9 @@ namespace Serialization {
         public abstract void DeserializePlayerPartyAndStorageSystemPokemon(Stream stream,
             out PokemonInstance[] partyPokemon,
             out PlayerData.PokemonStorageSystem storageSystem);
+
+        public abstract void DeserializePlayerTradeReceivedPokemonGuids(Stream stream,
+            out Guid[] guids);
 
         public abstract string DeserializeString(Stream stream);
 

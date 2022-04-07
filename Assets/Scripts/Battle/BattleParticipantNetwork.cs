@@ -18,24 +18,21 @@ namespace Battle
         protected PokemonInstance[] pokemon;
         protected string spriteResourceName;
 
-        private NetworkStream stream;
-        private Serializer serializer;
+        protected Connection.NetworkBattleCommsManager commsManager;
 
         private Queue<Action> chosenActionQueue = new Queue<Action>();
         private Queue<int> nextPokemonIndexQueue = new Queue<int>();
 
-        public BattleParticipantNetwork(NetworkStream stream,
-            Serializer serializer,
+        public BattleParticipantNetwork(Connection.NetworkBattleCommsManager commsManager,
             string name,
             PokemonInstance[] pokemon,
             string spriteResourceName)
         {
 
+            this.commsManager = commsManager;
             this.name = name;
             this.pokemon = pokemon;
             this.spriteResourceName = spriteResourceName;
-            this.stream = stream;
-            this.serializer = serializer;
 
         }
 
@@ -63,7 +60,7 @@ namespace Battle
         public void StartListeningForNetworkComms(BattleParticipant actionsTarget)
         {
 
-            Connection.StartListenForNetworkBattleComms(stream, serializer, this, actionsTarget);
+            commsManager.StartListening();
 
             StartRefreshingForNetworkComms();
 
@@ -132,27 +129,22 @@ namespace Battle
             while (continueRefreshingForNetworkComms)
             {
 
-                Connection.NetworkBattleComm? commN = Connection.GetNextNetworkBattleComm();
+                Connection.NetworkCommsManager.Comm comm = commsManager.GetNextComm();
 
-                if (commN != null)
+                if (comm != null)
                 {
 
-                    Connection.NetworkBattleComm comm = (Connection.NetworkBattleComm)commN;
-
-                    switch (comm.type)
+                    if (comm is Connection.NetworkCommsManager.BattleActionComm battleActionComm)
                     {
-
-                        case Connection.NetworkBattleCommType.Action:
-                            AddChosenAction(comm.battleAction);
-                            break;
-
-                        case Connection.NetworkBattleCommType.ChosenPokemon:
-                            AddNextPokemon(comm.pokemonIndex);
-                            break;
-
-                        default:
-                            throw new Exception("Unknown network battle comm type");
-
+                        AddChosenAction(battleActionComm.action);
+                    }
+                    else if (comm is Connection.NetworkCommsManager.BattleChosenPokemonComm battleChosenPokemonComm)
+                    {
+                        AddNextPokemon(battleChosenPokemonComm.pokemonIndex);
+                    }
+                    else
+                    {
+                        throw new Exception("Unknown battle comm type");
                     }
 
                 }

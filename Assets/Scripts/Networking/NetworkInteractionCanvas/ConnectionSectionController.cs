@@ -8,6 +8,7 @@ using FreeRoaming.AreaControllers;
 using Menus;
 using Pokemon;
 using Battle;
+using Trade;
 using Audio;
 
 namespace Networking.NetworkInteractionCanvas
@@ -68,13 +69,15 @@ namespace Networking.NetworkInteractionCanvas
 
         #region Processing Established Connection
 
-        protected IEnumerator ProcessConnection_Server(Socket socket)
+        protected IEnumerator ProcessConnection_Server(Socket socket,
+            Connection.ConnectionPurpose purpose)
         {
 
             NetworkStream stream = Connection.CreateNetworkStream(socket);
 
             //Verify connection
             if (!Connection.VerifyConnection_Server(stream,
+                purpose,
                 errCallback: canvasController.SetStatusMessageError,
                 statusCallback: canvasController.SetStatusMessage))
             {
@@ -82,6 +85,68 @@ namespace Networking.NetworkInteractionCanvas
                 Launch(connectionMode); //Reset section
                 yield break;
             }
+
+            switch (purpose)
+            {
+
+                case Connection.ConnectionPurpose.Battle:
+                    yield return StartCoroutine(ProcessVerifiedConnection_Server_Battle(stream));
+                    break;
+
+                case Connection.ConnectionPurpose.Trade:
+                    yield return StartCoroutine(ProcessVerifiedConnection_Server_Trade(stream));
+                    break;
+
+                default:
+                    Debug.LogError("Unknown connection purpose to processes");
+                    stream.Close();
+                    break;
+
+            }
+
+        }
+
+        protected IEnumerator ProcessConnection_Client(Socket socket,
+            Connection.ConnectionPurpose purpose)
+        {
+
+            NetworkStream stream = Connection.CreateNetworkStream(socket);
+
+            //Verify connection
+            if (!Connection.VerifyConnection_Client(stream,
+                purpose,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage))
+            {
+                stream.Close();
+                Launch(connectionMode); //Reset section
+                yield break;
+            }
+
+            switch (purpose)
+            {
+
+                case Connection.ConnectionPurpose.Battle:
+                    yield return StartCoroutine(ProcessVerifiedConnection_Client_Battle(stream));
+                    break;
+
+                case Connection.ConnectionPurpose.Trade:
+                    yield return StartCoroutine(ProcessVerifiedConnection_Client_Trade(stream));
+                    break;
+
+                default:
+                    Debug.LogError("Unknown connection purpose to processes");
+                    stream.Close();
+                    break;
+
+            }
+
+        }
+
+        #region Battle Connections
+
+        private IEnumerator ProcessVerifiedConnection_Server_Battle(NetworkStream stream)
+        {
 
             //Choose random seed
             int randomSeed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
@@ -113,20 +178,8 @@ namespace Networking.NetworkInteractionCanvas
 
         }
 
-        protected IEnumerator ProcessConnection_Client(Socket socket)
+        private IEnumerator ProcessVerifiedConnection_Client_Battle(NetworkStream stream)
         {
-
-            NetworkStream stream = Connection.CreateNetworkStream(socket);
-
-            //Verify connection
-            if (!Connection.VerifyConnection_Client(stream,
-                errCallback: canvasController.SetStatusMessageError,
-                statusCallback: canvasController.SetStatusMessage))
-            {
-                stream.Close();
-                Launch(connectionMode); //Reset section
-                yield break;
-            }
 
             //Get battle entrance arguments
             if (!Connection.TryExchangeBattleEntranceArguments_Client(stream,
@@ -155,8 +208,6 @@ namespace Networking.NetworkInteractionCanvas
 
         }
 
-        #endregion
-
         /// <summary>
         /// Close the menu and launch the battle after the battle entrance arguments have already been set
         /// </summary>
@@ -171,6 +222,77 @@ namespace Networking.NetworkInteractionCanvas
             GameSceneManager.LaunchBattleScene();
 
         }
+
+        #endregion
+
+        #region Trade Connections
+
+        private IEnumerator ProcessVerifiedConnection_Server_Trade(NetworkStream stream)
+        {
+
+            //Get trade entrance arguments
+            if (!Connection.TryExchangeTradeEntranceArguments_Server(stream,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage,
+                out string otherUserName,
+                out Guid[] otherUserTradeReceivedPokemon))
+            {
+                stream.Close();
+                Launch(connectionMode); //Reset section
+                yield break;
+            }
+
+            //Set trade entrance arguments
+            TradeEntranceArguments.argumentsSet = true;
+            TradeEntranceArguments.networkStream = stream;
+            TradeEntranceArguments.otherUserName = otherUserName;
+            TradeEntranceArguments.disallowedSendPokemonGuids = otherUserTradeReceivedPokemon;
+
+            LaunchTrade();
+
+        }
+
+        private IEnumerator ProcessVerifiedConnection_Client_Trade(NetworkStream stream)
+        {
+
+            //Get trade entrance arguments
+            if (!Connection.TryExchangeTradeEntranceArguments_Client(stream,
+                errCallback: canvasController.SetStatusMessageError,
+                statusCallback: canvasController.SetStatusMessage,
+                out string otherUserName,
+                out Guid[] otherUserTradeReceivedPokemon))
+            {
+                stream.Close();
+                Launch(connectionMode); //Reset section
+                yield break;
+            }
+
+            //Set trade entrance arguments
+            TradeEntranceArguments.argumentsSet = true;
+            TradeEntranceArguments.networkStream = stream;
+            TradeEntranceArguments.otherUserName = otherUserName;
+            TradeEntranceArguments.disallowedSendPokemonGuids = otherUserTradeReceivedPokemon;
+
+            LaunchTrade();
+
+        }
+
+        /// <summary>
+        /// Close the menu and launch the trade after the trade entrance arguments have already been set
+        /// </summary>
+        private void LaunchTrade()
+        {
+
+            CloseMenu();
+            canvasController.ClearStatusMessage();
+
+            GameSceneManager.LaunchTradeScene();
+
+        }
+
+        #endregion
+
+        #endregion
 
     }
 }

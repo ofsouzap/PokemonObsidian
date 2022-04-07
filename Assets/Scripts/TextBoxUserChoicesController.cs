@@ -112,25 +112,30 @@ public class TextBoxUserChoicesController : MonoBehaviour
             selectOnUp = choiceButtons.Length > 1 ? choiceButtons[1] : null
         };
 
-        choiceButtons[1].navigation = new Navigation()
+        if (choiceButtons.Length > 1)
         {
-            mode = Navigation.Mode.Explicit,
-            selectOnLeft = null,
-            selectOnRight = null,
-            selectOnUp = choiceButtons[0],
-            selectOnDown = choiceButtons.Length > 1 ? choiceButtons[choiceButtons.Length - 2] : null
-        };
 
-        for (int i = 1; i < choiceButtons.Length - 1; i++)
-        {
-            choiceButtons[i].navigation = new Navigation()
+            choiceButtons[1].navigation = new Navigation()
             {
                 mode = Navigation.Mode.Explicit,
                 selectOnLeft = null,
                 selectOnRight = null,
-                selectOnDown = choiceButtons[i - 1],
-                selectOnUp = choiceButtons[i + 1]
+                selectOnUp = choiceButtons[0],
+                selectOnDown = choiceButtons.Length > 1 ? choiceButtons[choiceButtons.Length - 2] : null
             };
+
+            for (int i = 1; i < choiceButtons.Length - 1; i++)
+            {
+                choiceButtons[i].navigation = new Navigation()
+                {
+                    mode = Navigation.Mode.Explicit,
+                    selectOnLeft = null,
+                    selectOnRight = null,
+                    selectOnDown = choiceButtons[i - 1],
+                    selectOnUp = choiceButtons[i + 1]
+                };
+            }
+
         }
 
     }

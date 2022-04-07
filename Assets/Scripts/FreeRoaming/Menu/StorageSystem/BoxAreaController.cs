@@ -13,7 +13,6 @@ namespace FreeRoaming.Menu.StorageSystem
 
         public GameObject boxPokemonPositionPrefab;
 
-        public const string boxNamePrefix = "Box ";
         public Text boxNameText;
 
         public Transform boxPokemonRootTransform;

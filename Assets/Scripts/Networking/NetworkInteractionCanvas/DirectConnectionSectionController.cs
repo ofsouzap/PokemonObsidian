@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Menus;
@@ -14,11 +15,24 @@ namespace Networking.NetworkInteractionCanvas
 
         protected bool interactive;
 
+        public Dropdown purposeDropdown;
         public InputField addressInput;
         public InputField portInput;
 
         public Button goButton;
         public Button closeButton;
+
+        protected static readonly string[] purposeDropdownOptions = new string[]
+        {
+            "Battle",
+            "Trade"
+        };
+
+        protected static readonly Dictionary<string, Connection.ConnectionPurpose> purposeDropdownOptionValues = new Dictionary<string, Connection.ConnectionPurpose>()
+        {
+            { "Battle", Connection.ConnectionPurpose.Battle },
+            { "Trade", Connection.ConnectionPurpose.Trade }
+        };
 
         protected override MenuSelectableController[] GetSelectables()
         {
@@ -32,10 +46,21 @@ namespace Networking.NetworkInteractionCanvas
 
         }
 
+        protected static void CheckPurposeDropdownOptionCorrelations()
+        {
+
+            foreach (string s in purposeDropdownOptions)
+                if (!purposeDropdownOptionValues.ContainsKey(s))
+                    Debug.LogError("Not purpose dropdown option value for \"" + s + '"');
+
+        }
+
         public override void SetUp(NetworkInteractionCanvasController canvasController)
         {
 
             base.SetUp(canvasController);
+
+            CheckPurposeDropdownOptionCorrelations();
 
             if (goButton.GetComponent<MenuSelectableController>() == null)
             {
@@ -45,6 +70,11 @@ namespace Networking.NetworkInteractionCanvas
             if (closeButton.GetComponent<MenuSelectableController>() == null)
             {
                 Debug.LogError("No MenuSelectableController in close button");
+            }
+
+            if (purposeDropdown.GetComponent<MenuSelectableController>() == null)
+            {
+                Debug.LogError("No MenuSelectableController in purpose dropdown");
             }
 
             if (addressInput.GetComponent<MenuSelectableController>() == null)
@@ -62,6 +92,9 @@ namespace Networking.NetworkInteractionCanvas
 
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(() => CloseMenu());
+
+            purposeDropdown.ClearOptions();
+            purposeDropdown.AddOptions(new List<Dropdown.OptionData>(purposeDropdownOptions.Select(s => new Dropdown.OptionData(s)))); // Add dropdown options by making new Dropdown.OptionData for each string value in the array
 
         }
 
@@ -114,6 +147,7 @@ namespace Networking.NetworkInteractionCanvas
 
         protected override void SetInteractable(bool state)
         {
+            purposeDropdown.interactable = state;
             addressInput.interactable = state;
             portInput.interactable = state;
             goButton.interactable = state;
@@ -123,6 +157,7 @@ namespace Networking.NetworkInteractionCanvas
 
         protected override void SetInteractivityForServer()
         {
+            purposeDropdown.interactable = true;
             addressInput.interactable = false;
             portInput.interactable = true;
             goButton.interactable = true;
@@ -132,6 +167,7 @@ namespace Networking.NetworkInteractionCanvas
 
         protected override void SetInteractivityForClient()
         {
+            purposeDropdown.interactable = true;
             addressInput.interactable = true;
             portInput.interactable = true;
             goButton.interactable = true;
@@ -141,6 +177,7 @@ namespace Networking.NetworkInteractionCanvas
 
         protected override void SetInteractivityForServerListening()
         {
+            purposeDropdown.interactable = false;
             addressInput.interactable = false;
             portInput.interactable = false;
             goButton.interactable = false;
@@ -154,6 +191,9 @@ namespace Networking.NetworkInteractionCanvas
         {
 
             string addressString = addressInput.text;
+
+            string purposeString = purposeDropdownOptions[purposeDropdown.value];
+            Connection.ConnectionPurpose purpose = purposeDropdownOptionValues[purposeString];
 
             int port;
 
@@ -173,12 +213,12 @@ namespace Networking.NetworkInteractionCanvas
 
                 case ConnectionMode.Server:
                     SetInteractivityForServerListening();
-                    Run_Server(port);
+                    Run_Server(purpose, port);
                     break;
 
                 case ConnectionMode.Client:
                     SetInteractable(false);
-                    Run_Client(addressString, port);
+                    Run_Client(purpose, addressString, port);
                     break;
 
                 default:
@@ -196,11 +236,22 @@ namespace Networking.NetworkInteractionCanvas
 
             if (serverConnectionToProcess != null)
             {
-                StartCoroutine(ProcessConnection_Server(serverConnectionToProcess));
+
+                if (connectionPurpose != null)
+                {
+                    StartCoroutine(ProcessConnection_Server(serverConnectionToProcess, (Connection.ConnectionPurpose)connectionPurpose));
+                    connectionPurpose = null;
+                }
+                else
+                    Debug.LogError("Connection purpose not set when trying to process server connection");
+
                 SetServerConnectionToProcess(null);
+                
             }
 
         }
+
+        private Connection.ConnectionPurpose? connectionPurpose;
 
         private static readonly object serverConnectionToProcessLock = new object();
         private Socket serverConnectionToProcess = null;
@@ -213,14 +264,14 @@ namespace Networking.NetworkInteractionCanvas
             }
         }
 
-        protected void Run_Server(int port = -1)
+        protected void Run_Server(Connection.ConnectionPurpose purpose, int port = -1)
         {
 
-            StartCoroutine(Server_Coroutine(port));
+            StartCoroutine(Server_Coroutine(purpose, port));
 
         }
 
-        protected IEnumerator Server_Coroutine(int port = -1)
+        protected IEnumerator Server_Coroutine(Connection.ConnectionPurpose purpose, int port = -1)
         {
 
             if (serverConnectionToProcess != null)
@@ -261,11 +312,13 @@ namespace Networking.NetworkInteractionCanvas
 
             }
 
+            connectionPurpose = purpose;
             SetServerConnectionToProcess(sock);
 
         }
 
-        protected void Run_Client(string addressString,
+        protected void Run_Client(Connection.ConnectionPurpose purpose,
+            string addressString,
             int port = -1)
         {
 
@@ -273,8 +326,8 @@ namespace Networking.NetworkInteractionCanvas
                 out Socket socket,
                 errCallback: canvasController.SetStatusMessageError,
                 statusCallback: canvasController.SetStatusMessage,
-                addressString,
-                port))
+                ipAddress: addressString,
+                port: port))
             {
 
                 socket?.Close();
@@ -284,7 +337,7 @@ namespace Networking.NetworkInteractionCanvas
             }
             else
             {
-                StartCoroutine(ProcessConnection_Client(socket));
+                StartCoroutine(ProcessConnection_Client(socket, purpose));
             }
 
         }

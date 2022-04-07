@@ -603,6 +603,9 @@ namespace Pokemon
 
         }
 
+        public void Evolve(PokemonSpecies.Evolution evolution)
+            => Evolve(evolution.targetId);
+
         /// <summary>
         /// Change this pokemon's data to reflect an evolution including refreshing its stats
         /// </summary>
@@ -1101,39 +1104,6 @@ namespace Pokemon
                 return 1;
             else
                 return CalculateEvasionBattleStat(battleProperties.evasionModifier);
-        }
-
-        #endregion
-
-        #region Evolution
-
-        /// <summary>
-        /// Check whether the pokemon instance should evolve and into which pokemon. Returns a PokemonSpecies.Evolution if a valid evolution is found or null if none are found
-        /// </summary>
-        /// <param name="traded">Whether it should be assumed that the PokemonInstance has just been traded when deciding whether to evolve</param>
-        /// <returns>PokemonSpecies.Evolution if a valid evolution is found else null</returns>
-        public PokemonSpecies.Evolution CheckShouldEvolve(bool traded = false)
-        {
-
-            foreach (PokemonSpecies.Evolution evolution in species.evolutions)
-            {
-
-                bool levelCondition = evolution.level == null || GetLevel() >= evolution.level;
-                bool predicateCondition = evolution.condition(this);
-                bool tradedCondition = !evolution.requireTrade || traded;
-
-                if (levelCondition && predicateCondition && tradedCondition)
-                    return evolution;
-
-            }
-
-            return null;
-
-        }
-
-        public void Evolve(PokemonSpecies.Evolution evolution)
-        {
-            speciesId = evolution.targetId;
         }
 
         #endregion

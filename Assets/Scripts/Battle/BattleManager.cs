@@ -69,6 +69,15 @@ namespace Battle
         private TextBoxController textBoxController;
 
         /// <summary>
+        /// The comms manager to manage network communications if this is a network battle. Not used if the battle isn't a network battle
+        /// </summary>
+        public Connection.NetworkBattleCommsManager commsManager
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// A list of battle participants who shouldn't have their actions executed.
         /// For example if their pokemon has fainted and they have just changed pokemon
         /// </summary>
@@ -127,6 +136,14 @@ namespace Battle
                 Debug.LogError("Battle entrance arguments not set");
             }
 
+            //If the battle is a network battle then set up the comms manager
+            if (BattleEntranceArguments.battleType == BattleType.Network)
+            {
+                commsManager = new Connection.NetworkBattleCommsManager(
+                    stream: BattleEntranceArguments.networkBattleArguments.stream,
+                    serializer: Serialize.DefaultSerializer);
+            }
+
             #region Opponent Participant
 
             BattleParticipant participantOpponent;
@@ -161,8 +178,7 @@ namespace Battle
                 case BattleType.Network:
 
                     participantOpponent = new BattleParticipantNetwork(
-                        BattleEntranceArguments.networkBattleArguments.stream,
-                        Serialize.DefaultSerializer,
+                        commsManager,
                         BattleEntranceArguments.networkBattleArguments.opponentName,
                         BattleEntranceArguments.networkBattleArguments.opponentPokemon,
                         BattleEntranceArguments.networkBattleArguments.opponentSpriteResourceName);
@@ -200,9 +216,7 @@ namespace Battle
 
             if (BattleEntranceArguments.battleType == BattleType.Network)
             {
-                participantPlayer = new BattleParticipantNetworkedPlayer(
-                    BattleEntranceArguments.networkBattleArguments.stream,
-                    Serialize.DefaultSerializer);
+                participantPlayer = new BattleParticipantNetworkedPlayer(commsManager);
             }
             else
             {
@@ -210,6 +224,14 @@ namespace Battle
             }
 
             #endregion
+
+            //If the battle is a network battle then, now that the player and opponent are created, set the comms manager's battle action participants for receiving actions
+            if (BattleEntranceArguments.battleType == BattleType.Network)
+            {
+                commsManager.SetRecvActionParticipants(participantOpponent, participantPlayer);
+            }
+
+            #region Battle Data
 
             battleData = new BattleData()
             {
@@ -241,6 +263,8 @@ namespace Battle
             battleData.participantPlayer.playerBattleUIController = playerBattleUIController;
             battleData.participantPlayer.playerPokemonSelectUIController = playerPokemonSelectUIController;
             battleData.participantPlayer.playerMoveSelectUIController = playerMoveSelectUIController;
+
+            #endregion
 
             #region Choose Starting Pokemon
 
@@ -454,7 +478,7 @@ namespace Battle
                     ||
 
                     (battleData.isNetworkBattle
-                    && Connection.NetworkCommsConnErrorOccured)
+                    && commsManager.CommsConnErrorOccured)
 
                 );
 
@@ -465,7 +489,7 @@ namespace Battle
 
                 #region Network Connection Error Handling
 
-                if (battleData.isNetworkBattle && Connection.NetworkCommsConnErrorOccured)
+                if (battleData.isNetworkBattle && commsManager.CommsConnErrorOccured)
                 {
                     
                     battleAnimationSequencer.EnqueueSingleText("Connection error occured, ending battle...", true);
@@ -939,7 +963,7 @@ namespace Battle
 
                 #region Battle End Message
 
-                if (!Connection.NetworkCommsConnErrorOccured)
+                if (!commsManager.CommsConnErrorOccured)
                 {
 
                     if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
@@ -1147,7 +1171,7 @@ namespace Battle
         {
 
             battleData?.networkStream?.Close();
-            Connection.StopListenForNetworkBattleComms();
+            commsManager.StopListening();
             if (battleData?.participantOpponent is BattleParticipantNetwork netOpp)
             {
                 netOpp.StopRefreshingForNetworkComms();

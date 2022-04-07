@@ -18,6 +18,11 @@ public static class GameSceneManager
     public const string battleSceneIdentifier = "Battle";
 
     /// <summary>
+    /// The identifier for the trade scene. This can be in any format that the Unity SceneManager can use
+    /// </summary>
+    public const string tradeSceneIdentifier = "Trade";
+
+    /// <summary>
     /// The identifier for the evolution scene. This can be in any format that the Unity SceneManager can use
     /// </summary>
     public const string evolutionSceneIdentifier = "Evolution Scene";
@@ -69,6 +74,8 @@ public static class GameSceneManager
 
     private static Scene? battleScene;
 
+    private static Scene? tradeScene;
+
     private static Scene? evolutionScene;
 
     private static Scene? playerMenuScene;
@@ -90,6 +97,12 @@ public static class GameSceneManager
         {
             SceneManager.UnloadSceneAsync((Scene)battleScene);
             battleScene = null;
+        }
+
+        if (tradeScene != null)
+        {
+            SceneManager.UnloadSceneAsync((Scene)tradeScene);
+            tradeScene = null;
         }
 
         if (evolutionScene != null)
@@ -231,9 +244,9 @@ public static class GameSceneManager
     private static void LoadSceneDoor(SceneDoorDetails doorDetails)
     {
 
-        if (battleScene != null || evolutionScene != null || playerMenuScene != null)
+        if (battleScene != null || tradeScene != null || evolutionScene != null || playerMenuScene != null)
         {
-            Debug.LogError("Attempting to load scene whilst in battle/evolution/player menu scene");
+            Debug.LogError("Attempting to load scene whilst in battle/trade/evolution/player menu scene");
             return;
         }
 
@@ -439,6 +452,121 @@ public static class GameSceneManager
 
     #endregion
 
+    #region Trade Opening/Closing
+
+    public static void LaunchTradeScene()
+    {
+
+        if (tradeScene != null)
+        {
+            Debug.LogError("Trade trying to be launched while battle already active");
+            return;
+        }
+
+        if (pausedFreeRoamScene != null)
+        {
+            Debug.LogError("Trying to launch trade scene while there is already a paused scene");
+            return;
+        }
+
+        pausedFreeRoamScene = CurrentScene;
+        FreeRoamSceneController pausedSceneController = GetFreeRoamSceneController((Scene)pausedFreeRoamScene);
+
+        pausedSceneController.SetDoorsEnabledState(false);
+        pausedSceneController.SetSceneRunningState(false);
+
+        StartFadeOut();
+
+        FadeOutComplete += () =>
+        {
+
+            pausedSceneController.SetSceneRunningState(true);
+            pausedSceneController.SetEnabledState(false);
+
+            int newSceneIndex = SceneManager.sceneCount;
+
+            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(tradeSceneIdentifier, LoadSceneMode.Additive);
+
+            loadSceneOperation.completed += (ao) =>
+            {
+
+                tradeScene = SceneManager.GetSceneAt(newSceneIndex);
+
+                Trade.TradeManager tradeManager = Trade.TradeManager.GetTradeSceneTradeManager((Scene)tradeScene);
+
+                SceneManager.SetActiveScene((Scene)tradeScene);
+
+                StartFadeIn();
+
+                FadeInComplete += () =>
+                {
+                    tradeManager.StartTradeScene();
+                };
+
+            };
+
+        };
+
+    }
+
+    public static void CloseTradeScene()
+    {
+
+        if (tradeScene == null)
+        {
+            Debug.LogError("Trade trying to be closed while battle not active");
+            return;
+        }
+
+        if (pausedFreeRoamScene == null)
+        {
+            Debug.LogError("Trying to close trade scene while there is no paused scene to return to");
+            return;
+        }
+
+        FreeRoamSceneController pausedSceneController = GetFreeRoamSceneController((Scene)pausedFreeRoamScene);
+
+        StartFadeOut();
+
+        FadeOutComplete += () =>
+        {
+
+            PlayerGameObject.GetComponent<PlayerController>().SetMoveDelay(sceneChangePlayerMoveDelay);
+
+            SceneManager.SetActiveScene((Scene)pausedFreeRoamScene);
+
+            //Wait until old scene unloaded before starting next scene
+            SceneManager.UnloadSceneAsync((Scene)tradeScene).completed += (ao) =>
+            {
+
+                pausedSceneController.SetDoorsEnabledState(true);
+                pausedSceneController.SetEnabledState(true);
+
+                CloseTradeScene_Variables();
+
+                PlayerGameObject.GetComponent<PlayerController>().PlaySceneAreaMusic();
+
+                StartFadeIn();
+
+            };
+
+        };
+
+    }
+
+    /// <summary>
+    /// Sets the variables to show that the trade scene has been closed. Allows for closing of trade scene instantly, outside of CloseBattleScene method
+    /// </summary>
+    private static void CloseTradeScene_Variables()
+    {
+
+        tradeScene = null;
+        pausedFreeRoamScene = null;
+
+    }
+
+    #endregion
+
     #region Evolution Scene Opening/Closing
 
     public static void LaunchEvolutionScene()
@@ -547,8 +675,8 @@ public static class GameSceneManager
             return;
         }
 
-        if (evolutionScene != null || battleScene != null)
-            Debug.LogWarning("Trying to launch player menu scene whlst battle or evolution scene in use");
+        if (evolutionScene != null || battleScene != null || tradeScene != null)
+            Debug.LogWarning("Trying to launch player menu scene whlst battle or trade or evolution scene in use");
 
         if (pausedFreeRoamScene != null)
         {
@@ -883,7 +1011,7 @@ public static class GameSceneManager
             return;
         }
 
-        //Ensure not in sub-scene (battle/evolution/player menu)
+        //Ensure not in sub-scene (battle/trade/evolution/player menu)
 
         if (battleScene != null)
         {
@@ -892,6 +1020,15 @@ public static class GameSceneManager
             SceneManager.UnloadSceneAsync((Scene)battleScene).completed += (ao) => LoadSceneStack_Execute(sceneStack);
 
             CloseBattleScene_Variables();
+
+        }
+        else if (tradeScene != null)
+        {
+
+            //Unload trade scene BEFORE loading scene stack
+            SceneManager.UnloadSceneAsync((Scene)tradeScene).completed += (ao) => LoadSceneStack_Execute(sceneStack);
+
+            CloseTradeScene_Variables();
 
         }
         else if (playerMenuScene != null)

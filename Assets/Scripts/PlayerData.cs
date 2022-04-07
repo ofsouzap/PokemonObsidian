@@ -235,6 +235,11 @@ public class PlayerData
 
         public bool IsFull { get => boxes.All(x => x.IsFull); }
 
+        private const string boxNamePrefix = "Box ";
+
+        public static string GetBoxName(int boxIndex)
+            => boxNamePrefix + (boxIndex + 1).ToString(); //Start box name indexes at 1
+
         public void ResetBoxes()
         {
             for (int i = 0; i < boxes.Length; i++)
@@ -373,6 +378,66 @@ public class PlayerData
 
     #endregion
 
+    public struct PokemonLocator
+    {
+
+        /// <summary>
+        /// Whether the pokemon is in the player's party. If not, the pokemon is in the player's storage system
+        /// </summary>
+        public bool inParty;
+
+        /// <summary>
+        /// The index of the pokemon in the player's party (only used if pokemon is in party)
+        /// </summary>
+        public int partyIndex;
+
+        /// <summary>
+        /// The index of the pokemon's box in the player's storage system (only used if pokemon is not in party)
+        /// </summary>
+        public int boxIndex;
+
+        /// <summary>
+        /// The index of the pokemon in its box (only used if pokemon is not in party)
+        /// </summary>
+        public int boxPositionIndex;
+
+        public PokemonLocator(int partyIndex)
+        {
+            inParty = true;
+            this.partyIndex = partyIndex;
+            boxIndex = boxPositionIndex = -1;
+        }
+
+        public PokemonLocator(int boxIndex, int boxPositionIndex)
+        {
+            inParty = false;
+            this.boxIndex = boxIndex;
+            this.boxPositionIndex = boxPositionIndex;
+            partyIndex = -1;
+        }
+
+        public PokemonInstance Get(PlayerData player)
+        {
+
+            if (inParty)
+                return player.partyPokemon[partyIndex];
+            else
+                return player.boxPokemon.boxes[boxIndex][boxPositionIndex];
+
+        }
+
+        public void Set(PlayerData player, PokemonInstance value)
+        {
+
+            if (inParty)
+                player.partyPokemon[partyIndex] = value;
+            else
+                player.boxPokemon.boxes[boxIndex][boxPositionIndex] = value;
+
+        }
+
+    }
+
     public void HealStorageSystemPokemon()
     {
 
@@ -387,6 +452,48 @@ public class PlayerData
         HealPartyPokemon();
         HealStorageSystemPokemon();
     }
+
+    #region Trade-Received Pokemon
+
+    private List<Guid> tradeReceivedPokemonGuids = new List<Guid>();
+
+    public Guid[] TradeReceivedPokemonArray
+        => tradeReceivedPokemonGuids.ToArray();
+
+    public bool CheckPokemonIsTradeReceived(Guid guid)
+        => tradeReceivedPokemonGuids.Contains(guid);
+
+    public bool CheckPokemonIsTradeReceived(PokemonInstance pmon)
+        => CheckPokemonIsTradeReceived(pmon.guid);
+
+    public void AddTradeReceivedPokemon(Guid guid)
+        => tradeReceivedPokemonGuids.Add(guid);
+
+    public void AddTradeReceivedPokemon(PokemonInstance pmon)
+        => AddTradeReceivedPokemon(pmon.guid);
+
+    public void SetTradeReceivedPokemon(Guid[] guids)
+    {
+        tradeReceivedPokemonGuids.Clear();
+        tradeReceivedPokemonGuids.AddRange(guids);
+    }
+
+    public void SetTradeReceivedPokemon(PokemonInstance[] pmon)
+    {
+        tradeReceivedPokemonGuids.Clear();
+        tradeReceivedPokemonGuids.AddRange(pmon.Select(p => p.guid));
+    }
+
+    public void TryRemoveTradeReceivedPokemon(Guid guid)
+    {
+        if (tradeReceivedPokemonGuids.Contains(guid))
+            tradeReceivedPokemonGuids.Remove(guid);
+    }
+
+    public void TryRemoveTradeReceivedPokemon(PokemonInstance pmon)
+        => TryRemoveTradeReceivedPokemon(pmon.guid);
+
+    #endregion
 
     #endregion
 

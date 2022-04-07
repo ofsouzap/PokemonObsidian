@@ -102,7 +102,7 @@ namespace FreeRoaming.Menu.StorageSystem
         {
 
             boxAreaController.SetPokemon(CurrentBoxPokemon);
-            boxAreaController.SetBoxName(BoxAreaController.boxNamePrefix + currentBoxIndex);
+            boxAreaController.SetBoxName(PlayerData.PokemonStorageSystem.GetBoxName(currentBoxIndex));
 
         }
 

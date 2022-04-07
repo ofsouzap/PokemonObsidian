@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class TextBoxController : MonoBehaviour
 {
 
-    private Canvas mainCanvas;
+    private Canvas MainCanvas => GetComponent<Canvas>();
 
     [SerializeField]
     private GameObject continuePromptObject;
@@ -29,9 +29,9 @@ public class TextBoxController : MonoBehaviour
     [SerializeField]
     private TextBoxUserChoicesController userChoicesController;
 
-    public void Show() => mainCanvas.enabled = true;
-    public void Hide() => mainCanvas.enabled = false;
-    public bool IsShown => mainCanvas.enabled;
+    public void Show() => MainCanvas.enabled = true;
+    public void Hide() => MainCanvas.enabled = false;
+    public bool IsShown => MainCanvas.enabled;
 
     public static TextBoxController GetTextBoxController(Scene scene)
     {
@@ -52,8 +52,6 @@ public class TextBoxController : MonoBehaviour
 
     private void Start()
     {
-
-        mainCanvas = GetComponent<Canvas>();
 
         if (startShown)
             Show();
@@ -204,7 +202,18 @@ public class TextBoxController : MonoBehaviour
     /// </summary>
     public int userChoiceIndexSelected = -1;
 
+    private Coroutine getUserChoiceCoroutine;
+
     public IEnumerator GetUserChoice(string[] optionNames)
+    {
+
+        getUserChoiceCoroutine = StartCoroutine(UserChoiceCoroutine(optionNames));
+
+        yield return getUserChoiceCoroutine;
+
+    }
+
+    private IEnumerator UserChoiceCoroutine(string[] optionNames)
     {
 
         userChoiceIndexSelected = -1;
@@ -214,6 +223,14 @@ public class TextBoxController : MonoBehaviour
         yield return new WaitUntil(() => userChoicesController.choiceIndexSelected >= 0);
 
         userChoiceIndexSelected = userChoicesController.choiceIndexSelected;
+
+    }
+
+    public void StopGettingUserChoice()
+    {
+
+        userChoicesController.Hide();
+        StopCoroutine(getUserChoiceCoroutine);
 
     }
 

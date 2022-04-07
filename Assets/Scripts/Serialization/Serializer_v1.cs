@@ -45,6 +45,9 @@ namespace Serialization
             //Pokemon
             SerializePlayerPartyAndStorageSystemPokemon(stream, player);
 
+            //Trade-Received Pokemon
+            SerializePlayerTradeReceivedPokemonGuids(stream, player.TradeReceivedPokemonArray);
+
             //Scene stacks
             SerializeSceneStack(stream, GameSceneManager.CurrentSceneStack);
             SerializeBool(stream, player.respawnSceneStackSet);
@@ -200,6 +203,19 @@ namespace Serialization
             {
                 buffer = BitConverter.GetBytes(value);
                 stream.Write(buffer, 0, 4);
+            }
+
+        }
+
+        public override void SerializePlayerTradeReceivedPokemonGuids(Stream stream, Guid[] guids)
+        {
+
+            byte[] buffer = BitConverter.GetBytes(guids.Length);
+            stream.Write(buffer, 0, 4);
+            foreach (Guid guid in guids)
+            {
+                buffer = guid.ToByteArray();
+                stream.Write(buffer, 0, 16);
             }
 
         }
@@ -404,6 +420,7 @@ namespace Serialization
             Guid playerGuid;
             ulong gameStartTime, distanceWalked, npcsTalkedTo, timePlayed;
             PokemonInstance[] partyPokemon;
+            Guid[] tradeReceivedPokemonGuids;
             PlayerData.PokemonStorageSystem storageSystemPokemon;
             GameSceneManager.SceneStack respawnSceneStack;
             int money;
@@ -416,6 +433,7 @@ namespace Serialization
             GameSettings.TextSpeed textSpeed;
             float musicVolume, sfxVolume;
 
+            //Save Details
             buffer = new byte[8];
             stream.Read(buffer, 0, 8);
             long fileSignature = BitConverter.ToInt64(buffer, 0);
@@ -432,6 +450,7 @@ namespace Serialization
             stream.Read(buffer, 0, 8);
             saveTime = BitConverter.ToInt64(buffer, 0);
 
+            //Player
             buffer = new byte[16];
             stream.Read(buffer, 0, 16);
             playerGuid = new Guid(buffer);
@@ -440,10 +459,16 @@ namespace Serialization
             stream.Read(buffer, 0, 8);
             gameStartTime = BitConverter.ToUInt64(buffer, 0);
 
+            //Pokemon
             DeserializePlayerPartyAndStorageSystemPokemon(stream,
                 out partyPokemon,
                 out storageSystemPokemon);
 
+            //Trade-Received Pokemon
+            DeserializePlayerTradeReceivedPokemonGuids(stream,
+                out tradeReceivedPokemonGuids);
+
+            //Scene Stacks
             sceneStack = DeserializeSceneStack(stream);
 
             respawnSceneStackSet = DeserializeBool(stream);
@@ -457,6 +482,7 @@ namespace Serialization
                 respawnSceneStack = default;
             }
 
+            //Profile Details
             buffer = new byte[1];
             stream.Read(buffer, 0, 1);
             spriteId = buffer[0];
@@ -467,6 +493,7 @@ namespace Serialization
             stream.Read(buffer, 0, 4);
             money = BitConverter.ToInt32(buffer, 0);
 
+            //Defeated Gyms
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
             int numberOfDefeatedGyms = BitConverter.ToInt32(buffer, 0);
@@ -479,6 +506,7 @@ namespace Serialization
                 defeatedGymIds.Add(BitConverter.ToInt32(buffer, 0));
             }
 
+            //Stats
             buffer = new byte[8];
             stream.Read(buffer, 0, 8);
             distanceWalked = BitConverter.ToUInt64(buffer, 0);
@@ -493,18 +521,17 @@ namespace Serialization
 
             cheatsUsed = DeserializeBool(stream);
 
+            //Inventory
             generalItems = DeserializeInventorySection(stream);
-
             medicineItems = DeserializeInventorySection(stream);
-
             battleItems = DeserializeInventorySection(stream);
-
             pokeBallItems = DeserializeInventorySection(stream);
-
             tmItems = DeserializeInventorySection(stream);
 
+            //Pokedex
             pokedex = DeserializePokedex(stream);
 
+            //NPCs Battled
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
             int numberOfNpcsBattled = BitConverter.ToInt32(buffer, 0);
@@ -517,6 +544,7 @@ namespace Serialization
                 npcsBattled.Add(BitConverter.ToInt32(buffer, 0));
             }
 
+            //Settings
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
             int textSpeedIndex = BitConverter.ToInt32(buffer, 0);
@@ -530,6 +558,7 @@ namespace Serialization
             stream.Read(buffer, 0, 4);
             sfxVolume = BitConverter.ToSingle(buffer, 0);
 
+            //Dropped Items Collected
             buffer = new byte[4];
             stream.Read(buffer, 0, 4);
             int numberOfCollectedDroppedItemIds = BitConverter.ToInt32(buffer, 0);
@@ -659,6 +688,21 @@ namespace Serialization
             }
 
             storageSystem = new PlayerData.PokemonStorageSystem(boxes);
+
+        }
+
+        public override void DeserializePlayerTradeReceivedPokemonGuids(Stream stream, out Guid[] guids)
+        {
+
+            byte[] buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            guids = new Guid[BitConverter.ToInt32(buffer, 0)];
+            for (int i = 0; i < guids.Length; i++)
+            {
+                buffer = new byte[16];
+                stream.Read(buffer, 0, 16);
+                guids[i] = new Guid(buffer);
+            }
 
         }
 
