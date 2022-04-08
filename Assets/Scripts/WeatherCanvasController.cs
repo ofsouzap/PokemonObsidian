@@ -60,16 +60,7 @@ public class WeatherCanvasController : MonoBehaviour
 
     }
 
-    public void SetWeather(Weather weather)
-    {
-
-        TryStopWeatherShowcaseCoroutine();
-
-        SetWeatherUnchecked(weather);
-
-    }
-
-    private void SetWeatherUnchecked(Weather weather)
+    private void SetWeather(Weather weather)
     {
 
         initialWeatherSet = true;
@@ -130,11 +121,14 @@ public class WeatherCanvasController : MonoBehaviour
         float duration= defaultShowcaseDuration)
     {
 
+        TryStopWeatherShowcaseCoroutine();
+
+        if (weather.id == 0) //Clear sky (aka no weather)
+            yield break;
+
         TryStopFadeCoroutine();
 
-        yield return StartCoroutine(FadeRootsAlphaCoroutine(1, 0));
-
-        SetWeatherUnchecked(weather);
+        SetWeather(weather);
 
         yield return StartCoroutine(FadeRootsAlphaCoroutine(0, 1));
 
@@ -142,9 +136,7 @@ public class WeatherCanvasController : MonoBehaviour
 
         yield return StartCoroutine(FadeRootsAlphaCoroutine(1, 0));
 
-        SetWeatherUnchecked(null);
-
-        yield return StartCoroutine(FadeRootsAlphaCoroutine(0, 1));
+        SetWeather(null);
 
     }
 

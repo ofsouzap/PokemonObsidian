@@ -17,21 +17,20 @@ namespace FreeRoaming.WildPokemonArea
         [SerializeField]
         private int wildPokemonAreaId;
 
-        public PokemonInstance.WildSpecification GetWildSpecification()
-            => WildPokemonAreaData.GetSpecificationById(wildPokemonAreaId);
+        public WildPokemonAreaData.WildPokemonAreaSpecification AreaSpec
+            => WildPokemonAreaData.GetAreaSpecificationById(wildPokemonAreaId);
+
+        public PokemonInstance.WildSpecification GetPokemonWildSpecification()
+            => WildPokemonAreaData.GetPokemonSpecificationById(wildPokemonAreaId);
 
         public PokemonInstance GenerateWildPokemon()
-            => GetWildSpecification().Generate();
-
-        [SerializeField]
-        [Range(0,1)]
-        private float encounterChance;
+            => GetPokemonWildSpecification().Generate();
 
         public float GetEncounterChance()
-            => encounterChance;
+            => AreaSpec.encounterChance;
 
         public bool RunEncounterCheck(float chanceMultiplier = 1)
-            => Random.Range(0F, 1F) <= encounterChance * chanceMultiplier;
+            => Random.Range(0F, 1F) <= GetEncounterChance() * chanceMultiplier;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

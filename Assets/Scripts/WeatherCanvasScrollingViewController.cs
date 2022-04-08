@@ -10,6 +10,16 @@ public class WeatherCanvasScrollingViewController : MonoBehaviour
     private Image Image => GetComponent<Image>();
     private Texture Texture => Image.mainTexture;
 
+    private void OnDestroy()
+    {
+
+        if (scrollCoroutine != null)
+            StopCoroutine(scrollCoroutine);
+        
+        Image.material.mainTextureOffset = Vector2.zero;
+
+    }
+
     private void OnEnable()
     {
 

@@ -13,30 +13,34 @@ namespace FreeRoaming.WildPokemonArea
 
         #region Registry
 
-        private class WildPokemonAreaSpecification : IHasId
+        public class WildPokemonAreaSpecification : IHasId
         {
 
             public int GetId() => id;
 
             public int id;
             public PokemonInstance.WildSpecification specification;
+            public float encounterChance;
 
-            public WildPokemonAreaSpecification(int id, PokemonInstance.WildSpecification specification)
+            public WildPokemonAreaSpecification(int id, PokemonInstance.WildSpecification specification, float encounterChance)
             {
                 this.id = id;
                 this.specification = specification;
+                this.encounterChance = encounterChance;
             }
 
         }
 
         private static Registry<WildPokemonAreaSpecification> registry = new Registry<WildPokemonAreaSpecification>();
 
-        public static PokemonInstance.WildSpecification GetSpecificationById(int id) => registry.StartingIndexSearch(id, id).specification;
+        public static WildPokemonAreaSpecification GetAreaSpecificationById(int id) => registry.StartingIndexSearch(id, id);
+        public static PokemonInstance.WildSpecification GetPokemonSpecificationById(int id) => GetAreaSpecificationById(id).specification;
 
         #endregion
 
         /* Data CSV Columns:
          * id (int)
+         * encounter chance (float 0-1)
          * min level (byte 0-100)
          * max level (byte 0-100)
          * possible species ids:
@@ -54,10 +58,11 @@ namespace FreeRoaming.WildPokemonArea
             {
 
                 int id;
+                float encounterChance;
                 byte minLevel, maxLevel;
                 int[] possibleSpeciesIds;
 
-                if (entry.Length < 4)
+                if (entry.Length < 5)
                 {
                     Debug.LogWarning("Invalid wild pokemon area specification to load - " + entry);
                     continue;
@@ -69,19 +74,31 @@ namespace FreeRoaming.WildPokemonArea
                     continue;
                 }
 
-                if (!byte.TryParse(entry[1], out minLevel))
+                if (!float.TryParse(entry[1], out encounterChance))
+                {
+                    Debug.LogError("Invalid encounter chance for wild pokemon area specification id - " + id);
+                    encounterChance = 0;
+                }
+
+                if (encounterChance < 0 || encounterChance > 1)
+                {
+                    Debug.LogError("Encounter chance out of range for wild pokemon area specification id - " + id);
+                    encounterChance = Mathf.Clamp(encounterChance, 0, 1);
+                }
+
+                if (!byte.TryParse(entry[2], out minLevel))
                 {
                     Debug.LogError("Invalid minimum level for wild pokemon area specification id " + id);
                     minLevel = 1;
                 }
 
-                if (!byte.TryParse(entry[2], out maxLevel))
+                if (!byte.TryParse(entry[3], out maxLevel))
                 {
                     Debug.LogError("Invalid maximum level for wild pokemon area specification id " + id);
                     maxLevel = 1;
                 }
 
-                string[] speciesIdsEntries = entry[3].Split(';');
+                string[] speciesIdsEntries = entry[4].Split(';');
                 possibleSpeciesIds = new int[speciesIdsEntries.Length];
 
                 for (int i = 0; i < speciesIdsEntries.Length; i++)
@@ -109,7 +126,7 @@ namespace FreeRoaming.WildPokemonArea
                     maximumLevel = maxLevel
                 };
 
-                specs.Add(new WildPokemonAreaSpecification(id, wildSpecification));
+                specs.Add(new WildPokemonAreaSpecification(id, wildSpecification, encounterChance));
 
             }
 
