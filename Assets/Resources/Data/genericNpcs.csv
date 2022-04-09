@@ -4,7 +4,7 @@ id,name,initial dialogs,main dialogs,item given id,item given quantity
 6,Sarah,,Have you visited the research lab yet? I'm not exactly sure what it is that they research there.,,
 7,Scientist,,I think I let out one of our test subjects by accident.,,
 8,Scientist,,I think we're missing one of our test subjects.,,
-18,Chris,,Something about the forest to the East of here scares me.,,
+18,Mark,"My Chansey gave me this stone earlier but I don't know what to do with it.;Here, why don't you have it.",The stone I gave you is really smooth isn't it?,110,1
 19,Rene,,I've come here to investigate the psychic pokemon in the forest to the East of here.,,
 20,Jeremiah,,I was catching bugs in the forest East of here but then I got attacked by some mean psychic pokemon.,,
 21,Rue,,Have you heard of escape rooms?;I've heard that some cities in other regions have them and they sound really fun.;And they all have different vibes: there are some that are meant to be really scary.,,
@@ -12,3 +12,12 @@ id,name,initial dialogs,main dialogs,item given id,item given quantity
 23,Benedict,,Have you heard of the legendary pokemon Arceus?;It is said that it created the whole universe.;I'm studying it with these books.,,
 41,Arthur,,"I heard that there's talk of building a ""pokemon day care"" in Casswick.",,
 42,Millie,,"I think there's going to be a ""pokemon day care"" built in Casswick.;If they make one, I'll try get a job there.;I've babysat my cousin's children quite a few times so I have experience.",,
+43,Scientist,,"I think I dropped some potions somewhere around here.;If you find them, feel free to have them.",,
+44,Dutch,,Aren't the waves so peaceful...;My friend lives in Tildahill and him and I both love to watch the waves.,,
+45,Carly,,"Hi! Have you been to the Poke Mart? It's the blue building next to me.;You can buy supplies there.;Also, if your pokemon are hurt, you should go to the Pokemon Centre to heal them.; The Pokemon Centre is the red building next to the Poke Mart.",,
+46,Cathy,"Past this gate is Route 2.;There's quite a lot of water pokemon there.;Here, have some Net Balls, these will make it easier to catch the water pokemon.",Net balls make catching water and bug pokemon easier.;You should try them on the water pokemon on Route 2.,6,5
+47,Micah,,Aren't the waves so calm...;I have a friend in Okford who also loves to watch the waves.,,
+48,Chris,,Something about the forest to the East of here scares me.,,
+49,Jude,I just battled Barney and lost.;I'm going to go to Tildahill Passage to train more before I challenge him again.,I still need to train more before I challenge Barney again.,,
+50,Jimmy,"I was walking around Esperi Forest and found this strange claw.;It's very sharp so I don't want to keep it, you can have it.",There's lots of dangerous things in Esperi Forest.,326,1
+51,Isabelle,,Casswick is a small place but lots of trainers pass through trying to collect gym badges like you.;Good luck on your travels and if your pokemon need a rest don't forget to stop at a Pokemon Centre to give them some rest.,,

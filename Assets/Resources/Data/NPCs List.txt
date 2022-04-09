@@ -19,3 +19,12 @@ List of NPC IDs and which NPCs they correspond to
 40 - Casswick gym leader
 41 - NPC in house 9 in Casswick
 42 - NPC in house 10 in Casswick
+43 - NPC outside research lab in Okford
+44 - NPC beside water in Okford
+45 - NPC beside poke mart in Okford
+46 - NPC beside gate to route 2 in Okford
+47 - NPC besire water in Tildahill
+48 - NPC beside cathedral in Tildahill
+49 - NPC outside Tildahill gym
+50 - NPC between Forest 1 gate and Poke Mart in Tildahill
+51 - NPC near Casswick gym
