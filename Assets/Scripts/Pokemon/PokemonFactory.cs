@@ -32,6 +32,7 @@ namespace Pokemon
             int pokeBallId = PokemonInstance.defaultPokeBallId, //The poke ball id
             string originalTrainerName = "",
             Guid? _originalTrainerGuid = null,
+            bool cheatPokemon = false,
             long catchTime = 0,
             byte? _friendship = null // If this is null, the species' base friendship is used
             )
@@ -75,6 +76,7 @@ namespace Pokemon
                 pokeBallId = pokeBallId,
                 originalTrainerName = originalTrainerName,
                 originalTrainerGuid = originalTrainerGuid,
+                cheatPokemon = cheatPokemon,
                 catchTime = catchTime,
                 friendship = friendship
             };

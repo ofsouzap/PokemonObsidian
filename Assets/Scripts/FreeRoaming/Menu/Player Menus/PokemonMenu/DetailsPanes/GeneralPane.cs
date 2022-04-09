@@ -19,6 +19,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
         public Image imageType2;
         public Text textAbilityName;
         public Text textAbilityDescription;
+        public Image imageCheatPokemon;
 
         public override void RefreshDetails(PokemonInstance pokemon)
         {
@@ -49,6 +50,8 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
             textOriginalTrainer.text = pokemon.originalTrainerName;
 
             //TODO - once abilities made, set ability Text texts
+
+            imageCheatPokemon.gameObject.SetActive(pokemon.cheatPokemon);
 
         }
 

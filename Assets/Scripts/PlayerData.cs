@@ -27,6 +27,7 @@ public class PlayerData
         get => _partyPokemon;
         set
         {
+
             if (value.Length == partyCapacity)
             {
                 _partyPokemon = value;
@@ -40,6 +41,9 @@ public class PlayerData
                 _partyPokemon = new PokemonInstance[partyCapacity];
                 Array.Copy(value, _partyPokemon, value.Length);
             }
+
+            RefreshSettingCheatPokemon();
+
         }
     }
 
@@ -61,6 +65,8 @@ public class PlayerData
             Debug.LogError("Trying to add party pokemon when party pokemon full");
             return;
         }
+
+        RefreshSettingCheatPokemon();
 
         for (int i = 0; i < partyPokemon.Length; i++)
             if (partyPokemon[i] == null)
@@ -374,7 +380,14 @@ public class PlayerData
     /// </summary>
     /// <param name="pokemon">The pokemon to add</param>
     public void AddBoxPokemon(PokemonInstance pokemon)
-        => boxPokemon.AddPokemon(pokemon);
+    {
+
+        if (stats.cheatsUsed)
+            pokemon.SetCheatPokemon();
+
+        boxPokemon.AddPokemon(pokemon);
+
+    }
 
     #endregion
 
@@ -433,6 +446,8 @@ public class PlayerData
                 player.partyPokemon[partyIndex] = value;
             else
                 player.boxPokemon.boxes[boxIndex][boxPositionIndex] = value;
+
+            player.RefreshSettingCheatPokemon();
 
         }
 
@@ -632,9 +647,31 @@ public class PlayerData
         stats.timePlayed += seconds;
     }
 
+    public void RefreshSettingCheatPokemon()
+    {
+        if (stats.cheatsUsed)
+            SetPokemonAsCheatPokemon();
+    }
+
+    private void SetPokemonAsCheatPokemon()
+    {
+
+        foreach (PokemonInstance pmon in partyPokemon)
+            pmon?.SetCheatPokemon();
+
+        foreach (PokemonBox box in boxPokemon.boxes)
+            foreach (PokemonInstance pmon in box.pokemon)
+                pmon?.SetCheatPokemon();
+
+    }
+
     public void SetCheatsUsed()
     {
+
         stats.cheatsUsed = true;
+
+        RefreshSettingCheatPokemon();
+
     }
 
     #endregion

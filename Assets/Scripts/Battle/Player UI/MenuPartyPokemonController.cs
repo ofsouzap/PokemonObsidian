@@ -56,6 +56,8 @@ namespace Battle.PlayerUI
 
         public Image imageStatusCondition;
 
+        public Image imageCheatPokemon;
+
         [Header("Details - Stats")]
 
         public Text textAttackValue;
@@ -134,6 +136,8 @@ namespace Battle.PlayerUI
                 imageStatusCondition.gameObject.SetActive(false);
 
             }
+
+            imageCheatPokemon.gameObject.SetActive(pokemon.cheatPokemon);
 
             #endregion
 

@@ -249,6 +249,9 @@ namespace Serialization
             buffer = pokemon.originalTrainerGuid.ToByteArray();
             stream.Write(buffer, 0, 16);
 
+            //Cheat Pokemon
+            SerializeBool(stream, pokemon.cheatPokemon);
+
             //Stats
             SerializeByteStats(stream, pokemon.effortValues);
             SerializeByteStats(stream, pokemon.individualValues);
@@ -713,6 +716,7 @@ namespace Serialization
 
             int speciesId, natureId, experience, health;
             Guid guid, originalTrainerGuid;
+            bool cheatPokemon;
             string nickname, originalTrainerName;
             Item heldItem;
             bool? gender;
@@ -752,6 +756,8 @@ namespace Serialization
             buffer = new byte[16];
             stream.Read(buffer, 0, 16);
             originalTrainerGuid = new Guid(buffer);
+
+            cheatPokemon = DeserializeBool(stream);
 
             effortValues = DeserializeByteStats(stream);
 
@@ -814,6 +820,7 @@ namespace Serialization
                 pokeBallId: pokeBallId,
                 originalTrainerName: originalTrainerName,
                 _originalTrainerGuid: originalTrainerGuid,
+                cheatPokemon: cheatPokemon,
                 catchTime: catchTime,
                 _friendship: friendship);
 

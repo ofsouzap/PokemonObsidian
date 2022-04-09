@@ -28,6 +28,7 @@ namespace FreeRoaming.Menu.StorageSystem
         public Text textStatHealthValue;
         public StatsHex statHexEV;
         public StatsHex statHexIV;
+        public Image imageCheatPokemon;
 
         private void SetPokemonShownState(bool state)
         {
@@ -53,6 +54,7 @@ namespace FreeRoaming.Menu.StorageSystem
                 textStatSpecialDefenseValue.text = "";
                 textStatSpeedValue.text = "";
                 textStatHealthValue.text = "";
+                imageCheatPokemon.enabled = false;
             }
 
         }
@@ -112,6 +114,8 @@ namespace FreeRoaming.Menu.StorageSystem
                     (float)pokemon.individualValues.speed / PokemonInstance.maximumIndividualValue,
                     (float)pokemon.individualValues.health / PokemonInstance.maximumIndividualValue
                 };
+
+                imageCheatPokemon.enabled = pokemon.cheatPokemon;
 
             }
 

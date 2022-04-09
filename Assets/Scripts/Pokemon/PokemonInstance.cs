@@ -180,6 +180,14 @@ namespace Pokemon
 
         public Guid originalTrainerGuid;
 
+        /// <summary>
+        /// Whether the pokemon has been in a save game whose player has used cheats
+        /// </summary>
+        public bool cheatPokemon = false;
+
+        public void SetCheatPokemon()
+            => cheatPokemon = true;
+
         #region Stats
 
         public const byte maximumEffortValue = 252;

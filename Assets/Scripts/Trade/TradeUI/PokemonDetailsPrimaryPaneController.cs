@@ -17,6 +17,7 @@ namespace Trade.TradeUI
         public Image imageFront;
         public Image imageType1;
         public Image imageType2;
+        public Image imageCheatPokemon;
 
         public override void SetPokemon(PokemonInstance pokemon)
         {
@@ -50,6 +51,8 @@ namespace Trade.TradeUI
                     imageType2.sprite = SpriteStorage.GetTypeSymbolSprite((Type)pokemonType2);
                 }
 
+                imageCheatPokemon.gameObject.SetActive(pokemon.cheatPokemon);
+
             }
             else
             {
@@ -63,6 +66,8 @@ namespace Trade.TradeUI
 
                 textName.text = noPokemonPromptMessage;
                 imageGender.gameObject.SetActive(false);
+
+                imageCheatPokemon.gameObject.SetActive(false);
 
             }
 
