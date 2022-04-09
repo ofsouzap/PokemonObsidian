@@ -91,7 +91,11 @@ public class TextBoxController : MonoBehaviour
     /// <param name="text"></param>
     public void SetTextInstant(string text)
     {
+
+        text = GameTextFormat.Format(text);
+
         textArea.text = text;
+
     }
 
     /// <summary>
@@ -100,12 +104,16 @@ public class TextBoxController : MonoBehaviour
     /// <param name="text">The text to display</param>
     public void RevealText(string text)
     {
+
+        text = GameTextFormat.Format(text);
+
         revealTextCoroutine = StartCoroutine(
            RevealTextCoroutine(
                text,
                GameSettings.singleton.textSpeed.characterDelay
                )
            );
+
     }
 
     private Coroutine revealTextCoroutine;

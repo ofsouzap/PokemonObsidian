@@ -42,7 +42,7 @@ namespace FreeRoaming.NPCs
 
                 //If gives item, give item
                 if (details.ItemGiven != null)
-                    PlayerController.singleton.ObtainItem(details.ItemGiven, details.itemGivenQuantity);
+                    yield return StartCoroutine(PlayerController.singleton.ObtainItem(details.ItemGiven, details.itemGivenQuantity));
 
                 //Record NPC talked to
                 PlayerData.singleton.SetNPCTalkedTo(id);

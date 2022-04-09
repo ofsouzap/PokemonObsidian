@@ -33,7 +33,7 @@ namespace FreeRoaming.NPCs
 
             private int? itemGivenId;
             public Item ItemGiven
-                => itemGivenId != null ? Item.GetItemById(id) : null;
+                => itemGivenId != null ? Item.GetItemById((int)itemGivenId) : null;
             public uint itemGivenQuantity { get; private set; }
 
             public GenericNPCDetails(int id, string name, string[] initialDialogs, string[] mainDialogs, int? itemGivenId, uint itemGivenQuantity)

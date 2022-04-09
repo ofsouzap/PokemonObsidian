@@ -371,7 +371,7 @@ namespace FreeRoaming
         /// </summary>
         /// <param name="item">The item to add to the player's inventory</param>
         /// <param name="quantity">How many of the item to give the player</param>
-        public void ObtainItem(Item item,
+        public IEnumerator ObtainItem(Item item,
             uint quantity = 1)
         {
 
@@ -383,11 +383,11 @@ namespace FreeRoaming
 
             #region Announcing
 
-            //Text box message
-            StartCoroutine(ObtainItemAnnouncementCoroutine(item, quantity));
-
             //Sound FX
             SoundFXController.singleton.PlaySound(DroppedItemController.getItemSoundFXName);
+
+            //Text box message
+            yield return StartCoroutine(ObtainItemAnnouncementCoroutine(item, quantity));
 
             #endregion
 

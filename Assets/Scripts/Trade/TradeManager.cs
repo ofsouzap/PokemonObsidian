@@ -393,29 +393,34 @@ namespace Trade
 
             #region Trade Evolution
 
-            PokemonSpecies.Evolution evol = recvPmon.TryFindEvolution(trading: true);
-
-            //If valid evolution found, perform it
-            if (evol != null)
+            if (recvPmon.heldItem == null || recvPmon.heldItem.id != 229) //Only consider evolving if not holding everstone
             {
 
-                EvolutionSceneController.entranceArguments = new EvolutionSceneController.EntranceArguments()
+                PokemonSpecies.Evolution evol = recvPmon.TryFindEvolution(trading: true);
+
+                //If valid evolution found, perform it
+                if (evol != null)
                 {
-                    evolution = evol,
-                    pokemon = recvPmon
-                };
 
-                DisableScene();
+                    EvolutionSceneController.entranceArguments = new EvolutionSceneController.EntranceArguments()
+                    {
+                        evolution = evol,
+                        pokemon = recvPmon
+                    };
 
-                GameSceneManager.LaunchEvolutionScene();
+                    DisableScene();
 
-                bool continueAfterEvolution = false;
+                    GameSceneManager.LaunchEvolutionScene();
 
-                GameSceneManager.EvolutionSceneClosed += () => continueAfterEvolution = true;
+                    bool continueAfterEvolution = false;
 
-                yield return new WaitUntil(() => continueAfterEvolution);
+                    GameSceneManager.EvolutionSceneClosed += () => continueAfterEvolution = true;
 
-                EnableScene();
+                    yield return new WaitUntil(() => continueAfterEvolution);
+
+                    EnableScene();
+
+                }
 
             }
 

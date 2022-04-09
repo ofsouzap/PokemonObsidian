@@ -20,7 +20,7 @@ namespace EvolutionScene
 
         public const float bounceToShrinkDelayTime = 1;
 
-        public const float shrinkTime = 1.5F;
+        public const float shrinkTime = 2.5F;
         public const float unshrinkTime = 1.5F;
 
         public const float endDelayTime = 1;
@@ -32,6 +32,7 @@ namespace EvolutionScene
         public delegate void OnComplete();
         public event OnComplete EvolutionAnimationComplete;
 
+        private bool evolutionCanBeCancelled = true;
         private bool evolutionHasBeenCancelled = false;
 
         #region Entrance Arguments
@@ -88,7 +89,7 @@ namespace EvolutionScene
         private void Update()
         {
             
-            if (Input.GetButtonDown("Cancel"))
+            if (evolutionCanBeCancelled && Input.GetButtonDown("Cancel"))
             {
                 evolutionHasBeenCancelled = true;
             }
@@ -110,6 +111,7 @@ namespace EvolutionScene
         private IEnumerator AnimationCoroutine()
         {
 
+            evolutionCanBeCancelled = true;
             evolutionHasBeenCancelled = false;
             EvolutionAnimationComplete = null;
 
@@ -143,6 +145,8 @@ namespace EvolutionScene
 
             if (!evolutionHasBeenCancelled)
                 pokemonSpriteController.SetSprite(endSprite);
+
+            evolutionCanBeCancelled = false; //Once sprite has been changed, evolution can't be cancelled
 
             yield return StartCoroutine(GradualEffect((t) =>
             {

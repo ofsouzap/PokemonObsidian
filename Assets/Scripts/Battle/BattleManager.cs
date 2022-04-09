@@ -2320,7 +2320,9 @@ namespace Battle
                     if (!battleData.isWildBattle)
                         experienceToAdd = Mathf.FloorToInt(experienceToAdd * 1.5F);
 
-                    //TODO - if playerPokemonInstance holding lucky egg, multiply by 1.5
+                    //If pokemon holding lucky egg, multiply by 1.5
+                    if (playerPokemonInstance.heldItem != null && playerPokemonInstance.heldItem.id == 231)
+                        experienceToAdd += Mathf.FloorToInt(experienceToAdd * 0.5F);
 
                     //If pokemon was traded (aka isn't with original trainer), multiply by 1.5
                     if (playerPokemonInstance.originalTrainerGuid != PlayerData.singleton.profile.guid)
@@ -2374,13 +2376,18 @@ namespace Battle
 
                         #region Evolution
 
-                        PokemonSpecies.Evolution evolution = playerPokemonInstance.TryFindEvolution();
-
-                        if (evolution != null)
+                        if (playerPokemonInstance.heldItem == null || playerPokemonInstance.heldItem.id != 229) //Only consider evolving if not holding everstone
                         {
-                            yield return StartCoroutine(EvolvePokemon(playerPokemonInstance,
-                                evolution,
-                                playerPokemonIndex == battleData.participantPlayer.activePokemonIndex));
+
+                            PokemonSpecies.Evolution evolution = playerPokemonInstance.TryFindEvolution();
+
+                            if (evolution != null)
+                            {
+                                yield return StartCoroutine(EvolvePokemon(playerPokemonInstance,
+                                    evolution,
+                                    playerPokemonIndex == battleData.participantPlayer.activePokemonIndex));
+                            }
+
                         }
 
                         #endregion

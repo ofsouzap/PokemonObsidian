@@ -60,7 +60,7 @@ namespace FreeRoaming
             else
             {
 
-                PlayerController.singleton.ObtainItem(GetItem(), DroppedItem.quantity);
+                StartCoroutine(PlayerController.singleton.ObtainItem(GetItem(), DroppedItem.quantity));
                 PlayerData.singleton.SetDroppedItemCollected(droppedItemId);
 
                 RefreshEnabledState();

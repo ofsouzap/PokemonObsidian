@@ -1,6 +1,6 @@
 id,name,initial dialogs,main dialogs,item given id,item given quantity
-1,Clara,Hiya!,Hello again!,,
-2,Desmond,,"Hi there, how's it going?",,
+1,Clara,"Hi, {playername}, how's it going?;Oh! Is that a pokemon you've got there? Are you going to be a trainer then?;Well have fun on your adventures and take care!","Hello again, how's the adventuring going?",,
+2,Desmond,"Oh, you got a pokemon, {playername}!;It looks so adorable.;Why don't you give it an everstone to hold?;If it holds an everstone then you don't have to worry about it evolving.;Also, it might learn moves sooner if it doesn't evolve.;Here, have my everstone...",How's your pokemon doing? Did you let it evolve?,229,1
 6,Sarah,,Have you visited the research lab yet? I'm not exactly sure what it is that they research there.,,
 7,Scientist,,I think I let out one of our test subjects by accident.,,
 8,Scientist,,I think we're missing one of our test subjects.,,
