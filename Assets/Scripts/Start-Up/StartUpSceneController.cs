@@ -44,6 +44,7 @@ namespace StartUp
             Initialise();
 
             startUpMenuController.SetUp((slotIndex) => LaunchSaveSlot(slotIndex),
+                () => LaunchAutosaveSlot(),
                 () => LaunchNewGame());
 
         }
@@ -106,13 +107,19 @@ namespace StartUp
         }
 
         private void LaunchSaveSlot(int slotIndex)
+            => LaunchSaveFile(Saving.GetSaveSlotIndexFullPath(slotIndex));
+
+        private void LaunchAutosaveSlot()
+            => LaunchSaveFile(Saving.AutosaveFilePath);
+
+        private void LaunchSaveFile(string filePath)
         {
 
             startUpMenuController.Hide();
 
             PrepareToLaunch();
 
-            Saving.LoadedData data = Saving.LoadData(slotIndex);
+            Saving.LoadedData data = Saving.LoadData(filePath);
 
             if (data.status != Saving.LoadedData.Status.Success)
                 return;

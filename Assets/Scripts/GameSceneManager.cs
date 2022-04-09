@@ -235,6 +235,9 @@ public static class GameSceneManager
 
                 onComplete?.Invoke();
 
+                //Autosave once player moved to a new scene (don't do before otherwise they will be in the scene door)
+                Saving.Autosave();
+
             };
 
         };

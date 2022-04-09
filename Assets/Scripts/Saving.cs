@@ -19,12 +19,18 @@ public static class Saving
         "save-slot-4.dat"
     };
 
+    private const string autosaveFileName = "save-slot-auto.dat";
+    public static string AutosaveFilePath => GetSaveFileFullPath(autosaveFileName);
+
+    private static string GetSaveFileFullPath(string filename)
+        => Path.Combine(Application.persistentDataPath, filename);
+
     public static string GetSaveSlotIndexFullPath(int saveSlotIndex)
     {
 
         if (SaveSlotIndexIsInRange(saveSlotIndex))
         {
-            return Path.Combine(Application.persistentDataPath, saveSlotFileNames[saveSlotIndex]);
+            return GetSaveFileFullPath(saveSlotFileNames[saveSlotIndex]);
         }
         else
             throw new IndexOutOfRangeException("Save slot index out of range - " + saveSlotIndex);
@@ -57,10 +63,15 @@ public static class Saving
 
     }
 
-    public static void SaveData(string filename)
+    public static void Autosave()
+    {
+        SaveData(AutosaveFilePath);
+    }
+
+    public static void SaveData(string filePath)
     {
 
-        FileStream stream = File.OpenWrite(filename);
+        FileStream stream = File.OpenWrite(filePath);
         Serialize.SerializeData(stream);
         stream.Close();
 
@@ -130,19 +141,11 @@ public static class Saving
             yield return LoadData(i);
     }
 
-    public static LoadedData LoadData(int saveSlotIndex)
-    {
+    public static LoadedData LoadAutosave()
+        => LoadData(AutosaveFilePath);
 
-        if (SaveSlotIndexIsInRange(saveSlotIndex))
-        {
-            return LoadData(GetSaveSlotIndexFullPath(saveSlotIndex));
-        }
-        else
-        {
-            throw new IndexOutOfRangeException("Save slot index out of range - " + saveSlotIndex);
-        }
-
-    }
+    public static LoadedData LoadData(int saveIndex)
+        => LoadData(GetSaveSlotIndexFullPath(saveIndex));
 
     public static LoadedData LoadData(string filename)
     {
@@ -184,6 +187,10 @@ public static class Saving
 
             return new LoadedData(LoadedData.Status.Invalid);
 
+        }
+        finally
+        {
+            fileStream.Close();
         }
 
     }

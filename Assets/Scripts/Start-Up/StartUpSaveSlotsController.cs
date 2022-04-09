@@ -10,6 +10,7 @@ namespace StartUp
     {
 
         public StartUpSaveSlot[] saveSlots;
+        public StartUpAutosaveSlot autosaveSlot;
 
         public MenuSelectableController[] GetAllSelectables() => GetSelectables(); //For StartUpSceneController
 
@@ -22,7 +23,8 @@ namespace StartUp
 
         }
 
-        public void SetUp(Action<int> loadSaveSlotListener)
+        public void SetUp(Action<int> loadSaveSlotListener,
+            Action loadAutosaveListener)
         {
 
             int saveIndex = 0;
@@ -35,6 +37,10 @@ namespace StartUp
                 saveIndex++;
 
             }
+
+            Saving.LoadedData autosaveData = Saving.LoadAutosave();
+            autosaveSlot.SetUp(autosaveData.StatusMessage,
+                autosaveData.status == Saving.LoadedData.Status.Success ? loadAutosaveListener : null);
 
         }
 

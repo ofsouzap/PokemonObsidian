@@ -31,12 +31,14 @@ namespace StartUp
         }
 
         public void SetUp(Action<int> loadSaveSlotListener,
+            Action loadAutosaveListener,
             Action newGameListener)
         {
 
             EventSystem.current.SetSelectedGameObject(defaultSelectedGO);
 
-            saveSlotsController.SetUp((i) => loadSaveSlotListener?.Invoke(i));
+            saveSlotsController.SetUp((i) => loadSaveSlotListener?.Invoke(i),
+                () => loadAutosaveListener?.Invoke());
 
             newGameButton.onClick.AddListener(() => newGameListener?.Invoke());
 
