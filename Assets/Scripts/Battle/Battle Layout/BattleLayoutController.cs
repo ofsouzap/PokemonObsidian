@@ -732,6 +732,11 @@ namespace Battle.BattleLayout
 
         #region Pokemon Damage Taking and Healing
 
+        private float GetHealthBarChangeTimeToTake(float newHealth,
+            float startHealth,
+            float maxHealth)
+            => Mathf.Sqrt(healthBarChangeRate * Mathf.Abs(newHealth - startHealth));
+
         private IEnumerator FlashSprite(GameObject sprite,
             int iterations)
         {
@@ -794,7 +799,7 @@ namespace Battle.BattleLayout
                 (int value) => overviewPaneManager.playerPokemonOverviewPaneController.UpdateHealthBar(value, maxHealth),
                 startHealth,
                 newHealth,
-                healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
+                GetHealthBarChangeTimeToTake(newHealth, startHealth, maxHealth)
             ));
 
         }
@@ -810,7 +815,7 @@ namespace Battle.BattleLayout
                 (int value) => overviewPaneManager.opponentPokemonOverviewPaneController.UpdateHealthBar(value, maxHealth),
                 startHealth,
                 newHealth,
-                healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
+                GetHealthBarChangeTimeToTake(newHealth, startHealth, maxHealth)
             ));
 
         }
@@ -823,7 +828,7 @@ namespace Battle.BattleLayout
                 (int value) => overviewPaneManager.playerPokemonOverviewPaneController.UpdateHealthBar(value, maxHealth),
                 startHealth,
                 newHealth,
-                healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
+                GetHealthBarChangeTimeToTake(newHealth, startHealth, maxHealth)
             ));
         }
 
@@ -835,7 +840,7 @@ namespace Battle.BattleLayout
                 (int value) => overviewPaneManager.opponentPokemonOverviewPaneController.UpdateHealthBar(value, maxHealth),
                 startHealth,
                 newHealth,
-                healthBarChangeRate * Mathf.Abs(newHealth - startHealth)
+                GetHealthBarChangeTimeToTake(newHealth, startHealth, maxHealth)
             ));
         }
 
