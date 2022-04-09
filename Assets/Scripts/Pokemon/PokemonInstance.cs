@@ -243,6 +243,8 @@ namespace Pokemon
         {
             get => health <= 0;
         }
+        public float HealthProportion
+            => (float)health / GetStats().health;
 
         /// <summary>
         /// Damages the pokemon to a maximum amount without letting them have negative health then returns the damage done to them

@@ -146,7 +146,7 @@ namespace Battle.PlayerUI
             textSpecialAttackValue.text = stats.specialAttack.ToString();
             textSpecialDefenseValue.text = stats.specialDefense.ToString();
             textSpeedValue.text = stats.speed.ToString();
-            healthBar.UpdateBar(((float)pokemon.health) / pokemon.GetStats().health);
+            healthBar.UpdateBar(pokemon.HealthProportion);
 
             #endregion
 

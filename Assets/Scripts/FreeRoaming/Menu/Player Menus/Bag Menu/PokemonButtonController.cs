@@ -68,7 +68,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             else
                 imageHeldItem.enabled = true;
 
-            healthBar.UpdateBar((float)pokemon.health / pokemon.GetStats().health);
+            healthBar.UpdateBar(pokemon.HealthProportion);
 
         }
 

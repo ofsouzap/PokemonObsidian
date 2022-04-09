@@ -42,13 +42,12 @@ namespace Battle.NPCBattleParticipantModes
 
             if (!ActivePokemon.HasUsableMove)
             {
-                chosenAction = new Action(this)
+                SetChosenAction(new Action(this)
                 {
                     type = Action.Type.Fight,
                     fightUsingStruggle = true,
                     fightMoveTarget = battleData.participantPlayer
-                };
-                actionHasBeenChosen = true;
+                });
             }
 
             //This script is always for the opponent so battleData.participantPlayer is used to find the opponent
@@ -56,14 +55,13 @@ namespace Battle.NPCBattleParticipantModes
 
             int selectedMoveIndex = SelectFromWeightings(GetMoveWeightings(opposingPokemon));
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.Fight,
                 fightUsingStruggle = false,
                 fightMoveTarget = battleData.participantPlayer,
                 fightMoveIndex = selectedMoveIndex
-            };
-            actionHasBeenChosen = true;
+            });
 
         }
 

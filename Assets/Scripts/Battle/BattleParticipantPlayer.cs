@@ -83,12 +83,6 @@ namespace Battle
             => playerCanFlee
                 && base.GetAllowedToFlee();
 
-        protected virtual void SetChosenAction(Action action)
-        {
-            chosenAction = action;
-            actionHasBeenChosen = true;
-        }
-
         protected virtual void SetChosenPokemonIndex(int index)
         {
             chosenNextPokemonIndex = index;

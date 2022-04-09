@@ -81,8 +81,13 @@ namespace Battle
         /// </summary>
         public virtual void ForceSetChosenAction(Action action)
         {
-            actionHasBeenChosen = true;
+            SetChosenAction(action);
+        }
+
+        protected virtual void SetChosenAction(Action action)
+        {
             chosenAction = action;
+            actionHasBeenChosen = true;
         }
 
         /// <summary>

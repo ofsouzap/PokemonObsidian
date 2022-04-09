@@ -23,7 +23,7 @@ namespace Pokemon.Moves
         }
 
         public override byte GetUsagePower(BattleData battleData, PokemonInstance user, PokemonInstance target)
-            => Convert.ToByte(1 + (120 * ((float)target.health / target.GetStats().health)));
+            => Convert.ToByte(1 + (120 * (target.HealthProportion)));
 
     }
 }

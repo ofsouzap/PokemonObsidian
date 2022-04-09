@@ -29,12 +29,12 @@ namespace Battle.NPCBattleParticipantModes
 
             if (!ActivePokemon.HasUsableMove)
             {
-                chosenAction = new Action(this)
+                SetChosenAction(new Action(this)
                 {
                     type = Action.Type.Fight,
                     fightUsingStruggle = true,
                     fightMoveTarget = battleData.participantPlayer
-                };
+                });
             }
 
             int chosenMoveIndex;
@@ -56,14 +56,12 @@ namespace Battle.NPCBattleParticipantModes
             }
             while (selectingMove);
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.Fight,
                 fightMoveIndex = chosenMoveIndex,
                 fightMoveTarget = battleData.participantPlayer
-            };
-
-            actionHasBeenChosen = true;
+            });
 
         }
 

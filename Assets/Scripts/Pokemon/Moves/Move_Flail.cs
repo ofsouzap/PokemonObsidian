@@ -26,17 +26,15 @@ namespace Pokemon.Moves
 
             // https://bulbapedia.bulbagarden.net/wiki/Flail_(move)#Generation_IV
 
-            float healthProp = user.health / (float)user.GetStats().health;
-
-            if (healthProp >= 0.6719F)
+            if (user.HealthProportion >= 0.6719F)
                 return 20;
-            else if (healthProp >= 0.3438F)
+            else if (user.HealthProportion >= 0.3438F)
                 return 40;
-            else if (healthProp >= 0.2031F)
+            else if (user.HealthProportion >= 0.2031F)
                 return 80;
-            else if (healthProp >= 0.938F)
+            else if (user.HealthProportion >= 0.938F)
                 return 100;
-            else if (healthProp >= 0.313F)
+            else if (user.HealthProportion >= 0.313F)
                 return 150;
             else
                 return 200;

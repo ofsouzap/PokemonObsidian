@@ -155,10 +155,23 @@ public class TrainersData
             }
 
             // Mode
-            if (!BattleParticipantNPC.TryParse(entry[8], out mode))
+
+            string modeEntry = entry[8];
+            if (modeEntry == "")
             {
+
+                if (gymId == null)
+                    mode = BattleParticipantNPC.defaultTrainerMode;
+                else
+                    mode = BattleParticipantNPC.defaultGymLeaderMode;
+
+            }
+            else if (!BattleParticipantNPC.TryParse(modeEntry, out mode))
+            {
+
                 Debug.LogWarning("Invalid trainer class for trainer details id - " + id);
                 continue;
+
             }
 
             // Pokemon

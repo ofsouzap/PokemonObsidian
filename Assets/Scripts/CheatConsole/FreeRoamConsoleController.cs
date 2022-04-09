@@ -198,6 +198,20 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^gymbadge get (?<id>[0-9]+)"),
+                (m) =>
+                {
+
+                    int gymId = int.Parse(m.Groups["id"].Value);
+
+                    PlayerData.singleton.SetGymDefeated(gymId);
+
+                    return "Added gym badge for gym id " + gymId.ToString();
+
+                }
             }
 
         };

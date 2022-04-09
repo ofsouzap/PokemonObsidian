@@ -31,20 +31,20 @@ namespace Battle.NPCBattleParticipantModes
          *     'h' - proportion of pokemon's max. health that they are at
         */
 
-        private static float GetStatOEWeighting(byte statusMovesUsed)
+        protected static float GetStatOEWeighting(byte statusMovesUsed)
             => (float)(0.1 + (1 / (statusMovesUsed + 0.25)));
 
-        private static float GetAttackMoveWeighting(float effectivenessModifier)
+        protected static float GetAttackMoveWeighting(float effectivenessModifier)
             => Mathf.Sqrt(effectivenessModifier);
 
-        private static float GetHealingMoveWeighint(float healthProportion)
+        protected static float GetHealingMoveWeighint(float healthProportion)
             => healthProportion < 0.5f
             ? (float)((-4 * healthProportion) + 5)
             : 1;
 
-        private const float priorityMoveOpponentHealthThreshold = 0.2F;
+        protected const float priorityMoveOpponentHealthThreshold = 0.2F;
 
-        private byte statOEMovesUsed;
+        protected byte statOEMovesUsed;
 
         public BasicTrainer(string name,
             PokemonInstance[] pokemon,
@@ -71,20 +71,29 @@ namespace Battle.NPCBattleParticipantModes
 
             if (!ActivePokemon.HasUsableMove)
             {
-                chosenAction = new Action(this)
+                SetChosenAction(new Action(this)
                 {
                     type = Action.Type.Fight,
                     fightUsingStruggle = true,
                     fightMoveTarget = battleData.participantPlayer
-                };
-                actionHasBeenChosen = true;
+                });
             }
+            else
+                ChooseAction(battleData);
+
+        }
+
+        protected virtual void ChooseAction(BattleData battleData)
+        {
+
+            if (actionHasBeenChosen)
+                return;
 
             //This script is always for the opponent so battleData.participantPlayer is used to find the opponent
             PokemonInstance opposingPokemon = battleData.participantPlayer.ActivePokemon;
 
             //If opposing pokemon health below threshold, try use priority move
-            if (((float)opposingPokemon.health / opposingPokemon.GetStats().health) < priorityMoveOpponentHealthThreshold)
+            if (opposingPokemon.HealthProportion < priorityMoveOpponentHealthThreshold)
             {
 
                 int? priorityMoveIndex = FindUsablePriorityMoveIndex(ActivePokemon);
@@ -92,14 +101,13 @@ namespace Battle.NPCBattleParticipantModes
                 if (priorityMoveIndex != null)
                 {
 
-                    chosenAction = new Action(this)
+                    SetChosenAction(new Action(this)
                     {
                         type = Action.Type.Fight,
                         fightUsingStruggle = false,
                         fightMoveTarget = battleData.participantPlayer,
                         fightMoveIndex = (int)priorityMoveIndex
-                    };
-                    actionHasBeenChosen = true;
+                    });
 
                     return;
 
@@ -107,17 +115,17 @@ namespace Battle.NPCBattleParticipantModes
 
             }
 
+            //Normal case is to choose a move based on the moves' weightings
             float[] moveWeightings = GetMoveWeightings(opposingPokemon);
             int selectedMoveIndex = SelectFromWeightings(moveWeightings);
 
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.Fight,
                 fightUsingStruggle = false,
                 fightMoveTarget = battleData.participantPlayer,
                 fightMoveIndex = selectedMoveIndex
-            };
-            actionHasBeenChosen = true;
+            });
 
             if (MoveIsStatOEMove(PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[selectedMoveIndex])))
             {
@@ -126,7 +134,7 @@ namespace Battle.NPCBattleParticipantModes
 
         }
 
-        private int? FindUsablePriorityMoveIndex(PokemonInstance pokemon)
+        protected int? FindUsablePriorityMoveIndex(PokemonInstance pokemon)
         {
 
             for (int i = 0; i < pokemon.moveIds.Length; i++)
@@ -145,7 +153,7 @@ namespace Battle.NPCBattleParticipantModes
 
         }
 
-        private int SelectFromWeightings(float[] rawWeightings)
+        protected int SelectFromWeightings(float[] rawWeightings)
         {
 
             float[] normalisedWeightings = NormaliseWeightings(rawWeightings);
@@ -169,7 +177,7 @@ namespace Battle.NPCBattleParticipantModes
 
         }
 
-        private float[] GetMoveWeightings(PokemonInstance target)
+        protected float[] GetMoveWeightings(PokemonInstance target)
         {
 
             float[] weightings = new float[4] { 1, 1, 1, 1 };
@@ -216,7 +224,7 @@ namespace Battle.NPCBattleParticipantModes
                         weightings[i] *= GetAttackMoveWeighting(effectivenessModifier);
 
                     //Healing weight
-                    weightings[i] *= GetHealingMoveWeighint((float)ActivePokemon.health / ActivePokemon.GetStats().health);
+                    weightings[i] *= GetHealingMoveWeighint(ActivePokemon.HealthProportion);
 
                 }
 
@@ -226,7 +234,7 @@ namespace Battle.NPCBattleParticipantModes
 
         }
 
-        private bool MoveIsStatOEMove(PokemonMove move)
+        protected bool MoveIsStatOEMove(PokemonMove move)
         {
 
             bool nvscCondition = false;
@@ -241,7 +249,7 @@ namespace Battle.NPCBattleParticipantModes
 
         }
 
-        private float[] NormaliseWeightings(float[] rawWeightings)
+        protected float[] NormaliseWeightings(float[] rawWeightings)
         {
 
             if (rawWeightings.All(x => x == 0))

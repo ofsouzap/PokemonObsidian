@@ -22,7 +22,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu
 
             imageIcon.sprite = pokemon.LoadSprite(PokemonSpecies.SpriteType.Icon);
             textName.text = pokemon.GetDisplayName();
-            healthBar.UpdateBar((float)pokemon.health / pokemon.GetStats().health);
+            healthBar.UpdateBar(pokemon.HealthProportion);
 
             if (pokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
                 imageStatusCondition.gameObject.SetActive(false);

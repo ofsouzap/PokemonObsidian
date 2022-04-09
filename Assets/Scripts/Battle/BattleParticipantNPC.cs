@@ -18,10 +18,12 @@ namespace Battle
             Debug_UseRandomMedicineItem,
             Debug_UseRandomBattleItem,
             BasicTrainer,
-            WildPokemon
+            WildPokemon,
+            GymLeader
         }
 
         public const Mode defaultTrainerMode = Mode.BasicTrainer;
+        public const Mode defaultGymLeaderMode = Mode.GymLeader;
 
         public static bool TryParse(string s,
             out Mode m)
@@ -62,7 +64,8 @@ namespace Battle
             { Mode.Debug_UseRandomMedicineItem, (n, pmon, bp, dmsgs) => new RandomMedicineItem(n, pmon, bp, dmsgs) },
             { Mode.Debug_UseRandomBattleItem, (n, pmon, bp, dmsgs) => new RandomBattleItem(n, pmon, bp, dmsgs) },
             { Mode.BasicTrainer, (n, pmon, bp, dmsgs) => new BasicTrainer(n, pmon, bp, dmsgs) },
-            { Mode.WildPokemon, (n, pmon, bp, dmsgs) => new WildPokemon(n, pmon, bp, dmsgs) }
+            { Mode.WildPokemon, (n, pmon, bp, dmsgs) => new WildPokemon(n, pmon, bp, dmsgs) },
+            { Mode.GymLeader, (n, pmon, bp, dmsgs) => new GymLeader(n, pmon, bp, dmsgs) }
         };
 
         #endregion
@@ -88,14 +91,13 @@ namespace Battle
         public override void ChooseActionFight(BattleData battleData, bool useStruggle, int moveIndex)
         {
 
-            actionHasBeenChosen = true;
-            chosenAction = new Action(this)
+            SetChosenAction(new Action(this)
             {
                 type = Action.Type.Fight,
                 fightUsingStruggle = useStruggle,
                 fightMoveTarget = battleData.participantPlayer,
                 fightMoveIndex = moveIndex
-            };
+            });
 
         }
 

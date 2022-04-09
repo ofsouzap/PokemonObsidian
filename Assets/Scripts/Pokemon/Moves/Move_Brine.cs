@@ -24,7 +24,7 @@ namespace Pokemon.Moves
 
         public override byte GetUsagePower(BattleData battleData, PokemonInstance user, PokemonInstance target)
             => Convert.ToByte(base.GetUsagePower(battleData, user, target)
-                * (((float)target.health / target.GetStats().health <= 0.5F) ? 2 : 1)); // Double if target health less than or equal to half of their max health
+                * ((target.HealthProportion <= 0.5F) ? 2 : 1)); // Double if target health less than or equal to half of their max health
 
     }
 }
