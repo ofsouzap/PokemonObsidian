@@ -402,11 +402,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4370848550552051003, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: m_Name
-      value: NPC 4
+      value: NPC 9
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: id
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: npcName
@@ -810,11 +810,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4370848550552051003, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: m_Name
-      value: NPC 6
+      value: NPC 11
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: id
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: npcName
@@ -1139,11 +1139,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4370848550552051003, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: m_Name
-      value: NPC 5
+      value: NPC 10
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: id
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: npcName
@@ -1743,11 +1743,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4370848550552051003, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: m_Name
-      value: NPC 7
+      value: NPC 12
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: id
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5502088896298975854, guid: d557f7a09cdf0bf4f9570d9842b7514a, type: 3}
       propertyPath: npcName

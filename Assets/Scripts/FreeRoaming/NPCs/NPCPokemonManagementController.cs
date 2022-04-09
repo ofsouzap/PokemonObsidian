@@ -7,6 +7,9 @@ namespace FreeRoaming.NPCs
     public class NPCPokemonManagementController : NPCPlayerInteractionController
     {
 
+        protected override string GetNPCName()
+            => "Poke Friend";
+
         public PokemonNicknamingCanvasController nicknameCanvas;
 
         public static readonly string[] menuOptions = new string[]

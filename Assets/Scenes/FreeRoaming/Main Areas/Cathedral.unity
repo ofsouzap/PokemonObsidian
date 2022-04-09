@@ -399,6 +399,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 754537573}
     m_Modifications:
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
+      propertyPath: id
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: npcName
       value: Laura
       objectReference: {fileID: 0}
@@ -962,6 +966,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 754537573}
     m_Modifications:
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
+      propertyPath: id
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: npcName
       value: Rue
       objectReference: {fileID: 0}
@@ -1376,6 +1384,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 754537573}
     m_Modifications:
+    - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
+      propertyPath: id
+      value: 23
+      objectReference: {fileID: 0}
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: npcName
       value: Benjamin

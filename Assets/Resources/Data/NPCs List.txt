@@ -1,0 +1,21 @@
+List of NPC IDs and which NPCs they correspond to
+
+1 - NPC outside house 3 in Pokshire
+2 - NPC in house 4 in Pokshire
+3-4 - trainers on Route 1
+5 - Okford gym leader
+6 - NPC in house 5 in Okford
+7 - first NPC in research lab (Okford)
+8 - second NPC in research lab (Okford)
+9-12 - trainers on Route 2
+13-16 - trainers in Cave 1 (Tildahill Passage)
+17 - Tildahill gym leader
+18 - NPC in house 6 in Tildahill
+19 - NPC in house 7 in Tildahill
+20 - NPC in house 8 in Tildahill
+21-23 - NPCs in cathedral in Tildahill
+24-37 - trainers in Forest 1 (Esperi Forest)
+38-39 - travelling healers in Forest 1 (Esperi Forest)
+40 - Casswick gym leader
+41 - NPC in house 9 in Casswick
+42 - NPC in house 10 in Casswick

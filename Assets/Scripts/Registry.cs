@@ -28,6 +28,11 @@ public class Registry<T> : IEnumerable where T : IHasId
         }
     }
 
+    public Registry()
+    {
+        this.entries = new T[0];
+    }
+
     public void Sort()
     {
         Array.Sort(entries, (a, b) => a.GetId().CompareTo(b.GetId()));
@@ -116,7 +121,7 @@ public class Registry<T> : IEnumerable where T : IHasId
                 if (movingForwards == null)
                     movingForwards = false;
                 else if (movingForwards == true)
-                    return default(T);
+                    return default;
 
                 nextIndexCheck--;
 
@@ -127,11 +132,38 @@ public class Registry<T> : IEnumerable where T : IHasId
                 if (movingForwards == null)
                     movingForwards = true;
                 else if (movingForwards == false)
-                    return default(T);
+                    return default;
 
                 nextIndexCheck++;
 
             }
+
+        }
+
+    }
+
+    public T BinarySearch(int queryId)
+    {
+
+        int start = 0;
+        int end = entries.Length - 1;
+
+        while (true)
+        {
+
+            if (start > end)
+                return default;
+
+            int mid = (start + end) / 2;
+            T midEntry = entries[mid];
+
+            if (midEntry.GetId() == queryId)
+                return midEntry;
+
+            else if (midEntry.GetId() > queryId)
+                end = mid - 1;
+            else
+                start = mid + 1;
 
         }
 

@@ -7,6 +7,9 @@ namespace FreeRoaming.NPCs
     public class NPCShopkeeperController : NPCController
     {
 
+        protected override string GetNPCName()
+            => "Shopkeeper";
+
         [SerializeField]
         private PokeMartSceneController pokeMartSceneController;
 

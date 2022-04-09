@@ -11,6 +11,9 @@ namespace FreeRoaming.NPCs
     public class NPCBattleChallengeController : NPCController
     {
 
+        protected override string GetNPCName()
+            => trainerDetails.name;
+
         [Tooltip("How far away this NPC can challenge a trainer from")]
         public ushort visibilityDistance;
 
@@ -71,7 +74,9 @@ namespace FreeRoaming.NPCs
 
                 if (CanBattlePlayer)
                 {
+
                     TriggerBattle();
+
                 }
                 else
                 {
@@ -182,9 +187,9 @@ namespace FreeRoaming.NPCs
                 : "";
 
             string namePart =
-                npcName != null
-                    && npcName != ""
-                ? npcName
+                trainerDetails.name != null
+                    && trainerDetails.name != ""
+                ? trainerDetails.name
                 : "";
 
             if (namePart == "" && prefixPart == "")

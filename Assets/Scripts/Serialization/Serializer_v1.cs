@@ -76,9 +76,6 @@ namespace Serialization
             buffer = BitConverter.GetBytes(player.stats.distanceWalked);
             stream.Write(buffer, 0, 8);
 
-            buffer = BitConverter.GetBytes(player.stats.npcsTalkedTo);
-            stream.Write(buffer, 0, 8);
-
             buffer = BitConverter.GetBytes(player.stats.timePlayed);
             stream.Write(buffer, 0, 8);
             
@@ -98,6 +95,15 @@ namespace Serialization
             buffer = BitConverter.GetBytes(player.npcsBattled.Count);
             stream.Write(buffer, 0, 4);
             foreach (int npcId in player.npcsBattled)
+            {
+                buffer = BitConverter.GetBytes(npcId);
+                stream.Write(buffer, 0, 4);
+            }
+
+            //NPCs talked to
+            buffer = BitConverter.GetBytes(player.npcsTalkedTo.Count);
+            stream.Write(buffer, 0, 4);
+            foreach (int npcId in player.npcsTalkedTo)
             {
                 buffer = BitConverter.GetBytes(npcId);
                 stream.Write(buffer, 0, 4);
@@ -421,7 +427,7 @@ namespace Serialization
             byte[] buffer;
 
             Guid playerGuid;
-            ulong gameStartTime, distanceWalked, npcsTalkedTo, timePlayed;
+            ulong gameStartTime, distanceWalked, timePlayed;
             PokemonInstance[] partyPokemon;
             Guid[] tradeReceivedPokemonGuids;
             PlayerData.PokemonStorageSystem storageSystemPokemon;
@@ -429,7 +435,7 @@ namespace Serialization
             int money;
             byte spriteId;
             string name;
-            List<int> defeatedGymIds, npcsBattled, collectedDroppedItemIds;
+            List<int> defeatedGymIds, npcsBattled, npcsTalkedTo, collectedDroppedItemIds;
             bool respawnSceneStackSet, cheatsUsed;
             Dictionary<int, int> generalItems, medicineItems, battleItems, pokeBallItems, tmItems;
             PlayerData.Pokedex pokedex;
@@ -516,10 +522,6 @@ namespace Serialization
 
             buffer = new byte[8];
             stream.Read(buffer, 0, 8);
-            npcsTalkedTo = BitConverter.ToUInt64(buffer, 0);
-
-            buffer = new byte[8];
-            stream.Read(buffer, 0, 8);
             timePlayed = BitConverter.ToUInt64(buffer, 0);
 
             cheatsUsed = DeserializeBool(stream);
@@ -545,6 +547,19 @@ namespace Serialization
                 buffer = new byte[4];
                 stream.Read(buffer, 0, 4);
                 npcsBattled.Add(BitConverter.ToInt32(buffer, 0));
+            }
+
+            //NPCs Talked To
+            buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            int numberOfNpcsTalkedTo = BitConverter.ToInt32(buffer, 0);
+
+            npcsTalkedTo = new List<int>();
+            for (int i = 0; i < numberOfNpcsTalkedTo; i++)
+            {
+                buffer = new byte[4];
+                stream.Read(buffer, 0, 4);
+                npcsTalkedTo.Add(BitConverter.ToInt32(buffer, 0));
             }
 
             //Settings
@@ -591,13 +606,13 @@ namespace Serialization
                 {
                     gameStartTime = gameStartTime,
                     distanceWalked = distanceWalked,
-                    npcsTalkedTo = npcsTalkedTo,
                     timePlayed = timePlayed,
                     cheatsUsed = cheatsUsed
                 },
                 inventory = new PlayerData.Inventory(),
                 pokedex = pokedex,
                 npcsBattled = npcsBattled,
+                npcsTalkedTo = npcsTalkedTo,
                 respawnSceneStackSet = respawnSceneStackSet,
                 respawnSceneStack = respawnSceneStack,
                 collectedDroppedItemsIds = collectedDroppedItemIds

@@ -39,7 +39,7 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
             textBadgesList.text = GetBadgesListTextContent(PlayerData.singleton);
 
             distanceWalkedContainer.SetValue(PlayerData.singleton.stats.distanceWalked.ToString());
-            npcsTalkedContainer.SetValue(PlayerData.singleton.stats.npcsTalkedTo.ToString());
+            npcsTalkedContainer.SetValue(PlayerData.singleton.GetNPCsTalkedToCount().ToString());
             timePlayedContainer.SetValue(PlayerData.singleton.stats.timePlayed.ToString());
             gameStartedContainer.SetValue(GetGameStartedContainerContent());
 

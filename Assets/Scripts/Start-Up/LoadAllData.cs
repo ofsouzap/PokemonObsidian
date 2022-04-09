@@ -3,6 +3,7 @@ using Items;
 using FreeRoaming;
 using FreeRoaming.PokeMart;
 using FreeRoaming.WildPokemonArea;
+using FreeRoaming.NPCs;
 
 namespace StartUp
 {
@@ -23,6 +24,8 @@ namespace StartUp
             TrainersData.LoadData();
 
             Item.TrySetRegistry(); //TMs must be loaded after moves
+
+            GenericNPCData.LoadData(); //Generic NPCs must be loaded after items
 
             DroppedItem.TryLoadRegistry(); //Dropped items must be loaded after items
 

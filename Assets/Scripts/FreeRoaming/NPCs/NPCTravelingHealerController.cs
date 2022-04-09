@@ -30,15 +30,6 @@ namespace FreeRoaming.NPCs
         protected string[] GetMessagesAfterHeal()
             => messagesAfterHeal == null || messagesAfterHeal.Length == 0 ? defaultMessagesAfterHeal : messagesAfterHeal;
 
-        protected override void Start()
-        {
-
-            base.Start();
-
-            dialogs = new string[0];
-
-        }
-
         public override IEnumerator PlayerInteraction()
         {
 

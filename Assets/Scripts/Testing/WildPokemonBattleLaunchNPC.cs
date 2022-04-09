@@ -10,6 +10,9 @@ namespace Testing
     public class WildPokemonBattleLaunchNPC : NPCController
     {
 
+        protected override string GetNPCName()
+            => "Wilder";
+
         public string battleBackgroundResourceName = "field";
         public PokemonInstance.BasicSpecification pokemonSpecification;
 

@@ -50,12 +50,12 @@ public class TrainersData
     private static Registry<TrainerDetails> registry = new Registry<TrainerDetails>();
 
     public static TrainerDetails GetTrainerDetailsByTrainerId(int id)
-        => registry.StartingIndexSearch(id, id);
+        => registry.BinarySearch(id);
 
     #endregion
 
     /* Data CSV Columns:
-     * trainer id (int)
+     * npc id (int)
      * gym id (int, if applicable otherwise blank for null)
      * name (string)
      * challenge message (string)

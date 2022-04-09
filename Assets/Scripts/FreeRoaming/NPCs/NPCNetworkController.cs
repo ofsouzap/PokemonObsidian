@@ -11,6 +11,9 @@ namespace FreeRoaming.NPCs
     public class NPCNetworkController : NPCController
     {
 
+        protected override string GetNPCName()
+            => "Networker";
+
         public NetworkInteractionCanvasController networkInteractionCanvasController;
 
         public static readonly string[] connectionModeMenuOptions = new string[]

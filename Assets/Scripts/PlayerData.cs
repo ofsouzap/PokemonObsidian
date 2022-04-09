@@ -604,11 +604,6 @@ public class PlayerData
         public ulong distanceWalked;
 
         /// <summary>
-        /// How many NPCs the player has talked to
-        /// </summary>
-        public ulong npcsTalkedTo;
-
-        /// <summary>
         /// The total time the player has spent playing in seconds
         /// </summary>
         public ulong timePlayed;
@@ -635,11 +630,6 @@ public class PlayerData
     public void AddStepWalked()
     {
         stats.distanceWalked++;
-    }
-
-    public void AddNPCTalkedTo()
-    {
-        stats.npcsTalkedTo++;
     }
 
     public void AddSecondsPlayed(ulong seconds)
@@ -956,6 +946,8 @@ public class PlayerData
 
     #endregion
 
+    #region NPCs
+
     #region NPCs Battled
 
     /// <summary>
@@ -996,6 +988,53 @@ public class PlayerData
         return npcsBattled.Contains(npcId);
 
     }
+
+    #endregion
+
+    #region NPCs Talked To
+
+    /// <summary>
+    /// A list of NPCs the player has talked to
+    /// </summary>
+    public List<int> npcsTalkedTo = new List<int>();
+
+    public void SetNPCTalkedTo(int npcId)
+    {
+
+        if (FreeRoaming.NPCs.NPCController.IdIsUnset(npcId))
+        {
+            Debug.LogError("Trying to set unset NPC id as talked to");
+            return;
+        }
+
+        if (npcsTalkedTo.Contains(npcId))
+        {
+            Debug.LogWarning("NPC already marked as talked to - " + npcId);
+        }
+        else
+        {
+            npcsTalkedTo.Add(npcId);
+        }
+
+    }
+
+    public bool GetNPCTalkedTo(int npcId)
+    {
+
+        if (FreeRoaming.NPCs.NPCController.IdIsUnset(npcId))
+        {
+            Debug.LogError("Trying to get unset NPC id is talked to");
+            return false;
+        }
+
+        return npcsTalkedTo.Contains(npcId);
+
+    }
+
+    public int GetNPCsTalkedToCount()
+        => npcsTalkedTo.Count;
+
+    #endregion
 
     #endregion
 

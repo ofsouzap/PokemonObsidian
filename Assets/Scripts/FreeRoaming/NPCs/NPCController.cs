@@ -22,10 +22,9 @@ namespace FreeRoaming.NPCs
 
         #endregion
 
-        [SerializeField]
-        protected string npcName;
+        protected abstract string GetNPCName();
 
-        public virtual string GetFullName() => npcName;
+        public virtual string GetFullName() => GetNPCName();
 
         protected override void Start()
         {

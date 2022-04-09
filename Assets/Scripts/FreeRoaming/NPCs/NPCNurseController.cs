@@ -9,6 +9,9 @@ namespace FreeRoaming.NPCs
     public class NPCNurseController : NPCPlayerInteractionController
     {
 
+        protected override string GetNPCName()
+            => "Nurse";
+
         public HealingMachineScript healingMachineScript;
 
         public static readonly string[] restorePokemonUserOptions = new string[]

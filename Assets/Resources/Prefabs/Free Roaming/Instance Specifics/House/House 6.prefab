@@ -291,6 +291,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 9156692551929370332}
     m_Modifications:
     - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
+      propertyPath: id
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 250430217906887521, guid: 4b320d9f36efc544f934a32cfb4107a0, type: 3}
       propertyPath: npcName
       value: Chris
       objectReference: {fileID: 0}

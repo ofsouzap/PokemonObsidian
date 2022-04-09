@@ -24,12 +24,6 @@ namespace FreeRoaming.NPCs
 
             base.Start();
 
-            // Set the default dialog if none already set
-            if (dialogs.Length <= 0)
-            {
-                dialogs = defaultChatMessages;
-            }
-
             // Check if player has cleared the required gym
             if (PlayerData.singleton.profile.defeatedGymIds.Contains(rqeuiredCompletedGymId))
             {

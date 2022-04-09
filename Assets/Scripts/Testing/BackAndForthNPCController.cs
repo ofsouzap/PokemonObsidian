@@ -9,6 +9,9 @@ namespace Testing
     public class BackAndForthNPCController : NPCController
     {
 
+        protected override string GetNPCName()
+            => "Pacer";
+
         public override void Interact(GameCharacterController interacter) { }
 
         public ushort walkLength;
