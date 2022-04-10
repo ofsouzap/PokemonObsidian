@@ -40,7 +40,7 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
 
             distanceWalkedContainer.SetValue(PlayerData.singleton.stats.distanceWalked.ToString());
             npcsTalkedContainer.SetValue(PlayerData.singleton.GetNPCsTalkedToCount().ToString());
-            timePlayedContainer.SetValue(PlayerData.singleton.stats.timePlayed.ToString());
+            timePlayedContainer.SetValue(GetTimePlayedContainerContent());
             gameStartedContainer.SetValue(GetGameStartedContainerContent());
 
             cheatsUsedImage.enabled = PlayerData.singleton.stats.cheatsUsed;
@@ -68,13 +68,16 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
 
         }
 
-        protected string GetTimePlayerContainerContent(PlayerData player = null)
+        protected string GetTimePlayedContainerContent(PlayerData player = null)
         {
 
             if (player == null)
                 player = PlayerData.singleton;
 
-            return (player.stats.timePlayed / 60).ToString() + " mins";
+            ulong hours = player.stats.timePlayed / 3600;
+            ulong minutes = (player.stats.timePlayed % 3600) / 60;
+
+            return $"{hours}hrs {minutes}mins";
 
         }
 
