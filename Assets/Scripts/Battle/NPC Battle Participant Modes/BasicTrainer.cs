@@ -127,7 +127,12 @@ namespace Battle.NPCBattleParticipantModes
                 fightMoveIndex = selectedMoveIndex
             });
 
-            if (MoveIsStatOEMove(PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[selectedMoveIndex])))
+            PokemonMove move = PokemonMove.GetPokemonMoveById(ActivePokemon.moveIds[selectedMoveIndex]);
+
+            if (move == null)
+                Debug.LogError("Move selected from weightings was null");
+
+            if (MoveIsStatOEMove(move))
             {
                 statOEMovesUsed++;
             }
@@ -239,9 +244,10 @@ namespace Battle.NPCBattleParticipantModes
 
             bool nvscCondition = false;
 
-            foreach (PokemonInstance.NonVolatileStatusCondition nvsc in move.nonVolatileStatusConditionChances.Keys)
-                if (move.nonVolatileStatusConditionChances[nvsc] >= 1)
-                    nvscCondition = true;
+            if (move.nonVolatileStatusConditionChances != null)
+                foreach (PokemonInstance.NonVolatileStatusCondition nvsc in move.nonVolatileStatusConditionChances.Keys)
+                    if (move.nonVolatileStatusConditionChances[nvsc] >= 1)
+                        nvscCondition = true;
 
             return move.targetStatChanges.GetEnumerator(false).Any(x => x != 0)
                 || move.userStatChanges.GetEnumerator(false).Any(x => x != 0)

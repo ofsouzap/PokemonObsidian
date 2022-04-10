@@ -19,7 +19,7 @@ namespace Items.MedicineItems
             };
 
         public override bool CheckCompatibility(PokemonInstance pokemon)
-            => pokemon.health < pokemon.GetStats().health;
+            => pokemon.health < pokemon.GetStats().health && !pokemon.IsFainted;
 
     }
 }

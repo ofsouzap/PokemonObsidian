@@ -38,6 +38,8 @@ namespace FreeRoaming.PokeMart
 
         public ItemsListController itemsListController;
         public ItemDetailsController itemDetailsController;
+        public Text textPlayerMoney;
+        public Button buttonBack;
 
         public bool menuIsRunning { get; private set; }
 
@@ -56,6 +58,13 @@ namespace FreeRoaming.PokeMart
             itemsListController.itemIndexSelected.RemoveAllListeners();
             itemsListController.itemIndexSelected.AddListener(index => SetCurrentSelectionIndex(index));
 
+            textPlayerMoney.text = PlayerData.currencySymbol + PlayerData.singleton.profile.money.ToString();
+
+            if (buttonBack.GetComponent<MenuSelectableController>() == null)
+                Debug.LogError("No MenuSelectableController on back button");
+            buttonBack.onClick.RemoveAllListeners();
+            buttonBack.onClick.AddListener(BackButtonPressed);
+
             textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
         }
@@ -65,6 +74,9 @@ namespace FreeRoaming.PokeMart
 
             if (menuIsRunning)
             {
+
+                //If control allowed, back button can be interactive
+                SetBackButtonInteractivity(controlAllowed);
 
                 if (controlAllowed)
                 {
@@ -100,6 +112,19 @@ namespace FreeRoaming.PokeMart
             }
 
         }
+
+        private void BackButtonPressed()
+        {
+
+            if (controlAllowed)
+                CloseMenu();
+
+            //TODO
+
+        }
+
+        private void SetBackButtonInteractivity(bool state)
+            => buttonBack.interactable = state;
 
         #region Selecting Items
 
