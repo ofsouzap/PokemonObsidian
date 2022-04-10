@@ -50,6 +50,8 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
             textOriginalTrainer.text = pokemon.originalTrainerName;
 
             //TODO - once abilities made, set ability Text texts
+            textAbilityName.text = "";
+            textAbilityDescription.text = "";
 
             imageCheatPokemon.gameObject.SetActive(pokemon.cheatPokemon);
 

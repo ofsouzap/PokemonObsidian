@@ -112,6 +112,8 @@ namespace Battle.PlayerUI
             }
 
             //TODO - set values for ability when and if implemented
+            textAbilityName.text = "";
+            textAbilityDescription.text = "";
 
             if (pokemon.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.None)
             {
