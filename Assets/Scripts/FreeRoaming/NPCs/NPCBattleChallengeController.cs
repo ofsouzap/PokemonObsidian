@@ -178,50 +178,14 @@ namespace FreeRoaming.NPCs
         }
 
         public override string GetFullName()
-        {
-
-            string prefixPart =
-                TrainerClass.classNamesPrefixes.ContainsKey(trainerDetails.trainerClass)
-                    && TrainerClass.classNamesPrefixes[trainerDetails.trainerClass] != ""
-                ? TrainerClass.classNamesPrefixes[trainerDetails.trainerClass]
-                : "";
-
-            string namePart =
-                trainerDetails.name != null
-                    && trainerDetails.name != ""
-                ? trainerDetails.name
-                : "";
-
-            if (namePart == "" && prefixPart == "")
-                return "Trainer";
-            else if (namePart == "")
-                return prefixPart;
-            else if (prefixPart == "")
-                return namePart;
-            else
-                return prefixPart + ' ' + namePart;
-
-        }
-
-        protected virtual byte GetBasePayout()
-            => TrainerClass.classBasePayouts.ContainsKey(trainerDetails.trainerClass)
-                ? TrainerClass.classBasePayouts[trainerDetails.trainerClass]
-                : (byte)0;
-
-        protected virtual string GetBattleSpriteResourceName()
-            => TrainerClass.classBattleSpriteNames[trainerDetails.trainerClass];
+            => trainerDetails.GetFullName();
 
         protected virtual void SetBattleEntranceArguments()
         {
 
             BattleEntranceArguments.npcTrainerBattleArguments = new BattleEntranceArguments.NPCTrainerBattleArguments()
             {
-                opponentPokemon = trainerDetails.pokemonSpecifications.Select(x => x.Generate()).ToArray(),
-                opponentSpriteResourceName = GetBattleSpriteResourceName(),
-                opponentFullName = GetFullName(),
-                opponentBasePayout = GetBasePayout(),
-                opponentDefeatMessages = trainerDetails.defeatMessages,
-                mode = trainerDetails.mode
+                trainerDetails = trainerDetails
             };
 
             BattleEntranceArguments.battleBackgroundResourceName = trainerDetails.battleBackgroundResourceName;

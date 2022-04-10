@@ -22,6 +22,32 @@ public class TrainersData
         public int? gymId;
         public string name;
 
+        public string GetFullName()
+        {
+
+            string prefixPart =
+                TrainerClass.classNamesPrefixes.ContainsKey(trainerClass)
+                    && TrainerClass.classNamesPrefixes[trainerClass] != ""
+                ? TrainerClass.classNamesPrefixes[trainerClass]
+                : "";
+
+            string namePart =
+                name != null
+                    && name != ""
+                ? name
+                : "";
+
+            if (namePart == "" && prefixPart == "")
+                return "Trainer";
+            else if (namePart == "")
+                return prefixPart;
+            else if (prefixPart == "")
+                return namePart;
+            else
+                return prefixPart + ' ' + namePart;
+
+        }
+
         /// <summary>
         /// The message this trainer should say when it challenges the player
         /// </summary>
@@ -41,9 +67,31 @@ public class TrainersData
         /// </summary>
         public TrainerClass.Class trainerClass;
 
+        public string GetBattleSpriteResourceName()
+            => TrainerClass.classBattleSpriteNames[trainerClass];
+
+        public byte GetBasePayout()
+        {
+
+            //Gym leaders don't have payouts
+            if (gymId != null)
+                return 0;
+
+            return TrainerClass.classBasePayouts.ContainsKey(trainerClass)
+                ? TrainerClass.classBasePayouts[trainerClass]
+                : (byte)0;
+
+        }
+
         public BattleParticipantNPC.Mode mode;
 
+        public int leaderHealingItemId;
+        public int leaderMaxTimesHealed;
+
         public PokemonInstance.BasicSpecification[] pokemonSpecifications;
+
+        public PokemonInstance[] GenerateParty()
+            => pokemonSpecifications.Select(x => x.Generate()).ToArray();
 
     }
 
@@ -64,14 +112,15 @@ public class TrainersData
      * battle background resource name (string)
      * class (string for trainer's trainer class)
      * mode (string for trainer's npc battle participant mode)
+     * (for gym leaders) healing item id (int or blank)
+     * (for gym leaders) max times healed (int or blank)
      * [for each of 6 pokemon:]
-     * pmon i's species id (int)
-     * pmon i's gender (m/f/{blank})
-     * pmon i's level (int)
-     * pmon i's evs (6 ints separated by ';')
-     * pmon i's ivs (6 ints separated by ';')
-     * pmon i's move ids (4 ints separated by ';' or blank if should use defaults)
-     * 
+     *     pmon i's species id (int)
+     *     pmon i's gender (m/f/{blank})
+     *     pmon i's level (int)
+     *     pmon i's evs (6 ints separated by ';')
+     *     pmon i's ivs (6 ints separated by ';')
+     *     pmon i's move ids (4 ints separated by ';' or blank if should use defaults)
      */
 
     public static void LoadData()
@@ -84,7 +133,7 @@ public class TrainersData
         foreach (string[] entry in data)
         {
 
-            int id;
+            int id, leaderHealingItemId, leaderMaxTimesHealed;
             int? gymId;
             string name, challengeMessage, chatMessage, battleBackgroundResourceName;
             string[] defeatMessages;
@@ -92,7 +141,7 @@ public class TrainersData
             BattleParticipantNPC.Mode mode;
             List<PokemonInstance.BasicSpecification> pmonList;
 
-            if (entry.Length < 45)
+            if (entry.Length < 47)
             {
                 Debug.LogWarning("Invalid trainers details to load - " + entry);
                 continue;
@@ -174,6 +223,37 @@ public class TrainersData
 
             }
 
+            // Gym leader healing settings
+
+            string leaderHealingItemIdEntry = entry[9];
+            if (leaderHealingItemIdEntry == "")
+                leaderHealingItemId = Battle.NPCBattleParticipantModes.GymLeader.defaultHealingItemId;
+            else
+            {
+                if (!int.TryParse(leaderHealingItemIdEntry, out leaderHealingItemId))
+                {
+                    Debug.LogError("Invalid leader healing item id for trainer id - " + id);
+                    leaderHealingItemId = Battle.NPCBattleParticipantModes.GymLeader.defaultHealingItemId;
+                }
+                else
+                {
+                    Items.Item item = Items.Item.GetItemById(leaderHealingItemId);
+                    if (item == null || !(item is Items.MedicineItems.HealthMedicineItem))
+                    {
+                        Debug.LogError("Inappropriate leader healing item id for trainer id - " + id);
+                        leaderHealingItemId = Battle.NPCBattleParticipantModes.GymLeader.defaultHealingItemId;
+                    }
+                }
+            }
+            
+            string leaderMaxTimesHealedEntry = entry[10];
+            if (leaderMaxTimesHealedEntry == "")
+                leaderMaxTimesHealed = Battle.NPCBattleParticipantModes.GymLeader.defaultMaxTimesHealed;
+            else if (!int.TryParse(leaderMaxTimesHealedEntry, out leaderMaxTimesHealed))
+            {
+                Debug.LogError("Invalid leader max times healed entry for trainer id - " + id);
+            }
+
             // Pokemon
             pmonList = new List<PokemonInstance.BasicSpecification>();
             bool invalidPokemonFound = false;
@@ -181,7 +261,7 @@ public class TrainersData
             {
 
                 const int pmonEntryCount = 6;
-                int indexOffset = 9 + (pmonIndex * pmonEntryCount);
+                int indexOffset = 11 + (pmonIndex * pmonEntryCount);
 
                 int speciesId;
                 bool? gender;
@@ -373,6 +453,8 @@ public class TrainersData
                 battleBackgroundResourceName = battleBackgroundResourceName,
                 trainerClass = trainerClass,
                 mode = mode,
+                leaderHealingItemId = leaderHealingItemId,
+                leaderMaxTimesHealed = leaderMaxTimesHealed,
                 pokemonSpecifications = pmonList.ToArray()
             };
 

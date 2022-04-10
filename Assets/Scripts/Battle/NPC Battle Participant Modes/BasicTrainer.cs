@@ -46,16 +46,13 @@ namespace Battle.NPCBattleParticipantModes
 
         protected byte statOEMovesUsed;
 
-        public BasicTrainer(string name,
-            PokemonInstance[] pokemon,
-            byte basePayout,
-            string[] defeatMessages)
+        public BasicTrainer(TrainersData.TrainerDetails details)
         {
 
-            npcName = name;
-            this.pokemon = pokemon;
-            this.basePayout = basePayout;
-            this.defeatMessages = defeatMessages;
+            npcName = details.GetFullName();
+            pokemon = details.GenerateParty();
+            basePayout = details.GetBasePayout();
+            defeatMessages = details.defeatMessages;
 
             statOEMovesUsed = 0;
 

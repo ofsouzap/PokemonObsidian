@@ -35,35 +35,7 @@ namespace Battle
         public struct NPCTrainerBattleArguments
         {
 
-            /// <summary>
-            /// The opponent's pokemon. This must have a maximum length of 6 and must include at least 1 element. These instances are directly used for the battle
-            /// </summary>
-            public PokemonInstance[] opponentPokemon;
-
-            /// <summary>
-            /// The name of the sprite for this opponent in battle
-            /// </summary>
-            public string opponentSpriteResourceName;
-
-            /// <summary>
-            /// The opponent's base payout
-            /// </summary>
-            public byte opponentBasePayout;
-
-            /// <summary>
-            /// Any messages that the opponent should say if the player wins
-            /// </summary>
-            public string[] opponentDefeatMessages;
-
-            /// <summary>
-            /// The "full" name of the opponent. This is used for announcing the battle opponent and their defeat. This could be a title with a name (eg. "Gym Leader Brock") or just a name (eg. "Ash")
-            /// </summary>
-            public string opponentFullName;
-
-            /// <summary>
-            /// The "mode" for the NPC opponent to determine how they fight
-            /// </summary>
-            public BattleParticipantNPC.Mode mode;
+            public TrainersData.TrainerDetails trainerDetails;
 
         }
 
@@ -115,7 +87,7 @@ namespace Battle
         public static string GetOpponentSpriteResourceName()
             => battleType switch
             {
-                BattleType.NPCTrainer => npcTrainerBattleArguments.opponentSpriteResourceName,
+                BattleType.NPCTrainer => npcTrainerBattleArguments.trainerDetails.GetBattleSpriteResourceName(),
                 BattleType.Network => networkBattleArguments.opponentSpriteResourceName,
                 _ => ""
             };
