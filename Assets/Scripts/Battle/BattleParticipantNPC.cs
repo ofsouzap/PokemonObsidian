@@ -18,7 +18,7 @@ namespace Battle
             Debug_UseRandomMedicineItem,
             Debug_UseRandomBattleItem,
             BasicTrainer,
-            WildPokemon,
+            Obsolete, //This shouldn't be used anymore
             GymLeader
         }
 
@@ -44,10 +44,6 @@ namespace Battle
                     m = Mode.BasicTrainer;
                     break;
 
-                case "wildpokemon":
-                    m = Mode.WildPokemon;
-                    break;
-
                 default:
                     m = default;
                     return false;
@@ -58,14 +54,13 @@ namespace Battle
 
         }
 
-        public static readonly Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<string, PokemonInstance[], byte, string[], BattleParticipantNPC>>()
+        public static readonly Dictionary<Mode, Func<TrainersData.TrainerDetails, BattleParticipantNPC>> modeInitialisers = new Dictionary<Mode, Func<TrainersData.TrainerDetails, BattleParticipantNPC>>()
         {
-            { Mode.RandomAttack, (n, pmon, bp, dmsgs) => new RandomAttack(n, pmon, bp, dmsgs) },
-            { Mode.Debug_UseRandomMedicineItem, (n, pmon, bp, dmsgs) => new RandomMedicineItem(n, pmon, bp, dmsgs) },
-            { Mode.Debug_UseRandomBattleItem, (n, pmon, bp, dmsgs) => new RandomBattleItem(n, pmon, bp, dmsgs) },
-            { Mode.BasicTrainer, (n, pmon, bp, dmsgs) => new BasicTrainer(n, pmon, bp, dmsgs) },
-            { Mode.WildPokemon, (n, pmon, bp, dmsgs) => new WildPokemon(n, pmon, bp, dmsgs) },
-            { Mode.GymLeader, (n, pmon, bp, dmsgs) => new GymLeader(n, pmon, bp, dmsgs) }
+            { Mode.RandomAttack, (details) => new RandomAttack(details) },
+            { Mode.Debug_UseRandomMedicineItem, (details) => new RandomMedicineItem(details) },
+            { Mode.Debug_UseRandomBattleItem, (details) => new RandomBattleItem(details) },
+            { Mode.BasicTrainer, (details) => new BasicTrainer(details) },
+            { Mode.GymLeader, (details) => new GymLeader(details) }
         };
 
         #endregion

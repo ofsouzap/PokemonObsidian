@@ -44,8 +44,5 @@ namespace FreeRoaming.NPCs
         public override string GetFullName()
             => "Leader " + trainerDetails.name;
 
-        protected override byte GetBasePayout()
-            => 0;
-
     }
 }

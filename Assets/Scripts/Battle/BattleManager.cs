@@ -153,24 +153,16 @@ namespace Battle
 
                 case BattleType.WildPokemon:
 
-                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleParticipantNPC.Mode.WildPokemon](
-                        null,
-                        new PokemonInstance[] {
-                            BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance
-                        },
-                        0,
-                        new string[0]
+                    participantOpponent = new NPCBattleParticipantModes.WildPokemon(null,
+                        new PokemonInstance[1] { BattleEntranceArguments.wildPokemonBattleArguments.opponentInstance }
                     );
 
                     break;
 
                 case BattleType.NPCTrainer:
 
-                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleEntranceArguments.npcTrainerBattleArguments.mode](
-                        BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName,
-                        BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon,
-                        BattleEntranceArguments.npcTrainerBattleArguments.opponentBasePayout,
-                        BattleEntranceArguments.npcTrainerBattleArguments.opponentDefeatMessages
+                    participantOpponent = BattleParticipantNPC.modeInitialisers[BattleEntranceArguments.npcTrainerBattleArguments.trainerDetails.mode](
+                        BattleEntranceArguments.npcTrainerBattleArguments.trainerDetails
                     );
 
                     break;
@@ -191,17 +183,13 @@ namespace Battle
 
                     //Generate generic opponent instead of crashing or breaking scene/game
                     participantOpponent = BattleParticipantNPC.modeInitialisers[BattleParticipantNPC.Mode.RandomAttack](
-                        "Erroneous Opponent",
-                        new PokemonInstance[]
+                        new TrainersData.TrainerDetails()
                         {
-                            PokemonFactory.GenerateWild(
-                                new int[] { 1 },
-                                1,
-                                1
-                            )
-                        },
-                        0,
-                        new string[0]
+                            id = 0,
+                            name = "Erroneous Opponent",
+                            pokemonSpecifications = new PokemonInstance.BasicSpecification[1] { new PokemonInstance.BasicSpecification() { speciesId = 1, level = 1 } },
+                            defeatMessages = new string[0]
+                        }
                     );
 
                     break;
@@ -1073,7 +1061,7 @@ namespace Battle
                         {
 
                             Sprite opponentTrainerBattleSprite = SpriteStorage.GetCharacterBattleSprite(
-                                BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName
+                                BattleEntranceArguments.npcTrainerBattleArguments.trainerDetails.GetBattleSpriteResourceName()
                             );
 
                             //Sprite showcase start

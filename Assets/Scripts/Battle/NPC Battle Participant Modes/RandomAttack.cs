@@ -8,15 +8,12 @@ namespace Battle.NPCBattleParticipantModes
     public class RandomAttack : Generic
     {
 
-        public RandomAttack(string name,
-            PokemonInstance[] pokemon,
-            byte basePayout,
-            string[] defeatMessages)
+        public RandomAttack(TrainersData.TrainerDetails details)
         {
-            npcName = name;
-            this.pokemon = pokemon;
-            this.basePayout = basePayout;
-            this.defeatMessages = defeatMessages;
+            npcName = details.GetFullName();
+            pokemon = details.GenerateParty();
+            basePayout = details.GetBasePayout();
+            defeatMessages = details.defeatMessages;
         }
 
         public override void StartChoosingAction(BattleData battleData)

@@ -11,24 +11,27 @@ namespace Battle.NPCBattleParticipantModes
         /// </summary>
         protected const float healingHealthThreshold = 0.2F;
 
+        protected int healingItemId;
+        protected int maxTimesHealed;
+
         protected int timesHealed;
 
         /// <summary>
-        /// The id of the item that the gym leader should use to heal their pokemon
+        /// The id of the item that the gym leader should use to heal their pokemon by default
         /// </summary>
-        public const int healingItemId = 25; //Hyper potion
+        public const int defaultHealingItemId = 25; //Hyper potion
+        /// <summary>
+        /// How many times the gym leader can heal their by default
+        /// </summary>
+        public const int defaultMaxTimesHealed = 3;
+
         public Item HealingItem => Item.GetItemById(healingItemId);
 
-        /// <summary>
-        /// How many times the gym leader can heal their pokemon
-        /// </summary>
-        public const int maxTimesHealed = 5;
-
-        public GymLeader(string name,
-            PokemonInstance[] pokemon,
-            byte basePayout,
-            string[] defeatMessages) : base(name, pokemon, basePayout, defeatMessages)
+        public GymLeader(TrainersData.TrainerDetails details) : base(details)
         {
+
+            healingItemId = details.leaderHealingItemId;
+            maxTimesHealed = details.leaderMaxTimesHealed;
 
             timesHealed = 0;
 
@@ -43,7 +46,7 @@ namespace Battle.NPCBattleParticipantModes
             if (ActivePokemon.HealthProportion <= healingHealthThreshold)
             {
 
-                if (timesHealed < maxTimesHealed)
+                if (timesHealed < defaultMaxTimesHealed)
                 {
                     SetActionToHeal();
                     return;

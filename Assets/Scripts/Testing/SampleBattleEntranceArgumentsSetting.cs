@@ -7,6 +7,7 @@ using Pokemon;
 
 namespace Testing
 {
+    [Obsolete]
     public class SampleBattleEntranceArgumentsSetting : MonoBehaviour
     {
 
@@ -91,11 +92,8 @@ namespace Testing
                     Array.Copy(opponentPokemon.ToArray(),
                         opponentPokemonArray,
                         opponentPokemon.Count);
-                    
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentPokemon = opponentPokemonArray;
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentFullName = npcTrainerFullName;
-                    BattleEntranceArguments.npcTrainerBattleArguments.opponentSpriteResourceName = npcTrainerSpriteName;
-                    BattleEntranceArguments.npcTrainerBattleArguments.mode = npcTrainerMode;
+
+                    BattleEntranceArguments.npcTrainerBattleArguments.trainerDetails = null; //Class is now obsolete, this is to prevent compilation errors, file will later be deleted
 
                     break;
 
