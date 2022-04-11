@@ -543,7 +543,7 @@ namespace Battle
                 #endregion
 
                 #region End of Turn
-
+                
                 #region Weather Refreshing
 
                 yield return StartCoroutine(RefreshCurrentWeather());
@@ -554,7 +554,7 @@ namespace Battle
                     break;
 
                 #endregion
-
+                
                 #region Weather Damage
 
                 yield return StartCoroutine(MainBattleCoroutine_ApplyWeatherDamageToParticipant(battleData.participantPlayer));
@@ -572,13 +572,13 @@ namespace Battle
                     break;
 
                 #endregion
-
+                
                 #region Stage Modifiers
 
                 StartCoroutine(RefreshStageTrickRoom());
 
                 #endregion
-
+                
                 #region Non-Volatile Status Conditions
 
                 yield return StartCoroutine(MainBattleCoroutine_ApplyNonVolatileStatusConditionDamageUsingParticipant(battleData.participantPlayer));
@@ -596,7 +596,7 @@ namespace Battle
                     break;
 
                 #endregion
-
+                
                 #region Volatile Status Conditions
 
                 #region Bound
@@ -780,7 +780,7 @@ namespace Battle
                 #endregion
 
                 #endregion
-
+                
                 #region Volatile Battle Statuses
 
                 #region Aqua Ring
@@ -925,7 +925,7 @@ namespace Battle
                 battleParticipantsToCancelActionsOf.Clear();
 
                 battleData.battleTurnNumber++;
-
+                
                 #endregion
 
             }
