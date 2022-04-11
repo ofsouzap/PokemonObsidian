@@ -106,8 +106,6 @@ MonoBehaviour:
   _walkSpeed: 4
   _runSpeed: 8
   spriteGroupName: officer
-  id: 0
-  npcName: 
+  id: 53
   automaticMovementStages: []
-  dialogs: []
   rqeuiredCompletedGymId: 0
