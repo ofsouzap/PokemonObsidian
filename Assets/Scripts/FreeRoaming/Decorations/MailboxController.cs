@@ -4,7 +4,7 @@ using FreeRoaming.AreaControllers;
 
 namespace FreeRoaming.Decorations
 {
-    public class MailboxController : InteractableDecorationController
+    public class MailboxController : MessageDecorationController
     {
 
         public const string messagePrefix = "";
@@ -15,26 +15,8 @@ namespace FreeRoaming.Decorations
 
         public string houseOwnerName;
 
-        public override void Interact(GameCharacterController interactee)
-        {
-
-            StartCoroutine(DisplayMessages());
-
-        }
-
-        private IEnumerator DisplayMessages()
-        {
-
-            sceneController.SetSceneRunningState(false);
-            textBoxController.Show();
-
-            textBoxController.RevealText(GenerateMessage(houseOwnerName));
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
-
-            textBoxController.Hide();
-            sceneController.SetSceneRunningState(true);
-
-        }
+        protected override string[] GetMessages()
+            => new string[1] { GenerateMessage(houseOwnerName) };
 
     }
 }

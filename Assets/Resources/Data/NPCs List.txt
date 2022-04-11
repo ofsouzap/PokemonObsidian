@@ -29,3 +29,4 @@ List of NPC IDs and which NPCs they correspond to
 50 - NPC between Forest 1 gate and Poke Mart in Tildahill
 51 - NPC near Casswick gym
 52 - fossil machine NPC in research lab (Okford)
+53 - !! progression guards

@@ -1581,7 +1581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useDefaultPlayerChoices: 0
-  newGameSceneStack: Pokshire,0,0
+  newGameSceneStack: Pokshire,0,0;House,0,2,2
   startUpMenuController: {fileID: 871413392}
   playerGameObject: {fileID: 416252835}
   freeRoamMenuGameObject: {fileID: 307454586}
