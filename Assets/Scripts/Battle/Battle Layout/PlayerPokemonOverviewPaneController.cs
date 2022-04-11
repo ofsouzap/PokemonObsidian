@@ -13,23 +13,7 @@ namespace Battle.BattleLayout
 
         public const string healthAmountSeparator = "/";
 
-        [Tooltip("The game object which has the image for the player's pokemon's experience bar to be stretched as needed")]
-        public GameObject gameObjectExperienceBar;
-
-        private void Start()
-        {
-
-            if (gameObjectExperienceBar.GetComponent<Image>() == null)
-            {
-                Debug.LogError("No Image component found for experience bar");
-            }
-
-            if (gameObjectExperienceBar.GetComponent<RectTransform>() == null)
-            {
-                Debug.LogError("No RectTransform component found for experience bar");
-            }
-
-        }
+        public ExperienceBarScript experienceBar;
 
         public override void FullUpdate(PokemonInstance pokemon)
         {
@@ -82,16 +66,7 @@ namespace Battle.BattleLayout
         public void UpdateExperienceBar(float value)
         {
 
-            if (value < 0 || value > 1)
-            {
-                Debug.LogError("Value out of range (" + value + ")");
-                return;
-            }
-
-            gameObjectExperienceBar.GetComponent<RectTransform>().anchorMax = new Vector2(
-                value,
-                gameObjectExperienceBar.GetComponent<RectTransform>().anchorMax.y
-                );
+            experienceBar.UpdateBar(value);
 
         }
 

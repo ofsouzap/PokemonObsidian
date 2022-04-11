@@ -18,9 +18,9 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
         public Text textSpeedValue;
         public Text textHealthValue;
 
-        public Text textLevel;
         public Text textExperience;
         public Text textExperienceToNextLevel;
+        public ExperienceBarScript experienceBar;
 
         public override void RefreshDetails(PokemonInstance pokemon)
         {
@@ -53,13 +53,14 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
             textHealthValue.text = pokemon.health + "/" + pokemon.GetStats().health;
 
             byte pokemonLevel = pokemon.GetLevel();
-            textLevel.text = pokemonLevel.ToString();
             textExperience.text = pokemon.experience.ToString();
 
             if (pokemonLevel < 100)
                 textExperienceToNextLevel.text = (GrowthTypeData.GetMinimumExperienceForLevel((byte)(pokemonLevel + 1), pokemon.species.growthType) - pokemon.experience).ToString();
             else
                 textExperienceToNextLevel.text = "-";
+
+            experienceBar.UpdateBar(pokemon);
 
         }
 

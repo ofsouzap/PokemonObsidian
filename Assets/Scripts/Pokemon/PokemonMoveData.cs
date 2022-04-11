@@ -1342,6 +1342,7 @@ namespace Pokemon
             // Gen I
 
             moves.Add(new Move_Blizzard());
+            moves.Add(new Move_Low_Kick());
             moves.Add(new Move_Seismic_Toss());
             moves.Add(new Move_Growth());
             moves.Add(new Move_Thunder());

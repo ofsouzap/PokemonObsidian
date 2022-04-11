@@ -12,6 +12,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
         public Text textName;
         public Image imageGender;
         public Image imageFront;
+        public Text textLevel;
         public Text textOriginalTrainer;
         public Text textSpeciesName;
         public Text textSpeciesNumber;
@@ -46,6 +47,8 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
                 imageType2.gameObject.SetActive(true);
                 imageType2.sprite = SpriteStorage.GetTypeSymbolSprite((Type)pokemonType2);
             }
+
+            textLevel.text = pokemon.GetLevel().ToString();
 
             textOriginalTrainer.text = pokemon.originalTrainerName;
 

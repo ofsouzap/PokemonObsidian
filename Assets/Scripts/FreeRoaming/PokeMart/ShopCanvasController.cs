@@ -58,7 +58,7 @@ namespace FreeRoaming.PokeMart
             itemsListController.itemIndexSelected.RemoveAllListeners();
             itemsListController.itemIndexSelected.AddListener(index => SetCurrentSelectionIndex(index));
 
-            textPlayerMoney.text = PlayerData.currencySymbol + PlayerData.singleton.profile.money.ToString();
+            RefreshPlayerMoneyText();
 
             if (buttonBack.GetComponent<MenuSelectableController>() == null)
                 Debug.LogError("No MenuSelectableController on back button");
@@ -113,13 +113,16 @@ namespace FreeRoaming.PokeMart
 
         }
 
+        private void RefreshPlayerMoneyText()
+        {
+            textPlayerMoney.text = PlayerData.currencySymbol + PlayerData.singleton.profile.money.ToString();
+        }
+
         private void BackButtonPressed()
         {
 
             if (controlAllowed)
                 CloseMenu();
-
-            //TODO
 
         }
 
@@ -211,6 +214,7 @@ namespace FreeRoaming.PokeMart
 
                     PlayerData.singleton.inventory.AddItem(item, quantitySelected);
                     PlayerData.singleton.profile.money -= totalCost;
+                    RefreshPlayerMoneyText();
 
                     //TODO - sound fx for purchase made
                     textBoxController.RevealText("Thank you for your purchase");
@@ -289,6 +293,7 @@ namespace FreeRoaming.PokeMart
                 {
 
                     PlayerData.singleton.profile.money += totalCost;
+                    RefreshPlayerMoneyText();
                     PlayerData.singleton.inventory.RemoveItem(item, quantitySelected);
 
                     //TODO - sound fx for item sold
@@ -446,6 +451,8 @@ namespace FreeRoaming.PokeMart
         public void StartBuyMenu(Item[] items)
         {
 
+            RefreshPlayerMoneyText();
+
             currentMode = Mode.Buy;
             currentItems = items;
             SetCurrentItemsList();
@@ -456,6 +463,8 @@ namespace FreeRoaming.PokeMart
 
         public void StartSellMenu()
         {
+
+            RefreshPlayerMoneyText();
 
             currentMode = Mode.Sell;
 
