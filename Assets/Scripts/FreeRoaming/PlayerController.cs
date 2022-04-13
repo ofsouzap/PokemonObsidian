@@ -184,6 +184,8 @@ namespace FreeRoaming
 
             #endregion
 
+            CurrentSceneAreaRefreshUpdate();
+
         }
 
         public void RefreshSpriteFromPlayerData()
@@ -292,7 +294,7 @@ namespace FreeRoaming
 
         #endregion
 
-        #region Wild Pokemon Battle
+        #region Wild Pokemon Area/Battle
 
         public void WildPokemonBattleLaunchUpdate()
         {
@@ -340,8 +342,30 @@ namespace FreeRoaming
 
         public SceneArea? currentSceneArea = null;
 
-        public bool TrySetCurrentSceneArea(SceneArea sceneArea)
+        protected void CurrentSceneAreaRefreshUpdate()
         {
+
+            if (!sceneController.SceneIsActive)
+                return;
+
+            //If moving, the position to refresh the wild pokemon area with is the movement-targetted position
+            Vector2 wildPokemonAreaQueryPos = isMoving ? movementTargettedGridPosition : position;
+            SceneAreaController areaController = SceneAreaController.GetPositionSceneArea(wildPokemonAreaQueryPos, Scene);
+
+            if (TrySetCurrentSceneArea(areaController.GetArea()))
+            {
+                areaController.OnPlayerEnterArea();
+            }
+
+        }
+
+        protected bool TrySetCurrentSceneArea(SceneArea? _sceneArea)
+        {
+
+            if (_sceneArea == null)
+                return false;
+
+            SceneArea sceneArea = (SceneArea)_sceneArea;
 
             if (currentSceneArea != null && ((SceneArea)currentSceneArea).id == sceneArea.id)
                 return false;

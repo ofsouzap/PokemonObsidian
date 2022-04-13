@@ -1,5 +1,7 @@
-﻿using System;
+﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Audio;
 
 namespace FreeRoaming
@@ -13,6 +15,29 @@ namespace FreeRoaming
 
         private SceneArea? area;
 
+        public SceneArea? GetArea() => area;
+
+        public static SceneAreaController[] GetSceneWildPokemonAreas(Scene scene)
+        {
+
+            return FindObjectsOfType<SceneAreaController>()
+                .Where(x => x.gameObject.scene == scene)
+                .ToArray();
+
+        }
+
+        public static SceneAreaController GetPositionSceneArea(Vector2 pos, Scene scene)
+        {
+
+            IEnumerable<SceneAreaController> matches = GetSceneWildPokemonAreas(scene).Where(x => x.ContainsPosition(pos));
+
+            if (matches.Count() <= 0)
+                return null;
+            else
+                return matches.First();
+
+        }
+
         public int id = 0;
 
         private void Start()
@@ -25,37 +50,17 @@ namespace FreeRoaming
 
         }
 
-        public void OnTriggerEnter2D(Collider2D collision)
+        public void OnPlayerEnterArea()
         {
 
-            //Only act if it is the player that enters the area
-            if (collision.GetComponent<PlayerController>() != null)
-            {
+            area?.TryPlayAreaMusic();
 
-                if (area != null)
-                {
-
-                    if (TrySetAsPlayerCurrentSceneArea())
-                    {
-
-                        area?.TryPlayAreaMusic();
-
-                        area?.TryDisplayAreaNameSign(gameObject.scene);
-
-                    }
-
-                }
-
-            }
+            area?.TryDisplayAreaNameSign(gameObject.scene);
 
         }
 
-        private bool TrySetAsPlayerCurrentSceneArea()
-        {
-
-            return PlayerController.singleton.TrySetCurrentSceneArea((SceneArea)area);
-
-        }
+        public bool ContainsPosition(Vector2 pos)
+            => GetComponent<Collider2D>().bounds.Contains(pos);
 
     }
 }
