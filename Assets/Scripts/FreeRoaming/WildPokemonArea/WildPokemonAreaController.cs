@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pokemon;
 
@@ -9,6 +11,27 @@ namespace FreeRoaming.WildPokemonArea
     {
 
         public Scene Scene => gameObject.scene;
+
+        public static WildPokemonAreaController[] GetSceneWildPokemonAreas(Scene scene)
+        {
+
+            return FindObjectsOfType<WildPokemonAreaController>()
+                .Where(x => x.gameObject.scene == scene)
+                .ToArray();
+
+        }
+
+        public static WildPokemonAreaController GetPositionWildPokemonArea(Vector2 pos, Scene scene)
+        {
+
+            IEnumerable<WildPokemonAreaController> matches = GetSceneWildPokemonAreas(scene).Where(x => x.ContainsPosition(pos));
+
+            if (matches.Count() <= 0)
+                return null;
+            else
+                return matches.First();
+
+        }
 
         [SerializeField]
         private string battleBackgroundResourceName;
@@ -32,29 +55,8 @@ namespace FreeRoaming.WildPokemonArea
         public bool RunEncounterCheck(float chanceMultiplier = 1)
             => Random.Range(0F, 1F) <= GetEncounterChance() * chanceMultiplier;
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-
-            GameCharacterController gcc = collision.GetComponent<GameCharacterController>();
-
-            if (gcc != null)
-            {
-                gcc.SetWildPokemonArea(this);
-            }
-
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-
-            GameCharacterController gcc = collision.GetComponent<GameCharacterController>();
-
-            if (gcc != null)
-            {
-                gcc.ExitWildPokemonArea();
-            }
-
-        }
+        public bool ContainsPosition(Vector2 pos)
+            => GetComponent<Collider2D>().bounds.Contains(pos);
 
     }
 }

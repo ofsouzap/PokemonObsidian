@@ -8,7 +8,7 @@ List of NPC IDs and which NPCs they correspond to
 7 - first NPC in research lab (Okford)
 8 - second NPC in research lab (Okford)
 9-12 - trainers on Route 2
-13-16 - trainers in Cave 1 (Tildahill Passage)
+13-16 - first batch of trainers in Cave 1 (Tildahill Passage)
 17 - Tildahill gym leader
 18 - NPC in house 6 in Tildahill
 19 - NPC in house 7 in Tildahill
@@ -30,3 +30,4 @@ List of NPC IDs and which NPCs they correspond to
 51 - NPC near Casswick gym
 52 - fossil machine NPC in research lab (Okford)
 53 - !! progression guards
+54-59 - second batch of trainers in Cave 1 (Tildahill Passage)

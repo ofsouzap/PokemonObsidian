@@ -38,11 +38,18 @@ namespace FreeRoaming.AreaControllers
 
         }
 
+        /// <summary>
+        /// Whether the scene is running and enabled
+        /// </summary>
         public bool SceneIsActive => sceneRunning && sceneEnabled;
 
         #region Running
 
         protected bool sceneRunning = true;
+
+        /// <summary>
+        /// Whether the scene hasn't been paused
+        /// </summary>
         public bool SceneIsRunning => sceneRunning;
 
         public void SetSceneRunningState(bool state)

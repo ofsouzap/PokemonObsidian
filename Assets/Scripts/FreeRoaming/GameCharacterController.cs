@@ -190,6 +190,9 @@ namespace FreeRoaming
                 }
             }
 
+            //Refresh wild pokemon area
+            WildPokemonAreaRefreshUpdate();
+
         }
 
         protected void RefreshGridManager()
@@ -623,18 +626,25 @@ namespace FreeRoaming
 
         #region Wild Pokemon Area
 
-        public void SetWildPokemonArea(WildPokemonAreaController areaController)
+        protected void WildPokemonAreaRefreshUpdate()
+        {
+
+            if (!sceneController.SceneIsActive)
+                return;
+
+            //If moving, the position to refresh the wild pokemon area with is the movement-targetted position
+            Vector2 wildPokemonAreaQueryPos = isMoving ? movementTargettedGridPosition : position;
+            SetWildPokemonArea(WildPokemonAreaController.GetPositionWildPokemonArea(wildPokemonAreaQueryPos, Scene));
+
+        }
+
+        protected void SetWildPokemonArea(WildPokemonAreaController areaController)
         {
             currentWildPokemonArea = areaController;
         }
 
         public WildPokemonAreaController GetCurrentWildPokemonArea()
             => currentWildPokemonArea;
-
-        public void ExitWildPokemonArea()
-        {
-            currentWildPokemonArea = null;
-        }
 
         #endregion
 
