@@ -33,9 +33,7 @@ namespace FreeRoaming.WildPokemonArea
 
         }
 
-        [SerializeField]
-        private string battleBackgroundResourceName;
-        public string GetBattleBackgroundResourceName() => battleBackgroundResourceName;
+        public string GetBattleBackgroundResourceName() => AreaSpec.battleBackgroundResourceName;
 
         [SerializeField]
         private int wildPokemonAreaId;

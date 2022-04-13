@@ -93,7 +93,7 @@ public static class Saving
 
         public static readonly Dictionary<Status, Func<LoadedData, string>> dataStatusMessages = new Dictionary<Status, Func<LoadedData, string>>()
         {
-            { Status.Success, data => EpochTime.EpochTimeToDateTime(data.saveTime).ToString(Saving.saveTimeDisplayFormat) },
+            { Status.Success, data => EpochTime.EpochTimeToFormattedLocalTime(data.saveTime) },
             { Status.NoData, data => "(No Data)" },
             { Status.Invalid, data => "(Data Corrupted)" }
         };
