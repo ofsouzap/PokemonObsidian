@@ -87,9 +87,9 @@ namespace FreeRoaming.Menu.PlayerMenus.ProfileMenu
             if (player == null)
                 player = PlayerData.singleton;
 
-            DateTime dt = EpochTime.EpochTimeToDateTime(Convert.ToInt64(player.stats.gameStartTime)).ToLocalTime();
+            string dtString = EpochTime.EpochTimeToFormattedLocalTime(Convert.ToInt64(player.stats.gameStartTime));
 
-            return dt.ToString("dd/MM/yyyy HH:mm");
+            return dtString;
 
         }
 
