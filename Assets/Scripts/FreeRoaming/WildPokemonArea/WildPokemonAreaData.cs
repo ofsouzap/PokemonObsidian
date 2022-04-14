@@ -46,8 +46,8 @@ namespace FreeRoaming.WildPokemonArea
          * encounter chance (float 0-1)
          * min level (byte 0-100)
          * max level (byte 0-100)
-         * possible species ids:
-         *     ids (int) separated by ';'
+         * possible species chances:
+         *     {species id};{weighting} separated by ','
          */
 
         public static void LoadData()
@@ -64,7 +64,7 @@ namespace FreeRoaming.WildPokemonArea
                 string battleBackgroundResourceName;
                 float encounterChance;
                 byte minLevel, maxLevel;
-                int[] possibleSpeciesIds;
+                Dictionary<int, float> possibleSpeciesChances;
 
                 if (entry.Length < 6)
                 {
@@ -104,33 +104,43 @@ namespace FreeRoaming.WildPokemonArea
                     maxLevel = 1;
                 }
 
-                string[] speciesIdsEntries = entry[5].Split(';');
-                possibleSpeciesIds = new int[speciesIdsEntries.Length];
+                string[] speciesChanceEntries = entry[5].Split(',');
+                possibleSpeciesChances = new Dictionary<int, float>();
 
-                for (int i = 0; i < speciesIdsEntries.Length; i++)
+                for (int i = 0; i < speciesChanceEntries.Length; i++)
                 {
 
-                    string speciesIdEntry = speciesIdsEntries[i];
+                    string speciesIdEntry = speciesChanceEntries[i];
 
-                    if (!int.TryParse(speciesIdEntry, out int speciesId))
+                    if (!speciesIdEntry.Contains(";"))
                     {
-                        Debug.LogError("Invalid species id for wild pokemon area specification area " + id);
-                        possibleSpeciesIds = new int[1] { 1 };
+                        Debug.LogError("Invalid species chance for wild pokemon area specification (no ;) id - " + id);
                         break;
                     }
-                    else
+
+                    string[] parts = speciesIdEntry.Split(';');
+
+                    if ((!int.TryParse(parts[0], out int speciesId))
+                        || (!float.TryParse(parts[1], out float weighting)))
                     {
-                        possibleSpeciesIds[i] = speciesId;
+                        Debug.LogError("Invalid species id for wild pokemon area specification area (can't parse) id - " + id);
+                        break;
                     }
+
+                    if (possibleSpeciesChances.ContainsKey(speciesId))
+                    {
+                        Debug.LogError("Duplicate species id for species chances for wild pokemon area specification id - " + id);
+                        break;
+                    }
+
+                    possibleSpeciesChances.Add(speciesId, weighting);
 
                 }
 
-                PokemonInstance.WildSpecification wildSpecification = new PokemonInstance.WildSpecification()
-                {
-                    possibleSpeciesIds = possibleSpeciesIds,
-                    minimumLevel = minLevel,
-                    maximumLevel = maxLevel
-                };
+                PokemonInstance.WildSpecification wildSpecification = new PokemonInstance.WildSpecification(
+                    speciesChancesDict: possibleSpeciesChances,
+                    minimumLevel: minLevel,
+                    maximumLevel: maxLevel);
 
                 specs.Add(new WildPokemonAreaSpecification(id, wildSpecification, battleBackgroundResourceName, encounterChance));
 

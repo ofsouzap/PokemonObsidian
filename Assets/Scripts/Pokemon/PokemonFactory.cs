@@ -114,7 +114,7 @@ namespace Pokemon
         /// <param name="maxLevel">The maximum level for the PokemonInstance (inclusive)</param>
         /// <returns>The PokemonInstance created</returns>
         public static PokemonInstance GenerateWild(
-            int[] possibleSpeciesIds,
+            int speciesId,
             byte minLevel,
             byte maxLevel,
             string originalTrainerName = "",
@@ -123,7 +123,7 @@ namespace Pokemon
             )
         {
 
-            int speciesId, experience;
+            int experience;
             byte level;
             int natureId;
             Stats<byte> effortValues;
@@ -132,7 +132,6 @@ namespace Pokemon
             byte[] movePPs;
             bool? gender;
 
-            speciesId = ChooseRandomSpeciesId(possibleSpeciesIds);
             PokemonSpecies species = PokemonSpecies.GetPokemonSpeciesById(speciesId);
 
             #region Stats
@@ -179,6 +178,33 @@ namespace Pokemon
                 );
 
         }
+
+        /// <summary>
+        /// Generate a PokemonInstance as if for in the wild using an array of possible species IDs each with equal weighting
+        /// </summary>
+        /// <param name="possibleSpeciesIds">Array of species ids that the pokemon could be</param>
+        public static PokemonInstance GenerateWild(
+            int[] possibleSpeciesIds,
+            byte minLevel,
+            byte maxLevel,
+            string originalTrainerName = "",
+            Guid? originalTrainerGuid = null,
+            long catchTime = 0)
+            => GenerateWild(
+                speciesId: ChooseRandomSpeciesId(possibleSpeciesIds),
+                minLevel: minLevel,
+                maxLevel: maxLevel,
+                originalTrainerName: originalTrainerName,
+                originalTrainerGuid: originalTrainerGuid,
+                catchTime: catchTime);
+
+        /// <summary>
+        /// Generates a PokemonInstance from a wild specification
+        /// </summary>
+        public static PokemonInstance GenerateFromWildSpecification(PokemonInstance.WildSpecification spec)
+            => GenerateWild(speciesId: spec.ChooseRandomSpecies(),
+                minLevel: spec.minimumLevel,
+                maxLevel: spec.maximumLevel);
 
         public static PokemonInstance GenerateFromBasicSpecification(PokemonInstance.BasicSpecification spec)
         {
