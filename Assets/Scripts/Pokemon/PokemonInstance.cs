@@ -125,15 +125,93 @@ namespace Pokemon
         public struct WildSpecification
         {
 
-            public int[] possibleSpeciesIds;
+            public struct SpeciesChance
+            {
+
+                public int speciesId;
+
+                /// <summary>
+                /// Describes how often this pokemon should be encountered. It is relative to the weightings of the other species in the specification
+                /// </summary>
+                public float encounterWeighting;
+
+                public SpeciesChance(int speciesId, float encounterWeighting)
+                {
+                    this.speciesId = speciesId;
+                    this.encounterWeighting = encounterWeighting;
+                }
+
+                public static SpeciesChance[] DictionaryToSpeciesChances(Dictionary<int, float> speciesChancesDict)
+                {
+
+                    return speciesChancesDict
+                    .Select(pair => new SpeciesChance(pair.Key, pair.Value))
+                    .ToArray();
+
+                }
+
+            }
+
+            public SpeciesChance[] speciesChances;
+            private readonly float totalWeighting;
+
             public byte minimumLevel;
             public byte maximumLevel;
 
+            private static float CalculateTotalWeighting(SpeciesChance[] chances)
+                => chances.Sum(c => c.encounterWeighting);
+
+            public WildSpecification(IEnumerable<SpeciesChance> speciesChances,
+                byte minimumLevel,
+                byte maximumLevel)
+            {
+
+                this.speciesChances = speciesChances.ToArray();
+                this.minimumLevel = minimumLevel;
+                this.maximumLevel = maximumLevel;
+
+                totalWeighting = CalculateTotalWeighting(this.speciesChances);
+
+            }
+
+            public WildSpecification(Dictionary<int, float> speciesChancesDict,
+                byte minimumLevel,
+                byte maximumLevel)
+            {
+
+                this.minimumLevel = minimumLevel;
+                this.maximumLevel = maximumLevel;
+
+                speciesChances = SpeciesChance.DictionaryToSpeciesChances(speciesChancesDict);
+                totalWeighting = CalculateTotalWeighting(speciesChances);
+
+            }
+
+            public int ChooseRandomSpecies()
+            {
+
+                float r = UnityEngine.Random.Range(0, totalWeighting);
+
+                float total = 0;
+
+                foreach (SpeciesChance sc in speciesChances)
+                {
+
+                    total += sc.encounterWeighting;
+
+                    if (r <= total)
+                        return sc.speciesId;
+
+                }
+
+                Debug.LogError("Unable to pick species from species chance weightings, choosing default");
+
+                return speciesChances[0].speciesId;
+
+            }
+
             public PokemonInstance Generate()
-                => PokemonFactory.GenerateWild(
-                    possibleSpeciesIds,
-                    minimumLevel,
-                    maximumLevel);
+                => PokemonFactory.GenerateFromWildSpecification(this);
 
         }
 
