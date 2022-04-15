@@ -455,9 +455,12 @@ namespace FreeRoaming
             Vector2 wildPokemonAreaQueryPos = isMoving ? movementTargettedGridPosition : position;
             SceneAreaController areaController = SceneAreaController.GetPositionSceneArea(wildPokemonAreaQueryPos, Scene);
 
-            if (TrySetCurrentSceneArea(areaController.GetArea()))
+            if (areaController != null)
             {
-                areaController.OnPlayerEnterArea();
+                if (TrySetCurrentSceneArea(areaController.GetArea()))
+                {
+                    areaController.OnPlayerEnterArea();
+                }
             }
 
         }

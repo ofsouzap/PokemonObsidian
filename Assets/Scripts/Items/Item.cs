@@ -60,27 +60,27 @@ namespace Items
         private static void SetItemPrices(ref Item[] items)
         {
 
-            Dictionary<string, int> itemPrices = LoadItemPrices();
+            Dictionary<string, ItemPrices> itemPrices = LoadItemPrices();
 
             foreach (Item item in items)
             {
 
                 if (itemPrices.ContainsKey(item.resourceName))
                 {
-                    item.price = itemPrices[item.resourceName];
+                    item.prices = itemPrices[item.resourceName];
                 }
                 else if (item is TMItem)
                 {
-                    item.price = TMItem.defaultPrice;
+                    item.prices = TMItem.defaultPrices;
                 }
                 else if (item is BattleItem)
                 {
-                    item.price = BattleItem.defaultPrice;
+                    item.prices = BattleItem.defaultPrices;
                 }
                 else
                 {
                     Debug.LogWarning("No price found for item named " + item.resourceName);
-                    item.price = 0;
+                    item.prices = ItemPrices.Zero;
                 }
 
             }
@@ -92,18 +92,39 @@ namespace Items
 
         private const string itemPricesDataPath = "Data/itemPrices";
 
-        private static Dictionary<string, int> LoadItemPrices()
+        public struct ItemPrices
+        {
+
+            public static ItemPrices Zero = new ItemPrices(0, 0);
+
+            public int buyPrice;
+            public int sellPrice;
+
+            public bool CanBuy => buyPrice > 0;
+            public bool CanSell => sellPrice > 0;
+
+            public ItemPrices(int buyPrice, int sellPrice)
+            {
+                this.buyPrice = buyPrice;
+                this.sellPrice = sellPrice;
+            }
+
+        }
+
+        private static Dictionary<string, ItemPrices> LoadItemPrices()
         {
 
             string[][] data = CSV.ReadCSVResource(itemPricesDataPath, true);
 
-            Dictionary<string, int> prices = new Dictionary<string, int>();
+            Dictionary<string, ItemPrices> prices = new Dictionary<string, ItemPrices>();
 
             foreach (string[] entry in data)
             {
 
                 string itemName;
-                int price;
+                int buyPrice, sellPrice;
+
+                //ID
 
                 itemName = entry[0];
 
@@ -113,19 +134,59 @@ namespace Items
                     continue;
                 }
 
-                if (!int.TryParse(entry[1], out price))
+                //Buy Price
+
+                string buyPriceEntry = entry[1];
+
+                if (buyPriceEntry == "")
                 {
-                    Debug.LogError("Invalid price found for item named " + itemName);
-                    price = 0;
+                    buyPrice = -1;
+                }
+                else
+                {
+
+                    if (!int.TryParse(buyPriceEntry, out buyPrice))
+                    {
+                        Debug.LogError("Invalid buy price found for item named " + itemName);
+                        buyPrice = -1;
+                    }
+
+                    if (buyPrice < 0)
+                    {
+                        Debug.LogError("Price lesser than 0 found for item named " + itemName);
+                        buyPrice = -1;
+                    }
+
                 }
 
-                if (price < 0)
+                //Sell Price
+
+                string sellPriceEntry = entry[2];
+
+                if (sellPriceEntry == "")
                 {
-                    Debug.LogError("Price lesser than 0 found for item named " + itemName);
-                    price = 0;
+                    sellPrice = -1;
+                }
+                else
+                {
+
+                    if (!int.TryParse(sellPriceEntry, out sellPrice))
+                    {
+                        Debug.LogError("Invalid sell price found for item named " + itemName);
+                        sellPrice = -1;
+                    }
+
+                    if (sellPrice < 0)
+                    {
+                        Debug.LogError("Price lesser than 0 found for item named " + itemName);
+                        sellPrice = -1;
+                    }
+
                 }
 
-                prices.Add(itemName, price);
+                //Add
+
+                prices.Add(itemName, new ItemPrices(buyPrice, sellPrice));
 
             }
 
@@ -162,9 +223,25 @@ namespace Items
         public string description;
 
         /// <summary>
-        /// How much the item should be bought or sold for
+        /// How much the item can be bought and sold for
         /// </summary>
-        public int price;
+        public ItemPrices prices;
+
+        /// <summary>
+        /// How much the item should be bought for
+        /// </summary>
+        public int BuyPrice
+            => prices.buyPrice;
+
+        public bool CanBuy => prices.CanBuy;
+
+        /// <summary>
+        /// How much the item should be sold for
+        /// </summary>
+        public int SellPrice
+            => prices.sellPrice;
+
+        public bool CanSell => prices.CanSell;
 
         /// <summary>
         /// A method to get whether this item can be used directly from the bag menu in free-roaming. This is usually specific to item types and so they can implement the method

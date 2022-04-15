@@ -4672,6 +4672,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5713558098489743023, guid: 1b9d373425fbdd841ba602b1a6b9d8c5, type: 3}
+      propertyPath: doorDetails.sceneName
+      value: Tildahill
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713558098489743023, guid: 1b9d373425fbdd841ba602b1a6b9d8c5, type: 3}
+      propertyPath: doorDetails.returnPosition.x
+      value: -24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713558098489743023, guid: 1b9d373425fbdd841ba602b1a6b9d8c5, type: 3}
+      propertyPath: doorDetails.returnPosition.y
+      value: 57
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b9d373425fbdd841ba602b1a6b9d8c5, type: 3}
 --- !u!1001 &2412401068854035018

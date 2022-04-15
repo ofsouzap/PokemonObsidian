@@ -14,7 +14,9 @@ namespace FreeRoaming.PokeMart
         public Text textPrice;
         public Image imageIcon;
 
-        public void SetItem(Item item)
+        /// <param name="buying">Whether the item is being bought not sold</param>
+        public void SetItem(Item item,
+            bool buying)
         {
 
             if (item == null)
@@ -30,7 +32,9 @@ namespace FreeRoaming.PokeMart
                 imageIcon.sprite = item.LoadSprite();
                 textName.text = item.itemName;
                 textDescription.text = item.description;
-                textPrice.text = PlayerData.currencySymbol + item.price.ToString();
+                bool showPrice = buying ? item.CanBuy : item.CanSell;
+                int price = buying ? item.BuyPrice : item.SellPrice;
+                textPrice.text = PlayerData.currencySymbol + (showPrice ? price.ToString() : "-");
             }
 
         }
