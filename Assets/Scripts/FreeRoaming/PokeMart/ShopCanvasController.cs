@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using FreeRoaming.Menu;
@@ -53,7 +54,7 @@ namespace FreeRoaming.PokeMart
 
             HideMenu();
 
-            itemDetailsController.SetItem(null);
+            itemDetailsController.SetItem(null, false); //Second parameter doesn't matter if setting as null
             itemsListController.SetUp(fullBorderPrefab, (index) => OnItemSelected(index));
             itemsListController.itemIndexSelected.RemoveAllListeners();
             itemsListController.itemIndexSelected.AddListener(index => SetCurrentSelectionIndex(index));
@@ -174,7 +175,7 @@ namespace FreeRoaming.PokeMart
                 ushort quantity = buyQuantityOptions[i];
                 options[i + 1] = quantity.ToString() + " ("
                     + PlayerData.currencySymbol
-                    + (item.price * quantity).ToString()
+                    + (item.BuyPrice * quantity).ToString()
                     + ")";
             }
 
@@ -205,7 +206,7 @@ namespace FreeRoaming.PokeMart
 
                 //1 is subtracted as first option is cancel
                 ushort quantitySelected = buyQuantityOptions[textBoxController.userChoiceIndexSelected - 1];
-                int totalCost = item.price * quantitySelected;
+                int totalCost = item.BuyPrice * quantitySelected;
 
                 bool userCanAffordSelected = PlayerData.singleton.profile.money >= totalCost;
 
@@ -254,7 +255,7 @@ namespace FreeRoaming.PokeMart
                 ushort quantity = sellQuantityOptions[i];
                 options[i + 1] = quantity.ToString() + " ("
                     + PlayerData.currencySymbol
-                    + (item.price * quantity).ToString()
+                    + (item.SellPrice * quantity).ToString()
                     + ")";
             }
 
@@ -270,64 +271,74 @@ namespace FreeRoaming.PokeMart
 
             Item item = currentItems[index];
 
-            string[] userChoices = GetSellUserChoices(item);
-
-            textBoxController.SetTextInstant("How much would you like to sell?");
-
-            yield return StartCoroutine(textBoxController.GetUserChoice(userChoices));
-
-            if (textBoxController.userChoiceIndexSelected == 0) //Cancel
+            if (!item.CanSell)
             {
-                //Do nothing and proceed to ending this coroutine (after the else block)
+                textBoxController.RevealText("This item can't be sold.");
+                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
             }
             else
             {
 
-                //1 is subtracted as first option is cancel
-                ushort quantitySelected = sellQuantityOptions[textBoxController.userChoiceIndexSelected - 1];
-                int totalCost = item.price * quantitySelected;
+                string[] userChoices = GetSellUserChoices(item);
 
-                bool userHasAmount = PlayerData.singleton.inventory.GetItemInventorySection(item).GetQuantity(item.id) >= quantitySelected;
+                textBoxController.SetTextInstant("How much would you like to sell?");
 
-                if (userHasAmount)
+                yield return StartCoroutine(textBoxController.GetUserChoice(userChoices));
+
+                if (textBoxController.userChoiceIndexSelected == 0) //Cancel
                 {
-
-                    PlayerData.singleton.profile.money += totalCost;
-                    RefreshPlayerMoneyText();
-                    PlayerData.singleton.inventory.RemoveItem(item, quantitySelected);
-
-                    //TODO - sound fx for item sold
-                    textBoxController.RevealText("Thank you, here is your money.");
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
-
-                    int prevItemsCount = currentItems.Length;
-
-                    currentItems = GetItemsForSellMenu(); //This must be done in case the player sold all of an item in their inventory
-
-                    if (currentItems.Length == 0)
-                    {
-                        CloseMenu();
-                        textBoxController.Hide();
-                        yield break;
-                    }
-
-                    SetCurrentItemsList();
-
-                    if (prevItemsCount != currentItems.Length)
-                    {
-                        SetCurrentSelectionIndex(currentSelectionIndex == currentItems.Length ? currentItems.Length - 1 : currentSelectionIndex);
-                    }
-                    else
-                    {
-                        itemsListController.SetCurrentSelectionIndex(currentSelectionIndex);
-                    }
-
+                    //Do nothing and proceed to ending this coroutine (after the else block)
                 }
                 else
                 {
 
-                    textBoxController.RevealText("Sorry but you don't seem to have that many of those.");
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    //1 is subtracted as first option is cancel
+                    ushort quantitySelected = sellQuantityOptions[textBoxController.userChoiceIndexSelected - 1];
+                    int totalCost = item.SellPrice * quantitySelected;
+
+                    bool userHasAmount = PlayerData.singleton.inventory.GetItemInventorySection(item).GetQuantity(item.id) >= quantitySelected;
+
+                    if (userHasAmount)
+                    {
+
+                        PlayerData.singleton.profile.money += totalCost;
+                        RefreshPlayerMoneyText();
+                        PlayerData.singleton.inventory.RemoveItem(item, quantitySelected);
+
+                        //TODO - sound fx for item sold
+                        textBoxController.RevealText("Thank you, here is your money.");
+                        yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+                        int prevItemsCount = currentItems.Length;
+
+                        currentItems = GetItemsForSellMenu(); //This must be done in case the player sold all of an item in their inventory
+
+                        if (currentItems.Length == 0)
+                        {
+                            CloseMenu();
+                            textBoxController.Hide();
+                            yield break;
+                        }
+
+                        SetCurrentItemsList();
+
+                        if (prevItemsCount != currentItems.Length)
+                        {
+                            SetCurrentSelectionIndex(currentSelectionIndex == currentItems.Length ? currentItems.Length - 1 : currentSelectionIndex);
+                        }
+                        else
+                        {
+                            itemsListController.SetCurrentSelectionIndex(currentSelectionIndex);
+                        }
+
+                    }
+                    else
+                    {
+
+                        textBoxController.RevealText("Sorry but you don't seem to have that many of those.");
+                        yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+                    }
 
                 }
 
@@ -359,7 +370,7 @@ namespace FreeRoaming.PokeMart
         private void RefreshCurrentItem()
         {
 
-            itemDetailsController.SetItem(currentItems[currentSelectionIndex]);
+            itemDetailsController.SetItem(currentItems[currentSelectionIndex], currentMode == Mode.Buy);
             itemsListController.SetCurrentSelectionIndex(currentSelectionIndex);
 
         }
@@ -450,6 +461,11 @@ namespace FreeRoaming.PokeMart
 
         public void StartBuyMenu(Item[] items)
         {
+
+            if (items.Any(x => !x.CanBuy))
+            {
+                Debug.LogError("Launching buy menu with items that can't be bought");
+            }
 
             RefreshPlayerMoneyText();
 

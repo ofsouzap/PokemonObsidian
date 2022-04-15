@@ -95,7 +95,7 @@ namespace Items
 
         #endregion
 
-        public const int defaultPrice = 1000;
+        public static readonly ItemPrices defaultPrices = new ItemPrices(700, 350);
 
         public override bool CanBeUsedFromBag()
             => false;
