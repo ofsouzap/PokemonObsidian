@@ -176,6 +176,15 @@ TextureImporter:
   - first:
       213: -4845983514439098428
     second: itemsprite_lucky_egg
+  - first:
+      213: -5909314216834825910
+    second: itemsprite_max_repel
+  - first:
+      213: -406098827669209735
+    second: itemsprite_super_repel
+  - first:
+      213: 3384644372353585980
+    second: itemsprite_repel
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1502,6 +1511,69 @@ TextureImporter:
       bones: []
       spriteID: 4cf55723bab9fbcb0800000000000000
       internalID: -4845983514439098428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_max_repel
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 710
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4105675706edfda0800000000000000
+      internalID: -5909314216834825910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_super_repel
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 710
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97df211944f3d5af0800000000000000
+      internalID: -406098827669209735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: itemsprite_repel
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 710
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c331921cf1ca8fe20800000000000000
+      internalID: 3384644372353585980
       vertices: []
       indices: 
       edges: []

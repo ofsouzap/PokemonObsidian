@@ -51,6 +51,11 @@ public class PlayerData
 
     public bool PartyIsFull { get => GetNumberOfPartyPokemon() == partyPokemon.Length; }
 
+    /// <summary>
+    /// The first non-null pokemon in the player's party who isn't fainted
+    /// </summary>
+    public PokemonInstance PartyConsciousHead => partyPokemon.Where(x => x != null && !x.IsFainted).FirstOrDefault();
+
     public void HealPartyPokemon()
     {
         foreach (PokemonInstance pokemon in partyPokemon)

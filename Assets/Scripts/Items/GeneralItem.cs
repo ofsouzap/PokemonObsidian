@@ -9,7 +9,11 @@ namespace Items
     public class GeneralItem : Item
     {
 
-        public bool usableFromBag;
+        protected bool usableFromBag;
+        protected bool requireTargetPokemon;
+
+        public bool GetRequireTargetPokemon()
+            => requireTargetPokemon;
 
         public override bool CanBeUsedFromBag()
             => usableFromBag;
@@ -48,6 +52,16 @@ namespace Items
 
         public const float razorFangFlinchChance = 0.1F;
 
+        public const int repelId = 79;
+        public const int superRepelId = 76;
+        public const int maxRepelId = 77;
+
+        public const int repelSteps = 100;
+        public const int superRepelSteps = 200;
+        public const int maxRepelSteps = 250;
+
+        public const string repelWearOffMessage = "Repel has worn off";
+
         #region Registry
 
         public static GeneralItem GetGeneralItemItemById(int id)
@@ -63,6 +77,7 @@ namespace Items
          * resource name (string)
          * description (string)
          * can be used from bag? (bool)
+         * require pokemoninstance to use on? (bool)
          */
 
         /// <summary>
@@ -80,7 +95,7 @@ namespace Items
 
                 int id;
                 string itemName, resourceName, description;
-                bool usableFromBag;
+                bool usableFromBag, requireTargetPokemon;
 
                 #region id
 
@@ -118,13 +133,32 @@ namespace Items
 
                 #endregion
 
+                #region requireTargetPokemon
+
+                switch (ParseBooleanProperty(entry[5]))
+                {
+
+                    case true:
+                    case null:
+                        requireTargetPokemon = true;
+                        break;
+
+                    case false:
+                        requireTargetPokemon = false;
+                        break;
+
+                }
+
+                #endregion
+
                 items.Add(new GeneralItem()
                 {
                     id = id,
                     itemName = itemName,
                     resourceName = resourceName,
                     description = description,
-                    usableFromBag = usableFromBag
+                    usableFromBag = usableFromBag,
+                    requireTargetPokemon = requireTargetPokemon
                 });
 
             }
