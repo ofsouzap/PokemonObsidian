@@ -7,6 +7,7 @@ using FreeRoaming.WildPokemonArea;
 using Items;
 using Battle;
 using Audio;
+using Pokemon;
 
 namespace FreeRoaming
 {
@@ -102,6 +103,9 @@ namespace FreeRoaming
 
             //Track player steps walked
             MovementCompleted += () => PlayerData.singleton.AddStepWalked();
+
+            //Reduce repel steps remaining
+            MovementCompleted += () => TryDecrementRepelSteps();
             
         }
 
@@ -294,6 +298,94 @@ namespace FreeRoaming
 
         #endregion
 
+        #region Repel
+
+        protected int repelStepsRemaining = 0;
+
+        /// <summary>
+        /// Reduces number of repel steps remaining by 1 (if repel in use) and notifies the player if the repel's effect now runs out
+        /// </summary>
+        protected void TryDecrementRepelSteps()
+        {
+
+            if (!RepelActive)
+                return;
+
+            repelStepsRemaining--;
+
+            if (!RepelActive) //If repel has just lost its effect
+            {
+
+                StartCoroutine(NotifyPlayerRepelWearOff());
+
+            }
+
+        }
+
+        private IEnumerator NotifyPlayerRepelWearOff()
+        {
+
+            //Text box shouldn't already be shown otherwise the player shouldn't be able to move
+            if (textBoxController.IsShown)
+            {
+                Debug.LogError("Text box was already shown when decrementing player repel steps");
+                yield break;
+            }
+
+            //Scene controller should be active otherwise the player shouldn't be able to move
+            if (!sceneController.SceneIsActive)
+            {
+                Debug.LogError("Scene was not active when decrementing player repel steps");
+                yield break;
+            }
+
+            sceneController.SetSceneRunningState(false);
+            textBoxController.Show();
+
+            textBoxController.RevealText(GeneralItem.repelWearOffMessage);
+            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+
+            textBoxController.Hide();
+            sceneController.SetSceneRunningState(true);
+
+        }
+
+        public bool RepelActive => repelStepsRemaining > 0;
+
+        /// <summary>
+        /// Sets how many steps of repel the player has using an Item instance. This Item instance must be a repel item (this is checked using its id)
+        /// </summary>
+        public void SetRepelSteps(Item item)
+        {
+
+            int steps = item.id switch
+            {
+                GeneralItem.repelId => GeneralItem.repelSteps,
+                GeneralItem.superRepelId => GeneralItem.superRepelSteps,
+                GeneralItem.maxRepelId => GeneralItem.maxRepelSteps,
+                _ => -1
+            };
+
+            if (steps > 0)
+            {
+                SetRepelSteps(steps);
+            }
+            else
+            {
+                Debug.LogError("Item provided to set repel steps isn't a repel item");
+            }
+
+        }
+
+        public void SetRepelSteps(int steps)
+        {
+
+            repelStepsRemaining = steps;
+
+        }
+
+        #endregion
+
         #region Wild Pokemon Area/Battle
 
         public void WildPokemonBattleLaunchUpdate()
@@ -304,7 +396,17 @@ namespace FreeRoaming
                 
                 if (currentWildPokemonArea.RunEncounterCheck(CurrentEncounterChanceMultiplier))
                 {
-                    LaunchWildPokemonBattle(currentWildPokemonArea);
+
+                    PokemonInstance prospectiveOpponentInstance = currentWildPokemonArea.GenerateWildPokemon();
+
+                    //If repel active and prospective opponent has lower level than player party conscious head, don't launch the battle
+                    if (!RepelActive
+                        || prospectiveOpponentInstance.GetLevel() >= PlayerData.singleton.PartyConsciousHead.GetLevel())
+                    {
+
+                        LaunchWildPokemonBattle(currentWildPokemonArea, prospectiveOpponentInstance);
+
+                    }
 
                 }
 
@@ -312,7 +414,8 @@ namespace FreeRoaming
 
         }
 
-        private void LaunchWildPokemonBattle(WildPokemonAreaController pokemonArea)
+        private void LaunchWildPokemonBattle(WildPokemonAreaController pokemonArea,
+            PokemonInstance opponentInstance = null)
         {
 
             BattleEntranceArguments.argumentsSet = true;
@@ -327,7 +430,7 @@ namespace FreeRoaming
             BattleEntranceArguments.battleType = BattleType.WildPokemon;
             BattleEntranceArguments.wildPokemonBattleArguments = new BattleEntranceArguments.WildPokemonBattleArguments()
             {
-                opponentInstance = pokemonArea.GenerateWildPokemon()
+                opponentInstance = opponentInstance ?? pokemonArea.GenerateWildPokemon()
             };
 
             MusicSourceController.singleton.SetTrack(BattleEntranceArguments.defaultPokemonBattleMusicName, true);

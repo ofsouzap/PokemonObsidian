@@ -215,17 +215,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                     break;
 
                 case 1: //Use button
-                    if (CurrentItem.CanBeUsedFromBag())
-                    {
-                        pokemonSelectionMode = PokemonSelectionMode.Use;
-                        ChangeToPokemonSelection();
-                    }
-                    else
-                    {
-                        textBoxController.Show();
-                        textBoxController.SetTextInstant("You can't use this item");
-                        textBoxController.SetHideDelay(1.5F);
-                    }
+                    OnActionChosen_Use();
                     break;
 
                 case 2: //Give button
@@ -241,11 +231,83 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
         }
 
+        private void OnActionChosen_Use()
+        {
+
+            if (CurrentItem.CanBeUsedFromBag())
+            {
+
+                if (CurrentItem is GeneralItem generalCurrentItem
+                    && !generalCurrentItem.GetRequireTargetPokemon())
+                {
+
+                    // General items that don't require a pokemon target to be used
+
+                    // Items are handled for individual cases as functionalities are too unique to generalise
+
+                    // Switch statement for different possible items that are being used
+                    switch (generalCurrentItem.id)
+                    {
+
+                        case GeneralItem.repelId:
+                        case GeneralItem.superRepelId:
+                        case GeneralItem.maxRepelId:
+                            OnActionChosen_Use_Repel(generalCurrentItem);
+                            break;
+
+                        default:
+                            Debug.LogError("Unhandled general no-target-pokemon item id - " + generalCurrentItem.id);
+                            break;
+
+                    }
+
+                    PlayerData.singleton.inventory.RemoveItem(CurrentItem, 1);
+
+                    textBoxController.Show();
+                    textBoxController.SetTextInstant($"{CurrentItem.itemName} was used");
+                    textBoxController.SetHideDelay(1.5F);
+
+                    ChangeToSectionSelection(false);
+
+                }
+                else
+                {
+
+                    // Default case
+
+                    pokemonSelectionMode = PokemonSelectionMode.Use;
+                    ChangeToPokemonSelection();
+
+                }
+
+            }
+            else
+            {
+
+                textBoxController.Show();
+                textBoxController.SetTextInstant("You can't use this item");
+                textBoxController.SetHideDelay(1.5F);
+
+            }
+
+        }
+
         public void OnSelectItem(int index)
         {
             currentItemIndex = index;
             RefreshCurrentItem();
             ChangeToActionSelection();
+        }
+
+        #endregion
+
+        #region Using Items Without Target Pokemon
+
+        private void OnActionChosen_Use_Repel(GeneralItem repelItem)
+        {
+
+            PlayerController.singleton.SetRepelSteps(repelItem);
+
         }
 
         #endregion
@@ -488,7 +550,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                 else
                 {
 
-                    //TODO - deal with special usages for some general items
+                    //TODO - deal with special usages on pokemon for some general items
 
                     //If the selected item can't be used on the selected pokemon
                     textBoxController.Show();
