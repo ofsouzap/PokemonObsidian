@@ -87,6 +87,9 @@ namespace FreeRoaming
         public static Vector2Int[] GetPositionsInDirection(Vector2Int startPosition, GameCharacterController.FacingDirection direction, ushort count)
         {
 
+            if (count == 0)
+                return new Vector2Int[0];
+
             Vector2Int[] positions = new Vector2Int[count];
 
             positions[0] = GetPositionInDirection(startPosition, direction);
