@@ -231,6 +231,9 @@ namespace Pokemon
 
         public Item heldItem;
 
+        public bool HoldingItemWithId(int id)
+            => heldItem != null && heldItem.id == id;
+
         /// <summary>
         /// The PokemonInstance's gender. true means male, false means female and null means genderless
         /// </summary>

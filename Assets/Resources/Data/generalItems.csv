@@ -12,6 +12,7 @@ id (w/o category id),item name,resourceName,description,usable from bag,require 
 108,Dusk Stone,dusk_stone,A peculiar stone that causes some species of pokemon to evolve.,1,1
 109,Dawn Stone,dawn_stone,A peculiar stone that causes some species of pokemon to evolve.,1,1
 110,Oval Stone,oval_stone,A peculiar stone that makes certain species of Pokemon evolve. It is shaped like an egg.,,
+216,Exp. Share,exp_share,An item to be held by a Pokemon. The holder gets a share of a battle's Exp. Points without battling.,,
 221,King's Rock,kings_rock,An item to be held by a Pokemon. It may cause the foe to flinch when the holder inflicts damage.,,
 226,DeepSeaTooth,deep_sea_tooth,"An item to be held by Clamperl. A fang that gleams a sharp silver, it raises the Sp. Atk stat.",,
 227,DeepSeaScale,deep_sea_scale,"An item to be held by Clamperl. A scale that shines a faint pink, it raises the Sp. Def stat.",,

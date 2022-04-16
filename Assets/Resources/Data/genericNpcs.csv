@@ -1,7 +1,7 @@
 id,name,initial dialogs,main dialogs,item given id,item given quantity
 1,Clara,"Hi, {playername}, how's it going?;Oh! Is that a pokemon you've got there? Are you going to be a trainer then?;Well have fun on your adventures and take care!","Hello again, how's the adventuring going?",,
 2,Desmond,"Oh, you got a pokemon, {playername}!;It looks so adorable.;Why don't you give it an everstone to hold?;If it holds an everstone then you don't have to worry about it evolving.;Also, it might learn moves sooner if it doesn't evolve.;Here, have my everstone...",How's your pokemon doing? Did you let it evolve?,229,1
-6,Sarah,,Have you visited the research lab yet? I'm not exactly sure what it is that they research there.,,
+6,Sarah,"You're a trainer aren't you?;Why don't you take this Exp. Share I have, I don't really want it.;If you give it to a pokemon then it can gain experience from a battle even if it doesn't participate.",If a pokemon holds an Exp. Share then it can earn experience from a battle without even battling.,216,1
 7,Scientist,,I think I let out one of our test subjects by accident.,,
 8,Scientist,,I think we're missing one of our test subjects.,,
 18,Mark,"My Chansey gave me this stone earlier but I don't know what to do with it.;Here, why don't you have it.",The stone I gave you is really smooth isn't it?,110,1

@@ -2287,15 +2287,21 @@ namespace Battle
             PokemonInstance opponentActivePokemon = battleData.participantOpponent.ActivePokemon;
 
             List<int> pokemonUsedIndexes = battleData
-                    .playerUsedPokemonPerOpponentPokemon[battleData.participantOpponent.activePokemonIndex];
+                    .playerUsedPokemonPerOpponentPokemon[battleData.participantOpponent.activePokemonIndex]
+                    .Where(x => !battleData.participantPlayer.GetPokemon()[x].IsFainted) //Only consider pokemon that haven't fainted
+                    .ToList();
 
             ushort opponentPokemonBaseExperienceYield = opponentActivePokemon.species.baseExperienceYield;
             byte opponentPokemonLevel = opponentActivePokemon.GetLevel();
 
-            foreach (int playerPokemonIndex in pokemonUsedIndexes)
+            //Go through all pokemon and calculate if they should get experience and EVs
+            for (byte playerPokemonIndex = 0; playerPokemonIndex < PlayerData.partyCapacity; playerPokemonIndex++)
             {
 
                 PokemonInstance playerPokemonInstance = battleData.participantPlayer.GetPokemon()[playerPokemonIndex];
+
+                if (playerPokemonInstance == null)
+                    continue;
 
                 #region Experience Yielding
 
@@ -2303,84 +2309,82 @@ namespace Battle
                 if (playerPokemonInstance.GetLevel() < 100)
                 {
 
-                    int experienceToAdd = (opponentPokemonBaseExperienceYield * opponentPokemonLevel) / (7 * pokemonUsedIndexes.Count);
+                    int experienceToAdd = CalculateExperienceToDistributeToPokemon(playerPartyIndex: playerPokemonIndex,
+                        opponentPokemonBaseExperienceYield: opponentPokemonBaseExperienceYield,
+                        opponentPokemonLevel: opponentPokemonLevel,
+                        playerPokemonUsedIndexes: pokemonUsedIndexes);
 
-                    if (!battleData.isWildBattle)
-                        experienceToAdd = Mathf.FloorToInt(experienceToAdd * 1.5F);
-
-                    //If pokemon holding lucky egg, multiply by 1.5
-                    if (playerPokemonInstance.heldItem != null && playerPokemonInstance.heldItem.id == 231)
-                        experienceToAdd += Mathf.FloorToInt(experienceToAdd * 0.5F);
-
-                    //If pokemon was traded (aka isn't with original trainer), multiply by 1.5
-                    if (playerPokemonInstance.originalTrainerGuid != PlayerData.singleton.profile.guid)
-                        experienceToAdd += Mathf.FloorToInt(experienceToAdd * 0.5F);
-
-                    byte previousPlayerPokemonLevel = playerPokemonInstance.GetLevel();
-                    int previousPlayerPokemonExperience = playerPokemonInstance.experience;
-
-                    playerPokemonInstance.AddMaxExperience(experienceToAdd);
-
-                    battleAnimationSequencer.EnqueueSingleText(
-                        playerPokemonInstance.GetDisplayName()
-                        + " gained "
-                        + experienceToAdd.ToString()
-                        + " experience",
-                        true);
-
-                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
-
-                    //If the current pokemon is the active pokemon, show the experience gain in the battle layout
-                    if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
+                    //Only bother running experience-giving code if experience is being given
+                    if (experienceToAdd > 0)
                     {
 
-                        battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
-                        {
-                            type = BattleAnimationSequencer.Animation.Type.PlayerPokemonExperienceGain,
-                            experienceGainGrowthType = playerPokemonInstance.growthType,
-                            experienceGainInitialExperience = previousPlayerPokemonExperience,
-                            experienceGainNewExperience = battleData.participantPlayer.ActivePokemon.experience
-                        });
+                        byte previousPlayerPokemonLevel = playerPokemonInstance.GetLevel();
+                        int previousPlayerPokemonExperience = playerPokemonInstance.experience;
 
-                        yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+                        playerPokemonInstance.AddMaxExperience(experienceToAdd);
 
-                    }
-
-                    if (previousPlayerPokemonLevel != playerPokemonInstance.GetLevel())
-                    {
-
-                        //TODO - level up animation
                         battleAnimationSequencer.EnqueueSingleText(
                             playerPokemonInstance.GetDisplayName()
-                            + " levelled up to level "
-                            + playerPokemonInstance.GetLevel().ToString()
-                            + '!');
+                            + " gained "
+                            + experienceToAdd.ToString()
+                            + " experience",
+                            true);
 
-                        SoundFXController.singleton.PlaySound("level_up");
                         yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
+                        //If the current pokemon is the active pokemon, show the experience gain in the battle layout
                         if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
-                            battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateLevel(playerPokemonInstance.GetLevel());
-
-                        #region Evolution
-
-                        if (playerPokemonInstance.heldItem == null || playerPokemonInstance.heldItem.id != 229) //Only consider evolving if not holding everstone
                         {
 
-                            PokemonSpecies.Evolution evolution = playerPokemonInstance.TryFindEvolution();
-
-                            if (evolution != null)
+                            battleAnimationSequencer.EnqueueAnimation(new BattleAnimationSequencer.Animation()
                             {
-                                yield return StartCoroutine(EvolvePokemon(playerPokemonInstance,
-                                    evolution,
-                                    playerPokemonIndex == battleData.participantPlayer.activePokemonIndex));
-                            }
+                                type = BattleAnimationSequencer.Animation.Type.PlayerPokemonExperienceGain,
+                                experienceGainGrowthType = playerPokemonInstance.growthType,
+                                experienceGainInitialExperience = previousPlayerPokemonExperience,
+                                experienceGainNewExperience = battleData.participantPlayer.ActivePokemon.experience
+                            });
+
+                            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
 
                         }
 
-                        #endregion
+                        if (previousPlayerPokemonLevel != playerPokemonInstance.GetLevel())
+                        {
 
-                        yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted_LevelUpMoveLearning(playerPokemonInstance, previousPlayerPokemonLevel));
+                            //TODO - level up animation
+                            battleAnimationSequencer.EnqueueSingleText(
+                                playerPokemonInstance.GetDisplayName()
+                                + " levelled up to level "
+                                + playerPokemonInstance.GetLevel().ToString()
+                                + '!');
+
+                            SoundFXController.singleton.PlaySound("level_up");
+                            yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                            if (playerPokemonIndex == battleData.participantPlayer.activePokemonIndex)
+                                battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateLevel(playerPokemonInstance.GetLevel());
+
+                            #region Evolution
+
+                            if (playerPokemonInstance.heldItem == null || playerPokemonInstance.heldItem.id != 229) //Only consider evolving if not holding everstone
+                            {
+
+                                PokemonSpecies.Evolution evolution = playerPokemonInstance.TryFindEvolution();
+
+                                if (evolution != null)
+                                {
+                                    yield return StartCoroutine(EvolvePokemon(playerPokemonInstance,
+                                        evolution,
+                                        playerPokemonIndex == battleData.participantPlayer.activePokemonIndex));
+                                }
+
+                            }
+
+                            #endregion
+
+                            yield return StartCoroutine(MainBattleCoroutine_CheckPokemonFainted_LevelUpMoveLearning(playerPokemonInstance, previousPlayerPokemonLevel));
+
+                        }
 
                     }
 
@@ -2390,13 +2394,90 @@ namespace Battle
 
                 #region EV Yielding
 
-                Stats<byte> opponentPokemonEVYield = opponentActivePokemon.species.evYield;
+                //If pokemon should get EVs, give it EVs
+                if (pokemonUsedIndexes.Contains(playerPokemonIndex) || playerPokemonInstance.HoldingItemWithId(GeneralItem.expShareId))
+                {
 
-                playerPokemonInstance.AddEffortValuePoints(opponentPokemonEVYield);
+                    Stats<byte> opponentPokemonEVYield = opponentActivePokemon.species.evYield;
+
+                    playerPokemonInstance.AddEffortValuePoints(opponentPokemonEVYield);
+
+                }
 
                 #endregion
 
             }
+
+        }
+
+        private int CalculateExperienceToDistributeToPokemon(int playerPartyIndex,
+            ushort opponentPokemonBaseExperienceYield,
+            byte opponentPokemonLevel,
+            List<int> playerPokemonUsedIndexes)
+        {
+
+            bool expShareInParty = battleData.participantPlayer.GetPokemon()
+                .Where(p => p != null)
+                .Any(p => p.HoldingItemWithId(GeneralItem.expShareId));
+
+            int pmonUsedCount = playerPokemonUsedIndexes.Count;
+            int expShareHoldingCount = battleData.participantPlayer.GetPokemon()
+                .Where(p => p != null)
+                .Where(p => p.HoldingItemWithId(GeneralItem.expShareId)).Count();
+
+            PokemonInstance playerPokemonInstance = battleData.participantPlayer.GetPokemon()[playerPartyIndex];
+
+            if (playerPokemonInstance == null)
+                return 0;
+
+            bool pmonWasUsed = playerPokemonUsedIndexes.Contains(playerPartyIndex);
+            bool pmonHoldingExpShare = playerPokemonInstance.HoldingItemWithId(GeneralItem.expShareId);
+
+            //If pokemon wasn't used and isn't holding exp. share, it has no reason to gain any experience
+            if (!pmonWasUsed && !pmonHoldingExpShare)
+                return 0;
+
+            //How much experience is being distributed between the party pokemon
+            int preDistributionExp = (opponentPokemonBaseExperienceYield * opponentPokemonLevel) / 7;
+
+            int exp;
+
+            if (!expShareInParty) //If no exp. share in party, exp. distributed evenly between used pokemon
+                exp = preDistributionExp / pmonUsedCount;
+            else
+            {
+
+                //If exp. share in party, half exp. distributed to pokemon with exp. share, half distributed to used pokemon. These are not independent.
+
+                exp = 0;
+
+                if (pmonWasUsed)
+                    exp += preDistributionExp / (2 * pmonUsedCount);
+
+                if (pmonHoldingExpShare)
+                    exp += preDistributionExp / (2 * expShareHoldingCount);
+
+                if (exp == 0)
+                {
+                    Debug.Log("Exp. share in party but valid pokemon is getting no experience");
+                    return 0;
+                }
+
+            }
+
+            //If battling a trainer, multiply by 1.5
+            if (!battleData.isWildBattle)
+                exp = Mathf.FloorToInt(exp * 1.5F);
+
+            //If pokemon holding lucky egg, multiply by 1.5
+            if (playerPokemonInstance.HoldingItemWithId(GeneralItem.luckyEggId))
+                exp += Mathf.FloorToInt(exp * 0.5F);
+
+            //If pokemon was traded (aka isn't with original trainer), multiply by 1.5
+            if (playerPokemonInstance.originalTrainerGuid != PlayerData.singleton.profile.guid)
+                exp += Mathf.FloorToInt(exp * 0.5F);
+
+            return exp;
 
         }
 
