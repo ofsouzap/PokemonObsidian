@@ -87,7 +87,7 @@ namespace Pokemon.Moves
             PokemonInstance target)
         {
 
-            if (user.heldItem != null && user.heldItem.id == 233 && type == Type.Steel) // Metal coat sets power to 1.2x if steel move
+            if (user.HoldingItemWithId(GeneralItem.metalCoatId) && type == Type.Steel) // Metal coat sets power to 1.2x if steel move
             {
                 return Convert.ToByte(power + (power / 5));
             }
@@ -1053,9 +1053,9 @@ namespace Pokemon.Moves
             PokemonInstance target,
             BattleData battleData)
         { 
-            if (user.heldItem != null && user.heldItem.id == 221 && flinchChance == 0) // King's rock gives non-flinching moves flinch chance
+            if (user.HoldingItemWithId(GeneralItem.kingsRockId) && flinchChance == 0) // King's rock gives non-flinching moves flinch chance
                 return battleData.RandomRange(0f, 1f) < GeneralItem.kingsRockFlinchChance;
-            else if (user.heldItem != null && user.heldItem.id == 327 && flinchChance == 0) // Razor fang gives non-flinching moves flinch chance
+            else if (user.HoldingItemWithId(GeneralItem.razorFangId) && flinchChance == 0) // Razor fang gives non-flinching moves flinch chance
                 return battleData.RandomRange(0f, 1f) < GeneralItem.razorFangFlinchChance;
             else
                 return battleData.RandomRange(0f, 1f) < flinchChance;

@@ -48,19 +48,32 @@ namespace Items
 
         }
 
-        public const float kingsRockFlinchChance = 0.1F;
-
-        public const float razorFangFlinchChance = 0.1F;
+        #region Item IDs
 
         public const int repelId = 79;
         public const int superRepelId = 76;
         public const int maxRepelId = 77;
+        public const int expShareId = 216;
+        public const int luckyEggId = 231;
+        public const int metalCoatId = 233;
+        public const int kingsRockId = 221;
+        public const int razorFangId = 327;
+
+        #endregion
+
+        #region Item Properties
+
+        public const float kingsRockFlinchChance = 0.1F;
+
+        public const float razorFangFlinchChance = 0.1F;
 
         public const int repelSteps = 100;
         public const int superRepelSteps = 200;
         public const int maxRepelSteps = 250;
 
         public const string repelWearOffMessage = "Repel has worn off";
+
+        #endregion
 
         #region Registry
 

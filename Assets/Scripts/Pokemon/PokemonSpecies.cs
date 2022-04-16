@@ -185,12 +185,7 @@ namespace Pokemon
                 if (heldItemId == null)
                     heldItemCondition = true;
                 else
-                {
-                    if (pokemon.heldItem == null) //If an item isn't held but an item was required
-                        heldItemCondition = false;
-                    else //Check whether the used item is the item required for the evolution
-                        heldItemCondition = pokemon.heldItem.id == heldItemId; //The type id of the item isn't included in Evolution.itemId
-                }
+                    heldItemCondition = pokemon.HoldingItemWithId((int)heldItemId);
 
                 bool specialCondition = condition == null ? true : condition(pokemon);
 
