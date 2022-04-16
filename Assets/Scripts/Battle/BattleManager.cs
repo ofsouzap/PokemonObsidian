@@ -2416,18 +2416,32 @@ namespace Battle
             List<int> playerPokemonUsedIndexes)
         {
 
+            //Whether a relevant pokemon is holding an exp. share
             bool expShareInParty = battleData.participantPlayer.GetPokemon()
                 .Where(p => p != null)
+                .Where(p => !p.IsFainted) //Don't count fainted pokemon
                 .Any(p => p.HoldingItemWithId(GeneralItem.expShareId));
 
-            int pmonUsedCount = playerPokemonUsedIndexes.Count;
+            //Number of relevant used pokemon
+            int pmonUsedCount = playerPokemonUsedIndexes
+                .Select(x => battleData.participantPlayer.GetPokemon()[x])
+                .Where(p => !p.IsFainted) //Don't count fainted pokemon
+                .Count();
+
+            //Number of pokemon holding exp. share in consideration
             int expShareHoldingCount = battleData.participantPlayer.GetPokemon()
                 .Where(p => p != null)
-                .Where(p => p.HoldingItemWithId(GeneralItem.expShareId)).Count();
+                .Where(p => p.HoldingItemWithId(GeneralItem.expShareId))
+                .Where(p => !p.IsFainted) //Don't count fainted pokemon
+                .Count();
 
             PokemonInstance playerPokemonInstance = battleData.participantPlayer.GetPokemon()[playerPartyIndex];
 
             if (playerPokemonInstance == null)
+                return 0;
+
+            //Don't get experience if fainted
+            if (playerPokemonInstance.IsFainted)
                 return 0;
 
             bool pmonWasUsed = playerPokemonUsedIndexes.Contains(playerPartyIndex);
