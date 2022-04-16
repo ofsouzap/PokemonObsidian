@@ -21,6 +21,9 @@ namespace Pokemon.Moves
 
         }
 
+        public override bool RunFailureCheck(BattleData battleData, PokemonInstance user, PokemonInstance target)
+            => base.RunFailureCheck(battleData, user, target) || target.nonVolatileStatusCondition != PokemonInstance.NonVolatileStatusCondition.Asleep; //Move only works if target is asleep
+
         public override bool GetInflictsNightmare(PokemonInstance user, PokemonInstance target, BattleData battleData)
             => true;
 

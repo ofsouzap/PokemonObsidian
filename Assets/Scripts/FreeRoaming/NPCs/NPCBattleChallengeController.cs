@@ -57,7 +57,7 @@ namespace FreeRoaming.NPCs
         }
 
         protected bool PlayerInView
-            => GetPositionsInFront(visibilityDistance).Contains(PlayerController.singleton.position);
+            => visibilityDistance > 0 && GetPositionsInFront(visibilityDistance).Contains(PlayerController.singleton.position);
         //I am checking the player's position not any of their positions so that the player has to have finished moving before they are challenged
 
         public override void Interact(GameCharacterController interacter)

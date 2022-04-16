@@ -31,3 +31,6 @@ List of NPC IDs and which NPCs they correspond to
 52 - fossil machine NPC in research lab (Okford)
 53 - !! progression guards
 54-59 - second batch of trainers in Cave 1 (Tildahill Passage)
+60-61 - trainers in Okford gym
+62-63 - trainers in Tildahill gym
+64-65 - trainers in Casswick gym
