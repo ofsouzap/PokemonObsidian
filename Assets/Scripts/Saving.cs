@@ -135,7 +135,7 @@ public static class Saving
 
     }
 
-    public static IEnumerable<LoadedData> LoadAllSlotDatas()
+    public static IEnumerable<LoadedData> LoadAllSlotData()
     {
         for (int i = 0; i < saveSlotFileNames.Length; i++)
             yield return LoadData(i);
@@ -164,7 +164,15 @@ public static class Saving
         try
         {
 
-            Serialize.DeserializeData(fileStream,
+            long dataStartPos = fileStream.Position;
+
+            ushort matchingSerializerVersion = Serialize.DeserializeSaveDataSerializerNumber(fileStream);
+
+            //As the serializer version was read from the file stream, the stream position must be reset to where it was before this was read
+            fileStream.Position = dataStartPos;
+
+            Serialize.DeserializeData(versionNumber: matchingSerializerVersion,
+                stream: fileStream,
                 out long saveTime,
                 out PlayerData playerData,
                 out GameSettings gameSettings,

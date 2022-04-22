@@ -27,13 +27,7 @@ namespace Serialization
                 player = PlayerData.singleton;
 
             //Save details
-            stream.Write(fileSignatureBytes, 0, 8);
-
-            buffer = BitConverter.GetBytes(GetVersionCode());
-            stream.Write(buffer, 0, 2);
-
-            buffer = BitConverter.GetBytes(EpochTime.SecondsNow);
-            stream.Write(buffer, 0, 8);
+            SerializeDetails(stream);
 
             //Player
             buffer = player.profile.guid.ToByteArray();
@@ -239,7 +233,7 @@ namespace Serialization
             buffer = pokemon.guid.ToByteArray();
             stream.Write(buffer, 0, 16);
 
-            SerializeString(stream, pokemon.nickname);
+            SerializeString(stream, pokemon.nickname ?? "");
             SerializeHeldItem(stream, pokemon);
             SerializeNullableBool(stream, pokemon.gender);
 
@@ -442,22 +436,11 @@ namespace Serialization
             GameSettings.TextSpeed textSpeed;
             float musicVolume, sfxVolume;
 
-            //Save Details
-            buffer = new byte[8];
-            stream.Read(buffer, 0, 8);
-            long fileSignature = BitConverter.ToInt64(buffer, 0);
-            if (fileSignature != Serializer.fileSignature)
-                throw new ArgumentException("Invalid file signature of provided data");
+            //Header
+            DeserializeDetails(stream, out ushort saveFileVersion, out saveTime);
 
-            buffer = new byte[2];
-            stream.Read(buffer, 0, 2);
-            ushort saveFileVersion = BitConverter.ToUInt16(buffer, 0);
             if (saveFileVersion != GetVersionCode())
                 throw new SerializerVersionMismatchException("Save file version of provided data isn't valid for this serializer", saveFileVersion, GetVersionCode());
-
-            buffer = new byte[8];
-            stream.Read(buffer, 0, 8);
-            saveTime = BitConverter.ToInt64(buffer, 0);
 
             //Player
             buffer = new byte[16];

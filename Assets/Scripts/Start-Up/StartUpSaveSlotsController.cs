@@ -28,7 +28,7 @@ namespace StartUp
         {
 
             int saveIndex = 0;
-            foreach (Saving.LoadedData data in Saving.LoadAllSlotDatas())
+            foreach (Saving.LoadedData data in Saving.LoadAllSlotData())
             {
 
                 saveSlots[saveIndex].SetUp(saveIndex,

@@ -11,7 +11,13 @@ namespace FreeRoaming.AreaControllers
     public class FreeRoamSceneController : GeneralSceneManager
     {
 
-        protected virtual void Start() { }
+        protected TextBoxController textBoxController;
+
+        protected virtual void Start()
+        {
+            textBoxController = TextBoxController.GetTextBoxController(Scene);
+        }
+
         protected virtual void Update() { }
 
         public static FreeRoamSceneController GetFreeRoamSceneController(Scene scene)

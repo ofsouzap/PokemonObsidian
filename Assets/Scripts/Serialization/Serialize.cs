@@ -13,7 +13,8 @@ namespace Serialization
         /// </summary>
         private static readonly Dictionary<ushort, Serializer> serializers = new Dictionary<ushort, Serializer>()
         {
-            { 1, new Serializer_v1() }
+            { 1, new Serializer_v1() }, //For v1.0.0a1-v1.0.0a3
+            { 2, new Serializer_v2() }, //For v1.0.0a4-
         };
 
         public static ushort defaultSerializerVersion
@@ -21,6 +22,19 @@ namespace Serialization
 
         public static Serializer DefaultSerializer
             => serializers[defaultSerializerVersion];
+
+        public static ushort DeserializeSaveDataSerializerNumber(Stream stream)
+        {
+
+            Serializer.DeserializeDetails(stream,
+                out ushort saveFileVersion,
+                out _);
+
+            return serializers
+                .First(p => p.Value.GetVersionCode() == saveFileVersion)
+                .Key;
+
+        }
 
         public static ushort GetSaveDataVersionNumber(Stream stream)
         {

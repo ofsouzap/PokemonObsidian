@@ -182,6 +182,9 @@ namespace FreeRoaming.NPCs
             ? GetFullName() + ": " + message
             : message;
 
+        /// <summary>
+        /// Has the NPC "speak" the given messages including pausing the scene and showing the text box if needed and undoing it afterwards if it did.
+        /// </summary>
         protected IEnumerator Speak(string[] messages)
         {
 

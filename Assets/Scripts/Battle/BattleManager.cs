@@ -45,11 +45,71 @@ namespace Battle
 
         }
 
+        #region Battle End Event
+
+        /// <summary>
+        /// Possible outcomes for a battle
+        /// </summary>
+        public enum BattleOutcome
+        {
+            OtherVictory, //An unspecified outcome BUT the player is assumed to have won
+            Loss, //The player loses
+            DefeatOpponent, //The player defeats all of the opponent participant's pokemon
+            CatchOpponent, //The player catches the opposing pokemon and the battle ends
+            PlayerFlees, //The player flees
+            OpponentFlees, //The opponent flees
+        }
+
+        public struct BattleEndInfo
+        {
+
+            public BattleOutcome outcome;
+
+            /// <summary>
+            /// Whether the player "won" the battle (eg they caught the opponent or defeated them)
+            /// </summary>
+            public bool PlayerVictorious
+            {
+                get
+                {
+
+                    bool? outcomeN = outcome switch
+                    {
+                        BattleOutcome.OtherVictory => true,
+                        BattleOutcome.Loss => false,
+                        BattleOutcome.DefeatOpponent => true,
+                        BattleOutcome.CatchOpponent => true,
+                        BattleOutcome.PlayerFlees => false,
+                        BattleOutcome.OpponentFlees => false,
+                        _ => null
+                    };
+
+                    if (outcomeN == null)
+                        throw new Exception("Unhandled BattleOutcome when deciding if player was victorious in BattleEndInfo");
+                    else
+                        return (bool)outcomeN;
+
+                }
+            }
+
+            public BattleEndInfo(BattleOutcome outcome)
+            {
+                this.outcome = outcome;
+            }
+
+        }
+
+        public delegate void BattleEnding(BattleEndInfo info);
+
         /// <summary>
         /// Event that triggers when the player completes their battle. When a battle is ended, all listeners are cleared whether or not the player wins.
         /// Event listeners should be added when a battle is just about to be launched (for example to mark a trainer NPC as battled if the player defeats them)
         /// </summary>
-        public static UnityEvent OnBattleVictory = new UnityEvent();
+        public static event BattleEnding OnBattleEnd;
+
+        private bool battleEndInvoked;
+
+        #endregion
 
         public BattleAnimationSequencer battleAnimationSequencer;
 
@@ -129,6 +189,8 @@ namespace Battle
         {
 
             #region Initial Setup
+
+            battleEndInvoked = false;
 
             //If the battle entrance arguments don't seem to be set, use whatever values are present at the time but still log an error
             if (!BattleEntranceArguments.argumentsSet)
@@ -961,6 +1023,8 @@ namespace Battle
                             + " was defeated by "
                             + battleData.participantOpponent.GetName(), true);
 
+                        InvokeBattleEnding(BattleOutcome.Loss);
+
                     }
                     else
                     {
@@ -971,8 +1035,7 @@ namespace Battle
                             + " defeated "
                             + battleData.participantOpponent.GetName(), true);
 
-                        OnBattleVictory.Invoke();
-                        OnBattleVictory.RemoveAllListeners();
+                        InvokeBattleEnding(BattleOutcome.DefeatOpponent);
 
                     }
 
@@ -988,7 +1051,7 @@ namespace Battle
             else if (battleData.participantPlayer.CheckIfDefeated()) //If player is defeated, it counts as a loss
             {
 
-                OnBattleVictory.RemoveAllListeners();
+                InvokeBattleEnding(BattleOutcome.Loss);
 
                 //If player lost (a draw counts as the player losing)
 
@@ -1118,8 +1181,18 @@ namespace Battle
 
                     }
 
-                    OnBattleVictory.Invoke();
-                    OnBattleVictory.RemoveAllListeners();
+                    //If a battle ending hasn't already been set (eg the opponent was caught), the ending is set to the player defeating the opponent
+                    if (!battleEndInvoked)
+                        InvokeBattleEnding(BattleOutcome.DefeatOpponent);
+
+                }
+                else
+                {
+
+                    //If player fled
+
+                    if (!battleEndInvoked)
+                        InvokeBattleEnding(BattleOutcome.PlayerFlees);
 
                 }
 
@@ -1128,7 +1201,25 @@ namespace Battle
 
             }
 
+            if (!battleEndInvoked)
+                Debug.LogWarning("Battle ended but battle end event wasn't invoked");
+
             #endregion
+
+        }
+
+        private void InvokeBattleEnding(BattleOutcome outcome)
+        {
+
+            if (battleEndInvoked)
+                Debug.LogError("Battle end being invoked more than once");
+
+            BattleEndInfo endInfo = new BattleEndInfo(outcome);
+
+            OnBattleEnd?.Invoke(endInfo);
+            OnBattleEnd = null;
+
+            battleEndInvoked = true;
 
         }
 
@@ -4162,6 +4253,9 @@ namespace Battle
 
                 //End the battle
                 battleData.battleRunning = false;
+
+                //Set battle end cause
+                InvokeBattleEnding(BattleOutcome.CatchOpponent);
 
             }
 

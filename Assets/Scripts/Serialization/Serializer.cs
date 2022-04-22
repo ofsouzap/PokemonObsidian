@@ -35,6 +35,21 @@ namespace Serialization {
 
         #region Serialization
 
+        public void SerializeDetails(Stream stream)
+        {
+
+            byte[] buffer;
+
+            stream.Write(fileSignatureBytes, 0, 8);
+
+            buffer = BitConverter.GetBytes(GetVersionCode());
+            stream.Write(buffer, 0, 2);
+
+            buffer = BitConverter.GetBytes(EpochTime.SecondsNow);
+            stream.Write(buffer, 0, 8);
+
+        }
+
         public abstract void SerializeData(Stream stream, PlayerData player = null);
 
         public abstract void SerializePokemonInstance(Stream stream, PokemonInstance pokemon);
@@ -247,6 +262,32 @@ namespace Serialization {
         #endregion
 
         #region Deserialization
+
+        public static void DeserializeDetails(Stream stream,
+            out ushort saveFileVersion,
+            out long saveTime)
+        {
+
+            byte[] buffer;
+
+            //File Signature
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            long fileSignature = BitConverter.ToInt64(buffer, 0);
+            if (fileSignature != Serializer.fileSignature)
+                throw new ArgumentException("Invalid file signature of provided data");
+
+            //Save File Version
+            buffer = new byte[2];
+            stream.Read(buffer, 0, 2);
+            saveFileVersion = BitConverter.ToUInt16(buffer, 0);
+
+            //Save Time
+            buffer = new byte[8];
+            stream.Read(buffer, 0, 8);
+            saveTime = BitConverter.ToInt64(buffer, 0);
+
+        }
 
         public abstract void DeserializeData(Stream stream,
             out long saveTime,
