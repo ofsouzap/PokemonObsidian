@@ -45,7 +45,7 @@ namespace FreeRoaming.Menu.PlayerMenus.SaveMenu
         {
 
             int slotIndex = 0;
-            foreach (Saving.LoadedData data in Saving.LoadAllSlotDatas())
+            foreach (Saving.LoadedData data in Saving.LoadAllSlotData())
             {
 
                 uiSaveSlots[slotIndex].SetUp(slotIndex,

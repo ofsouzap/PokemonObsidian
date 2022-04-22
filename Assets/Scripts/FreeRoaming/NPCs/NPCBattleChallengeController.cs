@@ -42,6 +42,9 @@ namespace FreeRoaming.NPCs
             
             trainerDetails = TrainersData.GetTrainerDetailsByTrainerId(id);
 
+            if (trainerDetails == null)
+                Debug.LogError("No trainer details for trainer with id - " + id);
+
             challengingPlayer = false;
 
         }
@@ -135,8 +138,12 @@ namespace FreeRoaming.NPCs
         protected virtual void SetOnVictoryListeners()
         {
 
-            //NPC as battled if the player defeats them
-            BattleManager.OnBattleVictory.AddListener(() => PlayerData.singleton.SetNPCBattled(id));
+            //Set NPC as battled if the player defeats them
+            BattleManager.OnBattleEnd += (info) =>
+            {
+                if (info.PlayerVictorious)
+                    PlayerData.singleton.SetNPCBattled(id);
+            };
 
         }
 

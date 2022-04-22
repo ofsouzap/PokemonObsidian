@@ -13,3 +13,4 @@ id,battle background resource,encounter chance,min level,max level,species chanc
 12,forest,0.1,14,15,"114;10,69;10,167;5"
 13,forest,0.1,15,16,"397;3,167;6,267;6,48;10"
 14,cave,0.05,8,9,"41;5,50;10,66;10,74;5"
+15,indoor,0.05,7,8,"92;10,353;5,355;5"

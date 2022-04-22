@@ -106,6 +106,13 @@ namespace FreeRoaming
 
             //Reduce repel steps remaining
             MovementCompleted += () => TryDecrementRepelSteps();
+
+            //When movement completed, make sure a respawn scene stack is set. Otherwise set one and display an error message
+            MovementCompleted += () =>
+            {
+                if (!PlayerData.singleton.respawnSceneStackSet)
+                    RefreshRespawnSceneStackFromCurrent();
+            };
             
         }
 

@@ -33,11 +33,15 @@ namespace FreeRoaming.NPCs
 
             base.SetOnVictoryListeners();
 
-            //If player wins, record their victory
-            BattleManager.OnBattleVictory.AddListener(() => { PlayerData.singleton.SetGymDefeated(gymId); });
-
-            //Add friendship to player's pokemon for gym victory
-            BattleManager.OnBattleVictory.AddListener(() => { PlayerData.singleton.AddPartyPokemonFriendshipForGymVictory(); });
+            BattleManager.OnBattleEnd += (info) =>
+            {
+                //If player wins...
+                if (info.PlayerVictorious)
+                {
+                    PlayerData.singleton.SetGymDefeated(gymId); //...record their victory
+                    PlayerData.singleton.AddPartyPokemonFriendshipForGymVictory(); //...and add friendship to player's pokemon for gym victory
+                }
+            };
 
         }
 

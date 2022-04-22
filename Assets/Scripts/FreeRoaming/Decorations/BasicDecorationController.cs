@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FreeRoaming.Decorations
 {
-    public class BasicDecorationController : MessageDecorationController
+    public sealed class BasicDecorationController : MessageDecorationController
     {
 
         public string[] messages;

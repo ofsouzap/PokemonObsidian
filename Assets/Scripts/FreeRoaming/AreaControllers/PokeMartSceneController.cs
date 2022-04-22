@@ -9,7 +9,6 @@ namespace FreeRoaming.AreaControllers
     public class PokeMartSceneController : FreeRoamSceneController
     {
 
-        private TextBoxController textBoxController;
         [SerializeField]
         private ShopCanvasController shopCanvasController;
 
@@ -19,8 +18,6 @@ namespace FreeRoaming.AreaControllers
         {
 
             base.Start();
-
-            textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
             pokeMartId = GameSceneManager.CurrentSceneInstanceId;
 

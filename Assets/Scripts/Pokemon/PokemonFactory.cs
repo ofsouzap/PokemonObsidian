@@ -229,7 +229,11 @@ namespace Pokemon
             else
             {
                 moves = spec.moveIds;
-                movePPs = moves.Select(x => Moves.PokemonMove.GetPokemonMoveById(x).maxPP).ToArray();
+                movePPs = moves
+                    .Select(x => Moves.PokemonMove.MoveIdIsUnset(x)
+                    ? (byte)0
+                    : Moves.PokemonMove.GetPokemonMoveById(x).maxPP)
+                    .ToArray();
             }
             gender = spec.GetGender();
 

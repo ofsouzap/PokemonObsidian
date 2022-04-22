@@ -1050,4 +1050,28 @@ public class PlayerData
 
     #endregion
 
+    #region Progression Events
+
+    public List<ProgressionEvent> completedProgressionEvents = new List<ProgressionEvent>();
+
+    public int[] CompletedProgressionEventCodesArray
+        => completedProgressionEvents
+        .Select(pe => (int)pe)
+        .ToArray();
+
+    public void AddCompletedProgressionEvent(ProgressionEvent evt)
+    {
+
+        if (completedProgressionEvents.Contains(evt))
+            Debug.LogWarning("Trying to complete progression event when event already marked as completed");
+        else
+            completedProgressionEvents.Add(evt);
+
+    }
+
+    public bool GetProgressionEventCompleted(ProgressionEvent evt)
+        => completedProgressionEvents.Contains(evt);
+
+    #endregion
+
 }

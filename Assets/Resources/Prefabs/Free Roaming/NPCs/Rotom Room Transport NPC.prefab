@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &247503177406182022
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8993942271753106821, guid: 3e28bddeb2b52194b96f90616c8f235d, type: 3}
+    - target: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800526, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609026627350800527, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+      propertyPath: m_Name
+      value: Rotom Room Transport NPC
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+--- !u!1 &8364916028304316937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8609026627350800527, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+  m_PrefabInstance: {fileID: 247503177406182022}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8364916026460900594 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8609026626111405684, guid: 1db9c1055ed681944b06876895f87bcc, type: 3}
+  m_PrefabInstance: {fileID: 247503177406182022}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &827257006777525421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8364916028304316937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3127c3fd71bb4e940abb44bc503731ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  billboardSprite: 1
+  SceneChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  spriteRenderer: {fileID: 8364916026460900594}
+  exclaimDuration: 1
+  initialDirectionFacing: 3
+  _walkSpeed: 4
+  _runSpeed: 8
+  spriteGroupName: idol
+  id: 0
+  automaticMovementStages: []
+  relativeReturnPosition: {x: 1, y: 0}

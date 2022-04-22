@@ -8,16 +8,43 @@ namespace FreeRoaming.Decorations
     public abstract class InteractableDecorationController : MonoBehaviour, IInteractable
     {
 
-        public Vector2Int[] GetPositions()
-            => new Vector2Int[] { Vector2Int.RoundToInt(transform.position) };
+        protected Vector2Int[] GridPositions { get; private set; }
+
+        public Vector2Int[] additionalOccupiedPositionOffsets = new Vector2Int[0];
+
+        public virtual Vector2Int[] GetPositions()
+            => GridPositions;
 
         protected FreeRoamSceneController sceneController;
         protected TextBoxController textBoxController;
 
         protected virtual void Start()
         {
+
             sceneController = FreeRoamSceneController.GetFreeRoamSceneController(gameObject.scene);
             textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
+
+            GridPositions = CalculateGridPositions();
+
+        }
+
+        protected Vector2Int[] CalculateGridPositions()
+        {
+
+            Vector2Int[] positions = new Vector2Int[additionalOccupiedPositionOffsets.Length + 1];
+            Vector2Int rootGridPosition = Vector2Int.RoundToInt(transform.position);
+            positions[0] = rootGridPosition;
+
+            if (additionalOccupiedPositionOffsets != null)
+            {
+                for (int i = 0; i < additionalOccupiedPositionOffsets.Length; i++)
+                {
+                    positions[i + 1] = additionalOccupiedPositionOffsets[i] + rootGridPosition;
+                }
+            }
+
+            return positions;
+
         }
 
         public abstract void Interact(GameCharacterController interactee);
