@@ -102,8 +102,9 @@ namespace FreeRoaming
         }
 
         /// <summary>
-        /// Finds an object in a position on the grid by finding all IOccupyPositions nearby (requiring that their object has a Collider2D) and checking each of their positions
-        /// The range which will be checked is the constant float Manager.availabilityCheckRange
+        /// Finds an object in a position on the grid by finding all IOccupyPositions nearby (requiring that their object has a Collider2D) and checking each of their positions.
+        /// The range which will be checked is the constant float Manager.availabilityCheckRange.
+        /// If no IOccupyPositions object is found, null is returned.
         /// </summary>
         public GameObject GetObjectInPosition(Vector2Int queryPosition)
         {

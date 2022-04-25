@@ -60,8 +60,33 @@ namespace FreeRoaming.NPCs
         }
 
         protected bool PlayerInView
-            => visibilityDistance > 0 && GetPositionsInFront(visibilityDistance).Contains(PlayerController.singleton.position);
-        //I am checking the player's position not any of their positions so that the player has to have finished moving before they are challenged
+        {
+            get
+            {
+
+                if (visibilityDistance <= 0)
+                    return false;
+
+                Vector2Int[] inFronts = GetPositionsInFront(visibilityDistance);
+
+                foreach (Vector2Int pos in inFronts)
+                {
+
+                    //I am checking the player's position not any of their positions so that the player has to have finished moving before they are challenged
+                    if (pos == PlayerController.singleton.position)
+                        return true;
+
+                    //If there is an object blocking the NPC's view, they can't see the player
+                    if (gridManager.GetObjectInPosition(pos) != null)
+                        return false;
+
+                }
+
+                //If player not found, they aren't in-view
+                return false;
+
+            }
+        }
 
         public override void Interact(GameCharacterController interacter)
         {
