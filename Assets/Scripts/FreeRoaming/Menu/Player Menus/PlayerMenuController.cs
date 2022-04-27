@@ -64,12 +64,21 @@ namespace FreeRoaming.Menu.PlayerMenus
 
         }
 
+        private bool closingMenu = false;
+
         protected virtual void CloseMenu()
         {
 
-            EventSystem.current.enabled = false; //So that it doesn't interfere with any EventSystem that will be loaded
+            if (!closingMenu) //Don't try close menu multiple times
+            {
 
-            GameSceneManager.ClosePlayerMenuScene();
+                closingMenu = true;
+
+                EventSystem.current.enabled = false; //So that it doesn't interfere with any EventSystem that will be loaded
+
+                GameSceneManager.ClosePlayerMenuScene();
+
+            }
 
         }
 
