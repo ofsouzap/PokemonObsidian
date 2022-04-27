@@ -103,9 +103,10 @@ namespace Battle.PlayerUI
             HideMovePane();
         }
 
-        protected PokemonMove[] GetMoves() => PlayerData
-            .singleton
-            .partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex]
+        protected virtual Pokemon.PokemonInstance GetSelectedPokemon()
+            => PlayerData.singleton.partyPokemon[PlayerBattleUIController.singleton.currentSelectedPartyPokemonIndex];
+
+        protected PokemonMove[] GetMoves() => GetSelectedPokemon()
             .moveIds
             .Where(x => !PokemonMove.MoveIdIsUnset(x))
             .Select(x => PokemonMove.GetPokemonMoveById(x))

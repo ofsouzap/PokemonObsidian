@@ -80,6 +80,7 @@ namespace Battle.PlayerUI.LearnMoveUI
             #region Learn Move Menu
 
             menuLearnMoveController.SetNewMoveId(selectedMoveId);
+            menuLearnMoveController.SetSelectedPokemon(pokemon);
 
             menuLearnMoveController.newMoveButton.onClick.AddListener(() => OpenConfirmMenu(false));
 
