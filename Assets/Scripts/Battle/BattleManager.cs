@@ -2720,7 +2720,11 @@ namespace Battle
             PokemonInstance userPokemon = action.user.ActivePokemon;
 
             if (userPokemon.battleProperties.volatileStatusConditions.flinch)
+            {
+                battleAnimationSequencer.EnqueueSingleText(userPokemon.GetDisplayName() + " flinched!");
+                yield return StartCoroutine(battleAnimationSequencer.PlayAll());
                 yield break;
+            }
 
             #region NVSC Move Failures
 
