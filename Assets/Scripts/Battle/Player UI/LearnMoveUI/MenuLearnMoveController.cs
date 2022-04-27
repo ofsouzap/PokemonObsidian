@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Pokemon;
 using Pokemon.Moves;
 using Menus;
 
@@ -28,6 +29,10 @@ namespace Battle.PlayerUI.LearnMoveUI
 
         }
 
+        protected override PokemonInstance GetSelectedPokemon()
+            => selectedPokemon;
+
+        private PokemonInstance selectedPokemon;
         private int newMoveId;
         private PokemonMove NewMove
         {
@@ -64,6 +69,8 @@ namespace Battle.PlayerUI.LearnMoveUI
         }
 
         public void SetNewMoveId(int moveId) => newMoveId = moveId;
+
+        public void SetSelectedPokemon(PokemonInstance pokemon) => selectedPokemon = pokemon;
 
     }
 }

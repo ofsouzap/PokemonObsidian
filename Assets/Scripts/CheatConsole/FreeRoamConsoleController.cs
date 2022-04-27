@@ -152,7 +152,7 @@ namespace CheatConsole
                     byte level = byte.Parse(m.Groups["level"].Value);
 
                     PokemonInstance opp = PokemonFactory.GenerateWild(
-                        new int[1] { speciesId },
+                        speciesId,
                         level,
                         level);
 
@@ -210,6 +210,38 @@ namespace CheatConsole
                     PlayerData.singleton.SetGymDefeated(gymId);
 
                     return "Added gym badge for gym id " + gymId.ToString();
+
+                }
+            },
+
+            {
+                new Regex("^pokemon get species (?<speciesId>[0-9]+) level (?<level>[0-2]?[0-9]?[0-9])"),
+                (m) =>
+                {
+
+                    int speciesId = int.Parse(m.Groups["speciesId"].Value);
+
+                    byte level = byte.Parse(m.Groups["level"].Value);
+
+                    PokemonInstance pokemon = PokemonFactory.GenerateWild(
+                        speciesId,
+                        level,
+                        level);
+
+                    if (!PlayerData.singleton.PartyIsFull)
+                    {
+                        PlayerData.singleton.AddNewPartyPokemon(pokemon);
+                        return $"{pokemon.GetDisplayName()} added to party";
+                    }
+                    else if (!PlayerData.singleton.boxPokemon.IsFull)
+                    {
+                        PlayerData.singleton.AddBoxPokemon(pokemon);
+                        return $"{pokemon.GetDisplayName()} added to box";
+                    }
+                    else
+                    {
+                        return "No space to add pokemon";
+                    }
 
                 }
             }
