@@ -30,8 +30,9 @@ namespace FreeRoaming.Decorations
 
             foreach (string message in GetMessages())
             {
-                textBoxController.RevealText(message);
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(message, true)
+                );
             }
 
             if (!sceneWasPaused)

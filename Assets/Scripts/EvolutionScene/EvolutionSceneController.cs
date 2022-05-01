@@ -163,10 +163,12 @@ namespace EvolutionScene
                 SoundFXController.singleton.PlaySound("evolution_end");
                 SoundFXController.singleton.PlayPokemonCry(endSpecies.id);
 
-                textBoxController.RevealText(entranceArguments.pokemon.GetDisplayName()
-                    + " evolved into a "
-                    + endSpecies.name
-                    + '!');
+                yield return StartCoroutine(
+                    textBoxController.RevealText(entranceArguments.pokemon.GetDisplayName()
+                        + " evolved into a "
+                        + endSpecies.name
+                        + '!', true)
+                );
 
                 //Once animation is completed, evolve the pokemon
                 entranceArguments.pokemon.Evolve(entranceArguments.evolution);
@@ -177,13 +179,13 @@ namespace EvolutionScene
 
                 //Evolution is cancelled
 
-                textBoxController.RevealText("Oh, "
-                    + entranceArguments.pokemon.GetDisplayName()
-                    + " stopped evolving");
+                yield return StartCoroutine(
+                    textBoxController.RevealText("Oh, "
+                        + entranceArguments.pokemon.GetDisplayName()
+                        + " stopped evolving", true)
+                );
 
             }
-
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             yield return new WaitForSeconds(endDelayTime);
 

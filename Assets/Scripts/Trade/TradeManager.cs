@@ -270,8 +270,9 @@ namespace Trade
                         needToNotifyPlayerDisallowedTrade = false;
 
                         textBoxController.Show();
-                        textBoxController.RevealText(otherUserName + disallowedOfferPokemonMessageSuffix);
-                        yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                        yield return StartCoroutine(
+                            textBoxController.RevealText(otherUserName + disallowedOfferPokemonMessageSuffix, true)
+                        );
                         textBoxController.Hide();
 
                     }
@@ -354,8 +355,9 @@ namespace Trade
             else if (commsManager.CommsConnErrorOccured) //Connection error occured
             {
 
-                textBoxController.RevealText(connErrorOccuredMessage);
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(connErrorOccuredMessage, true)
+                );
 
                 CloseTradeScene();
 
@@ -812,8 +814,9 @@ namespace Trade
             yield return StartCoroutine(ClearPlayerOfferedPokemon());
 
             textBoxController.StopGettingUserChoice();
-            textBoxController.RevealText(otherUserName + offerDeclinedByOtherUserMessageSuffix);
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            yield return StartCoroutine(
+                textBoxController.RevealText(otherUserName + offerDeclinedByOtherUserMessageSuffix, true)
+            );
 
             yield return StartCoroutine(SetTradeStage(TradeStage.ChoosingOffer));
 
@@ -828,11 +831,11 @@ namespace Trade
 
             yield return StartCoroutine(ClearPlayerOfferedPokemon());
 
-            textBoxController.RevealText(otherUserName + tradeClosedByOtherUserMessageSuffix);
+            yield return StartCoroutine(
+                textBoxController.RevealText(otherUserName + tradeClosedByOtherUserMessageSuffix, true)
+            );
 
             CloseNetworking();
-
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
             CloseTradeScene();
 
@@ -910,8 +913,7 @@ namespace Trade
             tradeUIController.SetInteractionEnabled(false, true);
             textBoxController.Show();
 
-            textBoxController.SetTextInstant(offerPokemonConfirmPrompt);
-            StartCoroutine(textBoxController.GetUserChoice(offerPokemonConfirmOptions));
+            textBoxController.StartGettingUserChoice(offerPokemonConfirmOptions, offerPokemonConfirmPrompt);
 
             waitingForPlayerChoice = true;
 
@@ -931,9 +933,11 @@ namespace Trade
 
             tradeUIController.SetInteractionEnabled(false);
             textBoxController.Show();
+            textBoxController.StopGettingUserChoice();
 
-            textBoxController.RevealText(waitingForOtherUserOfferMessagePrefix + otherUserName + waitingForOtherUserOfferMessageSuffix);
-            StartCoroutine(textBoxController.GetUserChoice(waitingForOtherUserOfferOptions));
+            textBoxController.StartGettingUserChoice(waitingForOtherUserOfferOptions,
+                waitingForOtherUserOfferMessagePrefix + otherUserName + waitingForOtherUserOfferMessageSuffix
+            );
 
             waitingForPlayerChoice = true;
 
@@ -951,8 +955,7 @@ namespace Trade
             tradeUIController.SetInteractionEnabled(false, true);
             textBoxController.Show();
 
-            textBoxController.SetTextInstant(offerDecisionPrompt);
-            StartCoroutine(textBoxController.GetUserChoice(offerDecisionOptions));
+            textBoxController.StartGettingUserChoice(offerDecisionOptions, offerDecisionPrompt);
 
             waitingForPlayerChoice = true;
 
@@ -969,7 +972,7 @@ namespace Trade
 
             tradeUIController.SetInteractionEnabled(false);
             textBoxController.Show();
-            textBoxController.RevealText(waitingForOtherUserOfferDecisionMessagePrefix + otherUserName + waitingForOtherUserOfferDecisionMessageSuffix);
+            textBoxController.SetTextInstant(waitingForOtherUserOfferDecisionMessagePrefix + otherUserName + waitingForOtherUserOfferDecisionMessageSuffix);
 
         }
 
@@ -985,8 +988,7 @@ namespace Trade
             tradeUIController.SetInteractionEnabled(false, true);
             textBoxController.Show();
 
-            textBoxController.SetTextInstant(closeTradeConfirmPrompt);
-            StartCoroutine(textBoxController.GetUserChoice(closeTradeConfirmOptions));
+            textBoxController.StartGettingUserChoice(closeTradeConfirmOptions, closeTradeConfirmPrompt);
 
             waitingForPlayerChoice = true;
 

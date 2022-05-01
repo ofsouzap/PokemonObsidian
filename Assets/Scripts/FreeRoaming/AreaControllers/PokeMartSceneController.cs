@@ -44,8 +44,9 @@ namespace FreeRoaming.AreaControllers
             if (PlayerData.singleton.inventory.IsEmpty)
             {
 
-                textBoxController.RevealText("Sorry but you don't seem to have anything to sell to me.");
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText("Sorry but you don't seem to have anything to sell to me.", true)
+                );
 
             }
             else

@@ -349,8 +349,9 @@ namespace FreeRoaming
             sceneController.SetSceneRunningState(false);
             textBoxController.Show();
 
-            textBoxController.RevealText(GeneralItem.repelWearOffMessage);
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            yield return StartCoroutine(
+                textBoxController.RevealText(GeneralItem.repelWearOffMessage, true)
+            );
 
             textBoxController.Hide();
             sceneController.SetSceneRunningState(true);
@@ -543,8 +544,9 @@ namespace FreeRoaming
             if (!wasPaused)
                 sceneController.SetSceneRunningState(false);
 
-            textBoxController.RevealText(GetItemAnnouncementMessage(item, quantity));
-            yield return textBoxController.PromptAndWaitUntilUserContinue();
+            yield return StartCoroutine(
+                textBoxController.RevealText(GetItemAnnouncementMessage(item, quantity), true)
+            );
 
             if (!textBoxControllerWasShowing)
                 textBoxController.Hide();

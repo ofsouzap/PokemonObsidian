@@ -25,8 +25,9 @@ namespace FreeRoaming.Decorations
 
             foreach (string message in messages)
             {
-                textBoxController.RevealText(message);
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(message, true)
+                );
             }
 
             textBoxController.Hide();
