@@ -30,6 +30,11 @@ public class GameSettings
     {
 
         /// <summary>
+        /// How many characters to display at a time when using the fastest text speed option that has 0 characterDelay
+        /// </summary>
+        public const int fastestTextSpeedCharacterChunkSize = 2;
+
+        /// <summary>
         /// A name to present the user with for the text speed setting
         /// </summary>
         public string name;

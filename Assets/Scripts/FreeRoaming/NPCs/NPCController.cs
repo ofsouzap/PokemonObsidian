@@ -199,8 +199,9 @@ namespace FreeRoaming.NPCs
 
             foreach (string message in messages)
             {
-                textBoxController.RevealText(GetFormattedSpokenMessage(message));
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(GetFormattedSpokenMessage(message), true)
+                );
             }
 
             if (textBoxControllerWasHidden)

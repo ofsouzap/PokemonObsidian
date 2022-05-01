@@ -102,10 +102,14 @@ public class TextBoxController : MonoBehaviour
     /// Write text into the text box character-by-character using the delay set in GameSettings (the static class)
     /// </summary>
     /// <param name="text">The text to display</param>
-    public void RevealText(string text)
+    public IEnumerator RevealText(string text,
+        bool requireUserContinue)
     {
 
         text = GameTextFormat.Format(text);
+
+        if (revealTextCoroutine != null)
+            StopCoroutine(revealTextCoroutine);
 
         revealTextCoroutine = StartCoroutine(
            RevealTextCoroutine(
@@ -113,6 +117,11 @@ public class TextBoxController : MonoBehaviour
                GameSettings.singleton.textSpeed.characterDelay
                )
            );
+
+        yield return revealTextCoroutine;
+
+        if (requireUserContinue)
+            yield return StartCoroutine(PromptAndWaitUntilUserContinue());
 
     }
 
@@ -128,16 +137,34 @@ public class TextBoxController : MonoBehaviour
 
         Show();
 
-        if (revealTextCoroutine != null)
-            StopCoroutine(revealTextCoroutine);
-
         textArea.text = "";
         textRevealComplete = false;
 
-        foreach (char c in text)
+        int chunkSize = delay > 0 ? 1 : GameSettings.TextSpeed.fastestTextSpeedCharacterChunkSize;
+
+        Queue<char> textQueue = new Queue<char>(text.ToCharArray());
+
+        while (textQueue.Count > 0)
         {
 
-            textArea.text += c;
+            // Decide text to write
+
+            string toWrite = "";
+
+            if (textQueue.Count >= chunkSize)
+            {
+                for (int _ = 0; _ < chunkSize; _++)
+                    toWrite += textQueue.Dequeue();
+            }
+            else
+            {
+                while (textQueue.Count > 0)
+                    toWrite += textQueue.Dequeue();
+            }
+
+            // Write text
+
+            textArea.text += toWrite;
             yield return new WaitForSeconds(delay);
 
         }
@@ -186,7 +213,7 @@ public class TextBoxController : MonoBehaviour
         return Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(0);
     }
 
-    public IEnumerator PromptAndWaitUntilUserContinue()
+    private IEnumerator PromptAndWaitUntilUserContinue()
     {
 
         ShowContinuePrompt();
@@ -212,19 +239,44 @@ public class TextBoxController : MonoBehaviour
 
     private Coroutine getUserChoiceCoroutine;
 
-    public IEnumerator GetUserChoice(string[] optionNames)
+    public void StartGettingUserChoice(string[] optionNames,
+        string promptMessage = null)
     {
 
-        getUserChoiceCoroutine = StartCoroutine(UserChoiceCoroutine(optionNames));
+        userChoiceIndexSelected = -1;
+
+        if (getUserChoiceCoroutine != null)
+            StopCoroutine(getUserChoiceCoroutine);
+
+        getUserChoiceCoroutine = StartCoroutine(UserChoiceCoroutine(optionNames, promptMessage));
+
+    }
+
+    public IEnumerator WaitForUserChoice(string[] optionNames,
+        string promptMessage = null)
+    {
+
+        userChoiceIndexSelected = -1;
+
+        if (getUserChoiceCoroutine != null)
+            StopCoroutine(getUserChoiceCoroutine);
+
+        getUserChoiceCoroutine = StartCoroutine(UserChoiceCoroutine(optionNames, promptMessage));
 
         yield return getUserChoiceCoroutine;
 
     }
 
-    private IEnumerator UserChoiceCoroutine(string[] optionNames)
+    private IEnumerator UserChoiceCoroutine(string[] optionNames,
+        string promptMessage = null)
     {
 
         userChoiceIndexSelected = -1;
+
+        if (!string.IsNullOrEmpty(promptMessage))
+        {
+            yield return StartCoroutine(RevealText(promptMessage, false));
+        }
 
         userChoicesController.SetChoices(optionNames);
 
@@ -239,6 +291,7 @@ public class TextBoxController : MonoBehaviour
 
         userChoicesController.Hide();
         StopCoroutine(getUserChoiceCoroutine);
+        userChoiceIndexSelected = -1;
 
     }
 

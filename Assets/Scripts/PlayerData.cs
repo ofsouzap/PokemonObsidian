@@ -71,14 +71,14 @@ public class PlayerData
             return;
         }
 
-        RefreshSettingCheatPokemon();
-
         for (int i = 0; i < partyPokemon.Length; i++)
             if (partyPokemon[i] == null)
             {
                 partyPokemon[i] = pokemon;
                 break;
             }
+
+        RefreshSettingCheatPokemon();
 
     }
 
@@ -387,10 +387,9 @@ public class PlayerData
     public void AddBoxPokemon(PokemonInstance pokemon)
     {
 
-        if (stats.cheatsUsed)
-            pokemon.SetCheatPokemon();
-
         boxPokemon.AddPokemon(pokemon);
+
+        RefreshSettingCheatPokemon();
 
     }
 

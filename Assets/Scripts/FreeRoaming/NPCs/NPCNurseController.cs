@@ -23,12 +23,14 @@ namespace FreeRoaming.NPCs
         public override IEnumerator PlayerInteraction()
         {
 
-            textBoxController.RevealText(GetFormattedSpokenMessage("Welcome to this Pokemon Center. Here, we can restore your pokemon to their full health."));
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            yield return StartCoroutine(
+                textBoxController.RevealText(GetFormattedSpokenMessage("Welcome to this Pokemon Center. Here, we can restore your pokemon to their full health."), true)
+            );
 
-            textBoxController.RevealText(GetFormattedSpokenMessage("Would you like us to restore your pokemon?"));
-
-            yield return StartCoroutine(textBoxController.GetUserChoice(restorePokemonUserOptions));
+            yield return StartCoroutine(textBoxController.WaitForUserChoice(
+                restorePokemonUserOptions,
+                GetFormattedSpokenMessage("Would you like us to restore your pokemon?")
+            ));
 
             switch (textBoxController.userChoiceIndexSelected)
             {
@@ -37,16 +39,18 @@ namespace FreeRoaming.NPCs
 
                     PlayerData.singleton.HealAllPokemon();
 
-                    textBoxController.RevealText(GetFormattedSpokenMessage("Please wait here for a moment."));
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    yield return StartCoroutine(
+                        textBoxController.RevealText(GetFormattedSpokenMessage("Please wait here for a moment."), true)
+                    );
 
                     //Play the healing animation
                     yield return StartCoroutine(healingMachineScript.RunAnimation(
                         PlayerData.singleton.GetNumberOfPartyPokemon()
                         ));
 
-                    textBoxController.RevealText(GetFormattedSpokenMessage("Here you go, all your pokemon fully recovered. Thank you for coming, have a nice day!"));
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    yield return StartCoroutine(
+                        textBoxController.RevealText(GetFormattedSpokenMessage("Here you go, all your pokemon fully recovered. Thank you for coming, have a nice day!"), true)
+                    );
 
                     break;
 

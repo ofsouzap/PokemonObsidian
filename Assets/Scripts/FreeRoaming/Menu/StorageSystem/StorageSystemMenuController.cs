@@ -164,9 +164,13 @@ namespace FreeRoaming.Menu.StorageSystem
         {
 
             textBoxController.Show();
-            textBoxController.SetTextInstant("What would you like to do with " + CurrentBoxPokemon[pokemonIndex].GetDisplayName() + "?");
 
-            yield return StartCoroutine(textBoxController.GetUserChoice(boxPokemonSelectedOptions));
+            string choicePrompt = "What would you like to do with " + CurrentBoxPokemon[pokemonIndex].GetDisplayName() + "?";
+
+            yield return StartCoroutine(textBoxController.WaitForUserChoice(
+                boxPokemonSelectedOptions,
+                choicePrompt
+            ));
 
             switch (textBoxController.userChoiceIndexSelected)
             {
@@ -209,8 +213,9 @@ namespace FreeRoaming.Menu.StorageSystem
             else
             {
 
-                textBoxController.RevealText("Party is already full");
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText("Party is already full", true)
+                );
 
             }
 
@@ -237,9 +242,13 @@ namespace FreeRoaming.Menu.StorageSystem
         {
 
             textBoxController.Show();
-            textBoxController.SetTextInstant("What would you like to do with " + PlayerData.singleton.partyPokemon[pokemonIndex].GetDisplayName() + "?");
 
-            yield return StartCoroutine(textBoxController.GetUserChoice(partyPokemonSelectedOptions));
+            string choicePrompt = "What would you like to do with " + PlayerData.singleton.partyPokemon[pokemonIndex].GetDisplayName() + "?";
+
+            yield return StartCoroutine(textBoxController.WaitForUserChoice(
+                partyPokemonSelectedOptions,
+                choicePrompt
+            ));
 
             switch (textBoxController.userChoiceIndexSelected)
             {
@@ -274,15 +283,17 @@ namespace FreeRoaming.Menu.StorageSystem
             if (PlayerData.singleton.GetNumberOfPartyPokemon() == 1) //Player shouldn't be allowed to deposit their last party pokemon
             {
 
-                textBoxController.RevealText("You can't deposit your last party pokemon");
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText("You can't deposit your last party pokemon", true)
+                );
 
             }
             else if (PlayerData.singleton.boxPokemon.boxes[currentBoxIndex].IsFull)
             {
 
-                textBoxController.RevealText("Box is already full");
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText("Box is already full", true)
+                );
 
             }
             else

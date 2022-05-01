@@ -37,8 +37,10 @@ namespace FreeRoaming.NPCs
 
             textBoxController.Show();
 
-            textBoxController.RevealText("Welcome to the Poke Mart. What can I do for you?");
-            yield return StartCoroutine(textBoxController.GetUserChoice(shopUserOptions));
+            yield return StartCoroutine(textBoxController.WaitForUserChoice(
+                shopUserOptions,
+                "Welcome to the Poke Mart. What can I do for you?"
+            ));
 
             switch (textBoxController.userChoiceIndexSelected)
             {

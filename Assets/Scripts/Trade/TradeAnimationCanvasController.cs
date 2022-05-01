@@ -95,8 +95,9 @@ namespace Trade
             PokeBallTransform.position = mainRootTransform.position;
 
             //Goodbye message
-            textBoxController.RevealText(goodbyeMessagePrefix + sendPmon.GetDisplayName() + goodbyeMessageSuffix);
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            yield return StartCoroutine(
+                textBoxController.RevealText(goodbyeMessagePrefix + sendPmon.GetDisplayName() + goodbyeMessageSuffix, true)
+            );
 
             //Send pokemon cry
             SoundFXController.PlayPokemonCry(sendPmon.speciesId);
@@ -177,8 +178,9 @@ namespace Trade
             yield return new WaitForSeconds(endDelayTime);
 
             //Receiving message
-            textBoxController.RevealText(receiveMessagePrefix + recvPmon.GetDisplayName() + receiveMessageSuffix);
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            yield return StartCoroutine(
+                textBoxController.RevealText(receiveMessagePrefix + recvPmon.GetDisplayName() + receiveMessageSuffix, true)
+            );
 
         }
 

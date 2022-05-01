@@ -193,9 +193,10 @@ namespace FreeRoaming.PokeMart
 
             string[] userChoices = GetBuyUserChoices(item);
 
-            textBoxController.SetTextInstant("How much would you like to buy?");
-
-            yield return StartCoroutine(textBoxController.GetUserChoice(userChoices));
+            yield return StartCoroutine(textBoxController.WaitForUserChoice(
+                userChoices,
+                "How much would you like to buy?"
+            ));
 
             if (textBoxController.userChoiceIndexSelected == 0) //Cancel
             {
@@ -218,15 +219,17 @@ namespace FreeRoaming.PokeMart
                     RefreshPlayerMoneyText();
 
                     //TODO - sound fx for purchase made
-                    textBoxController.RevealText("Thank you for your purchase");
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    yield return StartCoroutine(
+                        textBoxController.RevealText("Thank you for your purchase", true)
+                    );
 
                 }
                 else
                 {
 
-                    textBoxController.RevealText("Sorry but you don't seem to have enough money for that.");
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    yield return StartCoroutine(
+                        textBoxController.RevealText("Sorry but you don't seem to have enough money for that.", true)
+                    );
 
                 }
 
@@ -273,17 +276,19 @@ namespace FreeRoaming.PokeMart
 
             if (!item.CanSell)
             {
-                textBoxController.RevealText("This item can't be sold.");
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText("This item can't be sold.", true)
+                );
             }
             else
             {
 
                 string[] userChoices = GetSellUserChoices(item);
 
-                textBoxController.SetTextInstant("How much would you like to sell?");
-
-                yield return StartCoroutine(textBoxController.GetUserChoice(userChoices));
+                yield return StartCoroutine(textBoxController.WaitForUserChoice(
+                    userChoices,
+                    "How much would you like to sell?")
+                );
 
                 if (textBoxController.userChoiceIndexSelected == 0) //Cancel
                 {
@@ -306,8 +311,9 @@ namespace FreeRoaming.PokeMart
                         PlayerData.singleton.inventory.RemoveItem(item, quantitySelected);
 
                         //TODO - sound fx for item sold
-                        textBoxController.RevealText("Thank you, here is your money.");
-                        yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                        yield return StartCoroutine(
+                            textBoxController.RevealText("Thank you, here is your money.", true)
+                        );
 
                         int prevItemsCount = currentItems.Length;
 
@@ -335,8 +341,9 @@ namespace FreeRoaming.PokeMart
                     else
                     {
 
-                        textBoxController.RevealText("Sorry but you don't seem to have that many of those.");
-                        yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                        yield return StartCoroutine(
+                            textBoxController.RevealText("Sorry but you don't seem to have that many of those.", true)
+                        );
 
                     }
 

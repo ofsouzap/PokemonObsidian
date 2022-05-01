@@ -28,8 +28,9 @@ namespace FreeRoaming.Decorations
 
             PlayerData.singleton.HealPartyPokemon();
 
-            textBoxController.RevealText(interactionMessageStart);
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            yield return StartCoroutine(
+                textBoxController.RevealText(interactionMessageStart, true)
+            );
 
             bool readyToContinueAfterSoundFX = false;
 
@@ -38,8 +39,9 @@ namespace FreeRoaming.Decorations
 
             yield return new WaitUntil(() => readyToContinueAfterSoundFX);
 
-            textBoxController.RevealText(interactionMessageEnd);
-            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+            yield return StartCoroutine(
+                textBoxController.RevealText(interactionMessageEnd, true)
+            );
 
             textBoxController.Hide();
             sceneController.SetSceneRunningState(true);

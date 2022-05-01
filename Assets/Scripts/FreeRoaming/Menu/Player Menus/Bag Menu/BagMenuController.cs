@@ -487,11 +487,13 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                     optionsIndex++;
                 }
 
-            if (autoPromptUser)
-                textBoxController.SetTextInstant("Choose a move");
-
             textBoxController.Show();
-            yield return StartCoroutine(textBoxController.GetUserChoice(options));
+
+            if (autoPromptUser)
+                yield return StartCoroutine(textBoxController.WaitForUserChoice(options, "Choose a move"));
+            else
+                yield return StartCoroutine(textBoxController.WaitForUserChoice(options));
+
             if (autoHideTextBox)
                 textBoxController.Hide();
 
@@ -554,9 +556,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                     //If the selected item can't be used on the selected pokemon
                     textBoxController.Show();
-                    textBoxController.RevealText("The " + CurrentItem.itemName + " can't be used on " + pokemon.GetDisplayName());
-                    yield return new WaitForFixedUpdate();
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    yield return StartCoroutine(
+                        textBoxController.RevealText("The " + CurrentItem.itemName + " can't be used on " + pokemon.GetDisplayName(), true)
+                    );
                     textBoxController.Hide();
 
                 }
@@ -607,9 +609,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
             if (!CurrentItem.CheckCompatibility(pokemon))
             {
-                textBoxController.RevealText("The " + CurrentItem.itemName + " won't have any effect on " + pokemon.GetDisplayName());
-                yield return new WaitForFixedUpdate();
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText("The " + CurrentItem.itemName + " won't have any effect on " + pokemon.GetDisplayName(), true)
+                );
             }
             else
             {
@@ -654,9 +656,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                     if (pokemon.movePPs[trueMoveIndexSelected] >= PokemonMove.GetPokemonMoveById(pokemon.moveIds[trueMoveIndexSelected]).maxPP)
                     {
-                        textBoxController.RevealText("This move can't have any more PP");
-                        yield return new WaitForFixedUpdate();
-                        yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                        yield return StartCoroutine(
+                            textBoxController.RevealText("This move can't have any more PP", true)
+                        );
                         textBoxController.Hide();
                         yield break;
                     }
@@ -687,9 +689,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                 }
 
-                textBoxController.RevealText("The " + CurrentItem.itemName + " was used on " + pokemon.GetDisplayName());
-                yield return new WaitForFixedUpdate();
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText("The " + CurrentItem.itemName + " was used on " + pokemon.GetDisplayName(), true)
+                );
 
             }
 
@@ -707,9 +709,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
             if (!CurrentItem.CheckCompatibility(pokemon))
             {
 
-                textBoxController.RevealText(pokemon.GetDisplayName() + " can't learn this move");
-                yield return new WaitForFixedUpdate(); //Explanation somewhere below
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(pokemon.GetDisplayName() + " can't learn this move", true)
+                );
 
             }
             else if (pokemon.moveIds.Any(x => PokemonMove.MoveIdIsUnset(x)))
@@ -736,9 +738,9 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                 pokemon.AddFriendshipGainForTMUsage();
 
-                textBoxController.RevealText(pokemon.GetDisplayName() + " learnt " + newMove.name + "!");
-                yield return new WaitForFixedUpdate(); //Explanation of correspoding line in below branch
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(pokemon.GetDisplayName() + " learnt " + newMove.name + "!", true)
+                );
 
             }
             else
@@ -792,13 +794,13 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
 
                 pokemon.AddFriendshipGainForTMUsage();
 
-                textBoxController.RevealText(pokemon.GetDisplayName() + " forgot " + forgottenMove.name + "...");
-                yield return new WaitForFixedUpdate(); //Need to wait an extra frame since current frame is the frame that user used a submit button
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(pokemon.GetDisplayName() + " forgot " + forgottenMove.name + "...", true)
+                );
 
-                textBoxController.RevealText(pokemon.GetDisplayName() + " learnt " + learntMove.name + "!");
-                yield return new WaitForFixedUpdate(); //As before
-                yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                yield return StartCoroutine(
+                    textBoxController.RevealText(pokemon.GetDisplayName() + " learnt " + learntMove.name + "!", true)
+                );
 
             }
 

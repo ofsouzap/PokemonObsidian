@@ -1107,11 +1107,10 @@ namespace Battle
 
                             battleAnimationSequencer.EnqueueSingleText(PlayerData.singleton.profile.name
                                 + " defeated the wild "
-                                + battleData.participantOpponent.ActivePokemon.GetDisplayName());
+                                + battleData.participantOpponent.ActivePokemon.GetDisplayName(),
+                                requireUserContinue: true);
 
                             yield return StartCoroutine(battleAnimationSequencer.PlayAll());
-
-                            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
                         }
 
@@ -1174,8 +1173,6 @@ namespace Battle
                                 true);
 
                             yield return StartCoroutine(battleAnimationSequencer.PlayAll());
-
-                            yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
 
                         }
 

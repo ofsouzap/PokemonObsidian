@@ -262,8 +262,9 @@ namespace FreeRoaming.AreaControllers
 
                 foreach (string m in rotomEncounterMessages)
                 {
-                    textBoxController.RevealText(m);
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    yield return StartCoroutine(
+                        textBoxController.RevealText(m, true)
+                    );
                 }
 
                 StartBattle();
@@ -274,8 +275,9 @@ namespace FreeRoaming.AreaControllers
 
                 foreach (string m in noEncounterPuzzleCompletionMessages)
                 {
-                    textBoxController.RevealText(m);
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
+                    yield return StartCoroutine(
+                        textBoxController.RevealText(m, true)
+                    );
                 }
 
                 //Unpause scene

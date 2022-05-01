@@ -167,28 +167,12 @@ namespace Battle
 
                 textBoxController.Show();
 
-                #region Reveal Message
+                yield return StartCoroutine(
+                    textBoxController.RevealText(message, animation.requireUserContinue)
+                );
 
-                textBoxController.RevealText(message);
-
-                yield return new WaitUntil(() => textBoxController.textRevealComplete);
-
-                #endregion
-
-                #region Post-Message
-
-                if (animation.requireUserContinue)
-                {
-
-                    yield return StartCoroutine(textBoxController.PromptAndWaitUntilUserContinue());
-
-                }
-                else
-                {
+                if (!animation.requireUserContinue)
                     yield return new WaitForSeconds(Animation.defaultMessageDelay);
-                }
-
-                #endregion
 
             }
 

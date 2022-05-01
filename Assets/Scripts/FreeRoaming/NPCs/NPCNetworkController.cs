@@ -48,9 +48,10 @@ namespace FreeRoaming.NPCs
 
             TryTurn(GetOppositeDirection(PlayerController.singleton.directionFacing));
 
-            textBoxController.RevealText(GetFormattedSpokenMessage("Hi, how would you like to connect to another trainer?"));
-
-            yield return textBoxController.GetUserChoice(connectionModeMenuOptions);
+            yield return StartCoroutine(textBoxController.WaitForUserChoice(
+                connectionModeMenuOptions,
+                GetFormattedSpokenMessage("Hi, how would you like to connect to another trainer?")
+            ));
 
             //If the menu is launched, the scene shouldn't be unpaused
 
