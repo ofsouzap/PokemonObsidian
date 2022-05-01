@@ -145,7 +145,8 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                         if (currentMode == Mode.Section)
                         {
 
-                            OnSelectItem(currentItemIndex);
+                            if (currentItems.Length > 0)
+                                OnSelectItem(currentItemIndex);
 
                         }
                         else if (currentMode == Mode.Action)
