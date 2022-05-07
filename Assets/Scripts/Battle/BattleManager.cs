@@ -1475,12 +1475,7 @@ namespace Battle
 
                         PokemonMove forgottenMove = PokemonMove.GetPokemonMoveById(pokemon.moveIds[playerDecision.replacedMoveIndex]);
 
-                        #region Setting New Move
-
-                        pokemon.moveIds[playerDecision.replacedMoveIndex] = moveIdToLearn;
-                        pokemon.movePPs[playerDecision.replacedMoveIndex] = moveToLearn.maxPP;
-
-                        #endregion
+                        pokemon.ReplaceMove(playerDecision.replacedMoveIndex, moveIdToLearn);
 
                         #region Announcement Message
 
@@ -1523,8 +1518,7 @@ namespace Battle
 
                         if (PokemonMove.MoveIdIsUnset(pokemon.moveIds[moveIdIndex]))
                         {
-                            pokemon.moveIds[moveIdIndex] = moveIdToLearn;
-                            pokemon.movePPs[moveIdIndex] = moveToLearn.maxPP;
+                            pokemon.ReplaceMove(moveIdIndex, moveIdToLearn);
                             moveSet = true;
                             break;
                         }
