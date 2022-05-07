@@ -13,7 +13,14 @@ namespace FreeRoaming.Decorations
         public Vector2Int[] additionalOccupiedPositionOffsets = new Vector2Int[0];
 
         public virtual Vector2Int[] GetPositions()
-            => GridPositions;
+        {
+
+            if (GridPositions == null)
+                RefreshGridPositions();
+
+            return GridPositions;
+
+        }
 
         protected FreeRoamSceneController sceneController;
         protected TextBoxController textBoxController;
@@ -24,9 +31,12 @@ namespace FreeRoaming.Decorations
             sceneController = FreeRoamSceneController.GetFreeRoamSceneController(gameObject.scene);
             textBoxController = TextBoxController.GetTextBoxController(gameObject.scene);
 
-            GridPositions = CalculateGridPositions();
+            RefreshGridPositions();
 
         }
+
+        protected void RefreshGridPositions()
+            => GridPositions = CalculateGridPositions();
 
         protected Vector2Int[] CalculateGridPositions()
         {

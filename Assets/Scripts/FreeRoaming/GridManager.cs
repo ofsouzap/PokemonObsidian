@@ -109,6 +109,9 @@ namespace FreeRoaming
         public GameObject GetObjectInPosition(Vector2Int queryPosition)
         {
 
+            if (queryPosition == null)
+                return null;
+
             Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(queryPosition, availabilityCheckRange)
                 .Where(x => x.gameObject.scene == Scene)
                 .ToArray();

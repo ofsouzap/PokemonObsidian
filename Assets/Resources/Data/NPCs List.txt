@@ -34,3 +34,8 @@ List of NPC IDs and which NPCs they correspond to
 60-61 - trainers in Okford gym
 62-63 - trainers in Tildahill gym
 64-65 - trainers in Casswick gym
+66 - house NPC in Nagaka Village
+67 - !! construction guards
+68-76 - trainers in Route 4
+77-84 - trainers in Route 5
+85-86 - NPCs around Nagaka Village

@@ -2958,3 +2958,15 @@ Seismic Toss,Cosmic Power,Natural Gift,Punishment
 10 Gravity,20 Earth Power,30 Hyper Voice,40 ExtremeSpeed,50 Refresh,60 Future Sight,70 Recover,80 Hyper Beam,90 Perish Song,100 Judgment
 Dragon Claw,Water Pulse,Calm Mind,Roar,Toxic,Hail,Bullet Seed,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Giga Drain,Safeguard,Frustration,SolarBeam,Iron Tail,Thunderbolt,Thunder,Earthquake,Return,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Sludge Bomb,Sandstorm,Fire Blast,Rock Tomb,Aerial Ace,Facade,Secret Power,Rest,Overheat,Focus Blast,Energy Ball,Brine,Charge Beam,Endure,Dragon Pulse,Will-O-Wisp,Silver Wind,Shadow Claw,Payback,Recycle,Giga Impact,Flash,Stone Edge,Avalanche,Thunder Wave,Swords Dance,Stealth Rock,Psych Up,Dark Pulse,Rock Slide,X-Scissor,Sleep Talk,Natural Gift,Poison Jab,Dream Eater,Grass Knot,Swagger,Substitute,Flash Cannon,Trick Room,Cut,Fly,Surf,Strength,Defog,Whirlpool,Rock Smash,Waterfall,Rock Climb
 (no egg)
+
+Beano
+DoubleSlap,Body Slam,Sing
+12 Spore,20 Water Pulse,30 Magical Leaf,35 Energy Ball,40 Giga Drain,45 Sludge Bomb,60 SolarBeam
+Synthesis,Grass Knot,Rock Smash,Earthquake,Focus Punch,Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Thunderbolt,Thunder,Return,Dig,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Snatch,Focus Blast,Fling,Charge Beam,Endure,Drain Punch,Recycle,Giga Impact,Flash,Thunder Wave,Gyro Ball,Stealth Rock,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Strength
+Covet,Faint Attack,Fake Tears,Gravity,Last Resort,Perish Song,Present,Wish
+
+Beanpod
+DoubleSlap,Body Slam,Sing
+12 Spore,20 Water Pulse,28 Mega Drain,30 Magical Leaf,35 Energy Ball,42 Giga Drain,46 Sludge Bomb,60 SolarBeam
+Synthesis,Grass Knot,Rock Smash,Earthquake,Focus Punch,Water Pulse,Toxic,Hidden Power,Sunny Day,Ice Beam,Blizzard,Hyper Beam,Light Screen,Protect,Rain Dance,Safeguard,Frustration,SolarBeam,Thunderbolt,Thunder,Return,Dig,Psychic,Shadow Ball,Brick Break,Double Team,Reflect,Shock Wave,Flamethrower,Fire Blast,Facade,Secret Power,Rest,Attract,Snatch,Focus Blast,Fling,Charge Beam,Endure,Drain Punch,Recycle,Giga Impact,Flash,Thunder Wave,Gyro Ball,Stealth Rock,Psych Up,Captivate,Sleep Talk,Natural Gift,Dream Eater,Grass Knot,Swagger,Substitute,Strength
+Covet,Faint Attack,Fake Tears,Gravity,Last Resort,Perish Song,Present,Wish

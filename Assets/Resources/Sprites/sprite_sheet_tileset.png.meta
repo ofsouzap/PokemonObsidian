@@ -197,6 +197,234 @@ TextureImporter:
   - first:
       213: -190082027076247455
     second: sprite_sheet_tileset_caveentrance_down
+  - first:
+      213: -2753087048952218148
+    second: sprite_sheet_tileset_grass_rock_topleft
+  - first:
+      213: 3925921862779186513
+    second: sprite_sheet_tileset_grass_rock_top
+  - first:
+      213: 3854524089086104579
+    second: sprite_sheet_tileset_grass_rock_topright
+  - first:
+      213: 1349664170789689322
+    second: sprite_sheet_tileset_grass_rock_left
+  - first:
+      213: -2795406649031508084
+    second: sprite_sheet_tileset_grass_rock_right
+  - first:
+      213: -1911363770476524055
+    second: sprite_sheet_tileset_grass_rock_bottomright
+  - first:
+      213: -6310066200848938208
+    second: sprite_sheet_tileset_grass_rock_bottomleft
+  - first:
+      213: -4080576322072666591
+    second: sprite_sheet_tileset_grass_rock_bottom
+  - first:
+      213: 3083198656971639991
+    second: sprite_sheet_tileset_innergrass_rock_topleft
+  - first:
+      213: -6659364311712781546
+    second: sprite_sheet_tileset_innergrass_rock_topright
+  - first:
+      213: 435747479716400977
+    second: sprite_sheet_tileset_innergrass_rock_bottomright
+  - first:
+      213: -7538028000176940621
+    second: sprite_sheet_tileset_innergrass_rock_bottomlef
+  - first:
+      213: 7667572963546392171
+    second: sprite_sheet_tileset_water_2
+  - first:
+      213: 8454561472545069358
+    second: tileset_sand_to_grass_topleft
+  - first:
+      213: -3005279179621783607
+    second: tileset_sand_to_grass_top
+  - first:
+      213: -4090788732234701017
+    second: tileset_sand_to_grass_topright
+  - first:
+      213: -7658728577567553437
+    second: tileset_sand_to_grass_left
+  - first:
+      213: 8772706741619486154
+    second: tileset_sand
+  - first:
+      213: 3032965650740132405
+    second: tileset_sand_to_grass_right
+  - first:
+      213: 1475771455117619450
+    second: tileset_sand_to_grass_bottomright
+  - first:
+      213: 3715999961070674611
+    second: tileset_sand_to_grass_bottomleft
+  - first:
+      213: -6130290013685639591
+    second: tileset_sand_to_grass_bottom
+  - first:
+      213: -7482312328303741547
+    second: tileset_sand_to_grass_innertopright
+  - first:
+      213: -3500380397449029185
+    second: tileset_sand_to_grass_innerbottomright
+  - first:
+      213: -4607369336492652116
+    second: tileset_sand_to_grass_innertopleft
+  - first:
+      213: 2506393282524891887
+    second: tileset_sand_to_grass_innerbottomleft
+  - first:
+      213: -5766652581609833994
+    second: tileset_shallowwater_to_sand_topleft
+  - first:
+      213: -8611266255561485905
+    second: tileset_shallowwater_to_sand_top
+  - first:
+      213: -2731572520888100938
+    second: tileset_shallowwater_to_sand_topright
+  - first:
+      213: -98315896297192558
+    second: tileset_shallowwater_to_sand_left
+  - first:
+      213: 837102574680297461
+    second: tileset_shallowwater
+  - first:
+      213: -3577281703526961618
+    second: tileset_shallowwater_to_sand_right
+  - first:
+      213: 5108972464561306161
+    second: tileset_shallowwater_to_sand_bottomright
+  - first:
+      213: 4341213924001541106
+    second: tileset_shallowwater_to_sand_bottomleft
+  - first:
+      213: 7887186506954857730
+    second: tileset_shallowwater_to_sand_bottom
+  - first:
+      213: -4994419548626820680
+    second: tileset_shallowwater_to_sand_innertopright
+  - first:
+      213: 8457114088724110012
+    second: tileset_shallowwater_to_sand_innerbottomright
+  - first:
+      213: -5984909652673903251
+    second: tileset_shallowwater_to_sand_innerbottomleft
+  - first:
+      213: 757276709563860052
+    second: tileset_shallowwater_to_sand_innertopleft
+  - first:
+      213: -4591779964254405536
+    second: tileset_shallowwater_to_sand_2_topleft
+  - first:
+      213: 7685991915383313183
+    second: tileset_shallowwater_to_sand_2_top
+  - first:
+      213: -5683828381757971110
+    second: tileset_shallowwater_to_sand_2_topright
+  - first:
+      213: -8823001714771591508
+    second: tileset_shallowwater_to_sand_2_right
+  - first:
+      213: -7832861505978248808
+    second: tileset_shallowwater_2
+  - first:
+      213: -8094836673039343911
+    second: tileset_shallowwater_to_sand_2_left
+  - first:
+      213: -908682408927334282
+    second: tileset_shallowwater_to_sand_2_bottomleft
+  - first:
+      213: 8855869627412273992
+    second: tileset_shallowwater_to_sand_2_bottom
+  - first:
+      213: -7681372459731940951
+    second: tileset_shallowwater_to_sand_2_bottomright
+  - first:
+      213: -2617193481827815954
+    second: tileset_shallowwater_to_sand_2_innertopleft
+  - first:
+      213: 1785594790747354075
+    second: tileset_shallowwater_to_sand_2_innertopright
+  - first:
+      213: 6005994221623236594
+    second: tileset_shallowwater_to_sand_2_innerbottomright
+  - first:
+      213: 8417193503408678548
+    second: tileset_shallowwater_to_sand_2_innerbottomleft
+  - first:
+      213: -6761119352885895300
+    second: tileset_shallowwater_to_water_topleft
+  - first:
+      213: -5979820136083737365
+    second: tileset_shallowwater_to_water_top
+  - first:
+      213: 8892849819924710503
+    second: tileset_shallowwater_to_water_topright
+  - first:
+      213: 2128858749658364752
+    second: tileset_shallowwater_to_water_left
+  - first:
+      213: 5033540844319356201
+    second: tileset_shallowwater_to_water_bottomleft
+  - first:
+      213: -20760806046201935
+    second: tileset_shallowwater_to_water_bottom
+  - first:
+      213: 1274419626513075635
+    second: tileset_shallowwater_to_water_bottomright
+  - first:
+      213: 6498906510568882269
+    second: tileset_shallowwater_to_water_right
+  - first:
+      213: -3980423956513156569
+    second: tileset_shallowwater_to_water_innertopleft
+  - first:
+      213: -2753053705705150780
+    second: tileset_shallowwater_to_water_innertopright
+  - first:
+      213: -5148757316547973376
+    second: tileset_shallowwater_to_water_innerbottomright
+  - first:
+      213: -4503313869590295406
+    second: tileset_shallowwater_to_water_innerbottomleft
+  - first:
+      213: 7670230963383233275
+    second: tileset_shallowwater_to_water_2_topleft
+  - first:
+      213: -4367343537481827145
+    second: tileset_shallowwater_to_water_2_top
+  - first:
+      213: -8756980538731646248
+    second: tileset_shallowwater_to_water_2_topright
+  - first:
+      213: 1470585268791084206
+    second: tileset_shallowwater_to_water_2_right
+  - first:
+      213: 1040603426965047505
+    second: tileset_shallowwater_to_water_2_bottomright
+  - first:
+      213: -2351404407813856127
+    second: tileset_shallowwater_to_water_2_left
+  - first:
+      213: 5096529578641038828
+    second: tileset_shallowwater_to_water_2_bottomleft
+  - first:
+      213: 2572102650396872691
+    second: tileset_shallowwater_to_water_2_bottom
+  - first:
+      213: -300430892815911010
+    second: tileset_shallowwater_to_water_2_innertopright
+  - first:
+      213: -786590666548073150
+    second: tileset_shallowwater_to_water_2_innertopleft
+  - first:
+      213: -4549551780878368934
+    second: tileset_shallowwater_to_water_2_innerbottomright
+  - first:
+      213: 6083699299276001106
+    second: tileset_shallowwater_to_water_2_innerbottomleft
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -586,8 +814,8 @@ TextureImporter:
       name: sprite_sheet_tileset_outerwater_topleft
       rect:
         serializedVersion: 2
-        x: 448
-        y: 224
+        x: 352
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -607,8 +835,8 @@ TextureImporter:
       name: sprite_sheet_tileset_outerwater_topright
       rect:
         serializedVersion: 2
-        x: 480
-        y: 224
+        x: 384
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -964,8 +1192,8 @@ TextureImporter:
       name: sprite_sheet_tileset_water
       rect:
         serializedVersion: 2
-        x: 384
-        y: 192
+        x: 448
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -1006,8 +1234,8 @@ TextureImporter:
       name: sprite_sheet_tileset_outerwater_bottomleft
       rect:
         serializedVersion: 2
-        x: 448
-        y: 192
+        x: 352
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -1027,8 +1255,8 @@ TextureImporter:
       name: sprite_sheet_tileset_outerwater_bottomright
       rect:
         serializedVersion: 2
-        x: 480
-        y: 192
+        x: 384
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -1662,7 +1890,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1670,6 +1898,1602 @@ TextureImporter:
       bones: []
       spriteID: 1602fe94761bc5df0800000000000000
       internalID: -190082027076247455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_topleft
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdd797b5ae11bc9d0800000000000000
+      internalID: -2753087048952218148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_top
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15da4ee322dab7630800000000000000
+      internalID: 3925921862779186513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_topright
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 304d924ac350e7530800000000000000
+      internalID: 3854524089086104579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_left
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae7ddf99968fab210800000000000000
+      internalID: 1349664170789689322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_right
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8f36b1a678b439d0800000000000000
+      internalID: -2795406649031508084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_bottomright
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ed023017c87975e0800000000000000
+      internalID: -1911363770476524055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_bottomleft
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02b4335f8342e68a0800000000000000
+      internalID: -6310066200848938208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_grass_rock_bottom
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e1df37471ee57c0800000000000000
+      internalID: -4080576322072666591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innergrass_rock_topleft
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc81c0d7d8b9ca20800000000000000
+      internalID: 3083198656971639991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innergrass_rock_topright
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b227af07f2593a0800000000000000
+      internalID: -6659364311712781546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innergrass_rock_bottomright
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15f844c26061c0600800000000000000
+      internalID: 435747479716400977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_innergrass_rock_bottomlef
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b95186d87b836790800000000000000
+      internalID: -7538028000176940621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_tileset_water_2
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b66629d5cf0b86a60800000000000000
+      internalID: 7667572963546392171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_topleft
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2990c67dd2a45570800000000000000
+      internalID: 8454561472545069358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_top
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c724cf328a1b46d0800000000000000
+      internalID: -3005279179621783607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_topright
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 727eafb62599a37c0800000000000000
+      internalID: -4090788732234701017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36804f6bfeab6b590800000000000000
+      internalID: -7658728577567553437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd67ec3d4aeeb970800000000000000
+      internalID: 8772706741619486154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_right
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53ab354a032471a20800000000000000
+      internalID: 3032965650740132405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_bottomright
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af072f7c15efa7410800000000000000
+      internalID: 1475771455117619450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_bottomleft
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b2abf0c642e19330800000000000000
+      internalID: 3715999961070674611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_bottom
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 956942456b5dceaa0800000000000000
+      internalID: -6130290013685639591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_innertopright
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 595fde4949c792890800000000000000
+      internalID: -7482312328303741547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_innerbottomright
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb95f4703962c6fc0800000000000000
+      internalID: -3500380397449029185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_innertopleft
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca90455dff55f00c0800000000000000
+      internalID: -4607369336492652116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_sand_to_grass_innerbottomleft
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fea4258396f78c220800000000000000
+      internalID: 2506393282524891887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_topleft
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f97e02b70cb8ffa0800000000000000
+      internalID: -5766652581609833994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_top
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa113fa07f2ae7880800000000000000
+      internalID: -8611266255561485905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_topright
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b71f36c341871ad0800000000000000
+      internalID: -2731572520888100938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_left
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2938e659636b2aef0800000000000000
+      internalID: -98315896297192558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ff42644b5cfd9b00800000000000000
+      internalID: 837102574680297461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_right
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2e65cf6e31fa5ec0800000000000000
+      internalID: -3577281703526961618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_bottomright
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13abd655367b6e640800000000000000
+      internalID: 5108972464561306161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_bottomleft
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fb671a20171f3c30800000000000000
+      internalID: 4341213924001541106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_bottom
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20d5c48075ae47d60800000000000000
+      internalID: 7887186506954857730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_innertopright
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b1e4d0d1e140bab0800000000000000
+      internalID: -4994419548626820680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_innerbottomright
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba1a5bb474bd5570800000000000000
+      internalID: 8457114088724110012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_innerbottomleft
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d65c09b516451fca0800000000000000
+      internalID: -5984909652673903251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_innertopleft
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4540b36b723628a00800000000000000
+      internalID: 757276709563860052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_topleft
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06c3cd76378b640c0800000000000000
+      internalID: -4591779964254405536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_top
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1352f6cce02aaa60800000000000000
+      internalID: 7685991915383313183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_topright
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a556805733cfe11b0800000000000000
+      internalID: -5683828381757971110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_right
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cae706acfa66e8580800000000000000
+      internalID: -8823001714771591508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_2
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 891d559e5f51c4390800000000000000
+      internalID: -7832861505978248808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_left
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9de5fa42fec59af80800000000000000
+      internalID: -8094836673039343911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_bottomleft
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6707d3ad926b363f0800000000000000
+      internalID: -908682408927334282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_bottom
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84b5417718e56ea70800000000000000
+      internalID: 8855869627412273992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_bottomright
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a9853e0278466590800000000000000
+      internalID: -7681372459731940951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_innertopleft
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eed6f2f056cddabd0800000000000000
+      internalID: -2617193481827815954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_innertopright
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd3b84f6005b7c810800000000000000
+      internalID: 1785594790747354075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_innerbottomright
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f7d6e66ce3995350800000000000000
+      internalID: 6005994221623236594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_sand_2_innerbottomleft
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 496666825e0efc470800000000000000
+      internalID: 8417193503408678548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_topleft
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7f973f35cdab22a0800000000000000
+      internalID: -6761119352885895300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_top
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be43008c449630da0800000000000000
+      internalID: -5979820136083737365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_topright
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 764428d7bcfb96b70800000000000000
+      internalID: 8892849819924710503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_left
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05b7e5ee0c93b8d10800000000000000
+      internalID: 2128858749658364752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_bottomleft
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9253314aababad540800000000000000
+      internalID: 5033540844319356201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_bottom
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b78d5a282e36bff0800000000000000
+      internalID: -20760806046201935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_bottomright
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bd091de5e5afa110800000000000000
+      internalID: 1274419626513075635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_right
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d508ee6e901c03a50800000000000000
+      internalID: 6498906510568882269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_innertopleft
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72214903081b2c8c0800000000000000
+      internalID: -3980423956513156569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_innertopright
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c62fdfad303bc9d0800000000000000
+      internalID: -2753053705705150780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_innerbottomright
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00fe678ff70fb88b0800000000000000
+      internalID: -5148757316547973376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_innerbottomleft
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29c0bfa25e30181c0800000000000000
+      internalID: -4503313869590295406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_topleft
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfae8ad2c62227a60800000000000000
+      internalID: 7670230963383233275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_top
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc3c4c11341463c0800000000000000
+      internalID: -4367343537481827145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_topright
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d234e3b894f87680800000000000000
+      internalID: -8756980538731646248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_right
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea4073ea281986410800000000000000
+      internalID: 1470585268791084206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_bottomright
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d84e40bd47f07e00800000000000000
+      internalID: 1040603426965047505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_left
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 184a7fc36222e5fd0800000000000000
+      internalID: -2351404407813856127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_bottomleft
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ced9b2236a28ab640800000000000000
+      internalID: 5096529578641038828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_bottom
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff0fb2abb1f1b320800000000000000
+      internalID: 2572102650396872691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_innertopright
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e97772ad1b7a4dbf0800000000000000
+      internalID: -300430892815911010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_innertopleft
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24da3c0d4f77515f0800000000000000
+      internalID: -786590666548073150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_innerbottomright
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5fbf7582cebcd0c0800000000000000
+      internalID: -4549551780878368934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_shallowwater_to_water_2_innerbottomleft
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25f83a5a744ad6450800000000000000
+      internalID: 6083699299276001106
       vertices: []
       indices: 
       edges: []

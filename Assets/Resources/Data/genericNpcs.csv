@@ -23,4 +23,7 @@ id,name,initial dialogs,main dialogs,item given id,item given quantity
 51,Isabelle,,Casswick is a small place but lots of trainers pass through trying to collect gym badges like you.;Good luck on your travels and if your pokemon need a rest don't forget to stop at a Pokemon Centre to give them some rest.,,
 52,Scientist,,We just bought this fossil machine but we're still setting it up.,,
 53,Guard,,"The pokemon past this point are very strong.;Unfortunately, I can't let you pass until I know that you are strong enough to defend yourself against them.;Defeating gym leaders could help prove your strength.",,
+66,Soloman,,"I've collected as many books as I can about dragon pokemon.;Someday, I'll know enough to catch a really strong pokemon like Salamance.",,
 67,Worker,,"Sorry, there's construction work going on past here and I can't let you go past at the moment.",,
+85,Jennie,"Are you a trainer?;I used to be a trainer but then I settled down here.;Here, have this lucky egg that I used to use to give to your pokemon.;If a pokemon holds it then it will grow faster.","If you let a pokemon hold that lucky egg, it should grow faster.",231,1
+86,Ollie,,I love the tranquility of Nagaka Village.;I used to live in Jubilife City in Sinnoh and it was really interesting but also really loud and busy.,,

@@ -1,5 +1,8 @@
 import csv;
 
+DEFAULT_GENERIC_NPCS_FN = "genericNpcs.csv";
+DEFAULT_TRAINERS_FN = "trainers.csv"
+
 def load_csv(fn):
     with open(fn) as f:
         r = csv.reader(f);
@@ -19,7 +22,12 @@ def main():
     global MAX_ID;
 
     generic_npcs_fn = input("Generic NPCs CSV Filename> ");
-    trainers_fn = input("Trainers CSV Filename> ");
+    
+    if not generic_npcs_fn:
+        generic_npcs_fn = DEFAULT_GENERIC_NPCS_FN;
+        trainers_fn = DEFAULT_TRAINERS_FN;
+    else:
+        trainers_fn = input("Trainers CSV Filename> ");
 
     names_used = [];
     

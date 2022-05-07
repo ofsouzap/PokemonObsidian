@@ -1,5 +1,8 @@
 import csv;
 
+DEFAULT_SPECIES_FN = "pokemonSpecies.csv";
+DEFAULT_WILD_AREA_FN = "wildPokemonAreas.csv";
+
 def load_csv(fn):
     with open(fn) as f:
         r = csv.reader(f);
@@ -34,7 +37,12 @@ def main():
     global MAX_ID;
 
     species_fn = input("Species CSV Filename> ");
-    wild_area_fn = input("Wild Area CSV Filename> ");
+
+    if not species_fn:
+        species_fn = DEFAULT_SPECIES_FN;
+        wild_area_fn = DEFAULT_WILD_AREA_FN;
+    else:
+        wild_area_fn = input("Wild Area CSV Filename> ");
     
     species_names = load_species(species_fn);
     used_species = tuple(sorted(load_wild_area_species(wild_area_fn)));
