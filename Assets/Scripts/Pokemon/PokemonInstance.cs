@@ -627,6 +627,44 @@ namespace Pokemon
 
         }
 
+        /// <summary>
+        /// Replaces the pokemon's move in the index specified with the new move specified by its id and sets the pokemon's PP for that move
+        /// </summary>
+        /// <param name="index">The index of the move to replace.</param>
+        /// <param name="newMoveId">The id of the move to replace with</param>
+        public void ReplaceMove(int index,
+            int newMoveId)
+        {
+
+            PokemonMove move = PokemonMove.GetPokemonMoveById(newMoveId);
+
+            if (move == null)
+            {
+                Debug.LogError("Trying to replace move with invalid move id");
+                return;
+            }
+
+            moveIds[index] = newMoveId;
+            movePPs[index] = move.maxPP;
+
+        }
+
+        /// <summary>
+        /// Whether the pokemon is allowed to forget any of its moves
+        /// </summary>
+        public bool AllowedToForgetMove
+            => moveIds
+                .Any(id => PokemonMove.GetPokemonMoveById(id) != null);
+
+        /// <summary>
+        /// Makes the pokemon lost the move at the specified move index
+        /// </summary>
+        public void ForgetMove(int index)
+        {
+            moveIds[index] = -1;
+            movePPs[index] = 0;
+        }
+
         #endregion
 
         #region Experience

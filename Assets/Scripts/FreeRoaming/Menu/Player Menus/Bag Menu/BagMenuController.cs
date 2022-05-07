@@ -734,8 +734,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                     yield break;
                 }
 
-                pokemon.moveIds[newMoveIndex] = newMove.id;
-                pokemon.movePPs[newMoveIndex] = newMove.maxPP;
+                pokemon.ReplaceMove(newMoveIndex, newMove.id);
 
                 pokemon.AddFriendshipGainForTMUsage();
 
@@ -790,8 +789,7 @@ namespace FreeRoaming.Menu.PlayerMenus.BagMenu
                 PokemonMove forgottenMove = PokemonMove.GetPokemonMoveById(pokemon.moveIds[changedMoveIndex]); //N.B. '-1' since first option is always cancel option
                 PokemonMove learntMove = ((TMItem)CurrentItem).Move;
 
-                pokemon.moveIds[changedMoveIndex] = learntMove.id;
-                pokemon.movePPs[changedMoveIndex] = learntMove.maxPP;
+                pokemon.ReplaceMove(changedMoveIndex, learntMove.id);
 
                 pokemon.AddFriendshipGainForTMUsage();
 
