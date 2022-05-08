@@ -14,6 +14,8 @@ public class GameSettings
     public bool networkLogEnabled = false;
     public bool networkTimeoutDisabled = false;
 
+    public bool obedienceEnabled = true;
+
     #endregion
 
     #region Text Speed

@@ -514,6 +514,16 @@ public class PlayerData
 
     #endregion
 
+    /// <summary>
+    /// Gets the maximum level pokemon the player can have before the pokemon starts disobeying the trainer.
+    /// </summary>
+    public byte GetObedienceCap()
+        => profile.defeatedGymIds.Count > 0
+            ? profile.defeatedGymIds
+                .Select(id => Gym.registry.LinearSearch(id))
+                .Max(gym => gym != null ? gym.obedienceCap : (byte)0)
+            : PokemonInstance.defaultObedienceCap;
+
     #endregion
 
     #region Profile

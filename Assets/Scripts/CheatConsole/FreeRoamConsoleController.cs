@@ -68,7 +68,7 @@ namespace CheatConsole
             },
 
             {
-               new Regex("^load scenestack (?<pattern>([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?;)*([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?))$"),
+               new Regex("^scenestack load (?<pattern>([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?;)*([A-z0-9 ]+,-?[0-9]+,-?[0-9]+(,-?[0-9]+)?))$"),
                (m) =>
                {
 
@@ -242,6 +242,31 @@ namespace CheatConsole
                     {
                         return "No space to add pokemon";
                     }
+
+                }
+            },
+
+            {
+                new Regex("^(obedience|ob)([cC]ap)? (?<value>enable|disable)"),
+                (m) =>
+                {
+                    bool state = m.Groups["value"].Value == "enable";
+
+                    GameSettings.singleton.obedienceEnabled = state;
+
+                    return (state ? "Enabled" : "Disabled") + " obedience cap";
+
+                }
+            },
+
+            {
+                new Regex("^scenestack current get"),
+                (m) =>
+                {
+
+                    string currSS = GameSceneManager.CurrentSceneStack.AsString;
+
+                    return "Current scene stack: " + currSS;
 
                 }
             }

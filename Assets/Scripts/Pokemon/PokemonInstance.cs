@@ -714,6 +714,89 @@ namespace Pokemon
 
         #endregion
 
+        #region Obedience
+
+        public const byte defaultObedienceCap = 10;
+
+        public bool CanDisobeyTrainer(PlayerData player = null)
+        {
+
+            if (player == null)
+                player = PlayerData.singleton;
+
+            return GetLevel() > player.GetObedienceCap();
+
+        }
+
+        /// <summary>
+        /// Gets the difference between the pokemon's level and the player's current obedience cap.
+        /// </summary>
+        public int GetObedienceLevelDifference(PlayerData player = null)
+        {
+
+            if (player == null)
+                player = PlayerData.singleton;
+
+            return GetLevel() - player.GetObedienceCap();
+
+        }
+
+        /// <summary>
+        /// Runs a randomised check to see if the pokemon should disobey their trainer.
+        /// </summary>
+        /// <returns>true if the pokemon should disobey, false if they shouldn't</returns>
+        public bool RunObedienceCheck(BattleData battleData,
+            PlayerData player = null)
+        {
+
+            if (player == null)
+                player = PlayerData.singleton;
+
+            byte obedienceCap = player.GetObedienceCap();
+            int lvlSum = GetLevel() + obedienceCap;
+            float rand = battleData.RandomValue01();
+
+            return (lvlSum * rand) > obedienceCap;
+
+        }
+
+        public static string GetRandomDisobedienceNoAttackMessageSuffix(BattleData battleData)
+            => disobedienceNoAttackMessageSuffixes[
+                    battleData.RandomRange(0, disobedienceNoAttackMessageSuffixes.Length)
+                ];
+
+        public static string GetRandomDisobedienceSleepMessageSuffix(BattleData battleData)
+            => disobedienceSleepMessageSuffixes[
+                    battleData.RandomRange(0, disobedienceSleepMessageSuffixes.Length)
+                ];
+
+        public static string GetRandomDisobedienceHurtSelfMessageSuffix(BattleData battleData)
+            => disobedienceHurtSelfMessageSuffix[
+                    battleData.RandomRange(0, disobedienceHurtSelfMessageSuffix.Length)
+                ];
+
+        protected static readonly string[] disobedienceNoAttackMessageSuffixes = new string[]
+        {
+            " ignored orders!", // Same possible message as when using different move
+            " is loafing around.",
+            " turned away.",
+            " pretended not to notice.",
+            " refuses to do what you say!"
+        };
+
+        protected static readonly string[] disobedienceSleepMessageSuffixes = new string[]
+        {
+            " went to sleep!", // Same possible message as when not attacking
+            " started having a nap!"
+        };
+
+        protected static readonly string[] disobedienceHurtSelfMessageSuffix = new string[]
+        {
+            " refused to obey and hurt itself in the confusion!"
+        };
+
+        #endregion
+
         #region Evolution
 
         /// <summary>
@@ -1018,6 +1101,7 @@ namespace Pokemon
             public PokemonMove MoveBeingCharged => !PokemonMove.MoveIdIsUnset(MoveIdBeingCharged) ? PokemonMove.GetPokemonMoveById(MoveIdBeingCharged) : null;
             public int MoveIdBeingCharged => volatileBattleStatus.chargingMoveId;
             public bool IsUsingChargedMove => volatileBattleStatus.chargingStage == 1;
+            public bool IsChargingMove => volatileBattleStatus.chargingStage == 2;
 
             /// <summary>
             /// Id of the last move used

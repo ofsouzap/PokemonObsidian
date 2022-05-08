@@ -837,6 +837,19 @@ namespace CheatConsole
                     }
 
                 }
+            },
+
+            {
+                new Regex("^(obedience|ob)([cC]ap)? (?<value>enable|disable)"),
+                (bm, m) =>
+                {
+                    bool state = m.Groups["value"].Value == "enable";
+
+                    GameSettings.singleton.obedienceEnabled = state;
+
+                    return (state ? "Enabled" : "Disabled") + " obedience cap";
+
+                }
             }
 
         };

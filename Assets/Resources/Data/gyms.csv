@@ -1,4 +1,4 @@
-id,name,badge name
-1,Okford Gym,Beginner's Badge
-2,Tildahill Gym,Feather Badge
-3,Casswick Gym,Grass Badge
+id,name,badge name,obedience cap
+1,Okford Gym,Beginner's Badge,15
+2,Tildahill Gym,Feather Badge,25
+3,Casswick Gym,Grass Badge,35

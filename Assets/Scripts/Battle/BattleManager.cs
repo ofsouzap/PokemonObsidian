@@ -2776,6 +2776,59 @@ namespace Battle
 
             #endregion
 
+            #region Obedience Move Failures
+
+            if (GameSettings.singleton.obedienceEnabled
+                && userIsPlayer
+                && !userPokemon.battleProperties.IsChargingMove
+                && userPokemon.CanDisobeyTrainer())
+            {
+
+                if (userPokemon.RunObedienceCheck(battleData)) // Initial check to see if the pokemon should disobey
+                {
+
+                    byte r = (byte)battleData.RandomRange(0, 256);
+                    int levelDifference = userPokemon.GetObedienceLevelDifference();
+
+                    if (r < levelDifference
+                        && userPokemon.nonVolatileStatusCondition == PokemonInstance.NonVolatileStatusCondition.None)
+                    {
+
+                        // Fall asleep
+
+                        userPokemon.nonVolatileStatusCondition = PokemonInstance.NonVolatileStatusCondition.Asleep;
+                        userPokemon.remainingSleepTurns = PokemonInstance.GetRandomSleepDuration(battleData);
+
+                        battleAnimationSequencer.EnqueueSingleText(
+                            userPokemon.GetDisplayName()
+                            + PokemonInstance.GetRandomDisobedienceSleepMessageSuffix(battleData)
+                        );
+
+                    }
+                    else
+                    {
+
+                        // Don't attack
+
+                        battleAnimationSequencer.EnqueueSingleText(
+                            userPokemon.GetDisplayName()
+                            + PokemonInstance.GetRandomDisobedienceNoAttackMessageSuffix(battleData)
+                        );
+
+                    }
+
+                    yield return StartCoroutine(battleAnimationSequencer.PlayAll());
+
+                    battleLayoutController.overviewPaneManager.playerPokemonOverviewPaneController.UpdateNonVolatileStatsCondition(userPokemon.nonVolatileStatusCondition);
+
+                    yield break;
+
+                }
+
+            }
+
+            #endregion
+
             #region Confusion Move Failure
 
             if (userPokemon.battleProperties.volatileStatusConditions.confusion > 0)
