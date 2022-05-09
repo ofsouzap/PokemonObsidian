@@ -779,6 +779,7 @@ namespace Networking
             out PokemonInstance[] pokemon,
             out string spriteResourceName,
             out int randomSeed,
+            out byte? standarisedLevel,
             PlayerData player = null)
         {
 
@@ -802,6 +803,7 @@ namespace Networking
                     errCallback("Failed to receive battle entrance arguments");
                     SendNo(stream);
                     randomSeed = default;
+                    standarisedLevel = default;
                     return false;
 
                 }
@@ -816,6 +818,7 @@ namespace Networking
                 {
                     errCallback("Failed to send battle arguments");
                     randomSeed = default;
+                    standarisedLevel = default;
                     return false;
                 }
 
@@ -826,6 +829,7 @@ namespace Networking
                     case null:
                         errCallback("Didn't receive yes after sending battle entrance arguments");
                         randomSeed = default;
+                        standarisedLevel = default;
                         return false;
 
                     case true:
@@ -839,6 +843,15 @@ namespace Networking
                 randomSeed = BitConverter.ToInt32(randomSeedBuffer, 0);
                 LogNetworkEvent($"Received random seed {randomSeed}");
 
+                LogNetworkEvent("Receiving standarised level...");
+                if (serializer.DeserializeBool(stream))
+                {
+                    standarisedLevel = Convert.ToByte(stream.ReadByte());
+                }
+                else
+                    standarisedLevel = null;
+                LogNetworkEvent($"Received standarised level {standarisedLevel}");
+
                 return true;
 
             }
@@ -849,6 +862,7 @@ namespace Networking
                 pokemon = default;
                 spriteResourceName = default;
                 randomSeed = default;
+                standarisedLevel = default;
                 return false;
             }
 
@@ -860,6 +874,7 @@ namespace Networking
             out string name,
             out PokemonInstance[] pokemon,
             out string spriteResourceName,
+            byte? standarisedLevel,
             PlayerData player = null,
             int randomSeed = 0)
         {
@@ -921,6 +936,16 @@ namespace Networking
                 LogNetworkEvent($"Sending random seed ({randomSeed})...");
                 stream.Write(BitConverter.GetBytes(randomSeed), 0, 4);
                 LogNetworkEvent($"Sent random seed");
+
+                LogNetworkEvent($"Sending standarised level ({standarisedLevel})...");
+                if (standarisedLevel != null)
+                {
+                    serializer.SerializeBool(stream, true);
+                    stream.Write(new byte[1] { ((byte)standarisedLevel) }, 0, 1);
+                }
+                else
+                    serializer.SerializeBool(stream, false);
+                LogNetworkEvent($"Sent standarised level");
 
                 return true;
 

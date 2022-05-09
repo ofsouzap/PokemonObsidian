@@ -15,12 +15,20 @@ namespace Networking.NetworkInteractionCanvas
 
         protected bool interactive;
 
+        [Header("Connection Settings")]
+
         public Dropdown purposeDropdown;
         public InputField addressInput;
         public InputField portInput;
 
         public Button goButton;
         public Button closeButton;
+
+        [Header("Battle Settings")]
+
+        public Dropdown standarisedLevelDropdown;
+
+        #region Dropdown Options
 
         protected static readonly string[] purposeDropdownOptions = new string[]
         {
@@ -34,6 +42,40 @@ namespace Networking.NetworkInteractionCanvas
             { "Trade", Connection.ConnectionPurpose.Trade }
         };
 
+        protected static void CheckPurposeDropdownOptionCorrelations()
+        {
+
+            foreach (string s in purposeDropdownOptions)
+                if (!purposeDropdownOptionValues.ContainsKey(s))
+                    Debug.LogError("No purpose dropdown option value for \"" + s + '"');
+
+        }
+
+        protected static readonly string[] standarisedLevelDropdownOptions = new string[]
+        {
+            "No Change",
+            "Level 20",
+            "Level 60"
+        };
+
+        protected static readonly Dictionary<string, byte?> standardisedLevelDropdownOptionValues = new Dictionary<string, byte?>()
+        {
+            { "No Change", null },
+            { "Level 20", 20 },
+            { "Level 60", 60 }
+        };
+
+        protected static void CheckStandardisedLevelDropdownOptionCorrelations()
+        {
+
+            foreach (string s in purposeDropdownOptions)
+                if (!purposeDropdownOptionValues.ContainsKey(s))
+                    Debug.LogError("No standardised level dropdown option value for \"" + s + '"');
+
+        }
+
+        #endregion
+
         protected override MenuSelectableController[] GetSelectables()
         {
 
@@ -46,21 +88,13 @@ namespace Networking.NetworkInteractionCanvas
 
         }
 
-        protected static void CheckPurposeDropdownOptionCorrelations()
-        {
-
-            foreach (string s in purposeDropdownOptions)
-                if (!purposeDropdownOptionValues.ContainsKey(s))
-                    Debug.LogError("Not purpose dropdown option value for \"" + s + '"');
-
-        }
-
         public override void SetUp(NetworkInteractionCanvasController canvasController)
         {
 
             base.SetUp(canvasController);
 
             CheckPurposeDropdownOptionCorrelations();
+            CheckStandardisedLevelDropdownOptionCorrelations();
 
             if (goButton.GetComponent<MenuSelectableController>() == null)
             {
@@ -93,8 +127,17 @@ namespace Networking.NetworkInteractionCanvas
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(() => CloseMenu());
 
+            #region Dropdown Set-Up
+
+            // Adding dropdown options done by making new Dropdown.OptionData for each string value in the array
+
             purposeDropdown.ClearOptions();
-            purposeDropdown.AddOptions(new List<Dropdown.OptionData>(purposeDropdownOptions.Select(s => new Dropdown.OptionData(s)))); // Add dropdown options by making new Dropdown.OptionData for each string value in the array
+            purposeDropdown.AddOptions(new List<Dropdown.OptionData>(purposeDropdownOptions.Select(s => new Dropdown.OptionData(s))));
+
+            standarisedLevelDropdown.ClearOptions();
+            standarisedLevelDropdown.AddOptions(new List<Dropdown.OptionData>(standarisedLevelDropdownOptions.Select(s => new Dropdown.OptionData(s))));
+
+            #endregion
 
         }
 
@@ -152,6 +195,7 @@ namespace Networking.NetworkInteractionCanvas
             portInput.interactable = state;
             goButton.interactable = state;
             closeButton.interactable = state;
+            standarisedLevelDropdown.interactable = state;
             interactive = state;
         }
 
@@ -162,6 +206,7 @@ namespace Networking.NetworkInteractionCanvas
             portInput.interactable = true;
             goButton.interactable = true;
             closeButton.interactable = true;
+            standarisedLevelDropdown.interactable = true;
             interactive = true;
         }
 
@@ -172,6 +217,7 @@ namespace Networking.NetworkInteractionCanvas
             portInput.interactable = true;
             goButton.interactable = true;
             closeButton.interactable = true;
+            standarisedLevelDropdown.interactable = false;
             interactive = true;
         }
 
@@ -182,6 +228,7 @@ namespace Networking.NetworkInteractionCanvas
             portInput.interactable = false;
             goButton.interactable = false;
             closeButton.interactable = true;
+            standarisedLevelDropdown.interactable = false;
             interactive = false;
         }
 
@@ -194,6 +241,9 @@ namespace Networking.NetworkInteractionCanvas
 
             string purposeString = purposeDropdownOptions[purposeDropdown.value];
             Connection.ConnectionPurpose purpose = purposeDropdownOptionValues[purposeString];
+
+            string standardisedLevelString = standarisedLevelDropdownOptions[standarisedLevelDropdown.value];
+            byte? standardisedLevel = standardisedLevelDropdownOptionValues[standardisedLevelString];
 
             int port;
 
@@ -213,7 +263,7 @@ namespace Networking.NetworkInteractionCanvas
 
                 case ConnectionMode.Server:
                     SetInteractivityForServerListening();
-                    Run_Server(purpose, port);
+                    Run_Server(purpose, standardisedLevel, port);
                     break;
 
                 case ConnectionMode.Client:
@@ -239,13 +289,15 @@ namespace Networking.NetworkInteractionCanvas
 
                 if (connectionPurpose != null)
                 {
-                    StartCoroutine(ProcessConnection_Server(serverConnectionToProcess, (Connection.ConnectionPurpose)connectionPurpose));
+                    StartCoroutine(ProcessConnection_Server(serverConnectionToProcess,
+                        (Connection.ConnectionPurpose)connectionPurpose,
+                        serverConnectionToProcessStandarisedLevel));
                     connectionPurpose = null;
                 }
                 else
                     Debug.LogError("Connection purpose not set when trying to process server connection");
 
-                SetServerConnectionToProcess(null);
+                SetServerConnectionToProcess(null, null);
                 
             }
 
@@ -255,23 +307,30 @@ namespace Networking.NetworkInteractionCanvas
 
         private static readonly object serverConnectionToProcessLock = new object();
         private Socket serverConnectionToProcess = null;
+        private byte? serverConnectionToProcessStandarisedLevel;
 
-        private void SetServerConnectionToProcess(Socket socket)
+        private void SetServerConnectionToProcess(Socket socket,
+            byte? standarisedLevel)
         {
             lock (serverConnectionToProcessLock)
             {
                 serverConnectionToProcess = socket;
+                serverConnectionToProcessStandarisedLevel = standarisedLevel;
             }
         }
 
-        protected void Run_Server(Connection.ConnectionPurpose purpose, int port = -1)
+        protected void Run_Server(Connection.ConnectionPurpose purpose,
+            byte? standardisedLevel,
+            int port = -1)
         {
 
-            StartCoroutine(Server_Coroutine(purpose, port));
+            StartCoroutine(Server_Coroutine(purpose, standardisedLevel, port));
 
         }
 
-        protected IEnumerator Server_Coroutine(Connection.ConnectionPurpose purpose, int port = -1)
+        protected IEnumerator Server_Coroutine(Connection.ConnectionPurpose purpose,
+            byte? standardisedLevel,
+            int port = -1)
         {
 
             if (serverConnectionToProcess != null)
@@ -313,7 +372,7 @@ namespace Networking.NetworkInteractionCanvas
             }
 
             connectionPurpose = purpose;
-            SetServerConnectionToProcess(sock);
+            SetServerConnectionToProcess(sock, standardisedLevel);
 
         }
 

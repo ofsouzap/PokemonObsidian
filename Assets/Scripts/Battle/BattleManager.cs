@@ -231,10 +231,22 @@ namespace Battle
 
                 case BattleType.Network:
 
+                    PokemonInstance[] opponentParty = BattleEntranceArguments.networkBattleArguments.opponentPokemon;
+
+                    // Standarising level if needed
+                    if (BattleEntranceArguments.networkBattleArguments.standardisedPokemonLevel != null)
+                    {
+                        opponentParty = opponentParty
+                            .Select(pmon => pmon?.StandarisedLevelCopy(
+                                (byte)BattleEntranceArguments.networkBattleArguments.standardisedPokemonLevel
+                            ))
+                            .ToArray();
+                    }
+
                     participantOpponent = new BattleParticipantNetwork(
                         commsManager,
                         BattleEntranceArguments.networkBattleArguments.opponentName,
-                        BattleEntranceArguments.networkBattleArguments.opponentPokemon,
+                        opponentParty,
                         BattleEntranceArguments.networkBattleArguments.opponentSpriteResourceName);
                     
                     break;
@@ -264,13 +276,27 @@ namespace Battle
 
             BattleParticipantPlayer participantPlayer;
 
+            PokemonInstance[] playerParty = PlayerData.singleton.partyPokemon;
+
             if (BattleEntranceArguments.battleType == BattleType.Network)
             {
-                participantPlayer = new BattleParticipantNetworkedPlayer(commsManager);
+
+                // Standarising level if needed
+                if (BattleEntranceArguments.networkBattleArguments.standardisedPokemonLevel != null)
+                {
+                    playerParty = playerParty
+                        .Select(pmon => pmon?.StandarisedLevelCopy(
+                            (byte)BattleEntranceArguments.networkBattleArguments.standardisedPokemonLevel
+                        ))
+                        .ToArray();
+                }
+
+                participantPlayer = new BattleParticipantNetworkedPlayer(commsManager, playerParty);
+
             }
             else
             {
-                participantPlayer = new BattleParticipantPlayer();
+                participantPlayer = new BattleParticipantPlayer(playerParty);
             }
 
             #endregion

@@ -51,6 +51,11 @@ namespace Battle
             public PokemonInstance[] opponentPokemon;
             public string opponentSpriteResourceName;
 
+            /// <summary>
+            /// The level to set both trainers' pokemon to or null if they should use their actual level
+            /// </summary>
+            public byte? standardisedPokemonLevel;
+
         }
 
         public static void SetBattleEntranceArgumentsForNetworkBattle(NetworkStream stream,
@@ -58,7 +63,8 @@ namespace Battle
             string name,
             PokemonInstance[] pokemon,
             string spriteResourceName,
-            int randomSeed)
+            int randomSeed,
+            byte? standardisedLevel)
         {
 
             argumentsSet = true;
@@ -73,7 +79,8 @@ namespace Battle
                 isServer = isServer,
                 opponentName = name,
                 opponentPokemon = pokemon,
-                opponentSpriteResourceName = spriteResourceName
+                opponentSpriteResourceName = spriteResourceName,
+                standardisedPokemonLevel = standardisedLevel
             };
 
         }

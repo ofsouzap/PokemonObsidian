@@ -1,10 +1,12 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using Battle;
 using Items;
 using Pokemon.Moves;
+using Serialization;
 
 namespace Pokemon
 {
@@ -1404,6 +1406,58 @@ namespace Pokemon
                 return h;
 
             }
+
+        }
+
+        #endregion
+
+        #region Copy
+
+        /// <summary>
+        /// Creates a copy of a pokemon instance. This involves serializing and then deseriazlizing the pokemon so shouldn't be used very often
+        /// </summary>
+        public PokemonInstance CreateCopy(Serializer serializer = null)
+            => CreateCopy(this, serializer);
+
+        /// <summary>
+        /// Creates a copy of a pokemon instance. This involves serializing and then deseriazlizing the pokemon so shouldn't be used very often
+        /// </summary>
+        public static PokemonInstance CreateCopy(PokemonInstance pmon,
+            Serializer serializer = null)
+        {
+
+            if (serializer == null)
+                serializer = Serialize.DefaultSerializer;
+
+            MemoryStream stream = new MemoryStream();
+
+            serializer.SerializePokemonInstance(stream, pmon);
+
+            stream.Position = 0;
+
+            PokemonInstance copy = serializer.DeserializePokemonInstance(stream);
+
+            stream.Close();
+
+            return copy;
+
+        }
+
+        /// <summary>
+        /// Creates a copy of this pokemon but with its level set to a specified level and its stats recalculated for this
+        /// </summary>
+        public PokemonInstance StandarisedLevelCopy(byte level,
+            Serializer serializer = null)
+        {
+
+            PokemonInstance copy = CreateCopy(this, serializer);
+
+            copy.experience = GrowthTypeData.GetMinimumExperienceForLevel(level, growthType);
+            copy.RefreshStats();
+
+            copy.RestoreFully();
+
+            return copy;
 
         }
 

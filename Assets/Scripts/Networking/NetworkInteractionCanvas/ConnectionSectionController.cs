@@ -70,7 +70,8 @@ namespace Networking.NetworkInteractionCanvas
         #region Processing Established Connection
 
         protected IEnumerator ProcessConnection_Server(Socket socket,
-            Connection.ConnectionPurpose purpose)
+            Connection.ConnectionPurpose purpose,
+            byte? standardisedBattleLevel = null)
         {
 
             NetworkStream stream = Connection.CreateNetworkStream(socket);
@@ -90,7 +91,7 @@ namespace Networking.NetworkInteractionCanvas
             {
 
                 case Connection.ConnectionPurpose.Battle:
-                    yield return StartCoroutine(ProcessVerifiedConnection_Server_Battle(stream));
+                    yield return StartCoroutine(ProcessVerifiedConnection_Server_Battle(stream, standardisedBattleLevel));
                     break;
 
                 case Connection.ConnectionPurpose.Trade:
@@ -145,7 +146,8 @@ namespace Networking.NetworkInteractionCanvas
 
         #region Battle Connections
 
-        private IEnumerator ProcessVerifiedConnection_Server_Battle(NetworkStream stream)
+        private IEnumerator ProcessVerifiedConnection_Server_Battle(NetworkStream stream,
+            byte? standardisedLevel)
         {
 
             //Choose random seed
@@ -158,7 +160,8 @@ namespace Networking.NetworkInteractionCanvas
                 out string opponentName,
                 out PokemonInstance[] opponentPokemon,
                 out string opponentSpriteResourceName,
-                randomSeed: randomSeed))
+                randomSeed: randomSeed,
+                standarisedLevel: standardisedLevel))
             {
                 stream.Close();
                 Launch(connectionMode); //Reset section
@@ -172,7 +175,8 @@ namespace Networking.NetworkInteractionCanvas
                 name: opponentName,
                 pokemon: opponentPokemon,
                 spriteResourceName: opponentSpriteResourceName,
-                randomSeed: randomSeed);
+                randomSeed: randomSeed,
+                standardisedLevel: standardisedLevel);
 
             LaunchBattle();
 
@@ -188,7 +192,8 @@ namespace Networking.NetworkInteractionCanvas
                 out string opponentName,
                 out PokemonInstance[] opponentPokemon,
                 out string opponentSpriteResourceName,
-                out int randomSeed))
+                out int randomSeed,
+                out byte? standardisedLevel))
             {
                 stream.Close();
                 Launch(connectionMode); //Reset section
@@ -202,7 +207,8 @@ namespace Networking.NetworkInteractionCanvas
                 name: opponentName,
                 pokemon: opponentPokemon,
                 spriteResourceName: opponentSpriteResourceName,
-                randomSeed: randomSeed);
+                randomSeed: randomSeed,
+                standardisedLevel: standardisedLevel);
 
             LaunchBattle();
 

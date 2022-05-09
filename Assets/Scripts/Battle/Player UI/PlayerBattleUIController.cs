@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Items;
 using Items.MedicineItems;
+using Pokemon;
 using Pokemon.Moves;
 
 namespace Battle.PlayerUI
@@ -33,18 +34,23 @@ namespace Battle.PlayerUI
 
         public GameObject selectableSelectionPrefab;
 
-        private PlayerData player;
+        private BattleParticipant playerParticipant;
+        private PokemonInstance[] PlayerPokemon
+            => playerParticipant.GetPokemon();
+        private int PlayerPokemonCount
+            => PlayerPokemon.Count(p => p != null);
         private BattleManager battleManager;
 
         public bool GetPlayerAllowedToFlee() => playerBattleParticipant.GetAllowedToFlee();
 
         public byte currentSelectedPartyPokemonIndex;
 
-        public void SetUp(BattleManager battleManager)
+        public void SetUp(BattleManager battleManager,
+            BattleParticipant playerParticipant)
         {
 
             singleton = this;
-            player = PlayerData.singleton;
+            this.playerParticipant = playerParticipant;
             this.battleManager = battleManager;
             currentSelectedPartyPokemonIndex = (byte)battleManager.battleData.participantPlayer.activePokemonIndex;
 
@@ -247,13 +253,13 @@ namespace Battle.PlayerUI
 
             menuPartyPokemonController.buttonNext.onClick.AddListener(() =>
             {
-                currentSelectedPartyPokemonIndex = (byte)((currentSelectedPartyPokemonIndex + 1) % player.GetNumberOfPartyPokemon());
+                currentSelectedPartyPokemonIndex = (byte)((currentSelectedPartyPokemonIndex + 1) % PlayerPokemonCount);
                 OpenPartyPokemonMenu(currentSelectedPartyPokemonIndex);
             });
 
             menuPartyPokemonController.buttonPrevious.onClick.AddListener(() =>
             {
-                currentSelectedPartyPokemonIndex = (byte)((currentSelectedPartyPokemonIndex - 1 + player.GetNumberOfPartyPokemon()) % player.GetNumberOfPartyPokemon());
+                currentSelectedPartyPokemonIndex = (byte)((currentSelectedPartyPokemonIndex - 1 + PlayerPokemonCount) % PlayerPokemonCount);
                 OpenPartyPokemonMenu(currentSelectedPartyPokemonIndex);
             });
 
@@ -362,7 +368,7 @@ namespace Battle.PlayerUI
             menuPartyPokemonController.Show();
             EventSystem.current.SetSelectedGameObject(menuPartyPokemonController.buttonBack.gameObject);
 
-            menuPartyPokemonController.SetPokemonDetails(player.partyPokemon[partyIndex]);
+            menuPartyPokemonController.SetPokemonDetails(PlayerPokemon[partyIndex]);
 
         }
 

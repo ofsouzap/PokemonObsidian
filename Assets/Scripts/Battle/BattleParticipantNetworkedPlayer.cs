@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using Networking;
-using Serialization;
+using Pokemon;
 
 namespace Battle
 {
@@ -10,7 +10,8 @@ namespace Battle
 
         protected Connection.NetworkBattleCommsManager commsManager;
 
-        public BattleParticipantNetworkedPlayer(Connection.NetworkBattleCommsManager commsManager)
+        public BattleParticipantNetworkedPlayer(Connection.NetworkBattleCommsManager commsManager,
+            PokemonInstance[] pokemon = null) : base(pokemon)
         {
             this.commsManager = commsManager;
         }

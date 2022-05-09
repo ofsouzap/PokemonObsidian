@@ -22,9 +22,21 @@ namespace Battle
 
         private BattleData recentBattleData;
 
+        private PokemonInstance[] pokemon;
+
         public override PokemonInstance[] GetPokemon()
+            => pokemon;
+
+        public BattleParticipantPlayer(PokemonInstance[] pokemon = null)
         {
-            return PlayerData.singleton.partyPokemon;
+
+            if (pokemon == null || pokemon.Length == 0)
+            {
+                pokemon = PlayerData.singleton.partyPokemon;
+            }
+
+            this.pokemon = pokemon;
+
         }
 
         public override void StartChoosingAction(BattleData battleData)
@@ -64,7 +76,7 @@ namespace Battle
             playerPokemonSelectUIController.playerBattleParticipant = this;
             playerMoveSelectUIController.playerBattleParticipant = this;
 
-            playerBattleUIController.SetUp(battleManager);
+            playerBattleUIController.SetUp(battleManager, this);
             playerPokemonSelectUIController.SetUp();
 
             playerPokemonSelectUIController.buttonBack.onClick.AddListener(OnPokemonSelectUIButtonBackClick);
