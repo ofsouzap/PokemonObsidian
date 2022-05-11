@@ -59,6 +59,16 @@ namespace FreeRoaming.NPCs
 
         }
 
+        protected override void OnValidate()
+        {
+
+            base.OnValidate();
+
+            if (id > 0)
+                name = "Trainer " + id.ToString();
+
+        }
+
         protected bool PlayerInView
         {
             get

@@ -39,3 +39,5 @@ List of NPC IDs and which NPCs they correspond to
 68-76 - trainers in Route 4
 77-84 - trainers in Route 5
 85-86 - NPCs around Nagaka Village
+87-99 trainers in Route 3
+100 - NPC in house on Route 3

@@ -46,7 +46,9 @@ public static class TrainerClass
         Roxi,
         Idol,
         Maid,
-        DragonTamer
+        DragonTamer,
+        Tuber_m,
+        Tuber_f
     }
 
     /// <summary>
@@ -54,6 +56,7 @@ public static class TrainerClass
     /// </summary>
     public static readonly Dictionary<Class, byte> classBasePayouts = new Dictionary<Class, byte>()
     {
+        // https://bulbapedia.bulbagarden.net/wiki/Prize_money
         { Class.Barry, 64 },
         { Class.Youngster, 16 },
         { Class.Lass, 16 },
@@ -93,7 +96,9 @@ public static class TrainerClass
         { Class.Roxi, 32 }, //Made this values up
         { Class.Idol, 72 },
         { Class.Maid, 40 },
-        { Class.DragonTamer, 32 }
+        { Class.DragonTamer, 32 },
+        { Class.Tuber_m, 4 },
+        { Class.Tuber_f, 4 }
     };
 
     /// <summary>
@@ -140,7 +145,9 @@ public static class TrainerClass
         { Class.Roxi, "roxi" },
         { Class.Idol, "idol" },
         { Class.Maid, "maid" },
-        { Class.DragonTamer, "dragontamer" }
+        { Class.DragonTamer, "dragontamer" },
+        { Class.Tuber_m, "tuberm" },
+        { Class.Tuber_f, "tuberf" }
     };
 
     /// <summary>
@@ -188,7 +195,9 @@ public static class TrainerClass
         { Class.Roxi, "" },
         { Class.Idol, "Idol" },
         { Class.Maid, "Maid" },
-        { Class.DragonTamer, "Dragon Tamer" }
+        { Class.DragonTamer, "Dragon Tamer" },
+        { Class.Tuber_m, "Tuber" },
+        { Class.Tuber_f, "Tuber" }
     };
 
     public static bool TryParse(string s,

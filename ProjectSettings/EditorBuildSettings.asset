@@ -104,4 +104,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FreeRoaming/Main Areas/Route 5.unity
     guid: 3f7773218c25c1d41bdae2d6395c50a8
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Main Areas/Route 3.unity
+    guid: f167c6081703cdb4fb650593b3535d70
   m_configObjects: {}

@@ -77,6 +77,25 @@ namespace FreeRoaming.NPCs
 
         }
 
+        protected virtual void OnValidate()
+        {
+
+            if (!string.IsNullOrEmpty(spriteGroupName))
+            {
+
+                SpriteStorage.TryLoadAll();
+
+                spriteRenderer.sprite = SpriteStorage.GetCharacterSprite(out bool flipSprite,
+                    spriteGroupName,
+                    "idle",
+                    initialDirectionFacing);
+
+                spriteRenderer.flipX = flipSprite;
+
+            }
+
+        }
+
         public abstract void Interact(GameCharacterController interacter);
 
         #region Move Forward Steps

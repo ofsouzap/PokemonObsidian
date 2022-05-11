@@ -52,10 +52,10 @@ TextureImporter:
     second: blackbelt_battlesprite
   - first:
       213: 4880529957083324779
-    second: sprite_sheet_npcs_battlesprites_18
+    second: tuberm_battlesprite
   - first:
       213: 978244138726276180
-    second: sprite_sheet_npcs_battlesprites_19
+    second: tuberf_battlesprite
   - first:
       213: 1709087942288316890
     second: sprite_sheet_npcs_battlesprites_20
@@ -1298,6 +1298,48 @@ TextureImporter:
       bones: []
       spriteID: 4d99c5f3d485c86d0800000000000000
       internalID: -2986915364054722092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 619
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b61aa9743202bb340800000000000000
+      internalID: 4880529957083324779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 619
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45c33687cdb639d00800000000000000
+      internalID: 978244138726276180
       vertices: []
       indices: 
       edges: []

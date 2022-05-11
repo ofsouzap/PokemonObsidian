@@ -880,7 +880,7 @@ TextureImporter:
     second: guitarist_idle_d
   - first:
       213: -8526526624462479358
-    second: richboy_idle_d
+    second: tuberm_idle_d
   - first:
       213: 332414310598888080
     second: wintergirl_idle_d
@@ -919,7 +919,7 @@ TextureImporter:
     second: guitarist_idle_u
   - first:
       213: -3184616607641457114
-    second: richboy_idle_l
+    second: tuberm_idle_l
   - first:
       213: -4349109219128802684
     second: wintergirl_idle_u
@@ -958,7 +958,7 @@ TextureImporter:
     second: guitarist_idle_l
   - first:
       213: 4382393866739540504
-    second: richboy_walk_u_2
+    second: tuberm_walk_u_2
   - first:
       213: -1064279009859026449
     second: wintergirl_idle_l
@@ -1036,7 +1036,7 @@ TextureImporter:
     second: guitarist_walk_u_2
   - first:
       213: 3990472203432063688
-    second: richboy_walk_l_1
+    second: tuberm_walk_l_1
   - first:
       213: -5188820941045532559
     second: wintergirl_walk_u_2
@@ -1075,7 +1075,7 @@ TextureImporter:
     second: guitarist_walk_d_1
   - first:
       213: -8061929138276821496
-    second: sprite_sheet_npcs_362
+    second: tuberf_idle_d
   - first:
       213: 4385551372376626925
     second: wintergirl_walk_d_1
@@ -1114,7 +1114,7 @@ TextureImporter:
     second: guitarist_walk_d_2
   - first:
       213: -7345509547020490091
-    second: sprite_sheet_npcs_376
+    second: tuberf_idle_l
   - first:
       213: 6360209764701981982
     second: wintergirl_walk_d_2
@@ -1219,19 +1219,40 @@ TextureImporter:
     second: professor1_walk_l_2
   - first:
       213: -5345512657612810856
-    second: richboy_idle_u
+    second: tuberm_idle_u
   - first:
       213: 4470486840426552422
-    second: richboy_walk_u_1
+    second: tuberm_walk_u_1
   - first:
       213: -5100594307813578391
-    second: richboy_walk_d_1
+    second: tuberm_walk_d_1
   - first:
       213: 1671480131285225654
-    second: richboy_walk_d_2
+    second: tuberm_walk_d_2
   - first:
       213: 708360963980604970
-    second: richboy_walk_l_2
+    second: tuberm_walk_l_2
+  - first:
+      213: -4363478407627886261
+    second: tuberf_idle_u
+  - first:
+      213: -7474371907458342945
+    second: tuberf_walk_u_1
+  - first:
+      213: -2926530585434655670
+    second: tuberf_walk_u_2
+  - first:
+      213: -8851672123248406337
+    second: tuberf_walk_d_1
+  - first:
+      213: 2222931108425998689
+    second: tuberf_walk_d_2
+  - first:
+      213: 8876152381747865877
+    second: tuberf_walk_l_1
+  - first:
+      213: 6598812653096566824
+    second: tuberf_walk_l_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -9719,6 +9740,384 @@ TextureImporter:
       bones: []
       spriteID: bd1d918f4e1041f50800000000000000
       internalID: 6851103016063979995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_idle_d
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 704
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 200e005e531bba980800000000000000
+      internalID: -8526526624462479358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_idle_u
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 672
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89552a44f8ce0d5b0800000000000000
+      internalID: -5345512657612810856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_idle_l
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 640
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62ea8b37118fdc3d0800000000000000
+      internalID: -3184616607641457114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_walk_u_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 608
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66cdea0881c5a0e30800000000000000
+      internalID: 4470486840426552422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_walk_u_2
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 576
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8126cdcb00461dc30800000000000000
+      internalID: 4382393866739540504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_walk_d_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 544
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 969646b408c0739b0800000000000000
+      internalID: -5100594307813578391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_walk_d_2
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 512
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b01162d25a423710800000000000000
+      internalID: 1671480131285225654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_walk_l_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 480
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c273ab9351016730800000000000000
+      internalID: 3990472203432063688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberm_walk_l_2
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 448
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2631de2b8a94d900800000000000000
+      internalID: 708360963980604970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_idle_d
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 704
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80693a4a9264e1090800000000000000
+      internalID: -8061929138276821496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_idle_u
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 672
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b41b048c18fc173c0800000000000000
+      internalID: -4363478407627886261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_idle_l
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59a6a933cf18f0a90800000000000000
+      internalID: -7345509547020490091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_walk_u_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 608
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdf59c0e952b54890800000000000000
+      internalID: -7474371907458342945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_walk_u_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a44f9de10ffd267d0800000000000000
+      internalID: -2926530585434655670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_walk_d_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 544
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb01d812a1b882580800000000000000
+      internalID: -8851672123248406337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_walk_d_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 161a5e5c01079de10800000000000000
+      internalID: 2222931108425998689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_walk_l_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 480
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 519a156309d6e2b70800000000000000
+      internalID: 8876152381747865877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tuberf_walk_l_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 448
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8208c2f5521b39b50800000000000000
+      internalID: 6598812653096566824
       vertices: []
       indices: 
       edges: []

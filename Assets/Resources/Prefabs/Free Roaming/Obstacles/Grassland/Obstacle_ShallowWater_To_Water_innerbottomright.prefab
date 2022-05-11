@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 277869108807764756, guid: 5dd158c9984890a4abb734ae66d3cf2b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5979820136083737365, guid: c7fb2f7d4e18b834f991afdc25725e95, type: 3}
+      objectReference: {fileID: -5148757316547973376, guid: c7fb2f7d4e18b834f991afdc25725e95, type: 3}
     - target: {fileID: 277869108807764756, guid: 5dd158c9984890a4abb734ae66d3cf2b, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -70,11 +70,11 @@ PrefabInstance:
     - target: {fileID: 1627152464737328068, guid: 5dd158c9984890a4abb734ae66d3cf2b, type: 3}
       propertyPath: sprites.Array.data[0]
       value: 
-      objectReference: {fileID: -5979820136083737365, guid: c7fb2f7d4e18b834f991afdc25725e95, type: 3}
+      objectReference: {fileID: -5148757316547973376, guid: c7fb2f7d4e18b834f991afdc25725e95, type: 3}
     - target: {fileID: 1627152464737328068, guid: 5dd158c9984890a4abb734ae66d3cf2b, type: 3}
       propertyPath: sprites.Array.data[1]
       value: 
-      objectReference: {fileID: -4367343537481827145, guid: c7fb2f7d4e18b834f991afdc25725e95, type: 3}
+      objectReference: {fileID: -4549551780878368934, guid: c7fb2f7d4e18b834f991afdc25725e95, type: 3}
     - target: {fileID: 8309056583811215007, guid: 5dd158c9984890a4abb734ae66d3cf2b, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
       value: 0.5
@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8699536229550562318, guid: 5dd158c9984890a4abb734ae66d3cf2b, type: 3}
       propertyPath: m_Name
-      value: Obstacle_ShallowWater_To_Water_top
+      value: Obstacle_ShallowWater_To_Water_innerbottomright
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dd158c9984890a4abb734ae66d3cf2b, type: 3}
