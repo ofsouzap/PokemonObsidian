@@ -2806,7 +2806,7 @@ namespace Battle
 
             if (GameSettings.singleton.obedienceEnabled
                 && userIsPlayer
-                && !userPokemon.battleProperties.IsChargingMove
+                && !userPokemon.battleProperties.IsUsingChargedMove
                 && userPokemon.CanDisobeyTrainer())
             {
 
