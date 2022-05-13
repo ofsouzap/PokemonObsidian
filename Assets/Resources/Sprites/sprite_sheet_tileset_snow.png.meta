@@ -34,7 +34,7 @@ TextureImporter:
     second: sprite_sheet_tileset_snow_dirt_left
   - first:
       213: 9187317416031774736
-    second: sprite_sheet_tileset_snow_10
+    second: tileset_snow_stairs_right_top
   - first:
       213: -5874315022864972491
     second: sprite_sheet_tileset_snow_dirt_right
@@ -83,6 +83,21 @@ TextureImporter:
   - first:
       213: 145037873415826264
     second: sprite_sheet_tileset_snow_innerdirt_bottomright
+  - first:
+      213: 6244147302728865
+    second: tileset_snow_stairs_right_bottom
+  - first:
+      213: -1559625588330431646
+    second: tileset_snow_stairs_left_top
+  - first:
+      213: 4400015548481386719
+    second: tileset_snow_stairs_left_bottom
+  - first:
+      213: -5881705585789110515
+    second: tileset_snow_stairs_up_right
+  - first:
+      213: 7857558727648290990
+    second: tileset_snow_stairs_up_left
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -737,6 +752,132 @@ TextureImporter:
       bones: []
       spriteID: 85badeb6d27430200800000000000000
       internalID: 145037873415826264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_stairs_right_top
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 018655d6388ef7f70800000000000000
+      internalID: 9187317416031774736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_stairs_right_bottom
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a487e5d40f261000800000000000000
+      internalID: 6244147302728865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_stairs_left_top
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26b74f86ac81b5ae0800000000000000
+      internalID: -1559625588330431646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_stairs_left_bottom
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd8bd6d34deff0d30800000000000000
+      internalID: 4400015548481386719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_stairs_up_right
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d07fb9daeebff5ea0800000000000000
+      internalID: -5881705585789110515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_stairs_up_left
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea82f3b1808ab0d60800000000000000
+      internalID: 7857558727648290990
       vertices: []
       indices: 
       edges: []

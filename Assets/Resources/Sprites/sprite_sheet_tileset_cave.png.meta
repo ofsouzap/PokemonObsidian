@@ -40,7 +40,7 @@ TextureImporter:
     second: sprite_sheet_tileset_cave_wall_inner_topleft
   - first:
       213: 7588113278085788294
-    second: sprite_sheet_tileset_cave_12
+    second: tileset_cave_stairs_up_left
   - first:
       213: -2586822441602195977
     second: sprite_sheet_tileset_cave_wall_inner_topright
@@ -49,10 +49,22 @@ TextureImporter:
     second: sprite_sheet_tileset_cave_wall_inner_bottomleft
   - first:
       213: 109143317593391765
-    second: sprite_sheet_tileset_cave_15
+    second: tileset_cave_stairs_up_right
   - first:
       213: 8111322378748121314
     second: sprite_sheet_tileset_cave_wall_inner_bottomright
+  - first:
+      213: 3589181455690511698
+    second: tileset_cave_stairs_right_top
+  - first:
+      213: -5329468956250579397
+    second: tileset_cave_stairs_right_bottom
+  - first:
+      213: -7595332855137755274
+    second: tileset_cave_stairs_left_bottom
+  - first:
+      213: -1597005521315952701
+    second: tileset_cave_stairs_left_top
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -476,6 +488,132 @@ TextureImporter:
       bones: []
       spriteID: 2e055f35ab4319070800000000000000
       internalID: 8111322378748121314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_cave_stairs_up_left
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6827ab7a2d46e4960800000000000000
+      internalID: 7588113278085788294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_cave_stairs_up_right
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59203c2e441c38100800000000000000
+      internalID: 109143317593391765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_cave_stairs_right_top
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2553ad484855fc130800000000000000
+      internalID: 3589181455690511698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_cave_stairs_right_bottom
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3e5635983ce906b0800000000000000
+      internalID: -5329468956250579397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_cave_stairs_left_bottom
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67f19a29205f79690800000000000000
+      internalID: -7595332855137755274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_cave_stairs_left_top
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c700ad80fb46d9e0800000000000000
+      internalID: -1597005521315952701
       vertices: []
       indices: 
       edges: []
