@@ -46,6 +46,10 @@ namespace Battle.BattleLayout
         public float opponentPokeBallLineRootX;
         public float opponentPokeBallLineOffScreenLocalXDistance;
 
+        public GameObject shinyPokemonEffectsPrefab;
+        public Transform shinyPokemonEffectsPlayerRootTransform;
+        public Transform shinyPokemonEffectsOpponentRootTransform;
+
         #region Constants
 
         #region Constant Timings
@@ -225,6 +229,16 @@ namespace Battle.BattleLayout
 
             overviewPaneManager.playerPokemonOverviewPaneController.FullUpdate(pokemon);
 
+        }
+
+        private void PlayPlayerShinyPokemonParticles()
+        {
+            Instantiate(shinyPokemonEffectsPrefab, shinyPokemonEffectsPlayerRootTransform);
+        }
+
+        private void PlayOpponentShinyPokemonParticles()
+        {
+            Instantiate(shinyPokemonEffectsPrefab, shinyPokemonEffectsOpponentRootTransform);
         }
 
         private IEnumerator GradualEffect(Action<float> effect,
@@ -599,15 +613,24 @@ namespace Battle.BattleLayout
 
         public IEnumerator SendInWildOpponentPokemon(PokemonInstance pokemon)
         {
+
             overviewPaneManager.opponentPokemonOverviewPaneController.FullUpdate(pokemon);
+
             yield return StartCoroutine(SendInWildPokemon(pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1), opponentPokemonSprite, opponentPokemonSpriteRootX, pokemonSpriteOffScreenRightLocalPositionX));
+
             SoundFXController.singleton.PlayPokemonCry(pokemon.speciesId);
+
+            if (pokemon.IsShiny)
+                PlayOpponentShinyPokemonParticles();
+
             yield return StartCoroutine(AnimateOpponentPokemonEntrance(
                 opponentPokemonSprite.GetComponent<SpriteRenderer>(),
                 pokemon.LoadSprite(PokemonSpecies.SpriteType.Front1),
                 pokemon.LoadSprite(PokemonSpecies.SpriteType.Front2)
                 ));
+
             yield return StartCoroutine(overviewPaneManager.RevealOpponentOverviewPane());
+
         }
 
         #endregion
@@ -683,6 +706,9 @@ namespace Battle.BattleLayout
 
             yield return StartCoroutine(HidePlayerPokeBallLine());
 
+            if (pokemon.IsShiny)
+                PlayPlayerShinyPokemonParticles();
+
             yield return StartCoroutine(overviewPaneManager.RevealPlayerOverviewPane());
 
         }
@@ -715,6 +741,9 @@ namespace Battle.BattleLayout
             opponentPokeBallSprite.SetActive(false);
 
             yield return StartCoroutine(HideOpponentPokeBallLine());
+
+            if (pokemon.IsShiny)
+                PlayOpponentShinyPokemonParticles();
 
             yield return StartCoroutine(AnimateOpponentPokemonEntrance(
                 opponentPokemonSprite.GetComponent<SpriteRenderer>(),

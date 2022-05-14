@@ -33,6 +33,7 @@ namespace Pokemon
             string originalTrainerName = "",
             Guid? _originalTrainerGuid = null,
             bool cheatPokemon = false,
+            bool shinyPokemon = false,
             long catchTime = 0,
             byte? _friendship = null // If this is null, the species' base friendship is used
             )
@@ -81,6 +82,9 @@ namespace Pokemon
                 friendship = friendship
             };
 
+            // Shininess
+            instance.SetIsShiny(shinyPokemon);
+
             #region Setting Current Stats
 
             bool needToSetCurrentStats = false;
@@ -119,7 +123,8 @@ namespace Pokemon
             byte maxLevel,
             string originalTrainerName = "",
             Guid? originalTrainerGuid = null,
-            long catchTime = 0
+            long catchTime = 0,
+            bool shinyPokemon = false
             )
         {
 
@@ -174,7 +179,9 @@ namespace Pokemon
 
                 originalTrainerName: originalTrainerName,
                 _originalTrainerGuid: originalTrainerGuid,
-                catchTime: catchTime
+                catchTime: catchTime,
+
+                shinyPokemon: shinyPokemon
                 );
 
         }
@@ -201,10 +208,12 @@ namespace Pokemon
         /// <summary>
         /// Generates a PokemonInstance from a wild specification
         /// </summary>
-        public static PokemonInstance GenerateFromWildSpecification(PokemonInstance.WildSpecification spec)
+        public static PokemonInstance GenerateFromWildSpecification(PokemonInstance.WildSpecification spec,
+            bool shinyPokemon = false)
             => GenerateWild(speciesId: spec.ChooseRandomSpecies(),
                 minLevel: spec.minimumLevel,
-                maxLevel: spec.maximumLevel);
+                maxLevel: spec.maximumLevel,
+                shinyPokemon: shinyPokemon);
 
         public static PokemonInstance GenerateFromBasicSpecification(PokemonInstance.BasicSpecification spec)
         {

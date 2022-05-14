@@ -13,8 +13,9 @@ namespace Serialization
         /// </summary>
         private static readonly Dictionary<ushort, Serializer> serializers = new Dictionary<ushort, Serializer>()
         {
-            { 1, new Serializer_v1() }, //For v1.0.0a1-v1.0.0a3
-            { 2, new Serializer_v2() }, //For v1.0.0a4-
+            { 1, new Serializer_v1() }, // For v1.0.0a1-v1.0.0a3
+            { 2, new Serializer_v2() }, // For v1.0.0a4-v1.0.0
+            { 3, new Serializer_v3() }, // For v1.1.0-
         };
 
         public static ushort defaultSerializerVersion

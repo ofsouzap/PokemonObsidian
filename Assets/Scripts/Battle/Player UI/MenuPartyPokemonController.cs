@@ -57,6 +57,7 @@ namespace Battle.PlayerUI
         public Image imageStatusCondition;
 
         public Image imageCheatPokemon;
+        public Image imageShinyPokemon;
 
         [Header("Details - Stats")]
 
@@ -140,6 +141,7 @@ namespace Battle.PlayerUI
             }
 
             imageCheatPokemon.gameObject.SetActive(pokemon.cheatPokemon);
+            imageShinyPokemon.gameObject.SetActive(pokemon.IsShiny);
 
             #endregion
 

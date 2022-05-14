@@ -18,6 +18,7 @@ namespace Trade.TradeUI
         public Image imageType1;
         public Image imageType2;
         public Image imageCheatPokemon;
+        public Image imageShinyPokemon;
 
         public override void SetPokemon(PokemonInstance pokemon)
         {
@@ -52,6 +53,7 @@ namespace Trade.TradeUI
                 }
 
                 imageCheatPokemon.gameObject.SetActive(pokemon.cheatPokemon);
+                imageShinyPokemon.gameObject.SetActive(pokemon.IsShiny);
 
             }
             else
@@ -68,6 +70,7 @@ namespace Trade.TradeUI
                 imageGender.gameObject.SetActive(false);
 
                 imageCheatPokemon.gameObject.SetActive(false);
+                imageShinyPokemon.gameObject.SetActive(false);
 
             }
 

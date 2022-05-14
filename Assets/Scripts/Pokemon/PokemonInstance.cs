@@ -36,7 +36,7 @@ namespace Pokemon
         #region Sprites
 
         public Sprite LoadSprite(PokemonSpecies.SpriteType spriteType)
-            => species.LoadSprite(spriteType, gender);
+            => species.LoadSprite(spriteType, gender, IsShiny);
 
         public Sprite LoadGenderSprite()
         {
@@ -213,7 +213,7 @@ namespace Pokemon
             }
 
             public PokemonInstance Generate()
-                => PokemonFactory.GenerateFromWildSpecification(this);
+                => PokemonFactory.GenerateFromWildSpecification(this, RunShinyCheck());
 
         }
 
@@ -270,6 +270,24 @@ namespace Pokemon
 
         public void SetCheatPokemon()
             => cheatPokemon = true;
+
+        /// <summary>
+        /// Whether the pokemon is a shiny pokemon
+        /// </summary>
+        private bool shinyPokemon = false;
+
+        public bool IsShiny => shinyPokemon;
+
+        public bool SetIsShiny(bool state)
+            => shinyPokemon = state;
+
+        /// <summary>
+        /// 1 / shinyChanceValue is chance of being a shiny pokemon
+        /// </summary>
+        private const int shinyChanceValue = 4096;
+
+        public static bool RunShinyCheck()
+            => UnityEngine.Random.Range(0, shinyChanceValue) == 0;
 
         #region Stats
 

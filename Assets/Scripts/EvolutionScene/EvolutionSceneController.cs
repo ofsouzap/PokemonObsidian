@@ -123,7 +123,7 @@ namespace EvolutionScene
 
             PokemonSpecies endSpecies = PokemonSpecies.GetPokemonSpeciesById(entranceArguments.evolution.targetId);
 
-            Sprite endSprite = endSpecies.LoadSprite(PokemonSpecies.SpriteType.Front1, entranceArguments.pokemon.gender);
+            Sprite endSprite = endSpecies.LoadSprite(PokemonSpecies.SpriteType.Front1, entranceArguments.pokemon.gender, entranceArguments.pokemon.IsShiny);
 
             pokemonSpriteController.SetSprite(startSprite);
 

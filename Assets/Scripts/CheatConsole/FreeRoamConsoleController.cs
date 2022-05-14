@@ -143,7 +143,7 @@ namespace CheatConsole
             },
 
             {
-                new Regex("^wildencounter create species (?<speciesId>[0-9]+) level (?<level>[0-2]?[0-9]?[0-9])"),
+                new Regex("^wildencounter create species (?<speciesId>[0-9]+) level (?<level>[0-2]?[0-9]?[0-9])(?<shiny> shiny)?"),
                 (m) =>
                 {
 
@@ -151,10 +151,13 @@ namespace CheatConsole
 
                     byte level = byte.Parse(m.Groups["level"].Value);
 
+                    bool shiny = !string.IsNullOrEmpty(m.Groups["shiny"].Value);
+
                     PokemonInstance opp = PokemonFactory.GenerateWild(
                         speciesId,
                         level,
-                        level);
+                        level,
+                        shinyPokemon: shiny);
 
                     BattleEntranceArguments.argumentsSet = true;
 

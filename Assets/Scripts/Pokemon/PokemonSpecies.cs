@@ -31,11 +31,14 @@ namespace Pokemon
             Icon
         }
 
-        public Sprite LoadSprite(SpriteType spriteType, bool? gender)
+        public Sprite LoadSprite(SpriteType spriteType,
+            bool? gender,
+            bool shiny = false)
             => SpriteStorage.GetPokemonSprite(
                 resourceName == "" || resourceName == null ? id.ToString() : resourceName,
                 spriteType,
-                gender
+                gender,
+                shiny
                 );
 
         #endregion

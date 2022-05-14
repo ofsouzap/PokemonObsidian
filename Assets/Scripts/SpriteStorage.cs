@@ -470,7 +470,13 @@ public static class SpriteStorage
         "Front 2 Male/",
         "Back Female/",
         "Back Male/",
-        "Icon/"
+        "Icon/",
+        "Front 1 Female Shiny/",
+        "Front 1 Male Shiny/",
+        "Front 2 Female Shiny/",
+        "Front 2 Male Shiny/",
+        "Back Female Shiny/",
+        "Back Male Shiny/",
     };
 
     private static readonly Dictionary<string, string> pokemonSpriteDirectoryResourceNames = new Dictionary<string, string>
@@ -481,7 +487,13 @@ public static class SpriteStorage
         { "Front 2 Male/", "front2_m" },
         { "Back Female/", "back_f" },
         { "Back Male/", "back_m" },
-        { "Icon/", "icon" }
+        { "Icon/", "icon" },
+        { "Front 1 Female Shiny/", "front1_fs" },
+        { "Front 1 Male Shiny/", "front1_ms" },
+        { "Front 2 Female Shiny/", "front2_fs" },
+        { "Front 2 Male Shiny/", "front2_ms" },
+        { "Back Female Shiny/", "back_fs" },
+        { "Back Male Shiny/", "back_ms" },
     };
 
     private static Dictionary<Sprite, string> LoadPokemonSprites()
@@ -517,7 +529,8 @@ public static class SpriteStorage
     public static Sprite GetPokemonSprite(
         string speciesResourceName,
         PokemonSpecies.SpriteType spriteType,
-        bool useFemale)
+        bool useFemale,
+        bool shiny = false)
     {
 
         #region Resource Name
@@ -528,30 +541,19 @@ public static class SpriteStorage
         string nameSuffix;
         string alternativeNameSuffix = null;
 
-        switch (spriteType)
+        nameSuffix = spriteType switch
         {
+            PokemonSpecies.SpriteType.Front1 => "front1",
+            PokemonSpecies.SpriteType.Front2 => "front2",
+            PokemonSpecies.SpriteType.Back => "back",
+            PokemonSpecies.SpriteType.Icon => "icon",
+            _ => null
+        };
 
-            case PokemonSpecies.SpriteType.Front1:
-                nameSuffix = "front1";
-                break;
-
-            case PokemonSpecies.SpriteType.Front2:
-                nameSuffix = "front2";
-                break;
-
-            case PokemonSpecies.SpriteType.Back:
-                nameSuffix = "back";
-                break;
-
-            case PokemonSpecies.SpriteType.Icon:
-                nameSuffix = "icon";
-                break;
-
-            default:
-                nameSuffix = "icon";
-                Debug.LogError("Unknown sprite type provided - " + spriteType);
-                break;
-
+        if (nameSuffix == null)
+        {
+            nameSuffix = "icon";
+            Debug.LogError("Unknown sprite type provided - " + spriteType);
         }
 
         if (spriteType != PokemonSpecies.SpriteType.Icon)
@@ -565,6 +567,16 @@ public static class SpriteStorage
             {
                 alternativeNameSuffix = nameSuffix + "_m";
                 nameSuffix += "_f";
+            }
+
+            if (shiny)
+            {
+
+                nameSuffix += "s";
+
+                if (alternativeNameSuffix != null)
+                    alternativeNameSuffix += "s";
+
             }
 
         }
@@ -605,7 +617,8 @@ public static class SpriteStorage
     public static Sprite GetPokemonSprite(
         string resourceName,
         PokemonSpecies.SpriteType spriteType,
-        bool? gender
+        bool? gender,
+        bool shiny = false
         )
     {
         bool useFemale;
@@ -624,7 +637,7 @@ public static class SpriteStorage
 
         }
 
-        return GetPokemonSprite(resourceName, spriteType, useFemale);
+        return GetPokemonSprite(resourceName, spriteType, useFemale, shiny);
     }
 
     #endregion

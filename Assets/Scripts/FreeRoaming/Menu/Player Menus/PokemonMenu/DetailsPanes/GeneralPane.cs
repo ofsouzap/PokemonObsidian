@@ -21,6 +21,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
         public Text textAbilityName;
         public Text textAbilityDescription;
         public Image imageCheatPokemon;
+        public Image imageShinyPokemon;
 
         public override void RefreshDetails(PokemonInstance pokemon)
         {
@@ -57,6 +58,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokemonMenu.DetailsPanes
             textAbilityDescription.text = "";
 
             imageCheatPokemon.gameObject.SetActive(pokemon.cheatPokemon);
+            imageShinyPokemon.gameObject.SetActive(pokemon.IsShiny);
 
         }
 
