@@ -12,8 +12,10 @@ namespace FreeRoaming
         private int currentIndex = 0;
         private float lastSwap = 0;
 
-        [Tooltip("Delay between switching sprites in seconds")]
-        public float delay = 1;
+        [Tooltip("Speed for switching sprites in seconds")]
+        public float speed = 0.75f;
+
+        private float Delay => 1 / speed;
 
         protected override void Start()
         {
@@ -31,7 +33,7 @@ namespace FreeRoaming
 
             if (sceneController.SceneIsActive)
             {
-                if (Time.time >= lastSwap + delay)
+                if (Time.time >= lastSwap + Delay)
                 {
                     MoveToNextSprite();
                     lastSwap = Time.time;

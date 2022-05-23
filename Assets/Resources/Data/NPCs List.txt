@@ -41,3 +41,6 @@ List of NPC IDs and which NPCs they correspond to
 85-86 - NPCs around Nagaka Village
 87-99 trainers in Route 3
 100 - NPC in house on Route 3
+101-103 - NPCs in houses in Sinkerlin
+104-105 - NPCs around Sinkerlin
+106-119 - trainers in Cave 2 (Sinkerlin Ascent)
