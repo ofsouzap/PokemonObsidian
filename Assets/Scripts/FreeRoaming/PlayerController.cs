@@ -113,6 +113,9 @@ namespace FreeRoaming
                 if (!PlayerData.singleton.respawnSceneStackSet)
                     RefreshRespawnSceneStackFromCurrent();
             };
+
+            //Make sure player slides along sliding ice tiles
+            MovementCompleted += () => UpdateMoveOntoIceTile();
             
         }
 
@@ -553,6 +556,52 @@ namespace FreeRoaming
 
             if (!wasPaused)
                 sceneController.SetSceneRunningState(true);
+
+        }
+
+        #endregion
+
+        #region Sliding Ice Tiles
+
+        /// <summary>
+        /// Method to make the player slide along sliding ice tiles if they can.
+        /// Should be called when the player has completed a forward movement or a slide from another sliding ice tile.
+        /// </summary>
+        protected void UpdateMoveOntoIceTile()
+        {
+
+            if (AllowedToAct)
+            {
+                if (TryGetCurrentIceTile(out _))
+                {
+                    StartCoroutine(IceSlideCoroutine());
+                }
+            }
+
+            //TODO - check if currently on ice tile and position in front isn't occupied, if so, slide forward one tile
+
+        }
+
+        /// <summary>
+        /// Pause scene, slide forward one tile then unpause scene
+        /// </summary>
+        protected IEnumerator IceSlideCoroutine()
+        {
+
+            // Pause scene
+            sceneController.SetSceneRunningState(false);
+            ignoreScenePaused = true;
+
+            // Start the slide
+            TryIceSlideForward();
+
+            // Wait until finished sliding
+            yield return new WaitUntil(() => !isMoving);
+
+            // Unpause scene
+            sceneController.SetSceneRunningState(true);
+
+            // If the player landed on another sliding ice tile, this should end up being run again
 
         }
 

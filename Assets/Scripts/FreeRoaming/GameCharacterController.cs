@@ -76,7 +76,8 @@ namespace FreeRoaming
         public enum MovementType
         {
             Walk,
-            Run
+            Run,
+            IceSlide
         }
 
         protected MovementType currentMovementType = MovementType.Walk;
@@ -92,6 +93,11 @@ namespace FreeRoaming
         [Min(0)]
         [Tooltip("The speed (in units per second) that this character runs at")]
         private float _runSpeed = 8;
+
+        [SerializeField]
+        [Min(0)]
+        [Tooltip("The speed (in units per second) that this character slides along ice at")]
+        private float _iceSlideSpeed = 5;
 
         protected Dictionary<MovementType, float> movementTypeSpeeds;
 
@@ -162,9 +168,12 @@ namespace FreeRoaming
             position = Vector2Int.RoundToInt(transform.position);
             directionFacing = initialDirectionFacing;
 
-            movementTypeSpeeds = new Dictionary<MovementType, float>();
-            movementTypeSpeeds.Add(MovementType.Walk, _walkSpeed);
-            movementTypeSpeeds.Add(MovementType.Run, _runSpeed);
+            movementTypeSpeeds = new Dictionary<MovementType, float>
+            {
+                { MovementType.Walk, _walkSpeed },
+                { MovementType.Run, _runSpeed },
+                { MovementType.IceSlide, _iceSlideSpeed }
+            };
 
             RefreshGridManager();
             SceneChanged.AddListener(RefreshGridManager);
@@ -397,6 +406,11 @@ namespace FreeRoaming
                 if (AllowedToAct)
                 {
 
+                    if (currentMovementType == MovementType.IceSlide)
+                    {
+                        break;
+                    }
+
                     if (primedToQuit && isMoving)
                     {
                         primedToQuit = false;
@@ -496,9 +510,17 @@ namespace FreeRoaming
             movementTargettedGridPosition = GetPositionInFront();
             currentMovementType = movementType;
 
-            if (movementSpriteCoroutine == null)
+            if (movementType != MovementType.IceSlide)
             {
-                movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine());
+                if (movementSpriteCoroutine == null)
+                {
+                    movementSpriteCoroutine = StartCoroutine(MovementSpriteCoroutine());
+                }
+            }
+            else
+            {
+                // When sliding on ice, idle sprite is used
+                RefreshNeutralSprite();
             }
 
         }
@@ -521,6 +543,12 @@ namespace FreeRoaming
                 return false;
 
         }
+
+        /// <summary>
+        /// If the character is allowed to ice slide forwrad, slides them forward. Does not pause the scene.
+        /// </summary>
+        public bool TryIceSlideForward()
+            => TryMoveForward(MovementType.IceSlide);
 
         /// <summary>
         /// Turns the character to face a direction
@@ -647,6 +675,31 @@ namespace FreeRoaming
             => currentWildPokemonArea;
 
         #endregion
+
+        /// <summary>
+        /// Get the ice tile that is in the character's current position.
+        /// </summary>
+        protected bool TryGetCurrentIceTile(out SlidingIceTileController slidingIceTile)
+        {
+
+            SlidingIceTileController[] found = FindObjectsOfType<SlidingIceTileController>()
+                .Where(c => c.gameObject.scene == Scene)
+                .Where(c => position == c.GetPosition())
+                .ToArray();
+
+            if (found.Length == 0)
+            {
+                slidingIceTile = default;
+                return false;
+            }
+            else
+            {
+                slidingIceTile = found[0];
+                return true;
+            }
+
+        }
+
 
     }
 }

@@ -925,7 +925,51 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
@@ -951,25 +995,25 @@ Tilemap:
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: -46516.344
+      e00: 1.084227e-19
       e01: 0
-      e02: -46512.75
-      e03: -46512.75
-      e10: 1.89e-43
+      e02: 1.5547768e-34
+      e03: 1.5547768e-34
+      e10: 5.07e-43
       e11: 0
-      e12: 1.89e-43
-      e13: 1.89e-43
-      e20: -5.3594684e-11
-      e21: -2.228289e-39
-      e22: -0.0000000012119559
-      e23: -2.228289e-39
-      e30: 4.5904e-41
-      e31: 6.26e-43
-      e32: 6.24e-43
-      e33: 6.26e-43
+      e12: 7.3e-44
+      e13: 7.3e-44
+      e20: -2.437533e-38
+      e21: -1.087385e-39
+      e22: -62.863678
+      e23: -1.087385e-39
+      e30: 4.5905e-41
+      e31: 5.09e-43
+      e32: 5.06e-43
+      e33: 5.09e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: -2.228289e-39, g: -2.228289e-39, b: -2.228289e-39, a: -2.228289e-39}
+    m_Data: {r: -1.087385e-39, g: -1.087385e-39, b: -1.087385e-39, a: -1.087385e-39}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}

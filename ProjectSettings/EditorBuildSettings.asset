@@ -116,4 +116,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FreeRoaming/Main Areas/Cave 2c.unity
     guid: 1eae9b080ef1a854cbe09d56d9d6f449
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Main Areas/Route 6.unity
+    guid: 96673c50c8eb536468a559aacc7e071a
   m_configObjects: {}
