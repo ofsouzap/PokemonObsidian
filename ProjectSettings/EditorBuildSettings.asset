@@ -107,4 +107,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FreeRoaming/Main Areas/Route 3.unity
     guid: f167c6081703cdb4fb650593b3535d70
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Main Areas/Cave 2a.unity
+    guid: 2ea78b3f1def96f4e8f9619d4b73285c
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Main Areas/Cave 2b.unity
+    guid: bd19515d19f0eeb4fb6a9a7d82d7f198
+  - enabled: 1
+    path: Assets/Scenes/FreeRoaming/Main Areas/Cave 2c.unity
+    guid: 1eae9b080ef1a854cbe09d56d9d6f449
   m_configObjects: {}
