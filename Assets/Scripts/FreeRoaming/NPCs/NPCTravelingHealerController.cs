@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using FreeRoaming.Decorations;
 using Audio;
@@ -7,6 +8,18 @@ namespace FreeRoaming.NPCs
 {
     public class NPCTravelingHealerController : NPCGenericTalkController
     {
+
+        private const string healerNpcName = "Traveling Healer";
+
+        protected override GenericNPCData.GenericNPCDetails LoadDetails()
+            => new GenericNPCData.GenericNPCDetails(
+                id: id,
+                name: healerNpcName,
+                initialDialogs: Array.Empty<string>(),
+                mainDialogs: Array.Empty<string>(),
+                itemGivenId: null,
+                itemGivenQuantity: 0
+            );
 
         protected string HealingSoundFXResourceName => HealingMachineScript.healingMachineSoundFXResourceName;
 
@@ -34,8 +47,6 @@ namespace FreeRoaming.NPCs
         {
 
             PlayerData.singleton.HealAllPokemon();
-
-            yield return StartCoroutine(base.PlayerInteraction());
 
             yield return StartCoroutine(Speak(GetMessagesBeforeHeal()));
 

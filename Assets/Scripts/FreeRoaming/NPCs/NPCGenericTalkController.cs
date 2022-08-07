@@ -10,7 +10,7 @@ namespace FreeRoaming.NPCs
         protected override string GetNPCName()
             => details.name;
 
-        private GenericNPCData.GenericNPCDetails LoadDetails()
+        protected virtual GenericNPCData.GenericNPCDetails LoadDetails()
             => GenericNPCData.GetGenericNPCDetailsByNPCId(id);
 
         protected GenericNPCData.GenericNPCDetails details;
@@ -28,10 +28,17 @@ namespace FreeRoaming.NPCs
 
             details = LoadDetails();
 
+            if (details == null)
+                Debug.LogError($"No details could be loaded for generic talking NPC with id {id}");
+
         }
 
         public override IEnumerator PlayerInteraction()
         {
+
+            // Don't try do interaction if no details were loaded
+            if (details != null)
+                yield break;
 
             //Get and speak dialogs
             yield return StartCoroutine(Speak(GetDialogsToUse()));
