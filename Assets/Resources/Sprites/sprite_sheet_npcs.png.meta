@@ -832,7 +832,7 @@ TextureImporter:
     second: schoolgirl_walk_l_2
   - first:
       213: -4507061602402310028
-    second: man1_walk_l_2
+    second: pokefanm_walk_l_2
   - first:
       213: 6465954431665528162
     second: pokefanf_walk_l_2
@@ -7162,7 +7162,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: man1_walk_l_2
+      name: pokefanm_walk_l_2
       rect:
         serializedVersion: 2
         x: 640
