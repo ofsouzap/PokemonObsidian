@@ -16,8 +16,9 @@ def load_wild_area_species(fn):
     species = set();
 
     for d in ds[1:]:
-        for x in d[3].split(";"):
-            species.add(int(x));
+        parts = d[5].split(",");
+        for x in parts:
+            species.add(int(x.split(";")[0]));
 
     return species;
 
