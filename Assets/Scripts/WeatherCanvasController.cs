@@ -106,22 +106,32 @@ public class WeatherCanvasController : MonoBehaviour
 
     }
 
-    private Coroutine weatherShowcaseCoroutine = null;
+    /// <summary>
+    /// The current showcasing or setting coroutine being run
+    /// </summary>
+    private Coroutine currentControllerCoroutine = null;
 
-    private void TryStopWeatherShowcaseCoroutine()
+    private void TryStopCurrentControllerCoroutine()
     {
-        if (weatherShowcaseCoroutine != null)
+        if (currentControllerCoroutine != null)
         {
-            StopCoroutine(weatherShowcaseCoroutine);
-            weatherShowcaseCoroutine = null;
+            StopCoroutine(currentControllerCoroutine);
+            currentControllerCoroutine = null;
         }
     }
 
     public IEnumerator ShowcaseWeather(Weather weather,
-        float duration= defaultShowcaseDuration)
+        float duration = defaultShowcaseDuration)
+    {
+        currentControllerCoroutine = StartCoroutine(DoShowcaseWeather(weather, duration));
+        yield return currentControllerCoroutine;
+    }
+
+    private IEnumerator DoShowcaseWeather(Weather weather,
+        float duration = defaultShowcaseDuration)
     {
 
-        TryStopWeatherShowcaseCoroutine();
+        TryStopCurrentControllerCoroutine();
 
         if (weather.id == 0) //Clear sky (aka no weather)
             yield break;
@@ -137,6 +147,26 @@ public class WeatherCanvasController : MonoBehaviour
         yield return StartCoroutine(FadeRootsAlphaCoroutine(1, 0));
 
         SetWeather(null);
+
+    }
+
+    public void SetDisplayedWeather(Weather weather)
+    {
+        StartCoroutine(DoSetDisplayedWeather(weather));
+    }
+
+    private IEnumerator DoSetDisplayedWeather(Weather weather)
+    {
+
+        TryStopCurrentControllerCoroutine();
+
+        TryStopFadeCoroutine();
+
+        yield return StartCoroutine(FadeRootsAlphaCoroutine(1, 0));
+
+        SetWeather(weather);
+
+        yield return StartCoroutine(FadeRootsAlphaCoroutine(0, 1));
 
     }
 

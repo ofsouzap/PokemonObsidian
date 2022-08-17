@@ -232,6 +232,8 @@ namespace FreeRoaming.NPCs
 
             BattleEntranceArguments.battleBackgroundResourceName = trainerDetails.battleBackgroundResourceName;
 
+            BattleEntranceArguments.initialWeatherId = PlayerController.singleton.GetCurrentSceneAreaWeather().id;
+
         }
 
         protected virtual void LaunchBattle()
@@ -241,8 +243,6 @@ namespace FreeRoaming.NPCs
             BattleEntranceArguments.battleType = BattleType.NPCTrainer;
 
             SetBattleEntranceArguments();
-
-            BattleEntranceArguments.initialWeatherId = 0; //TODO - set weather as current scene weather once free-roaming scene weathers made
 
             //Reset these properties so that the scene resumes as normal after the battle
             ignoreScenePaused = false;

@@ -102,7 +102,7 @@ namespace Battle
         /// <summary>
         /// The id of the initial weather for the battle. Defaults to clear skies (id 0)
         /// </summary>
-        public static int initialWeatherId;
+        public static int initialWeatherId = Weather.defaultWeatherId;
 
         public static string battleBackgroundResourceName;
 

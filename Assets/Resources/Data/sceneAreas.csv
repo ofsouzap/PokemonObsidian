@@ -1,25 +1,25 @@
-id,display name,music name,sign background
--3,Void Test Area,town2,cave
--2,Wild Test Area,route1,sea
--1,Main Test Area,town1,town
-1,Pokemon Center,pokemon_center,indoor
-2,Poke Mart,pokemon_center,indoor
-3,Pokshire,town1,town
-4,Route 1,route1,forest
-5,Okford,town2,town
-6,Okford Gym,gym,indoor
-7,Route 2,route1,sea
-8,Tildahill Passage,cave1,cave
-9,Tildahill Gym,gym,indoor
-10,Tildahill,town2,town
-11,Esperi Forest,forest1,forest
-12,Casswick,town1,town
-13,Casswick Gym,gym,indoor
-14,Mysterious Room,mysterious_area1,indoor
-15,Route 4,route1,forest
-16,Nagaka Village,town1,town
-17,Route 5,route1,meadow
-18,Route 3,route1,sea
-19,Sinkerlin,town1,sea
-20,Sinkerlin Ascent,cave1,cave
-21,Route 6,snow,cave
+id,display name,music name,sign background,weather id
+-3,Void Test Area,town2,cave,
+-2,Wild Test Area,route1,sea,
+-1,Main Test Area,town1,town,
+1,Pokemon Center,pokemon_center,indoor,
+2,Poke Mart,pokemon_center,indoor,
+3,Pokshire,town1,town,
+4,Route 1,route1,forest,
+5,Okford,town2,town,
+6,Okford Gym,gym,indoor,
+7,Route 2,route1,sea,
+8,Tildahill Passage,cave1,cave,
+9,Tildahill Gym,gym,indoor,
+10,Tildahill,town2,town,
+11,Esperi Forest,forest1,forest,
+12,Casswick,town1,town,
+13,Casswick Gym,gym,indoor,
+14,Mysterious Room,mysterious_area1,indoor,
+15,Route 4,route1,forest,
+16,Nagaka Village,town1,town,
+17,Route 5,route1,meadow,
+18,Route 3,route1,sea,
+19,Sinkerlin,town1,sea,
+20,Sinkerlin Ascent,cave1,cave,
+21,Route 6,snow,cave,4

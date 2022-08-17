@@ -35,6 +35,8 @@ public class Weather : IHasId
     public int id;
     public int GetId() => id;
 
+    public const int defaultWeatherId = 0;
+
     public const float damageMaxHealthProportion = 0.0625F;
 
     /// <summary>

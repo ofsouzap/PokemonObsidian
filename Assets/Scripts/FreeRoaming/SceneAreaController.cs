@@ -57,6 +57,8 @@ namespace FreeRoaming
 
             area?.TryDisplayAreaNameSign(gameObject.scene);
 
+            area?.TrySetWeatherCanvasWeather(gameObject.scene);
+
         }
 
         public bool ContainsPosition(Vector2 pos)

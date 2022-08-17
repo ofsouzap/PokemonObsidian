@@ -436,7 +436,7 @@ namespace FreeRoaming
                 ? BattleEntranceArguments.defaultBackgroundName
                 : pokemonArea.GetBattleBackgroundResourceName();
 
-            //TODO - set initial weather
+            BattleEntranceArguments.initialWeatherId = GetCurrentSceneAreaWeather().id;
 
             BattleEntranceArguments.battleType = BattleType.WildPokemon;
             BattleEntranceArguments.wildPokemonBattleArguments = new BattleEntranceArguments.WildPokemonBattleArguments()
@@ -493,6 +493,9 @@ namespace FreeRoaming
             }
 
         }
+
+        public Weather GetCurrentSceneAreaWeather()
+            => currentSceneArea != null ? ((SceneArea)currentSceneArea).GetWeather() : Weather.GetWeatherById(Weather.defaultWeatherId);
 
         public void PlaySceneAreaMusic()
         {
