@@ -137,6 +137,15 @@ TextureImporter:
   - first:
       213: -6852983293047376640
     second: tileset_snow_to_ice_innerbottomleft
+  - first:
+      213: -160620567938542580
+    second: tileset_snow_caveentrance_down
+  - first:
+      213: -1227282134798061722
+    second: tileset_snow_caveentrance_left
+  - first:
+      213: -4628026019889041119
+    second: tileset_snow_tree
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1190,6 +1199,69 @@ TextureImporter:
       bones: []
       spriteID: 005793ee00055e0a0800000000000000
       internalID: -6852983293047376640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_caveentrance_down
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c04d668c17c55cdf0800000000000000
+      internalID: -160620567938542580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_caveentrance_left
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66fad2c9661d7fee0800000000000000
+      internalID: -1227282134798061722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_snow_tree
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 160
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 121bf31fad2f5cfb0800000000000000
+      internalID: -4628026019889041119
       vertices: []
       indices: 
       edges: []

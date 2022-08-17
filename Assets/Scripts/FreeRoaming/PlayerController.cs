@@ -599,6 +599,7 @@ namespace FreeRoaming
             yield return new WaitUntil(() => !isMoving);
 
             // Unpause scene
+            ignoreScenePaused = false;
             sceneController.SetSceneRunningState(true);
 
             // If the player landed on another sliding ice tile, this should end up being run again

@@ -44,3 +44,6 @@ List of NPC IDs and which NPCs they correspond to
 101-103 - NPCs in houses in Sinkerlin
 104-105 - NPCs around Sinkerlin
 106-119 - trainers in Cave 2 (Sinkerlin Ascent)
+120-124 - trainers on Route 6 main part
+125-126 - trainers on Route 6 ice challenge
+127 - traveling healer on Route 6
