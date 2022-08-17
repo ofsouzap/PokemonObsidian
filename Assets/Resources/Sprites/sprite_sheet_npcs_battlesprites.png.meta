@@ -73,10 +73,10 @@ TextureImporter:
     second: pokefanf_battlesprite
   - first:
       213: 8039905810600217988
-    second: sprite_sheet_npcs_battlesprites_25
+    second: skierm_battlesprite
   - first:
       213: 7990000929819266764
-    second: sprite_sheet_npcs_battlesprites_26
+    second: skierf_battlesprite
   - first:
       213: -8159623256515360783
     second: acetrainerm_battlesprite
@@ -1311,7 +1311,7 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1332,7 +1332,7 @@ TextureImporter:
         width: 80
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1340,6 +1340,48 @@ TextureImporter:
       bones: []
       spriteID: 45c33687cdb639d00800000000000000
       internalID: 978244138726276180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skierm_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 619
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48dcc6cccbb739f60800000000000000
+      internalID: 8039905810600217988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skierf_battlesprite
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 619
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cce0be8438f22ee60800000000000000
+      internalID: 7990000929819266764
       vertices: []
       indices: 
       edges: []

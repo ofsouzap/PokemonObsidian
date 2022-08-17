@@ -48,7 +48,9 @@ public static class TrainerClass
         Maid,
         DragonTamer,
         Tuber_m,
-        Tuber_f
+        Tuber_f,
+        Skier_m,
+        Skier_f
     }
 
     /// <summary>
@@ -98,7 +100,9 @@ public static class TrainerClass
         { Class.Maid, 40 },
         { Class.DragonTamer, 32 },
         { Class.Tuber_m, 4 },
-        { Class.Tuber_f, 4 }
+        { Class.Tuber_f, 4 },
+        { Class.Skier_m, 32 },
+        { Class.Skier_f, 32 }
     };
 
     /// <summary>
@@ -147,7 +151,9 @@ public static class TrainerClass
         { Class.Maid, "maid" },
         { Class.DragonTamer, "dragontamer" },
         { Class.Tuber_m, "tuberm" },
-        { Class.Tuber_f, "tuberf" }
+        { Class.Tuber_f, "tuberf" },
+        { Class.Skier_m, "skierm" },
+        { Class.Skier_f, "skierf" }
     };
 
     /// <summary>
@@ -197,7 +203,9 @@ public static class TrainerClass
         { Class.Maid, "Maid" },
         { Class.DragonTamer, "Dragon Tamer" },
         { Class.Tuber_m, "Tuber" },
-        { Class.Tuber_f, "Tuber" }
+        { Class.Tuber_f, "Tuber" },
+        { Class.Skier_m, "Skier" },
+        { Class.Skier_f, "Skier" }
     };
 
     public static bool TryParse(string s,
