@@ -51,7 +51,7 @@ namespace Battle.NPCBattleParticipantModes
             //This script is always for the opponent so battleData.participantPlayer is used to find the opponent
             PokemonInstance opposingPokemon = battleData.participantPlayer.ActivePokemon;
 
-            int selectedMoveIndex = SelectFromWeightings(GetMoveWeightings(opposingPokemon));
+            int selectedMoveIndex = SelectFromWeightings(GetMoveWeightings(opposingPokemon, battleData));
 
             SetChosenAction(new Action(this)
             {
@@ -66,7 +66,8 @@ namespace Battle.NPCBattleParticipantModes
         private float GetTypeAdvantageWeighting(float typeAdvantageMultiplier)
             => Mathf.Sqrt(typeAdvantageMultiplier);
 
-        private float[] GetMoveWeightings(PokemonInstance opposingPokemon)
+        private float[] GetMoveWeightings(PokemonInstance opposingPokemon,
+            BattleData battleData)
         {
 
             float[] weightings = new float[ActivePokemon.moveIds.Length];
@@ -101,6 +102,10 @@ namespace Battle.NPCBattleParticipantModes
                     //Being tormented
                     if (ActivePokemon.battleProperties.volatileStatusConditions.torment
                         && ActivePokemon.battleProperties.lastMoveId == move.id)
+                        weightings[i] = 0;
+
+                    //Weather move which is for current weather
+                    if (move.changedWeatherId == battleData.currentWeatherId)
                         weightings[i] = 0;
 
                     //Type advantage

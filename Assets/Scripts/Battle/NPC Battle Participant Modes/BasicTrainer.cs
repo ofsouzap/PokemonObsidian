@@ -113,7 +113,7 @@ namespace Battle.NPCBattleParticipantModes
             }
 
             //Normal case is to choose a move based on the moves' weightings
-            float[] moveWeightings = GetMoveWeightings(opposingPokemon);
+            float[] moveWeightings = GetMoveWeightings(opposingPokemon, battleData);
             int selectedMoveIndex = SelectFromWeightings(moveWeightings);
 
             SetChosenAction(new Action(this)
@@ -179,7 +179,8 @@ namespace Battle.NPCBattleParticipantModes
 
         }
 
-        protected float[] GetMoveWeightings(PokemonInstance target)
+        protected float[] GetMoveWeightings(PokemonInstance target,
+            BattleData battleData)
         {
 
             float[] weightings = new float[4] { 1, 1, 1, 1 };
@@ -217,6 +218,10 @@ namespace Battle.NPCBattleParticipantModes
 
                     //Out of PP
                     if (ActivePokemon.movePPs[i] <= 0)
+                        weightings[i] = 0;
+
+                    //Weather move which is for current weather
+                    if (move.changedWeatherId == battleData.currentWeatherId)
                         weightings[i] = 0;
 
                     //Status or attack move
