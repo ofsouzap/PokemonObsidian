@@ -18,8 +18,6 @@ namespace FreeRoaming.AreaControllers
 
         public Transform houseSpecificRoot;
 
-        public Vector2Int respawnPosition;
-
         protected override void Start()
         {
 

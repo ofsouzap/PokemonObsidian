@@ -47,3 +47,9 @@ List of NPC IDs and which NPCs they correspond to
 120-124 - trainers on Route 6 main part
 125-126 - trainers on Route 6 ice challenge
 127 - traveling healer on Route 6
+128-131 - NPCs around Chillborough
+132-133 - NPCs in houses in Chillborough
+134 - Chillborough ice challenge side quest giver (has special script)
+135 - Chillborough ice challenge side quest culprit (has trainer details and special script)
+136 - Chillborough gym leader
+137-139 - trainers in Chillborough gym

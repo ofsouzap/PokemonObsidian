@@ -6,13 +6,17 @@ namespace FreeRoaming.NPCs
     public abstract class NPCPlayerInteractionController : NPCController
     {
 
+        protected virtual bool GetTurnsToFacePlayerOnInteract() => true;
+
         public override void Interact(GameCharacterController interacter)
         {
 
             if (interacter is PlayerController)
             {
 
-                TryTurn(GetOppositeDirection(interacter.directionFacing));
+                if (GetTurnsToFacePlayerOnInteract())
+                    TryTurn(GetOppositeDirection(interacter.directionFacing));
+
                 StartCoroutine(InteractionCoroutine());
 
             }

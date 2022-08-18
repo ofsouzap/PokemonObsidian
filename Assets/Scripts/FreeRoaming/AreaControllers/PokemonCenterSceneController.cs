@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace FreeRoaming.AreaControllers
@@ -6,7 +8,18 @@ namespace FreeRoaming.AreaControllers
     public class PokemonCenterSceneController : FreeRoamSceneController
     {
 
+        [Serializable]
+        public struct InstanceSpecificPrefabEntry
+        {
+            public int pokemonCenterId;
+            public GameObject prefab;
+        }
+
         public Vector2Int respawnPosition = Vector2Int.zero;
+
+        public Transform instanceSpecificRoot;
+
+        public InstanceSpecificPrefabEntry[] instanceSpecificPrefabs;
 
         protected override void Start()
         {
@@ -17,7 +30,18 @@ namespace FreeRoaming.AreaControllers
             if (GameSceneManager.CurrentSceneInstanceId != 0)
             {
 
-                //TODO - place objects in scene depending on id in PokemonCenterEntranceArguments
+                if (instanceSpecificPrefabs.Any(x => x.pokemonCenterId == GameSceneManager.CurrentSceneInstanceId))
+                {
+                    Instantiate(instanceSpecificPrefabs
+                        .Where(x => x.pokemonCenterId == GameSceneManager.CurrentSceneInstanceId)
+                        .ToArray()
+                        [0]
+                        .prefab, instanceSpecificRoot);
+                }
+                else
+                {
+                    Debug.LogError("No pokemon center instance-specific prefab set for id - " + GameSceneManager.CurrentSceneInstanceId);
+                }
 
             }
 

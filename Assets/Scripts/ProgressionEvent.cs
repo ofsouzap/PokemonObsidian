@@ -16,4 +16,19 @@
     /// </summary>
     RotomRoom_RotomCaught,
 
+    /// <summary>
+    /// The player has started the ice side quest in Chillborough by talking to the relevant NPC
+    /// </summary>
+    ChillboroughIceSideQuest_Started,
+
+    /// <summary>
+    /// The player has found the culprit for the ice side quest in Chillborough by talking to them and listening to their confession
+    /// </summary>
+    ChillboroughIceSideQuest_CulpritFound,
+
+    /// <summary>
+    /// The player has reported back to the ice side quest quest-giver and collected their reward
+    /// </summary>
+    ChillboroughIceSideQuest_Completed
+
 }

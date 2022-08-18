@@ -33,7 +33,6 @@ public class WeatherCanvasController : MonoBehaviour
 
         if (weatherCanvasControllerCandidates.Length == 0)
         {
-            Debug.LogError("No valid WeatherCanvasController found");
             return null;
         }
         else

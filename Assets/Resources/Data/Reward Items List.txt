@@ -1,0 +1,29 @@
+List of items that are already given as rewards or just given by NPCs and when/where they are given
+If items are given multiple times, they may only be recorded once
+
+2 Ultra Ball - found dropped in Sinkerlin Ascent (twice)
+3 Great Ball - found dropped on Route 4, found dropped on Route 5
+4 Poke Ball - found dropped in Pokshire
+6 Net Ball - given by NPC 46 in Okford
+15 Quick Ball - found dropped in Sinkerlin Ascent, found dropped on Route 6
+17 Potion - found dropped in Okford, found dropped on Route 1
+18 Antidote - foudn dropped on Route 6
+20 Ice Heal - given by NPC 133 in Chillborough
+25 Hyper Potion - found dropped in Sinkerlin Ascent
+26 Super Potion - found dropped on Route 5
+28 Revive - found dropped in Sinkerlin Ascent
+76 Super Repel - given by NPC 105 in Sinkerlin
+82 Fire Stone - found dropped in Esperi Forest
+83 Thunderstone - given by NPC 132 in Chillborough
+84 Water Stone - found dropped in Esperi Forest
+110 Oval Stone - given by NPC 18 in Tildahill
+229 Everstone - given by NPC 2 in Pokshire
+216 Exp. Share - given by NPC 6 in Okford
+227 DeepSeaScale - given by NPC 100 in house on Route 3
+231 Lucky Egg - given by NPC 85 in Nagaka Village
+233 Metal Coat - given as reward for Chillborough ice side quest
+326 Razor Claw - given by NPC 50 in Tildahill
+_019 TM Fly - found dropped on Route 6
+_091 TM Dig - found dropped in Sinkerlin Ascent
+_258 TM Hail - found dropped on Route 6
+_337 TM Dragon Claw - found dropped in Sinkerlin Ascent

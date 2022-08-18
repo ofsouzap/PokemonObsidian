@@ -37,7 +37,7 @@ namespace FreeRoaming.NPCs
         {
 
             // Don't try do interaction if no details were loaded
-            if (details != null)
+            if (details == null)
                 yield break;
 
             //Get and speak dialogs

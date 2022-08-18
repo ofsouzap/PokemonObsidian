@@ -18,6 +18,8 @@ public class TrainersData
 
         public int GetId() => id;
 
+        public const string gymLeaderPrefix = "Leader";
+
         public int id;
         public int? gymId;
         public string name;
@@ -25,11 +27,16 @@ public class TrainersData
         public string GetFullName()
         {
 
-            string prefixPart =
-                TrainerClass.classNamesPrefixes.ContainsKey(trainerClass)
-                    && TrainerClass.classNamesPrefixes[trainerClass] != ""
-                ? TrainerClass.classNamesPrefixes[trainerClass]
-                : "";
+            string prefixPart;
+
+            if (gymId == null)
+                prefixPart =
+                    TrainerClass.classNamesPrefixes.ContainsKey(trainerClass)
+                        && TrainerClass.classNamesPrefixes[trainerClass] != ""
+                    ? TrainerClass.classNamesPrefixes[trainerClass]
+                    : "";
+            else
+                prefixPart = gymLeaderPrefix;
 
             string namePart =
                 name != null

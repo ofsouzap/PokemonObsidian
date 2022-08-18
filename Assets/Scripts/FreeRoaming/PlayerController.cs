@@ -562,6 +562,51 @@ namespace FreeRoaming
 
         }
 
+        public static string GetMoneyAnnouncementMessage(int amount)
+            => PlayerData.singleton.profile.name + " got " + PlayerData.currencySymbol + amount.ToString() + "!";
+
+        public IEnumerator ObtainMoney(int amount)
+        {
+
+            #region Adding to player
+
+            PlayerData.singleton.AddMoney(amount);
+
+            #endregion
+
+            #region Announcing
+
+            //Text box message
+            yield return StartCoroutine(ObtainMoneyAnnouncementCoroutine(amount));
+
+            #endregion
+
+        }
+
+        protected IEnumerator ObtainMoneyAnnouncementCoroutine(int amount)
+        {
+
+            bool textBoxControllerWasShowing = textBoxController.IsShown;
+            bool wasPaused = !sceneController.SceneIsRunning;
+
+            if (!textBoxControllerWasShowing)
+                textBoxController.Show();
+
+            if (!wasPaused)
+                sceneController.SetSceneRunningState(false);
+
+            yield return StartCoroutine(
+                textBoxController.RevealText(GetMoneyAnnouncementMessage(amount), true)
+            );
+
+            if (!textBoxControllerWasShowing)
+                textBoxController.Hide();
+
+            if (!wasPaused)
+                sceneController.SetSceneRunningState(true);
+
+        }
+
         #endregion
 
         #region Sliding Ice Tiles
@@ -580,8 +625,6 @@ namespace FreeRoaming
                     StartCoroutine(IceSlideCoroutine());
                 }
             }
-
-            //TODO - check if currently on ice tile and position in front isn't occupied, if so, slide forward one tile
 
         }
 

@@ -859,8 +859,17 @@ MonoBehaviour:
     prefab: {fileID: 43633415089089075, guid: f5b462f597da8884bb0330b6cfc01741, type: 3}
   - houseId: 14
     prefab: {fileID: 43633415089089075, guid: c6cf1fcf2b8199543b08abfd58dcc249, type: 3}
+  - houseId: 15
+    prefab: {fileID: 43633415089089075, guid: 9f30a34d80365b144b4c53c0566000d4, type: 3}
+  - houseId: 16
+    prefab: {fileID: 43633415089089075, guid: 2f31bd78952838045ba8872d8f98a7bc, type: 3}
+  - houseId: 17
+    prefab: {fileID: 43633415089089075, guid: de22e762d484ee74d9a384a2c3a99d51, type: 3}
+  - houseId: 18
+    prefab: {fileID: 43633415089089075, guid: ba58ed5d96101714a9f942b989bbf885, type: 3}
+  - houseId: 19
+    prefab: {fileID: 43633415089089075, guid: 5b4e6a9998527b64e90f70c985af1c97, type: 3}
   houseSpecificRoot: {fileID: 167164010}
-  respawnPosition: {x: 0, y: 0}
 --- !u!4 &1682155822
 Transform:
   m_ObjectHideFlags: 0
