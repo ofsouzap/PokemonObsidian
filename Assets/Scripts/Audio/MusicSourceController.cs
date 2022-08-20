@@ -19,6 +19,8 @@ namespace Audio
         private float initialVolume;
         private bool initiallyLooping;
 
+        private string currentClipName = null;
+
         private Coroutine currentCoroutine = null;
 
         /// <summary>
@@ -99,6 +101,10 @@ namespace Audio
             bool fadeTracks = true)
         {
 
+            // If sound is already playing, don't restart it
+            if (resourceName == currentClipName)
+                return;
+
             RefreshMusicVolumeFromGameSettings();
 
             bool hasStartingClip = AudioStorage.GetMusicClip(resourceName, true) != null;
@@ -119,14 +125,14 @@ namespace Audio
                 if (hasStartingClip)
                 {
                     AudioSource.loop = false;
-                    AudioSource.clip = AudioStorage.GetMusicClip(resourceName, true);
+                    SetSourceClip(resourceName, true);
                     AudioSource.Play();
-                    SetNextClip(AudioStorage.GetMusicClip(resourceName, false));
+                    SetNextClip(resourceName, false);
                 }
                 else
                 {
                     AudioSource.loop = true;
-                    AudioSource.clip = AudioStorage.GetMusicClip(resourceName, false);
+                    SetSourceClip(resourceName, false);
                     AudioSource.Play();
                 }
 
@@ -149,13 +155,13 @@ namespace Audio
             if (hasStartingClip)
             {
                 AudioSource.loop = false;
-                AudioSource.clip = AudioStorage.GetMusicClip(resourceName, true);
+                SetSourceClip(resourceName, true);
                 AudioSource.Play();
             }
             else
             {
                 AudioSource.loop = true;
-                AudioSource.clip = AudioStorage.GetMusicClip(resourceName, false);
+                SetSourceClip(resourceName, false);
                 AudioSource.Play();
             }
 
@@ -165,31 +171,40 @@ namespace Audio
 
             if (hasStartingClip)
             {
-                SetNextClip(AudioStorage.GetMusicClip(resourceName, false));
+                SetNextClip(resourceName, false);
             }
 
         }
 
-        private void SetNextClip(AudioClip clip)
+        private void SetSourceClip(string resourceName,
+            bool hasStartingClip)
+        {
+
+            AudioSource.clip = AudioStorage.GetMusicClip(resourceName, hasStartingClip);
+            currentClipName = resourceName;
+
+        }
+
+        private void SetNextClip(string clipResourceName, bool useStartingTrack)
         {
 
             if (nextClipCoroutine != null)
                 StopCoroutine(nextClipCoroutine);
 
-            nextClipCoroutine = StartCoroutine(PlayAsNextClip(clip));
+            nextClipCoroutine = StartCoroutine(PlayAsNextClip(clipResourceName, useStartingTrack));
 
         }
 
         private Coroutine nextClipCoroutine = null;
 
-        private IEnumerator PlayAsNextClip(AudioClip clip)
+        private IEnumerator PlayAsNextClip(string clipResourceName, bool useStartingTrack)
         {
 
             yield return new WaitForFixedUpdate();
 
             yield return new WaitUntil(() => AudioSource.isPlaying == false);
 
-            AudioSource.clip = clip;
+            SetSourceClip(clipResourceName, useStartingTrack);
             AudioSource.loop = true;
             AudioSource.Play();
 
