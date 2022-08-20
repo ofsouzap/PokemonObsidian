@@ -91,6 +91,14 @@ namespace Items.PokeBalls
                     id = 15,
                     resourceName = "quickball",
                     description = "A somewhat different Ball that provides a better catch rate if it is used at the start of a wild encounter."
+                },
+
+                new RepeatBall()
+                {
+                    itemName = "Repeat Ball",
+                    id = 9,
+                    resourceName = "repeatball",
+                    description = "A somewhat different Poké Ball that works especially well on Pokémon species that were previously caught."
                 }
 
             };

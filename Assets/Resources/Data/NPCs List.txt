@@ -53,3 +53,4 @@ List of NPC IDs and which NPCs they correspond to
 135 - Chillborough ice challenge side quest culprit (has trainer details and special script)
 136 - Chillborough gym leader
 137-139 - trainers in Chillborough gym
+140-152 - trainers on Route 7
