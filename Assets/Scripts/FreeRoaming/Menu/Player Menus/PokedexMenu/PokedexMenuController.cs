@@ -11,6 +11,9 @@ namespace FreeRoaming.Menu.PlayerMenus.PokedexMenu
     public class PokedexMenuController : PlayerMenuController
     {
 
+        [SerializeField]
+        private sbyte navigationSkipAmount = 5;
+
         public GameObject speciesBorderPrefab;
 
         public Button buttonBack;
@@ -68,6 +71,8 @@ namespace FreeRoaming.Menu.PlayerMenus.PokedexMenu
 
             base.Update();
 
+            #region Navigation
+
             if (Time.time - lastNavigationMove >= navigationMoveDelay)
             {
 
@@ -79,7 +84,28 @@ namespace FreeRoaming.Menu.PlayerMenus.PokedexMenu
                     lastNavigationMove = Time.time;
 
                 }
+                else if (Input.GetAxis("Horizontal") != 0)
+                {
 
+                    ChangeListIndex(Input.GetAxis("Horizontal") > 0 ? navigationSkipAmount : (sbyte)-navigationSkipAmount);
+
+                    lastNavigationMove = Time.time;
+
+                }
+
+            }
+
+            // Allow repeated press-then-release of navigation buttons to move through the pokedex faster
+            if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
+            {
+                lastNavigationMove = 0;
+            }
+
+            #endregion
+
+            if (Input.GetButtonDown("Submit"))
+            {
+                generalDetails.TryPlayCurrentPokemonCry();
             }
 
         }
@@ -102,8 +128,7 @@ namespace FreeRoaming.Menu.PlayerMenus.PokedexMenu
         protected KeyValuePair<PokemonSpecies, bool>[] GenerateSpeciesListItemValues(PlayerData player = null)
         {
 
-            if (player == null)
-                player = PlayerData.singleton;
+            player ??= PlayerData.singleton;
 
             List<KeyValuePair<PokemonSpecies, bool>> items = new List<KeyValuePair<PokemonSpecies, bool>>();
 

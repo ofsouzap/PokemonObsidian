@@ -25,14 +25,19 @@ namespace FreeRoaming.Menu.PlayerMenus.PokedexMenu
         public void SetUp(PlayerData player = null)
         {
 
-            if (player == null)
-                player = PlayerData.singleton;
+            player ??= PlayerData.singleton;
 
             playerPokedex = player.pokedex;
 
             buttonCry.onClick.RemoveAllListeners();
-            buttonCry.onClick.AddListener(() => SoundFXController.singleton.PlayPokemonCry(currSpeciesId));
+            buttonCry.onClick.AddListener(TryPlayCurrentPokemonCry);
 
+        }
+
+        public void TryPlayCurrentPokemonCry()
+        {
+            if (currSpeciesId != 0)
+                SoundFXController.singleton.PlayPokemonCry(currSpeciesId);
         }
 
         public void SetSpecies(PokemonSpecies species)

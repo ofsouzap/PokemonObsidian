@@ -1865,7 +1865,7 @@ MonoBehaviour:
   maleSprites: {fileID: 5303743128193884941}
   femaleSprites: {fileID: 925989448}
   stats: {fileID: 1454086917}
-  navigationMoveDelay: 0.05
+  navigationMoveDelay: 0.2
 --- !u!1 &1605645414
 GameObject:
   m_ObjectHideFlags: 0
