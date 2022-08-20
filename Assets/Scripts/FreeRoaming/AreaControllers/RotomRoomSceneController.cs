@@ -48,7 +48,7 @@ namespace FreeRoaming.AreaControllers
 
         public static readonly PokemonInstance.BasicSpecification rotomSpecification = new PokemonInstance.BasicSpecification()
         {
-            gender = PokemonInstance.BasicSpecification.Gender.Genderless,
+            gender = null,
             speciesId = rotomSpeciesId,
             useAutomaticMoves = true,
             level = rotomLevel,

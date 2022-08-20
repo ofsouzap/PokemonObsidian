@@ -433,7 +433,7 @@ public class TrainersData
                 PokemonInstance.BasicSpecification pokemon = new PokemonInstance.BasicSpecification()
                 {
                     speciesId = speciesId,
-                    gender = PokemonInstance.BasicSpecification.GetGenderEnumVal(gender),
+                    gender = gender,
                     useAutomaticMoves = useDefaultMoves,
                     moveIds = moveIds,
                     level = level,

@@ -61,31 +61,35 @@ namespace Pokemon
 
             #region Gender
 
-            public enum Gender
-            {
-                Female,
-                Male,
-                Genderless
-            }
+            #region Valid Genders
 
-            public Gender gender;
+            private bool MaleIsValid => PokemonSpecies.GetPokemonSpeciesById(speciesId).MaleProportion > 0;
+            private bool FemaleIsValid => PokemonSpecies.GetPokemonSpeciesById(speciesId).FemaleProportion > 0;
+            private bool GenderlessIsValid => PokemonSpecies.GetPokemonSpeciesById(speciesId).GenderlessProportion > 0;
 
-            public static Gender GetGenderEnumVal(bool? g)
-                => g switch
-                {
-                    true => Gender.Male,
-                    false => Gender.Female,
-                    null => Gender.Genderless
-                };
+            #endregion
+
+            public bool? gender;
 
             public bool? GetGender()
-                => gender switch
-                {
-                    Gender.Female => false,
-                    Gender.Male => true,
-                    Gender.Genderless => null,
-                    _ => null
-                };
+            {
+
+                // Check that gender is valid for species
+
+                if (!MaleIsValid && gender == true)
+                    return FemaleIsValid ? false : (bool?)null;
+
+                else if (!FemaleIsValid && gender == false)
+                    return MaleIsValid ? true : (bool?)null;
+
+                else if (!GenderlessIsValid && gender == null)
+                    return MaleIsValid;
+
+                // Normally, will just return gender property
+                
+                return gender;
+
+            }
 
             #endregion
 
